@@ -1561,6 +1561,23 @@ body {
     margin: 20px 0;
 }
 
+.settings-switch-btn {
+    width: 100%;
+    background: rgba(130, 100, 255, 0.15);
+    border: 1px solid rgba(130, 100, 255, 0.3);
+    color: #b39dff;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.settings-switch-btn:active {
+    background: rgba(130, 100, 255, 0.3);
+}
+
 .settings-danger-btn {
     width: 100%;
     background: rgba(244, 67, 54, 0.15);
@@ -2794,6 +2811,13 @@ body {
 .intro-bg-siren {
     background: url('../assets/bg-lyra-intro.png') center center / cover no-repeat;
 }
+.intro-bg-mage {
+    background: linear-gradient(180deg,
+        #0a0820 0%,
+        #12103a 35%,
+        #1a1550 65%,
+        #0a0820 100%);
+}
 
 /* Subtle animated vignette */
 #intro-bg::after {
@@ -2952,6 +2976,11 @@ body {
 .intro-bg-siren ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
             drop-shadow(0 -4px 24px rgba(0, 200, 180, 0.2));
+}
+/* Mage tint: cool purple glow from below */
+.intro-bg-mage ~ #intro-character-wrap #intro-character-img {
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
+            drop-shadow(0 -4px 24px rgba(130, 80, 255, 0.25));
 }
 
 /* ── Lyra Intro Cinematic — zoom from eyes to full body ───── */

@@ -75,6 +75,46 @@ const INTRO_SCENES = {
                 line: "But don't vanish on me. I stop being gentle when people vanish."
             }
         ]
+    },
+    lucien: {
+        bgClass: 'intro-bg-mage',
+        beats: [
+            {
+                body: 'assets/lucien/body/reading.png',
+                direction: 'A tower. Candlelight. The scratch of a quill on parchment. He doesn\'t look up.',
+                line: "The door was warded. You shouldn't have been able to open it."
+            },
+            {
+                body: 'assets/lucien/body/neutral.png',
+                direction: 'He pauses. The quill stops mid-stroke. For the first time, he looks at you directly.',
+                line: "...Interesting. The wards didn't reject you. They recognized you. That's never happened."
+            },
+            {
+                body: 'assets/lucien/body/thinking.png',
+                direction: 'He adjusts his spectacles. His eyes — purple, calculating — trace your outline like reading a formula.',
+                line: "I'm Lucien. Grand Mage of the Seventh Tower. I study the patterns beneath reality."
+            },
+            {
+                body: 'assets/lucien/body/curious.png',
+                direction: 'He sets down the quill. A deliberate action. He doesn\'t do anything without deliberation.',
+                line: "You're not what I expected. My models predicted... something else entirely."
+            },
+            {
+                body: 'assets/lucien/body/neutral.png',
+                direction: 'The candles flicker. A crystal on the shelf pulses once — faintly — as if responding to something unseen.',
+                line: "I don't take apprentices. I don't take visitors. I don't take... whatever this is."
+            },
+            {
+                body: 'assets/lucien/body/vulnerable.png',
+                direction: 'A pause. Longer than he intended. Something shifts behind the calculation in his eyes.',
+                line: "But the equations changed the moment you walked in. And I need to understand why."
+            },
+            {
+                body: 'assets/lucien/body/neutral.png',
+                direction: 'He opens a fresh page in his journal. Writes a single line. Your name — before you\'ve given it.',
+                line: "Tell me what to call you. I've already started a file."
+            }
+        ]
     }
 };
 
@@ -295,7 +335,8 @@ class IntroScene {
         // Character-specific ask
         const prompts = {
             alistair: "And your name, if you're willing to share it?",
-            lyra:     "Tell me your name... I want to remember it."
+            lyra:     "Tell me your name... I want to remember it.",
+            lucien:   "Your name. For the records. ...And for me."
         };
         prompt.textContent = prompts[this.characterId] || "What's your name?";
 

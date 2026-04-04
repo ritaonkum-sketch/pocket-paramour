@@ -2156,6 +2156,26 @@ class PocketLoveGame {
 
         if (btn) btn.addEventListener('click', () => this.openSettings());
         if (closeBtn) closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
+        // Switch Character button — saves and returns to character select
+        const switchBtn = document.getElementById('settings-switch-char');
+        if (switchBtn) switchBtn.addEventListener('click', () => {
+            if (confirm('Switch character? Your progress with ' + CHARACTER.name + ' will be saved.')) {
+                this.save();
+                // Stop game tick
+                if (this.tickInterval) clearInterval(this.tickInterval);
+                // Hide game, show select screen
+                overlay.classList.add('hidden');
+                document.getElementById('game-container').classList.add('hidden');
+                document.getElementById('select-screen').classList.remove('hidden');
+                // Reset scene state
+                this.sceneActive = false;
+                // Close any open panels/overlays
+                document.querySelectorAll('.visible').forEach(el => {
+                    if (el.id !== 'select-screen') el.classList.remove('visible');
+                });
+            }
+        });
+
         if (resetBtn) resetBtn.addEventListener('click', () => {
             if (confirm('Reset all progress for ' + CHARACTER.name + '? This cannot be undone.')) {
                 const saveKey = 'pocketLoveSave_' + (this.selectedCharacter || 'alistair');
