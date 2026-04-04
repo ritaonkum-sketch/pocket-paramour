@@ -1,0 +1,27 @@
+{
+    "name": "Pocket Paramour",
+    "short_name": "Pocket Paramour",
+    "description": "Care for your companion ~ An otome tamagotchi game",
+    "lang": "en",
+    "start_url": "/index.html",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#1a0a2e",
+    "theme_color": "#e91e63",
+    "categories": ["games", "entertainment"],
+    "icons": [
+        {
+            "src": "assets/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "assets/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

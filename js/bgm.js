@@ -1,0 +1,285 @@
+// Background Music System - Procedural ambient BGM using Web Audio API
+// Changes mood based on game state: calm, romantic, tense, night
+
+class BGMSystem {
+    constructor() {
+        this.ctx = null;
+        this.initialized = false;
+        this.playing = false;
+        this.muted = false;
+        this.currentMood = 'calm';
+        this.masterGain = null;
+        this.volume = 0.12; // Quiet background
+        this._loopTimer = null;
+        this._noteTimers = [];
+    }
+
+    init() {
+        if (this.initialized) return;
+        try {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+            // Master volume
+            this.masterGain = this.ctx.createGain();
+            this.masterGain.gain.value = this.volume;
+            this.masterGain.connect(this.ctx.destination);
+
+            // Reverb for atmosphere
+            this.reverb = this._createReverb();
+            this.reverbGain = this.ctx.createGain();
+            this.reverbGain.gain.value = 0.3;
+            this.reverb.connect(this.reverbGain);
+            this.reverbGain.connect(this.masterGain);
+
+            this.initialized = true;
+        } catch (e) {
+            console.warn("BGM: Web Audio not supported");
+        }
+    }
+
+    _createReverb() {
+        // Simple reverb using delay
+        const convolver = this.ctx.createConvolver();
+        const rate = this.ctx.sampleRate;
+        const length = rate * 2;
+        const impulse = this.ctx.createBuffer(2, length, rate);
+        for (let ch = 0; ch < 2; ch++) {
+            const data = impulse.getChannelData(ch);
+            for (let i = 0; i < length; i++) {
+                data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2.5);
+            }
+        }
+        convolver.buffer = impulse;
+        return convolver;
+    }
+
+    // ===== MOOD DEFINITIONS =====
+
+    getMoodConfig(mood) {
+        const configs = {
+            calm: {
+                scale: [261, 293, 329, 392, 440, 523], // C major pentatonic
+                tempo: 2500,  // ms between notes
+                padFreq: 130, // Low pad
+                padType: 'sine',
+                noteType: 'sine',
+                noteVolume: 0.06,
+                padVolume: 0.04,
+                noteDecay: 2.5,
+            },
+            romantic: {
+                scale: [261, 329, 392, 440, 523, 659], // Warm major
+                tempo: 2000,
+                padFreq: 165,
+                padType: 'sine',
+                noteType: 'triangle',
+                noteVolume: 0.07,
+                padVolume: 0.05,
+                noteDecay: 3,
+            },
+            tense: {
+                scale: [220, 261, 293, 349, 415], // Minor/diminished feel
+                tempo: 3000,
+                padFreq: 110,
+                padType: 'sawtooth',
+                noteType: 'sine',
+                noteVolume: 0.04,
+                padVolume: 0.03,
+                noteDecay: 2,
+            },
+            night: {
+                scale: [196, 261, 293, 392, 440], // Soft, sparse
+                tempo: 3500,
+                padFreq: 98,
+                padType: 'sine',
+                noteType: 'sine',
+                noteVolume: 0.04,
+                padVolume: 0.03,
+                noteDecay: 4,
+            },
+            corrupted: {
+                scale: [185, 220, 261, 311, 370], // Dissonant
+                tempo: 2800,
+                padFreq: 73,
+                padType: 'sawtooth',
+                noteType: 'triangle',
+                noteVolume: 0.03,
+                padVolume: 0.025,
+                noteDecay: 2,
+            }
+        };
+        return configs[mood] || configs.calm;
+    }
+
+    // ===== PLAYBACK =====
+
+    start() {
+        if (!this.initialized) this.init();
+        if (this.playing || !this.ctx) return;
+
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+
+        this.playing = true;
+        this._startPad();
+        this._scheduleNotes();
+    }
+
+    stop() {
+        this.playing = false;
+        this._noteTimers.forEach(t => clearTimeout(t));
+        this._noteTimers = [];
+        if (this._loopTimer) clearTimeout(this._loopTimer);
+        if (this._padOsc) {
+            try { this._padOsc.stop(); } catch(e) {}
+            this._padOsc = null;
+        }
+    }
+
+    setMood(mood) {
+        if (mood === this.currentMood) return;
+        this.currentMood = mood;
+
+        // Smoothly transition pad
+        if (this.playing && this._padOsc) {
+            const config = this.getMoodConfig(mood);
+            const now = this.ctx.currentTime;
+            this._padOsc.frequency.linearRampToValueAtTime(config.padFreq, now + 2);
+            this._padGain.gain.linearRampToValueAtTime(
+                this.muted ? 0 : config.padVolume, now + 2
+            );
+        }
+    }
+
+    toggleMute() {
+        this.muted = !this.muted;
+        if (this.masterGain) {
+            this.masterGain.gain.linearRampToValueAtTime(
+                this.muted ? 0 : this.volume,
+                this.ctx.currentTime + 0.3
+            );
+        }
+        return this.muted;
+    }
+
+    setVolume(vol) {
+        this.volume = Math.max(0, Math.min(0.3, vol));
+        if (this.masterGain && !this.muted) {
+            this.masterGain.gain.linearRampToValueAtTime(
+                this.volume, this.ctx.currentTime + 0.3
+            );
+        }
+    }
+
+    // ===== INTERNAL =====
+
+    _startPad() {
+        const config = this.getMoodConfig(this.currentMood);
+
+        this._padOsc = this.ctx.createOscillator();
+        this._padGain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        this._padOsc.type = config.padType;
+        this._padOsc.frequency.value = config.padFreq;
+
+        filter.type = 'lowpass';
+        filter.frequency.value = 400;
+        filter.Q.value = 1;
+
+        this._padGain.gain.value = 0;
+        this._padGain.gain.linearRampToValueAtTime(
+            config.padVolume, this.ctx.currentTime + 3
+        );
+
+        this._padOsc.connect(filter);
+        filter.connect(this._padGain);
+        this._padGain.connect(this.masterGain);
+
+        // Also add slight second oscillator for warmth
+        this._padOsc2 = this.ctx.createOscillator();
+        this._padOsc2.type = 'sine';
+        this._padOsc2.frequency.value = config.padFreq * 2.01; // Slight detune
+        const pad2Gain = this.ctx.createGain();
+        pad2Gain.gain.value = config.padVolume * 0.3;
+        this._padOsc2.connect(pad2Gain);
+        pad2Gain.connect(this.masterGain);
+
+        this._padOsc.start();
+        this._padOsc2.start();
+    }
+
+    _scheduleNotes() {
+        if (!this.playing) return;
+
+        const config = this.getMoodConfig(this.currentMood);
+
+        // Play 1-2 notes
+        const numNotes = Math.random() > 0.4 ? 1 : 2;
+
+        for (let i = 0; i < numNotes; i++) {
+            const delay = i * (400 + Math.random() * 600);
+            const timer = setTimeout(() => {
+                if (!this.playing) return;
+                this._playNote(config);
+            }, delay);
+            this._noteTimers.push(timer);
+        }
+
+        // Sometimes skip a beat (creates breathing space)
+        const skipChance = this.currentMood === 'night' ? 0.4 : 0.2;
+        const nextDelay = Math.random() > skipChance
+            ? config.tempo + Math.random() * 1000
+            : config.tempo * 2;
+
+        this._loopTimer = setTimeout(() => {
+            this._scheduleNotes();
+        }, nextDelay);
+    }
+
+    _playNote(config) {
+        if (!this.ctx || this.muted) return;
+
+        const freq = config.scale[Math.floor(Math.random() * config.scale.length)];
+
+        // Randomly octave shift
+        const octave = Math.random() > 0.7 ? 2 : 1;
+        const finalFreq = freq * octave;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = config.noteType;
+        osc.frequency.value = finalFreq;
+
+        // Slight vibrato
+        const lfo = this.ctx.createOscillator();
+        const lfoGain = this.ctx.createGain();
+        lfo.frequency.value = 4 + Math.random() * 2;
+        lfoGain.gain.value = 2;
+        lfo.connect(lfoGain);
+        lfoGain.connect(osc.frequency);
+        lfo.start();
+
+        const now = this.ctx.currentTime;
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(config.noteVolume, now + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + config.noteDecay);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+
+        // Send some to reverb
+        const reverbSend = this.ctx.createGain();
+        reverbSend.gain.value = 0.4;
+        osc.connect(reverbSend);
+        reverbSend.connect(this.reverb);
+
+        osc.start(now);
+        osc.stop(now + config.noteDecay);
+        lfo.stop(now + config.noteDecay);
+    }
+}
+
+const bgm = new BGMSystem();

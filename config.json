@@ -1,0 +1,27 @@
+{
+  "_comment": "Pocket Paramour — live tuning config. Edit and re-deploy; players get new values on next session. No app update required.",
+
+  "fearEquilibriumLow":       25,
+  "fearEquilibriumHigh":      60,
+
+  "driftDecay":               0.2,
+
+  "mismatchBaseChance":       0.07,
+  "mismatchMultiplier":       0.38,
+  "mismatchCap":              0.35,
+
+  "microDissonanceRate":      0.20,
+
+  "whaleScoreThreshold":      55,
+
+  "premiumAutoClose":         9000,
+  "preChoiceTensionBoost":    0.0,
+  "pauseScale":               1.0,
+  "reassuranceWeight":        1.0,
+  "ruptureFrequency":         0.18,
+
+  "metaCooldown":             300000,
+
+  "abAdaptEnabled":           true,
+  "abMinSamples":             20
+}

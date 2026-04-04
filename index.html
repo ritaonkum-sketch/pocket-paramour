@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pocket Paramour</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e91e63">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Pocket Paramour">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- TITLE SCREEN -->
+    <div id="title-screen">
+        <div id="title-particles"></div>
+        <div id="title-content">
+            <div id="title-logo">
+                <div id="title-heart-icon">&#x2764;&#xFE0F;</div>
+                <h1 id="title-name">Pocket Paramour</h1>
+                <div id="title-subtitle">They remember everything you do.</div>
+            </div>
+            <button id="title-start-btn">
+                <span>Start</span>
+            </button>
+            <div id="title-hint">care for them... or lose them.</div>
+        </div>
+    </div>
+
+    <!-- CHARACTER SELECT SCREEN -->
+    <div id="select-screen" class="hidden">
+        <div id="select-content">
+            <h2 id="select-title">Choose Your Companion</h2>
+            <div id="select-subtitle">Who will you care for?</div>
+            <div id="select-grid">
+                <div class="select-card" data-character="alistair">
+                    <div class="select-card-img-wrap">
+                        <img src="assets/alistair/select-portrait.png" alt="Alistair" class="select-card-img">
+                    </div>
+                    <div class="select-card-name">Alistair</div>
+                    <div class="select-card-role">The Loyal Knight</div>
+                </div>
+                <div class="select-card" data-character="lyra">
+                    <div class="select-card-img-wrap">
+                        <img src="assets/lyra/select-portrait.png" alt="Lyra" class="select-card-img">
+                    </div>
+                    <div class="select-card-name">Lyra</div>
+                    <div class="select-card-role">The Resonant Siren</div>
+                </div>
+                <div class="select-card" data-character="lucien">
+                    <div class="select-card-img-wrap">
+                        <img src="assets/lucien/select-portrait.png" alt="Lucien" class="select-card-img">
+                    </div>
+                    <div class="select-card-name">Lucien</div>
+                    <div class="select-card-role">The Grand Mage</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOADING SCREEN (shows after pressing Start) -->
+    <div id="loading-screen" class="hidden">
+        <div id="loading-content">
+            <div id="loading-heart">&#x2764;&#xFE0F;</div>
+            <div id="loading-title">Pocket Paramour</div>
+            <div id="loading-subtitle"></div>
+            <div id="loading-bar-bg">
+                <div id="loading-bar-fill"></div>
+            </div>
+            <div id="loading-tip">Take care of them...</div>
+        </div>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <!-- FOCUS MODE OVERLAY (dims background during scenes) -->
+        <div id="focusOverlay"></div>
+
+        <!-- DAY/NIGHT OVERLAY -->
+        <div id="time-overlay"></div>
+
+        <!-- TOP BAR - Stats -->
+        <div id="stats-bar">
+            <div class="stat">
+                <span class="stat-icon">&#x1F356;</span>
+                <div class="stat-bar-bg">
+                    <div class="stat-bar-fill" id="hunger-bar"></div>
+                </div>
+                <span class="stat-label">Hunger</span>
+            </div>
+            <div class="stat">
+                <span class="stat-icon">&#x1F4A7;</span>
+                <div class="stat-bar-bg">
+                    <div class="stat-bar-fill" id="clean-bar"></div>
+                </div>
+                <span class="stat-label">Clean</span>
+            </div>
+            <div class="stat">
+                <span class="stat-icon">&#x2764;&#xFE0F;</span>
+                <div class="stat-bar-bg">
+                    <div class="stat-bar-fill" id="bond-bar"></div>
+                </div>
+                <span class="stat-label">Bond</span>
+            </div>
+        </div>
+
+        <!-- CORRUPTION INDICATOR -->
+        <div id="corruption-indicator" class="hidden">
+            <div class="corruption-bar-bg">
+                <div class="corruption-bar-fill" id="corruption-bar"></div>
+            </div>
+        </div>
+
+        <!-- AFFECTION LEVEL + TIME + TROPHY -->
+        <div id="affection-display">
+            <span id="affection-text">Stranger</span>
+            <span id="streak-badge" class="hidden" title="Daily streak!"></span>
+            <span id="time-display"></span>
+            <button id="trophy-btn" title="Achievements">🏆</button>
+            <button id="gallery-btn" title="Gallery">🃏</button>
+            <button id="music-btn" title="Toggle Music">🎵</button>
+            <button id="settings-btn" title="Settings">⚙️</button>
+        </div>
+
+        <!-- CHARACTER AREA -->
+        <div id="character-area">
+            <div id="character-fullbody">
+                <img id="character-body-img" src="" alt="">
+            </div>
+            <div id="character-face-portrait">
+                <img id="character-face-img" src="" alt="">
+            </div>
+            <div id="personality-badge" class="hidden"></div>
+            <div id="outfit-label" class="hidden"></div>
+            <!-- ZZZ overlay — shown during midnight sleep (12am–5am) -->
+            <div id="zzz-overlay">
+                <span class="zzz z1">z</span>
+                <span class="zzz z2">z</span>
+                <span class="zzz z3">Z</span>
+            </div>
+        </div>
+
+        <!-- DIALOGUE BOX -->
+        <div id="dialogue-box">
+            <div id="dialogue-text">Take care of me...</div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div id="action-buttons">
+            <button class="action-btn" id="btn-feed">
+                <span class="btn-icon">&#x1F34E;</span>
+                <span class="btn-label">Feed</span>
+            </button>
+            <button class="action-btn" id="btn-wash">
+                <span class="btn-icon">&#x1F4A7;</span>
+                <span class="btn-label">Wash</span>
+            </button>
+            <button class="action-btn" id="btn-gift">
+                <span class="btn-icon">&#x1F381;</span>
+                <span class="btn-label">Gift</span>
+            </button>
+            <button class="action-btn" id="btn-train">
+                <span class="btn-icon">&#x2694;&#xFE0F;</span>
+                <span class="btn-label">Train</span>
+            </button>
+            <button class="action-btn" id="btn-talk">
+                <span class="btn-icon">&#x1F4AC;</span>
+                <span class="btn-label">Talk</span>
+            </button>
+        </div>
+
+        <!-- DRESS PANEL (slides up) -->
+        <div id="dress-panel" class="hidden">
+            <div id="dress-panel-header">
+                <span>Outfits</span>
+                <button id="dress-close">&#x2715;</button>
+            </div>
+            <div id="dress-grid"></div>
+        </div>
+
+        <!-- GIFT PANEL (slides up) -->
+        <div id="gift-panel" class="hidden">
+            <div id="gift-panel-header">
+                <span>Choose a Gift</span>
+                <button id="gift-close">&#x2715;</button>
+            </div>
+            <div id="gift-grid"></div>
+        </div>
+
+        <!-- TRAINING PICKER (slides up — Alistair only) -->
+        <div id="training-panel" class="hidden">
+            <div id="training-panel-header">
+                <span>Choose Training</span>
+                <button id="training-close">&#x2715;</button>
+            </div>
+            <div id="training-grid">
+                <button class="training-option" data-type="sword">
+                    <span class="training-option-icon">⚔️</span>
+                    <span class="training-option-label">Sword Forms</span>
+                    <span class="training-option-desc">Swift and precise</span>
+                </button>
+                <button class="training-option" data-type="strength">
+                    <span class="training-option-icon">💪</span>
+                    <span class="training-option-label">Strength</span>
+                    <span class="training-option-desc">Raw and relentless</span>
+                </button>
+                <button class="training-option" data-type="focus">
+                    <span class="training-option-icon">🧘</span>
+                    <span class="training-option-label">Focus</span>
+                    <span class="training-option-desc">Steel the mind</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- STORY SCENE OVERLAY -->
+        <div id="story-overlay" class="hidden">
+            <div id="story-content">
+                <div id="story-portrait"></div>
+                <div id="story-text-box">
+                    <div id="story-name">Alistair</div>
+                    <div id="story-dialogue"></div>
+                </div>
+                <button id="story-continue">Continue</button>
+            </div>
+        </div>
+
+        <!-- ACHIEVEMENT PANEL -->
+        <div id="achievement-panel" class="hidden">
+            <div id="achievement-panel-header">
+                <span>🏆 Achievements</span>
+                <span id="achievement-count"></span>
+                <button id="achievement-close">&#x2715;</button>
+            </div>
+            <div id="achievement-progress-bar">
+                <div id="achievement-progress-fill"></div>
+            </div>
+            <div id="achievement-grid"></div>
+        </div>
+
+        <!-- RANDOM EVENT OVERLAY -->
+        <div id="event-overlay" class="hidden">
+            <div id="event-content">
+                <div id="event-icon"></div>
+                <div id="event-title"></div>
+                <div id="event-description"></div>
+                <div id="event-choices"></div>
+            </div>
+        </div>
+
+        <!-- GAME OVER OVERLAY -->
+        <div id="game-over-overlay" class="hidden">
+            <div id="game-over-content">
+                <p id="game-over-text"></p>
+                <button id="revival-btn">Try Again</button>
+            </div>
+        </div>
+
+        <!-- CINEMATIC OVERLAY — escalation scenes, endings, redemption -->
+        <div id="cinematic-overlay" class="hidden">
+            <div id="cinematic-bg"></div>
+            <div id="cinematic-body-wrap">
+                <img id="cinematic-body-img" src="" alt="">
+            </div>
+            <div id="cinematic-dialogue-box">
+                <div id="cinematic-speaker" class="hidden"></div>
+                <p id="cinematic-text"></p>
+            </div>
+            <div id="cinematic-choice-box" class="hidden">
+                <button class="cinematic-choice-btn" data-choice="0"></button>
+                <button class="cinematic-choice-btn" data-choice="1"></button>
+            </div>
+            <div id="cinematic-end-card" class="hidden">
+                <p id="cinematic-end-title"></p>
+                <p id="cinematic-end-sub"></p>
+                <div id="cinematic-end-btns">
+                    <button id="cinematic-restart-btn">Start Over</button>
+                    <button id="cinematic-stay-btn">Stay</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS OVERLAY -->
+        <div id="settings-overlay" class="hidden">
+            <div id="settings-header">
+                <span id="settings-title">Settings</span>
+                <button id="settings-close">&#x2715;</button>
+            </div>
+            <div id="settings-content">
+                <div class="settings-group">
+                    <label class="settings-label">SFX Volume</label>
+                    <input type="range" id="sfx-volume" min="0" max="100" value="70" class="settings-slider">
+                </div>
+                <div class="settings-group">
+                    <label class="settings-label">Music Volume</label>
+                    <input type="range" id="bgm-volume" min="0" max="100" value="50" class="settings-slider">
+                </div>
+                <div class="settings-group">
+                    <label class="settings-label">Character</label>
+                    <div id="settings-character-name"></div>
+                </div>
+                <div class="settings-group">
+                    <label class="settings-label">Stats</label>
+                    <div id="settings-stats"></div>
+                </div>
+                <div class="settings-divider"></div>
+                <button id="settings-reset" class="settings-danger-btn">Reset Progress</button>
+                <div class="settings-divider"></div>
+                <div id="settings-credits">
+                    <div class="settings-credits-title">Pocket Paramour</div>
+                    <div class="settings-credits-line">A Tamagotchi x Otome Game</div>
+                    <div class="settings-credits-line">Created with love</div>
+                    <div class="settings-credits-line">v1.0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY OVERLAY -->
+        <div id="gallery-overlay" class="hidden">
+            <div id="gallery-header">
+                <span id="gallery-title">Gallery</span>
+                <span id="gallery-counter">0 / 8</span>
+                <button id="gallery-close">&#x2715;</button>
+            </div>
+            <div id="gallery-grid"></div>
+        </div>
+
+        <!-- INTRO SCENE OVERLAY (first-time only) -->
+        <div id="intro-overlay" class="hidden">
+            <div id="intro-bg"></div>
+            <button id="intro-skip-btn">Skip</button>
+            <div id="intro-character-wrap">
+                <img id="intro-character-img" src="" alt="">
+                <img id="intro-blink-overlay" src="" alt="">
+            </div>
+            <div id="intro-bottom">
+                <div id="intro-stage-direction"></div>
+                <div id="intro-line"></div>
+                <div id="intro-tap-hint">tap to continue</div>
+            </div>
+            <div id="intro-dots"></div>
+
+            <!-- Name input — slides in after final beat on first play -->
+            <div id="intro-name-panel">
+                <div id="intro-name-prompt"></div>
+                <div id="intro-name-row">
+                    <input id="intro-name-input" type="text" maxlength="16" placeholder="Your name...">
+                    <button id="intro-name-confirm">✓</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY CARD VIEWER -->
+        <div id="gallery-viewer" class="hidden">
+            <div id="gallery-viewer-content">
+                <img id="gallery-viewer-img" src="" alt="Card">
+                <div id="gallery-viewer-title"></div>
+                <div id="gallery-viewer-subtitle"></div>
+                <div id="gallery-viewer-rarity"></div>
+                <button id="gallery-viewer-close">Close</button>
+            </div>
+        </div>
+
+        <!-- CARD REVEAL OVERLAY (gacha-style) -->
+        <div id="card-reveal-overlay" class="hidden">
+            <div id="card-reveal-bg"></div>
+            <div id="card-reveal-particles"></div>
+            <div id="card-reveal-glow"></div>
+            <div id="card-reveal-card">
+                <div id="card-reveal-card-inner">
+                    <div id="card-reveal-card-back"></div>
+                    <div id="card-reveal-card-front">
+                        <img id="card-reveal-img" src="" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="card-reveal-info" class="hidden">
+                <div id="card-reveal-title"></div>
+                <div id="card-reveal-subtitle"></div>
+                <div id="card-reveal-rarity"></div>
+            </div>
+        </div>
+
+        <!-- Dev debug panel — toggle with ` (backtick). Never ship. -->
+        <div id="debug-panel" class="hidden">
+            <div class="dbg-title">DEV</div>
+            <div class="dbg-row"><span class="dbg-label">Trust</span><span id="dbg-trust">–</span></div>
+            <div class="dbg-row"><span class="dbg-label">Fear</span><span id="dbg-fear">–</span></div>
+            <div class="dbg-row"><span class="dbg-label">Obsess</span><span id="dbg-obs">–</span></div>
+            <div class="dbg-row"><span class="dbg-label">Tension</span><span id="dbg-tension">–</span></div>
+            <div class="dbg-row"><span class="dbg-label">Corrupt</span><span id="dbg-corrupt">–</span></div>
+            <div class="dbg-divider"></div>
+            <div class="dbg-row"><span class="dbg-label">State</span><span id="dbg-state">–</span></div>
+            <div class="dbg-row"><span class="dbg-label">Phase</span><span id="dbg-phase">–</span></div>
+            <div class="dbg-divider"></div>
+            <div class="dbg-row"><span class="dbg-label">Displayed</span><span id="dbg-displayed">–</span></div>
+            <div class="dbg-row"><span class="dbg-label">MidShift</span><span id="dbg-autoshift">–</span></div>
+            <div class="dbg-hint">` toggle</div>
+        </div>
+    </div>
+
+    <!-- Live tuning + analytics + bandit must load before game.js -->
+    <script src="js/remote-config.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/bandit.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/dialogue.js"></script>
+    <script src="js/character.js"></script>
+    <script src="js/character-lyra.js"></script>
+    <script src="js/character-lucien.js"></script>
+    <script src="js/puzzles.js"></script>
+    <script src="js/sounds.js"></script>
+    <script src="js/bgm.js"></script>
+    <script src="js/payments.js"></script>
+    <script src="js/daily-rewards.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/intro.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script>
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+    </script>
+</body>
+</html>
