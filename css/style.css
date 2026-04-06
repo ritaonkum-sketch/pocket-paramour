@@ -726,13 +726,20 @@ body {
     filter: hue-rotate(200deg) saturate(0.6) brightness(0.8);
 }
 
+/* Lucien background — zoom in and shift up so character stands on ground */
+.character-lucien {
+    background-size: 140% auto !important;
+    background-position: center 55% !important;
+}
+
 /* Lucien body sizing (similar to Alistair) */
 .character-lucien #character-body-img {
-    height: 100%;
+    height: 80%;
     max-height: none;
-    max-width: 100%;
+    max-width: 90%;
     object-fit: contain;
     object-position: center bottom;
+    margin-top: auto;
 }
 
 /* Lyra has portrait images — fit nicely */

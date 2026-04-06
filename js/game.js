@@ -9879,8 +9879,10 @@ let selectedCharacter = 'alistair';
                     setTimeout(function() {
                         // Prepare game container BEFORE hiding loading screen
                         var gameContainer = document.getElementById('game-container');
+                        // Character-specific backgrounds with day/night variants
+                        var _h = new Date().getHours();
+                        var _isDay = _h >= 6 && _h < 19;
                         if (selectedCharacter === 'lyra') {
-                            const _h = new Date().getHours();
                             if (_h >= 6 && _h < 19) {
                                 gameContainer.style.backgroundImage = "url('assets/bg-lyra-day.png')";
                             } else if (_h >= 19) {
@@ -9888,8 +9890,15 @@ let selectedCharacter = 'alistair';
                             } else {
                                 gameContainer.style.backgroundImage = "url('assets/bg-lyra-night.png')";
                             }
+                        } else if (selectedCharacter === 'lucien') {
+                            gameContainer.style.backgroundImage = _isDay
+                                ? "url('assets/bg-lucien-night.png')"
+                                : "url('assets/bg-lucien-study.png')";
                         } else {
-                            gameContainer.style.backgroundImage = "url('assets/bg-knight-room.png')";
+                            // Use CHARACTER.background if defined, else knight room
+                            selectCharacter(selectedCharacter);
+                            var _charBg = CHARACTER.background || 'assets/bg-knight-room.png';
+                            gameContainer.style.backgroundImage = "url('" + _charBg + "')";
                         }
                         gameContainer.classList.remove('character-alistair', 'character-lyra');
                         gameContainer.classList.add('character-' + selectedCharacter);

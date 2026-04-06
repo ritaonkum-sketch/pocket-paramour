@@ -1586,6 +1586,19 @@ class GameUI {
             bodyKey = bodyMapping;
         }
 
+        // ── Intimacy gate: shy/vulnerable/shirtless poses require deep relationship ──
+        const intimatePoses = ['shy1','shy2','shy3','vulnerable','shirtless','shirtless1','shirtless2','shirtless3',
+            'shy','tender','kiss1','kiss2','kiss3','falllove2','falllove3','shyhug1','shyhug2'];
+        if (intimatePoses.includes(bodyKey)) {
+            const affLevel = this.game?.affectionLevel || 0;
+            if (affLevel < 4) {
+                // Not deep enough — fall back to neutral/gentle
+                bodyKey = Array.isArray(bodyMapping)
+                    ? (bodyMapping.find(function(k) { return !intimatePoses.includes(k); }) || 'neutral')
+                    : 'neutral';
+            }
+        }
+
         // Don't override body sprite during a training sequence
         if (!this._seqActive) {
             const bodySrc = CHARACTER.bodySprites[bodyKey];

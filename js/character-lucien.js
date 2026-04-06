@@ -97,51 +97,76 @@ const CHARACTER_LUCIEN = {
         obsessed:    "assets/lucien/body/obsessed.png",
         glitch:      "assets/lucien/body/glitch.png",
         // Hunger / dirty
-        hungry1:     "assets/lucien/body/distant.png",
-        hungry2:     "assets/lucien/body/distant.png",
-        starving1:   "assets/lucien/body/vulnerable.png",
-        starving2:   "assets/lucien/body/vulnerable.png",
-        dirty1:      "assets/lucien/body/neutral.png",
-        dirty2:      "assets/lucien/body/neutral.png",
+        hungry1:     "assets/lucien/body/hungry1.png",
+        hungry2:     "assets/lucien/body/hungry2.png",
+        starving1:   "assets/lucien/body/starving1.png",
+        starving2:   "assets/lucien/body/starving1.png",
+        dirty1:      "assets/lucien/body/dirty1.png",
+        dirty2:      "assets/lucien/body/dirty2.png",
+        verydirty1:  "assets/lucien/body/verydirty1.png",
         // Sleep
-        sleepy1:     "assets/lucien/body/reading.png",
-        sleepy2:     "assets/lucien/body/reading.png",
-        yawn1:       "assets/lucien/body/distant.png",
-        yawn2:       "assets/lucien/body/distant.png",
-        bored1:      "assets/lucien/body/reading.png",
+        sleepy1:     "assets/lucien/body/sleepy1.png",
+        sleepy2:     "assets/lucien/body/sleepy2.png",
+        yawn1:       "assets/lucien/body/yawn1.png",
+        yawn2:       "assets/lucien/body/yawn1.png",
+        bored1:      "assets/lucien/body/bored1.png",
         bored2:      "assets/lucien/body/thinking.png",
-        // Eating / washing (reuse poses)
-        eating1:     "assets/lucien/body/neutral.png",
-        eating2:     "assets/lucien/body/amused.png",
-        splash1:     "assets/lucien/body/neutral.png",
-        splash2:     "assets/lucien/body/amused.png",
+        // Eating / washing
+        eating1:     "assets/lucien/body/eating1.png",
+        eating2:     "assets/lucien/body/eating2.png",
+        eating3:     "assets/lucien/body/eating3.png",
+        eating4:     "assets/lucien/body/eating4.png",
+        splash1:     "assets/lucien/body/splash1.png",
+        splash2:     "assets/lucien/body/splash2.png",
+        splash3:     "assets/lucien/body/splash3.png",
+        splash4:     "assets/lucien/body/splash4.png",
+        splash5:     "assets/lucien/body/splash5.png",
+        // Extra poses
+        pleased:     "assets/lucien/body/pleased.png",
+        thanks:      "assets/lucien/body/thanks.png",
+        // Shy poses
+        shy1:        "assets/lucien/body/shy1.png",
+        shy2:        "assets/lucien/body/shy2.png",
+        shy3:        "assets/lucien/body/shy3.png",
+        // Shirtless
+        shirtless:   "assets/lucien/body/shirtless1.png",
+        shirtless1:  "assets/lucien/body/shirtless1.png",
+        shirtless2:  "assets/lucien/body/shirtless2.png",
+        // Power / magic
+        power1:      "assets/lucien/body/power1.png",
+        power2:      "assets/lucien/body/power2.png",
+        power3:      "assets/lucien/body/power3.png",
+        power4:      "assets/lucien/body/power4.png",
         // Corruption stages
-        corrupt1:    "assets/lucien/body/obsessed.png",
-        corrupt2:    "assets/lucien/body/glitch.png",
-        corrupt3:    "assets/lucien/body/glitch.png",
+        corrupt1:    "assets/lucien/body/corrupt1.png",
+        corrupt2:    "assets/lucien/body/corrupt2.png",
+        corrupt3:    "assets/lucien/body/corrupt2.png",
         // Fighting (for events)
-        fighting:    "assets/lucien/body/casting.png",
-        fighting1:   "assets/lucien/body/casting.png",
-        fighting2:   "assets/lucien/body/casting.png"
+        fighting:    "assets/lucien/body/fighting1.png",
+        fighting1:   "assets/lucien/body/fighting1.png",
+        fighting2:   "assets/lucien/body/fighting2.png",
+        // Talk / gentle
+        talk:        "assets/lucien/body/talk.png",
+        gentle:      "assets/lucien/body/gentle.png"
     },
 
     emotionToBody: {
-        happy:      ["amused", "fascinated"],
-        love:       ["fascinated", "amused"],
-        neutral:    ["neutral", "thinking", "reading"],
-        sad:        ["distant", "vulnerable"],
-        angry:      ["cold"],
-        shy:        ["vulnerable", "curious"],
-        corrupted:  ["obsessed", "glitch"],
-        sleeping:   ["reading"]
+        happy:      ["amused", "fascinated", "gentle"],
+        love:       ["fascinated", "shy1", "shy2"],
+        neutral:    ["neutral", "thinking", "reading", "bored1"],
+        sad:        ["distant", "vulnerable", "hungry1"],
+        angry:      ["cold", "fighting1"],
+        shy:        ["vulnerable", "shy1", "shy2", "shy3"],
+        corrupted:  ["obsessed", "corrupt1", "corrupt2"],
+        sleeping:   ["sleepy1", "sleepy2"]
     },
 
     actionToBody: {
-        feed:  ["amused", "neutral"],
-        wash:  ["neutral", "amused"],
-        gift:  ["fascinated", "curious"],
-        train: ["thinking", "casting"],
-        talk:  ["neutral", "thinking", "curious"]
+        feed:  ["eating1", "eating2", "eating3", "eating4"],
+        wash:  ["splash1", "splash2", "splash3", "splash4"],
+        gift:  ["fascinated", "curious", "pleased", "thanks"],
+        train: ["thinking", "casting", "power1"],
+        talk:  ["talk", "neutral", "gentle", "curious"]
     },
 
     emotionalProfile: {
