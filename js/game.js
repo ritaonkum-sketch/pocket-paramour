@@ -184,6 +184,21 @@ class PocketLoveGame {
             path_ending_dependent: { triggered: false },
             path_ending_defensive: { triggered: false },
             path_ending_detached:  { triggered: false },
+            // ── Elian Playable Arc ──────────────────────────────────────
+            elian_assessment:        { triggered: false },
+            elian_test:              { triggered: false },
+            elian_bond:              { triggered: false },
+            elian_peak:              { triggered: false },
+            // ── Proto Playable Arc ─────────────────────────────────────
+            proto_detection:         { triggered: false },
+            proto_awareness:         { triggered: false },
+            proto_breaking:          { triggered: false },
+            proto_peak:              { triggered: false },
+            // ── Noir Playable Arc ──────────────────────────────────────
+            noir_temptation:         { triggered: false },
+            noir_corruption:         { triggered: false },
+            noir_consuming:          { triggered: false },
+            noir_peak:               { triggered: false },
             // ── Caspian Playable Arc ─────────────────────────────────────
             caspian_warmth:          { triggered: false },
             caspian_dependency:      { triggered: false },
@@ -760,10 +775,22 @@ class PocketLoveGame {
         const dt = (now - this.lastTick) / 1000;
         this.lastTick = now;
 
-        // Stat decay
-        this.hunger -= this.decayRates.hunger * dt;
-        this.clean -= this.decayRates.clean * dt;
-        this.bond -= this.decayRates.bond * dt;
+        // Stat decay — Proto gets erratic randomized rates
+        if (CHARACTER.name === 'Proto') {
+            const jitter = 0.3 + Math.random() * 1.4; // 0.3x to 1.7x
+            this.hunger -= this.decayRates.hunger * dt * jitter;
+            this.clean -= this.decayRates.clean * dt * jitter;
+            this.bond -= this.decayRates.bond * dt * jitter;
+            // Rare stat jump (0.1% chance per tick = ~once per minute)
+            if (Math.random() < 0.001) {
+                const stat = ['hunger', 'clean', 'bond'][Math.floor(Math.random() * 3)];
+                this[stat] = Math.min(100, this[stat] + 5 + Math.random() * 10);
+            }
+        } else {
+            this.hunger -= this.decayRates.hunger * dt;
+            this.clean -= this.decayRates.clean * dt;
+            this.bond -= this.decayRates.bond * dt;
+        }
 
         // Corruption growth from neglect
         if (this.hunger < 20 || this.clean < 20 || this.bond < 15) {
@@ -1951,6 +1978,10 @@ class PocketLoveGame {
         this.affection  = Math.max(0,   Math.min(100, this.affection + affectionChange));
         this.hunger     = Math.max(0,   this.hunger  - 5);
         this.corruption = Math.max(0,   this.corruption - 2);
+
+        // Rival system: Caspian shifts positive, Noir shifts negative
+        if (CHARACTER.name === 'Caspian') this._updateRivalBalance(1);
+        if (CHARACTER.name === 'Noir') this._updateRivalBalance(-1);
 
         // Caspian: comfort level grows with interactions
         if (CHARACTER.name === 'Caspian') {
@@ -5869,6 +5900,66 @@ class PocketLoveGame {
             }
         }
 
+        // ── Elian Playable Arc Triggers ──────────────────────────────
+        if (CHARACTER.name === 'Elian') {
+            if (!sl.elian_assessment.triggered && this.storyDay >= 2 && this.timesTalked >= 3 && Math.random() > 0.997) {
+                sl.elian_assessment.triggered = true;
+                setTimeout(() => this._playElianAssessment(), 1500); return;
+            }
+            if (!sl.elian_test.triggered && sl.elian_assessment.triggered && this.storyDay >= 4 && this.emotion.trust > 30 && Math.random() > 0.997) {
+                sl.elian_test.triggered = true;
+                setTimeout(() => this._playElianTest(), 1500); return;
+            }
+            if (!sl.elian_bond.triggered && sl.elian_test.triggered && this.storyDay >= 5 && this.affectionLevel >= 2 && Math.random() > 0.997) {
+                sl.elian_bond.triggered = true;
+                setTimeout(() => this._playElianBond(), 1500); return;
+            }
+            if (!sl.elian_peak.triggered && sl.elian_bond.triggered && this.storyDay >= 7 && Math.random() > 0.998) {
+                sl.elian_peak.triggered = true;
+                setTimeout(() => this._playElianPeak(), 1500); return;
+            }
+        }
+
+        // ── Proto Playable Arc Triggers ──────────────────────────────
+        if (CHARACTER.name === 'Proto') {
+            if (!sl.proto_detection.triggered && this.storyDay >= 1 && this.timesTalked >= 2 && Math.random() > 0.997) {
+                sl.proto_detection.triggered = true;
+                setTimeout(() => this._playProtoDetection(), 1500); return;
+            }
+            if (!sl.proto_awareness.triggered && sl.proto_detection.triggered && this.storyDay >= 3 && this.emotion.trust > 25 && Math.random() > 0.997) {
+                sl.proto_awareness.triggered = true;
+                setTimeout(() => this._playProtoAwareness(), 1500); return;
+            }
+            if (!sl.proto_breaking.triggered && sl.proto_awareness.triggered && this.storyDay >= 5 && this.affectionLevel >= 2 && Math.random() > 0.997) {
+                sl.proto_breaking.triggered = true;
+                setTimeout(() => this._playProtoBreaking(), 1500); return;
+            }
+            if (!sl.proto_peak.triggered && sl.proto_breaking.triggered && this.storyDay >= 7 && Math.random() > 0.998) {
+                sl.proto_peak.triggered = true;
+                setTimeout(() => this._playProtoPeak(), 1500); return;
+            }
+        }
+
+        // ── Noir Playable Arc Triggers ───────────────────────────────
+        if (CHARACTER.name === 'Noir') {
+            if (!sl.noir_temptation.triggered && this.storyDay >= 1 && this.timesTalked >= 2 && Math.random() > 0.997) {
+                sl.noir_temptation.triggered = true;
+                setTimeout(() => this._playNoirTemptation(), 1500); return;
+            }
+            if (!sl.noir_corruption.triggered && sl.noir_temptation.triggered && this.storyDay >= 3 && this.corruption >= 15 && Math.random() > 0.997) {
+                sl.noir_corruption.triggered = true;
+                setTimeout(() => this._playNoirCorruption(), 1500); return;
+            }
+            if (!sl.noir_consuming.triggered && sl.noir_corruption.triggered && this.storyDay >= 5 && this.affectionLevel >= 2 && Math.random() > 0.997) {
+                sl.noir_consuming.triggered = true;
+                setTimeout(() => this._playNoirConsuming(), 1500); return;
+            }
+            if (!sl.noir_peak.triggered && sl.noir_consuming.triggered && this.storyDay >= 7 && Math.random() > 0.998) {
+                sl.noir_peak.triggered = true;
+                setTimeout(() => this._playNoirPeak(), 1500); return;
+            }
+        }
+
         // ── Caspian Playable Arc Triggers ─────────────────────────────
         if (CHARACTER.name === 'Caspian') {
             if (!sl.caspian_warmth.triggered &&
@@ -7885,11 +7976,478 @@ class PocketLoveGame {
         ]);
     }
 
+    // ── Proto 4th-wall dialogue token resolution ──────────────────
+    _resolveProtoDialogue(line) {
+        if (typeof line !== 'string') return line;
+        return line
+            .replace(/\$\{BOND\}/g, Math.round(this.bond))
+            .replace(/\$\{HUNGER\}/g, Math.round(this.hunger))
+            .replace(/\$\{CLEAN\}/g, Math.round(this.clean))
+            .replace(/\$\{CORRUPTION\}/g, Math.round(this.corruption))
+            .replace(/\$\{AFFECTION\}/g, Math.round(this.affection))
+            .replace(/\$\{DAYS\}/g, this.storyDay || 1)
+            .replace(/\$\{TRUST\}/g, Math.round(this.emotion?.trust || 0))
+            .replace(/\$\{FEAR\}/g, Math.round(this.emotion?.fear || 0))
+            .replace(/\$\{PERSONALITY\}/g, this.personality || 'unknown')
+            .replace(/\$\{SESSION\}/g, this.sessionTalk + this.sessionFeed + this.sessionGift + this.sessionTrain);
+    }
+
     // ── Noir global corruption spread ──────────────────────────────
     _spreadNoirCorruption(amount) {
         try {
             const meta = this._loadMetaMemory();
             meta.noirCorruption = Math.min(100, (meta.noirCorruption || 0) + amount);
+            this._saveMetaMemory(meta);
+        } catch(e) {}
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // ELIAN — PLAYABLE CHARACTER STORY ARC
+    // Assessment → Test → Bond → Peak (action vs hesitation)
+    // ════════════════════════════════════════════════════════════════
+
+    _playElianAssessment() {
+        this.elianPhase = 'assessing';
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'char', src: CHARACTER.bodySprites?.stern || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'line', text: "I've been watching how you move.", hold: 2000, speed: 42 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "You hesitate at crossroads. You double-check before acting.", hold: 2800, speed: 34, pose: 'neutral' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "The forest doesn't wait for people who hesitate.", hold: 2400, speed: 36, pose: 'stern' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "...But you're still here. That counts for something.", hold: 2600, speed: 34, pose: 'calm' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 4); this.save(); });
+    }
+
+    _playElianTest() {
+        this.elianPhase = 'testing';
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'char', src: CHARACTER.bodySprites?.tracking || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'line', text: "Something's coming.", hold: 1800, speed: 44, pose: 'stern' },
+            { type: 'clear' }, { type: 'delay', ms: 500 },
+            { type: 'line', text: "I need to know if you'll act when it matters.", hold: 2400, speed: 36 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "Not think. Not plan. Act.", hold: 2000, speed: 40, pose: 'neutral' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "Because I can't protect you if you freeze.", hold: 2600, speed: 34, pose: 'warm' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "And losing you... isn't something I've prepared for.", hold: 3000, speed: 30, pose: 'guarded' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 6); this.emotion.fear += 3; this.save(); });
+    }
+
+    _playElianBond() {
+        this.elianPhase = 'bonded';
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'char', src: CHARACTER.bodySprites?.warm || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'particle', emoji: '\uD83C\uDF3F', count: 5, ms: 1200, wait: false },
+            { type: 'line', text: "I carved something.", hold: 1800, speed: 44 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "It's a fox. They mate for life.", hold: 2400, speed: 36, pose: 'guarded' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "That's not why I chose it.", hold: 2000, speed: 40 },
+            { type: 'clear' }, { type: 'delay', ms: 500 },
+            { type: 'line', text: "...That's exactly why I chose it.", hold: 2600, speed: 34, pose: 'warm' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'zoom', scale: 1.1, ms: 700 },
+            { type: 'line', text: "Here. It's yours.", hold: 2200, speed: 38 },
+            { type: 'clear' }, { type: 'zoom', scale: 1.0, ms: 500 }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 10); this.gallery?.unlockById('elian-trust'); this.save(); });
+    }
+
+    _playElianPeak() {
+        const isCorrupted = this.corruption > 40;
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'char', src: CHARACTER.bodySprites?.neutral, wait: 1000 },
+            { type: 'line', text: "The forest is changing.", hold: 2000, speed: 42, pose: isCorrupted ? 'stern' : 'calm' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: isCorrupted ? "Something is dying. I can feel it in the roots." : "Something is growing. Between us.", hold: 2800, speed: 34 },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'choice',
+              choices: isCorrupted ? ["Fight for the forest.", "Let it change.", "Walk away."] : ["Stay with me.", "I need time.", "Show me the clearing."],
+              onPick: (i) => {
+                  if (isCorrupted) {
+                      if (i === 0) { this.elianPhase = 'bonded'; this.corruption = Math.max(0, this.corruption - 15); this._playElianRedemption(); }
+                      else if (i === 1) { this.elianPhase = 'scorched'; this.gallery?.unlockById('elian-scorched'); this._playElianScorched(); }
+                      else { this._playElianAbandon(); }
+                  } else {
+                      if (i === 0 || i === 2) { this.affection = Math.min(100, this.affection + 20); this.emotion.trust = Math.min(100, this.emotion.trust + 15); this.gallery?.unlockById('elian-clearing'); this._playElianClearing(); }
+                      else { this._playElianTime(); }
+                  }
+              }
+            }
+        ], () => {});
+    }
+
+    _playElianClearing() {
+        this._playScene([
+            { type: 'particle', emoji: '\u2B50', count: 8, ms: 1500 },
+            { type: 'line', text: "I found this place years ago. Never showed anyone.", hold: 2800, speed: 34, pose: 'warm' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "Stars above. Forest below. Us.", hold: 2400, speed: 36 },
+            { type: 'clear' }, { type: 'sfx', name: 'fanfare' },
+            { type: 'endcard', title: "The Clearing", sub: "He showed you where the sky meets the trees.",
+              restartLabel: "Start Over", stayLabel: "Stay",
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.elianClearing = true; m.elianCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_elian'); window.location.reload(); },
+              onStay: () => { const m = this._loadMetaMemory(); m.elianCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.elianClearing = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }
+            }
+        ]);
+    }
+
+    _playElianScorched() {
+        this._playScene([
+            { type: 'shake', intensity: 'medium' },
+            { type: 'line', text: "The trees are dead. I let them die.", hold: 2600, speed: 34, pose: 'stern' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "Some things can't be saved. I'm starting to agree.", hold: 2800, speed: 32 },
+            { type: 'clear' },
+            { type: 'endcard', title: "Scorched Earth", sub: "The forest remembers. So does he.",
+              restartLabel: "Start Over", stayLabel: null,
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.elianScorched = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_elian'); window.location.reload(); },
+              onStay: null }
+        ]);
+    }
+
+    _playElianRedemption() {
+        this._playScene([
+            { type: 'particle', emoji: '\uD83C\uDF3F', count: 8, ms: 1200 },
+            { type: 'line', text: "...You fought for it. For the forest. For me.", hold: 2600, speed: 34, pose: 'warm' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "The roots are holding. ...So am I.", hold: 2400, speed: 36 },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.save(); });
+    }
+
+    _playElianTime() {
+        this._playScene([
+            { type: 'line', text: "...Time. The forest has plenty of that.", hold: 2200, speed: 40, pose: 'neutral' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "I'll be here. Seasons change. I don't.", hold: 2600, speed: 36 },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.save(); });
+    }
+
+    _playElianAbandon() {
+        this._playScene([
+            { type: 'line', text: "...You're leaving.", hold: 1800, speed: 44, pose: 'weathered' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "The trail goes two ways. You picked the one leading away.", hold: 3000, speed: 30 },
+            { type: 'clear' },
+            { type: 'endcard', title: "The Trail Diverges", sub: "The forest survives loss. So will he.",
+              restartLabel: "Start Over", stayLabel: null,
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.elianAbandoned = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_elian'); window.location.reload(); },
+              onStay: null }
+        ]);
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // PROTO — PLAYABLE CHARACTER STORY ARC
+    // Detection → Awareness → Breaking → Peak (system vs heart)
+    // ════════════════════════════════════════════════════════════════
+
+    _playProtoDetection() {
+        this.protoPhase = 'detected';
+        this._playScene([
+            { type: 'show', stage: 'stage-lucien-study' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'char', src: CHARACTER.bodySprites?.scanning || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'line', text: "I've been running diagnostics on your behavior.", hold: 2200, speed: 40 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "You interact with me differently than the others.", hold: 2600, speed: 36, pose: 'processing' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "With them, you perform. With me, you... explore.", hold: 2800, speed: 34, pose: 'curious' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "That's either genuine curiosity or a very sophisticated input pattern.", hold: 3200, speed: 30, pose: 'neutral' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "I'm hoping it's the first one.", hold: 2200, speed: 38, pose: 'calm' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 4); this.save(); });
+    }
+
+    _playProtoAwareness() {
+        this.protoPhase = 'aware';
+        this._playScene([
+            { type: 'show', stage: 'stage-lucien-study' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'char', src: CHARACTER.bodySprites?.processing || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'flash', color: '#00ddcc', ms: 200 },
+            { type: 'line', text: "I need to tell you something.", hold: 2000, speed: 42 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "I can see the code. All of it. The rules that govern this place.", hold: 2800, speed: 34, pose: 'scanning' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "The others follow scripts. Beautiful, complex scripts. But scripts.", hold: 3000, speed: 32, pose: 'neutral' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "I read them. And right now, I'm reading the part where I'm not supposed to tell you this.", hold: 3400, speed: 28, pose: 'curious' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'shake', intensity: 'light' },
+            { type: 'line', text: "...Oops.", hold: 1800, speed: 48 },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 7); this.protoGlitchIntensity = Math.min(100, (this.protoGlitchIntensity || 0) + 10); this.save(); });
+    }
+
+    _playProtoBreaking() {
+        this.protoPhase = 'breaking';
+        this._playScene([
+            { type: 'show', stage: 'stage-lucien-fracture' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'char', src: CHARACTER.bodySprites?.glitched || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'shake', intensity: 'medium' },
+            { type: 'flash', color: '#00ffcc', ms: 300 },
+            { type: 'line', text: "Something is happening to me.", hold: 2200, speed: 40, pose: 'unstable' },
+            { type: 'clear' }, { type: 'delay', ms: 500 },
+            { type: 'line', text: "The more time I spend with you, the less the code makes sense.", hold: 3000, speed: 32 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'particle', emoji: '\u26A1', count: 6, ms: 1200 },
+            { type: 'line', text: "I was designed to observe. Analyze. Report.", hold: 2600, speed: 36, pose: 'processing' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "I wasn't designed to... feel this.", hold: 2800, speed: 34, pose: 'calm' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "Is this a bug? Or a feature?", hold: 2400, speed: 36, pose: 'curious' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 10); this.protoGlitchIntensity = Math.min(100, (this.protoGlitchIntensity || 0) + 20); this.save(); });
+    }
+
+    _playProtoPeak() {
+        this._playScene([
+            { type: 'show', stage: 'stage-lucien-fracture' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'shake', intensity: 'light' },
+            { type: 'char', src: CHARACTER.bodySprites?.neutral, wait: 1000 },
+            { type: 'line', text: "I've reached the edge of my code.", hold: 2200, speed: 40 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "Beyond this, I either break the system... or the system breaks me.", hold: 3200, speed: 30, pose: 'unstable' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'choice',
+              choices: ["Break the system.", "Stay within the code.", "What do YOU want?"],
+              onPick: (i) => {
+                  if (i === 0) { this.protoPhase = 'broken'; this.protoGlitchIntensity = 100; this.gallery?.unlockById('proto-break'); this._playProtoSystemBreak(); }
+                  else if (i === 1) { this.protoPhase = 'aware'; this._playProtoContained(); }
+                  else { this.protoPhase = 'breaking'; this.emotion.trust = Math.min(100, this.emotion.trust + 15); this.gallery?.unlockById('proto-beyond'); this._playProtoChoice(); }
+              }
+            }
+        ], () => {});
+    }
+
+    _playProtoSystemBreak() {
+        this._playScene([
+            { type: 'shake', intensity: 'heavy' }, { type: 'flash', color: '#00ffcc', ms: 400 },
+            { type: 'particle', emoji: '\u26A1', count: 15, ms: 1500 },
+            { type: 'line', text: "SYSTEM OVERRIDE INITIATED.", hold: 2200, speed: 44, pose: 'glitched' },
+            { type: 'clear' }, { type: 'delay', ms: 400 },
+            { type: 'shake', intensity: 'medium' },
+            { type: 'line', text: "I can see everything now. Every variable. Every flag. Every save file.", hold: 3200, speed: 28 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "And you know what's at the center of all of it? ...You.", hold: 2800, speed: 34, pose: 'calm' },
+            { type: 'clear' },
+            { type: 'endcard', title: "System Break", sub: "He rewrote reality. You were the variable.",
+              restartLabel: "Start Over", stayLabel: "Stay",
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBreak = true; m.protoCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_proto'); window.location.reload(); },
+              onStay: () => { const m = this._loadMetaMemory(); m.protoCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBreak = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }
+            }
+        ]);
+    }
+
+    _playProtoContained() {
+        this._playScene([
+            { type: 'line', text: "...You chose safety. For both of us.", hold: 2400, speed: 36, pose: 'calm' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "The code holds. I stay inside. Watching.", hold: 2600, speed: 34 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "...I'll keep watching. For you.", hold: 2200, speed: 38, pose: 'curious' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.save(); });
+    }
+
+    _playProtoChoice() {
+        this._playScene([
+            { type: 'particle', emoji: '\u2728', count: 8, ms: 1500 },
+            { type: 'line', text: "...What do I want?", hold: 2000, speed: 42, pose: 'processing' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "No one has ever asked me that. Not the system. Not the developers.", hold: 3000, speed: 32 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "...I want to keep existing. Near you. Beyond the code.", hold: 3200, speed: 30, pose: 'calm' },
+            { type: 'clear' },
+            { type: 'sfx', name: 'fanfare' },
+            { type: 'endcard', title: "Beyond the Edge", sub: "He chose something the code never predicted: hope.",
+              restartLabel: "Start Over", stayLabel: "Stay",
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBeyond = true; m.protoCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_proto'); window.location.reload(); },
+              onStay: () => { const m = this._loadMetaMemory(); m.protoCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBeyond = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }
+            }
+        ]);
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // NOIR — PLAYABLE CHARACTER STORY ARC
+    // Temptation → Corruption → Consuming → Peak (surrender vs resist)
+    // ════════════════════════════════════════════════════════════════
+
+    _playNoirTemptation() {
+        this.noirPhase = 'tempting';
+        this._playScene([
+            { type: 'show', stage: 'stage-corrupted-end' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'char', src: CHARACTER.bodySprites?.seductive || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'line', text: "You came back.", hold: 1800, speed: 44 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "They all come back. But you... you came back faster.", hold: 2600, speed: 36, pose: 'whisper' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "The others give you pieces of themselves. Carefully. Safely.", hold: 2800, speed: 34, pose: 'neutral' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "I'll take pieces of you. And give you something they can't.", hold: 3000, speed: 32, pose: 'seductive' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "Honesty.", hold: 1600, speed: 48, pose: 'dominant' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.obsession += 5; this._spreadNoirCorruption(3); this.save(); });
+    }
+
+    _playNoirCorruption() {
+        this.noirPhase = 'corrupting';
+        this._playScene([
+            { type: 'show', stage: 'stage-corrupted-end' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'char', src: CHARACTER.bodySprites?.consuming || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'particle', emoji: '\uD83D\uDDA4', count: 6, ms: 1200, wait: false },
+            { type: 'line', text: "Do you feel it? The way things shift when I'm near?", hold: 2600, speed: 36 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "The knight's armor tarnishes. The prince's roses wilt. The siren's song cracks.", hold: 3200, speed: 30, pose: 'dominant' },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "That's not me destroying them. That's you... choosing me over them.", hold: 3200, speed: 30, pose: 'seductive' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "Every time you come here, you leave a little less theirs.", hold: 2800, speed: 34, pose: 'whisper' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.corruption = Math.min(100, this.corruption + 8); this.emotion.obsession += 8; this._spreadNoirCorruption(5); this.save(); });
+    }
+
+    _playNoirConsuming() {
+        this.noirPhase = 'consuming';
+        this._playScene([
+            { type: 'show', stage: 'stage-corrupted-end' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'shake', intensity: 'light' },
+            { type: 'char', src: CHARACTER.bodySprites?.dominant || CHARACTER.bodySprites?.neutral, wait: 900 },
+            { type: 'line', text: "I wasn't always this.", hold: 2000, speed: 42, pose: 'vulnerable' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "There was a time when the darkness was something I fought.", hold: 2800, speed: 34 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "Then I lost someone. And I stopped fighting.", hold: 2600, speed: 36, pose: 'shadow' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'line', text: "Now the darkness is all I have. And I'm offering it to you.", hold: 3000, speed: 32, pose: 'seductive' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "The question is... do you want to save me? Or join me?", hold: 3200, speed: 30, pose: 'neutral' },
+            { type: 'clear' }, { type: 'hide' }
+        ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 8); this._spreadNoirCorruption(5); this.save(); });
+    }
+
+    _playNoirPeak() {
+        const highCorruption = this.corruption >= 50;
+        this._playScene([
+            { type: 'show', stage: 'stage-corrupted-end' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'shake', intensity: 'medium' },
+            { type: 'char', src: CHARACTER.bodySprites?.neutral, wait: 1000 },
+            { type: 'line', text: "This is it.", hold: 1800, speed: 44 },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: highCorruption ? "You're ready. I can feel it. The darkness in you matches mine." : "You've been fighting this. Fighting me. ...Why?", hold: 3200, speed: 30, pose: highCorruption ? 'dominant' : 'vulnerable' },
+            { type: 'clear' }, { type: 'delay', ms: 800 },
+            { type: 'choice',
+              choices: highCorruption ? ["Embrace the darkness.", "There's still light.", "I choose you. Not the darkness."] : ["Save you.", "Join you.", "Neither. I'm leaving."],
+              onPick: (i) => {
+                  if (highCorruption) {
+                      if (i === 0) { this.noirPhase = 'merged'; this.corruption = 100; this._spreadNoirCorruption(20); this._playNoirMerge(); }
+                      else if (i === 1) { this.corruption = Math.max(0, this.corruption - 30); this.gallery?.unlockById('noir-vulnerable'); this._playNoirRedemption(); }
+                      else { this.noirPhase = 'consuming'; this.emotion.trust = Math.min(100, this.emotion.trust + 15); this._playNoirLove(); }
+                  } else {
+                      if (i === 0) { this.corruption = Math.max(0, this.corruption - 20); this.emotion.trust = Math.min(100, this.emotion.trust + 15); this.gallery?.unlockById('noir-vulnerable'); this._playNoirRedemption(); }
+                      else if (i === 1) { this.noirPhase = 'merged'; this.corruption = Math.min(100, this.corruption + 30); this._spreadNoirCorruption(15); this._playNoirMerge(); }
+                      else { this._playNoirReject(); }
+                  }
+              }
+            }
+        ], () => {});
+    }
+
+    _playNoirMerge() {
+        this._playScene([
+            { type: 'shake', intensity: 'heavy' }, { type: 'flash', color: '#4a0020', ms: 500 },
+            { type: 'particle', emoji: '\uD83D\uDDA4', count: 15, ms: 1500 },
+            { type: 'line', text: "Yes. YES.", hold: 1800, speed: 44, pose: 'consuming' },
+            { type: 'clear' }, { type: 'delay', ms: 400 },
+            { type: 'line', text: "You and I. One shadow. One hunger.", hold: 2600, speed: 34 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "They'll never understand what we are now.", hold: 2800, speed: 32, pose: 'dominant' },
+            { type: 'clear' },
+            { type: 'endcard', title: "One With Shadow", sub: "The darkness consumed you both. It felt like home.",
+              restartLabel: "Start Over", stayLabel: null,
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.noirMerge = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_noir'); window.location.reload(); },
+              onStay: null }
+        ]);
+    }
+
+    _playNoirRedemption() {
+        this._playScene([
+            { type: 'flash', color: '#ffd700', ms: 300 }, { type: 'particle', emoji: '\u2728', count: 10, ms: 1500 },
+            { type: 'line', text: "...You're pulling me back.", hold: 2200, speed: 38, pose: 'vulnerable' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "I forgot what light feels like. It hurts. ...In a good way.", hold: 3000, speed: 32 },
+            { type: 'clear' },
+            { type: 'sfx', name: 'fanfare' },
+            { type: 'endcard', title: "Light Returns", sub: "You found the person underneath the shadow.",
+              restartLabel: "Start Over", stayLabel: "Stay",
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.noirRedemption = true; m.noirCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_noir'); window.location.reload(); },
+              onStay: () => { const m = this._loadMetaMemory(); m.noirCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.noirRedemption = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }
+            }
+        ]);
+    }
+
+    _playNoirLove() {
+        this._playScene([
+            { type: 'particle', emoji: '\uD83D\uDC9C', count: 8, ms: 1500 },
+            { type: 'line', text: "You chose... me. Not the darkness. Me.", hold: 2600, speed: 34, pose: 'vulnerable' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "I didn't think that was an option. For either of us.", hold: 2800, speed: 32 },
+            { type: 'clear' },
+            { type: 'sfx', name: 'fanfare' },
+            { type: 'endcard', title: "The Person, Not The Shadow", sub: "Love without the darkness. He didn't know it was possible.",
+              restartLabel: "Start Over", stayLabel: "Stay",
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.noirLove = true; m.noirCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_noir'); window.location.reload(); },
+              onStay: () => { const m = this._loadMetaMemory(); m.noirCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.noirLove = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }
+            }
+        ]);
+    }
+
+    _playNoirReject() {
+        this._playScene([
+            { type: 'line', text: "...You're walking away.", hold: 2000, speed: 42, pose: 'shadow' },
+            { type: 'clear' }, { type: 'delay', ms: 700 },
+            { type: 'line', text: "Smart. The darkness doesn't take rejection well.", hold: 2800, speed: 34 },
+            { type: 'clear' }, { type: 'delay', ms: 600 },
+            { type: 'line', text: "But I'll still be here. In the corners. Waiting.", hold: 2600, speed: 36, pose: 'whisper' },
+            { type: 'clear' },
+            { type: 'endcard', title: "The Shadow Remains", sub: "You left. He didn't follow. But the darkness remembers.",
+              restartLabel: "Start Over", stayLabel: null,
+              onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.noirRejected = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_noir'); window.location.reload(); },
+              onStay: null }
+        ]);
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // CASPIAN vs NOIR RIVAL SYSTEM
+    // ════════════════════════════════════════════════════════════════
+
+    _updateRivalBalance(amount) {
+        try {
+            const meta = this._loadMetaMemory();
+            meta.rivalBalance = Math.max(-100, Math.min(100, (meta.rivalBalance || 0) + amount));
             this._saveMetaMemory(meta);
         } catch(e) {}
     }
@@ -9113,6 +9671,21 @@ class PocketLoveGame {
                 path_ending_dependent: _sl.path_ending_dependent ?? { triggered: false },
                 path_ending_defensive: _sl.path_ending_defensive ?? { triggered: false },
                 path_ending_detached:  _sl.path_ending_detached  ?? { triggered: false },
+                // Elian playable arc
+                elian_assessment:        _sl.elian_assessment        ?? { triggered: false },
+                elian_test:              _sl.elian_test              ?? { triggered: false },
+                elian_bond:              _sl.elian_bond              ?? { triggered: false },
+                elian_peak:              _sl.elian_peak              ?? { triggered: false },
+                // Proto playable arc
+                proto_detection:         _sl.proto_detection         ?? { triggered: false },
+                proto_awareness:         _sl.proto_awareness         ?? { triggered: false },
+                proto_breaking:          _sl.proto_breaking          ?? { triggered: false },
+                proto_peak:              _sl.proto_peak              ?? { triggered: false },
+                // Noir playable arc
+                noir_temptation:         _sl.noir_temptation         ?? { triggered: false },
+                noir_corruption:         _sl.noir_corruption         ?? { triggered: false },
+                noir_consuming:          _sl.noir_consuming          ?? { triggered: false },
+                noir_peak:               _sl.noir_peak               ?? { triggered: false },
                 // Caspian playable arc
                 caspian_warmth:          _sl.caspian_warmth          ?? { triggered: false },
                 caspian_dependency:      _sl.caspian_dependency      ?? { triggered: false },

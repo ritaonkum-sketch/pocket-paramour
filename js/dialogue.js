@@ -46,7 +46,11 @@ class TypewriterEffect {
         // Tags are stripped from display text; only their position is recorded.
         const VALID_EMOTIONS = new Set(['happy','sad','shy','love','angry','neutral','crying']);
         this._emotionTriggers = [];
-        const rawText = applyPlayerName(text);
+        let rawText = applyPlayerName(text);
+        // Proto 4th-wall token resolution — replace ${BOND} etc with actual values
+        if (typeof window._game?._resolveProtoDialogue === 'function' && window._game?.selectedCharacter === 'proto') {
+            rawText = window._game._resolveProtoDialogue(rawText);
+        }
         let cleanText = '';
         let i = 0;
 
