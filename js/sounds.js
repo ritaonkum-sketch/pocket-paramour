@@ -470,6 +470,103 @@ class SoundSystem {
         gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
         source.start(this.ctx.currentTime);
     }
+    // ===== CHARACTER AMBIENT SOUNDS =====
+
+    // Fireplace crackle — for Caspian/Alistair
+    fireplaceCrackle() {
+        if (!this.enabled) return;
+        this.init(); this.resume();
+        const dur = 1.5;
+        const bufSize = Math.floor(this.ctx.sampleRate * dur);
+        const buffer = this.ctx.createBuffer(1, bufSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufSize; i++) {
+            const t = i / bufSize;
+            // Random crackle bursts
+            const burst = Math.random() < 0.02 ? (Math.random() * 2 - 1) * 0.6 : 0;
+            const base = (Math.random() * 2 - 1) * 0.05 * Math.sin(t * Math.PI);
+            data[i] = (base + burst) * (1 - t * 0.5);
+        }
+        const source = this.ctx.createBufferSource();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass'; filter.frequency.value = 2000;
+        source.buffer = buffer;
+        source.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
+        source.start(this.ctx.currentTime);
+    }
+
+    // Forest crickets — for Elian
+    forestCrickets() {
+        if (!this.enabled) return;
+        this.init(); this.resume();
+        // Two chirping oscillators at slightly different pitches
+        for (let c = 0; c < 2; c++) {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            const baseFreq = 4200 + c * 300 + Math.random() * 200;
+            osc.frequency.setValueAtTime(baseFreq, this.ctx.currentTime);
+            osc.connect(gain); gain.connect(this.ctx.destination);
+            const chirpStart = this.ctx.currentTime + c * 0.15;
+            // Quick chirp pattern
+            gain.gain.setValueAtTime(0, chirpStart);
+            for (let i = 0; i < 3; i++) {
+                const t = chirpStart + i * 0.08;
+                gain.gain.linearRampToValueAtTime(0.03, t + 0.02);
+                gain.gain.linearRampToValueAtTime(0, t + 0.05);
+            }
+            osc.start(chirpStart);
+            osc.stop(chirpStart + 0.5);
+        }
+    }
+
+    // Digital static — for Proto
+    digitalStatic() {
+        if (!this.enabled) return;
+        this.init(); this.resume();
+        const dur = 0.8;
+        const bufSize = Math.floor(this.ctx.sampleRate * dur);
+        const buffer = this.ctx.createBuffer(1, bufSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufSize; i++) {
+            // Quantized noise — sounds digital, not analog
+            data[i] = (Math.floor(Math.random() * 8) / 8 * 2 - 1) * 0.15 * Math.exp(-i / (bufSize * 0.3));
+        }
+        const source = this.ctx.createBufferSource();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass'; filter.frequency.value = 3000; filter.Q.value = 2;
+        source.buffer = buffer;
+        source.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+        gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
+        source.start(this.ctx.currentTime);
+    }
+
+    // Dark drone — for Noir
+    darkDrone() {
+        if (!this.enabled) return;
+        this.init(); this.resume();
+        const dur = 2.5;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc1.type = 'sawtooth'; osc2.type = 'sine';
+        osc1.frequency.setValueAtTime(55, this.ctx.currentTime);
+        osc2.frequency.setValueAtTime(82.5, this.ctx.currentTime); // fifth
+        osc1.frequency.linearRampToValueAtTime(50, this.ctx.currentTime + dur);
+        osc1.connect(gain); osc2.connect(gain); gain.connect(this.ctx.destination);
+        gain.gain.setValueAtTime(0, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.04, this.ctx.currentTime + 0.3);
+        gain.gain.linearRampToValueAtTime(0.03, this.ctx.currentTime + dur * 0.7);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
+        osc1.start(this.ctx.currentTime); osc2.start(this.ctx.currentTime);
+        osc1.stop(this.ctx.currentTime + dur); osc2.stop(this.ctx.currentTime + dur);
+    }
+
     // ===== CARD REVEAL SFX =====
 
     // Paper whoosh for card flip

@@ -726,15 +726,29 @@ class GameUI {
                 if (typeof sounds !== 'undefined' && sounds.enabled && !this._midnightSleeping) {
                     const g = this.game;
                     if (!g.characterLeft) {
-                        const hour  = new Date().getHours();
-                        const isNight = hour < 6 || hour >= 20;
                         const isMuted = typeof bgm !== 'undefined' && bgm.muted;
                         if (!isMuted) {
-                            // Nighttime or high bond: lean towards siren hum
-                            if (isNight || (g.affectionLevel || 0) >= 2) {
-                                Math.random() < 0.55 ? sounds.sirenHum() : sounds.oceanWave();
+                            const charName = CHARACTER?.name || '';
+                            // Character-specific ambient sounds
+                            if (charName === 'Lyra') {
+                                const isNight = new Date().getHours() < 6 || new Date().getHours() >= 20;
+                                if (isNight || (g.affectionLevel || 0) >= 2) {
+                                    Math.random() < 0.55 ? sounds.sirenHum() : sounds.oceanWave();
+                                } else { sounds.oceanWave(); }
+                            } else if (charName === 'Alistair') {
+                                sounds.fireplaceCrackle();
+                            } else if (charName === 'Caspian') {
+                                sounds.fireplaceCrackle();
+                            } else if (charName === 'Elian') {
+                                sounds.forestCrickets();
+                            } else if (charName === 'Lucien') {
+                                sounds.ambientNote();
+                            } else if (charName === 'Proto') {
+                                sounds.digitalStatic();
+                            } else if (charName === 'Noir') {
+                                sounds.darkDrone();
                             } else {
-                                sounds.oceanWave();
+                                sounds.ambientNote();
                             }
                         }
                     }
@@ -1904,20 +1918,38 @@ class GameUI {
 
         const wrap = document.createElement('div');
         wrap.id = 'premium-choice';
-        wrap.innerHTML = `<button class="premium-btn">${label}</button>`;
+        const autoClose = window.TUNE?.premiumAutoClose ?? 9000;
+        wrap.innerHTML = `
+            <div class="premium-backdrop"></div>
+            <div class="premium-content">
+                <div class="premium-emotion">${CHARACTER?.name || 'They'} is waiting...</div>
+                <button class="premium-btn premium-heartbeat">${label}</button>
+                <div class="premium-timer-bar"><div class="premium-timer-fill"></div></div>
+                <div class="premium-hint">This moment won't last forever</div>
+            </div>
+        `;
         const container = document.getElementById('game-container') || document.body;
         container.appendChild(wrap);
         wrap.querySelector('.premium-btn').addEventListener('click', () => {
             this.hidePremiumChoice();
             if (typeof onConfirm === 'function') onConfirm();
         });
+        // Animate timer bar
+        const timerFill = wrap.querySelector('.premium-timer-fill');
+        if (timerFill) {
+            timerFill.style.transition = `width ${autoClose}ms linear`;
+            requestAnimationFrame(() => { timerFill.style.width = '0%'; });
+        }
         // Fade in
         requestAnimationFrame(() => wrap.classList.add('visible'));
     }
 
     hidePremiumChoice() {
         const el = document.getElementById('premium-choice');
-        if (el) el.remove();
+        if (el) {
+            el.classList.remove('visible');
+            setTimeout(() => el.remove(), 300);
+        }
     }
 
     // ===== DEBUG PANEL =====
