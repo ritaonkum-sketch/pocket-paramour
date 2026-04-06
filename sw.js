@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v77';
+const CACHE_NAME = 'pocket-love-v79';
 
 const CORE_ASSETS = [
     '/index.html',
@@ -11,7 +11,11 @@ const CORE_ASSETS = [
     '/js/dialogue.js',
     '/js/character.js',
     '/js/character-lyra.js',
+    '/js/character-caspian.js',
+    '/js/character-elian.js',
     '/js/character-lucien.js',
+    '/js/character-proto.js',
+    '/js/character-noir.js',
     '/js/puzzles.js',
     '/js/payments.js',
     '/js/daily-rewards.js',

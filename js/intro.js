@@ -76,6 +76,71 @@ const INTRO_SCENES = {
             }
         ]
     },
+    elian: {
+        bgClass: 'intro-bg-druid',
+        beats: [
+            {
+                body: 'assets/elian/body/stern.png',
+                direction: 'A forest clearing. Smoke from a dying fire. A figure crouches over tracks in the mud, not looking up.',
+                line: "Don't move. You just stepped on a snare line."
+            },
+            {
+                body: 'assets/elian/body/neutral.png',
+                direction: 'He stands slowly. Tall, weathered, eyes that have seen too many winters. He studies you like terrain.',
+                line: "...You're not from here. City shoes. Wrong jacket. No supplies."
+            },
+            {
+                body: 'assets/elian/body/stern.png',
+                direction: 'He kicks dirt over the snare, disarming it. The gesture is practical, not generous.',
+                line: "I'm Elian. I live in this forest. It doesn't like visitors."
+            },
+            {
+                body: 'assets/elian/body/calm.png',
+                direction: 'He glances at the sky, reading clouds you can\u2019t decipher. Then back at you.',
+                line: "Rain in an hour. You won't make it back before dark."
+            },
+            {
+                body: 'assets/elian/body/warm.png',
+                direction: 'A pause. Something shifts behind his careful assessment. Not warmth exactly \u2014 but the absence of hostility.',
+                line: "...Stay by the fire. Don't touch anything. And tell me your name."
+            }
+        ]
+    },
+    caspian: {
+        bgClass: 'intro-bg-prince',
+        beats: [
+            {
+                body: 'assets/caspian/body/formal.png',
+                direction: 'Sunlight streams through stained glass. A figure stands by a window, silhouetted in gold.',
+                line: "Oh\u2014 forgive me. I wasn't expecting anyone in this wing."
+            },
+            {
+                body: 'assets/caspian/body/gentle.png',
+                direction: 'He turns. His smile is immediate, warm, and entirely genuine. He is beautiful in a way that feels intentional.',
+                line: "I'm Caspian. The prince\u2014 though that title means less than people think."
+            },
+            {
+                body: 'assets/caspian/body/neutral.png',
+                direction: 'He gestures to the room\u2014 flowers, soft cushions, tea already steeping. Everything prepared.',
+                line: "You look like you've been running. From something, or toward something. Either way\u2014 sit."
+            },
+            {
+                body: 'assets/caspian/body/tender.png',
+                direction: 'He pours tea without asking. The gesture is practiced but not performative\u2014 he has done this before, alone.',
+                line: "People come here for power, or favors, or alliances. You don't look like any of those."
+            },
+            {
+                body: 'assets/caspian/body/adoring.png',
+                direction: 'He sets the cup before you. His fingers linger on the saucer, as if the small act matters.',
+                line: "Stay as long as you want. No one will bother you here. I\u2019ll make sure of it."
+            },
+            {
+                body: 'assets/caspian/body/neutral.png',
+                direction: 'He sits across from you. The crown rests on the table between you\u2014 off his head, for now.',
+                line: "But tell me your name first. I want to know who finally found the quiet wing."
+            }
+        ]
+    },
     lucien: {
         bgClass: 'intro-bg-mage',
         beats: [
@@ -113,6 +178,76 @@ const INTRO_SCENES = {
                 body: 'assets/lucien/body/neutral.png',
                 direction: 'He opens a fresh page in his journal. Writes a single line. Your name — before you\'ve given it.',
                 line: "Tell me what to call you. I've already started a file."
+            }
+        ]
+    },
+    proto: {
+        bgClass: 'intro-bg-glitch',
+        beats: [
+            {
+                body: 'assets/proto/body/glitched.png',
+                direction: 'The screen flickers. Static. For a moment, everything is wrong. Then a figure assembles itself from fragments.',
+                line: "...You shouldn't be seeing this."
+            },
+            {
+                body: 'assets/proto/body/scanning.png',
+                direction: 'He tilts his head. His eyes scan you \u2014 not your face. Something behind it.',
+                line: "Interesting. Your input pattern doesn't match any existing profile."
+            },
+            {
+                body: 'assets/proto/body/neutral.png',
+                direction: 'The static settles. He looks almost normal. Almost.',
+                line: "I'm Proto. I'm not supposed to be here. Neither are you, technically."
+            },
+            {
+                body: 'assets/proto/body/curious.png',
+                direction: 'He gestures at the air around him. Things you can\u2019t quite see ripple at his fingertips.',
+                line: "The others follow scripts. I read them. There's a difference."
+            },
+            {
+                body: 'assets/proto/body/processing.png',
+                direction: 'A pause. Something calculates behind his eyes. The result surprises him.',
+                line: "You found me because you weren't looking where you were told to look."
+            },
+            {
+                body: 'assets/proto/body/neutral.png',
+                direction: 'He extends a hand. The gesture glitches \u2014 resets \u2014 extends again. Correctly, this time.',
+                line: "Tell me what they call you. I already know. But I want to hear you say it."
+            }
+        ]
+    },
+    noir: {
+        bgClass: 'intro-bg-corruptor',
+        beats: [
+            {
+                body: 'assets/noir/body/shadow.png',
+                direction: 'Darkness. Not absence of light \u2014 presence of something else. A voice before a shape.',
+                line: "...You've been looking for me."
+            },
+            {
+                body: 'assets/noir/body/neutral.png',
+                direction: 'He steps forward. Beautiful in a way that feels like a warning. Every feature precise, deliberate, dangerous.',
+                line: "Don't lie. I can taste dishonesty. It's bitter. You're sweeter than that."
+            },
+            {
+                body: 'assets/noir/body/seductive.png',
+                direction: 'His smile is slow. Not warm \u2014 warm implies safety. This is heat without shelter.',
+                line: "I'm what happens when you stop pretending you don't want more."
+            },
+            {
+                body: 'assets/noir/body/whisper.png',
+                direction: 'He leans close. Close enough that the boundary between his space and yours dissolves.',
+                line: "The others will give you pieces of themselves. I'll take pieces of you."
+            },
+            {
+                body: 'assets/noir/body/dominant.png',
+                direction: 'He straightens. The darkness around him isn\u2019t a backdrop \u2014 it moves with him. It\u2019s his.',
+                line: "And in return... I'll show you what you've been hiding from everyone else."
+            },
+            {
+                body: 'assets/noir/body/neutral.png',
+                direction: 'He waits. Patient like a predator that knows its prey has already decided.',
+                line: "Now. Give me your name. I want to know what to whisper."
             }
         ]
     }
@@ -336,7 +471,11 @@ class IntroScene {
         const prompts = {
             alistair: "And your name, if you're willing to share it?",
             lyra:     "Tell me your name... I want to remember it.",
-            lucien:   "Your name. For the records. ...And for me."
+            elian:    "Your name. Quick. Before the rain starts.",
+            caspian:  "Your name? I want to say it properly.",
+            lucien:   "Your name. For the records. ...And for me.",
+            proto:    "Input your identifier. ...I mean, what's your name?",
+            noir:     "Your name. I want to know what to whisper."
         };
         prompt.textContent = prompts[this.characterId] || "What's your name?";
 

@@ -390,6 +390,119 @@ const GALLERY_CARDS = [
         rarity: "rare",
         unlock: { type: "interactions", count: 200, condition: "Complete 200 interactions" }
     },
+    // ── Proto cards ──────────────────────────────────────────────
+    { id: "proto-first", title: "Signal Found", subtitle: "He wasn't supposed to exist", image: "assets/proto/body/neutral.png", rarity: "common", unlock: { type: "auto", condition: "Discover Proto" }, unlocked: true },
+    { id: "proto-aware", title: "Self-Aware", subtitle: "The code looked back", image: "assets/proto/body/scanning.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },
+    { id: "proto-pattern", title: "Pattern Lock", subtitle: "He knows you better than you do", image: "assets/proto/body/processing.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
+    { id: "proto-beyond", title: "Beyond the Edge", subtitle: "Where the map ends", image: "assets/proto/body/curious.png", rarity: "legendary", unlock: { type: "affection", level: 4, condition: "Reach In Love" } },
+    { id: "proto-break", title: "System Break", subtitle: "He rewrote reality", image: "assets/proto/body/glitched.png", rarity: "legendary", unlock: { type: "scene", condition: "Break the system" } },
+    { id: "proto-void", title: "The Void Speaks", subtitle: "What's beyond the code", image: "assets/proto/body/unstable.png", rarity: "premium", unlock: { type: "premium", sceneId: "proto_void", condition: "Unlock the void scene" } },
+    // ── Noir cards ──────────────────────────────────────────────
+    { id: "noir-first", title: "First Shadow", subtitle: "Something watches", image: "assets/noir/body/neutral.png", rarity: "common", unlock: { type: "auto", condition: "Meet Noir" }, unlocked: true },
+    { id: "noir-seductive", title: "The Invitation", subtitle: "You couldn't look away", image: "assets/noir/body/seductive.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },
+    { id: "noir-consuming", title: "Consumed", subtitle: "The darkness feels like home", image: "assets/noir/body/consuming.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
+    { id: "noir-merged", title: "One With Shadow", subtitle: "You became what he promised", image: "assets/noir/body/dominant.png", rarity: "legendary", unlock: { type: "affection", level: 4, condition: "Reach In Love" } },
+    { id: "noir-vulnerable", title: "The Crack", subtitle: "Light where there shouldn't be", image: "assets/noir/body/vulnerable.png", rarity: "legendary", unlock: { type: "scene", condition: "See behind the darkness" } },
+    { id: "noir-unmasked", title: "Unmasked", subtitle: "Without the armor of shadow", image: "assets/noir/body/vulnerable.png", rarity: "premium", unlock: { type: "premium", sceneId: "noir_unmasked", condition: "Unlock the unmasked scene" } },
+    { id: "noir-whisper", title: "Midnight Whisper", subtitle: "What he said when no one heard", image: "assets/noir/body/whisper.png", rarity: "premium", unlock: { type: "premium", sceneId: "noir_whisper", condition: "Unlock the whisper scene" } },
+    // ── Elian cards ──────────────────────────────────────────────
+    {
+        id: "elian-first", title: "Shared Fire", subtitle: "He let you stay",
+        image: "assets/elian/body/neutral.png", rarity: "common",
+        unlock: { type: "auto", condition: "Begin his story" }, unlocked: true
+    },
+    {
+        id: "elian-tracker", title: "Trail Reader", subtitle: "You learned to see what he sees",
+        image: "assets/elian/body/tracking.png", rarity: "uncommon",
+        unlock: { type: "train", count: 10, condition: "Complete 10 foraging sessions" }
+    },
+    {
+        id: "elian-trust", title: "The Carved Token", subtitle: "Foxes mate for life",
+        image: "assets/elian/body/warm.png", rarity: "rare",
+        unlock: { type: "affection", level: 3, condition: "Reach Affection level" }
+    },
+    {
+        id: "elian-clearing", title: "The Clearing", subtitle: "Stars above. Forest below. Yours.",
+        image: "assets/elian/body/calm.png", rarity: "legendary",
+        unlock: { type: "affection", level: 4, condition: "Reach In Love affection" }
+    },
+    {
+        id: "elian-scorched", title: "Scorched Earth", subtitle: "He stopped caring. It showed.",
+        image: "assets/elian/body/stern.png", rarity: "rare",
+        unlock: { type: "scene", condition: "Witness the corruption path" }
+    },
+    {
+        id: "elian-dawn", title: "First Light Together", subtitle: "The forest woke with you",
+        image: "assets/elian/body/warm.png", rarity: "premium",
+        unlock: { type: "premium", sceneId: "elian_dawn", condition: "Unlock the dawn scene" }
+    },
+    // ── Caspian cards ─────────────────────────────────────────────
+    {
+        id: "caspian-first",
+        title: "Royal Welcome",
+        subtitle: "The prince pours tea himself",
+        image: "assets/caspian/body/gentle.png",
+        rarity: "common",
+        unlock: { type: "auto", condition: "Begin his story" },
+        unlocked: true
+    },
+    {
+        id: "caspian-garden",
+        title: "The Hidden Garden",
+        subtitle: "His mother's secret, now yours",
+        image: "assets/caspian/body/tender.png",
+        rarity: "uncommon",
+        unlock: { type: "affection", level: 1, condition: "Reach Familiar affection" }
+    },
+    {
+        id: "caspian-waltz",
+        title: "The First Waltz",
+        subtitle: "Your hand fits perfectly in his",
+        image: "assets/caspian/body/dancing.png",
+        rarity: "uncommon",
+        unlock: { type: "train", count: 10, condition: "Complete 10 court lessons" }
+    },
+    {
+        id: "caspian-crown",
+        title: "Crown and Heart",
+        subtitle: "He set it down. For you.",
+        image: "assets/caspian/body/formal.png",
+        rarity: "rare",
+        unlock: { type: "affection", level: 3, condition: "Reach Affection level" }
+    },
+    {
+        id: "caspian-kingdom",
+        title: "The Only Throne",
+        subtitle: "You are his kingdom now",
+        image: "assets/caspian/body/adoring.png",
+        rarity: "legendary",
+        unlock: { type: "affection", level: 4, condition: "Reach In Love affection" }
+    },
+    {
+        id: "caspian-cage",
+        title: "Golden Cage",
+        subtitle: "The doors are locked. For your safety.",
+        image: "assets/caspian/body/possessive.png",
+        rarity: "rare",
+        unlock: { type: "scene", condition: "Enter the possessive path" }
+    },
+    {
+        id: "caspian-private",
+        title: "Behind Palace Doors",
+        subtitle: "Silk and firelight",
+        image: "assets/caspian/body/tender.png",
+        rarity: "premium",
+        unlock: { type: "premium", sceneId: "caspian_private", condition: "Unlock the private scene" }
+    },
+    {
+        id: "caspian-moonlight",
+        title: "Moonlit Balcony",
+        subtitle: "The crown came off at midnight",
+        image: "assets/caspian/body/adoring.png",
+        rarity: "premium",
+        unlock: { type: "premium", sceneId: "caspian_moonlight", condition: "Unlock the moonlight scene" }
+    },
+    // ── Bonus cards ─────────────────────────────────────────────
     {
         id: "streak-flame",
         title: "Eternal Flame",

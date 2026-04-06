@@ -165,6 +165,31 @@ class GameUI {
                     "The mage's magic leaves traces. I can feel it on you.",
                     "You seem... distracted. Like someone who's been solving puzzles.",
                     "I don't compete with scholars. I compete with swords. But still."
+                ],
+                caspian: [
+                    "You smell like roses. The palace, then.",
+                    "You're more relaxed today. Like someone who's been... pampered.",
+                    "A knight offers protection. A prince offers comfort. Different things.",
+                    "There's silk thread on your shoulder. That's not from my barracks.",
+                    "...The prince is generous. I hope he's also honest."
+                ],
+                elian: [
+                    "Dirt on your boots. Forest path.",
+                    "You smell like pine and campfire smoke. The druid.",
+                    "He teaches survival. I teach duty. Both matter.",
+                    "You seem... grounded today. Less careful. His influence."
+                ],
+                proto: [
+                    "Something's off about you today. I can't place it.",
+                    "You're questioning things more than usual. The anomaly.",
+                    "Whatever he showed you... it's not the whole picture.",
+                    "The glitch sees patterns. I see people. There's a difference."
+                ],
+                noir: [
+                    "There's shadow on you. I don't like it.",
+                    "You've been somewhere dark. A knight knows darkness when he sees it.",
+                    "Whatever he offered you... a sword is more honest.",
+                    "The corruptor leaves marks. Even I can see them."
                 ]
             },
             Lyra: {
@@ -181,6 +206,31 @@ class GameUI {
                     "He studies. I feel. We're the same problem, different solutions.",
                     "...Did he talk about me? He never talks about me.",
                     "The tower and the cave are not so different. Both are lonely."
+                ],
+                caspian: [
+                    "You smell like roses and gold. The palace.",
+                    "He wraps you in silk. I wrap you in song. His is softer. Mine is deeper.",
+                    "The prince makes everything easy. That's not always a gift.",
+                    "You're calmer today. Like someone who's been told everything is fine.",
+                    "...Comfort is a tide that pulls you out slowly. Be careful."
+                ],
+                elian: [
+                    "There's earth on you. The forest.",
+                    "He grounds you. I drown you. Different kinds of love.",
+                    "The druid is practical. I'm emotional. You need both.",
+                    "You smell like rain and bark. His world."
+                ],
+                proto: [
+                    "You're... different today. Colder. More analytical.",
+                    "He showed you something, didn't he? Behind the curtain.",
+                    "The glitch sees code. I see hearts. Don't confuse them.",
+                    "Whatever he told you about me... it wasn't personal. It was data."
+                ],
+                noir: [
+                    "The darkness is on you. I can feel it in my song.",
+                    "He takes pieces of you. I give pieces of me. See the difference?",
+                    "My brother... half-brother... whatever he is now... be careful.",
+                    "The corruption hums at a frequency I recognize. It scares me."
                 ]
             },
             Lucien: {
@@ -197,7 +247,97 @@ class GameUI {
                     "My sister has a gift for making people forget everything else. Including me.",
                     "The ocean is in your eyes today. That's not a compliment. It's an observation.",
                     "...She and I share blood. But not this. Not you."
+                ],
+                caspian: [
+                    "You smell like roses and silk. Palace visit.",
+                    "You're softer today. More relaxed. That concerns me.",
+                    "Comfort is the enemy of discovery. The prince specializes in comfort.",
+                    "He gives you luxury. I give you understanding. Different currencies.",
+                    "...The prince is kind. Kindness can be a cage."
+                ],
+                elian: [
+                    "Pine sap on your sleeve. The druid.",
+                    "His approach is instinctive. Mine is systematic. Both have merit.",
+                    "The forest teaches patience. My tower teaches precision.",
+                    "You're more decisive today. His influence. Not bad."
+                ],
+                proto: [
+                    "Your thought patterns shifted. You spoke to the anomaly.",
+                    "He showed you something. I can see it in how you process information now.",
+                    "The glitch and I see similar things. We interpret them differently.",
+                    "Whatever he revealed... be careful. Some knowledge corrupts."
+                ],
+                noir: [
+                    "Someone else's magic lingers on you. Dark magic.",
+                    "The corruptor's influence is... measurable. And growing.",
+                    "He consumes. I preserve. My sister knows the difference.",
+                    "...That darkness isn't yours. But it's settling in."
                 ]
+            },
+            Caspian: {
+                alistair: [
+                    "You came from the barracks. I can tell by the dust.",
+                    "He protects you with steel. I protect you with peace.",
+                    "The knight is noble. But nobility is cold comfort.",
+                    "You looked more tense. I noticed.",
+                    "A prince doesn't compete. He provides."
+                ],
+                lyra: [
+                    "There's salt in your hair. The sea? Or the siren?",
+                    "She sings beautifully. But songs end. What I offer doesn't.",
+                    "The ocean is unpredictable. The palace is constant.",
+                    "You seem distant. Like someone hearing music I can't.",
+                    "I won't ask where you were. I'll just make sure you come back."
+                ],
+                lucien: [
+                    "Ink on your fingers. The tower again.",
+                    "The mage deals in questions. I deal in comfort.",
+                    "He challenges you. I shelter you. Which feels like home?",
+                    "You seem tired. Like someone thinking too hard.",
+                    "The tower is cold. The palace is warm. Choose."
+                ],
+                elian: [
+                    "Mud on your shoes. The forest.",
+                    "He lives without luxury. I can't imagine why. By choice?",
+                    "The druid is... rugged. I'm refined. There's room for both.",
+                    "You look windswept. The palace has walls for a reason."
+                ],
+                proto: [
+                    "You seem distant today. Like you're seeing through things.",
+                    "He showed you something unsettling. I can see it in your eyes.",
+                    "The anomaly offers perspective. I offer peace. Which heals?",
+                    "Whatever he told you about reality... this is real. I'm real."
+                ],
+                noir: [
+                    "There's something dark on you. I don't like it at all.",
+                    "He takes. And takes. The palace gives.",
+                    "The darkness he carries... it's not romantic. It's dangerous.",
+                    "Promise me you'll be careful. Whatever he offers isn't free."
+                ]
+            },
+            Elian: {
+                alistair: ["You carry yourself like a soldier today. Castle influence.", "Steel and polish. The forest doesn't need either.", "The knight offers walls. I offer roots. Different shelters.", "You're stiffer. More guarded. His training, not mine."],
+                lyra: ["There's salt on your skin. The sea.", "She sings to hold you. I just... stay.", "You're softer today. Ocean-touched.", "The siren offers echoes. I offer solid ground."],
+                lucien: ["You smell like old paper and reagents. The tower.", "He fills your head with questions. I teach answers.", "You're overthinking. That's his influence.", "The mage and I agree on nothing. Especially you."],
+                caspian: ["Rose petals on your sleeve. The palace.", "He wraps everything in silk. Even the truth.", "You're too comfortable today. That worries me.", "Comfort makes you soft. The forest won't."],
+                proto: ["There's something... off about you today. Glitched.", "He showed you things you shouldn't see.", "You're questioning reality. His doing.", "The anomaly leaves traces. I can feel them."],
+                noir: ["Darkness clings to you. I don't like it.", "You were with him. The shadows told me.", "The corruption is subtle. But the forest feels it.", "He takes. I give. Remember the difference."]
+            },
+            Proto: {
+                alistair: ["Your behavioral pattern shifted 12% after visiting the castle. Noted.", "The knight's influence is predictable. Linear. Unlike you.", "Steel doesn't compute. But you still went to it."],
+                lyra: ["Emotional resonance spike detected. The siren.", "Her frequency lingers in your input patterns.", "You're more emotional today. Correlation: siren interaction."],
+                lucien: ["His equations and my code aren't that different. But he doesn't know that.", "The mage sees patterns too. Just... slower ones.", "You visited the tower. Your decision tree shifted."],
+                caspian: ["Comfort metrics elevated. Palace exposure.", "The prince optimizes for stasis. I optimize for... you.", "Your risk tolerance dropped after seeing him. Interesting."],
+                elian: ["Dirt under your nails. Forest data.", "The druid runs on instinct. I run on data. You need both.", "You smell like pine. That's not a judgment. It's a data point."],
+                noir: ["Corruption index increased by 7 points. His doing.", "The corruptor's code is... parasitic. Be careful.", "[WARNING] Shadow protocol detected in your save file."]
+            },
+            Noir: {
+                alistair: ["You still go to the knight. How... safe.", "Steel and honor. Such a boring shield.", "He protects you FROM things. I protect you FROM yourself.", "The knight's loyalty is a leash. Mine is a liberation."],
+                lyra: ["The siren's song is sweet. Mine is sweeter.", "She holds you with music. I hold you with truth.", "You went to the sea. But the deep water is mine.", "Her love is gentle. Mine is consuming. Which do you crave?"],
+                lucien: ["The mage thinks he understands darkness. He studies it. I AM it.", "His equations can't solve me. I've tried giving him the variables.", "You visited my... sister's brother. How quaint.", "Knowledge without power is just anxiety. I offer both."],
+                caspian: ["The prince draped you in comfort. I can taste it on you. Cloying.", "He builds golden cages. I break all cages.", "Comfort or desire. You know which one keeps you up at night.", "His roses wilt. My shadows grow. Choose your garden."],
+                elian: ["Dirt and practicality. The druid's influence.", "He teaches survival. I teach transcendence.", "The forest is honest. But it's not as honest as the dark.", "His grounding pulls you down. I pull you... deeper."],
+                proto: ["The glitch sees code. I see hunger.", "His awareness is cold. Mine is hot.", "He reads your data. I read your desires.", "The anomaly and I share one thing: we both see through the illusion."]
             }
         };
         return lines[currentChar]?.[lastChar] || [];
@@ -477,7 +617,8 @@ class GameUI {
             const timeSinceInteraction = Date.now() - g.lastInteractionTime;
 
             // Only speak if player hasn't interacted for 15+ seconds
-            if (timeSinceInteraction > 15000) {
+            // AND the typewriter isn't already showing something
+            if (timeSinceInteraction > 15000 && !(g.typewriter && g.typewriter.isTyping)) {
 
                 // ── Lyra: tiered idle — short / medium / long ────────────────
                 // Routes to per-tier + per-personality-profile pools instead of
@@ -492,6 +633,37 @@ class GameUI {
                     if (lyraLine) {
                         g.typewriter.show(lyraLine);
                         if (Math.random() > 0.6) sounds.ambientNote?.();
+                        this.scheduleIdleDialogue();
+                        return;
+                    }
+                }
+
+                // ── Noir cross-character corruption taint (8% chance) ────
+                if (Math.random() < 0.08 && g.selectedCharacter !== 'noir' && typeof g._loadMetaMemory === 'function') {
+                    var meta = g._loadMetaMemory();
+                    var noirCorr = meta.noirCorruption || 0;
+                    if (noirCorr >= 10) {
+                        var taintedLines = [
+                            "...Something feels darker today. I can't explain it.",
+                            "Did you hear that? ...No. Nothing. I'm imagining things.",
+                            "I had a dream about shadows. They were warm.",
+                            "...You seem different lately. Like something is pulling at you.",
+                            "The air feels heavier. Is it just me?",
+                            "I keep seeing things in the corners of my vision.",
+                            "Something whispered my name last night. It sounded like you.",
+                            "...I don't feel like myself today.",
+                            "There's a coldness I can't shake. It came from nowhere.",
+                            "You smell like smoke. But there's no fire."
+                        ];
+                        if (noirCorr >= 50) {
+                            taintedLines.push(
+                                "...He's still here, isn't he. Even when you're with me.",
+                                "The darkness doesn't leave. It just waits.",
+                                "I can feel it changing me. Through you.",
+                                "Whatever you brought back from him... it's spreading."
+                            );
+                        }
+                        g.typewriter.show(taintedLines[Math.floor(Math.random() * taintedLines.length)]);
                         this.scheduleIdleDialogue();
                         return;
                     }

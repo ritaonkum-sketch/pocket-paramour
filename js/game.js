@@ -85,6 +85,21 @@ class PocketLoveGame {
         // ── Alistair Peak Arc ──────────────────────────────────────────
         this.alistairPhase      = null;  // null | 'distant' | 'conflicted' | 'unstable'
         this.alistairPeakChoice = null;  // null | 'duty' | 'stay' | 'reflect'
+        // ── Elian Playable State ─────────────────────────────────────────
+        this.elianPhase         = null;   // null | assessing | testing | bonded | scorched
+        this.decisivenessScore  = 50;     // 0-100: how fast player makes choices
+        this.foragingScore      = 0;
+        // ── Proto Playable State ────────────────────────────────────────
+        this.protoPhase         = null;   // null | detected | aware | breaking | broken
+        this.systemCommandsRun  = 0;
+        this.protoGlitchIntensity = 0;    // 0-100
+        // ── Noir Playable State ─────────────────────────────────────────
+        this.noirPhase          = null;   // null | tempting | corrupting | consuming | merged
+        this.noirCorruptionGlobal = 0;    // cross-character corruption spread
+        // ── Caspian Playable State ──────────────────────────────────────
+        this.caspianPhase       = null;  // null | warm | devoted | possessive | released
+        this.comfortLevel       = 0;     // 0-100: comfort trap mechanic
+        this.courtEtiquetteScore = 0;    // training milestone tracker
         // ── Lucien Playable State (when playing AS Lucien) ──────────────
         this.lucienPhase        = 'cold'; // cold | curious | fascinated | obsessed | vulnerable
         this.puzzlesMastered    = 0;
@@ -169,6 +184,12 @@ class PocketLoveGame {
             path_ending_dependent: { triggered: false },
             path_ending_defensive: { triggered: false },
             path_ending_detached:  { triggered: false },
+            // ── Caspian Playable Arc ─────────────────────────────────────
+            caspian_warmth:          { triggered: false },
+            caspian_dependency:      { triggered: false },
+            caspian_choice:          { triggered: false },
+            caspian_gentle_release:  { triggered: false },
+            caspian_comfort_loop:    { triggered: false },
             // ── Lucien Playable Arc ──────────────────────────────────────
             lucien_observation:     { triggered: false },   // Day 1-2: "You're an unexpected variable"
             lucien_margin_notes:    { triggered: false },   // Day 3: Personal notes discovered
@@ -1850,6 +1871,22 @@ class PocketLoveGame {
             focus:    { emotion: 'neutral', duration: 3050, seq: () => this.ui.playFocusSequence(unlock)    },
             singing:  { emotion: 'happy',   duration: 2200, seq: () => this.ui.playSingingSequence(unlock)  },
             magic:    { emotion: 'love',    duration: 2600, seq: () => this.ui.playMagicSequence(unlock)    },
+            // Elian foraging types
+            herbs:      { emotion: 'happy',   duration: 2500, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            tracking:   { emotion: 'neutral', duration: 2500, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            meditation: { emotion: 'neutral', duration: 2500, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            // Proto system command types
+            inspect:    { emotion: 'neutral', duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            override:   { emotion: 'love',    duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            // Noir shadow arts types — also spreads global corruption
+            temptation:  { emotion: 'love',    duration: 2500, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.bounceCharacter(); unlock(); } },
+            domination:  { emotion: 'angry',   duration: 2500, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(3); this.ui.bounceCharacter(); unlock(); } },
+            dissolution: { emotion: 'neutral', duration: 2500, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.bounceCharacter(); unlock(); } },
+            // Caspian court etiquette types
+            dance:     { emotion: 'happy',   duration: 2500, seq: () => { this._applyCaspianComfort(); this.ui.bounceCharacter(); unlock(); } },
+            diplomacy: { emotion: 'neutral', duration: 2500, seq: () => { this._applyCaspianComfort(); this.ui.bounceCharacter(); unlock(); } },
+            poetry:    { emotion: 'love',    duration: 2500, seq: () => { this._applyCaspianComfort(); this.ui.bounceCharacter(); unlock(); } },
             // Lucien puzzle types
             logic:    { emotion: 'neutral', duration: 8000, seq: () => this.ui.playPuzzleSequence('logic', unlock)  },
             arcane:   { emotion: 'gentle',  duration: 8000, seq: () => this.ui.playPuzzleSequence('arcane', unlock) },
@@ -1914,6 +1951,15 @@ class PocketLoveGame {
         this.affection  = Math.max(0,   Math.min(100, this.affection + affectionChange));
         this.hunger     = Math.max(0,   this.hunger  - 5);
         this.corruption = Math.max(0,   this.corruption - 2);
+
+        // Caspian: comfort level grows with interactions
+        if (CHARACTER.name === 'Caspian') {
+            this.comfortLevel = Math.min(100, (this.comfortLevel || 0) + 1);
+            // When comfort > 70, bond growth is halved (comfort trap)
+            if (this.comfortLevel > 70) {
+                bondChange = Math.floor(bondChange / 2);
+            }
+        }
 
         // Lucien: talking builds research notes (shared knowledge metric)
         if (CHARACTER.name === 'Lucien') {
@@ -5823,6 +5869,33 @@ class PocketLoveGame {
             }
         }
 
+        // ── Caspian Playable Arc Triggers ─────────────────────────────
+        if (CHARACTER.name === 'Caspian') {
+            if (!sl.caspian_warmth.triggered &&
+                this.storyDay >= 2 && this.affectionLevel >= 1 &&
+                Math.random() > 0.997) {
+                sl.caspian_warmth.triggered = true;
+                setTimeout(() => this._playCaspianWarmth(), 1500);
+                return;
+            }
+            if (!sl.caspian_dependency.triggered &&
+                sl.caspian_warmth.triggered &&
+                this.storyDay >= 4 && this.comfortLevel >= 30 &&
+                Math.random() > 0.997) {
+                sl.caspian_dependency.triggered = true;
+                setTimeout(() => this._playCaspianDependency(), 1500);
+                return;
+            }
+            if (!sl.caspian_choice.triggered &&
+                sl.caspian_dependency.triggered &&
+                this.storyDay >= 7 &&
+                Math.random() > 0.998) {
+                sl.caspian_choice.triggered = true;
+                setTimeout(() => this._playCaspianChoice(), 1500);
+                return;
+            }
+        }
+
         // ── Lucien Playable Arc Triggers ──────────────────────────────
         if (CHARACTER.name === 'Lucien') {
             // Day 1-2: First observation — he acknowledges your pattern
@@ -7812,6 +7885,210 @@ class PocketLoveGame {
         ]);
     }
 
+    // ── Noir global corruption spread ──────────────────────────────
+    _spreadNoirCorruption(amount) {
+        try {
+            const meta = this._loadMetaMemory();
+            meta.noirCorruption = Math.min(100, (meta.noirCorruption || 0) + amount);
+            this._saveMetaMemory(meta);
+        } catch(e) {}
+    }
+
+    // ════════════════════════════════════════════════════════════════
+    // CASPIAN — PLAYABLE CHARACTER STORY ARC
+    // Warmth → Dependency → Choice (comfort vs growth)
+    // ════════════════════════════════════════════════════════════════
+
+    _playCaspianWarmth() {
+        this.caspianPhase = 'warm';
+        const body = CHARACTER.bodySprites?.gentle || CHARACTER.bodySprites?.neutral;
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'delay', ms: 400 },
+            { type: 'char', src: body, wait: 900 },
+            { type: 'line', text: "I need to tell you something.", hold: 2000, speed: 40 },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "This palace has a hundred rooms. And none of them felt like home.", hold: 2800, speed: 34, pose: 'melancholy' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'particle', emoji: '\uD83C\uDF39', count: 5, ms: 1200, wait: false },
+            { type: 'line', text: "Until you started filling them.", hold: 2400, speed: 36, pose: 'adoring' },
+            { type: 'clear' },
+            { type: 'delay', ms: 800 },
+            { type: 'line', text: "Stay. Not because I'm asking. Because it's warm here now.", hold: 3000, speed: 32, pose: 'tender' },
+            { type: 'clear' },
+            { type: 'hide' }
+        ], () => {
+            this.emotion.trust = Math.min(100, this.emotion.trust + 6);
+            this.comfortLevel = Math.min(100, this.comfortLevel + 10);
+            this.save();
+        });
+    }
+
+    _playCaspianDependency() {
+        this.caspianPhase = 'devoted';
+        const body = CHARACTER.bodySprites?.tender || CHARACTER.bodySprites?.neutral;
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 500 },
+            { type: 'delay', ms: 400 },
+            { type: 'char', src: body, wait: 900 },
+            { type: 'line', text: "I cancelled everything today.", hold: 2000, speed: 40 },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "The ambassador. The council. The treaty signing.", hold: 2400, speed: 36, pose: 'neutral' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'line', text: "Because you were here. And nothing else seemed important.", hold: 3000, speed: 32, pose: 'adoring' },
+            { type: 'clear' },
+            { type: 'delay', ms: 800 },
+            { type: 'line', text: "Is that devotion... or dependency?", hold: 2800, speed: 34, pose: 'melancholy' },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "I don't care which. As long as you stay.", hold: 2600, speed: 36, pose: 'tender' },
+            { type: 'clear' },
+            { type: 'hide' }
+        ], () => {
+            this.emotion.trust = Math.min(100, this.emotion.trust + 5);
+            this.emotion.obsession = Math.min(100, this.emotion.obsession + 8);
+            this.comfortLevel = Math.min(100, this.comfortLevel + 15);
+            this.save();
+        });
+    }
+
+    _playCaspianChoice() {
+        const body = CHARACTER.bodySprites?.formal || CHARACTER.bodySprites?.neutral;
+        const isComfortPath = this.comfortLevel >= 70;
+
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'delay', ms: 500 },
+            { type: 'char', src: body, wait: 1000 },
+            { type: 'line', text: "The kingdom needs a decision.", hold: 2200, speed: 40, pose: 'formal' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'line', text: isComfortPath
+                ? "And so do I. You've made this place so comfortable... I've stopped growing."
+                : "And so do I. You've made me stronger. But the world outside is calling.", hold: 3200, speed: 30, pose: 'melancholy' },
+            { type: 'clear' },
+            { type: 'delay', ms: 1000 },
+            { type: 'line', text: "So tell me honestly...", hold: 2000, speed: 38 },
+            { type: 'clear' },
+            { type: 'delay', ms: 800 },
+            { type: 'choice',
+              choices: ["Stay forever.", "It's time to grow.", "I don't want to choose."],
+              onPick: (i) => {
+                  if (i === 0) {
+                      this.caspianPhase = 'possessive';
+                      this.comfortLevel = 100;
+                      this.sceneLibrary.caspian_comfort_loop.triggered = true;
+                      this.gallery?.unlockById('caspian-cage');
+                      this._playCaspianComfortLoop();
+                  } else if (i === 1) {
+                      this.caspianPhase = 'released';
+                      this.sceneLibrary.caspian_gentle_release.triggered = true;
+                      this.gallery?.unlockById('caspian-kingdom');
+                      this._playCaspianGentleRelease();
+                  } else {
+                      this.caspianPhase = 'devoted';
+                      this._playCaspianUndecided();
+                  }
+              }
+            }
+        ], () => {});
+    }
+
+    _playCaspianComfortLoop() {
+        this._playScene([
+            { type: 'delay', ms: 600 },
+            { type: 'particle', emoji: '\uD83D\uDC51', count: 6, ms: 1500 },
+            { type: 'line', text: "Good. Then nothing changes.", hold: 2200, speed: 40, pose: 'adoring' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'line', text: "The doors will stay open. The tea will always be warm.", hold: 2800, speed: 34 },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "And I will always be here.", hold: 2400, speed: 36, pose: 'tender' },
+            { type: 'clear' },
+            { type: 'delay', ms: 800 },
+            { type: 'line', text: "...Always.", hold: 2000, speed: 42, pose: 'possessive' },
+            { type: 'clear' },
+            { type: 'hide' }
+        ], () => {
+            this.endingPlayed = 'comfort';
+            this.save();
+        });
+    }
+
+    _playCaspianGentleRelease() {
+        this._playScene([
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "...I knew you'd say that.", hold: 2000, speed: 40, pose: 'melancholy' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'line', text: "Growth means leaving comfortable things behind.", hold: 2800, speed: 34 },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'particle', emoji: '\uD83C\uDF39', count: 8, ms: 1500 },
+            { type: 'line', text: "But I want you to know... the palace doors never close. Not for you.", hold: 3200, speed: 30, pose: 'gentle' },
+            { type: 'clear' },
+            { type: 'delay', ms: 800 },
+            { type: 'sfx', name: 'fanfare' },
+            { type: 'endcard',
+              title: "Gentle Release",
+              sub: "He let you go. The hardest thing a prince can do.",
+              restartLabel: "Start Over",
+              stayLabel: "Stay",
+              onRestart: () => {
+                  const meta = this._loadMetaMemory();
+                  meta.hasPlayedBefore = true;
+                  meta.endingsSeen = meta.endingsSeen || {};
+                  meta.endingsSeen.caspianRelease = true;
+                  meta.bondEcho = Math.min(10, (meta.bondEcho || 0) + 2);
+                  meta.caspianCompleted = true;
+                  this._saveMetaMemory(meta);
+                  localStorage.removeItem('pocketLoveSave_caspian');
+                  window.location.reload();
+              },
+              onStay: () => {
+                  const meta = this._loadMetaMemory();
+                  meta.caspianCompleted = true;
+                  meta.endingsSeen = meta.endingsSeen || {};
+                  meta.endingsSeen.caspianRelease = true;
+                  this._saveMetaMemory(meta);
+                  this.endingPlayed = 'bond';
+                  this.save();
+              }
+            }
+        ]);
+    }
+
+    _playCaspianUndecided() {
+        this._playScene([
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "...That's not an answer.", hold: 2000, speed: 42, pose: 'hurt' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'line', text: "But it's honest. And I prefer honesty to comfort.", hold: 2800, speed: 34 },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "Take your time. The palace will wait. And so will I.", hold: 2800, speed: 32, pose: 'neutral' },
+            { type: 'clear' },
+            { type: 'hide' }
+        ], () => { this.save(); });
+    }
+
+    // Add comfort mechanic to training
+    _applyCaspianComfort() {
+        if (CHARACTER.name === 'Caspian') {
+            this.comfortLevel = Math.min(100, (this.comfortLevel || 0) + 3);
+            this.courtEtiquetteScore = (this.courtEtiquetteScore || 0) + 1;
+        }
+    }
+
     // ════════════════════════════════════════════════════════════════
     // LUCIEN — PLAYABLE CHARACTER STORY ARC
     // Days 1-3: Cold curiosity → Days 4-6: Fascination → Day 7+: Fork
@@ -8634,6 +8911,21 @@ class PocketLoveGame {
             // Alistair peak arc
             alistairPhase:      this.alistairPhase,
             alistairPeakChoice: this.alistairPeakChoice,
+            // Elian playable state
+            elianPhase:          this.elianPhase,
+            decisivenessScore:   this.decisivenessScore,
+            foragingScore:       this.foragingScore,
+            // Proto playable state
+            protoPhase:          this.protoPhase,
+            systemCommandsRun:   this.systemCommandsRun,
+            protoGlitchIntensity:this.protoGlitchIntensity,
+            // Noir playable state
+            noirPhase:           this.noirPhase,
+            noirCorruptionGlobal:this.noirCorruptionGlobal,
+            // Caspian playable state
+            caspianPhase:        this.caspianPhase,
+            comfortLevel:        this.comfortLevel,
+            courtEtiquetteScore: this.courtEtiquetteScore,
             // Lucien playable state
             lucienPhase:        this.lucienPhase,
             puzzlesMastered:    this.puzzlesMastered,
@@ -8723,6 +9015,21 @@ class PocketLoveGame {
             this.dutyCallFired      = data.dutyCallFired      ?? false;
             this.alistairPhase      = data.alistairPhase      ?? null;
             this.alistairPeakChoice = data.alistairPeakChoice ?? null;
+            // Elian playable state
+            this.elianPhase          = data.elianPhase          ?? null;
+            this.decisivenessScore   = data.decisivenessScore   ?? 50;
+            this.foragingScore       = data.foragingScore       ?? 0;
+            // Proto playable state
+            this.protoPhase          = data.protoPhase          ?? null;
+            this.systemCommandsRun   = data.systemCommandsRun   ?? 0;
+            this.protoGlitchIntensity= data.protoGlitchIntensity?? 0;
+            // Noir playable state
+            this.noirPhase           = data.noirPhase           ?? null;
+            this.noirCorruptionGlobal= data.noirCorruptionGlobal?? 0;
+            // Caspian playable state
+            this.caspianPhase        = data.caspianPhase        ?? null;
+            this.comfortLevel        = data.comfortLevel        ?? 0;
+            this.courtEtiquetteScore = data.courtEtiquetteScore ?? 0;
             // Lucien playable state
             this.lucienPhase        = data.lucienPhase        ?? 'cold';
             this.puzzlesMastered    = data.puzzlesMastered    ?? 0;
@@ -8806,6 +9113,12 @@ class PocketLoveGame {
                 path_ending_dependent: _sl.path_ending_dependent ?? { triggered: false },
                 path_ending_defensive: _sl.path_ending_defensive ?? { triggered: false },
                 path_ending_detached:  _sl.path_ending_detached  ?? { triggered: false },
+                // Caspian playable arc
+                caspian_warmth:          _sl.caspian_warmth          ?? { triggered: false },
+                caspian_dependency:      _sl.caspian_dependency      ?? { triggered: false },
+                caspian_choice:          _sl.caspian_choice          ?? { triggered: false },
+                caspian_gentle_release:  _sl.caspian_gentle_release  ?? { triggered: false },
+                caspian_comfort_loop:    _sl.caspian_comfort_loop    ?? { triggered: false },
                 // Lucien playable arc
                 lucien_observation:      _sl.lucien_observation      ?? { triggered: false },
                 lucien_margin_notes:     _sl.lucien_margin_notes     ?? { triggered: false },
@@ -8961,7 +9274,7 @@ let selectedCharacter = 'alistair';
         // Update loading subtitle
         var loadSub = document.getElementById('loading-subtitle');
         if (loadSub) {
-            var subtitles = { lyra: "~ Lyra's Story ~", lucien: "~ Lucien's Story ~" };
+            var subtitles = { lyra: "~ Lyra's Story ~", lucien: "~ Lucien's Story ~", caspian: "~ Caspian's Story ~", elian: "~ Elian's Story ~", proto: "~ ???'s Story ~", noir: "~ Noir's Story ~" };
             loadSub.textContent = subtitles[selectedCharacter] || "~ Alistair's Story ~";
         }
 
@@ -9013,7 +9326,39 @@ let selectedCharacter = 'alistair';
                             const meta = game._loadMetaMemory();
                             meta.lastPlayedCharacter = selectedCharacter;
                             meta.lastPlayedTime = Date.now();
+                            meta.characterSwitchCount = (meta.characterSwitchCount || 0) + 1;
                             game._saveMetaMemory(meta);
+
+                            // Unlock Proto if player switches characters enough
+                            if ((meta.characterSwitchCount || 0) >= 3) {
+                                const protoCard = document.getElementById('proto-card');
+                                if (protoCard && protoCard.classList.contains('select-card-locked')) {
+                                    protoCard.classList.remove('select-card-locked');
+                                    protoCard.querySelector('.select-card-name').textContent = 'Proto';
+                                    protoCard.querySelector('.select-card-role').textContent = 'The Glitch';
+                                }
+                            }
+
+                            // Unlock Noir if any ending seen or corruption > 50
+                            const hasEnding = meta.endingsSeen && Object.keys(meta.endingsSeen).length > 0;
+                            let highCorruption = false;
+                            ['alistair','lyra','lucien','caspian','elian'].forEach(function(cid) {
+                                try {
+                                    const raw = localStorage.getItem('pocketLoveSave_' + cid);
+                                    if (raw) {
+                                        const d = JSON.parse(raw);
+                                        if (d.corruption > 50) highCorruption = true;
+                                    }
+                                } catch(e) {}
+                            });
+                            if (hasEnding || highCorruption) {
+                                const noirCard = document.getElementById('noir-card');
+                                if (noirCard && noirCard.classList.contains('select-card-locked')) {
+                                    noirCard.classList.remove('select-card-locked');
+                                    noirCard.querySelector('.select-card-name').textContent = 'Noir';
+                                    noirCard.querySelector('.select-card-role').textContent = 'The Corruptor';
+                                }
+                            }
                         } catch(e) {}
 
                         // Show game container, then fade out loading screen

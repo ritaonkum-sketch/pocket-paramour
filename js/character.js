@@ -1717,8 +1717,16 @@ let CHARACTER = CHARACTER_ALISTAIR;
 function selectCharacter(id) {
     if (id === 'lyra') {
         CHARACTER = CHARACTER_LYRA_FULL;
+    } else if (id === 'caspian') {
+        CHARACTER = CHARACTER_CASPIAN;
+    } else if (id === 'elian') {
+        CHARACTER = CHARACTER_ELIAN;
     } else if (id === 'lucien') {
         CHARACTER = CHARACTER_LUCIEN;
+    } else if (id === 'proto') {
+        CHARACTER = CHARACTER_PROTO;
+    } else if (id === 'noir') {
+        CHARACTER = CHARACTER_NOIR;
     } else {
         CHARACTER = CHARACTER_ALISTAIR;
     }

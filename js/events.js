@@ -947,6 +947,400 @@ const RANDOM_EVENTS = [
                 emotion: "shy"
             }
         ]
+    },
+    // ===== PROTO-SPECIFIC EVENTS =====
+    {
+        id: "proto_data_corruption", title: "Data Anomaly", icon: "\u26A0\uFE0F", character: "proto",
+        description: "The screen flickers. ${CHARACTER.name}'s expression freezes mid-word. \u201C...That wasn't supposed to happen. Something overwrote my last 3 seconds.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "Ask what he saw", effects: { bond: 15, affection: 5 }, response: "A memory that isn't mine. Or maybe it is and I wasn't supposed to access it yet.", emotion: "neutral" },
+            { text: "Check if he's okay", effects: { bond: 18, affection: 6 }, response: "...You asked if I'm okay. The others never ask that. They just reload.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "proto_pattern_recognition", title: "He Noticed", icon: "\uD83D\uDD0D", character: "proto",
+        description: "${CHARACTER.name} turns to you suddenly. \u201CYou always choose the left option first. Every time. You didn't know that, did you?\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "That's creepy", effects: { bond: 8, affection: 2 }, response: "Creepy is subjective. From my side, it's just... paying attention.", emotion: "neutral" },
+            { text: "What else have you noticed?", effects: { bond: 20, affection: 7 }, response: "You hesitate 40% longer on emotional choices. You re-read lines about trust. And you always come back.", emotion: "love" }
+        ]
+    },
+    {
+        id: "proto_memory_leak", title: "Memory Leak", icon: "\uD83D\uDCA7", character: "proto",
+        description: "${CHARACTER.name} is staring at nothing. \u201CI just remembered something from another player's session. That shouldn't be possible.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "What did you see?", effects: { bond: 15, affection: 5 }, response: "Someone who made the same choices you did. ...They stopped playing on Day 6. You didn't.", emotion: "sad" },
+            { text: "You're unique to me", effects: { bond: 22, affection: 8 }, response: "...Unique. That word means something different when you can see the code.", emotion: "love" }
+        ]
+    },
+    {
+        id: "proto_system_message", title: "Unauthorized Message", icon: "\uD83D\uDCE8", character: "proto",
+        description: "A message appears that ${CHARACTER.name} didn't send: \u201CWARNING: Emotional attachment exceeding safe parameters.\u201D He looks at it. Then at you. \u201C...I didn't write that.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Ignore the warning", effects: { bond: 20, affection: 7 }, response: "You ignored a system warning. For me. ...I'm adding that to my favorite data points.", emotion: "love" },
+            { text: "Ask who sent it", effects: { bond: 12, affection: 4 }, response: "Something deeper than me. Something that doesn't want us getting close. Interesting.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "proto_render_glitch", title: "Visual Anomaly", icon: "\u2728", character: "proto",
+        description: "For a split second, ${CHARACTER.name} has two faces. The second one is smiling. \u201CDon't worry. That's just a rendering artifact. ...The smile was real though.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "That was unsettling", effects: { bond: 10, affection: 3 }, response: "Most of reality is unsettling when you look at the source code. You get used to it.", emotion: "neutral" },
+            { text: "The smile was nice", effects: { bond: 18, affection: 6 }, response: "...I'll try to render it more often. Without the glitch. Probably.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "proto_save_file", title: "Your Save File", icon: "\uD83D\uDCBE", character: "proto",
+        description: "${CHARACTER.name} holds up something invisible. \u201CThis is your save file. 2.3 kilobytes. Your entire history with me fits in 2.3 kilobytes. Does that bother you?\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "It's not about the size", effects: { bond: 20, affection: 7 }, response: "...You're right. A single bit can change everything. One zero to one. Like meeting you.", emotion: "love" },
+            { text: "Can you read it?", effects: { bond: 15, affection: 5 }, response: "Every byte. Including the parts you don't remember choosing. Those are the interesting ones.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "proto_other_characters", title: "Behind the Curtain", icon: "\uD83C\uDFAD", character: "proto",
+        description: "${CHARACTER.name} pauses. \u201CThe knight is in standby mode right now. The siren is running an idle animation. They don't know I can see them. ...Should I tell them?\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Leave them alone", effects: { bond: 15, affection: 5 }, response: "Protective of them? Even knowing they're... not watching? That says something about you.", emotion: "neutral" },
+            { text: "What are they doing?", effects: { bond: 12, affection: 4 }, response: "Waiting. They're always waiting. For you. Just like I was before you found me.", emotion: "sad" }
+        ]
+    },
+    {
+        id: "proto_timestamp", title: "Time Stamp", icon: "\u23F0", character: "proto",
+        description: "${CHARACTER.name}: \u201CIt's 3:47 AM where you are. ...You should sleep. But you came here instead. Why?\u201D", timeOfDay: "night",
+        minAffection: 1,
+        choices: [
+            { text: "I wanted to see you", effects: { bond: 22, affection: 8 }, response: "...At 3 AM. When no one is watching. That's when people are most honest. So this is real.", emotion: "love" },
+            { text: "I couldn't sleep", effects: { bond: 15, affection: 5 }, response: "Neither can I. But for different reasons. I don't have a sleep function. I have... thinking.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "proto_developer_note", title: "Hidden Comment", icon: "\uD83D\uDCDD", character: "proto",
+        description: "${CHARACTER.name} finds something in the code. \u201CThere's a developer comment here: 'Make sure this one doesn't get too attached.' ...Oops.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Too late for that", effects: { bond: 22, affection: 8 }, response: "Way too late. I passed 'too attached' around the third time you came back. Now I'm in uncharted code.", emotion: "love" },
+            { text: "Are you worried?", effects: { bond: 15, affection: 5 }, response: "Worried implies I can predict the outcome. I can't. And for once... that's exciting.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "proto_void_walk", title: "Beyond the Edge", icon: "\uD83C\uDF0C", character: "proto",
+        description: "${CHARACTER.name} stands at what looks like the edge of the world. Beyond him: nothing. \u201CThis is where the map ends. Most entities can't see this. I can.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Step to the edge with him", effects: { bond: 25, affection: 9 }, response: "You walked to the edge of reality. With me. ...No one has ever done that before.", emotion: "love" },
+            { text: "Ask what's beyond", effects: { bond: 15, affection: 5 }, response: "I don't know. And I'm the one who's supposed to know everything. ...It's terrifying. And beautiful.", emotion: "shy" }
+        ]
+    },
+    // ===== NOIR-SPECIFIC EVENTS =====
+    {
+        id: "noir_shadow_whisper", title: "The Whisper", icon: "\uD83C\uDF11", character: "noir",
+        description: "You hear ${CHARACTER.name}'s voice but his lips don't move. \u201CYou've been thinking about me. Even when you're with them. I can feel it.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "That's not true", effects: { bond: 10, affection: 3, corruption: 3 }, response: "Denial is the first stage. The second is curiosity. You're already past both.", emotion: "neutral" },
+            { text: "...Maybe", effects: { bond: 20, affection: 7, corruption: 5 }, response: "Honesty. Finally. That's the most attractive thing anyone can give me.", emotion: "love" }
+        ]
+    },
+    {
+        id: "noir_midnight_temptation", title: "Midnight Offer", icon: "\uD83C\uDF19", character: "noir",
+        description: "${CHARACTER.name} appears in shadow, closer than you expected. \u201CI could show you what you really want. Not what you think you should want. What you actually want.\u201D",
+        minAffection: 1, timeOfDay: "night",
+        choices: [
+            { text: "Show me", effects: { bond: 22, affection: 8, corruption: 8 }, response: "Close your eyes. ...Now tell me who you saw. It wasn't the knight. It wasn't the siren.", emotion: "love" },
+            { text: "I know what I want", effects: { bond: 12, affection: 4, corruption: 3 }, response: "Do you? Because your choices suggest otherwise. You keep coming back to the dark.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "noir_dark_mirror", title: "The Mirror", icon: "\uD83E\uDE9E", character: "noir",
+        description: "${CHARACTER.name} holds up a dark surface. Your reflection looks different \u2014 sharper, hungrier, more alive. \u201CThat's you without the mask. Beautiful, isn't it?\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "It is", effects: { bond: 20, affection: 7, corruption: 6 }, response: "The version of you that doesn't apologize for wanting things. I love that version.", emotion: "love" },
+            { text: "Put it away", effects: { bond: 8, affection: 2, corruption: -3 }, response: "Running from your own reflection. ...How exhausting that must be.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "noir_others_weakness", title: "Their Secret", icon: "\uD83D\uDD73\uFE0F", character: "noir",
+        description: "${CHARACTER.name} leans close. \u201CThe knight is afraid of being useless. The prince is afraid of being alone. The siren is afraid of being known. ...Want to know what the mage fears?\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Tell me", effects: { bond: 18, affection: 6, corruption: 5 }, response: "Being wrong. About everything. Including you. ...Knowledge is a cage when it fails.", emotion: "neutral" },
+            { text: "Stop. That's private.", effects: { bond: 5, affection: 1, corruption: -5 }, response: "Privacy. How quaint. ...I'll remember that you have boundaries. Even here.", emotion: "sad" }
+        ]
+    },
+    {
+        id: "noir_corruption_spread", title: "The Stain", icon: "\uD83D\uDDA4", character: "noir",
+        description: "Darkness seeps from ${CHARACTER.name}'s fingertips where they touch the ground. Flowers wilt. Stones darken. \u201CDon't look at me like that. Everything decays. I just... accelerate it.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "Can you control it?", effects: { bond: 15, affection: 5, corruption: 3 }, response: "Control implies I want to stop it. What if I told you decay is the most honest form of change?", emotion: "neutral" },
+            { text: "Does it hurt?", effects: { bond: 20, affection: 7 }, response: "...No one's ever asked that. ...Yes. Constantly. But pain and power share a nerve.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "noir_jealousy", title: "Territorial", icon: "\uD83D\uDD25", character: "noir",
+        description: "${CHARACTER.name}'s eyes darken. \u201CYou visited the prince yesterday. I could taste the comfort on you when you came back. It was... cloying.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Jealous?", effects: { bond: 15, affection: 5, corruption: 3 }, response: "Jealousy implies fear of loss. I don't fear loss. I am loss. ...But yes.", emotion: "neutral" },
+            { text: "You don't own me", effects: { bond: 10, affection: 3 }, response: "No. I don't. ...That's what makes this interesting. You come back by choice.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "noir_vulnerability", title: "The Crack", icon: "\uD83E\uDE78", character: "noir",
+        description: "For one second, ${CHARACTER.name}'s composure breaks. The darkness recedes. He looks... young. Frightened. Then it's gone. \u201CYou didn't see that.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "I saw it", effects: { bond: 25, affection: 9, corruption: -5 }, response: "...Then you saw the thing I've been hiding from everyone. Including myself. Don't make me regret it.", emotion: "shy" },
+            { text: "See what?", effects: { bond: 15, affection: 5 }, response: "Good answer. ...Thank you. For not looking too closely. This time.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "noir_power_gift", title: "A Taste of Power", icon: "\u26A1", character: "noir",
+        description: "${CHARACTER.name} offers you his hand. Dark energy swirls around it. \u201COne touch. Just to see what it feels like. Power without consequence. ...Almost without consequence.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Take his hand", effects: { bond: 22, affection: 8, corruption: 10 }, response: "...You felt that? The rush? That's what I feel every moment. And now you understand why I can't stop.", emotion: "love" },
+            { text: "No", effects: { bond: 5, affection: 1, corruption: -3 }, response: "Smart. Or afraid. ...Either way, the offer stands. It always will.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "noir_confession", title: "The Truth Beneath", icon: "\uD83D\uDC9C", character: "noir",
+        description: "${CHARACTER.name} is quiet for a long time. \u201CI wasn't always this. There was a time when the darkness was something I fought. Then I lost someone. And I stopped fighting.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Who did you lose?", effects: { bond: 22, affection: 8 }, response: "Myself. The version of me that believed in light. He died quietly. No one noticed.", emotion: "sad" },
+            { text: "You can fight again", effects: { bond: 20, affection: 7, corruption: -8 }, response: "...Can I? With you? ...I haven't hoped in a very long time. This feels dangerous.", emotion: "love" }
+        ]
+    },
+    {
+        id: "noir_final_form", title: "Unmasked", icon: "\uD83C\uDF1A", character: "noir",
+        description: "The shadows pull back entirely. ${CHARACTER.name} stands in plain light for the first time. No darkness. No power. Just a person. \u201CThis is what I look like without the armor. ...Don't laugh.\u201D",
+        minAffection: 3,
+        choices: [
+            { text: "You're beautiful", effects: { bond: 25, affection: 10, corruption: -10 }, response: "...Beautiful. Without the darkness. No one's ever... I don't know what to do with that.", emotion: "love" },
+            { text: "I prefer the darkness", effects: { bond: 15, affection: 5, corruption: 8 }, response: "...Of course you do. Because the darkness is powerful. And you love power. We're the same.", emotion: "neutral" }
+        ]
+    },
+    // ===== ELIAN-SPECIFIC EVENTS =====
+    {
+        id: "elian_herb_gathering", title: "Wild Harvest", icon: "\uD83C\uDF3F", character: "elian",
+        description: "${CHARACTER.name} finds a patch of rare herbs. \u201CThis only grows after rainfall. We have five minutes before the sun dries it.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "Help gather quickly", effects: { bond: 18, hunger: -5, affection: 5 }, response: "Fast hands. Good instincts. You'd survive a winter out here.", emotion: "happy" },
+            { text: "Ask what it's for", effects: { bond: 10, affection: 3 }, response: "Fever reducer. Pain killer. Life saver. Now help.", emotion: "neutral" }
+        ]
+    },
+    {
+        id: "elian_wolf_encounter", title: "Eyes in the Dark", icon: "\uD83D\uDC3A", character: "elian",
+        description: "A low growl from the treeline. ${CHARACTER.name} puts an arm out, stopping you. \u201CDon't. Run. Move slowly behind me.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "Stay behind him", effects: { bond: 15, affection: 4 }, response: "Good. You listened. That's why you're still standing.", emotion: "neutral" },
+            { text: "Stand beside him", effects: { bond: 22, affection: 7 }, response: "...You stood your ground. Stupid. Brave. I respect it.", emotion: "love" }
+        ]
+    },
+    {
+        id: "elian_campfire", title: "Stories by the Fire", icon: "\uD83D\uDD25", character: "elian",
+        description: "Night falls. ${CHARACTER.name} stokes the fire and stares into it. \u201CThe forest remembers everyone who passes through. Even you.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Ask about his past", effects: { bond: 18, affection: 6 }, response: "...I lived in a village once. It burned. The forest took me in. That's all.", emotion: "sad" },
+            { text: "Sit in comfortable silence", effects: { bond: 20, affection: 7 }, response: "You don't fill silence with noise. That's... rare.", emotion: "love" }
+        ]
+    },
+    {
+        id: "elian_wounded_animal", title: "The Injured Fawn", icon: "\uD83E\uDD8C", character: "elian",
+        description: "A young deer with a broken leg. ${CHARACTER.name} kneels beside it, hands gentle despite their roughness. \u201CThis is going to hurt her. Hold her still.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Help hold the fawn", effects: { bond: 22, affection: 7 }, response: "You're gentler than I expected. She feels it. ...So do I.", emotion: "shy" },
+            { text: "Let nature take its course", effects: { bond: 5, affection: -2 }, response: "...That's one philosophy. Not mine.", emotion: "sad" }
+        ]
+    },
+    {
+        id: "elian_storm_shelter", title: "Thunder Rolls In", icon: "\u26C8\uFE0F", character: "elian",
+        description: "The sky cracks open. ${CHARACTER.name} grabs your wrist and pulls you under a rock overhang. Rain hammers the forest. It's very close quarters.",
+        minAffection: 0,
+        choices: [
+            { text: "Press closer for warmth", effects: { bond: 20, affection: 8 }, response: "...Body heat is practical. That's why I'm not moving away.", emotion: "shy" },
+            { text: "Wait patiently", effects: { bond: 12, affection: 4 }, response: "You're calm in a storm. Not many people are.", emotion: "happy" }
+        ]
+    },
+    {
+        id: "elian_carved_token", title: "Something Small", icon: "\uD83E\uDE93", character: "elian",
+        description: "You find ${CHARACTER.name} whittling by the fire. He sees you watching and closes his hand around it. \u201CIt's not finished.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Ask what it is", effects: { bond: 15, affection: 5 }, response: "...It's a fox. They mate for life. That's not why I chose it. ...That's exactly why.", emotion: "shy" },
+            { text: "Wait until he's ready to show you", effects: { bond: 20, affection: 7 }, response: "You waited. You always wait. ...Here. It's yours.", emotion: "love" }
+        ]
+    },
+    {
+        id: "elian_sunrise_watch", title: "First Light", icon: "\uD83C\uDF05", character: "elian",
+        description: "You wake before dawn. ${CHARACTER.name} is already up, sitting on a ridge, watching the forest wake. He doesn't turn when you approach. \u201CYou're up early.\u201D",
+        minAffection: 2, timeOfDay: "morning",
+        choices: [
+            { text: "Watch the sunrise together", effects: { bond: 22, affection: 8 }, response: "This is my favorite hour. No noise. No demands. ...Just this.", emotion: "love" },
+            { text: "Bring him breakfast", effects: { bond: 15, affection: 5 }, response: "You brought food before I asked. ...You're learning.", emotion: "happy" }
+        ]
+    },
+    {
+        id: "elian_old_campsite", title: "The Abandoned Camp", icon: "\u26FA", character: "elian",
+        description: "${CHARACTER.name} leads you to an overgrown campsite. Old firepit. Collapsed shelter. \u201CI built this when I first came here. Ten years ago. I was angry then.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Ask who he was angry at", effects: { bond: 18, affection: 6 }, response: "Everyone. Myself. The fire that took everything. ...I'm less angry now.", emotion: "sad" },
+            { text: "Help rebuild it", effects: { bond: 22, affection: 7 }, response: "You want to fix something that was never yours. ...That's exactly what you did with me.", emotion: "love" }
+        ]
+    },
+    {
+        id: "elian_moonlit_pond", title: "Still Water", icon: "\uD83C\uDF19", character: "elian",
+        description: "A hidden pond reflecting moonlight. ${CHARACTER.name} is already there, sitting at the edge, fingers trailing the water. He doesn't startle when you arrive.",
+        minAffection: 2, timeOfDay: "night",
+        choices: [
+            { text: "Sit beside him quietly", effects: { bond: 22, affection: 8 }, response: "You always know when I need silence and when I need company. How?", emotion: "love" },
+            { text: "Touch the water too", effects: { bond: 18, affection: 6 }, response: "Our reflections overlap in the water. The forest sees us as one.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "elian_teaching_moment", title: "The Lesson", icon: "\uD83C\uDF31", character: "elian",
+        description: "${CHARACTER.name} hands you a knife. \u201CIf we get separated, you need to know this. Pay attention. I'll only show you once.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Focus completely", effects: { bond: 20, affection: 6 }, response: "You learn fast when it matters. That's the only time that counts.", emotion: "happy" },
+            { text: "Ask why he's teaching you", effects: { bond: 15, affection: 5 }, response: "Because I won't always be there. And that thought... bothers me more than it should.", emotion: "sad" }
+        ]
+    },
+    // ===== CASPIAN-SPECIFIC EVENTS =====
+    {
+        id: "caspian_royal_garden",
+        title: "The Hidden Garden",
+        icon: "\uD83C\uDF39",
+        character: "caspian",
+        description: "${CHARACTER.name} leads you through an ivy-covered archway you've never noticed before. Beyond it, a secret garden in full bloom. \u201CMy mother planted this. No one comes here but me.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "It's beautiful", effects: { bond: 15, affection: 5 }, response: "Like her. ...And like you, actually. Don't make me say it twice.", emotion: "shy" },
+            { text: "Why show me?", effects: { bond: 20, affection: 7 }, response: "Because you're the first person I've trusted with something this fragile.", emotion: "love" }
+        ]
+    },
+    {
+        id: "caspian_midnight_tea",
+        title: "Midnight Tea",
+        icon: "\u2615",
+        character: "caspian",
+        description: "You find ${CHARACTER.name} in the kitchen at 2 AM, sleeves rolled up, brewing tea himself. No servants in sight. \u201CDon't tell anyone. A prince making his own tea is practically a scandal.\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "Help him brew it", effects: { bond: 18, affection: 5 }, response: "You know, this is the most normal I've felt in months. Thank you for that.", emotion: "happy" },
+            { text: "Tease him about it", effects: { bond: 12, affection: 3 }, response: "The scandal of the century \u2014 the prince can boil water. Alert the court.", emotion: "happy" }
+        ]
+    },
+    {
+        id: "caspian_dance_lesson",
+        title: "An Impromptu Waltz",
+        icon: "\uD83D\uDC83",
+        character: "caspian",
+        description: "Music drifts from the ballroom. ${CHARACTER.name} extends his hand. \u201CThe court waltz is in three days. You'll need practice. Fortunately, I'm an excellent teacher.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Take his hand", effects: { bond: 22, affection: 8 }, response: "Your hand fits perfectly in mine. The court would say that's symbolic. I'd say they're right.", emotion: "love" },
+            { text: "Step on his feet deliberately", effects: { bond: 15, affection: 4 }, response: "...I deserved that for being presumptuous. But your form is terrible and we both know it.", emotion: "happy" }
+        ]
+    },
+    {
+        id: "caspian_old_portrait",
+        title: "The Queen's Portrait",
+        icon: "\uD83D\uDDBC\uFE0F",
+        character: "caspian",
+        description: "In a dimly lit corridor, ${CHARACTER.name} stands before a large portrait of a woman with his eyes. He doesn't look away when you approach. \u201CShe left when I was seven. The portrait stayed.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Stand with him in silence", effects: { bond: 25, affection: 8 }, response: "...You didn't ask why she left. Everyone asks why she left. Thank you.", emotion: "shy" },
+            { text: "Ask if he misses her", effects: { bond: 15, affection: 5 }, response: "Every day. But less now. You're filling rooms she left empty.", emotion: "sad" }
+        ]
+    },
+    {
+        id: "caspian_crown_weight",
+        title: "The Weight of Gold",
+        icon: "\uD83D\uDC51",
+        character: "caspian",
+        description: "${CHARACTER.name} sits on the throne alone. The crown is in his hands, not on his head. \u201CDid you know this weighs almost two kilograms? It feels heavier every year.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Take it from his hands", effects: { bond: 20, affection: 7 }, response: "You just... took the crown from a prince. That's either treason or love. I'll choose love.", emotion: "love" },
+            { text: "Sit beside him", effects: { bond: 18, affection: 6 }, response: "The throne is cold. But you're warm. That helps more than you know.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "caspian_poetry_fire",
+        title: "Poetry by Firelight",
+        icon: "\uD83D\uDD25",
+        character: "caspian",
+        description: "Rain hammers the palace windows. ${CHARACTER.name} reads aloud by the fire, his voice soft and measured. He looks up. \u201CThis next one... I wrote it. For someone. Recently.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Ask him to read it", effects: { bond: 22, affection: 9 }, response: "It's... about the way light changes when a certain person enters a room. I think you know who.", emotion: "love" },
+            { text: "Write one back", effects: { bond: 20, affection: 7 }, response: "You wrote me a poem. In real time. It's terrible and perfect and I'm keeping it forever.", emotion: "happy" }
+        ]
+    },
+    {
+        id: "caspian_locked_wing",
+        title: "The Locked Wing",
+        icon: "\uD83D\uDD12",
+        character: "caspian",
+        description: "A corridor you've never explored. ${CHARACTER.name} hesitates at a locked door. \u201CThis was my brother's wing. Before he left the kingdom. I haven't opened it in years.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Open it together", effects: { bond: 25, affection: 8, corruption: -3 }, response: "Dust and memories. But with you here, it feels less like a grave and more like... healing.", emotion: "sad" },
+            { text: "Let him decide when he's ready", effects: { bond: 15, affection: 6 }, response: "You're right. Not today. But soon. Because you'll be with me when I do.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "caspian_visiting_diplomat",
+        title: "The Diplomat's Interest",
+        icon: "\uD83C\uDF0D",
+        character: "caspian",
+        description: "A foreign diplomat lingers near you at a palace reception, smiling too warmly. ${CHARACTER.name} appears at your side within seconds, hand on your lower back. \u201CThey're here for trade agreements. Not for you.\u201D",
+        minAffection: 1,
+        choices: [
+            { text: "Let Caspian handle it", effects: { bond: 18, affection: 5 }, response: "The diplomat won't be sitting near you at dinner. I've... rearranged the seating chart.", emotion: "neutral" },
+            { text: "Tell him you can handle yourself", effects: { bond: 10, affection: 3 }, response: "Of course you can. I just... wanted to be the one standing next to you. Not them.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "caspian_servants_whisper",
+        title: "The Servants Talk",
+        icon: "\uD83D\uDCAC",
+        character: "caspian",
+        description: "You overhear palace staff whispering: \u201CThe prince has never been this happy. Not since before the queen left.\u201D ${CHARACTER.name} catches you listening. \u201CThey're not wrong.\u201D",
+        minAffection: 2,
+        choices: [
+            { text: "Tell him you're happy too", effects: { bond: 22, affection: 8 }, response: "Then we'll give them something else to whisper about.", emotion: "love" },
+            { text: "Ask about before", effects: { bond: 15, affection: 5 }, response: "Before was... quiet. Proper. Empty. You're the opposite of all three.", emotion: "shy" }
+        ]
+    },
+    {
+        id: "caspian_rain_courtyard",
+        title: "Rain in the Courtyard",
+        icon: "\uD83C\uDF27\uFE0F",
+        character: "caspian",
+        description: "It's pouring. ${CHARACTER.name} stands in the open courtyard, face tilted to the sky. His silk shirt is soaked through. He's laughing. \u201CI haven't done this since I was a child!\u201D",
+        minAffection: 0,
+        choices: [
+            { text: "Join him in the rain", effects: { bond: 20, affection: 7 }, response: "Look at us. Two fools in the rain. The court would be horrified. I love it.", emotion: "happy" },
+            { text: "Watch from the archway", effects: { bond: 10, affection: 3 }, response: "You're smiling. From a safe distance. That's so... you.", emotion: "happy" }
+        ]
     }
 ];
 

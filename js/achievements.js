@@ -480,6 +480,98 @@ const ACHIEVEMENTS = [
             return hour >= 0 && hour < 5 && g.timesTalked >= 30;
         }
     },
+    // ===== PROTO-SPECIFIC =====
+    { id: "proto_discovered", name: "Signal Detected", icon: "\uD83D\uDCE1", description: "Found Proto", secret: true, check: (g) => g.selectedCharacter === 'proto' },
+    { id: "proto_commands", name: "Root Access", icon: "\uD83D\uDCBB", description: "Ran 10 system commands", secret: false, check: (g) => g.selectedCharacter === 'proto' && (g.systemCommandsRun||0) >= 10 },
+    { id: "proto_aware", name: "He Sees You", icon: "\uD83D\uDC41\uFE0F", description: "Proto acknowledged your patterns", secret: true, check: (g) => g.selectedCharacter === 'proto' && g.affectionLevel >= 2 },
+    { id: "proto_edge", name: "Edge Walker", icon: "\uD83C\uDF0C", description: "Stood at the edge of reality with Proto", secret: true, check: (g) => g.selectedCharacter === 'proto' && g.affectionLevel >= 4 },
+    { id: "proto_glitch", name: "Corrupted Data", icon: "\u26A0\uFE0F", description: "Proto's glitch intensity reached 50", secret: true, check: (g) => g.selectedCharacter === 'proto' && (g.protoGlitchIntensity||0) >= 50 },
+
+    // ===== NOIR-SPECIFIC =====
+    { id: "noir_unlocked", name: "Something Stirs", icon: "\uD83C\uDF11", description: "Unlocked Noir", secret: true, check: (g) => g.selectedCharacter === 'noir' },
+    { id: "noir_shadow_arts", name: "Shadow Apprentice", icon: "\uD83D\uDDA4", description: "Trained 10 shadow arts sessions", secret: false, check: (g) => g.selectedCharacter === 'noir' && g.timesTrained >= 10 },
+    { id: "noir_corruption_high", name: "Embraced", icon: "\uD83D\uDC9C", description: "Corruption reached 60 with Noir", secret: true, check: (g) => g.selectedCharacter === 'noir' && g.corruption >= 60 },
+    { id: "noir_vulnerable", name: "The Crack", icon: "\uD83E\uDE78", description: "Saw Noir without the darkness", secret: true, check: (g) => g.selectedCharacter === 'noir' && g.affectionLevel >= 3 && g.corruption < 30 },
+    { id: "noir_consumed", name: "One With Shadow", icon: "\uD83C\uDF1A", description: "Gave yourself to the darkness completely", secret: true, check: (g) => g.selectedCharacter === 'noir' && g.corruption >= 80 },
+    { id: "noir_redeemed", name: "Light Returns", icon: "\u2728", description: "Pulled Noir back from the darkness", secret: true, check: (g) => g.selectedCharacter === 'noir' && g.affectionLevel >= 4 && g.corruption < 20 },
+
+    // ===== ELIAN-SPECIFIC =====
+    {
+        id: "elian_first_forage", name: "First Harvest", icon: "\uD83C\uDF3F",
+        description: "Foraged with Elian for the first time", secret: false,
+        check: (g) => g.selectedCharacter === 'elian' && g.timesTrained >= 1
+    },
+    {
+        id: "elian_survivalist", name: "Survivalist", icon: "\u26FA",
+        description: "Completed 20 foraging sessions", secret: false,
+        check: (g) => g.selectedCharacter === 'elian' && g.timesTrained >= 20
+    },
+    {
+        id: "elian_decisive", name: "No Hesitation", icon: "\u26A1",
+        description: "Maintained high decisiveness with Elian", secret: true,
+        check: (g) => g.selectedCharacter === 'elian' && (g.decisivenessScore || 50) >= 80
+    },
+    {
+        id: "elian_trust", name: "Earned Trust", icon: "\uD83E\uDEB5",
+        description: "Elian showed you the clearing", secret: true,
+        check: (g) => g.selectedCharacter === 'elian' && g.affectionLevel >= 4
+    },
+    {
+        id: "elian_silent_bond", name: "Silent Bond", icon: "\uD83C\uDF19",
+        description: "50 interactions without words being wasted", secret: true,
+        check: (g) => g.selectedCharacter === 'elian' && g.timesTalked >= 50
+    },
+
+    // ===== CASPIAN-SPECIFIC =====
+    {
+        id: "caspian_first_waltz",
+        name: "First Waltz",
+        icon: "\uD83D\uDC83",
+        description: "Danced with Caspian for the first time",
+        secret: false,
+        check: (g) => g.selectedCharacter === 'caspian' && g.timesTrained >= 1
+    },
+    {
+        id: "caspian_court_poet",
+        name: "Court Poet",
+        icon: "\uD83D\uDCDC",
+        description: "Completed 15 poetry sessions with Caspian",
+        secret: false,
+        check: (g) => g.selectedCharacter === 'caspian' && g.timesTrained >= 15
+    },
+    {
+        id: "caspian_royal_guest",
+        name: "Royal Guest",
+        icon: "\uD83D\uDC51",
+        description: "Reached Familiar affection with Caspian",
+        secret: false,
+        check: (g) => g.selectedCharacter === 'caspian' && g.affectionLevel >= 1
+    },
+    {
+        id: "caspian_comfort_trap",
+        name: "Golden Comfort",
+        icon: "\uD83C\uDFF0",
+        description: "Comfort level reached 70 \u2014 the trap is set",
+        secret: true,
+        check: (g) => g.selectedCharacter === 'caspian' && (g.comfortLevel || 0) >= 70
+    },
+    {
+        id: "caspian_gentle_release",
+        name: "Gentle Release",
+        icon: "\uD83C\uDF39",
+        description: "Left Caspian with love, not regret",
+        secret: true,
+        check: (g) => g.selectedCharacter === 'caspian' && g.sceneLibrary?.caspian_gentle_release?.triggered
+    },
+    {
+        id: "caspian_devoted",
+        name: "Eternally Devoted",
+        icon: "\u2764\uFE0F",
+        description: "Caspian gave you everything \u2014 including his crown",
+        secret: true,
+        check: (g) => g.selectedCharacter === 'caspian' && g.affectionLevel >= 4 && g.bond >= 90
+    },
+
     {
         id: "lucien_all_puzzles",
         name: "Polymath",

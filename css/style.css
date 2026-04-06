@@ -212,8 +212,11 @@
 #select-grid {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    padding: 0 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 15px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .select-card {
@@ -227,8 +230,8 @@
 }
 
 .select-card-img-wrap {
-    width: 140px;
-    height: 140px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid rgba(248, 187, 208, 0.55);
@@ -2812,11 +2815,7 @@ body {
     background: url('../assets/bg-lyra-intro.png') center center / cover no-repeat;
 }
 .intro-bg-mage {
-    background: linear-gradient(180deg,
-        #0a0820 0%,
-        #12103a 35%,
-        #1a1550 65%,
-        #0a0820 100%);
+    background: url('../assets/bg-lucien-intro.png') center center / cover no-repeat;
 }
 
 /* Subtle animated vignette */
@@ -2977,6 +2976,86 @@ body {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
             drop-shadow(0 -4px 24px rgba(0, 200, 180, 0.2));
 }
+/* Prince tint: warm gold glow */
+.intro-bg-prince {
+    background: url('../assets/bg-caspian-intro.png') center center / cover no-repeat;
+}
+.intro-bg-prince ~ #intro-character-wrap #intro-character-img {
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
+            drop-shadow(0 -4px 24px rgba(200, 160, 40, 0.25));
+}
+
+/* Prince theme */
+.character-caspian .action-btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255, 245, 220, 0.92));
+    border-color: rgba(200, 160, 40, 0.25);
+}
+.character-caspian .action-btn:active {
+    background: linear-gradient(180deg, rgba(255, 240, 200, 0.6), rgba(255,255,255,0.97));
+}
+.character-caspian .btn-label {
+    color: #6d5c30;
+}
+
+/* Druid tint: earthy green glow */
+.intro-bg-druid {
+    background: url('../assets/bg-elian-intro.png') center center / cover no-repeat;
+}
+.intro-bg-druid ~ #intro-character-wrap #intro-character-img {
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
+            drop-shadow(0 -4px 24px rgba(60, 140, 60, 0.25));
+}
+/* Glitch tint: flickering cyan */
+.intro-bg-glitch {
+    background: linear-gradient(180deg, #050510 0%, #0a0a20 50%, #050510 100%);
+    animation: pp-glitch-bg 4s ease-in-out infinite;
+}
+@keyframes pp-glitch-bg {
+    0%, 100% { filter: none; }
+    50% { filter: hue-rotate(20deg); }
+    52% { filter: hue-rotate(-10deg); }
+    54% { filter: none; }
+}
+.intro-bg-glitch ~ #intro-character-wrap #intro-character-img {
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
+            drop-shadow(0 -4px 24px rgba(0, 220, 200, 0.3));
+}
+/* Corruptor tint: deep red glow */
+.intro-bg-corruptor {
+    background: linear-gradient(180deg, #0a0005 0%, #1a0010 50%, #0a0005 100%);
+}
+.intro-bg-corruptor ~ #intro-character-wrap #intro-character-img {
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
+            drop-shadow(0 -4px 24px rgba(180, 0, 40, 0.3));
+}
+
+/* Character themes */
+.character-elian .action-btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(220, 240, 220, 0.92));
+    border-color: rgba(60, 140, 60, 0.25);
+}
+.character-elian .btn-label { color: #3d5c30; }
+.character-proto .action-btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(220, 240, 240, 0.92));
+    border-color: rgba(0, 180, 180, 0.25);
+}
+.character-proto .btn-label { color: #1a5050; }
+.character-noir .action-btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(240, 220, 225, 0.92));
+    border-color: rgba(140, 20, 40, 0.25);
+}
+.character-noir .btn-label { color: #5c1a2a; }
+
+/* Locked select cards */
+.select-card-locked {
+    opacity: 0.45;
+    pointer-events: none;
+    filter: grayscale(0.7);
+}
+.select-card-locked .select-card-img-wrap {
+    border-color: rgba(255,255,255,0.15);
+}
+
 /* Mage tint: cool purple glow from below */
 .intro-bg-mage ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
