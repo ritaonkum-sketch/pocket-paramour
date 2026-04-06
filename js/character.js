@@ -792,9 +792,32 @@ const CHARACTER_ALISTAIR = {
         "A knight without a charge is just a man with a sword and nowhere to be.",
         "I waited longer than I should have. I should have left with my dignity intact. I didn't.",
         "The armor stays on. The heart goes out. I don't know how to fix the second one.",
-        "I gave you my fealty — the real kind, not the ceremonial kind. You left anyway.",
+        "I gave you my fealty \u2014 the real kind, not the ceremonial kind. You left anyway.",
         "Farewell. I hope whatever you chose instead was worth what you left behind."
-    ]
+    ],
+
+    storyMilestones: {
+        affection1: {
+            title: "The Oath Softens",
+            text: "Alistair removes his gauntlet. His hand \u2014 scarred, calloused \u2014 rests near yours on the table. He doesn't take it. But he doesn't pull away."
+        },
+        affection2: {
+            title: "Behind the Armor",
+            text: "He shows you the dent in his breastplate. 'This is from the battle of Thornwall. I almost didn't come back.' His voice is quieter than usual. 'I'm glad I did.'"
+        },
+        affection3: {
+            title: "The Knight Kneels",
+            text: "He kneels \u2014 not in duty, not in ceremony. Just... in front of you. 'I've knelt before kings. This is the first time it felt like a choice.'"
+        },
+        affection4: {
+            title: "Sword and Heart",
+            text: "'The oath says protect the realm.' He sets his sword down. 'You are my realm now.' His voice doesn't waver. His hands do."
+        },
+        corruption1: {
+            title: "The Rust Spreads",
+            text: "The blade is tarnished. Alistair stares at it without polishing. 'I used to care about this. I used to care about everything. Now I just... stand here.'"
+        }
+    }
 };
 
 // ===== LYRA CHARACTER DATA =====

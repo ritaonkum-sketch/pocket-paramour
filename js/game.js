@@ -1979,6 +1979,13 @@ class PocketLoveGame {
         this.hunger     = Math.max(0,   this.hunger  - 5);
         this.corruption = Math.max(0,   this.corruption - 2);
 
+        // Elian: decisiveness tracking from interaction speed
+        if (CHARACTER.name === 'Elian') {
+            const timeSince = Date.now() - (this.lastInteractionTime || Date.now());
+            if (timeSince < 5000) this.decisivenessScore = Math.min(100, (this.decisivenessScore || 50) + 2);
+            else if (timeSince > 15000) this.decisivenessScore = Math.max(0, (this.decisivenessScore || 50) - 1);
+        }
+
         // Rival system: Caspian shifts positive, Noir shifts negative
         if (CHARACTER.name === 'Caspian') this._updateRivalBalance(1);
         if (CHARACTER.name === 'Noir') this._updateRivalBalance(-1);
