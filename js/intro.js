@@ -452,12 +452,8 @@ class IntroScene {
         this.charImg.classList.remove('lyra-cinematic', 'lyra-eye-glow');
         this._resetBlink();
 
-        // First time ever playing — collect the player's name
-        if (!localStorage.getItem('pp_player_name')) {
-            this._showNameInput();
-        } else {
-            this._fadeOut();
-        }
+        // Always ask for name during each character's intro — personal moment
+        this._showNameInput();
     }
 
     // ── Private: slide in name input panel ───────────────────────
@@ -479,8 +475,12 @@ class IntroScene {
         };
         prompt.textContent = prompts[this.characterId] || "What's your name?";
 
+        // Pre-fill with existing name if player already entered one
+        const existingName = localStorage.getItem('pp_player_name') || '';
+        if (existingName) input.value = existingName;
+
         panel.classList.add('show');
-        setTimeout(() => input.focus(), 350);
+        setTimeout(() => { input.focus(); input.select(); }, 350);
 
         const confirm = () => {
             const name = input.value.trim();
