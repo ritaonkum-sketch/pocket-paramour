@@ -477,6 +477,9 @@ class PocketLoveGame {
         // Only after sounds are enabled (not during intro/start screen)
         const startBGM = () => {
             if (this._bgmStarted) return;
+            // Don't start during intro
+            var _introOv = document.getElementById('intro-overlay');
+            if (_introOv && !_introOv.classList.contains('hidden')) return;
             this._bgmStarted = true;
             bgm.init();
             bgm.start();
