@@ -631,6 +631,9 @@ class AchievementSystem {
 
         document.getElementById('game-container').appendChild(popup);
 
+        // Play achievement sound
+        if (typeof sounds !== 'undefined' && sounds.enabled) sounds.achievement();
+
         // Animate in
         requestAnimationFrame(() => popup.classList.add('visible'));
 

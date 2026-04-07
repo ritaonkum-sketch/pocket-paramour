@@ -605,7 +605,7 @@ class GallerySystem {
             </div>
         `;
         document.body.appendChild(notif);
-        sounds.rarityChime(card.rarity);
+        if (typeof sounds !== 'undefined' && sounds.enabled) sounds.rarityChime(card.rarity);
         setTimeout(() => notif.classList.add('show'), 50);
         setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 500); }, 3500);
     }

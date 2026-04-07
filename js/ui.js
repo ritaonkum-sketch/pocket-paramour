@@ -1225,9 +1225,18 @@ class GameUI {
 
     updateStats() {
         const g = this.game;
+        const prevH = parseFloat(this.hungerBar.style.width) || 0;
+        const prevC = parseFloat(this.cleanBar.style.width) || 0;
+        const prevB = parseFloat(this.bondBar.style.width) || 0;
+
         this.hungerBar.style.width = g.hunger + '%';
         this.cleanBar.style.width = g.clean + '%';
         this.bondBar.style.width = g.bond + '%';
+
+        // Brief glow when stat increases significantly
+        if (g.hunger - prevH > 3) { this.hungerBar.classList.add('stat-changed'); setTimeout(() => this.hungerBar.classList.remove('stat-changed'), 600); }
+        if (g.clean - prevC > 3) { this.cleanBar.classList.add('stat-changed'); setTimeout(() => this.cleanBar.classList.remove('stat-changed'), 600); }
+        if (g.bond - prevB > 3) { this.bondBar.classList.add('stat-changed'); setTimeout(() => this.bondBar.classList.remove('stat-changed'), 600); }
 
         // Pulse when critical
         this.hungerBar.classList.toggle('critical', g.hunger < 20);

@@ -340,6 +340,12 @@ class PocketLoveGame {
 
     init() {
         this.typewriter = new TypewriterEffect(document.getElementById('dialogue-text'));
+        // Set character name above dialogue
+        try {
+            var _spk = document.getElementById('dialogue-speaker');
+            var _names = {alistair:'Alistair',lyra:'Lyra',lucien:'Lucien',caspian:'Caspian',elian:'Elian',proto:'Proto',noir:'Noir'};
+            if (_spk) _spk.textContent = _names[this.selectedCharacter] || '';
+        } catch(e) {}
         this.ui = new GameUI(this);
 
         // Wire mid-line face shifts: TypewriterEffect fires this when a trigger position is hit
