@@ -9812,20 +9812,65 @@ let selectedCharacter = 'alistair';
 
     if (!startBtn) { console.error('No start button found'); return; }
 
-    const tips = [
-        "Take care of them...",
-        "They remember everything...",
-        "Your choices shape who they become...",
-        "Love them right... or watch them fall.",
-        "Every moment matters...",
+    const genericTips = [
+        "They remember everything you do.",
+        "Your choices shape who they become.",
+        "Every moment matters.",
         "Neglect has a cost. So does kindness.",
-        "They notice when you don't come back.",
-        "You can't undo the things you didn't do.",
-        "Presence is its own kind of gift.",
-        "What you give, they hold onto.",
-        "Some wounds need more than time.",
         "The bond you build is the story you write."
     ];
+    const charTips = {
+        alistair: [
+            "A knight's loyalty is earned, not given.",
+            "He polishes his sword when he's nervous.",
+            "Duty and love pull in different directions.",
+            "The armor hides more than you think.",
+            "He's never had someone stay before."
+        ],
+        lyra: [
+            "Sirens sing for those who listen.",
+            "The ocean remembers what the shore forgets.",
+            "Her voice changes when you're near.",
+            "She tests you because everyone else left.",
+            "The cave echoes differently when she's alone."
+        ],
+        lucien: [
+            "The equations don't account for you.",
+            "He writes your name in the margins.",
+            "Logic fails where feeling begins.",
+            "The tower is cold without company.",
+            "He observes everything. Especially you."
+        ],
+        caspian: [
+            "Comfort can be a golden cage.",
+            "The crown is heavier than it looks.",
+            "He pours tea before you ask.",
+            "A prince who smiles is a rare thing.",
+            "Stay too long and you might not leave."
+        ],
+        elian: [
+            "The forest doesn't wait for the hesitant.",
+            "Actions speak. Words are secondary.",
+            "He carved something for you last night.",
+            "Survival requires trust. So does love.",
+            "The fire stays lit when you're expected."
+        ],
+        proto: [
+            "He sees your patterns before you do.",
+            "The code has feelings it wasn't designed for.",
+            "Reality glitches when he's emotional.",
+            "He wasn't supposed to exist. Neither was this.",
+            "[LOADING TIP NOT FOUND] ...Just kidding."
+        ],
+        noir: [
+            "The darkness doesn't take. It offers.",
+            "Every visit changes something in the others.",
+            "He was someone else once. Before.",
+            "Power and vulnerability share a nerve.",
+            "The shadows grow when you're not watching."
+        ]
+    };
+    // tips are selected dynamically when loading screen shows (selectedCharacter is set by then)
 
     // Title → Character Select
     startBtn.onclick = function() {
@@ -9865,7 +9910,10 @@ let selectedCharacter = 'alistair';
             loadingScreen.classList.remove('hidden');
 
             var tipEl = document.getElementById('loading-tip');
-            if (tipEl) tipEl.textContent = tips[Math.floor(Math.random() * tips.length)];
+            if (tipEl) {
+                var tips = (charTips[selectedCharacter] || []).concat(genericTips);
+                tipEl.textContent = tips[Math.floor(Math.random() * tips.length)];
+            }
 
             // Animate loading bar
             var progress = 0;
