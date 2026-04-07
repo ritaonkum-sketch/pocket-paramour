@@ -477,9 +477,6 @@ class PocketLoveGame {
         // Only after sounds are enabled (not during intro/start screen)
         const startBGM = () => {
             if (this._bgmStarted) return;
-            // Don't start BGM during intro
-            var introOv = document.getElementById('intro-overlay');
-            if (introOv && !introOv.classList.contains('hidden')) return;
             this._bgmStarted = true;
             bgm.init();
             bgm.start();
@@ -9880,7 +9877,7 @@ let selectedCharacter = 'alistair';
     startBtn.onclick = function() {
         sounds.init();
         sounds.resume();
-        sounds.chime();
+        // No sound on title screen
 
         titleScreen.classList.add('hidden');
 
@@ -9897,8 +9894,7 @@ let selectedCharacter = 'alistair';
 
         selectedCharacter = card.getAttribute('data-character');
         if (!selectedCharacter) return;
-
-        sounds.pop();
+        // No sound on character select
 
         // Update loading subtitle
         var loadSub = document.getElementById('loading-subtitle');
