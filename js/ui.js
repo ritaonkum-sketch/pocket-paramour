@@ -860,20 +860,19 @@ class GameUI {
     // ===== TYPEWRITER SOUND =====
 
     hookTypewriterSound() {
+        // Typing blip sound disabled — was clashing with BGM
+        // To re-enable: uncomment the blip line below
         const tw = this.game.typewriter;
         const originalType = tw._type.bind(tw);
         let charCount = 0;
 
         tw._type = function() {
-            // Play blip every 2 characters during typing
             if (this.currentIndex < this.fullText.length) {
                 charCount++;
-                if (charCount % 2 === 0) sounds.blip();
+                // if (charCount % 2 === 0) sounds.blip();
             } else {
                 charCount = 0;
             }
-            // Delegate to the original _type which handles emotion triggers,
-            // text rendering, and completion
             originalType();
         };
     }
@@ -1230,7 +1229,7 @@ class GameUI {
             if (i < dialogue.length) {
                 this.storyDialogue.textContent += dialogue[i];
                 i++;
-                if (i % 2 === 0) sounds.blip();
+                // if (i % 2 === 0) sounds.blip();
                 setTimeout(typeStory, 40);
             }
         };
