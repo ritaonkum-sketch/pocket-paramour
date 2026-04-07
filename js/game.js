@@ -474,8 +474,10 @@ class PocketLoveGame {
 
     _startBGMOnInteraction() {
         // Start BGM on first user click (browser requires user gesture)
+        // Only after sounds are enabled (not during intro/start screen)
         const startBGM = () => {
             if (this._bgmStarted) return;
+            if (!sounds.enabled) return;  // Don't start during intro
             this._bgmStarted = true;
             bgm.init();
             bgm.start();
@@ -9874,8 +9876,10 @@ let selectedCharacter = 'alistair';
 
     // Title → Character Select
     startBtn.onclick = function() {
+        // Init audio context silently — no sounds until gameplay starts
         sounds.init();
         sounds.resume();
+        sounds.enabled = false;  // Mute during start/select/loading/intro
 
         titleScreen.classList.add('hidden');
 
@@ -9892,8 +9896,6 @@ let selectedCharacter = 'alistair';
 
         selectedCharacter = card.getAttribute('data-character');
         if (!selectedCharacter) return;
-
-        sounds.pop();
 
         // Update loading subtitle
         var loadSub = document.getElementById('loading-subtitle');
@@ -10003,14 +10005,18 @@ let selectedCharacter = 'alistair';
 
                         // Play first-time intro scene if applicable
                         if (typeof IntroScene !== 'undefined' && IntroScene.shouldPlay(selectedCharacter)) {
-                            // Pause the tick loop during intro
+                            // Pause the tick loop during intro — sounds stay muted
                             clearInterval(game.tickInterval);
                             game.tickInterval = null;
                             new IntroScene().start(selectedCharacter, function() {
-                                // Resume tick loop after intro finishes
+                                // Resume tick loop + enable sounds after intro finishes
+                                sounds.enabled = true;
                                 game.lastTick = Date.now();
                                 game.tickInterval = setInterval(function() { game.tick(); }, 100);
                             });
+                        } else {
+                            // No intro — enable sounds immediately
+                            sounds.enabled = true;
                         }
                     }, 600);
                 }
