@@ -9878,7 +9878,7 @@ let selectedCharacter = 'alistair';
         sounds.init();
         sounds.resume();
         sounds.enabled = true;
-        sounds.pop();
+        sounds.chime();
 
         titleScreen.classList.add('hidden');
 
