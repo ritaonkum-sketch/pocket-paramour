@@ -3,7 +3,7 @@
 class SoundSystem {
     constructor() {
         this.ctx = null;
-        this.enabled = true;
+        this.enabled = false;  // Stays off until START button unlocks audio
         this.initialized = false;
         this.volume = 0.7;
         this._audioCache = {};

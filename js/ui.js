@@ -835,9 +835,7 @@ class GameUI {
             // Play blip every 2 characters during typing
             if (this.currentIndex < this.fullText.length) {
                 charCount++;
-                // No blip during intro scene
-                var _introOv = document.getElementById('intro-overlay');
-                if (charCount % 2 === 0 && !(_introOv && !_introOv.classList.contains('hidden'))) sounds.blip();
+                if (charCount % 2 === 0) sounds.blip();
             } else {
                 charCount = 0;
             }

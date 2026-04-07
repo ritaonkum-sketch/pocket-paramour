@@ -477,9 +477,6 @@ class PocketLoveGame {
         // Only after sounds are enabled (not during intro/start screen)
         const startBGM = () => {
             if (this._bgmStarted) return;
-            // Don't start during intro
-            var _introOv = document.getElementById('intro-overlay');
-            if (_introOv && !_introOv.classList.contains('hidden')) return;
             this._bgmStarted = true;
             bgm.init();
             bgm.start();
@@ -9880,6 +9877,7 @@ let selectedCharacter = 'alistair';
     startBtn.onclick = function() {
         sounds.init();
         sounds.resume();
+        sounds.enabled = true;
         sounds.pop();
 
         titleScreen.classList.add('hidden');
