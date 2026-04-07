@@ -9,7 +9,7 @@ class BGMSystem {
         this.muted = false;
         this.currentMood = 'calm';
         this.masterGain = null;
-        this.volume = 0.12; // Quiet background
+        this.volume = 0.05; // Very quiet background
         this._loopTimer = null;
         this._noteTimers = [];
     }
