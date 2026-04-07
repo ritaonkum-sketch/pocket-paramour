@@ -69,7 +69,7 @@ class SoundSystem {
     // Character ambient sounds
     oceanWave()        { this._playFile('assets/audio/ocean-wave.mp3', 0.4); }
     sirenHum()         { this._playFile('assets/audio/siren-hum.mp3', 0.3); }
-    fireplaceCrackle() { this._playFile('assets/audio/pop.mp3', 0.3); } // TODO: replace with real fireplace
+    fireplaceCrackle() { this._playFile('assets/audio/fireplace-crackle.mp3', 0.3); }
     forestCrickets()   { this._playFile('assets/audio/forest-crickets.mp3', 0.3); }
     digitalStatic()    { this._playFile('assets/audio/digital-static.mp3', 0.3); }
     darkDrone()        { this._playFile('assets/audio/dark-drone.mp3', 0.3); }

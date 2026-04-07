@@ -67,7 +67,9 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/singing.png',
                 direction: 'A soft hum escapes her. Not a warning. Something warmer — almost accidental.',
-                line: "I sing better when someone's listening. I didn't realise how much I missed it."
+                line: "I sing better when someone's listening. I didn't realise how much I missed it.",
+                sound: 'assets/audio/mermaid-hum.mp3',
+                soundVolume: 0.4
             },
             {
                 body: 'assets/lyra/body/neutral.png',
@@ -361,6 +363,10 @@ class IntroScene {
             // Beats flagged with eyeGlow: pulsing eye glow effect
             if (beat.eyeGlow) {
                 this.charImg.classList.add('lyra-eye-glow');
+            }
+            // Play sound if beat has one
+            if (beat.sound && typeof sounds !== 'undefined' && sounds.enabled) {
+                sounds._playFile(beat.sound, beat.soundVolume || 0.5);
             }
         }, 220);
 

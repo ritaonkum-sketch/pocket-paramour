@@ -134,7 +134,7 @@ class BGMSystem {
             night: 'assets/audio/bgm-night.mp3',
             tense: 'assets/audio/bgm-tense.mp3',
             corrupted: 'assets/audio/bgm-corrupted.mp3',
-            romantic: 'assets/audio/bgm-calm.mp3' // TODO: add romantic track
+            romantic: 'assets/audio/bgm-romantic.mp3'
         };
         const src = tracks[mood] || tracks.calm;
 
