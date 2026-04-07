@@ -1843,8 +1843,24 @@ body {
     margin-top: 8px;
 }
 
+#gallery-viewer-counter {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+}
+#gallery-viewer-hint {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 4px;
+}
+#gallery-viewer-img {
+    cursor: pointer;
+    user-select: none;
+}
 #gallery-viewer-close {
-    margin-top: 20px;
+    margin-top: 12px;
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     color: white;

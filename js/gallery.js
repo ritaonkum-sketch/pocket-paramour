@@ -863,17 +863,55 @@ class GallerySystem {
         const viewer = document.getElementById('gallery-viewer');
         if (!viewer) return;
 
-        document.getElementById('gallery-viewer-img').src = card.image;
-        document.getElementById('gallery-viewer-title').textContent = card.title;
-        document.getElementById('gallery-viewer-subtitle').textContent = card.subtitle;
-        document.getElementById('gallery-viewer-rarity').textContent = card.rarity;
-        document.getElementById('gallery-viewer-rarity').className = `gallery-viewer-rarity rarity-text-${card.rarity}`;
+        // Build list of unlocked cards for swipe navigation
+        this._viewerCards = GALLERY_CARDS.filter(c => this.unlockedCards.has(c.id));
+        this._viewerIndex = this._viewerCards.findIndex(c => c.id === card.id);
 
+        this._showViewerCard(card);
         viewer.classList.remove('hidden');
 
         document.getElementById('gallery-viewer-close').onclick = () => {
             viewer.classList.add('hidden');
         };
+
+        // Swipe navigation
+        let startX = 0;
+        const content = document.getElementById('gallery-viewer-content');
+        content.ontouchstart = (e) => { startX = e.touches[0].clientX; };
+        content.ontouchend = (e) => {
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 50) {
+                if (dx < 0 && this._viewerIndex < this._viewerCards.length - 1) {
+                    this._viewerIndex++;
+                    this._showViewerCard(this._viewerCards[this._viewerIndex]);
+                } else if (dx > 0 && this._viewerIndex > 0) {
+                    this._viewerIndex--;
+                    this._showViewerCard(this._viewerCards[this._viewerIndex]);
+                }
+            }
+        };
+
+        // Tap to toggle zoom
+        const img = document.getElementById('gallery-viewer-img');
+        let zoomed = false;
+        img.onclick = () => {
+            zoomed = !zoomed;
+            img.style.transform = zoomed ? 'scale(1.8)' : 'scale(1)';
+            img.style.transition = 'transform 0.3s ease';
+        };
+    }
+
+    _showViewerCard(card) {
+        const img = document.getElementById('gallery-viewer-img');
+        img.src = card.image;
+        img.style.transform = 'scale(1)';
+        document.getElementById('gallery-viewer-title').textContent = card.title;
+        document.getElementById('gallery-viewer-subtitle').textContent = card.subtitle;
+        document.getElementById('gallery-viewer-rarity').textContent = card.rarity;
+        document.getElementById('gallery-viewer-rarity').className = 'gallery-viewer-rarity rarity-text-' + card.rarity;
+        // Show card position
+        const counter = document.getElementById('gallery-viewer-counter');
+        if (counter) counter.textContent = (this._viewerIndex + 1) + ' / ' + this._viewerCards.length;
     }
 
     save() {

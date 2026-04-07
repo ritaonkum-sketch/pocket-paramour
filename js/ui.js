@@ -793,32 +793,65 @@ class GameUI {
         if (this._notifTimer) clearTimeout(this._notifTimer);
 
         const g = this.game;
-        const charName = (typeof CHARACTER !== 'undefined' && CHARACTER.name) || 'Your companion';
+        const c = (typeof CHARACTER !== 'undefined' && CHARACTER.name) || 'Your companion';
+        const id = g.selectedCharacter || 'alistair';
+
+        // Character-specific notification messages
+        const msgs = {
+            alistair: {
+                hungry: { t: c + ' needs fuel \u2694\uFE0F', b: 'A knight can\'t fight on an empty stomach.' },
+                lonely: { t: c + ' kept the post \uD83D\uDEE1\uFE0F', b: 'He\'s been standing watch alone. Waiting.' },
+                miss:   { t: c + ' is thinking of you', b: 'He polished the sword again. Third time today.' }
+            },
+            lyra: {
+                hungry: { t: c + ' is getting hungry \uD83C\uDF0A', b: 'Even sirens need to eat...' },
+                lonely: { t: c + ' misses you \uD83D\uDC99', b: 'She\'s been staring at the tide alone.' },
+                miss:   { t: c + ' is humming softly \uD83C\uDFB5', b: 'She sings better when someone\'s listening.' }
+            },
+            lucien: {
+                hungry: { t: c + ' forgot to eat \uD83D\uDCDA', b: 'The theorem was more urgent. His stomach disagrees.' },
+                lonely: { t: c + ' noticed you\'re gone \uD83D\uDD2E', b: 'He filled three journals. None about magic.' },
+                miss:   { t: c + ' is recalibrating \u2728', b: 'The equations don\'t balance without you.' }
+            },
+            caspian: {
+                hungry: { t: c + ' skipped dinner \uD83D\uDC51', b: 'The servants set your place. It went cold.' },
+                lonely: { t: c + ' is alone in the palace \uD83C\uDFF0', b: 'A hundred rooms and none feel like home.' },
+                miss:   { t: c + ' is waiting \uD83C\uDF39', b: 'He reorganized the library. By mood.' }
+            },
+            elian: {
+                hungry: { t: c + ' needs food \uD83C\uDF3F', b: 'The traps were empty this morning.' },
+                lonely: { t: c + ' kept the fire lit \uD83D\uDD25', b: 'He almost went looking. Almost.' },
+                miss:   { t: c + ' is watching the trail \uD83C\uDF32', b: 'The forest is quieter without you.' }
+            },
+            proto: {
+                hungry: { t: c + ' is low on resources \u26A0\uFE0F', b: 'Hunger stat critical. Manual intervention required.' },
+                lonely: { t: c + ' detected your absence \uD83D\uDCE1', b: 'Session idle for too long. He noticed.' },
+                miss:   { t: c + ' is monitoring \uD83D\uDCBB', b: 'He\'s been watching the door. The digital one.' }
+            },
+            noir: {
+                hungry: { t: c + ' stirs \uD83C\uDF11', b: 'The darkness doesn\'t need food. But it needs you.' },
+                lonely: { t: c + ' whispers your name \uD83D\uDDA4', b: 'Even shadows get lonely.' },
+                miss:   { t: c + ' is waiting \uD83C\uDF1A', b: 'The dark is patient. Are you?' }
+            }
+        };
+        const m = msgs[id] || msgs.alistair;
 
         let delay, title, body;
         if ((g.hunger || 100) < 40) {
-            delay = 12 * 60 * 1000;           // 12 min if already hungry
-            title = `${charName} is getting hungry! 🍎`;
-            body  = 'Come back and feed her before she fades…';
+            delay = 12 * 60 * 1000;
+            title = m.hungry.t; body = m.hungry.b;
         } else if ((g.bond || 100) < 30) {
-            delay = 20 * 60 * 1000;           // 20 min if lonely
-            title = `${charName} misses you… 💙`;
-            body  = 'She\'s been staring at the tide alone.';
+            delay = 20 * 60 * 1000;
+            title = m.lonely.t; body = m.lonely.b;
         } else {
-            delay = 2 * 60 * 60 * 1000;       // 2 hours otherwise
-            title = `${charName} is thinking of you 🌊`;
-            body  = 'She\'s been humming softly. Come keep her company.';
+            delay = 2 * 60 * 60 * 1000;
+            title = m.miss.t; body = m.miss.b;
         }
 
         this._notifTimer = setTimeout(() => {
             if (document.hidden && Notification.permission === 'granted') {
                 try {
-                    new Notification(title, {
-                        body,
-                        icon: 'assets/icon-192.png',
-                        badge: 'assets/icon-192.png',
-                        tag: 'lyra-reminder'
-                    });
+                    new Notification(title, { body, icon: 'assets/icon-192.png', badge: 'assets/icon-192.png', tag: id + '-reminder' });
                 } catch (e) {}
             }
         }, delay);
@@ -848,25 +881,26 @@ class GameUI {
     // ===== DRESS/OUTFIT SYSTEM =====
 
     initDressPanel() {
-        const isLyra = this.game.selectedCharacter === 'lyra';
-
-        const alistairOutfits = [
-            { id: 'knight',    name: 'Knight Armor',   icon: '🛡️',  req: 0,  desc: 'Default',          bodySprite: 'neutral'   },
-            { id: 'casual1',   name: 'Red Tunic',       icon: '👕',  req: 1,  desc: 'Affection Lv.1',   bodySprite: 'casual1'   },
-            { id: 'casual2',   name: 'Leather Armor',   icon: '🧥',  req: 2,  desc: 'Affection Lv.2',   bodySprite: 'casual2'   },
-            { id: 'shirtless', name: 'Off Duty',        icon: '💪',  req: 3,  desc: 'Affection Lv.3',   bodySprite: 'shirtless' },
-            { id: 'corrupted', name: 'Dark Knight',     icon: '💀',  req: -1, desc: 'Corruption 50+',   bodySprite: 'fighting2' },
-        ];
-
-        const lyraOutfits = [
-            { id: 'default',  name: 'Siren Dress',   icon: '🌊',  req: 0,  desc: 'Default',         bodySprite: 'neutral'  },
-            { id: 'casual1',  name: 'Ocean Breeze',  icon: '🌸',  req: 1,  desc: 'Affection Lv.1',  bodySprite: 'casual1'  },
-            { id: 'casual2',  name: 'Shore Walk',    icon: '🐚',  req: 2,  desc: 'Affection Lv.2',  bodySprite: 'casual2'  },
-            { id: 'queen',    name: 'Siren Queen',   icon: '👑',  req: 3,  desc: 'Affection Lv.3',  bodySprite: 'queen'    },
-            { id: 'power',    name: 'Resonance',     icon: '✨',  req: -1, desc: 'Corruption 50+',  bodySprite: 'power'    },
-        ];
-
-        const outfits = isLyra ? lyraOutfits : alistairOutfits;
+        // Build outfits from CHARACTER data — works for all 7 characters
+        // Fallback for Alistair who doesn't have outfits in CHARACTER object
+        const defaultOutfits = {
+            default: { name: 'Default', body: CHARACTER.bodySprites?.neutral || '' },
+            casual1: { name: 'Casual', body: CHARACTER.bodySprites?.casual1 || '' },
+            casual2: { name: 'Alternate', body: CHARACTER.bodySprites?.casual2 || '' }
+        };
+        const charOutfits = CHARACTER.outfits || defaultOutfits;
+        const outfitKeys = Object.keys(charOutfits);
+        const icons = ['\uD83D\uDC55', '\uD83E\uDDE5', '\uD83D\uDC57', '\uD83D\uDC51', '\uD83D\uDC80'];
+        const outfits = outfitKeys.map(function(key, i) {
+            var o = charOutfits[key];
+            var req = 0;
+            if (key === 'casual1') req = 1;
+            else if (key === 'casual2') req = 2;
+            else if (key === 'formal' || key === 'queen' || key === 'shirtless') req = 3;
+            else if (key === 'corrupted' || key === 'power') req = -1;
+            var desc = req === -1 ? 'Corruption 50+' : req === 0 ? 'Default' : 'Affection Lv.' + req;
+            return { id: key, name: o.name || key, icon: icons[i % icons.length], req: req, desc: desc, bodySprite: key };
+        });
 
         const grid = document.getElementById('dress-grid');
         grid.innerHTML = '';

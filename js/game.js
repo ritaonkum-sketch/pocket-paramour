@@ -2283,18 +2283,19 @@ class PocketLoveGame {
 
         if (sfxSlider) {
             sfxSlider.value = localStorage.getItem('pocketlove_sfx_vol') || 70;
+            if (typeof sounds !== 'undefined') sounds.setVolume(sfxSlider.value);
             sfxSlider.addEventListener('input', (e) => {
                 localStorage.setItem('pocketlove_sfx_vol', e.target.value);
+                if (typeof sounds !== 'undefined') sounds.setVolume(e.target.value);
             });
         }
 
         if (bgmSlider) {
             bgmSlider.value = localStorage.getItem('pocketlove_bgm_vol') || 50;
+            if (typeof bgm !== 'undefined') bgm.setVolume(bgmSlider.value);
             bgmSlider.addEventListener('input', (e) => {
                 localStorage.setItem('pocketlove_bgm_vol', e.target.value);
-                if (typeof bgm !== 'undefined' && bgm.masterGain) {
-                    bgm.masterGain.gain.value = e.target.value / 100 * 0.15;
-                }
+                if (typeof bgm !== 'undefined') bgm.setVolume(e.target.value);
             });
         }
     }
