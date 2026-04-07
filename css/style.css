@@ -726,10 +726,10 @@ body {
     filter: hue-rotate(200deg) saturate(0.6) brightness(0.8);
 }
 
-/* Lucien background — zoom in and shift up so character stands on ground */
+/* Lucien background — cover full screen, positioned for ground level */
 .character-lucien {
-    background-size: 140% auto !important;
-    background-position: center 55% !important;
+    background-size: cover !important;
+    background-position: center 60% !important;
 }
 
 /* Lucien body sizing (similar to Alistair) */

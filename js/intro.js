@@ -170,7 +170,7 @@ const INTRO_SCENES = {
                 line: "I don't take apprentices. I don't take visitors. I don't take... whatever this is."
             },
             {
-                body: 'assets/lucien/body/vulnerable.png',
+                body: 'assets/lucien/body/fascinated.png',
                 direction: 'A pause. Longer than he intended. Something shifts behind the calculation in his eyes.',
                 line: "But the equations changed the moment you walked in. And I need to understand why."
             },

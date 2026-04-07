@@ -114,35 +114,60 @@ class BGMSystem {
     // ===== PLAYBACK =====
 
     start() {
-        if (!this.initialized) this.init();
-        if (this.playing || !this.ctx) return;
-
-        if (this.ctx.state === 'suspended') {
-            this.ctx.resume();
-        }
-
+        if (this.muted) return;
+        if (this.playing) return;
         this.playing = true;
-        this._startPad();
-        this._scheduleNotes();
+        this._playMoodTrack(this.currentMood);
     }
 
     stop() {
         this.playing = false;
-        this._noteTimers.forEach(t => clearTimeout(t));
-        this._noteTimers = [];
-        if (this._loopTimer) clearTimeout(this._loopTimer);
-        if (this._padOsc) {
-            try { this._padOsc.stop(); } catch(e) {}
-            this._padOsc = null;
+        if (this._bgmAudio) {
+            this._bgmAudio.pause();
+            this._bgmAudio.currentTime = 0;
         }
+    }
+
+    _playMoodTrack(mood) {
+        const tracks = {
+            calm: 'assets/audio/bgm-calm.mp3',
+            night: 'assets/audio/bgm-night.mp3',
+            tense: 'assets/audio/bgm-tense.mp3',
+            corrupted: 'assets/audio/bgm-corrupted.mp3',
+            romantic: 'assets/audio/bgm-calm.mp3' // TODO: add romantic track
+        };
+        const src = tracks[mood] || tracks.calm;
+
+        if (this._bgmAudio && this._bgmCurrentSrc === src) return;
+
+        // Fade out current
+        if (this._bgmAudio) {
+            const old = this._bgmAudio;
+            const fadeOut = setInterval(() => {
+                if (old.volume > 0.05) { old.volume -= 0.05; }
+                else { clearInterval(fadeOut); old.pause(); }
+            }, 100);
+        }
+
+        // Start new track
+        const audio = new Audio(src);
+        audio.loop = true;
+        audio.volume = this.volume;
+        audio.play().catch(function() {});
+        this._bgmAudio = audio;
+        this._bgmCurrentSrc = src;
     }
 
     setMood(mood) {
         if (mood === this.currentMood) return;
         this.currentMood = mood;
 
-        // Smoothly transition pad
-        if (this.playing && this._padOsc) {
+        if (this.playing) {
+            this._playMoodTrack(mood);
+        }
+
+        // Legacy: smoothly transition pad (kept for reference)
+        if (false && this.playing && this._padOsc) {
             const config = this.getMoodConfig(mood);
             const now = this.ctx.currentTime;
             this._padOsc.frequency.linearRampToValueAtTime(config.padFreq, now + 2);
@@ -154,21 +179,17 @@ class BGMSystem {
 
     toggleMute() {
         this.muted = !this.muted;
-        if (this.masterGain) {
-            this.masterGain.gain.linearRampToValueAtTime(
-                this.muted ? 0 : this.volume,
-                this.ctx.currentTime + 0.3
-            );
+        if (this._bgmAudio) {
+            this._bgmAudio.volume = this.muted ? 0 : this.volume;
         }
+        if (this.muted) this.stop();
         return this.muted;
     }
 
     setVolume(vol) {
-        this.volume = Math.max(0, Math.min(0.3, vol));
-        if (this.masterGain && !this.muted) {
-            this.masterGain.gain.linearRampToValueAtTime(
-                this.volume, this.ctx.currentTime + 0.3
-            );
+        this.volume = Math.max(0, Math.min(0.3, vol / 100 * 0.3));
+        if (this._bgmAudio && !this.muted) {
+            this._bgmAudio.volume = this.volume;
         }
     }
 

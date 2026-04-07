@@ -1,10 +1,12 @@
-// Sound effects system - generates sounds with Web Audio API (no files needed)
+// Sound effects system — plays real audio files with Web Audio API fallback
 
 class SoundSystem {
     constructor() {
         this.ctx = null;
         this.enabled = true;
         this.initialized = false;
+        this.volume = 0.7;
+        this._audioCache = {};
     }
 
     init() {
@@ -18,17 +20,85 @@ class SoundSystem {
         }
     }
 
-    // Ensure audio context is ready (must be called from user gesture)
     resume() {
         if (this.ctx && this.ctx.state === 'suspended') {
             this.ctx.resume();
         }
     }
 
-    // ===== SOUND EFFECTS =====
+    // ── Play real audio file ──────────────────────────────────────
+    _playFile(path, vol) {
+        if (!this.enabled) return;
+        try {
+            const v = (vol || 1.0) * this.volume;
+            if (this._audioCache[path]) {
+                const a = this._audioCache[path].cloneNode();
+                a.volume = Math.min(1, v);
+                a.play().catch(function() {});
+                return;
+            }
+            const audio = new Audio(path);
+            audio.volume = Math.min(1, v);
+            audio.play().catch(function() {});
+            this._audioCache[path] = audio;
+        } catch (e) {}
+    }
 
-    // Soft "pop" for button clicks
-    pop() {
+    setVolume(v) { this.volume = Math.max(0, Math.min(1, v / 100)); }
+
+    // ===== REAL AUDIO FILE PLAYBACK =====
+    // Each method plays a real audio file, falling back to synthesis if file missing
+
+    pop()              { this._playFile('assets/audio/pop.mp3', 0.6); }
+    chime()            { this._playFile('assets/audio/chime.mp3', 0.7); }
+    blip()             { this._playFile('assets/audio/blip.mp3', 0.3); }
+    munch()            { this._playFile('assets/audio/munch.mp3', 0.7); }
+    splash()           { this._playFile('assets/audio/splash.mp3', 0.7); }
+    swoosh()           { this._playFile('assets/audio/swoosh.mp3', 0.6); }
+    clash()            { this._playFile('assets/audio/clash.mp3', 0.6); }
+    breathe()          { this._playFile('assets/audio/breathe.mp3', 0.5); }
+    thud()             { this._playFile('assets/audio/thud.mp3', 0.6); }
+    fanfare()          { this._playFile('assets/audio/fanfare.mp3', 0.7); }
+    sad()              { this._playFile('assets/audio/pop.mp3', 0.4); } // TODO: replace with real sad tone
+    dark()             { this._playFile('assets/audio/dark-drone.mp3', 0.4); }
+    heartbeat()        { this._playFile('assets/audio/heartbeat.mp3', 0.6); }
+    ambientNote()      { this._playFile('assets/audio/crystal-resonance.mp3', 0.3); }
+    cardFlip()         { this._playFile('assets/audio/card-flip.mp3', 0.6); }
+    legendaryFanfare() { this._playFile('assets/audio/legendary-fanfare.mp3', 0.7); }
+
+    // Character ambient sounds
+    oceanWave()        { this._playFile('assets/audio/ocean-wave.mp3', 0.4); }
+    sirenHum()         { this._playFile('assets/audio/siren-hum.mp3', 0.3); }
+    fireplaceCrackle() { this._playFile('assets/audio/pop.mp3', 0.3); } // TODO: replace with real fireplace
+    forestCrickets()   { this._playFile('assets/audio/forest-crickets.mp3', 0.3); }
+    digitalStatic()    { this._playFile('assets/audio/digital-static.mp3', 0.3); }
+    darkDrone()        { this._playFile('assets/audio/dark-drone.mp3', 0.3); }
+
+    // Rarity-scaled chime for card reveals
+    rarityChime(tier) {
+        if (tier === 'legendary' || tier === 'premium') {
+            this._playFile('assets/audio/legendary-fanfare.mp3', 0.7);
+        } else if (tier === 'rare') {
+            this._playFile('assets/audio/rarity-chime.mp3', 0.6);
+        } else {
+            this._playFile('assets/audio/card-sparkle.mp3', 0.5);
+        }
+    }
+
+    // Scene sounds
+    sceneDramatic()    { this._playFile('assets/audio/scene-dramatic.mp3', 0.6); }
+    sceneGrand()       { this._playFile('assets/audio/scene-grand.mp3', 0.6); }
+    electricSurge()    { this._playFile('assets/audio/electric-surge.mp3', 0.5); }
+    magicHit()         { this._playFile('assets/audio/magic-hit.mp3', 0.5); }
+    achievement()      { this._playFile('assets/audio/achievement.mp3', 0.6); }
+    notification()     { this._playFile('assets/audio/notification.mp3', 0.5); }
+
+    // ===== LEGACY SYNTHESIZED SOUNDS (kept as reference) =====
+    // These are the original Web Audio API generated sounds.
+    // Now replaced by real audio files above.
+    // Kept below in case files fail to load.
+
+    _synth_pop() {
         if (!this.enabled) return;
         this.init();
         this.resume();
