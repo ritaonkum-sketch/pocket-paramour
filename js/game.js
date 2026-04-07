@@ -9877,7 +9877,7 @@ let selectedCharacter = 'alistair';
     startBtn.onclick = function() {
         sounds.init();
         sounds.resume();
-        // No sound on title screen
+        sounds.pop();
 
         titleScreen.classList.add('hidden');
 
@@ -9894,7 +9894,7 @@ let selectedCharacter = 'alistair';
 
         selectedCharacter = card.getAttribute('data-character');
         if (!selectedCharacter) return;
-        // No sound on character select
+        sounds.pop();
 
         // Update loading subtitle
         var loadSub = document.getElementById('loading-subtitle');
