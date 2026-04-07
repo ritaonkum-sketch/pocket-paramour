@@ -9831,7 +9831,7 @@ let selectedCharacter = 'alistair';
     startBtn.onclick = function() {
         sounds.init();
         sounds.resume();
-        sounds.chime();
+        sounds.pop();
 
         titleScreen.classList.add('hidden');
 
