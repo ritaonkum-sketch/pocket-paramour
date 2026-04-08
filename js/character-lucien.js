@@ -30,19 +30,21 @@ const CHARACTER_LUCIEN = {
     },
 
     faceSprites: {
-        happy:     ["assets/lucien/face/amused.png"],
-        love:      ["assets/lucien/face/fascinated.png"],
-        neutral:   ["assets/lucien/face/neutral.png"],
-        gentle:    ["assets/lucien/face/curious.png"],
-        sad:       ["assets/lucien/face/distant.png"],
-        crying:    ["assets/lucien/face/vulnerable.png"],
+        happy:     ["assets/lucien/face/amused.png", "assets/lucien/face/gentle.png"],
+        love:      ["assets/lucien/face/fascinated.png", "assets/lucien/face/love.png"],
+        neutral:   ["assets/lucien/face/neutral.png", "assets/lucien/face/curious.png"],
+        gentle:    ["assets/lucien/face/gentle.png", "assets/lucien/face/curious.png"],
+        sad:       ["assets/lucien/face/distant.png", "assets/lucien/face/tired.png"],
+        crying:    ["assets/lucien/face/distant.png"],
         angry:     ["assets/lucien/face/cold.png"],
         furious:   ["assets/lucien/face/cold.png"],
-        shy:       ["assets/lucien/face/vulnerable.png"],
-        wink:      ["assets/lucien/face/amused.png"],
-        sleeping:  ["assets/lucien/face/sleeping.png"],
+        shy:       ["assets/lucien/face/vulnerable.png", "assets/lucien/face/shy.png"],
+        wink:      ["assets/lucien/face/wink.png", "assets/lucien/face/cheeky.png"],
+        sleeping:  ["assets/lucien/face/sleeping.png", "assets/lucien/face/sleeping2.png"],
+        blink:     ["assets/lucien/face/blink.png"],
+        sleepy:    ["assets/lucien/face/sleepy.png", "assets/lucien/face/yawn.png"],
         corrupted: ["assets/lucien/face/obsessed.png"],
-        left:      ["assets/lucien/face/distant.png"]
+        left:      ["assets/lucien/face/distant.png", "assets/lucien/face/sad.png"]
     },
 
     bodyPoses: {

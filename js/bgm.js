@@ -151,7 +151,7 @@ class BGMSystem {
 
         // Start new track
         const audio = new Audio(src);
-        audio.loop = true;
+        audio.loop = false;  // No loop — plays once then stops
         audio.volume = this.volume;
         audio.play().catch(function() {});
         this._bgmAudio = audio;

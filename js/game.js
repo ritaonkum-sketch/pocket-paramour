@@ -10040,9 +10040,13 @@ let selectedCharacter = 'alistair';
                                 gameContainer.style.backgroundImage = "url('assets/bg-lyra-night.png')";
                             }
                         } else if (selectedCharacter === 'lucien') {
-                            gameContainer.style.backgroundImage = _isDay
-                                ? "url('assets/bg-lucien-night.png')"
-                                : "url('assets/bg-lucien-study.png')";
+                            if (_h >= 6 && _h < 18) {
+                                gameContainer.style.backgroundImage = "url('assets/bg-lucien-night.png')";
+                            } else if (_h >= 18 && _h < 22) {
+                                gameContainer.style.backgroundImage = "url('assets/bg-lucien-evening.png')";
+                            } else {
+                                gameContainer.style.backgroundImage = "url('assets/bg-lucien-bedroom.png')";
+                            }
                         } else {
                             // Use CHARACTER.background if defined, else knight room
                             selectCharacter(selectedCharacter);

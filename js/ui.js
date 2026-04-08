@@ -413,7 +413,10 @@ class GameUI {
             const faceImg = document.getElementById('character-face-img');
             if (!faceImg) { this.blinkLoop(); return; }
 
-            const blinkFace = CHARACTER.faceSprites.sleeping ? CHARACTER.faceSprites.sleeping[0] : null;
+            // Use dedicated blink sprite if available, otherwise fall back to sleeping
+            const blinkFace = (CHARACTER.faceSprites.blink && CHARACTER.faceSprites.blink[0])
+                || (CHARACTER.faceSprites.sleeping && CHARACTER.faceSprites.sleeping[0])
+                || null;
             // Skip blink if no sleeping face or if current face failed to load
             if (!blinkFace || !faceImg.naturalWidth) { this.blinkLoop(); return; }
 
