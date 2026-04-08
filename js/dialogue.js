@@ -28,10 +28,15 @@ class TypewriterEffect {
         this._emotionTriggers  = [];
         this._autoShiftEmotion = null;
 
-        // Click to skip
+        // Click to skip typing, or dismiss finished dialogue
         this.element.parentElement.addEventListener('click', () => {
             if (this.isTyping) {
                 this.skip();
+            } else if (this.element.textContent) {
+                // Dismiss finished dialogue
+                this.element.textContent = '';
+                const hint = document.getElementById('dialogue-tap-hint');
+                if (hint) hint.classList.add('hidden');
             }
         });
     }

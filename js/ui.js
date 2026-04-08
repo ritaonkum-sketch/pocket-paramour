@@ -125,7 +125,8 @@ class GameUI {
         const h = hour % 12 || 12;
         const ampm = hour < 12 ? 'AM' : 'PM';
         const min = String(new Date().getMinutes()).padStart(2, '0');
-        this.timeDisplay.textContent = `${h}:${min} ${ampm}`;
+        const day = this.game.storyDay || 1;
+        this.timeDisplay.textContent = `Day ${day} \u2022 ${h}:${min} ${ampm}`;
 
         // Night mode class on container
         if (period === 'night') {
@@ -1073,27 +1074,68 @@ class GameUI {
     // ===== GIFT SYSTEM =====
 
     initGiftPanel() {
-        const isLyra = this.game.selectedCharacter === 'lyra';
+        const charId = this.game.selectedCharacter;
 
-        const alistairGifts = [
-            { id: 'apple', name: 'Apple',        icon: '&#x1F34E;', bond: 5,  hunger: 10, effect: '+Hunger +Bond' },
-            { id: 'rose',  name: 'Rose',          icon: '&#x1F339;', bond: 15, affection: 3, effect: '+Bond +Love' },
-            { id: 'sword', name: 'Whetstone',     icon: '&#x1FA93;', bond: 8,  effect: '+Bond' },
-            { id: 'cake',  name: 'Cake',          icon: '&#x1F370;', hunger: 30, bond: 10, effect: '+Hunger +Bond' },
-            { id: 'ring',  name: 'Silver Ring',   icon: '&#x1F48D;', bond: 20, affection: 8,  effect: '+Bond ++Love' },
-            { id: 'book',  name: 'Poetry Book',   icon: '&#x1F4D6;', bond: 12, affection: 5,  effect: '+Bond +Love' },
-        ];
+        const giftSets = {
+            alistair: [
+                { id: 'apple', name: 'Apple',       icon: '\uD83C\uDF4E', bond: 5,  hunger: 10, effect: '+Hunger +Bond' },
+                { id: 'rose',  name: 'Rose',         icon: '\uD83C\uDF39', bond: 15, affection: 3, effect: '+Bond +Love' },
+                { id: 'sword', name: 'Whetstone',    icon: '\uD83E\uDE93', bond: 8,  effect: '+Bond' },
+                { id: 'cake',  name: 'Cake',         icon: '\uD83C\uDF70', hunger: 30, bond: 10, effect: '+Hunger +Bond' },
+                { id: 'ring',  name: 'Silver Ring',  icon: '\uD83D\uDC8D', bond: 20, affection: 8, effect: '+Bond ++Love' },
+                { id: 'book',  name: 'Poetry Book',  icon: '\uD83D\uDCD6', bond: 12, affection: 5, effect: '+Bond +Love' }
+            ],
+            lyra: [
+                { id: 'pearl',    name: 'Pearl',       icon: '\uD83E\uDDAA', bond: 20, affection: 8, effect: '+Bond ++Love' },
+                { id: 'shell',    name: 'Seashell',    icon: '\uD83D\uDC1A', bond: 10, hunger: 5, effect: '+Bond +Hunger' },
+                { id: 'song',     name: 'Song Sheet',  icon: '\uD83C\uDFB5', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'starfish', name: 'Starfish',    icon: '\u2B50', bond: 8, effect: '+Bond' },
+                { id: 'stone',    name: 'Ocean Stone', icon: '\uD83E\uDEA8', bond: 5, clean: 5, effect: '+Bond +Clean' },
+                { id: 'coral',    name: 'Coral Piece', icon: '\uD83E\uDEB8', bond: 12, affection: 4, effect: '+Bond +Love' }
+            ],
+            lucien: [
+                { id: 'book',    name: 'Rare Tome',     icon: '\uD83D\uDCD6', bond: 18, affection: 6, effect: '+Bond +Love' },
+                { id: 'crystal', name: 'Crystal',        icon: '\uD83D\uDD2E', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'scroll',  name: 'Ancient Scroll', icon: '\uD83D\uDCDC', bond: 12, affection: 4, effect: '+Bond +Love' },
+                { id: 'cake',    name: 'Sweet Pastry',   icon: '\uD83C\uDF70', hunger: 25, bond: 8, effect: '+Hunger +Bond' },
+                { id: 'ring',    name: 'Arcane Ring',    icon: '\uD83D\uDC8D', bond: 22, affection: 8, effect: '+Bond ++Love' },
+                { id: 'pearl',   name: 'Mana Pearl',     icon: '\u2728', bond: 10, clean: 5, effect: '+Bond +Clean' }
+            ],
+            caspian: [
+                { id: 'rose',   name: 'Royal Rose',    icon: '\uD83C\uDF39', bond: 18, affection: 6, effect: '+Bond +Love' },
+                { id: 'wine',   name: 'Fine Wine',     icon: '\uD83C\uDF77', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'cake',   name: 'Palace Cake',   icon: '\uD83C\uDF70', hunger: 30, bond: 10, effect: '+Hunger +Bond' },
+                { id: 'ring',   name: 'Gold Ring',     icon: '\uD83D\uDC8D', bond: 22, affection: 8, effect: '+Bond ++Love' },
+                { id: 'flower', name: 'Garden Lily',   icon: '\uD83C\uDF3A', bond: 12, affection: 4, effect: '+Bond +Love' },
+                { id: 'book',   name: 'Poetry',        icon: '\uD83D\uDCDC', bond: 10, affection: 3, effect: '+Bond +Love' }
+            ],
+            elian: [
+                { id: 'herbs',  name: 'Wild Herbs',    icon: '\uD83C\uDF3F', bond: 12, hunger: 10, effect: '+Hunger +Bond' },
+                { id: 'stone',  name: 'River Stone',   icon: '\uD83E\uDEA8', bond: 10, affection: 3, effect: '+Bond +Love' },
+                { id: 'apple',  name: 'Wild Berries',  icon: '\uD83C\uDF53', hunger: 25, bond: 5, effect: '+Hunger +Bond' },
+                { id: 'knife',  name: 'Carved Knife',  icon: '\uD83D\uDD2A', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'flower', name: 'Forest Flower', icon: '\uD83C\uDF3B', bond: 8, affection: 4, effect: '+Bond +Love' },
+                { id: 'book',   name: 'Field Guide',   icon: '\uD83D\uDCD7', bond: 10, affection: 3, effect: '+Bond +Love' }
+            ],
+            proto: [
+                { id: 'crystal', name: 'Data Crystal',  icon: '\uD83D\uDD2E', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'book',    name: 'Source Code',    icon: '\uD83D\uDCBB', bond: 18, affection: 6, effect: '+Bond +Love' },
+                { id: 'cake',    name: 'Energy Pack',    icon: '\u26A1', hunger: 30, bond: 8, effect: '+Hunger +Bond' },
+                { id: 'ring',    name: 'Circuit Ring',   icon: '\uD83D\uDD17', bond: 20, affection: 8, effect: '+Bond ++Love' },
+                { id: 'scroll',  name: 'Debug Log',      icon: '\uD83D\uDCDD', bond: 10, affection: 3, effect: '+Bond +Love' },
+                { id: 'stone',   name: 'Memory Chip',    icon: '\uD83D\uDCBE', bond: 12, affection: 4, effect: '+Bond +Love' }
+            ],
+            noir: [
+                { id: 'rose',    name: 'Black Rose',    icon: '\uD83C\uDF39', bond: 18, affection: 6, effect: '+Bond +Love' },
+                { id: 'ring',    name: 'Shadow Ring',    icon: '\uD83D\uDC8D', bond: 22, affection: 8, effect: '+Bond ++Love' },
+                { id: 'crystal', name: 'Dark Crystal',   icon: '\uD83D\uDD2E', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'wine',    name: 'Midnight Wine',  icon: '\uD83C\uDF77', bond: 12, hunger: 10, effect: '+Hunger +Bond' },
+                { id: 'book',    name: 'Forbidden Text', icon: '\uD83D\uDCD5', bond: 15, affection: 5, effect: '+Bond +Love' },
+                { id: 'stone',   name: 'Void Stone',     icon: '\uD83C\uDF11', bond: 10, affection: 4, effect: '+Bond +Love' }
+            ]
+        };
 
-        const lyraGifts = [
-            { id: 'pearl',    name: 'Pearl',        icon: '🦪',         bond: 20, affection: 8,  effect: '+Bond ++Love' },
-            { id: 'shell',    name: 'Seashell',     icon: '🐚',         bond: 10, hunger: 5,     effect: '+Bond +Hunger' },
-            { id: 'song',     name: 'Song Sheet',   icon: '🎵',         bond: 15, affection: 5,  effect: '+Bond +Love' },
-            { id: 'starfish', name: 'Starfish',     icon: '⭐',         bond: 8,                 effect: '+Bond' },
-            { id: 'stone',    name: 'Ocean Stone',  icon: '🪨',         bond: 5,  clean: 5,      effect: '+Bond +Clean' },
-            { id: 'coral',    name: 'Coral Piece',  icon: '🪸',         bond: 12, affection: 4,  effect: '+Bond +Love' },
-        ];
-
-        const gifts = isLyra ? lyraGifts : alistairGifts;
+        const gifts = giftSets[charId] || giftSets.alistair;
 
         const grid = document.getElementById('gift-grid');
         grid.innerHTML = '';
@@ -1726,6 +1768,16 @@ class GameUI {
         } else {
             this.container.classList.remove('corrupted');
         }
+
+        // Progressive corruption vignette — subtle red darkening at edges
+        this.container.classList.remove('corruption-low', 'corruption-mid', 'corruption-high');
+        if (g.corruption >= 60) {
+            this.container.classList.add('corruption-high');
+        } else if (g.corruption >= 30) {
+            this.container.classList.add('corruption-mid');
+        } else if (g.corruption >= 15) {
+            this.container.classList.add('corruption-low');
+        }
     }
 
     updateSirenStage() {
@@ -1776,8 +1828,12 @@ class GameUI {
 
     updateAffection() {
         const names = CHARACTER.affectionNames || {0:"Stranger",1:"Familiar",2:"Close",3:"Devoted",4:"In Love"};
-        const name = names[this.game.affectionLevel] || "Stranger";
-        this.affectionText.textContent = name;
+        const level = this.game.affectionLevel;
+        const name = names[level] || "Stranger";
+        const nextName = names[level + 1];
+        // Show current level + hint of what's next
+        this.affectionText.textContent = nextName ? name + ' \u2192 ' + nextName : name + ' \u2764';
+        this.affectionText.title = nextName ? 'Next: ' + nextName : 'Max affection reached!';
 
         // Feature 8: streak badge — show flame + count when player returns 2+ days in a row
         const streakBadge = document.getElementById('streak-badge');
