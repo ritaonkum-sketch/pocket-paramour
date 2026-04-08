@@ -339,6 +339,10 @@ class PocketLoveGame {
     }
 
     init() {
+        // Ensure sounds are enabled at game start
+        if (typeof sounds !== 'undefined' && !sounds.enabled) {
+            sounds.init(); sounds.resume(); sounds.enabled = true;
+        }
         this.typewriter = new TypewriterEffect(document.getElementById('dialogue-text'));
         // Set character name above dialogue
         try {
@@ -9939,6 +9943,9 @@ let selectedCharacter = 'alistair';
     selectScreen.addEventListener('click', function(e) {
         var card = e.target.closest('.select-card');
         if (!card) return;
+
+        // Safety: ensure sounds are enabled and initialized
+        if (!sounds.enabled) { sounds.init(); sounds.resume(); sounds.enabled = true; }
 
         selectedCharacter = card.getAttribute('data-character');
         if (!selectedCharacter) return;

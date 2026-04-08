@@ -29,6 +29,9 @@ class SoundSystem {
     // ── Play real audio file ──────────────────────────────────────
     _playFile(path, vol) {
         if (!this.enabled) return;
+        // Auto-init if not yet initialized (mobile browser safety)
+        if (!this.initialized) this.init();
+        this.resume();
         try {
             const v = (vol || 1.0) * this.volume;
             if (this._audioCache[path]) {
