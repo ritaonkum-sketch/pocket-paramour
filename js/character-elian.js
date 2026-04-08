@@ -444,7 +444,11 @@ const CHARACTER_ELIAN = {
             "*stacks firewood in perfect rows*",
             "Something's different about the soil today.",
             "The deer are migrating early. That means something.",
-            "*sits perfectly still for an unnervingly long time*"
+            "*sits perfectly still for an unnervingly long time*",
+            "The trees whisper about the tower. The mage is pushing too hard.",
+            "The kingdom's wards are thinning. I can feel it in the soil.",
+            "The siren's song reached the forest last night. Even the wolves listened.",
+            "The prince's castle glows warm. The forest stays cold. That's as it should be."
         ]
     },
 

@@ -9880,7 +9880,7 @@ let selectedCharacter = 'alistair';
     };
     // tips are selected dynamically when loading screen shows (selectedCharacter is set by then)
 
-    // Title → Character Select
+    // Title → World Intro → Character Select
     startBtn.onclick = function() {
         sounds.init();
         sounds.resume();
@@ -9889,10 +9889,50 @@ let selectedCharacter = 'alistair';
 
         titleScreen.classList.add('hidden');
 
-        // Show character select
-        setTimeout(function() {
-            selectScreen.classList.remove('hidden');
-        }, 600);
+        // World intro plays ONCE
+        if (!localStorage.getItem('pp_world_intro_seen')) {
+            var worldIntro = document.getElementById('world-intro');
+            var worldText = document.getElementById('world-intro-text');
+            var worldBeats = [
+                "The Kingdom of Aethermoor stands at the edge of the world.",
+                "Its people are bound by magic.\nIts magic is bound by emotion.",
+                "You arrived with no memory.\nThey found you.\nNow they won't let go."
+            ];
+            var worldIndex = 0;
+
+            worldIntro.classList.remove('hidden');
+            requestAnimationFrame(function() { worldIntro.classList.add('visible'); });
+
+            var showWorldBeat = function() {
+                if (worldIndex < worldBeats.length) {
+                    worldText.classList.remove('show');
+                    setTimeout(function() {
+                        worldText.textContent = worldBeats[worldIndex];
+                        worldText.style.whiteSpace = 'pre-line';
+                        requestAnimationFrame(function() { worldText.classList.add('show'); });
+                    }, 300);
+                } else {
+                    // Done — save and show select
+                    localStorage.setItem('pp_world_intro_seen', '1');
+                    worldIntro.classList.remove('visible');
+                    setTimeout(function() {
+                        worldIntro.classList.add('hidden');
+                        selectScreen.classList.remove('hidden');
+                    }, 800);
+                }
+            };
+
+            showWorldBeat();
+            worldIntro.addEventListener('click', function() {
+                worldIndex++;
+                showWorldBeat();
+            });
+        } else {
+            // Already seen — go straight to select
+            setTimeout(function() {
+                selectScreen.classList.remove('hidden');
+            }, 600);
+        }
     };
 
     // Character Select → Loading → Game
@@ -9916,6 +9956,22 @@ let selectedCharacter = 'alistair';
 
         setTimeout(function() {
             loadingScreen.classList.remove('hidden');
+
+            // Show character portrait during loading
+            var loadPortrait = document.getElementById('loading-portrait');
+            if (loadPortrait) {
+                var portraits = {
+                    alistair: 'assets/alistair/select-portrait.png',
+                    lyra: 'assets/lyra/select-portrait.png',
+                    lucien: 'assets/lucien/select-portrait.png',
+                    caspian: 'assets/caspian/select-portrait.png',
+                    elian: 'assets/elian/select-portrait.png',
+                    proto: 'assets/proto/select-portrait.png',
+                    noir: 'assets/noir/select-portrait.png'
+                };
+                loadPortrait.src = portraits[selectedCharacter] || '';
+                loadPortrait.classList.remove('hidden');
+            }
 
             var tipEl = document.getElementById('loading-tip');
             if (tipEl) {

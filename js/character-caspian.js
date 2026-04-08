@@ -559,7 +559,11 @@ const CHARACTER_CASPIAN = {
             "I ordered new curtains. Gold. To match the sunset.",
             "There's a room in the palace no one uses. I've been thinking about why.",
             "*stands by the window, watching nothing in particular*",
-            "The roses are blooming early this year. I'll take credit."
+            "The roses are blooming early this year. I'll take credit.",
+            "The knight reported unusual activity near the coast. Lyra's domain.",
+            "The mage declined my invitation again. Lucien prefers his tower.",
+            "The druid sent herbs from Thornwood. Good for the gardens.",
+            "The captain of the guard looked tired today. Alistair works too hard."
         ]
     },
 

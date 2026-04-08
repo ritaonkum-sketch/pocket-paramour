@@ -495,7 +495,11 @@ const CHARACTER_ALISTAIR = {
             "I keep rearranging the armory. It doesn't need it.",
             "*looks at you, then at the floor*", "I'm fine. That wasn't what you asked.",
             "There's a knot in the wood grain that looks like a shield. I've been staring at it.",
-            "My old commander used to say silence is a soldier's best friend. He was wrong."
+            "My old commander used to say silence is a soldier's best friend. He was wrong.",
+            "The prince hasn't left the east wing all day. I should check on him.",
+            "Reports from the coast \u2014 the siren's caves are restless tonight.",
+            "The mage's tower light was on all night. That man doesn't sleep.",
+            "The druid sent word from Thornwood. Something about the wards."
         ]
     },
 

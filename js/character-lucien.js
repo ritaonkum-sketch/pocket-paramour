@@ -698,7 +698,11 @@ const CHARACTER_LUCIEN = {
             "*inhales deeply, as if gathering data from the air*",
             "I wonder what you see when you look at me.",
             "The ink is a new formula. It changes color with my mood. Currently... purple.",
-            "*glances at you over the top of a book*"
+            "*glances at you over the top of a book*",
+            "The forest druid sent a message. Something about the wards weakening.",
+            "My sister's song carried up from the caves last night. She's restless.",
+            "The prince requested my counsel today. I declined. Politely.",
+            "The knight guards the kingdom's body. I guard its mind."
         ]
     },
 

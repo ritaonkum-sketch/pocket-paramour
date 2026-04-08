@@ -29,6 +29,12 @@
         </div>
     </div>
 
+    <!-- WORLD INTRO (plays once) -->
+    <div id="world-intro" class="hidden">
+        <div id="world-intro-text"></div>
+        <div id="world-intro-hint">tap to continue</div>
+    </div>
+
     <!-- CHARACTER SELECT SCREEN -->
     <div id="select-screen" class="hidden">
         <div id="select-content">
@@ -40,49 +46,49 @@
                         <img src="assets/alistair/select-portrait.png" alt="Alistair" class="select-card-img">
                     </div>
                     <div class="select-card-name">Alistair</div>
-                    <div class="select-card-role">The Loyal Knight</div>
+                    <div class="select-card-role">Captain of the Guard</div>
                 </div>
                 <div class="select-card" data-character="lyra">
                     <div class="select-card-img-wrap">
                         <img src="assets/lyra/select-portrait.png" alt="Lyra" class="select-card-img">
                     </div>
                     <div class="select-card-name">Lyra</div>
-                    <div class="select-card-role">The Resonant Siren</div>
+                    <div class="select-card-role">Voice of the Caves</div>
                 </div>
                 <div class="select-card" data-character="caspian">
                     <div class="select-card-img-wrap">
                         <img src="assets/caspian/select-portrait.png" alt="Caspian" class="select-card-img">
                     </div>
                     <div class="select-card-name">Caspian</div>
-                    <div class="select-card-role">The Gentle Prince</div>
+                    <div class="select-card-role">Crown Prince</div>
                 </div>
                 <div class="select-card" data-character="elian">
                     <div class="select-card-img-wrap">
                         <img src="assets/elian/select-portrait.png" alt="Elian" class="select-card-img">
                     </div>
                     <div class="select-card-name">Elian</div>
-                    <div class="select-card-role">The Rogue Druid</div>
+                    <div class="select-card-role">Warden of Thornwood</div>
                 </div>
                 <div class="select-card" data-character="lucien">
                     <div class="select-card-img-wrap">
                         <img src="assets/lucien/select-portrait.png" alt="Lucien" class="select-card-img">
                     </div>
                     <div class="select-card-name">Lucien</div>
-                    <div class="select-card-role">The Grand Mage</div>
+                    <div class="select-card-role">Scholar of the Tower</div>
                 </div>
                 <div class="select-card select-card-locked" data-character="proto" id="proto-card">
                     <div class="select-card-img-wrap">
                         <img src="assets/proto/select-portrait.png" alt="???" class="select-card-img">
                     </div>
                     <div class="select-card-name">???</div>
-                    <div class="select-card-role">Signal Detected</div>
+                    <div class="select-card-role">Anomaly in the Wards</div>
                 </div>
                 <div class="select-card select-card-locked" data-character="noir" id="noir-card">
                     <div class="select-card-img-wrap">
                         <img src="assets/noir/select-portrait.png" alt="???" class="select-card-img">
                     </div>
                     <div class="select-card-name">&#x1F311;</div>
-                    <div class="select-card-role">Something Watches</div>
+                    <div class="select-card-role">Sealed Beneath</div>
                 </div>
             </div>
         </div>
@@ -91,7 +97,7 @@
     <!-- LOADING SCREEN (shows after pressing Start) -->
     <div id="loading-screen" class="hidden">
         <div id="loading-content">
-            <div id="loading-heart">&#x2764;&#xFE0F;</div>
+            <img id="loading-portrait" src="" alt="" class="hidden">
             <div id="loading-title">Pocket Paramour</div>
             <div id="loading-subtitle"></div>
             <div id="loading-bar-bg">

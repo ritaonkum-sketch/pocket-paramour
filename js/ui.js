@@ -1266,10 +1266,22 @@ class GameUI {
         this.cleanBar.style.width = g.clean + '%';
         this.bondBar.style.width = g.bond + '%';
 
-        // Brief glow when stat increases significantly
-        if (g.hunger - prevH > 3) { this.hungerBar.classList.add('stat-changed'); setTimeout(() => this.hungerBar.classList.remove('stat-changed'), 600); }
-        if (g.clean - prevC > 3) { this.cleanBar.classList.add('stat-changed'); setTimeout(() => this.cleanBar.classList.remove('stat-changed'), 600); }
-        if (g.bond - prevB > 3) { this.bondBar.classList.add('stat-changed'); setTimeout(() => this.bondBar.classList.remove('stat-changed'), 600); }
+        // Brief glow + icon bounce when stat increases significantly
+        if (g.hunger - prevH > 3) {
+            this.hungerBar.classList.add('stat-changed'); setTimeout(() => this.hungerBar.classList.remove('stat-changed'), 600);
+            var hi = this.hungerBar.closest('.stat')?.querySelector('.stat-icon');
+            if (hi) { hi.classList.add('stat-icon-bounce'); setTimeout(() => hi.classList.remove('stat-icon-bounce'), 400); }
+        }
+        if (g.clean - prevC > 3) {
+            this.cleanBar.classList.add('stat-changed'); setTimeout(() => this.cleanBar.classList.remove('stat-changed'), 600);
+            var ci = this.cleanBar.closest('.stat')?.querySelector('.stat-icon');
+            if (ci) { ci.classList.add('stat-icon-bounce'); setTimeout(() => ci.classList.remove('stat-icon-bounce'), 400); }
+        }
+        if (g.bond - prevB > 3) {
+            this.bondBar.classList.add('stat-changed'); setTimeout(() => this.bondBar.classList.remove('stat-changed'), 600);
+            var bi = this.bondBar.closest('.stat')?.querySelector('.stat-icon');
+            if (bi) { bi.classList.add('stat-icon-bounce'); setTimeout(() => bi.classList.remove('stat-icon-bounce'), 400); }
+        }
 
         // Pulse when critical
         this.hungerBar.classList.toggle('critical', g.hunger < 20);
