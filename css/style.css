@@ -533,6 +533,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    transition: background-image 0s; /* bg-image can't transition, handled by JS crossfade */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -2285,7 +2286,16 @@ body {
     width: 90%;
     box-shadow: 0 8px 40px rgba(233, 30, 99, 0.25);
     animation: eventSlideIn 0.5s ease;
+    border: 2px solid rgba(233, 30, 99, 0.2);
 }
+/* Character-themed event borders */
+.character-alistair #event-content { border-color: rgba(180, 130, 40, 0.3); box-shadow: 0 8px 40px rgba(180, 130, 40, 0.2); }
+.character-lyra #event-content { border-color: rgba(0, 180, 170, 0.3); box-shadow: 0 8px 40px rgba(0, 180, 170, 0.2); }
+.character-lucien #event-content { border-color: rgba(120, 80, 200, 0.3); box-shadow: 0 8px 40px rgba(120, 80, 200, 0.2); }
+.character-caspian #event-content { border-color: rgba(200, 170, 50, 0.3); box-shadow: 0 8px 40px rgba(200, 170, 50, 0.2); }
+.character-elian #event-content { border-color: rgba(60, 140, 60, 0.3); box-shadow: 0 8px 40px rgba(60, 140, 60, 0.2); }
+.character-proto #event-content { border-color: rgba(0, 200, 200, 0.3); box-shadow: 0 8px 40px rgba(0, 200, 200, 0.2); }
+.character-noir #event-content { border-color: rgba(140, 20, 40, 0.3); box-shadow: 0 8px 40px rgba(140, 20, 40, 0.2); }
 
 @keyframes eventSlideIn {
     0% { transform: translateY(30px) scale(0.95); opacity: 0; }
@@ -3327,6 +3337,18 @@ body {
     border-color: rgba(140, 20, 40, 0.25);
 }
 .character-noir .btn-label { color: #5c1a2a; }
+
+/* Save indicator on character cards */
+.save-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 10px;
+    line-height: 1;
+}
+.select-card {
+    position: relative;
+}
 
 /* Locked select cards */
 .select-card-locked {

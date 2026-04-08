@@ -140,11 +140,34 @@ class GameUI {
             const lyraBg = (hour >= 6 && hour < 19)
                 ? "url('assets/bg-lyra-day.png')"
                 : "url('assets/bg-lyra-evening.png')";
-            this.container.style.backgroundImage = lyraBg;
+            this._crossfadeBg(lyraBg);
+        }
+        // Lucien background — day / evening / night
+        if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lucien') {
+            var lucBg;
+            if (hour >= 6 && hour < 18) lucBg = "url('assets/bg-lucien-night.png')";
+            else if (hour >= 18 && hour < 22) lucBg = "url('assets/bg-lucien-evening.png')";
+            else lucBg = "url('assets/bg-lucien-bedroom.png')";
+            this._crossfadeBg(lucBg);
         }
 
         // Store for dialogue system
         this.game.timeOfDay = period;
+    }
+
+    // ── Smooth background crossfade ──────────────────────────────────
+    _crossfadeBg(newBg) {
+        if (!this.container) return;
+        const current = this.container.style.backgroundImage;
+        if (current === newBg) return; // no change
+        // Fade opacity briefly then swap
+        this.container.style.transition = 'opacity 0.8s ease';
+        this.container.style.opacity = '0.7';
+        setTimeout(() => {
+            this.container.style.backgroundImage = newBg;
+            this.container.style.opacity = '1';
+        }, 400);
+        setTimeout(() => { this.container.style.transition = ''; }, 1200);
     }
 
     // ===== IDLE ANIMATIONS =====

@@ -2272,11 +2272,28 @@ class PocketLoveGame {
         });
 
         if (resetBtn) resetBtn.addEventListener('click', () => {
-            if (confirm('Reset all progress for ' + CHARACTER.name + '? This cannot be undone.')) {
+            if (confirm('Reset progress for ' + CHARACTER.name + '? This cannot be undone.')) {
                 const saveKey = 'pocketLoveSave_' + (this.selectedCharacter || 'alistair');
                 const galleryKey = 'pocketlove_gallery_' + (this.selectedCharacter || 'alistair');
                 localStorage.removeItem(saveKey);
                 localStorage.removeItem(galleryKey);
+                localStorage.removeItem('pp_intro_' + this.selectedCharacter);
+                window.location.reload();
+            }
+        });
+
+        // Reset ALL characters
+        const resetAllBtn = document.getElementById('settings-reset-all');
+        if (resetAllBtn) resetAllBtn.addEventListener('click', () => {
+            if (confirm('Reset ALL characters and progress? This cannot be undone!')) {
+                ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
+                    localStorage.removeItem('pocketLoveSave_' + c);
+                    localStorage.removeItem('pocketlove_gallery_' + c);
+                    localStorage.removeItem('pp_intro_' + c);
+                });
+                localStorage.removeItem('pocketLoveMeta');
+                localStorage.removeItem('pp_world_intro_seen');
+                localStorage.removeItem('pp_player_name');
                 window.location.reload();
             }
         });
@@ -9968,6 +9985,27 @@ let selectedCharacter = 'alistair';
             }, 600);
         }
     };
+
+    // Show save indicators on character cards
+    function updateSaveIndicators() {
+        ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
+            var card = document.querySelector('[data-character="' + c + '"]');
+            if (!card) return;
+            var hasSave = !!localStorage.getItem('pocketLoveSave_' + c);
+            var existing = card.querySelector('.save-indicator');
+            if (hasSave && !existing) {
+                var dot = document.createElement('div');
+                dot.className = 'save-indicator';
+                dot.textContent = '\u2764\uFE0F';
+                dot.title = 'Save data exists';
+                card.appendChild(dot);
+            } else if (!hasSave && existing) {
+                existing.remove();
+            }
+        });
+    }
+    // Run on page load
+    updateSaveIndicators();
 
     // Character Select → Loading → Game
     selectScreen.addEventListener('click', function(e) {
