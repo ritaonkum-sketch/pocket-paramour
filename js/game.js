@@ -2672,16 +2672,46 @@ class PocketLoveGame {
                     }
                     if (text) {
                         text.textContent = '';
+                        const tapHint = document.getElementById('cinematic-tap-hint');
+                        if (tapHint) tapHint.classList.add('hidden');
                         let i = 0;
                         const speed = beat.speed || 38;
+                        let _typing = true;
                         const type = () => {
                             if (i < beat.text.length) {
                                 text.textContent += beat.text[i++];
                                 setTimeout(type, speed);
                             } else {
-                                setTimeout(resolve, beat.hold || 1600);
+                                _typing = false;
+                                // Show tap hint and wait for player tap
+                                if (tapHint) tapHint.classList.remove('hidden');
+                                const _tapHandler = () => {
+                                    overlay.removeEventListener('click', _tapHandler);
+                                    if (tapHint) tapHint.classList.add('hidden');
+                                    resolve();
+                                };
+                                // Small delay before accepting taps (prevent accidental skip)
+                                setTimeout(() => overlay.addEventListener('click', _tapHandler), 300);
                             }
                         };
+                        // Tap during typing = skip to full text
+                        const _skipHandler = () => {
+                            if (_typing) {
+                                _typing = false;
+                                text.textContent = beat.text;
+                                if (tapHint) tapHint.classList.remove('hidden');
+                                const _tapHandler = () => {
+                                    overlay.removeEventListener('click', _tapHandler);
+                                    if (tapHint) tapHint.classList.add('hidden');
+                                    resolve();
+                                };
+                                setTimeout(() => {
+                                    overlay.removeEventListener('click', _skipHandler);
+                                    overlay.addEventListener('click', _tapHandler);
+                                }, 200);
+                            }
+                        };
+                        overlay.addEventListener('click', _skipHandler);
                         setTimeout(type, beat.delay || 0);
                     } else resolve();
                     break;

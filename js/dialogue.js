@@ -91,6 +91,9 @@ class TypewriterEffect {
         this.isTyping = true;
         this.onComplete = callback || null;
         this.element.textContent = "";
+        // Hide tap hint when new dialogue starts
+        const _hint = document.getElementById('dialogue-tap-hint');
+        if (_hint) _hint.classList.add('hidden');
 
         // ── Ellipsis hesitation ───────────────────────────────────────────
         // Lines opening with silence get a pre-typing beat — character holds before speaking.
@@ -123,6 +126,13 @@ class TypewriterEffect {
             this.timer = setTimeout(() => this._type(), this.speed);
         } else {
             this.isTyping = false;
+            // Show "tap to continue" hint when typing finishes
+            const hint = document.getElementById('dialogue-tap-hint');
+            if (hint) {
+                hint.classList.remove('hidden');
+                // Hide after 4 seconds (auto-dismiss)
+                setTimeout(() => hint.classList.add('hidden'), 4000);
+            }
             if (this.onComplete) this.onComplete();
         }
     }

@@ -299,6 +299,23 @@
 .stat-icon.stat-icon-bounce {
     animation: pp-icon-bounce 0.4s ease;
 }
+/* ═══ TAP TO CONTINUE HINTS ══════════════════════════════════════ */
+#cinematic-tap-hint,
+#dialogue-tap-hint {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    animation: fadeInOut 2.5s ease-in-out infinite;
+}
+#cinematic-tap-hint.hidden,
+#dialogue-tap-hint.hidden { display: none; }
+#dialogue-tap-hint {
+    color: rgba(100,40,80,0.3);
+}
+
 @keyframes pp-icon-bounce {
     0% { transform: scale(1); }
     40% { transform: scale(1.3); }
