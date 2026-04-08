@@ -229,6 +229,53 @@ class PuzzleSystem {
         }, 2000);
     }
 
+    // ── Timing Game: tap when indicator hits the target zone ─────
+    playTimingGame(container, onComplete) {
+        container.innerHTML = `
+            <div class="puzzle-title">Timing</div>
+            <div class="puzzle-hint">Tap when the light hits the center!</div>
+            <div class="timing-track">
+                <div class="timing-zone"></div>
+                <div class="timing-indicator"></div>
+            </div>
+            <button class="timing-tap-btn">TAP!</button>
+        `;
+
+        const indicator = container.querySelector('.timing-indicator');
+        const tapBtn = container.querySelector('.timing-tap-btn');
+        let position = 0;
+        let direction = 1;
+        let speed = 2 + Math.floor(this.puzzlesMastered / 5); // gets faster
+        let running = true;
+
+        const animate = () => {
+            if (!running) return;
+            position += direction * speed;
+            if (position >= 100) { position = 100; direction = -1; }
+            if (position <= 0) { position = 0; direction = 1; }
+            indicator.style.left = position + '%';
+            requestAnimationFrame(animate);
+        };
+        animate();
+
+        tapBtn.addEventListener('click', () => {
+            if (!running) return;
+            running = false;
+            // Target zone is 40-60%
+            const success = position >= 35 && position <= 65;
+            if (success) this.puzzlesMastered++;
+            this._showResult(container, success, Object.keys(CHARACTER.trainingDialogue || {})[0] || 'logic', onComplete);
+        });
+
+        // Auto-fail after 5 seconds
+        setTimeout(() => {
+            if (running) {
+                running = false;
+                this._showResult(container, false, Object.keys(CHARACTER.trainingDialogue || {})[0] || 'logic', onComplete);
+            }
+        }, 5000);
+    }
+
     // ── Entry point: play a random puzzle of the given type ──────
     play(type, container, onComplete) {
         switch (type) {
@@ -241,8 +288,11 @@ class PuzzleSystem {
             case 'memory':
                 this.playMemoryPuzzle(container, onComplete);
                 break;
+            case 'timing':
+                this.playTimingGame(container, onComplete);
+                break;
             default:
-                this.playLogicPuzzle(container, onComplete);
+                this.playTimingGame(container, onComplete);
         }
     }
 }

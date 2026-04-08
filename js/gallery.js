@@ -802,10 +802,15 @@ class GallerySystem {
         const grid = document.getElementById('gallery-grid');
         if (!grid) return;
 
-        // Update counter
+        // Update counter — show per-character breakdown
         const counter = document.getElementById('gallery-counter');
         if (counter) {
-            counter.textContent = `${this.unlockedCards.size} / ${GALLERY_CARDS.length}`;
+            const charId = this.game.selectedCharacter || 'alistair';
+            const prefix = charId.charAt(0).toUpperCase() + charId.slice(1);
+            // Count cards for current character
+            const charCards = GALLERY_CARDS.filter(c => c.id.startsWith(charId) || c.id.startsWith(charId.substring(0,3)));
+            const charUnlocked = charCards.filter(c => this.unlockedCards.has(c.id)).length;
+            counter.textContent = `${prefix}: ${charUnlocked}/${charCards.length} \u2022 Total: ${this.unlockedCards.size}/${GALLERY_CARDS.length}`;
         }
 
         grid.innerHTML = '';

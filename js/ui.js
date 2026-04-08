@@ -665,6 +665,23 @@ class GameUI {
                     }
                 }
 
+                // ── Gift memory callback (10% chance) ────────────────
+                if (Math.random() < 0.10 && g._lastGiftName && g._giftMemory) {
+                    var totalGifts = Object.values(g._giftMemory).reduce(function(a,b){return a+b;},0);
+                    if (totalGifts >= 3) {
+                        var giftLines = [
+                            "You gave me that " + g._lastGiftName + "... I still have it.",
+                            "I think about that " + g._lastGiftName + " you brought me.",
+                            "The " + g._lastGiftName + " is on my shelf. I look at it sometimes.",
+                            "Every time I see that " + g._lastGiftName + ", I think of you.",
+                            "You've given me " + totalGifts + " gifts now. I've kept every one."
+                        ];
+                        g.typewriter.show(giftLines[Math.floor(Math.random() * giftLines.length)]);
+                        this.scheduleIdleDialogue();
+                        return;
+                    }
+                }
+
                 // ── Noir cross-character corruption taint (8% chance) ────
                 if (Math.random() < 0.08 && g.selectedCharacter !== 'noir' && typeof g._loadMetaMemory === 'function') {
                     var meta = g._loadMetaMemory();
@@ -1181,6 +1198,12 @@ class GameUI {
     giveGift(gift) {
         const g = this.game;
         if (g.characterLeft) return;
+
+        // Track gift memory — character remembers what you gave them
+        if (!g._giftMemory) g._giftMemory = {};
+        g._giftMemory[gift.id] = (g._giftMemory[gift.id] || 0) + 1;
+        g._lastGiftId = gift.id;
+        g._lastGiftName = gift.name;
 
         // Apply gift effects
         if (gift.hunger)    g.hunger    = Math.min(100, g.hunger    + gift.hunger);

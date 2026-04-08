@@ -1909,22 +1909,22 @@ class PocketLoveGame {
             focus:    { emotion: 'neutral', duration: 3050, seq: () => this.ui.playFocusSequence(unlock)    },
             singing:  { emotion: 'happy',   duration: 2200, seq: () => this.ui.playSingingSequence(unlock)  },
             magic:    { emotion: 'love',    duration: 2600, seq: () => this.ui.playMagicSequence(unlock)    },
-            // Elian foraging types
-            herbs:      { emotion: 'happy',   duration: 2500, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.bounceCharacter(); unlock(); } },
-            tracking:   { emotion: 'neutral', duration: 2500, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.bounceCharacter(); unlock(); } },
-            meditation: { emotion: 'neutral', duration: 2500, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            // Elian foraging types — timing game
+            herbs:      { emotion: 'happy',   duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
+            tracking:   { emotion: 'neutral', duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
+            meditation: { emotion: 'neutral', duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
             // Proto system command types
             inspect:    { emotion: 'neutral', duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             override:   { emotion: 'love',    duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
-            // Noir shadow arts types — also spreads global corruption
-            temptation:  { emotion: 'love',    duration: 2500, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.bounceCharacter(); unlock(); } },
-            domination:  { emotion: 'angry',   duration: 2500, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(3); this.ui.bounceCharacter(); unlock(); } },
-            dissolution: { emotion: 'neutral', duration: 2500, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.bounceCharacter(); unlock(); } },
-            // Caspian court etiquette types
-            dance:     { emotion: 'happy',   duration: 2500, seq: () => { this._applyCaspianComfort(); this.ui.bounceCharacter(); unlock(); } },
-            diplomacy: { emotion: 'neutral', duration: 2500, seq: () => { this._applyCaspianComfort(); this.ui.bounceCharacter(); unlock(); } },
-            poetry:    { emotion: 'love',    duration: 2500, seq: () => { this._applyCaspianComfort(); this.ui.bounceCharacter(); unlock(); } },
+            // Noir shadow arts types — timing game + corruption spread
+            temptation:  { emotion: 'love',    duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playPuzzleSequence('timing', unlock); } },
+            domination:  { emotion: 'angry',   duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(3); this.ui.playPuzzleSequence('timing', unlock); } },
+            dissolution: { emotion: 'neutral', duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playPuzzleSequence('timing', unlock); } },
+            // Caspian court etiquette types — timing game
+            dance:     { emotion: 'happy',   duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
+            diplomacy: { emotion: 'neutral', duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
+            poetry:    { emotion: 'love',    duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
             // Lucien puzzle types
             logic:    { emotion: 'neutral', duration: 8000, seq: () => this.ui.playPuzzleSequence('logic', unlock)  },
             arcane:   { emotion: 'gentle',  duration: 8000, seq: () => this.ui.playPuzzleSequence('arcane', unlock) },
@@ -9546,6 +9546,9 @@ class PocketLoveGame {
             // Noir playable state
             noirPhase:           this.noirPhase,
             noirCorruptionGlobal:this.noirCorruptionGlobal,
+            _giftMemory:         this._giftMemory || {},
+            _lastGiftId:         this._lastGiftId || null,
+            _lastGiftName:       this._lastGiftName || null,
             // Caspian playable state
             caspianPhase:        this.caspianPhase,
             comfortLevel:        this.comfortLevel,
@@ -9650,6 +9653,9 @@ class PocketLoveGame {
             // Noir playable state
             this.noirPhase           = data.noirPhase           ?? null;
             this.noirCorruptionGlobal= data.noirCorruptionGlobal?? 0;
+            this._giftMemory         = data._giftMemory         ?? {};
+            this._lastGiftId         = data._lastGiftId         ?? null;
+            this._lastGiftName       = data._lastGiftName       ?? null;
             // Caspian playable state
             this.caspianPhase        = data.caspianPhase        ?? null;
             this.comfortLevel        = data.comfortLevel        ?? 0;

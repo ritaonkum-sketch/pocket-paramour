@@ -20,10 +20,11 @@ class DailyRewardSystem {
 
     // Get today's reward based on streak
     _getReward(streak) {
-        // Milestone rewards
-        if (streak === 7)  return { type: 'card', label: 'Exclusive Card', icon: '\uD83C\uDCCF', desc: '7-day streak bonus!', bond: 5, affection: 3 };
-        if (streak === 14) return { type: 'teaser', label: 'Premium Teaser', icon: '\uD83D\uDD2E', desc: '2-week dedication reward!', bond: 8, affection: 5 };
-        if (streak === 30) return { type: 'rare', label: 'Rare Card', icon: '\u2B50', desc: 'One month of devotion!', bond: 15, affection: 10 };
+        // Milestone rewards with special flag
+        if (streak === 3)  return { type: 'milestone', label: 'Dedicated', icon: '\uD83D\uDD25', desc: '3 days in a row! They noticed.', bond: 8, affection: 3, milestone: true };
+        if (streak === 7)  return { type: 'milestone', label: 'Devoted', icon: '\uD83C\uDCCF', desc: '7-day streak! A bond is forming.', bond: 12, affection: 5, milestone: true };
+        if (streak === 14) return { type: 'milestone', label: 'Inseparable', icon: '\uD83D\uDD2E', desc: '2 weeks of devotion!', bond: 15, affection: 8, milestone: true };
+        if (streak === 30) return { type: 'milestone', label: 'Eternal', icon: '\u2B50', desc: 'One month. They can\'t imagine life without you.', bond: 20, affection: 12, milestone: true };
 
         // Regular daily rewards cycle
         const rewards = [
@@ -59,17 +60,20 @@ class DailyRewardSystem {
             </div>`);
         }
 
+        const isMilestone = reward.milestone;
         overlay.innerHTML = `
             <div class="dr-backdrop"></div>
-            <div class="dr-card">
+            <div class="dr-card ${isMilestone ? 'dr-milestone' : ''}">
+                ${isMilestone ? '<div class="dr-milestone-particles"></div>' : ''}
                 <div class="dr-streak">\uD83D\uDD25 ${streak + 1} Day Streak</div>
+                ${isMilestone ? '<div class="dr-milestone-title">' + reward.label + '!</div>' : ''}
                 <div class="dr-calendar">${days.join('')}</div>
                 <div class="dr-reward">
-                    <div class="dr-reward-icon">${reward.icon}</div>
-                    <div class="dr-reward-label">${reward.label}</div>
+                    <div class="dr-reward-icon ${isMilestone ? 'dr-reward-icon-big' : ''}">${reward.icon}</div>
+                    ${!isMilestone ? '<div class="dr-reward-label">' + reward.label + '</div>' : ''}
                     <div class="dr-reward-desc">${reward.desc}</div>
                 </div>
-                <button class="dr-claim-btn">Claim</button>
+                <button class="dr-claim-btn">${isMilestone ? 'Claim Reward' : 'Claim'}</button>
             </div>
         `;
 
