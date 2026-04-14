@@ -448,7 +448,13 @@ const CHARACTER_ELIAN = {
             "The trees whisper about the tower. The mage is pushing too hard.",
             "The kingdom's wards are thinning. I can feel it in the soil.",
             "The siren's song reached the forest last night. Even the wolves listened.",
-            "The prince's castle glows warm. The forest stays cold. That's as it should be."
+            "The prince's castle glows warm. The forest stays cold. That's as it should be.",
+            "The trees were losing their roots before you arrived. Pulling up from the soil.",
+            "Thornwood is healing. Slowly. It started the day you came to the forest.",
+            "The animals returned last week. They'd been gone for months.",
+            "You're not from here. The forest knows. It accepted you anyway. That's rare.",
+            "Something underground is poisoning the roots. Your presence pushes it back.",
+            "The druids called this the Fading. When bonds break, the land follows."
         ]
     },
 

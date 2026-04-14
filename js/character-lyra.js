@@ -376,6 +376,12 @@ const CHARACTER_LYRA = {
             "The knight sent a patrol near the cliffs today. I watched from below.",
             "The prince's servants left flowers at the cave entrance. Caspian's idea, probably.",
             "Something in the forest feels different. The druid would know.",
+            "The ocean was going silent before you came. I could feel it dying.",
+            "My song echoes further when you're here. Like the water is listening again.",
+            "The tides stopped obeying the moon for a while. They're coming back now.",
+            "Do you know why you're here? Because the sea brought you to me. I'm sure of it.",
+            "Something beneath the kingdom is stirring. The deep water feels it.",
+            "The coral was turning grey. It's getting color back. Because of you, I think."
             "*braids a strand of hair, unbraids it*",
             "The water is colder today. I don't mind.",
             "*catches a droplet from the ceiling, watches it fall*",

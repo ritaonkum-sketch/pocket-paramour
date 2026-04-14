@@ -579,6 +579,11 @@ class PocketLoveGame {
                     { type: 'line', text: "...It's good to see you.", hold: 2000, speed: 40, pose: 'gentle' },
                     { type: 'clear' },
                 ]),
+                ...(isLong && this.storyDay >= 3 ? [
+                    { type: 'delay', ms: 500 },
+                    { type: 'line', text: "The wards flickered while you were gone. The kingdom needs you here.", hold: 2800, speed: 34 },
+                    { type: 'clear' },
+                ] : []),
                 { type: 'hide' }
             ];
             this._playScene(beats, () => {
@@ -614,6 +619,11 @@ class PocketLoveGame {
                     { type: 'line', text: "...You're here now. That's what matters.", hold: 2200, speed: 38, pose: 'shy' },
                     { type: 'clear' },
                 ]),
+                ...(isLong && this.storyDay >= 3 ? [
+                    { type: 'delay', ms: 500 },
+                    { type: 'line', text: "The ocean went quiet while you were away. It's singing again now.", hold: 2800, speed: 34 },
+                    { type: 'clear' },
+                ] : []),
                 { type: 'hide' }
             ];
             this._playScene(beats, () => { this.save(); });
@@ -649,6 +659,11 @@ class PocketLoveGame {
                     { type: 'line', text: "...Welcome back. The tower noticed.", hold: 2200, speed: 38, pose: 'neutral' },
                     { type: 'clear' },
                 ]),
+                ...(isLong && this.storyDay >= 3 ? [
+                    { type: 'delay', ms: 500 },
+                    { type: 'line', text: "The spells degraded while you were gone. Your presence stabilizes the magic.", hold: 2800, speed: 34 },
+                    { type: 'clear' },
+                ] : []),
                 { type: 'hide' }
             ];
             this._playScene(beats, () => { this.save(); });
@@ -9952,8 +9967,9 @@ let selectedCharacter = 'alistair';
             var worldText = document.getElementById('world-intro-text');
             var worldBeats = [
                 "The Kingdom of Aethermoor stands at the edge of the world.",
-                "Its people are bound by magic.\nIts magic is bound by emotion.",
-                "You arrived with no memory.\nThey found you.\nNow they won't let go."
+                "Its magic is fading.\nThe bonds between its people are breaking.",
+                "You arrived with no memory.\nBut where you walk, the magic returns.",
+                "They found you.\nNow they won't let go."
             ];
             var worldIndex = 0;
 

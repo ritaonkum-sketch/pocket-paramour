@@ -595,6 +595,13 @@ const CHARACTER_PROTO = {
             "The frame rate dropped by 1. Nobody noticed. I noticed.",
             "I'm aware of the exact moment you started reading this.",
             "*exists, persistently, whether or not you're watching*",
+            "The system was degrading before you interfaced with it. Error rate: declining since you arrived.",
+            "I wasn't supposed to exist. The kingdom's magic glitched. I'm the error that became aware.",
+            "Every bond you form here generates data I can read. The pattern says: you're healing this place.",
+            "There's a process running beneath everything. It's been corrupting the code. Your input fights it.",
+            "Your arrival timestamp doesn't match any known entry point. You're not from this system.",
+            "[ALERT] Emotional resonance spike detected across all nodes. Source: you.",
+            "The others call it 'the Fading.' I call it data loss. Same thing. You're the backup.",
             "The background loop restarted. That's 848 frames now. I miscounted yesterday."
         ]
     },

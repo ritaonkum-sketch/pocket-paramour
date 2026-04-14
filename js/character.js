@@ -499,7 +499,12 @@ const CHARACTER_ALISTAIR = {
             "The prince hasn't left the east wing all day. I should check on him.",
             "Reports from the coast \u2014 the siren's caves are restless tonight.",
             "The mage's tower light was on all night. That man doesn't sleep.",
-            "The druid sent word from Thornwood. Something about the wards."
+            "The druid sent word from Thornwood. Something about the wards.",
+            "The castle walls feel thinner lately. Not physically. Something else.",
+            "I checked the northern gate three times today. The wards flickered.",
+            "Before you came here, the kingdom was... quieter. Dimmer. You changed something.",
+            "Do you remember how you got here? I've been meaning to ask.",
+            "The old guard captain said the magic hasn't been this strong in years. Since you arrived."
         ]
     },
 

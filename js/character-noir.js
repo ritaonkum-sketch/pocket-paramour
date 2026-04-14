@@ -601,6 +601,13 @@ const CHARACTER_NOIR = {
             "*the temperature drops a fraction of a degree when he moves*",
             "I was somewhere else. You brought me back. You always do.",
             "*watches a shadow crawl across the floor, nods as if it said something*",
+            "I was sealed here because the kingdom feared what I am. The seal is cracking.",
+            "The Fading isn't random. It's me. Leaking through. Every broken bond weakens the seal.",
+            "You're the only thing between me and the surface. Does that scare you?",
+            "They think their bonds are saving the kingdom. They're right. They're also keeping me contained.",
+            "Before you came, I was almost free. Now... I'm not sure I want to be.",
+            "The kingdom's magic runs on connection. Mine runs on its absence. We're opposites. And yet.",
+            "Do you know what you really are? Why you have no memory? ...I do. But I won't say. Not yet.",
             "The void has opinions tonight. I'm ignoring them. For you."
         ]
     },

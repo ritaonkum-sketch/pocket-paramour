@@ -704,7 +704,13 @@ const CHARACTER_LUCIEN = {
             "The forest druid sent a message. Something about the wards weakening.",
             "My sister's song carried up from the caves last night. She's restless.",
             "The prince requested my counsel today. I declined. Politely.",
-            "The knight guards the kingdom's body. I guard its mind."
+            "The knight guards the kingdom's body. I guard its mind.",
+            "The equations were deteriorating before you arrived. Answers turning into noise.",
+            "My spells stabilized the day you walked through the door. I've been tracking it.",
+            "Something is draining the kingdom's magic. Connection reverses it. You are the proof.",
+            "Do you remember anything from before? Where you came from? The data doesn't add up.",
+            "The wards were built on emotional resonance. They need bonds to hold. Yours are... potent.",
+            "I've been studying the pattern. Every time you care for someone here, the magic surges."
         ]
     },
 

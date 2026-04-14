@@ -563,7 +563,13 @@ const CHARACTER_CASPIAN = {
             "The knight reported unusual activity near the coast. Lyra's domain.",
             "The mage declined my invitation again. Lucien prefers his tower.",
             "The druid sent herbs from Thornwood. Good for the gardens.",
-            "The captain of the guard looked tired today. Alistair works too hard."
+            "The captain of the guard looked tired today. Alistair works too hard.",
+            "The throne room feels warmer when you visit. The servants noticed too.",
+            "My father's crown used to glow. It stopped years ago. It flickered yesterday.",
+            "The palace gardens were dying before you came. Now look at them.",
+            "Do you know what you are? To this kingdom? I don't think you do.",
+            "The royal bloodline's magic is tied to bonds. Love, trust, care. You brought those back.",
+            "Something sealed beneath the kingdom stirs when the bonds weaken. Your presence quiets it."
         ]
     },
 
