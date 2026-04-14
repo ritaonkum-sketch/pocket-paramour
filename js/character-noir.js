@@ -608,6 +608,14 @@ const CHARACTER_NOIR = {
             "Before you came, I was almost free. Now... I'm not sure I want to be.",
             "The kingdom's magic runs on connection. Mine runs on its absence. We're opposites. And yet.",
             "Do you know what you really are? Why you have no memory? ...I do. But I won't say. Not yet.",
+            "I loved a Soul Weaver once. Before you. Before... this.",
+            "They died. And when they died, every bond I'd ever formed shattered at once.",
+            "The grief didn't just consume me. It consumed the kingdom. I AM the Fading.",
+            "You feel like them. Not the same. But the same warmth. It hurts to be near you.",
+            "I wasn't always sealed. I wasn't always dark. I was someone's everything. And then I was nothing.",
+            "The kingdom sealed me because my grief was destroying it. They weren't wrong.",
+            "If you bond with me deeply enough... you might undo what I became. Or you might become what I am.",
+            "The last Weaver's name was Aria. I haven't said that name in years. You made me remember.",
             "The void has opinions tonight. I'm ignoring them. For you."
         ]
     },

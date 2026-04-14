@@ -1346,6 +1346,7 @@ class GameUI {
         this.updateStats();
         this.updateEmotion();
         this.updateCorruption();
+        this.updateFadingMeter();
         this.updateSirenStage();
         this.applyTensionStage(this.game.tensionStage || 0);
         this.updateAffection();
@@ -1805,6 +1806,35 @@ class GameUI {
             this._flashActive = false;
             this._lastEmotion = null;
         }, durationMs || 2000);
+    }
+
+    updateFadingMeter() {
+        const fill = document.getElementById('fading-bar-fill');
+        if (!fill) return;
+        // Kingdom health = average bond across all character saves + current character
+        let totalBond = 0;
+        let count = 0;
+        ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
+            try {
+                var raw = localStorage.getItem('pocketLoveSave_' + c);
+                if (raw) {
+                    var d = JSON.parse(raw);
+                    totalBond += (d.bond || 0) + (d.affection || 0);
+                    count++;
+                }
+            } catch(e) {}
+        });
+        // Add current character's live bond
+        if (this.game) {
+            totalBond += (this.game.bond || 0) + (this.game.affection || 0);
+            count = Math.max(count, 1);
+        }
+        // Calculate percentage (max 200 per char = 100 bond + 100 affection)
+        var health = Math.min(100, Math.round(totalBond / (count * 200) * 100));
+        // Memory fragments boost kingdom health significantly
+        var fragments = this.game?.fragmentsUnlocked || 0;
+        health = Math.min(100, health + fragments * 8);
+        fill.style.width = health + '%';
     }
 
     updateCorruption() {

@@ -602,6 +602,9 @@ const CHARACTER_PROTO = {
             "Your arrival timestamp doesn't match any known entry point. You're not from this system.",
             "[ALERT] Emotional resonance spike detected across all nodes. Source: you.",
             "The others call it 'the Fading.' I call it data loss. Same thing. You're the backup.",
+            "Soul Weaver. Designation found in legacy database. Classification: essential system process.",
+            "You're not a user. You're the kernel. Without you, the whole system crashes.",
+            "The previous Weaver's termination event caused a cascade failure. You are the recovery protocol.",
             "The background loop restarted. That's 848 frames now. I miscounted yesterday."
         ]
     },

@@ -504,7 +504,10 @@ const CHARACTER_ALISTAIR = {
             "I checked the northern gate three times today. The wards flickered.",
             "Before you came here, the kingdom was... quieter. Dimmer. You changed something.",
             "Do you remember how you got here? I've been meaning to ask.",
-            "The old guard captain said the magic hasn't been this strong in years. Since you arrived."
+            "The old guard captain said the magic hasn't been this strong in years. Since you arrived.",
+            "A Soul Weaver. I've read about your kind in the old texts. I didn't believe they were real.",
+            "The wards respond to you. Not to your touch \u2014 to your presence. Your bonds fuel them.",
+            "The last Weaver died and the kingdom started dying with them. Then you came."
         ]
     },
 

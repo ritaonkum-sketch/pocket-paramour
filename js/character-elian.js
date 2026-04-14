@@ -454,7 +454,10 @@ const CHARACTER_ELIAN = {
             "The animals returned last week. They'd been gone for months.",
             "You're not from here. The forest knows. It accepted you anyway. That's rare.",
             "Something underground is poisoning the roots. Your presence pushes it back.",
-            "The druids called this the Fading. When bonds break, the land follows."
+            "The druids called this the Fading. When bonds break, the land follows.",
+            "The old druids served Soul Weavers. Protectors of the protectors. That's what I am now.",
+            "Your roots run deeper than the forest's. You connect everything. Everyone.",
+            "When the last Weaver died, the oldest tree in Thornwood split in half. It's healing now."
         ]
     },
 

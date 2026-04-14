@@ -710,7 +710,10 @@ const CHARACTER_LUCIEN = {
             "Something is draining the kingdom's magic. Connection reverses it. You are the proof.",
             "Do you remember anything from before? Where you came from? The data doesn't add up.",
             "The wards were built on emotional resonance. They need bonds to hold. Yours are... potent.",
-            "I've been studying the pattern. Every time you care for someone here, the magic surges."
+            "I've been studying the pattern. Every time you care for someone here, the magic surges.",
+            "Soul Weaver. The term appears in texts so old the ink has changed color three times.",
+            "I've mapped the correlation. Your emotional bonds generate measurable magical output.",
+            "The previous Weaver's death cascaded. Every system in the kingdom destabilized simultaneously."
         ]
     },
 

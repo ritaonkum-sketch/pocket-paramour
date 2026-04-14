@@ -85,6 +85,20 @@ class PocketLoveGame {
         // ── Alistair Peak Arc ──────────────────────────────────────────
         this.alistairPhase      = null;  // null | 'distant' | 'conflicted' | 'unstable'
         this.alistairPeakChoice = null;  // null | 'duty' | 'stay' | 'reflect'
+        // ── Soul Weaver Memory Fragments ───────────────────────────────
+        // Each character unlocks a different piece of the player's past
+        this.memoryFragments = {
+            alistair: { unlocked: false, title: "The Shield", text: "You remember... a feeling of duty. Protecting someone. The weight of armor that wasn't yours." },
+            lyra:     { unlocked: false, title: "The Song", text: "A melody surfaces. You hummed it in another life. Someone taught it to you... someone with ocean eyes." },
+            lucien:   { unlocked: false, title: "The Pattern", text: "Equations flash behind your eyes. You understood magic once. Deeply. The symbols feel like a language you forgot." },
+            caspian:  { unlocked: false, title: "The Crown", text: "A throne room. Not this one. Somewhere warmer. You stood beside someone important. You were important too." },
+            elian:    { unlocked: false, title: "The Root", text: "Soil between your fingers. A forest that spoke to you. You healed something once \u2014 not a person. A place." },
+            proto:    { unlocked: false, title: "The Code", text: "A flash of data. Your summoning wasn't random. Someone \u2014 something \u2014 chose you specifically. The selection criteria: capacity for connection." },
+            noir:     { unlocked: false, title: "The Loss", text: "A face in shadow. Someone who loved the last Soul Weaver. Someone who broke when they died. Someone who is still here... waiting." }
+        };
+        this.fragmentsUnlocked = 0;
+        this.soulWeaverRevealed = false; // true after first fragment unlocks
+
         // ── Elian Playable State ─────────────────────────────────────────
         this.elianPhase         = null;   // null | assessing | testing | bonded | scorched
         this.decisivenessScore  = 50;     // 0-100: how fast player makes choices
@@ -960,6 +974,8 @@ class PocketLoveGame {
         if (newLevel !== this.affectionLevel) {
             this.affectionLevel = newLevel;
             this.onAffectionLevelUp();
+            // Memory fragment unlock at affection level 3
+            if (newLevel >= 3) this._checkMemoryFragment();
         }
 
         // Check break condition
@@ -8073,6 +8089,84 @@ class PocketLoveGame {
             .replace(/\$\{SESSION\}/g, this.sessionTalk + this.sessionFeed + this.sessionGift + this.sessionTrain);
     }
 
+    // ── Soul Weaver Memory Fragment System ─────────────────────────
+    _checkMemoryFragment() {
+        const charId = this.selectedCharacter;
+        if (!this.memoryFragments[charId]) return;
+        if (this.memoryFragments[charId].unlocked) return;
+
+        // Unlock this character's fragment
+        this.memoryFragments[charId].unlocked = true;
+        this.fragmentsUnlocked++;
+
+        const frag = this.memoryFragments[charId];
+        const isFirst = this.fragmentsUnlocked === 1;
+
+        // First fragment also reveals Soul Weaver identity
+        if (isFirst) this.soulWeaverRevealed = true;
+
+        // Play the memory fragment scene
+        const beats = [
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'fade', direction: 'out', ms: 600 },
+            { type: 'delay', ms: 500 },
+            ...(isFirst ? [
+                { type: 'flash', color: '#ffd700', ms: 400 },
+                { type: 'particle', emoji: '\u2728', count: 10, ms: 1500, wait: false },
+                { type: 'line', text: "Something stirs inside you.", hold: 2200, speed: 38 },
+                { type: 'clear' },
+                { type: 'delay', ms: 700 },
+                { type: 'line', text: "A bond this deep... it triggered something.", hold: 2600, speed: 34 },
+                { type: 'clear' },
+                { type: 'delay', ms: 600 },
+                { type: 'line', text: "You are a Soul Weaver.", hold: 2400, speed: 36 },
+                { type: 'clear' },
+                { type: 'delay', ms: 800 },
+                { type: 'line', text: "The last of an ancient order. Summoned here to heal what was broken.", hold: 3200, speed: 30 },
+                { type: 'clear' },
+                { type: 'delay', ms: 700 },
+            ] : [
+                { type: 'flash', color: '#c9a0dc', ms: 300 },
+                { type: 'particle', emoji: '\u2728', count: 6, ms: 1200, wait: false },
+                { type: 'line', text: "Another memory surfaces...", hold: 2000, speed: 38 },
+                { type: 'clear' },
+                { type: 'delay', ms: 600 },
+            ]),
+            { type: 'line', text: "~ " + frag.title + " ~", hold: 2000, speed: 42 },
+            { type: 'clear' },
+            { type: 'delay', ms: 500 },
+            { type: 'line', text: frag.text, hold: 4000, speed: 28 },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "Fragment " + this.fragmentsUnlocked + " of 7 recovered.", hold: 2200, speed: 38 },
+            { type: 'clear' },
+            ...(this.fragmentsUnlocked === 7 ? [
+                { type: 'delay', ms: 800 },
+                { type: 'flash', color: '#ffd700', ms: 500 },
+                { type: 'particle', emoji: '\u2B50', count: 15, ms: 2000 },
+                { type: 'line', text: "All memories restored. You remember everything.", hold: 3000, speed: 30 },
+                { type: 'clear' },
+                { type: 'delay', ms: 700 },
+                { type: 'line', text: "You were brought here by love. And love is what will save this kingdom.", hold: 3500, speed: 28 },
+                { type: 'clear' },
+            ] : []),
+            { type: 'hide' }
+        ];
+
+        setTimeout(() => {
+            this._playScene(beats, () => {
+                // Update meta-save with fragment progress
+                try {
+                    const meta = this._loadMetaMemory();
+                    meta.fragmentsUnlocked = this.fragmentsUnlocked;
+                    meta.soulWeaverRevealed = true;
+                    this._saveMetaMemory(meta);
+                } catch(e) {}
+                this.save();
+            });
+        }, 2000);
+    }
+
     // ── Noir global corruption spread ──────────────────────────────
     _spreadNoirCorruption(amount) {
         try {
@@ -9561,6 +9655,9 @@ class PocketLoveGame {
             // Noir playable state
             noirPhase:           this.noirPhase,
             noirCorruptionGlobal:this.noirCorruptionGlobal,
+            memoryFragments:     this.memoryFragments,
+            fragmentsUnlocked:   this.fragmentsUnlocked,
+            soulWeaverRevealed:  this.soulWeaverRevealed,
             _giftMemory:         this._giftMemory || {},
             _lastGiftId:         this._lastGiftId || null,
             _lastGiftName:       this._lastGiftName || null,
@@ -9668,6 +9765,9 @@ class PocketLoveGame {
             // Noir playable state
             this.noirPhase           = data.noirPhase           ?? null;
             this.noirCorruptionGlobal= data.noirCorruptionGlobal?? 0;
+            this.memoryFragments     = data.memoryFragments     ?? this.memoryFragments;
+            this.fragmentsUnlocked   = data.fragmentsUnlocked   ?? 0;
+            this.soulWeaverRevealed  = data.soulWeaverRevealed  ?? false;
             this._giftMemory         = data._giftMemory         ?? {};
             this._lastGiftId         = data._lastGiftId         ?? null;
             this._lastGiftName       = data._lastGiftName       ?? null;
@@ -9966,10 +10066,13 @@ let selectedCharacter = 'alistair';
             var worldIntro = document.getElementById('world-intro');
             var worldText = document.getElementById('world-intro-text');
             var worldBeats = [
-                "The Kingdom of Aethermoor stands at the edge of the world.",
-                "Its magic is fading.\nThe bonds between its people are breaking.",
-                "You arrived with no memory.\nBut where you walk, the magic returns.",
-                "They found you.\nNow they won't let go."
+                "The Kingdom of Aethermoor is dying.",
+                "Its magic was sustained by bonds\nbetween its people.\nThose bonds are breaking.",
+                "The last Soul Weaver \u2014 the one who\nkept the connections alive \u2014 is gone.",
+                "In desperation, the kingdom\u2019s magic\nreached across worlds\nand found you.",
+                "You arrived through the portal\nwith no memory.\nOnly an instinct to connect.",
+                "Where you walk, the magic returns.\nWhere you care, the Fading retreats.",
+                "They found you.\nNow they won\u2019t let go."
             ];
             var worldIndex = 0;
 

@@ -569,7 +569,10 @@ const CHARACTER_CASPIAN = {
             "The palace gardens were dying before you came. Now look at them.",
             "Do you know what you are? To this kingdom? I don't think you do.",
             "The royal bloodline's magic is tied to bonds. Love, trust, care. You brought those back.",
-            "Something sealed beneath the kingdom stirs when the bonds weaken. Your presence quiets it."
+            "Something sealed beneath the kingdom stirs when the bonds weaken. Your presence quiets it.",
+            "My grandmother's journals mention Soul Weavers. She said they were the kingdom's heart.",
+            "The royal line has always depended on a Weaver. Without one... we fade. You stopped the fade.",
+            "The one sealed below... he was close to the last Weaver. Very close. His grief became our prison."
         ]
     },
 
