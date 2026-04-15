@@ -154,10 +154,25 @@
             <span id="affection-text">Stranger</span>
             <span id="streak-badge" class="hidden" title="Daily streak!"></span>
             <span id="time-display"></span>
-            <button id="trophy-btn" title="Achievements">🏆</button>
-            <button id="gallery-btn" title="Gallery">🃏</button>
-            <button id="music-btn" title="Toggle Music">🎵</button>
-            <button id="settings-btn" title="Settings">⚙️</button>
+            <button id="trophy-btn" class="topbar-collapsible" title="Achievements">🏆</button>
+            <button id="gallery-btn" class="topbar-collapsible" title="Gallery">🃏</button>
+            <button id="music-btn" class="topbar-collapsible" title="Toggle Music">🎵</button>
+            <button id="settings-btn" class="topbar-collapsible" title="Settings">⚙️</button>
+            <button id="topbar-menu-btn" title="Menu" aria-label="Menu">&#9776;</button>
+        </div>
+
+        <!-- DAY PROGRESS STRIP (7-day arc + next-milestone hint) -->
+        <div id="day-progress">
+            <div class="day-dots">
+                <span class="day-dot" data-day="1"></span>
+                <span class="day-dot" data-day="2"></span>
+                <span class="day-dot" data-day="3"></span>
+                <span class="day-dot" data-day="4"></span>
+                <span class="day-dot" data-day="5"></span>
+                <span class="day-dot" data-day="6"></span>
+                <span class="day-dot" data-day="7"></span>
+            </div>
+            <div class="day-hint">They're studying you.</div>
         </div>
 
         <!-- CHARACTER AREA -->
@@ -167,6 +182,7 @@
             </div>
             <div id="character-face-portrait">
                 <img id="character-face-img" src="" alt="">
+                <span class="face-portrait-caption">mood</span>
             </div>
             <div id="personality-badge" class="hidden"></div>
             <div id="outfit-label" class="hidden"></div>
@@ -181,7 +197,7 @@
         <!-- DIALOGUE BOX -->
         <!-- KINGDOM HEALTH (Fading meter) -->
         <div id="fading-meter">
-            <div id="fading-label">\u2728 Kingdom</div>
+            <div id="fading-label">&#x2728; Kingdom</div>
             <div id="fading-bar-bg">
                 <div id="fading-bar-fill"></div>
             </div>
@@ -328,6 +344,21 @@
             </div>
         </div>
 
+        <!-- REMEMBERED LETTER OVERLAY -->
+        <div id="letter-overlay" class="hidden">
+            <div class="letter-paper">
+                <div class="letter-seal">&#x2764;</div>
+                <h2 class="letter-title">A Letter</h2>
+                <div class="letter-body"></div>
+                <div class="letter-signature"></div>
+                <div class="letter-tap-hint">tap to continue</div>
+                <div class="letter-actions">
+                    <button class="letter-btn letter-btn-share">Share</button>
+                    <button class="letter-btn letter-btn-keep">Keep</button>
+                </div>
+            </div>
+        </div>
+
         <!-- SETTINGS OVERLAY -->
         <div id="settings-overlay" class="hidden">
             <div id="settings-header">
@@ -409,7 +440,7 @@
                 <div id="gallery-viewer-subtitle"></div>
                 <div id="gallery-viewer-rarity"></div>
                 <div id="gallery-viewer-counter"></div>
-                <div id="gallery-viewer-hint">Swipe to browse \u2022 Tap image to zoom</div>
+                <div id="gallery-viewer-hint">Swipe to browse &#x2022; Tap image to zoom</div>
                 <button id="gallery-viewer-close">Close</button>
             </div>
         </div>
@@ -475,6 +506,9 @@
     <script src="js/intro.js"></script>
     <script src="js/game.js"></script>
     <script src="js/ui.js"></script>
+    <script src="js/letter.js"></script>
+    <script src="js/ui-feel.js"></script>
+    <script src="js/day-progress.js"></script>
     <script>
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {

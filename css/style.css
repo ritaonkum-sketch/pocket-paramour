@@ -4655,3 +4655,403 @@ body {
 .select-card:active {
     transform: scale(0.93);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   THE REMEMBERED LETTER
+   A full-screen parchment overlay triggered on storyDay 3+.
+   ══════════════════════════════════════════════════════════════ */
+#letter-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(20, 10, 40, 0.92) 0%, rgba(0, 0, 0, 0.98) 100%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    overflow-y: auto;
+    cursor: pointer;
+}
+#letter-overlay.visible { opacity: 1; }
+#letter-overlay.hidden { display: none; }
+
+.letter-paper {
+    max-width: 560px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    background:
+        linear-gradient(180deg, #f7ecd1 0%, #ead8ad 100%);
+    color: #2b1a08;
+    padding: 44px 36px 32px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(255, 200, 140, 0.15),
+        inset 0 0 80px rgba(120, 70, 20, 0.18);
+    border-radius: 4px;
+    position: relative;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    transform: translateY(20px) rotate(-0.3deg);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#letter-overlay.visible .letter-paper {
+    transform: translateY(0) rotate(-0.3deg);
+}
+
+/* Worn paper edges */
+.letter-paper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(130, 80, 20, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(130, 80, 20, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 50% 95%, rgba(80, 40, 10, 0.08) 0%, transparent 35%);
+    pointer-events: none;
+}
+
+.letter-seal {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+    background: radial-gradient(circle, #c13a3a 0%, #7a1818 80%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f7ecd1;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(0,0,0,0.3);
+}
+
+.letter-title {
+    font-size: 26px;
+    text-align: center;
+    margin: 8px 0 24px;
+    font-style: italic;
+    font-weight: normal;
+    color: #3b220a;
+    letter-spacing: 0.5px;
+}
+
+.letter-body {
+    font-size: 16px;
+    line-height: 1.7;
+    position: relative;
+    min-height: 40px;
+}
+
+.letter-paragraph {
+    margin: 0 0 16px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.letter-paragraph.shown {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.letter-signature {
+    text-align: right;
+    font-style: italic;
+    font-size: 18px;
+    margin-top: 24px;
+    padding-right: 10px;
+    color: #3b220a;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.letter-tap-hint {
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(60, 30, 10, 0.5);
+    margin-top: 18px;
+    letter-spacing: 1px;
+    animation: letter-hint-pulse 2s ease-in-out infinite;
+}
+@keyframes letter-hint-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.9; }
+}
+
+.letter-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+.letter-btn {
+    background: #3b220a;
+    color: #f7ecd1;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 24px;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+}
+.letter-btn:hover, .letter-btn:active {
+    background: #5a3210;
+    transform: scale(0.96);
+}
+.letter-btn-share {
+    background: #7a1818;
+}
+.letter-btn-share:hover, .letter-btn-share:active {
+    background: #a02020;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TIER 1 LAYOUT OVERHAUL
+   Reorders #game-container children with flex `order:` so the
+   character takes the middle, stats sit just above the action
+   buttons (next to the player's thumb), and the top bar collapses
+   to affection + day + ☰ menu.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Reorder column children — character in the middle, stats next to thumb. */
+#game-container > #affection-display { order: 0; }
+#game-container > #character-area    { order: 1; }
+#game-container > #stats-bar         { order: 2; }
+#game-container > #corruption-indicator { order: 2; }
+#game-container > #fading-meter      { order: 3; }
+#game-container > #dialogue-box      { order: 4; }
+#game-container > #action-buttons    { order: 5; }
+
+/* ── Character area: the protagonist of every screen ─────────── */
+#character-area {
+    flex: 1 1 0 !important;
+    min-height: 50vh;
+    /* tighten internal padding so character art breathes */
+    padding: 0 !important;
+}
+#character-fullbody {
+    /* Push the character to fill more of its area. Existing per-character
+       overrides (e.g. .character-alistair img scale) still apply. */
+    align-items: flex-end !important;
+}
+
+/* ── Top bar collapsed: just affection + day/time + ☰ ─────────── */
+#affection-display {
+    padding: 8px 14px !important;
+    gap: 10px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.05));
+    backdrop-filter: blur(6px);
+}
+#affection-display.topbar-collapsed .topbar-collapsible {
+    display: none !important;
+}
+#affection-display:not(.topbar-collapsed) .topbar-collapsible {
+    display: inline-flex !important;
+    animation: topbar-slide-in 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+@keyframes topbar-slide-in {
+    from { transform: translateX(8px) scale(0.85); opacity: 0; }
+    to   { transform: translateX(0) scale(1);     opacity: 1; }
+}
+#topbar-menu-btn {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+    margin-left: auto;
+}
+#topbar-menu-btn:hover, #topbar-menu-btn:active {
+    background: rgba(255,255,255,0.18);
+    transform: scale(0.94);
+}
+#topbar-menu-btn.open {
+    background: rgba(233,30,99,0.35);
+    transform: rotate(90deg);
+}
+
+/* ── Stats bar — moved below character, larger, friendlier ───── */
+#game-container > #stats-bar {
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.35));
+    backdrop-filter: blur(4px);
+    padding: 6px 14px 4px !important;
+    gap: 12px !important;
+}
+#game-container > #stats-bar .stat-bar-bg {
+    height: 10px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.35);
+}
+#game-container > #stats-bar .stat-icon { font-size: 16px; }
+#game-container > #stats-bar .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.4px;
+    opacity: 0.85;
+}
+
+/* ── Action buttons: the urgent-need pulse ───────────────────── */
+.action-btn.urgent-need {
+    animation: urgent-need-pulse 1.4s ease-in-out infinite;
+    position: relative;
+}
+.action-btn.urgent-need::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 19px;
+    border: 2.5px solid rgba(255, 90, 130, 1);
+    box-shadow:
+        0 0 24px rgba(255, 90, 130, 0.85),
+        0 0 8px rgba(255, 90, 130, 0.6),
+        inset 0 0 12px rgba(255, 200, 220, 0.4);
+    pointer-events: none;
+    animation: urgent-need-glow 1.2s ease-in-out infinite;
+}
+@keyframes urgent-need-pulse {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-2px) scale(1.04); }
+}
+@keyframes urgent-need-glow {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.03); }
+}
+
+/* ── Floating face portrait: now has a job (mood badge) ──────── */
+.face-portrait-caption {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.5);
+    padding: 2px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+#character-face-portrait {
+    /* Smaller and tucked further out of the main composition. */
+    width: 64px !important;
+    height: 64px !important;
+    bottom: 22px !important;
+    left: 8px !important;
+}
+
+/* ── Dialogue box: float over lower body so it doesn't eat layout ── */
+#game-container > #dialogue-box {
+    margin: 0 12px 6px !important;
+    min-height: 52px !important;
+    max-height: 78px !important;
+    padding: 10px 16px !important;
+}
+
+/* ── Fading (Kingdom) meter: compact strip below stats ───────── */
+#game-container > #fading-meter {
+    padding: 0 14px 4px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DAY PROGRESS STRIP
+   7 dots + a single evocative line. Thin, no art needed.
+   ══════════════════════════════════════════════════════════════ */
+#game-container > #day-progress {
+    order: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px 8px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.0));
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+#game-container > #day-progress.hidden { display: none; }
+
+.day-dots {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.day-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: all 0.4s ease;
+}
+.day-dot.past {
+    background: rgba(255, 180, 200, 0.75);
+    border-color: rgba(255, 200, 220, 0.9);
+    box-shadow: 0 0 6px rgba(255, 150, 180, 0.4);
+}
+.day-dot.active {
+    width: 11px;
+    height: 11px;
+    background: radial-gradient(circle, #ffbfd1 0%, #e91e63 80%);
+    border-color: #fff;
+    box-shadow: 0 0 14px rgba(233, 30, 99, 0.85), 0 0 4px rgba(255, 200, 220, 1);
+    animation: day-dot-pulse 1.6s ease-in-out infinite;
+}
+.day-dot.future {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+@keyframes day-dot-pulse {
+    0%, 100% { transform: scale(1);   box-shadow: 0 0 10px rgba(233,30,99,0.65), 0 0 4px rgba(255,200,220,1); }
+    50%      { transform: scale(1.18); box-shadow: 0 0 18px rgba(233,30,99,0.95), 0 0 6px rgba(255,220,230,1); }
+}
+
+.day-hint {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.82);
+    text-align: center;
+    font-style: italic;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    max-width: 280px;
+    line-height: 1.35;
+}
+
+/* Short screens: keep character generous */
+@media (max-height: 700px) {
+    #character-area { min-height: 42vh; }
+    #game-container > #stats-bar { padding: 4px 12px 2px !important; gap: 8px !important; }
+    #game-container > #stats-bar .stat-bar-bg { height: 8px; }
+    .face-portrait-caption { font-size: 8px; padding: 1px 6px; }
+    #character-face-portrait {
+        width: 54px !important;
+        height: 54px !important;
+    }
+}
+
+

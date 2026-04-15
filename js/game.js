@@ -918,6 +918,17 @@ class PocketLoveGame {
         // Scene auto-triggers
         this._checkSceneTriggers();
 
+        // ── Remembered Letter check (throttled ~once every 4s) ────────────
+        // The letter fires once per character on day 3+ after enough interactions.
+        // Self-contained in js/letter.js — safe no-op if module missing.
+        this._letterTickCounter = (this._letterTickCounter || 0) + 1;
+        if (this._letterTickCounter >= 40) {
+            this._letterTickCounter = 0;
+            if (window.LetterSystem && typeof window.LetterSystem.check === 'function') {
+                window.LetterSystem.check(this);
+            }
+        }
+
         // ── Personality vector decay (prevents instant locking) ───────────
         // All three vectors drift back toward 0 slowly on every tick.
         // A player has to consistently behave one way to push a path above 60.
@@ -2292,6 +2303,7 @@ class PocketLoveGame {
                 // Hide game, show select screen
                 overlay.classList.add('hidden');
                 document.getElementById('game-container').classList.add('hidden');
+                if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
                 document.getElementById('select-screen').classList.remove('hidden');
                 // Reset scene state
                 this.sceneActive = false;
@@ -10093,6 +10105,7 @@ let selectedCharacter = 'alistair';
                     worldIntro.classList.remove('visible');
                     setTimeout(function() {
                         worldIntro.classList.add('hidden');
+                        refreshUnlockedCards();
                         selectScreen.classList.remove('hidden');
                     }, 800);
                 }
@@ -10106,6 +10119,7 @@ let selectedCharacter = 'alistair';
         } else {
             // Already seen — go straight to select
             setTimeout(function() {
+                refreshUnlockedCards();
                 selectScreen.classList.remove('hidden');
             }, 600);
         }
@@ -10129,13 +10143,67 @@ let selectedCharacter = 'alistair';
             }
         });
     }
+    // Reveal Proto / Noir select-screen cards if their unlock conditions are met.
+    // Proto: player has switched characters 3+ times.
+    // Noir:  any ending seen OR any character save has corruption > 50.
+    // Safe to call multiple times — each unlock is a one-shot DOM mutation.
+    function refreshUnlockedCards() {
+        try {
+            var meta = {};
+            try { meta = JSON.parse(localStorage.getItem('pocketLoveMeta')) || {}; } catch(e) {}
+
+            // Proto
+            if ((meta.characterSwitchCount || 0) >= 3) {
+                var protoCard = document.getElementById('proto-card');
+                if (protoCard && protoCard.classList.contains('select-card-locked')) {
+                    protoCard.classList.remove('select-card-locked');
+                    protoCard.querySelector('.select-card-name').textContent = 'Proto';
+                    protoCard.querySelector('.select-card-role').textContent = 'The Glitch';
+                    var protoImg = protoCard.querySelector('.select-card-img');
+                    if (protoImg) protoImg.alt = 'Proto';
+                }
+            }
+
+            // Noir
+            var hasEnding = meta.endingsSeen && Object.keys(meta.endingsSeen).length > 0;
+            var highCorruption = false;
+            ['alistair','lyra','lucien','caspian','elian'].forEach(function(cid) {
+                try {
+                    var raw = localStorage.getItem('pocketLoveSave_' + cid);
+                    if (raw) {
+                        var d = JSON.parse(raw);
+                        if (d && d.corruption > 50) highCorruption = true;
+                    }
+                } catch(e) {}
+            });
+            if (hasEnding || highCorruption) {
+                var noirCard = document.getElementById('noir-card');
+                if (noirCard && noirCard.classList.contains('select-card-locked')) {
+                    noirCard.classList.remove('select-card-locked');
+                    noirCard.querySelector('.select-card-name').textContent = 'Noir';
+                    noirCard.querySelector('.select-card-role').textContent = 'The Corruptor';
+                    var noirImg = noirCard.querySelector('.select-card-img');
+                    if (noirImg) noirImg.alt = 'Noir';
+                }
+            }
+        } catch(e) {}
+    }
+    // Expose so the in-game "Switch Character" path can call it too.
+    window._refreshUnlockedCards = refreshUnlockedCards;
+
     // Run on page load
     updateSaveIndicators();
+    refreshUnlockedCards();
 
     // Character Select → Loading → Game
     selectScreen.addEventListener('click', function(e) {
         var card = e.target.closest('.select-card');
         if (!card) return;
+        // Locked cards (Proto/Noir before unlock) are silhouettes and must not be playable.
+        if (card.classList.contains('select-card-locked')) {
+            sounds.pop && sounds.pop();
+            return;
+        }
 
         // Safety: ensure sounds are enabled and initialized
         if (!sounds.enabled) { sounds.init(); sounds.resume(); sounds.enabled = true; }
@@ -10242,36 +10310,9 @@ let selectedCharacter = 'alistair';
                             meta.characterSwitchCount = (meta.characterSwitchCount || 0) + 1;
                             game._saveMetaMemory(meta);
 
-                            // Unlock Proto if player switches characters enough
-                            if ((meta.characterSwitchCount || 0) >= 3) {
-                                const protoCard = document.getElementById('proto-card');
-                                if (protoCard && protoCard.classList.contains('select-card-locked')) {
-                                    protoCard.classList.remove('select-card-locked');
-                                    protoCard.querySelector('.select-card-name').textContent = 'Proto';
-                                    protoCard.querySelector('.select-card-role').textContent = 'The Glitch';
-                                }
-                            }
-
-                            // Unlock Noir if any ending seen or corruption > 50
-                            const hasEnding = meta.endingsSeen && Object.keys(meta.endingsSeen).length > 0;
-                            let highCorruption = false;
-                            ['alistair','lyra','lucien','caspian','elian'].forEach(function(cid) {
-                                try {
-                                    const raw = localStorage.getItem('pocketLoveSave_' + cid);
-                                    if (raw) {
-                                        const d = JSON.parse(raw);
-                                        if (d.corruption > 50) highCorruption = true;
-                                    }
-                                } catch(e) {}
-                            });
-                            if (hasEnding || highCorruption) {
-                                const noirCard = document.getElementById('noir-card');
-                                if (noirCard && noirCard.classList.contains('select-card-locked')) {
-                                    noirCard.classList.remove('select-card-locked');
-                                    noirCard.querySelector('.select-card-name').textContent = 'Noir';
-                                    noirCard.querySelector('.select-card-role').textContent = 'The Corruptor';
-                                }
-                            }
+                            // Reveal Proto/Noir cards if unlock conditions are now met.
+                            // Single source of truth: refreshUnlockedCards() in initTitleScreen.
+                            if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
                         } catch(e) {}
 
                         // Show game container, then fade out loading screen
