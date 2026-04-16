@@ -1724,6 +1724,9 @@ class GameUI {
             // Guard: only swap src when it actually changed. Prevents ERR_ABORTED
             // spam from the browser aborting in-flight fetches on rapid re-sets.
             if (faceImg && faceImg.getAttribute('src') !== faceSrc) faceImg.src = faceSrc;
+            // Sync dialogue face portrait
+            const dlgFace = document.getElementById('dialogue-face-img');
+            if (dlgFace && dlgFace.getAttribute('src') !== faceSrc) dlgFace.src = faceSrc;
         }
 
         // Update full body pose — action-specific pose takes priority

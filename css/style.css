@@ -1187,20 +1187,9 @@ body {
     transition: opacity 0.12s ease-in;
 }
 
-/* Pixel face portrait (bottom-left corner) */
+/* Pixel face portrait — now in dialogue row, hide old standalone version */
 #character-face-portrait {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    width: 76px;
-    height: 76px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 15px rgba(233, 30, 99, 0.2);
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 5;
-    transition: transform 0.3s ease;
+    display: none !important;
 }
 
 #character-face-portrait:hover {
@@ -1250,23 +1239,51 @@ body {
 #outfit-label.hidden { display: none; }
 
 /* ===== DIALOGUE BOX ===== */
-#dialogue-box {
-    margin: 0 12px 8px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,187,208,0.15));
-    border-radius: 18px;
-    padding: 14px 18px;
-    min-height: 60px;
-    max-height: 85px;
+/* ═══ DIALOGUE ROW — face + speech bubble side by side ═══════════ */
+#dialogue-row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
-    cursor: pointer;
+    align-items: flex-end;
+    gap: 8px;
+    margin: 0 10px 6px;
     flex-shrink: 0;
+    z-index: 35;
     position: relative;
-    z-index: 35; /* above focusOverlay (z-index:30) so dialogue stays readable during dramatic scenes */
+}
+#dialogue-face-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    background: rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+#dialogue-face-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#dialogue-box {
+    margin: 0;
+    flex: 1;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,187,208,0.15));
+    border-radius: 16px;
+    padding: 10px 14px;
+    min-height: 50px;
+    max-height: 100px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+    cursor: pointer;
+    position: relative;
     border: 1px solid rgba(255, 255, 255, 0.6);
     transition: transform 0.2s ease;
+    overflow: hidden;
 }
 
 #dialogue-box:active {
@@ -1292,10 +1309,10 @@ body {
 
 #dialogue-text {
     font-family: 'Quicksand', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     color: #3a0a2e;
-    text-align: center;
-    line-height: 1.5;
+    text-align: left;
+    line-height: 1.4;
     font-weight: 600;
 }
 
@@ -4961,12 +4978,11 @@ body {
     left: 8px !important;
 }
 
-/* ── Dialogue box: float over lower body so it doesn't eat layout ── */
-#game-container > #dialogue-box {
-    margin: 0 12px 6px !important;
+/* ── Dialogue row: sits above action buttons ── */
+#dialogue-row #dialogue-box {
     min-height: 52px !important;
-    max-height: 78px !important;
-    padding: 10px 16px !important;
+    max-height: 100px !important;
+    padding: 10px 14px !important;
 }
 
 /* ── Fading (Kingdom) meter: compact strip below stats ───────── */
