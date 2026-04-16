@@ -41,7 +41,7 @@ const CHARACTER_ALISTAIR = {
     faceSprites: {
         happy: ["assets/alistair/face/happy.png", "assets/alistair/face/happy2.png"],
         love: ["assets/alistair/face/love.png", "assets/alistair/face/cheeky.png"],
-        neutral: ["assets/alistair/face/gentle.png", "assets/alistair/face/gentle2.png"],
+        neutral: ["assets/alistair/face/gentle.png", "assets/alistair/face/gentle2.png", "assets/alistair/face/neutral.png", "assets/alistair/face/neutral2.png"],
         gentle: ["assets/alistair/face/gentle.png", "assets/alistair/face/gentle2.png"],
         sad: ["assets/alistair/face/sad.png", "assets/alistair/face/sad2.png"],
         crying: ["assets/alistair/face/crying.png", "assets/alistair/face/crying2.png"],
@@ -91,6 +91,16 @@ const CHARACTER_ALISTAIR = {
         volatility:      0.30,
         attachmentSpeed: 0.50
     },
+
+    outfits: {
+        default:   { name: "Knight Armor", body: "assets/alistair/body/neutral.png" },
+        casual1:   { name: "Red Tunic", body: "assets/alistair/body/casual1.png" },
+        casual2:   { name: "Leather Armor", body: "assets/alistair/body/casual2.png" },
+        shirtless: { name: "Off Duty", body: "assets/alistair/body/shirtless.png" },
+        corrupted: { name: "Dark Knight", body: "assets/alistair/body/fighting2.png" }
+    },
+
+    background: "assets/bg-knight-room.png",
 
     // Character-specific injected event dialogue pools
     eventDialogue: {
@@ -844,7 +854,7 @@ const CHARACTER_LYRA_FULL = {
         happy:     "assets/lyra/body/happy.png",
         sad:       "assets/lyra/body/sad.png",
         sad3:      "assets/lyra/body/sad3.png",
-        sad4:      "assets/lyra/body/sad4.png",
+        sad4:      "assets/lyra/body/depressed.png",
         angry:     "assets/lyra/body/angry.png",
         shy:       "assets/lyra/body/shy.png",
         love:      "assets/lyra/body/love.png",
@@ -917,6 +927,8 @@ const CHARACTER_LYRA_FULL = {
         yawn2:   "assets/lyra/body/yawn2.png",
         bored1:  "assets/lyra/body/bored1.png",
         bored2:  "assets/lyra/body/bored2.png",
+        // ── Eyes closed (idle / singing) ──────────────────────────
+        eyesclosed: "assets/lyra/body/eyes-closed.png",
         // ── Corruption stages ─────────────────────────────────────
         corrupt1: "assets/lyra/body/corrupt1.png",
         corrupt2: "assets/lyra/body/corrupt2.png",
@@ -937,7 +949,7 @@ const CHARACTER_LYRA_FULL = {
         sleeping: ["assets/lyra/face/sleeping.png"],
         corrupted: ["assets/lyra/face/angry.png"],
         left: ["assets/lyra/face/sad.png"],
-        sleepy: ["assets/lyra/face/sleepy.png"],
+        sleepy: ["assets/lyra/face/sleepy.png", "assets/lyra/face/yawn.png"],
         tired: ["assets/lyra/face/tired.png"],
     },
 
@@ -966,6 +978,8 @@ const CHARACTER_LYRA_FULL = {
     },
 
     actionToBody: {
+        feed:  ["happy", "eating1", "eating2", "eating3", "eating4"],
+        wash:  ["splash1", "splash2", "splash3", "happy"],
         // Gift: warm affectionate mix
         gift:  ["shy1", "shy2", "shy3", "shyhug1", "shyhug2",
                 "kiss1", "kiss2", "kiss3", "falllove2", "falllove3"],

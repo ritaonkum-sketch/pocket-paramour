@@ -488,23 +488,33 @@ class IntroScene {
         panel.classList.add('show');
         setTimeout(() => { input.focus(); input.select(); }, 350);
 
-        const confirm = () => {
-            const name = input.value.trim();
-            if (!name) {
+        const confirm = (allowEmpty) => {
+            const name = input.value.trim() || (allowEmpty ? '' : null);
+            if (name === null) {
                 // Shake the input to signal "please fill this in"
                 input.classList.add('shake');
                 setTimeout(() => input.classList.remove('shake'), 400);
                 return;
             }
-            localStorage.setItem('pp_player_name', name);
+            // Default to "Traveler" if skipped/empty — the game still feels personal.
+            localStorage.setItem('pp_player_name', name || 'Traveler');
             panel.classList.remove('show');
             setTimeout(() => this._fadeOut(), 350);
         };
 
-        btn.onclick          = confirm;
+        btn.onclick          = () => confirm(false);
         input.onkeydown = (e) => {
-            if (e.key === 'Enter') { e.preventDefault(); confirm(); }
+            if (e.key === 'Enter') { e.preventDefault(); confirm(false); }
         };
+
+        // Re-wire Skip button so it works during the name panel too.
+        // Player should never be trapped on this screen.
+        const skipHandler = (e) => {
+            e.stopPropagation();
+            this.skipBtn.removeEventListener('click', skipHandler);
+            confirm(true); // accept empty → defaults to "Traveler"
+        };
+        this.skipBtn.addEventListener('click', skipHandler);
     }
 
     // ── Private: fade overlay out and hand off ────────────────────

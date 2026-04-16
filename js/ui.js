@@ -1721,7 +1721,9 @@ class GameUI {
         if (faces && faces.length > 0) {
             const faceSrc = faces[Math.floor(Math.random() * faces.length)];
             const faceImg = document.getElementById('character-face-img');
-            if (faceImg) faceImg.src = faceSrc;
+            // Guard: only swap src when it actually changed. Prevents ERR_ABORTED
+            // spam from the browser aborting in-flight fetches on rapid re-sets.
+            if (faceImg && faceImg.getAttribute('src') !== faceSrc) faceImg.src = faceSrc;
         }
 
         // Update full body pose — action-specific pose takes priority
@@ -1758,7 +1760,8 @@ class GameUI {
             const bodySrc = CHARACTER.bodySprites[bodyKey];
             if (bodySrc) {
                 const bodyImg = document.getElementById('character-body-img');
-                if (bodyImg) bodyImg.src = bodySrc;
+                // Guard: only swap src when it actually changed (prevents ERR_ABORTED spam).
+                if (bodyImg && bodyImg.getAttribute('src') !== bodySrc) bodyImg.src = bodySrc;
             }
         }
     }

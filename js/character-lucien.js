@@ -44,7 +44,7 @@ const CHARACTER_LUCIEN = {
         blink:     ["assets/lucien/face/blink.png"],
         sleepy:    ["assets/lucien/face/sleepy.png", "assets/lucien/face/yawn.png"],
         corrupted: ["assets/lucien/face/obsessed.png"],
-        left:      ["assets/lucien/face/distant.png", "assets/lucien/face/sad.png"]
+        left:      ["assets/lucien/face/distant.png", "assets/lucien/face/tired.png"]
     },
 
     bodyPoses: {

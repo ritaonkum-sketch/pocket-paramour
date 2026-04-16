@@ -5042,6 +5042,129 @@ body {
     line-height: 1.35;
 }
 
+/* ══════════════════════════════════════════════════════════════
+   ACTION FEEDBACK (Tier 2)
+   Character pulse + floating stat numbers from the body.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Character body reacts to any action with a quick pulse. */
+#character-area.action-reacting #character-fullbody {
+    animation: action-react-pulse 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes action-react-pulse {
+    0%   { transform: scale(1)    translateY(0); }
+    22%  { transform: scale(1.04) translateY(-3px); }
+    55%  { transform: scale(0.98) translateY(1px); }
+    100% { transform: scale(1)    translateY(0); }
+}
+
+/* Floating "+N Stat" label that rises from the character's chest. */
+.pp-stat-float {
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    z-index: 4;
+    transform: translate(-50%, 0);
+    white-space: nowrap;
+    animation: stat-float-rise 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.75);
+}
+@keyframes stat-float-rise {
+    0%   { opacity: 0; transform: translate(-50%, 10px) scale(0.8); }
+    15%  { opacity: 1; transform: translate(-50%, -6px) scale(1.12); }
+    30%  { opacity: 1; transform: translate(-50%, -18px) scale(1); }
+    85%  { opacity: 1; transform: translate(-50%, -60px) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -76px) scale(0.95); }
+}
+
+/* Stat bar flash when its value changes. */
+.stat-bar-fill.pp-stat-flash {
+    animation: stat-bar-flash 0.8s ease-out;
+}
+@keyframes stat-bar-flash {
+    0%   { filter: brightness(1)   saturate(1); }
+    25%  { filter: brightness(2.3) saturate(1.8); }
+    100% { filter: brightness(1)   saturate(1); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FIRST-SESSION HINT TOOLTIP
+   Gentle floating tooltip that points to the Talk button.
+   ══════════════════════════════════════════════════════════════ */
+.pp-first-hint {
+    position: absolute;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.85);
+    color: rgba(255, 220, 235, 0.95);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1.45;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 150, 200, 0.35);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 20px rgba(233, 30, 99, 0.25);
+    transform: translate(-50%, 8px);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    max-width: 200px;
+}
+.pp-first-hint.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+/* Little arrow pointing down */
+.pp-first-hint::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid rgba(0, 0, 0, 0.85);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   IDLE LIFE — Floating thoughts
+   Small italic text that drifts above the character's head.
+   Feels ambient, not interactive. Fades in/out gently.
+   ══════════════════════════════════════════════════════════════ */
+.pp-idle-thought {
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translate(-50%, 6px);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.0);
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    pointer-events: none;
+    max-width: 260px;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease, color 0.8s ease;
+}
+.pp-idle-thought.show {
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.85);
+    transform: translate(-50%, 0);
+}
+
 /* Short screens: keep character generous */
 @media (max-height: 700px) {
     #character-area { min-height: 42vh; }
