@@ -843,6 +843,10 @@ class PocketLoveGame {
         this.bond = Math.max(0, Math.min(100, this.bond));
         this.corruption = Math.max(0, Math.min(100, this.corruption));
 
+        // ── Time of day (drives greetings, events, dialogue) ────
+        const _h = new Date().getHours();
+        this.timeOfDay = _h >= 5 && _h < 12 ? 'morning' : _h < 18 ? 'day' : _h < 22 ? 'evening' : 'night';
+
         // ── Emotional engine ─────────────────────────────────────
         const profile = CHARACTER.emotionalProfile || { stability: 0.6, volatility: 0.5, intensity: 0.7, attachmentSpeed: 0.6 };
 
