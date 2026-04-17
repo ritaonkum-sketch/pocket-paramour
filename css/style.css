@@ -471,9 +471,12 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 0 16px;
-    margin: 4px 0;
-    opacity: 0.7;
+    padding: 6px 16px 2px;
+    margin: 0;
+    opacity: 0.85;
+    background: linear-gradient(180deg, rgba(20,10,30,0.55), rgba(20,10,30,0.4));
+    border-radius: 12px 12px 0 0;
+    margin: 0 6px;
 }
 #fading-label {
     font-family: 'Quicksand', sans-serif;
@@ -4842,11 +4845,12 @@ body {
    ══════════════════════════════════════════════════════════════ */
 
 /* Reorder column children — character in the middle, stats next to thumb. */
+/* Kingdom meter now sits right above the needs bars, grouped as one box. */
 #game-container > #affection-display { order: 0; }
 #game-container > #character-area    { order: 1; }
-#game-container > #stats-bar         { order: 2; }
-#game-container > #corruption-indicator { order: 2; }
-#game-container > #fading-meter      { order: 3; }
+#game-container > #fading-meter      { order: 2; }
+#game-container > #stats-bar         { order: 3; }
+#game-container > #corruption-indicator { order: 3; }
 #game-container > #dialogue-box      { order: 4; }
 #game-container > #action-buttons    { order: 5; }
 
@@ -4906,12 +4910,14 @@ body {
     transform: rotate(90deg);
 }
 
-/* ── Stats bar — moved below character, larger, friendlier ───── */
+/* ── Stats bar — grouped with the Kingdom meter above into one box ───── */
 #game-container > #stats-bar {
-    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.35));
+    background: linear-gradient(180deg, rgba(20,10,30,0.4), rgba(20,10,30,0.55));
     backdrop-filter: blur(4px);
-    padding: 6px 14px 4px !important;
+    padding: 4px 14px 8px !important;
     gap: 12px !important;
+    margin: 0 6px 6px !important;
+    border-radius: 0 0 12px 12px;
 }
 #game-container > #stats-bar .stat-bar-bg {
     height: 10px;
