@@ -128,7 +128,33 @@
         }
     }
 
+    // Relocate the day dots INTO the affection-display topbar so they share
+    // one horizontal row with "CLOSE → DEVOTED". Saves vertical space and
+    // stops the old strip from overlapping the character's head.
+    function relocateDots() {
+        const dots = document.querySelector('#day-progress .day-dots');
+        const topbar = document.getElementById('affection-display');
+        if (!dots || !topbar) return false;
+        if (dots.parentElement && dots.parentElement.id === 'topbar-day-dots-wrap') return true;
+        const wrap = document.createElement('span');
+        wrap.id = 'topbar-day-dots-wrap';
+        wrap.appendChild(dots);
+        // Insert after the affection text + streak badge, before the buttons.
+        const timeDisplay = document.getElementById('time-display');
+        if (timeDisplay) {
+            timeDisplay.parentNode.insertBefore(wrap, timeDisplay);
+        } else {
+            topbar.insertBefore(wrap, topbar.children[1] || null);
+        }
+        return true;
+    }
+
     function init() {
+        // Try to move dots into topbar; retry if topbar not ready yet
+        if (!relocateDots()) {
+            const retry = setInterval(() => { if (relocateDots()) clearInterval(retry); }, 300);
+            setTimeout(() => clearInterval(retry), 10000);
+        }
         update();
         setInterval(update, 2000);
     }
