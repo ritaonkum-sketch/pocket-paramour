@@ -967,7 +967,12 @@ body {
 }
 
 /* Music toggle moved into Settings overlay — hide the topbar shortcut */
-#music-btn { display: none !important; }
+/* Use a high-specificity selector to beat the .topbar-collapsible expand rule */
+#affection-display #music-btn,
+#affection-display.topbar-collapsed #music-btn,
+#affection-display:not(.topbar-collapsed) #music-btn {
+    display: none !important;
+}
 
 /* Settings music toggle row */
 .settings-toggle-row {
