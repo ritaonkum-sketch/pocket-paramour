@@ -2360,7 +2360,7 @@ body {
 /* ===== ACHIEVEMENT POPUP ===== */
 .achievement-popup {
     position: absolute;
-    top: 98px;            /* just below the affection/time bar — clear of dialogue and face */
+    top: 120px;           /* clear of the topbar + day dots row */
     right: 10px;
     left: auto;
     bottom: auto;
@@ -4934,6 +4934,31 @@ body {
     height: 30px;
     padding: 0;
     font-size: 15px;
+}
+
+/* When the menu is expanded, shrink/hide the center group to make room.
+   Without this the "DAY 1" label + hint get clipped. */
+#affection-display:not(.topbar-collapsed) #affection-text {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#affection-display:not(.topbar-collapsed) #topbar-day-dots-wrap .day-hint {
+    display: none;
+}
+#affection-display:not(.topbar-collapsed) #topbar-day-label {
+    font-size: 9px;
+}
+#affection-display:not(.topbar-collapsed) #topbar-day-dots-wrap .day-dot {
+    width: 4px;
+    height: 4px;
+}
+#affection-display:not(.topbar-collapsed) #topbar-day-dots-wrap .day-dot.active {
+    width: 6px;
+    height: 6px;
 }
 #topbar-menu-btn:hover, #topbar-menu-btn:active {
     background: rgba(255,255,255,0.18);

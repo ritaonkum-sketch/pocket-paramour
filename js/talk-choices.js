@@ -793,10 +793,18 @@
         const game = window._game;
         if (!game) return;
 
-        // Remove overlay
+        // Remove overlay immediately (don't linger with the dark bg)
         overlay.style.opacity = '0';
         overlay.style.transition = 'opacity 0.25s ease-out';
-        setTimeout(() => overlay.remove(), 260);
+        setTimeout(() => { try { overlay.remove(); } catch(e){} }, 260);
+
+        // Safety: ensure focus overlay is cleared so we don't end up with a
+        // black screen if another system left it enabled.
+        try {
+            if (game.ui && game.ui.setFocusMode) game.ui.setFocusMode(false);
+            const focus = document.getElementById('focusOverlay');
+            if (focus) focus.classList.remove('active');
+        } catch (e) {}
 
         // Apply stat effects
         if (choice.effects) {
@@ -811,27 +819,29 @@
             }
         }
 
-        // Set memory flag
+        // Set memory flag (+ day stamp for callback gating)
         if (choice.memoryKey) {
             if (!game.choiceMemory) game.choiceMemory = {};
             game.choiceMemory[choice.memoryKey] = true;
+            game.choiceMemory[choice.memoryKey + '_day'] = game.storyDay || 1;
         }
 
         // Mark scenario as seen
         markSeen(scenario.id);
 
-        // Flash emotion
-        if (choice.emotion && game.ui && game.ui.setCharacterSprite) {
-            game.ui.setCharacterSprite(choice.emotion);
-        }
-
-        // Show response via typewriter
-        if (choice.response) {
-            game.typewriter.show(choice.response, () => {});
-        }
+        // Wait a tiny bit for the overlay to clear, THEN flash emotion + show response.
+        // This ensures the character is visible before the new dialogue appears.
+        setTimeout(() => {
+            if (choice.emotion && game.ui && game.ui.setCharacterSprite) {
+                try { game.ui.setCharacterSprite(choice.emotion); } catch (e) {}
+            }
+            if (choice.response && game.typewriter) {
+                try { game.typewriter.show(choice.response, function(){}); } catch (e) {}
+            }
+        }, 280);
 
         // Save state
-        game.save();
+        try { game.save(); } catch (e) {}
     }
 
     // ── Intercept Talk Button ─────────────────────────────────

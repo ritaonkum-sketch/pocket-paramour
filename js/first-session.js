@@ -43,12 +43,26 @@
         hint.style.whiteSpace = 'pre-line';
         container.appendChild(hint);
 
-        // Position just above the Talk button.
+        // Position above the stats panel (not directly above the talk button,
+        // which would put it on top of the Bond bar). Centered horizontally
+        // over the Talk button for clear visual association.
         requestAnimationFrame(() => {
             const btnRect = talkBtn.getBoundingClientRect();
             const containerRect = container.getBoundingClientRect();
+            const statsBar = document.getElementById('stats-bar');
+            const fading  = document.getElementById('fading-meter');
+            const dialogueRow = document.getElementById('dialogue-row');
+            // Find the highest (smallest top) UI element above the buttons and
+            // sit above that, so we don't overlap any stat/dialogue chrome.
+            let topOfBottomStack = btnRect.top;
+            [statsBar, fading, dialogueRow].forEach(el => {
+                if (el) {
+                    const r = el.getBoundingClientRect();
+                    if (r.top > 0 && r.top < topOfBottomStack) topOfBottomStack = r.top;
+                }
+            });
             hint.style.left = (btnRect.left - containerRect.left + btnRect.width / 2) + 'px';
-            hint.style.bottom = (containerRect.bottom - btnRect.top + 10) + 'px';
+            hint.style.bottom = (containerRect.bottom - topOfBottomStack + 16) + 'px';
             hint.classList.add('show');
         });
 

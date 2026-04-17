@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v101';
+const CACHE_NAME = 'pocket-love-v102';
 
 const CORE_ASSETS = [
     '/index.html',

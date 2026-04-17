@@ -1092,10 +1092,10 @@
   function injectButton () {
     var container = document.getElementById('action-buttons');
     if (!container) return false;
-    if (document.getElementById('date-btn')) return true;
+    if (document.getElementById('btn-date')) return true;
 
     var btn = document.createElement('button');
-    btn.id = 'date-btn';
+    btn.id = 'btn-date';
     btn.className = 'action-btn';
     btn.innerHTML = '<span class="action-icon">\uD83D\uDCAB</span><span class="action-label">Date</span>';
     btn.addEventListener('click', function () {
