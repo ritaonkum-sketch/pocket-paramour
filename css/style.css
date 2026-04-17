@@ -1051,20 +1051,28 @@ body {
 }
 
 #character-body-img {
-    max-height: 100%;
+    /* UNIFIED DEFAULT — every character renders at the same visual height
+       (95% of the character-area), grounded at the bottom so their feet
+       land on the same imaginary floor line. */
+    height: 95%;
+    max-height: 95%;
     max-width: 100%;
+    width: auto;
     object-fit: contain;
-    object-position: center center;
+    object-position: center bottom;
     filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
     transition: opacity 0.3s ease;
     cursor: pointer;
 }
 
-/* Alistair has landscape images — scale up to fill */
+/* Alistair's source art is LANDSCAPE (2760x1504). Crop to the figure
+   and scale up to match the visual height of portrait characters. */
 .character-alistair #character-body-img {
     height: 160%;
+    max-height: 160%;
     max-width: 160%;
-    object-position: 58% center;
+    object-fit: contain;
+    object-position: 58% bottom;
 }
 
 /* ── Alistair UI Theme — warm gold/steel accents ─────────── */
@@ -1152,24 +1160,8 @@ body {
     50% { filter: drop-shadow(0 0 15px rgba(80, 0, 20, 0.3)); }
 }
 
-/* Lucien body sizing (similar to Alistair) */
-.character-lucien #character-body-img {
-    height: 80%;
-    max-height: none;
-    max-width: 90%;
-    object-fit: contain;
-    object-position: center bottom;
-    margin-top: auto;
-}
-
-/* Lyra has portrait images — fit nicely */
-.character-lyra #character-body-img {
-    height: 108%;
-    max-height: none;
-    max-width: 108%;
-    object-fit: contain;
-    object-position: center top;
-}
+/* Lucien — use unified default (portrait sprite, 0.64 aspect) */
+/* Lyra — use unified default (portrait sprite, 0.74 aspect) */
 
 @keyframes breathe {
     0%, 100% { transform: translateY(0) scale(1); }
