@@ -1089,6 +1089,86 @@
   /* ================================================================
      INJECT DATE BUTTON
      ================================================================ */
+  var UNLOCK_AFFECTION = 2;   // need at least affection level 2
+  var UNLOCK_DAY       = 2;   // and be on day 2+
+  var _wasUnlocked     = false;
+
+  function isUnlocked (g) {
+    return (g.affectionLevel || 0) >= UNLOCK_AFFECTION &&
+           (g.storyDay       || 1) >= UNLOCK_DAY;
+  }
+
+  function shouldShowButton (g) {
+    // Only surface the button once the player is on day 2+, so day 1
+    // doesn't feel cluttered with a locked affordance. From then on
+    // show a locked state until affection catches up.
+    return (g.storyDay || 1) >= UNLOCK_DAY;
+  }
+
+  function showUnlockToast () {
+    var toast = document.createElement('div');
+    toast.id = 'date-unlock-toast';
+    toast.textContent = '\uD83D\uDCAB Date unlocked!';
+    toast.style.cssText = [
+      'position: fixed',
+      'top: 40%',
+      'left: 50%',
+      'transform: translate(-50%, -50%) scale(0.6)',
+      'padding: 14px 22px',
+      'border-radius: 16px',
+      'background: linear-gradient(135deg, #ff8fa3, #ff5d8f)',
+      'color: #fff',
+      'font-size: 18px',
+      'font-weight: 700',
+      'box-shadow: 0 6px 30px rgba(255, 93, 143, 0.6), 0 0 40px rgba(255, 143, 163, 0.4)',
+      'z-index: 9999',
+      'opacity: 0',
+      'transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4)',
+      'pointer-events: none'
+    ].join(';');
+    document.body.appendChild(toast);
+    requestAnimationFrame(function () {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+    setTimeout(function () {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translate(-50%, -50%) scale(0.8)';
+      setTimeout(function () { try { toast.remove(); } catch(e){} }, 500);
+    }, 2600);
+
+    // Pulse the button itself
+    var btn = document.getElementById('btn-date');
+    if (btn) {
+      btn.classList.add('date-btn-unlock-pulse');
+      setTimeout(function () {
+        btn.classList.remove('date-btn-unlock-pulse');
+      }, 3000);
+    }
+  }
+
+  function refreshLockState () {
+    var btn = document.getElementById('btn-date');
+    var g = window._game;
+    if (!btn || !g) return;
+
+    var show = shouldShowButton(g);
+    var unlocked = isUnlocked(g);
+
+    btn.style.display = show ? '' : 'none';
+    btn.classList.toggle('date-btn-locked', show && !unlocked);
+    btn.setAttribute('title', unlocked
+      ? 'Take ' + (window.CHARACTER && window.CHARACTER.name || 'them') + ' on a date'
+      : 'Raise your bond to unlock dates');
+
+    // Celebrate the transition from locked -> unlocked
+    if (unlocked && !_wasUnlocked && show) {
+      _wasUnlocked = true;
+      showUnlockToast();
+    }
+    if (!unlocked) _wasUnlocked = false;
+  }
+
   function injectButton () {
     var container = document.getElementById('action-buttons');
     if (!container) return false;
@@ -1101,9 +1181,28 @@
     btn.addEventListener('click', function () {
       var g = window._game;
       if (!g || g.sceneActive || g.characterLeft) return;
+      if (!isUnlocked(g)) {
+        // Gentle shake + "locked" hint instead of opening the picker
+        btn.classList.remove('date-btn-shake');
+        void btn.offsetWidth; // reflow to restart animation
+        btn.classList.add('date-btn-shake');
+        var aff = g.affectionLevel || 0;
+        var day = g.storyDay || 1;
+        var need = [];
+        if (aff < UNLOCK_AFFECTION) need.push('affection ' + UNLOCK_AFFECTION);
+        if (day < UNLOCK_DAY)       need.push('day ' + UNLOCK_DAY);
+        if (g.typewriter) {
+          try { g.typewriter.show('Dates unlock at ' + need.join(' + ') + '. Keep building your bond.', function(){}); } catch(e){}
+        }
+        return;
+      }
       showOverlay();
     });
     container.appendChild(btn);
+    refreshLockState();
+    // Re-check every 2s so we catch unlock transitions without wiring
+    // into the game's save/state change events.
+    setInterval(refreshLockState, 2000);
     return true;
   }
 
