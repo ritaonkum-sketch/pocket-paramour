@@ -966,6 +966,34 @@ body {
     white-space: nowrap;
 }
 
+/* Music toggle moved into Settings overlay — hide the topbar shortcut */
+#music-btn { display: none !important; }
+
+/* Settings music toggle row */
+.settings-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.settings-toggle-btn {
+    background: linear-gradient(135deg, #ff8fa3, #ff5d8f);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255, 93, 143, 0.35);
+    transition: all 0.2s ease;
+}
+.settings-toggle-btn:active { transform: scale(0.96); }
+.settings-toggle-btn.music-off {
+    background: linear-gradient(135deg, #555, #333);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
 #time-display {
     /* Hidden — we removed the clock from the topbar per UI cleanup */
     display: none !important;
@@ -1209,8 +1237,8 @@ body {
 /* Personality badge */
 #personality-badge {
     position: absolute;
-    top: 8px;
-    right: 16px;
+    top: 56px;
+    right: 12px;
     background: rgba(255, 255, 255, 0.85);
     padding: 3px 10px;
     border-radius: 12px;

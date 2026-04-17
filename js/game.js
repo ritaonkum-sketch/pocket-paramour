@@ -480,7 +480,7 @@ class PocketLoveGame {
         this._bgmStarted = false;
         this._startBGMOnInteraction();
 
-        // Music toggle button
+        // Music toggle button (legacy topbar button — hidden via CSS now)
         const musicBtn = document.getElementById('music-btn');
         if (musicBtn) {
             musicBtn.addEventListener('click', () => {
@@ -492,6 +492,21 @@ class PocketLoveGame {
                 const muted = bgm.toggleMute();
                 musicBtn.textContent = muted ? '🔇' : '🎵';
                 musicBtn.style.opacity = muted ? '0.5' : '1';
+            });
+        }
+
+        // Music toggle button (new location: Settings overlay)
+        const settingsMusicBtn = document.getElementById('settings-music-toggle');
+        if (settingsMusicBtn) {
+            settingsMusicBtn.addEventListener('click', () => {
+                if (!this._bgmStarted) {
+                    bgm.init();
+                    bgm.start();
+                    this._bgmStarted = true;
+                }
+                const muted = bgm.toggleMute();
+                settingsMusicBtn.textContent = muted ? '🔇 Off' : '🎵 On';
+                settingsMusicBtn.classList.toggle('music-off', muted);
             });
         }
     }
