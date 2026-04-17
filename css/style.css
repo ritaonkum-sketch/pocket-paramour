@@ -1325,13 +1325,14 @@ body {
 #action-buttons {
     display: flex;
     justify-content: space-around;
-    padding: 8px 10px max(16px, env(safe-area-inset-bottom, 16px));
+    padding: 4px 10px max(16px, env(safe-area-inset-bottom, 16px));
     gap: 8px;
     flex-shrink: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35));
     backdrop-filter: blur(6px);
     position: relative;
     z-index: 2;
+    margin-top: 0;
 }
 
 .action-btn {
@@ -4911,12 +4912,13 @@ body {
 }
 
 /* ── Stats bar — grouped with the Kingdom meter above into one box ───── */
+/* No bottom margin so it sits flush against the action buttons below. */
 #game-container > #stats-bar {
     background: linear-gradient(180deg, rgba(20,10,30,0.4), rgba(20,10,30,0.55));
     backdrop-filter: blur(4px);
-    padding: 4px 14px 8px !important;
+    padding: 4px 14px 10px !important;
     gap: 12px !important;
-    margin: 0 6px 6px !important;
+    margin: 0 6px 0 !important;
     border-radius: 0 0 12px 12px;
 }
 #game-container > #stats-bar .stat-bar-bg {
