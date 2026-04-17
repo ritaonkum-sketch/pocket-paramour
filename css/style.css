@@ -953,13 +953,14 @@ body {
 
 #affection-text {
     font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
+    font-size: 10px;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     text-shadow: 0 1px 4px rgba(0,0,0,0.3);
     transition: all 0.5s ease;
+    white-space: nowrap;
 }
 
 #time-display {
