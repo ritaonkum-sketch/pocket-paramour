@@ -972,7 +972,7 @@ const CHARACTER_LYRA_FULL = {
         // Wink: happy waves only (no wave.png solo)
         wink:    ["wave", "wave2", "wavehappy", "happy"],
         sleeping: ["neutral", "pose2"],
-        corrupted: ["siren", "depressed"],
+        corrupted: ["corrupt1", "corrupt2", "corrupt3", "depressed"],
         // Left / abandoned — depressed only
         left:    ["depressed"]
     },
