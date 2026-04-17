@@ -144,14 +144,23 @@
         if (!dots || !topbar) return false;
         if (dots.parentElement && dots.parentElement.id === 'topbar-day-dots-wrap') return true;
 
-        // Wrap: "Day 1" label + dots, inline inside topbar
+        // Wrap: "Day 1" label + dots + hint all stacked in the topbar
         const wrap = document.createElement('span');
         wrap.id = 'topbar-day-dots-wrap';
+
+        // Top row: Day label + dots inline
+        const topRow = document.createElement('span');
+        topRow.id = 'topbar-day-top-row';
         const dayLabel = document.createElement('span');
         dayLabel.id = 'topbar-day-label';
         dayLabel.textContent = 'Day 1';
-        wrap.appendChild(dayLabel);
-        wrap.appendChild(dots);
+        topRow.appendChild(dayLabel);
+        topRow.appendChild(dots);
+        wrap.appendChild(topRow);
+
+        // Bottom row: the hint text, nested inside the same wrap so it
+        // lives in the same visual "box" as the dots.
+        if (hint) wrap.appendChild(hint);
 
         // Insert after the affection text + streak badge, before the buttons.
         const timeDisplay = document.getElementById('time-display');
@@ -159,17 +168,6 @@
             timeDisplay.parentNode.insertBefore(wrap, timeDisplay);
         } else {
             topbar.insertBefore(wrap, topbar.children[1] || null);
-        }
-
-        // Move the hint text to its own slim strip that sits DIRECTLY under
-        // the topbar (above the character area). This keeps the evocative
-        // line visible without covering the character's head/face.
-        if (hint && container) {
-            const hintBar = document.createElement('div');
-            hintBar.id = 'topbar-day-hint-bar';
-            hintBar.appendChild(hint);
-            // Insert right after the affection-display in DOM order.
-            topbar.parentNode.insertBefore(hintBar, topbar.nextSibling);
         }
         return true;
     }
