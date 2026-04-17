@@ -5256,25 +5256,9 @@ body {
    Feels ambient, not interactive. Fades in/out gently.
    ══════════════════════════════════════════════════════════════ */
 .pp-idle-thought {
-    position: absolute;
-    top: 12%;
-    left: 50%;
-    transform: translate(-50%, 6px);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    font-style: italic;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.0);
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.5);
-    z-index: 4;
-    pointer-events: none;
-    max-width: 260px;
-    line-height: 1.4;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease, color 0.8s ease;
+    /* Disabled — floating thought text over character area removed
+       per user request. Character now speaks only via #dialogue-row. */
+    display: none !important;
 }
 .pp-idle-thought.show {
     opacity: 1;

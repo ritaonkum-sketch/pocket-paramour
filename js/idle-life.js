@@ -115,20 +115,11 @@
     }
 
     // ── Thought rendering ───────────────────────────────────────
-    function showThought(text) {
-        const area = document.getElementById('character-area');
-        if (!area) return;
-        // Remove any existing thought
-        dismissThought();
-
-        const el = document.createElement('div');
-        el.className = 'pp-idle-thought';
-        el.textContent = text;
-        area.appendChild(el);
-        requestAnimationFrame(() => el.classList.add('show'));
-
-        // Auto-fade after 4s
-        thoughtTimer = setTimeout(() => dismissThought(), 4000);
+    // NOTE: Disabled per user request — the floating "thought" text
+    // was overlapping the character's face/body. Dialogue now fully
+    // lives in the dialogue-row at the character's feet.
+    function showThought(/* text */) {
+        return;
     }
 
     function dismissThought() {
