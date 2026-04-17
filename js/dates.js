@@ -1097,7 +1097,7 @@
     var btn = document.createElement('button');
     btn.id = 'btn-date';
     btn.className = 'action-btn';
-    btn.innerHTML = '<span class="action-icon">\uD83D\uDCAB</span><span class="action-label">Date</span>';
+    btn.innerHTML = '<span class="btn-icon">\uD83D\uDCAB</span><span class="btn-label">Date</span>';
     btn.addEventListener('click', function () {
       var g = window._game;
       if (!g || g.sceneActive || g.characterLeft) return;
