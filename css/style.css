@@ -5002,13 +5002,24 @@ body {
 }
 #game-container > #day-progress.hidden { display: none; }
 
-/* Day dots in their new home inside #affection-display */
+/* Day label + dots in their new home inside #affection-display */
 #topbar-day-dots-wrap {
     display: inline-flex;
     align-items: center;
     flex: 1 1 auto;
     justify-content: center;
+    gap: 8px;
     margin: 0 6px;
+}
+#topbar-day-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.75);
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    white-space: nowrap;
 }
 #topbar-day-dots-wrap .day-dots {
     display: flex;
@@ -5022,6 +5033,28 @@ body {
 #topbar-day-dots-wrap .day-dot.active {
     width: 8px;
     height: 8px;
+}
+
+/* Slim hint bar directly under the topbar */
+#topbar-day-hint-bar {
+    padding: 2px 14px 6px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(0,0,0,0));
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+#topbar-day-hint-bar .day-hint {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10px;
+    font-style: italic;
+    letter-spacing: 0.4px;
+    color: rgba(255, 255, 255, 0.78);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    transition: opacity 0.4s ease;
+    line-height: 1.3;
+    max-width: 320px;
+    margin: 0 auto;
 }
 
 .day-dots {

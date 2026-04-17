@@ -114,6 +114,10 @@
             if (last) { last.classList.remove('future', 'past'); last.classList.add('active'); }
         }
 
+        // Update the "Day N" label in the topbar
+        const dayLabel = document.getElementById('topbar-day-label');
+        if (dayLabel) dayLabel.textContent = 'Day ' + (day >= 8 ? '7+' : day);
+
         // Hint: fade out, swap text, fade in
         const hint = strip.querySelector('.day-hint');
         if (hint) {
@@ -130,21 +134,42 @@
 
     // Relocate the day dots INTO the affection-display topbar so they share
     // one horizontal row with "CLOSE → DEVOTED". Saves vertical space and
-    // stops the old strip from overlapping the character's head.
+    // stops the old strip from overlapping the character's head. Also
+    // relocate the day-hint to sit compactly under the topbar.
     function relocateDots() {
         const dots = document.querySelector('#day-progress .day-dots');
+        const hint = document.querySelector('#day-progress .day-hint');
         const topbar = document.getElementById('affection-display');
+        const container = document.getElementById('game-container');
         if (!dots || !topbar) return false;
         if (dots.parentElement && dots.parentElement.id === 'topbar-day-dots-wrap') return true;
+
+        // Wrap: "Day 1" label + dots, inline inside topbar
         const wrap = document.createElement('span');
         wrap.id = 'topbar-day-dots-wrap';
+        const dayLabel = document.createElement('span');
+        dayLabel.id = 'topbar-day-label';
+        dayLabel.textContent = 'Day 1';
+        wrap.appendChild(dayLabel);
         wrap.appendChild(dots);
+
         // Insert after the affection text + streak badge, before the buttons.
         const timeDisplay = document.getElementById('time-display');
         if (timeDisplay) {
             timeDisplay.parentNode.insertBefore(wrap, timeDisplay);
         } else {
             topbar.insertBefore(wrap, topbar.children[1] || null);
+        }
+
+        // Move the hint text to its own slim strip that sits DIRECTLY under
+        // the topbar (above the character area). This keeps the evocative
+        // line visible without covering the character's head/face.
+        if (hint && container) {
+            const hintBar = document.createElement('div');
+            hintBar.id = 'topbar-day-hint-bar';
+            hintBar.appendChild(hint);
+            // Insert right after the affection-display in DOM order.
+            topbar.parentNode.insertBefore(hintBar, topbar.nextSibling);
         }
         return true;
     }
