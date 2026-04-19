@@ -88,12 +88,12 @@ const CHARACTER_ALISTAIR = {
         gentle:   ["eating1", "eating5"],
         sad:      ["eating1"],
         crying:   ["eating1"],
-        angry:    ["fighting1", "fighting4"],
-        furious:  ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
+        angry:    ["eating1"],
+        furious:  ["eating1"],
         shy:      ["eating1", "eating5"],
         wink:     ["eating1", "eating2"],
         sleeping: ["eating1"],
-        corrupted:["fighting1", "fighting2", "fighting5"],
+        corrupted:["eating1"],
         left:     ["eating1"]
     },
 
