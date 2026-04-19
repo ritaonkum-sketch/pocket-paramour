@@ -28,6 +28,11 @@ const CHARACTER_ALISTAIR = {
         fighting3: "assets/alistair/body/fighting3.png",
         fighting4: "assets/alistair/body/fighting4.png",
         fighting5: "assets/alistair/body/fighting5.png",
+        // Real art — strength exercise animation (portrait format)
+        exercise1: "assets/alistair/body/exercise1.png",
+        exercise2: "assets/alistair/body/exercise2.png",
+        exercise3: "assets/alistair/body/exercise3.png",
+        exercise4: "assets/alistair/body/exercise4.png",
         // TEMP aliases — pointed at eating1 until portrait replacements arrive.
         // Don't delete these keys; existing code and saves reference them.
         neutral:     "assets/alistair/body/eating1.png",
@@ -54,10 +59,13 @@ const CHARACTER_ALISTAIR = {
         casual1:     "assets/alistair/body/eating1.png",
         casual2:     "assets/alistair/body/eating1.png",
         casual3:     "assets/alistair/body/eating1.png",
-        shirtless:   "assets/alistair/body/eating1.png",
-        shirtless1:  "assets/alistair/body/eating1.png",
-        shirtless2:  "assets/alistair/body/eating1.png",
-        shirtless3:  "assets/alistair/body/eating1.png",
+        // shirtless / shirtless1-3 are consumed by ui.js's _doStrengthTraining
+        // rep animation — aliased to the exercise sprite frames so Strength
+        // training shows the new art.
+        shirtless:   "assets/alistair/body/exercise1.png",
+        shirtless1:  "assets/alistair/body/exercise2.png",
+        shirtless2:  "assets/alistair/body/exercise3.png",
+        shirtless3:  "assets/alistair/body/exercise4.png",
     },
 
     // Pixel face portrait mappings per emotion
