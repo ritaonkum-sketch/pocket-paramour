@@ -3614,14 +3614,14 @@ body {
 .intro-bg-prince {
     background: url('../assets/bg-caspian-intro.png') center center / cover no-repeat;
 }
-/* Caspian background — significantly zoomed out + anchored to bottom
-   so the full balcony floor is visible below his feet. Dark fill color
-   matches the palette if the image doesn't cover the whole viewport. */
+/* Caspian background — fill the full screen AND keep the balcony
+   floor visible. background-size: cover scales to fill both dimensions,
+   and anchoring to bottom means any cropping happens at the top (sky)
+   instead of cutting off the floor where his feet land. */
 .character-caspian {
-    background-size: auto 85% !important;
+    background-size: cover !important;
     background-position: center bottom !important;
     background-repeat: no-repeat !important;
-    background-color: #2a1a3a !important;
 }
 .intro-bg-prince ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
