@@ -10299,7 +10299,7 @@ let selectedCharacter = 'alistair';
                             }
                         } else if (selectedCharacter === 'caspian') {
                             if (_h >= 6 && _h < 18) {
-                                gameContainer.style.backgroundImage = "url('assets/bg-caspian-day.png')";
+                                gameContainer.style.backgroundImage = "url('assets/bg-caspian-balcony.png')";
                             } else if (_h >= 18 && _h < 22) {
                                 gameContainer.style.backgroundImage = "url('assets/bg-caspian-night.png')";
                             } else {

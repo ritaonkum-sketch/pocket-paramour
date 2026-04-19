@@ -142,10 +142,10 @@ class GameUI {
                 : "url('assets/bg-lyra-evening.png')";
             this._crossfadeBg(lyraBg);
         }
-        // Caspian background — day / night / bedroom
+        // Caspian background — balcony (day) / night / bedroom
         if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Caspian') {
             var casBg;
-            if (hour >= 6 && hour < 18) casBg = "url('assets/bg-caspian-day.png')";
+            if (hour >= 6 && hour < 18) casBg = "url('assets/bg-caspian-balcony.png')";
             else if (hour >= 18 && hour < 22) casBg = "url('assets/bg-caspian-night.png')";
             else casBg = "url('assets/bg-caspian-bedroom.png')";
             this._crossfadeBg(casBg);

@@ -142,10 +142,10 @@ const CHARACTER_CASPIAN = {
         corrupted: { name: "Possessive", body: "assets/caspian/body/possessive.png" }
     },
 
-    // Default / fallback bg — the time-of-day logic in ui.js + game.js
-    // usually overrides this with bg-caspian-day/night/bedroom.png before
-    // render, but this has to point to a real file for any edge case.
-    background: "assets/bg-caspian-day.png",
+    // Default / main-page bg — ornate balcony with castle + sunset view
+    // behind him. Time-of-day logic in ui.js + game.js can override this
+    // with bg-caspian-day/night/bedroom.png for specific scenes.
+    background: "assets/bg-caspian-balcony.png",
 
     // Court Etiquette training
     trainingOptions: [
