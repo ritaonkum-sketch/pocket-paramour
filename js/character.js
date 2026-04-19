@@ -35,6 +35,12 @@ const CHARACTER_ALISTAIR = {
         shirtless1: "assets/alistair/body/shirtless1.png",
         shirtless2: "assets/alistair/body/shirtless2.png",
         shirtless3: "assets/alistair/body/shirtless3.png",
+        // Eating animation frames — used for feed action
+        eating1: "assets/alistair/body/eating1.png",
+        eating2: "assets/alistair/body/eating2.png",
+        eating3: "assets/alistair/body/eating3.png",
+        eating4: "assets/alistair/body/eating4.png",
+        eating5: "assets/alistair/body/eating5.png",
     },
 
     // Pixel face portrait mappings per emotion
@@ -73,7 +79,7 @@ const CHARACTER_ALISTAIR = {
 
     // Map actions to body poses (arrays = random pick)
     actionToBody: {
-        feed: ["happy", "happy2", "armor1"],
+        feed: ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash: ["happy3", "gentle", "armor2"],
         gift: ["happy2", "happy", "armor1"],
         train: ["fighting", "fighting1", "fighting2"],
