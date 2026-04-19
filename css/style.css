@@ -3614,10 +3614,13 @@ body {
 .intro-bg-prince {
     background: url('../assets/bg-caspian-intro.png') center center / cover no-repeat;
 }
-/* Caspian background — cover full screen */
+/* Caspian background — zoomed out slightly so he stands ON the
+   balcony floor instead of floating. Anchored to bottom-center so
+   the balcony/floor line meets the character's feet. */
 .character-caspian {
-    background-size: cover !important;
-    background-position: center 50% !important;
+    background-size: auto 110% !important;
+    background-position: center bottom !important;
+    background-repeat: no-repeat !important;
 }
 .intro-bg-prince ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
