@@ -1159,18 +1159,30 @@ body {
     cursor: pointer;
 }
 
-/* Alistair's source art is LANDSCAPE (2760x1504) with the figure
-   centered in a wide canvas. Using object-fit: cover scales the image
-   up until the container is fully filled — cropping the empty sides
-   of the landscape so the figure renders at the same visual height
-   as the portrait-oriented characters. Height 95% matches other
-   characters so his head has breathing room below the topbar. */
+/* Alistair mixes LANDSCAPE legacy art (2760x1504) and new PORTRAIT art
+   (e.g. eating1.png ~1600x2626). JS sets .is-landscape / .is-portrait
+   on the img element based on actual aspect ratio, so each sprite
+   renders correctly regardless of orientation. */
 .character-alistair #character-body-img {
     height: 95%;
     max-height: 95%;
     max-width: 100%;
     width: 100%;
+    object-position: center bottom;
+    /* Default if no class set yet — cover handles landscape fine */
     object-fit: cover;
+}
+/* Landscape legacy sprites: crop sides, fill full height */
+.character-alistair #character-body-img.is-landscape {
+    object-fit: cover;
+    object-position: center bottom;
+}
+/* Portrait new sprites: show the full figure, letterbox if needed
+   (matches how the other characters render) */
+.character-alistair #character-body-img.is-portrait {
+    object-fit: contain;
+    width: auto;
+    max-width: 100%;
     object-position: center bottom;
 }
 

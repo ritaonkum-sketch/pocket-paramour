@@ -1346,9 +1346,16 @@ class GameUI {
             emotion = "neutral";
         }
 
-        if (emotion !== this._lastEmotion) {
+        // Skip the emotion-based sprite swap while an action flash is active
+        // (feed/wash/gift/train/talk). Those flashes set action-specific
+        // sprites (eating1-5, splash1-3, etc.) that must not be overridden
+        // by the generic emotionToBody map until the flash timer expires.
+        if (emotion !== this._lastEmotion && !this._flashActive) {
             this._lastEmotion = emotion;
             this.setCharacterSprite(emotion);
+        } else if (emotion !== this._lastEmotion) {
+            // Record the new emotion so the next non-flash tick picks it up
+            this._lastEmotion = emotion;
         }
 
         // Lyra hunger + dirty body override — swap body pose only, keep face emotion
@@ -1674,7 +1681,17 @@ class GameUI {
             if (bodySrc) {
                 const bodyImg = document.getElementById('character-body-img');
                 // Guard: only swap src when it actually changed (prevents ERR_ABORTED spam).
-                if (bodyImg && bodyImg.getAttribute('src') !== bodySrc) bodyImg.src = bodySrc;
+                if (bodyImg && bodyImg.getAttribute('src') !== bodySrc) {
+                    bodyImg.src = bodySrc;
+                    // Detect aspect ratio on load and tag the element so the
+                    // CSS can switch between landscape (cover) and portrait
+                    // (contain) fitting. Matters for Alistair who mixes both.
+                    bodyImg.onload = function() {
+                        const ratio = this.naturalWidth / (this.naturalHeight || 1);
+                        this.classList.toggle('is-landscape', ratio > 1.1);
+                        this.classList.toggle('is-portrait', ratio < 0.95);
+                    };
+                }
             }
         }
     }
