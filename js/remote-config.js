@@ -78,7 +78,8 @@ async function loadRemoteConfig() {
                 patched++;
             }
         }
-        if (patched > 0) {
+        // debug log removed — gate behind ?debug=1 if needed
+        if (patched > 0 && /[?&]debug=1\b/.test(location.search)) {
             console.log(`[config] Applied ${patched} remote tune value(s).`);
         }
     } catch (_) {

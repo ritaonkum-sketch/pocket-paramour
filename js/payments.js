@@ -31,7 +31,6 @@ class PaymentSystem {
         } catch (e) {}
 
         this.initialized = true;
-        console.log('[Payments] Initialized with provider:', this.provider);
     }
 
     // Purchase a premium scene/content

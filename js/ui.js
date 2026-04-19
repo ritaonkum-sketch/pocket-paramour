@@ -91,12 +91,10 @@ class GameUI {
         this.startDayNightCycle();
         this.startIdleDialogue();
         this.initCharacterTap();
-        this.initDebugPanel();
-        // White bg removal disabled — images already have transparent backgrounds
-        // this.initWhiteBackgroundRemoval();
-
-        // Add typewriter sound to dialogue
-        this.hookTypewriterSound();
+        // Debug panel only initialized when ?debug=1 is in the URL
+        if (/[?&]debug=1\b/.test(location.search)) {
+            this.initDebugPanel();
+        }
     }
 
     // ===== DAY/NIGHT CYCLE =====
@@ -495,74 +493,6 @@ class GameUI {
 
     // ===== REMOVE WHITE BACKGROUND FROM BODY SPRITES =====
 
-    initWhiteBackgroundRemoval() {
-        // Cache of processed transparent images
-        this._transparentCache = {};
-
-        // Process the current body image
-        const bodyImg = document.getElementById('character-body-img');
-        if (!bodyImg) return;
-
-        // Hook into image loads to remove white bg
-        const originalSrc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
-        const self = this;
-
-        bodyImg.addEventListener('load', function() {
-            self.removeWhiteBg(this);
-        });
-
-        // Process current image if already loaded
-        if (bodyImg.complete && bodyImg.naturalWidth > 0) {
-            this.removeWhiteBg(bodyImg);
-        }
-    }
-
-    removeWhiteBg(img) {
-        const src = img.getAttribute('data-original-src') || img.src;
-
-        // Check cache
-        if (this._transparentCache[src]) {
-            if (img.src !== this._transparentCache[src]) {
-                img.setAttribute('data-original-src', src);
-                img.src = this._transparentCache[src];
-            }
-            return;
-        }
-
-        // Skip if already processed (data URL)
-        if (src.startsWith('data:')) return;
-
-        try {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imageData.data;
-
-            const threshold = 235;
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i], g = data[i+1], b = data[i+2];
-                if (r > threshold && g > threshold && b > threshold) {
-                    data[i+3] = 0;
-                } else if (r > 220 && g > 220 && b > 220) {
-                    data[i+3] = Math.floor((255 - Math.max(r,g,b)) * 7);
-                }
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-
-            const dataUrl = canvas.toDataURL('image/png');
-            this._transparentCache[src] = dataUrl;
-            img.setAttribute('data-original-src', src);
-            img.src = dataUrl;
-        } catch(e) {
-            console.warn('Could not remove white bg:', e);
-        }
-    }
-
     // ===== TAP CHARACTER (players love this) =====
 
     initCharacterTap() {
@@ -907,26 +837,6 @@ class GameUI {
                 } catch (e) {}
             }
         }, delay);
-    }
-
-    // ===== TYPEWRITER SOUND =====
-
-    hookTypewriterSound() {
-        // Typing blip sound disabled — was clashing with BGM
-        // To re-enable: uncomment the blip line below
-        const tw = this.game.typewriter;
-        const originalType = tw._type.bind(tw);
-        let charCount = 0;
-
-        tw._type = function() {
-            if (this.currentIndex < this.fullText.length) {
-                charCount++;
-                // if (charCount % 2 === 0) sounds.blip();
-            } else {
-                charCount = 0;
-            }
-            originalType();
-        };
     }
 
     // ===== DRESS/OUTFIT SYSTEM =====

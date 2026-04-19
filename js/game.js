@@ -1007,8 +1007,10 @@ class PocketLoveGame {
             }
         }
 
-        // Alistair story arc + endings + daily progression
-        if (CHARACTER.name !== "Lyra") {
+        // Alistair story arc + endings + daily progression — ONLY for Alistair.
+        // Previously `!== "Lyra"` contaminated Caspian/Elian/Lucien/Proto/Noir
+        // with Alistair's oath scenes.
+        if (CHARACTER.name === "Alistair") {
             this._checkAlistairStoryProgression();
             this._checkAlistairEndings();
             this._checkAlistairProgression();
@@ -2331,49 +2333,65 @@ class PocketLoveGame {
         // Switch Character button — saves and returns to character select
         const switchBtn = document.getElementById('settings-switch-char');
         if (switchBtn) switchBtn.addEventListener('click', () => {
-            if (confirm('Switch character? Your progress with ' + CHARACTER.name + ' will be saved.')) {
-                this.save();
-                // Stop game tick
-                if (this.tickInterval) clearInterval(this.tickInterval);
-                // Hide game, show select screen
-                overlay.classList.add('hidden');
-                document.getElementById('game-container').classList.add('hidden');
-                if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
-                document.getElementById('select-screen').classList.remove('hidden');
-                // Reset scene state
-                this.sceneActive = false;
-                // Close any open panels/overlays
-                document.querySelectorAll('.visible').forEach(el => {
-                    if (el.id !== 'select-screen') el.classList.remove('visible');
-                });
-            }
+            // Use in-DOM confirm instead of native confirm() — the native
+            // dialog is blocked/suppressed on iOS PWA and mobile WebViews.
+            this._ppConfirm(
+                'Switch character?',
+                'Your progress with ' + CHARACTER.name + ' will be saved.',
+                () => {
+                    this.save();
+                    // Stop game tick
+                    if (this.tickInterval) clearInterval(this.tickInterval);
+                    // Hide game, show select screen
+                    overlay.classList.add('hidden');
+                    document.getElementById('game-container').classList.add('hidden');
+                    if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
+                    document.getElementById('select-screen').classList.remove('hidden');
+                    // Reset scene state
+                    this.sceneActive = false;
+                    // Close any open panels/overlays
+                    document.querySelectorAll('.visible').forEach(el => {
+                        if (el.id !== 'select-screen') el.classList.remove('visible');
+                    });
+                }
+            );
         });
 
         if (resetBtn) resetBtn.addEventListener('click', () => {
-            if (confirm('Reset progress for ' + CHARACTER.name + '? This cannot be undone.')) {
-                const saveKey = 'pocketLoveSave_' + (this.selectedCharacter || 'alistair');
-                const galleryKey = 'pocketlove_gallery_' + (this.selectedCharacter || 'alistair');
-                localStorage.removeItem(saveKey);
-                localStorage.removeItem(galleryKey);
-                localStorage.removeItem('pp_intro_' + this.selectedCharacter);
-                window.location.reload();
-            }
+            this._ppConfirm(
+                'Reset this character?',
+                'All progress with ' + CHARACTER.name + ' will be erased. This cannot be undone.',
+                () => {
+                    const saveKey = 'pocketLoveSave_' + (this.selectedCharacter || 'alistair');
+                    const galleryKey = 'pocketlove_gallery_' + (this.selectedCharacter || 'alistair');
+                    localStorage.removeItem(saveKey);
+                    localStorage.removeItem(galleryKey);
+                    localStorage.removeItem('pp_intro_' + this.selectedCharacter);
+                    window.location.reload();
+                },
+                { danger: true }
+            );
         });
 
         // Reset ALL characters
         const resetAllBtn = document.getElementById('settings-reset-all');
         if (resetAllBtn) resetAllBtn.addEventListener('click', () => {
-            if (confirm('Reset ALL characters and progress? This cannot be undone!')) {
-                ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
-                    localStorage.removeItem('pocketLoveSave_' + c);
-                    localStorage.removeItem('pocketlove_gallery_' + c);
-                    localStorage.removeItem('pp_intro_' + c);
-                });
-                localStorage.removeItem('pocketLoveMeta');
-                localStorage.removeItem('pp_world_intro_seen');
-                localStorage.removeItem('pp_player_name');
-                window.location.reload();
-            }
+            this._ppConfirm(
+                'Reset EVERYTHING?',
+                'All characters, saves, and unlocks will be erased. This cannot be undone.',
+                () => {
+                    ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
+                        localStorage.removeItem('pocketLoveSave_' + c);
+                        localStorage.removeItem('pocketlove_gallery_' + c);
+                        localStorage.removeItem('pp_intro_' + c);
+                    });
+                    localStorage.removeItem('pocketLoveMeta');
+                    localStorage.removeItem('pp_world_intro_seen');
+                    localStorage.removeItem('pp_player_name');
+                    window.location.reload();
+                },
+                { danger: true }
+            );
         });
 
         // Volume sliders
@@ -2397,6 +2415,57 @@ class PocketLoveGame {
                 if (typeof bgm !== 'undefined') bgm.setVolume(e.target.value);
             });
         }
+    }
+
+    // In-DOM confirmation modal. Replaces native confirm() which is blocked
+    // on iOS PWAs and some Android WebViews. opts.danger = red confirm button.
+    _ppConfirm(title, body, onConfirm, opts) {
+        opts = opts || {};
+        // Remove any stale confirm modal
+        const stale = document.getElementById('pp-confirm-modal');
+        if (stale) stale.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'pp-confirm-modal';
+        modal.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);animation:pp-confirm-fade 0.2s ease-out;';
+
+        const card = document.createElement('div');
+        card.style.cssText = 'background:linear-gradient(135deg,#2a1a3a,#1a0f28);border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:22px 20px;max-width:340px;width:88%;color:#fff;box-shadow:0 20px 60px rgba(0,0,0,0.6);';
+
+        const h = document.createElement('h3');
+        h.textContent = title;
+        h.style.cssText = 'margin:0 0 8px;font-size:18px;font-weight:700;color:#fff;';
+        card.appendChild(h);
+
+        const p = document.createElement('p');
+        p.textContent = body;
+        p.style.cssText = 'margin:0 0 20px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);';
+        card.appendChild(p);
+
+        const btns = document.createElement('div');
+        btns.style.cssText = 'display:flex;gap:10px;justify-content:flex-end;';
+
+        const cancel = document.createElement('button');
+        cancel.textContent = 'Cancel';
+        cancel.style.cssText = 'padding:10px 20px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#fff;border-radius:12px;font-size:14px;cursor:pointer;font-weight:600;';
+        cancel.onclick = () => modal.remove();
+        btns.appendChild(cancel);
+
+        const confirm = document.createElement('button');
+        confirm.textContent = opts.danger ? 'Delete' : 'Confirm';
+        const confirmBg = opts.danger
+            ? 'linear-gradient(135deg,#e74c3c,#c0392b)'
+            : 'linear-gradient(135deg,#ff8fa3,#ff5d8f)';
+        confirm.style.cssText = 'padding:10px 20px;border:none;background:' + confirmBg + ';color:#fff;border-radius:12px;font-size:14px;cursor:pointer;font-weight:700;box-shadow:0 3px 12px rgba(0,0,0,0.3);';
+        confirm.onclick = () => {
+            modal.remove();
+            try { onConfirm && onConfirm(); } catch (e) { console.error('[_ppConfirm]', e); }
+        };
+        btns.appendChild(confirm);
+
+        card.appendChild(btns);
+        modal.appendChild(card);
+        document.body.appendChild(modal);
     }
 
     openSettings() {
@@ -2772,7 +2841,9 @@ class PocketLoveGame {
                         let i = 0;
                         const speed = beat.speed || 38;
                         let _typing = true;
+                        let _cancelled = false;  // stops the setTimeout chain on skip
                         const type = () => {
+                            if (_cancelled) return;  // kill the recursive chain
                             if (i < beat.text.length) {
                                 text.textContent += beat.text[i++];
                                 setTimeout(type, speed);
@@ -2792,6 +2863,7 @@ class PocketLoveGame {
                         // Tap during typing = skip to full text
                         const _skipHandler = () => {
                             if (_typing) {
+                                _cancelled = true;  // stop the background typing chain FIRST
                                 _typing = false;
                                 text.textContent = beat.text;
                                 if (tapHint) tapHint.classList.remove('hidden');
@@ -3645,7 +3717,9 @@ class PocketLoveGame {
 
     // ── Alistair Daily Streak Return Lines ────────────────────────────
     _showAlistairDailyReturnLine() {
-        if (CHARACTER.name === 'Lyra') return;
+        // This function uses Alistair-voiced lines. Don't contaminate other
+        // characters with his dialogue. Only fire for Alistair.
+        if (CHARACTER.name !== 'Alistair') return;
         this.dailyLineShown = true;
         const day  = this.dailyStreak || 1;
         const bond = this.bond || 50;

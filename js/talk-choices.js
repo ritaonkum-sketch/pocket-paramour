@@ -806,13 +806,16 @@
             if (focus) focus.classList.remove('active');
         } catch (e) {}
 
-        // Apply stat effects
+        // Apply stat effects. NOTE: affection is the raw score (0-100);
+        // affectionLevel is DERIVED as Math.floor(affection/25) every tick,
+        // so writing to affectionLevel directly gets overwritten within 100ms.
+        // Always write to game.affection instead.
         if (choice.effects) {
             if (choice.effects.bond) {
                 game.bond = clamp((game.bond || 0) + choice.effects.bond, 0, 100);
             }
             if (choice.effects.affection) {
-                game.affectionLevel = clamp((game.affectionLevel || 0) + choice.effects.affection, 0, 6);
+                game.affection = clamp((game.affection || 0) + choice.effects.affection, 0, 100);
             }
             if (choice.effects.corruption) {
                 game.corruption = clamp((game.corruption || 0) + choice.effects.corruption, 0, 100);
@@ -854,8 +857,9 @@
             const game = window._game;
             if (!game || game.sceneActive || game.characterLeft) return;
 
-            // 30% chance to show choice overlay
-            if (Math.random() > CHOICE_CHANCE) return; // Let normal talk proceed
+            // 30% chance to show choice overlay (CHOICE_CHANCE = 0.30).
+            // Fires if random is LESS than chance — previously inverted (> meant 70%).
+            if (Math.random() >= CHOICE_CHANCE) return; // Let normal talk proceed
 
             const scenario = findScenario();
             if (!scenario) return; // No eligible scenarios, let normal talk proceed
