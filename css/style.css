@@ -1164,14 +1164,19 @@ body {
     cursor: pointer;
 }
 
-/* Alistair's source art is LANDSCAPE (2760x1504). Crop to the figure
-   and scale up to match the visual height of portrait characters. */
+/* Alistair's source art is LANDSCAPE (2760x1504) with the figure
+   centered in a wide canvas. Using object-fit: cover scales the image
+   up until the container is fully filled — cropping the empty sides
+   of the landscape so the figure renders at the same visual height
+   as the portrait-oriented characters. Height 95% matches other
+   characters so his head has breathing room below the topbar. */
 .character-alistair #character-body-img {
-    height: 160%;
-    max-height: 160%;
-    max-width: 160%;
-    object-fit: contain;
-    object-position: 58% bottom;
+    height: 95%;
+    max-height: 95%;
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center bottom;
 }
 
 /* ── Alistair UI Theme — warm gold/steel accents ─────────── */
