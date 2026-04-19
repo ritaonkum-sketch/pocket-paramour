@@ -5,42 +5,47 @@ const CHARACTER_ALISTAIR = {
     title: "The Loyal Knight",
     basePersonality: "shy",
 
-    // Full-body sprite mappings
+    // Full-body sprite mappings. Only eating1-5 currently exist — all other
+    // keys are kept as aliases pointing to eating1 so old code paths don't
+    // break. When new portrait sprites are added (neutral/happy/sad/etc.),
+    // replace each alias with the real filename.
     bodySprites: {
-        neutral: "assets/alistair/body/neutral.png",
-        default: "assets/alistair/body/default.png",
-        happy: "assets/alistair/body/happy.png",
-        happy2: "assets/alistair/body/happy2.png",
-        happy3: "assets/alistair/body/happy3.png",
-        gentle: "assets/alistair/body/gentle.png",
-        sad: "assets/alistair/body/sad.png",
-        sad1: "assets/alistair/body/sad1.png",
-        sad2: "assets/alistair/body/sad2.png",
-        sad3: "assets/alistair/body/sad3.png",
-        "sad-deep": "assets/alistair/body/sad-deep.png",
-        talk: "assets/alistair/body/talk.png",
-        "cross-arms": "assets/alistair/body/crossarms.png",
-        crossarms: "assets/alistair/body/crossarms.png",
-        armor1: "assets/alistair/body/armor1.png",
-        armor2: "assets/alistair/body/armor2.png",
-        armor3: "assets/alistair/body/armor3.png",
-        armor5: "assets/alistair/body/armor5.png",
-        fighting: "assets/alistair/body/fighting.png",
-        fighting1: "assets/alistair/body/fighting1.png",
-        fighting2: "assets/alistair/body/fighting2.png",
-        casual1: "assets/alistair/body/casual1.png",
-        casual2: "assets/alistair/body/casual2.png",
-        casual3: "assets/alistair/body/casual3.png",
-        shirtless: "assets/alistair/body/shirtless.png",
-        shirtless1: "assets/alistair/body/shirtless1.png",
-        shirtless2: "assets/alistair/body/shirtless2.png",
-        shirtless3: "assets/alistair/body/shirtless3.png",
-        // Eating animation frames — used for feed action
+        // Real art — drinking/eating animation (portrait format)
         eating1: "assets/alistair/body/eating1.png",
         eating2: "assets/alistair/body/eating2.png",
         eating3: "assets/alistair/body/eating3.png",
         eating4: "assets/alistair/body/eating4.png",
         eating5: "assets/alistair/body/eating5.png",
+        // TEMP aliases — pointed at eating1 until portrait replacements arrive.
+        // Don't delete these keys; existing code and saves reference them.
+        neutral:     "assets/alistair/body/eating1.png",
+        default:     "assets/alistair/body/eating1.png",
+        happy:       "assets/alistair/body/eating1.png",
+        happy2:      "assets/alistair/body/eating1.png",
+        happy3:      "assets/alistair/body/eating1.png",
+        gentle:      "assets/alistair/body/eating1.png",
+        sad:         "assets/alistair/body/eating1.png",
+        sad1:        "assets/alistair/body/eating1.png",
+        sad2:        "assets/alistair/body/eating1.png",
+        sad3:        "assets/alistair/body/eating1.png",
+        "sad-deep":  "assets/alistair/body/eating1.png",
+        talk:        "assets/alistair/body/eating1.png",
+        "cross-arms":"assets/alistair/body/eating1.png",
+        crossarms:   "assets/alistair/body/eating1.png",
+        armor1:      "assets/alistair/body/eating1.png",
+        armor2:      "assets/alistair/body/eating1.png",
+        armor3:      "assets/alistair/body/eating1.png",
+        armor5:      "assets/alistair/body/eating1.png",
+        fighting:    "assets/alistair/body/eating1.png",
+        fighting1:   "assets/alistair/body/eating1.png",
+        fighting2:   "assets/alistair/body/eating1.png",
+        casual1:     "assets/alistair/body/eating1.png",
+        casual2:     "assets/alistair/body/eating1.png",
+        casual3:     "assets/alistair/body/eating1.png",
+        shirtless:   "assets/alistair/body/eating1.png",
+        shirtless1:  "assets/alistair/body/eating1.png",
+        shirtless2:  "assets/alistair/body/eating1.png",
+        shirtless3:  "assets/alistair/body/eating1.png",
     },
 
     // Pixel face portrait mappings per emotion
@@ -60,30 +65,34 @@ const CHARACTER_ALISTAIR = {
         left: ["assets/alistair/face/crying2.png"]
     },
 
-    // Map emotions to body poses (arrays = random pick for variety)
+    // Map emotions to body poses. Only eating1-5 exist right now — all
+    // emotions currently resolve to one of those (which all show Alistair
+    // holding a mug). When new portrait sprites arrive (happy, sad, gentle,
+    // etc.), restore per-emotion arrays like the other characters use.
     emotionToBody: {
-        happy: ["happy", "happy2", "happy3", "armor1"],
-        love: ["happy2", "gentle", "armor2"],
-        neutral: ["neutral", "default", "armor3", "armor5"],
-        gentle: ["gentle", "neutral", "armor2"],
-        sad: ["sad1", "sad2", "sad"],
-        crying: ["sad-deep", "sad3"],
-        angry: ["crossarms", "fighting2"],
-        furious: ["fighting1", "fighting2", "fighting"],
-        shy: ["neutral", "gentle", "armor2"],
-        wink: ["happy3", "happy2"],
-        sleeping: ["neutral", "gentle"],
-        corrupted: ["fighting2", "crossarms", "fighting1"],
-        left: ["sad-deep", "sad3"]
+        happy:    ["eating1", "eating2", "eating5"],
+        love:     ["eating1", "eating5"],
+        neutral:  ["eating1"],
+        gentle:   ["eating1", "eating5"],
+        sad:      ["eating1"],
+        crying:   ["eating1"],
+        angry:    ["eating1"],
+        furious:  ["eating1"],
+        shy:      ["eating1", "eating5"],
+        wink:     ["eating1", "eating2"],
+        sleeping: ["eating1"],
+        corrupted:["eating1"],
+        left:     ["eating1"]
     },
 
-    // Map actions to body poses (arrays = random pick)
+    // Action-to-body mappings. Feed uses the full eating animation;
+    // other actions temporarily fall back to eating1 until new poses exist.
     actionToBody: {
-        feed: ["eating1", "eating2", "eating3", "eating4", "eating5"],
-        wash: ["happy3", "gentle", "armor2"],
-        gift: ["happy2", "happy", "armor1"],
-        train: ["fighting", "fighting1", "fighting2"],
-        talk: ["talk", "neutral", "gentle"]
+        feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
+        wash:  ["eating1"],
+        gift:  ["eating1", "eating5"],
+        train: ["eating1"],
+        talk:  ["eating1"]
     },
 
     // ── Emotional profile (drives hidden engine in game.js) ─────
@@ -98,12 +107,12 @@ const CHARACTER_ALISTAIR = {
         attachmentSpeed: 0.50
     },
 
+    // Outfits disabled until new portrait sprites arrive. Only the default
+    // (currently the eating1 pose) is exposed — others are commented out
+    // to avoid showing broken placeholders in the Dress panel.
     outfits: {
-        default:   { name: "Knight Armor", body: "assets/alistair/body/neutral.png" },
-        casual1:   { name: "Red Tunic", body: "assets/alistair/body/casual1.png" },
-        casual2:   { name: "Leather Armor", body: "assets/alistair/body/casual2.png" },
-        shirtless: { name: "Off Duty", body: "assets/alistair/body/shirtless.png" },
-        corrupted: { name: "Dark Knight", body: "assets/alistair/body/fighting2.png" }
+        default:   { name: "Knight", body: "assets/alistair/body/eating1.png" }
+        // casual1, casual2, shirtless, corrupted — restore when new art exists
     },
 
     background: "assets/bg-knight-room.png",

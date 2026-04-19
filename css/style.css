@@ -1159,32 +1159,11 @@ body {
     cursor: pointer;
 }
 
-/* Alistair mixes LANDSCAPE legacy art (2760x1504) and new PORTRAIT art
-   (e.g. eating1.png ~1600x2626). JS sets .is-landscape / .is-portrait
-   on the img element based on actual aspect ratio, so each sprite
-   renders correctly regardless of orientation. */
-.character-alistair #character-body-img {
-    height: 95%;
-    max-height: 95%;
-    max-width: 100%;
-    width: 100%;
-    object-position: center bottom;
-    /* Default if no class set yet — cover handles landscape fine */
-    object-fit: cover;
-}
-/* Landscape legacy sprites: crop sides, fill full height */
-.character-alistair #character-body-img.is-landscape {
-    object-fit: cover;
-    object-position: center bottom;
-}
-/* Portrait new sprites: show the full figure, letterbox if needed
-   (matches how the other characters render) */
-.character-alistair #character-body-img.is-portrait {
-    object-fit: contain;
-    width: auto;
-    max-width: 100%;
-    object-position: center bottom;
-}
+/* Alistair's legacy landscape art was deleted — all new sprites are
+   portrait format matching the other characters. No special override
+   needed; falls through to the default #character-body-img rules.
+   JS still applies .is-landscape/.is-portrait classes in case any
+   future sprite arrives landscape. */
 
 /* ── Alistair UI Theme — warm gold/steel accents ─────────── */
 .character-alistair #character-face-portrait {
