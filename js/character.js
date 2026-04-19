@@ -33,32 +33,36 @@ const CHARACTER_ALISTAIR = {
         exercise2: "assets/alistair/body/exercise2.png",
         exercise3: "assets/alistair/body/exercise3.png",
         exercise4: "assets/alistair/body/exercise4.png",
-        // TEMP aliases — pointed at eating1 until portrait replacements arrive.
-        // Don't delete these keys; existing code and saves reference them.
-        neutral:     "assets/alistair/body/eating1.png",
-        default:     "assets/alistair/body/eating1.png",
-        happy:       "assets/alistair/body/eating1.png",
-        happy2:      "assets/alistair/body/eating1.png",
-        happy3:      "assets/alistair/body/eating1.png",
-        gentle:      "assets/alistair/body/eating1.png",
-        sad:         "assets/alistair/body/eating1.png",
-        sad1:        "assets/alistair/body/eating1.png",
-        sad2:        "assets/alistair/body/eating1.png",
-        sad3:        "assets/alistair/body/eating1.png",
-        "sad-deep":  "assets/alistair/body/eating1.png",
-        talk:        "assets/alistair/body/eating1.png",
-        "cross-arms":"assets/alistair/body/eating1.png",
-        crossarms:   "assets/alistair/body/eating1.png",
-        armor1:      "assets/alistair/body/eating1.png",
-        armor2:      "assets/alistair/body/eating1.png",
-        armor3:      "assets/alistair/body/eating1.png",
-        armor5:      "assets/alistair/body/eating1.png",
+        // BLANK — 1x1 transparent PNG used for idle/emotion states while
+        // waiting for new art. Keeps the sprite system happy without showing
+        // the eating-mug placeholder everywhere.
+        blank: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        // TEMP aliases — all emotion/idle states are invisible for now.
+        // Replace each with the real filename when new portrait art arrives.
+        neutral:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        default:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        happy:       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        happy2:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        happy3:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        gentle:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        sad:         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        sad1:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        sad2:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        sad3:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        "sad-deep":  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        talk:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        "cross-arms":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        crossarms:   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        armor1:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        armor2:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        armor3:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        armor5:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
         // `fighting` (legacy key) points to the first real sword-form frame
         fighting:    "assets/alistair/body/fighting1.png",
         // fighting1 / fighting2 are now real — see the sprite block above
-        casual1:     "assets/alistair/body/eating1.png",
-        casual2:     "assets/alistair/body/eating1.png",
-        casual3:     "assets/alistair/body/eating1.png",
+        casual1:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        casual2:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        casual3:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
         // shirtless / shirtless1-3 are consumed by ui.js's _doStrengthTraining
         // rep animation — aliased to the exercise sprite frames so Strength
         // training shows the new art.
@@ -85,37 +89,37 @@ const CHARACTER_ALISTAIR = {
         left: ["assets/alistair/face/crying2.png"]
     },
 
-    // Map emotions to body poses. Only eating1-5 exist right now — all
-    // emotions currently resolve to one of those (which all show Alistair
-    // holding a mug). When new portrait sprites arrive (happy, sad, gentle,
-    // etc.), restore per-emotion arrays like the other characters use.
+    // Map emotions to body poses. All emotions currently map to `blank`
+    // (transparent placeholder) so idle/main pose shows NOTHING until new
+    // portrait art arrives. Action states (feed/wash/train) still have
+    // their real animations — see actionToBody below.
     emotionToBody: {
-        happy:    ["eating1", "eating2", "eating5"],
-        love:     ["eating1", "eating5"],
-        neutral:  ["eating1"],
-        gentle:   ["eating1", "eating5"],
-        sad:      ["eating1"],
-        crying:   ["eating1"],
-        angry:    ["eating1"],
-        furious:  ["eating1"],
-        shy:      ["eating1", "eating5"],
-        wink:     ["eating1", "eating2"],
-        sleeping: ["eating1"],
-        corrupted:["eating1"],
-        left:     ["eating1"]
+        happy:    ["blank"],
+        love:     ["blank"],
+        neutral:  ["blank"],
+        gentle:   ["blank"],
+        sad:      ["blank"],
+        crying:   ["blank"],
+        angry:    ["blank"],
+        furious:  ["blank"],
+        shy:      ["blank"],
+        wink:     ["blank"],
+        sleeping: ["blank"],
+        corrupted:["blank"],
+        left:     ["blank"]
     },
 
     // Action-to-body mappings:
     //   Feed  → 5-frame eating animation
     //   Wash  → 5-frame shower animation
     //   Train → 5-frame sword fighting animation (Sword Forms)
-    //   Gift / Talk → temporary eating1 fallback until new sprites arrive
+    //   Gift / Talk → blank placeholder until new sprites arrive
     actionToBody: {
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash:  ["shower1", "shower2", "shower3", "shower4", "shower5"],
-        gift:  ["eating1", "eating5"],
+        gift:  ["blank"],
         train: ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
-        talk:  ["eating1"]
+        talk:  ["blank"]
     },
 
     // ── Emotional profile (drives hidden engine in game.js) ─────
@@ -130,11 +134,10 @@ const CHARACTER_ALISTAIR = {
         attachmentSpeed: 0.50
     },
 
-    // Outfits disabled until new portrait sprites arrive. Only the default
-    // (currently the eating1 pose) is exposed — others are commented out
-    // to avoid showing broken placeholders in the Dress panel.
+    // Outfits disabled until new portrait sprites arrive.
+    // Default outfit uses a transparent placeholder so idle state is empty.
     outfits: {
-        default:   { name: "Knight", body: "assets/alistair/body/eating1.png" }
+        default:   { name: "Knight", body: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" }
         // casual1, casual2, shirtless, corrupted — restore when new art exists
     },
 
