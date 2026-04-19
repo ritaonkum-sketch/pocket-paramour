@@ -146,7 +146,7 @@ const CHARACTER_ALISTAIR = {
         default:   { name: "Knight", body: "assets/alistair/body/casual.png" }
     },
 
-    background: "assets/bg-knight-room.png",
+    background: "assets/bg-alistair-hall.png",
 
     // Character-specific injected event dialogue pools
     eventDialogue: {

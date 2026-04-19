@@ -10396,9 +10396,9 @@ let selectedCharacter = 'alistair';
                                 gameContainer.style.backgroundImage = "url('assets/bg-caspian-bedroom.png')";
                             }
                         } else {
-                            // Use CHARACTER.background if defined, else knight room
+                            // Use CHARACTER.background if defined, else Alistair's hall
                             selectCharacter(selectedCharacter);
-                            var _charBg = CHARACTER.background || 'assets/bg-knight-room.png';
+                            var _charBg = CHARACTER.background || 'assets/bg-alistair-hall.png';
                             gameContainer.style.backgroundImage = "url('" + _charBg + "')";
                         }
                         gameContainer.classList.remove('character-alistair', 'character-lyra');
