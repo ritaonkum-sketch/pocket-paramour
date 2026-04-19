@@ -452,6 +452,22 @@ class PocketLoveGame {
         // Start game loop (10 ticks per second)
         this.tickInterval = setInterval(() => this.tick(), 100);
 
+        // Watchdog: if tickInterval gets lost (e.g. an intro that never
+        // completed its callback), auto-restart it after 30s so stat
+        // bars don't get stuck. Only runs if character is actually
+        // being played and no intro overlay is visible.
+        setInterval(() => {
+            if (this.tickInterval || this.characterLeft) return;
+            const introOverlay = document.getElementById('intro-overlay');
+            const introVisible = introOverlay && !introOverlay.classList.contains('hidden')
+                && getComputedStyle(introOverlay).display !== 'none';
+            if (introVisible) return; // intro still running, don't interfere
+            // Recover
+            console.warn('[watchdog] tickInterval was lost — restarting');
+            this.lastTick = Date.now();
+            this.tickInterval = setInterval(() => this.tick(), 100);
+        }, 30000);
+
         // Auto-save every 30 seconds
         setInterval(() => this.save(), 30000);
 
@@ -10343,11 +10359,23 @@ let selectedCharacter = 'alistair';
                             // Pause the tick loop during intro
                             clearInterval(game.tickInterval);
                             game.tickInterval = null;
-                            new IntroScene().start(selectedCharacter, function() {
-                                // Resume tick loop after intro finishes
+                            var _tickResumed = false;
+                            function _resumeTick() {
+                                if (_tickResumed) return;
+                                _tickResumed = true;
                                 game.lastTick = Date.now();
                                 game.tickInterval = setInterval(function() { game.tick(); }, 100);
-                            });
+                            }
+                            try {
+                                new IntroScene().start(selectedCharacter, _resumeTick);
+                            } catch (e) {
+                                console.error('[intro] crashed, resuming tick', e);
+                                _resumeTick();
+                            }
+                            // Safety net: if intro never completes (overlay bypassed,
+                            // force-closed, browser navigation, etc), restore the tick
+                            // loop after 90 seconds so stats start moving again.
+                            setTimeout(function() { _resumeTick(); }, 90000);
                         }
                     }, 600);
                 }
