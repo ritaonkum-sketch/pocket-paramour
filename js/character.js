@@ -22,6 +22,12 @@ const CHARACTER_ALISTAIR = {
         shower3: "assets/alistair/body/shower3.png",
         shower4: "assets/alistair/body/shower4.png",
         shower5: "assets/alistair/body/shower5.png",
+        // Real art — sword-fighting animation (portrait format)
+        fighting1: "assets/alistair/body/fighting1.png",
+        fighting2: "assets/alistair/body/fighting2.png",
+        fighting3: "assets/alistair/body/fighting3.png",
+        fighting4: "assets/alistair/body/fighting4.png",
+        fighting5: "assets/alistair/body/fighting5.png",
         // TEMP aliases — pointed at eating1 until portrait replacements arrive.
         // Don't delete these keys; existing code and saves reference them.
         neutral:     "assets/alistair/body/eating1.png",
@@ -42,9 +48,9 @@ const CHARACTER_ALISTAIR = {
         armor2:      "assets/alistair/body/eating1.png",
         armor3:      "assets/alistair/body/eating1.png",
         armor5:      "assets/alistair/body/eating1.png",
-        fighting:    "assets/alistair/body/eating1.png",
-        fighting1:   "assets/alistair/body/eating1.png",
-        fighting2:   "assets/alistair/body/eating1.png",
+        // `fighting` (legacy key) points to the first real sword-form frame
+        fighting:    "assets/alistair/body/fighting1.png",
+        // fighting1 / fighting2 are now real — see the sprite block above
         casual1:     "assets/alistair/body/eating1.png",
         casual2:     "assets/alistair/body/eating1.png",
         casual3:     "assets/alistair/body/eating1.png",
@@ -82,23 +88,25 @@ const CHARACTER_ALISTAIR = {
         gentle:   ["eating1", "eating5"],
         sad:      ["eating1"],
         crying:   ["eating1"],
-        angry:    ["eating1"],
-        furious:  ["eating1"],
+        angry:    ["fighting1", "fighting4"],
+        furious:  ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
         shy:      ["eating1", "eating5"],
         wink:     ["eating1", "eating2"],
         sleeping: ["eating1"],
-        corrupted:["eating1"],
+        corrupted:["fighting1", "fighting2", "fighting5"],
         left:     ["eating1"]
     },
 
-    // Action-to-body mappings. Feed uses the eating animation, Wash uses
-    // the shower animation. Other actions fall back to eating1 until new
-    // poses exist.
+    // Action-to-body mappings:
+    //   Feed  → 5-frame eating animation
+    //   Wash  → 5-frame shower animation
+    //   Train → 5-frame sword fighting animation (Sword Forms)
+    //   Gift / Talk → temporary eating1 fallback until new sprites arrive
     actionToBody: {
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash:  ["shower1", "shower2", "shower3", "shower4", "shower5"],
         gift:  ["eating1", "eating5"],
-        train: ["eating1"],
+        train: ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
         talk:  ["eating1"]
     },
 
