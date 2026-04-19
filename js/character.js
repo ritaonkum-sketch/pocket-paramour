@@ -16,6 +16,12 @@ const CHARACTER_ALISTAIR = {
         eating3: "assets/alistair/body/eating3.png",
         eating4: "assets/alistair/body/eating4.png",
         eating5: "assets/alistair/body/eating5.png",
+        // Real art — shower/wash animation (portrait format)
+        shower1: "assets/alistair/body/shower1.png",
+        shower2: "assets/alistair/body/shower2.png",
+        shower3: "assets/alistair/body/shower3.png",
+        shower4: "assets/alistair/body/shower4.png",
+        shower5: "assets/alistair/body/shower5.png",
         // TEMP aliases — pointed at eating1 until portrait replacements arrive.
         // Don't delete these keys; existing code and saves reference them.
         neutral:     "assets/alistair/body/eating1.png",
@@ -85,11 +91,12 @@ const CHARACTER_ALISTAIR = {
         left:     ["eating1"]
     },
 
-    // Action-to-body mappings. Feed uses the full eating animation;
-    // other actions temporarily fall back to eating1 until new poses exist.
+    // Action-to-body mappings. Feed uses the eating animation, Wash uses
+    // the shower animation. Other actions fall back to eating1 until new
+    // poses exist.
     actionToBody: {
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
-        wash:  ["eating1"],
+        wash:  ["shower1", "shower2", "shower3", "shower4", "shower5"],
         gift:  ["eating1", "eating5"],
         train: ["eating1"],
         talk:  ["eating1"]
