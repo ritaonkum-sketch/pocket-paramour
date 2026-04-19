@@ -33,36 +33,39 @@ const CHARACTER_ALISTAIR = {
         exercise2: "assets/alistair/body/exercise2.png",
         exercise3: "assets/alistair/body/exercise3.png",
         exercise4: "assets/alistair/body/exercise4.png",
-        // BLANK — 1x1 transparent PNG used for idle/emotion states while
-        // waiting for new art. Keeps the sprite system happy without showing
-        // the eating-mug placeholder everywhere.
-        blank: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        // TEMP aliases — all emotion/idle states are invisible for now.
-        // Replace each with the real filename when new portrait art arrives.
-        neutral:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        default:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        happy:       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        happy2:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        happy3:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        gentle:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad:         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad1:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad2:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad3:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        "sad-deep":  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        talk:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        "cross-arms":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        crossarms:   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor1:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor2:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor3:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor5:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        // Real art — main idle poses (portrait format)
+        casual:      "assets/alistair/body/casual.png",
+        confuse:     "assets/alistair/body/confuse.png",
+        walking:     "assets/alistair/body/walking.png",
+        lookaround1: "assets/alistair/body/lookaround1.png",
+        lookaround2: "assets/alistair/body/lookaround2.png",
+        // Legacy aliases for keys older code/saves reference. They point at
+        // the new idle sprites so emotion states render correctly.
+        neutral:     "assets/alistair/body/casual.png",
+        default:     "assets/alistair/body/casual.png",
+        happy:       "assets/alistair/body/casual.png",
+        happy2:      "assets/alistair/body/lookaround1.png",
+        happy3:      "assets/alistair/body/lookaround2.png",
+        gentle:      "assets/alistair/body/casual.png",
+        sad:         "assets/alistair/body/confuse.png",
+        sad1:        "assets/alistair/body/confuse.png",
+        sad2:        "assets/alistair/body/confuse.png",
+        sad3:        "assets/alistair/body/confuse.png",
+        "sad-deep":  "assets/alistair/body/confuse.png",
+        talk:        "assets/alistair/body/casual.png",
+        // cross-arms / crossarms are real — point at the new cross-arm sprite
+        "cross-arms":"assets/alistair/body/crossarms.png",
+        crossarms:   "assets/alistair/body/crossarms.png",
+        armor1:      "assets/alistair/body/casual.png",
+        armor2:      "assets/alistair/body/casual.png",
+        armor3:      "assets/alistair/body/casual.png",
+        armor5:      "assets/alistair/body/casual.png",
         // `fighting` (legacy key) points to the first real sword-form frame
         fighting:    "assets/alistair/body/fighting1.png",
         // fighting1 / fighting2 are now real — see the sprite block above
-        casual1:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        casual2:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        casual3:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        casual1:     "assets/alistair/body/casual.png",
+        casual2:     "assets/alistair/body/casual.png",
+        casual3:     "assets/alistair/body/casual.png",
         // shirtless / shirtless1-3 are consumed by ui.js's _doStrengthTraining
         // rep animation — aliased to the exercise sprite frames so Strength
         // training shows the new art.
@@ -89,37 +92,37 @@ const CHARACTER_ALISTAIR = {
         left: ["assets/alistair/face/crying2.png"]
     },
 
-    // Map emotions to body poses. All emotions currently map to `blank`
-    // (transparent placeholder) so idle/main pose shows NOTHING until new
-    // portrait art arrives. Action states (feed/wash/train) still have
-    // their real animations — see actionToBody below.
+    // Map emotions to the 6 new idle poses (casual/confuse/crossarms/
+    // walking/lookaround1/lookaround2). Each emotion picks from a tuned
+    // subset so the tone matches the mood.
     emotionToBody: {
-        happy:    ["blank"],
-        love:     ["blank"],
-        neutral:  ["blank"],
-        gentle:   ["blank"],
-        sad:      ["blank"],
-        crying:   ["blank"],
-        angry:    ["blank"],
-        furious:  ["blank"],
-        shy:      ["blank"],
-        wink:     ["blank"],
-        sleeping: ["blank"],
-        corrupted:["blank"],
-        left:     ["blank"]
+        happy:    ["casual", "lookaround1", "lookaround2"],
+        love:     ["casual", "lookaround1"],
+        neutral:  ["casual", "walking", "lookaround1", "lookaround2"],
+        gentle:   ["casual", "lookaround1"],
+        sad:      ["confuse"],
+        crying:   ["confuse"],
+        angry:    ["crossarms"],
+        furious:  ["crossarms"],
+        shy:      ["lookaround1", "lookaround2", "confuse"],
+        wink:     ["lookaround1", "lookaround2"],
+        sleeping: ["casual"],
+        corrupted:["crossarms"],
+        left:     ["confuse", "walking"]
     },
 
     // Action-to-body mappings:
     //   Feed  → 5-frame eating animation
     //   Wash  → 5-frame shower animation
     //   Train → 5-frame sword fighting animation (Sword Forms)
-    //   Gift / Talk → blank placeholder until new sprites arrive
+    //   Gift  → lookaround (receiving, surprised)
+    //   Talk  → casual (standing, engaged)
     actionToBody: {
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash:  ["shower1", "shower2", "shower3", "shower4", "shower5"],
-        gift:  ["blank"],
+        gift:  ["lookaround1", "lookaround2", "casual"],
         train: ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
-        talk:  ["blank"]
+        talk:  ["casual", "lookaround1", "lookaround2"]
     },
 
     // ── Emotional profile (drives hidden engine in game.js) ─────
@@ -134,11 +137,10 @@ const CHARACTER_ALISTAIR = {
         attachmentSpeed: 0.50
     },
 
-    // Outfits disabled until new portrait sprites arrive.
-    // Default outfit uses a transparent placeholder so idle state is empty.
+    // Outfits — default uses the new casual/idle pose.
+    // More outfits will be added when themed sprites arrive.
     outfits: {
-        default:   { name: "Knight", body: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" }
-        // casual1, casual2, shirtless, corrupted — restore when new art exists
+        default:   { name: "Knight", body: "assets/alistair/body/casual.png" }
     },
 
     background: "assets/bg-knight-room.png",
