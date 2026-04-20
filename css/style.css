@@ -3419,11 +3419,7 @@ body {
 }
 
 .intro-bg-knight {
-    background: linear-gradient(180deg,
-        #1a0c06 0%,
-        #2e1508 35%,
-        #3d1e0e 65%,
-        #1a0c06 100%);
+    background: url('../assets/bg-alistair-gate.png') center center / cover no-repeat;
 }
 
 .intro-bg-siren {
