@@ -1314,6 +1314,27 @@ class GameUI {
         if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lyra' && !this._flashActive && !this._seqActive) {
             this._updateLyraHungerPose(this.game);
         }
+        // Alistair hunger pose — show hungry1/2 when hunger is low
+        if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Alistair' && !this._flashActive && !this._seqActive) {
+            this._updateAlistairHungerPose(this.game);
+        }
+    }
+
+    _updateAlistairHungerPose(g) {
+        const bodyImg = document.getElementById('character-body-img');
+        if (!bodyImg) return;
+        const curSrc = bodyImg.src || '';
+        const isHungry = curSrc.includes('hungry');
+        if (g.hunger < 35) {
+            if (!isHungry) {
+                const key = Math.random() < 0.5 ? 'hungry1' : 'hungry2';
+                const src = CHARACTER.bodySprites && CHARACTER.bodySprites[key];
+                if (src) bodyImg.src = src;
+            }
+        } else if (isHungry) {
+            // Hunger recovered — restore via emotion system
+            this.setCharacterSprite(this._lastEmotion || 'neutral');
+        }
     }
 
     updateEmotion() {

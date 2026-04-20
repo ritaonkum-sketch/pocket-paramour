@@ -65,6 +65,46 @@ const CHARACTER_ALISTAIR = {
         thinking2:   "assets/alistair/body/thinking2.png",
         wondering:   "assets/alistair/body/wondering.png",
         questioning: "assets/alistair/body/questioning.png",
+        // Real art — angry (3 variants)
+        angry1:      "assets/alistair/body/angry1.png",
+        angry2:      "assets/alistair/body/angry2.png",
+        angry3:      "assets/alistair/body/angry3.png",
+        // Real art — furious (3 variants)
+        furious1:    "assets/alistair/body/furious1.png",
+        furious2:    "assets/alistair/body/furious2.png",
+        furious3:    "assets/alistair/body/furious3.png",
+        // Real art — corrupted (3 dark + 2 soft variants)
+        corrupted1:  "assets/alistair/body/corrupted1.png",
+        corrupted2:  "assets/alistair/body/corrupted2.png",
+        corrupted3:  "assets/alistair/body/corrupted3.png",
+        "soft-corrupted1": "assets/alistair/body/soft-corrupted1.png",
+        "soft-corrupted2": "assets/alistair/body/soft-corrupted2.png",
+        // Real art — crying (6 variants)
+        cry1:        "assets/alistair/body/cry1.png",
+        cry2:        "assets/alistair/body/cry2.png",
+        cry3:        "assets/alistair/body/cry3.png",
+        cry4:        "assets/alistair/body/cry4.png",
+        cry5:        "assets/alistair/body/cry5.png",
+        cry6:        "assets/alistair/body/cry6.png",
+        // Real art — sleepy (3 variants)
+        sleepy1:     "assets/alistair/body/sleepy1.png",
+        sleepy2:     "assets/alistair/body/sleepy2.png",
+        sleepy3:     "assets/alistair/body/sleepy3.png",
+        // Real art — falling in love (4 variants)
+        fallinlove1: "assets/alistair/body/fallinlove1.png",
+        fallinlove2: "assets/alistair/body/fallinlove2.png",
+        fallinlove3: "assets/alistair/body/fallinlove3.png",
+        fallinlove4: "assets/alistair/body/fallinlove4.png",
+        // Real art — hungry state (2 variants)
+        hungry1:     "assets/alistair/body/hungry1.png",
+        hungry2:     "assets/alistair/body/hungry2.png",
+        // Real art — winks (2 variants for playful)
+        winks1:      "assets/alistair/body/winks1.png",
+        winks2:      "assets/alistair/body/winks2.png",
+        // Real art — soft shy love (3 variants for love/gentle/gift/happy)
+        "softshy-love1": "assets/alistair/body/softshy-love1.png",
+        "softshy-love2": "assets/alistair/body/softshy-love2.png",
+        "softshy-love3": "assets/alistair/body/softshy-love3.png",
         // BLANK — transparent 1x1 PNG placeholder for states without art yet.
         blank: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
         // neutral / default use the main-screen idle sprites.
@@ -120,32 +160,34 @@ const CHARACTER_ALISTAIR = {
         left: ["assets/alistair/face/crying2.png"]
     },
 
-    // Emotion-to-body pose pools. Per-emotion subsets tuned for tone.
-    // crying / sleeping / angry / furious / corrupted stay BLANK — no
-    // dedicated art yet (user will add later).
+    // Emotion-to-body pose pools. Every emotion now has real art!
     emotionToBody: {
         // Main idle — 6-pose rotation (default/everyday state)
         neutral:  ["casual", "confuse", "crossarms", "walking", "lookaround1", "lookaround2"],
-        // Happy family — smiles, laughs, the occasional silly pose
-        happy:    ["smile", "smile1", "smile2", "happyNew", "laugh", "laugh1"],
-        // Deep affection / love — soft-shy + tender smile
-        love:     ["shy1", "shy2", "smile"],
-        // Warm gentle — soft smiles + warm talking poses
-        gentle:   ["smile", "smile1", "talking2", "talking4"],
+        // Happy family — smiles, laughs, soft shy love
+        happy:    ["smile", "smile1", "smile2", "happyNew", "laugh", "laugh1", "softshy-love1", "softshy-love2", "softshy-love3"],
+        // Deep affection / love — shy + tender smile + falling-in-love + soft shy love
+        love:     ["shy1", "shy2", "smile", "fallinlove1", "fallinlove2", "fallinlove3", "fallinlove4", "softshy-love1", "softshy-love2", "softshy-love3"],
+        // Warm gentle — soft smiles + warm talking + soft shy love
+        gentle:   ["smile", "smile1", "talking2", "talking4", "softshy-love1", "softshy-love2", "softshy-love3"],
         // Sad — soft sadness + reflective talking
         sad:      ["soft-sad", "talking3"],
+        // Crying — 6 cry variants (deepest despair)
+        crying:   ["cry1", "cry2", "cry3", "cry4", "cry5", "cry6"],
         // Shy — user-specified 3 variants
         shy:      ["shy1", "shy2", "shy3"],
-        // Wink / playful — silly + cheeky smile + playful talking
-        wink:     ["silly", "smile2", "laugh1", "talking1"],
-        // Abandoned / gone quiet — only soft-sad for now
-        left:     ["soft-sad"],
-        // NOT WIRED — blank until dedicated art arrives
-        crying:   ["blank"],
-        sleeping: ["blank"],
-        angry:    ["blank"],
-        furious:  ["blank"],
-        corrupted:["blank"]
+        // Wink / playful — silly + smile + playful talking + winks
+        wink:     ["silly", "smile2", "laugh1", "talking1", "winks1", "winks2"],
+        // Sleeping — 3 sleepy variants
+        sleeping: ["sleepy1", "sleepy2", "sleepy3"],
+        // Angry — 3 angry variants
+        angry:    ["angry1", "angry2", "angry3"],
+        // Furious — 3 furious variants
+        furious:  ["furious1", "furious2", "furious3"],
+        // Corrupted — 3 dark + 2 soft variants
+        corrupted:["corrupted1", "corrupted2", "corrupted3", "soft-corrupted1", "soft-corrupted2"],
+        // Abandoned / gone quiet
+        left:     ["soft-sad"]
     },
 
     // Action-to-body mappings:
@@ -157,7 +199,7 @@ const CHARACTER_ALISTAIR = {
     actionToBody: {
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash:  ["shower1", "shower2", "shower3", "shower4", "shower5"],
-        gift:  ["happyNew", "smile", "laugh", "smile1"],
+        gift:  ["happyNew", "smile", "laugh", "smile1", "softshy-love1", "softshy-love2", "softshy-love3"],
         train: ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
         talk:  ["talking1", "talking2", "talking3", "talking4", "talking5", "talking6"]
     },
