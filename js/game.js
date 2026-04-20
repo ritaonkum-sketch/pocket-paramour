@@ -5105,9 +5105,9 @@ class PocketLoveGame {
                 { type: 'line', text: "…that's not something I planned.", hold: 2800, speed: 36, pose: 'love' },
                 { type: 'clear' },
 
-                // Phase 4 — Vulnerability  (pose: siren — reclaiming composure while breaking)
+                // Phase 4 — Vulnerability  (pose4 — drifts to edge, dignified)
                 { type: 'delay', ms: 1800 },
-                { type: 'line', text: "You're not just part of this anymore.", hold: 2600, speed: 36, pose: 'siren' },
+                { type: 'line', text: "You're not just part of this anymore.", hold: 2600, speed: 36, pose: 'pose4' },
                 { type: 'clear' },
                 { type: 'delay', ms: 900 },
                 { type: 'line', text: "…you're affecting me. …I don't like that.", hold: 2800, speed: 38, pose: 'angry' },
@@ -5329,7 +5329,7 @@ class PocketLoveGame {
                 { type: 'line', text: "…long enough.", hold: 2800, speed: 42 },
                 { type: 'clear' },
                 { type: 'delay', ms: 1200 },
-                { type: 'line', text: "…this is enough.", hold: 3600, speed: 36, pose: 'siren' },
+                { type: 'line', text: "…this is enough.", hold: 3600, speed: 36, pose: 'falllove2' },
                 { type: 'clear' },
                 { type: 'hide' }
             ], () => {
@@ -5587,7 +5587,7 @@ class PocketLoveGame {
             ]),
 
             { type: 'delay', ms: 1600 },
-            { type: 'line', text: "…this part is over.", hold: 3200, speed: 36, pose: 'siren' },
+            { type: 'line', text: "…this part is over.", hold: 3200, speed: 36, pose: 'pose4' },
             { type: 'clear' },
             { type: 'hide' }
 
@@ -5666,7 +5666,7 @@ class PocketLoveGame {
             { type: 'line', text: "You keep your distance… and then come closer when it matters.", hold: 2800, speed: 32, pose: 'sad3' },
             { type: 'clear' },
             { type: 'delay', ms: 600 },
-            { type: 'line', text: "I notice everything.", hold: 2000, speed: 50, pose: 'siren' },
+            { type: 'line', text: "I notice everything.", hold: 2000, speed: 50, pose: 'power' },
             { type: 'clear' },
             { type: 'delay', ms: 1600 },
             { type: 'line', text: "Don't read into it.", hold: 2000, pose: 'power' },
