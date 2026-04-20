@@ -130,14 +130,14 @@ const CHARACTER_ALISTAIR = {
         happy:    ["smile", "smile1", "smile2", "happyNew", "laugh", "laugh1"],
         // Deep affection / love — soft-shy + tender smile
         love:     ["shy1", "shy2", "smile"],
-        // Warm gentle — soft smiles only
-        gentle:   ["smile", "smile1"],
-        // Sad — soft sadness
-        sad:      ["soft-sad"],
+        // Warm gentle — soft smiles + warm talking poses
+        gentle:   ["smile", "smile1", "talking2", "talking4"],
+        // Sad — soft sadness + reflective talking
+        sad:      ["soft-sad", "talking3"],
         // Shy — user-specified 3 variants
         shy:      ["shy1", "shy2", "shy3"],
-        // Wink / playful — silly + a cheeky smile
-        wink:     ["silly", "smile2", "laugh1"],
+        // Wink / playful — silly + cheeky smile + playful talking
+        wink:     ["silly", "smile2", "laugh1", "talking1"],
         // Abandoned / gone quiet — only soft-sad for now
         left:     ["soft-sad"],
         // NOT WIRED — blank until dedicated art arrives
