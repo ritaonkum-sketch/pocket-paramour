@@ -99,9 +99,13 @@ const CHARACTER_CASPIAN = {
         sleepy2:     "assets/caspian/body/neutral.png",
         yawn1:       "assets/caspian/body/neutral.png",
         bored1:      "assets/caspian/body/reading.png",
-        // Eating/washing
-        eating1:     "assets/caspian/body/gentle.png",
-        eating2:     "assets/caspian/body/neutral.png",
+        // Eating — real 5-frame portrait animation
+        eating1:     "assets/caspian/body/eating1.png",
+        eating2:     "assets/caspian/body/eating2.png",
+        eating3:     "assets/caspian/body/eating3.png",
+        eating4:     "assets/caspian/body/eating4.png",
+        eating5:     "assets/caspian/body/eating5.png",
+        // Washing (still placeholder)
         splash1:     "assets/caspian/body/neutral.png",
         splash2:     "assets/caspian/body/gentle.png",
         // Fighting (for events)
@@ -124,7 +128,8 @@ const CHARACTER_CASPIAN = {
     },
 
     actionToBody: {
-        feed:  ["gentle", "neutral"],
+        // Feed — real 5-frame eating animation (royal dining)
+        feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash:  ["neutral", "gentle"],
         gift:  ["adoring", "tender"],
         train: ["dancing", "reading"],
