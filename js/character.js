@@ -120,30 +120,29 @@ const CHARACTER_ALISTAIR = {
         left: ["assets/alistair/face/crying2.png"]
     },
 
-    // Emotion-to-body pose pools. Per-emotion subsets are tuned for tone.
-    // angry / furious / corrupted stay BLANK per user request — no art yet.
+    // Emotion-to-body pose pools. Per-emotion subsets tuned for tone.
+    // crying / sleeping / angry / furious / corrupted stay BLANK — no
+    // dedicated art yet (user will add later).
     emotionToBody: {
         // Main idle — 6-pose rotation (default/everyday state)
         neutral:  ["casual", "confuse", "crossarms", "walking", "lookaround1", "lookaround2"],
         // Happy family — smiles, laughs, the occasional silly pose
         happy:    ["smile", "smile1", "smile2", "happyNew", "laugh", "laugh1"],
-        // Deep affection / love — soft-shy + laughing together
-        love:     ["shy1", "shy2", "laugh", "laugh2", "smile"],
-        // Warm gentle — soft smiles
-        gentle:   ["smile", "smile1", "happyNew"],
-        // Sad — reflective, soft sadness
-        sad:      ["soft-sad", "thinking1", "thinking2"],
-        // Crying — deepest sad
-        crying:   ["soft-sad"],
-        // Shy — user-specified 3 variants + wondering for variety
-        shy:      ["shy1", "shy2", "shy3", "wondering"],
+        // Deep affection / love — soft-shy + tender smile
+        love:     ["shy1", "shy2", "smile"],
+        // Warm gentle — soft smiles only
+        gentle:   ["smile", "smile1"],
+        // Sad — soft sadness
+        sad:      ["soft-sad"],
+        // Shy — user-specified 3 variants
+        shy:      ["shy1", "shy2", "shy3"],
         // Wink / playful — silly + a cheeky smile
         wink:     ["silly", "smile2", "laugh1"],
-        // Sleeping / calm contemplation — thinking poses
-        sleeping: ["thinking1", "thinking2"],
-        // Abandoned / gone quiet — reflective variants
-        left:     ["soft-sad", "thinking1", "wondering"],
+        // Abandoned / gone quiet — only soft-sad for now
+        left:     ["soft-sad"],
         // NOT WIRED — blank until dedicated art arrives
+        crying:   ["blank"],
+        sleeping: ["blank"],
         angry:    ["blank"],
         furious:  ["blank"],
         corrupted:["blank"]
