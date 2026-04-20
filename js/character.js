@@ -980,7 +980,7 @@ const CHARACTER_LYRA_FULL = {
         happy:     "assets/lyra/body/happy.png",
         sad:       "assets/lyra/body/sad.png",
         sad3:      "assets/lyra/body/sad3.png",
-        sad4:      "assets/lyra/body/depressed.png",
+        sad4:      "assets/lyra/body/sad4.png",
         angry:     "assets/lyra/body/angry.png",
         shy:       "assets/lyra/body/shy.png",
         love:      "assets/lyra/body/love.png",
@@ -1088,7 +1088,7 @@ const CHARACTER_LYRA_FULL = {
         neutral: ["neutral", "pose2", "pose3", "pose4"],
         gentle:  ["neutral", "pose2", "pose3"],
         // Sad — low bond (~25); random pick across sad variants
-        sad:     ["sad", "sad3"],
+        sad:     ["sad", "sad3", "sad4"],
         // Critically low bond / abandoned — deep sad variants
         crying:  ["depressed", "sad4"],
         angry:   ["angry"],
