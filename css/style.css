@@ -3034,6 +3034,10 @@ body {
 
 /* ===== LYRA SIREN STAGE EFFECTS ===== */
 
+/* All Siren stage effects use ONLY drop-shadow glows — no hue-rotate,
+   saturate, or brightness changes that would tint Lyra's actual colors.
+   The character art stays true; only the aura around her changes. */
+
 /* Stage 1 — Pure Siren: warm ocean glow */
 #character-body-img.siren-affection {
     filter: drop-shadow(0 0 22px rgba(100, 200, 255, 0.55)) drop-shadow(0 0 8px rgba(180, 240, 255, 0.35));
@@ -3042,26 +3046,27 @@ body {
 
 /* Stage 2 — Resonant: focused purple-blue ambition glow */
 #character-body-img.siren-resonant {
-    filter: brightness(1.08) drop-shadow(0 0 20px rgba(140, 80, 255, 0.60)) drop-shadow(0 0 6px rgba(200, 150, 255, 0.30));
+    filter: drop-shadow(0 0 20px rgba(140, 80, 255, 0.60)) drop-shadow(0 0 6px rgba(200, 150, 255, 0.30));
     transition: filter 1.0s ease;
 }
 
-/* Stage 3 — Unstable: irregular dark-purple flicker */
+/* Stage 3 — Unstable: irregular purple flicker (glow only, no brightness) */
 @keyframes sirenUnstable {
-    0%   { filter: brightness(1.00) drop-shadow(0 0  8px rgba(100, 30, 200, 0.40)); }
-    30%  { filter: brightness(0.80) drop-shadow(0 0 26px rgba( 70,  0, 180, 0.90)); }
-    55%  { filter: brightness(1.05) drop-shadow(0 0 12px rgba(160, 10, 220, 0.55)); }
-    80%  { filter: brightness(0.88) drop-shadow(0 0 32px rgba( 80,  0, 160, 0.80)); }
-    100% { filter: brightness(1.00) drop-shadow(0 0  8px rgba(100, 30, 200, 0.40)); }
+    0%   { filter: drop-shadow(0 0  8px rgba(100, 30, 200, 0.40)); }
+    30%  { filter: drop-shadow(0 0 26px rgba( 70,  0, 180, 0.90)); }
+    55%  { filter: drop-shadow(0 0 12px rgba(160, 10, 220, 0.55)); }
+    80%  { filter: drop-shadow(0 0 32px rgba( 80,  0, 160, 0.80)); }
+    100% { filter: drop-shadow(0 0  8px rgba(100, 30, 200, 0.40)); }
 }
 #character-body-img.siren-unstable {
     animation: sirenUnstable 2.8s ease-in-out infinite;
 }
 
-/* Stage 4 — Monster Siren: full dark aura, hue shift, pulsing void */
+/* Stage 4 — Monster Siren: intense dark-purple pulsing void glow */
+/* No hue-rotate, no saturate — keeps her natural colors */
 @keyframes sirenMonster {
-    0%, 100% { filter: brightness(0.78) saturate(1.7) hue-rotate(210deg) drop-shadow(0 0 24px rgba(130, 0, 255, 0.85)); }
-    50%      { filter: brightness(0.60) saturate(2.4) hue-rotate(228deg) drop-shadow(0 0 55px rgba(180, 0, 255, 1.00)); }
+    0%, 100% { filter: drop-shadow(0 0 24px rgba(130, 0, 255, 0.85)) drop-shadow(0 0 8px rgba(160, 40, 220, 0.5)); }
+    50%      { filter: drop-shadow(0 0 55px rgba(180, 0, 255, 1.00)) drop-shadow(0 0 14px rgba(200, 60, 255, 0.6)); }
 }
 #character-body-img.siren-monster {
     animation: sirenMonster 1.9s ease-in-out infinite;
