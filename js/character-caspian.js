@@ -78,6 +78,10 @@ const CHARACTER_CASPIAN = {
         corrupted:   "assets/caspian/body/possessive.png",
         talk:        "assets/caspian/body/neutral.png",
         crossarms:   "assets/caspian/body/hurt.png",
+        // Real art — talking poses (3 variants for talk action)
+        talking1:    "assets/caspian/body/talking1.png",
+        talking2:    "assets/caspian/body/talking2.png",
+        talking3:    "assets/caspian/body/talking3.png",
         // Training poses
         dance1:      "assets/caspian/body/dancing.png",
         dance2:      "assets/caspian/body/gentle.png",
@@ -124,7 +128,8 @@ const CHARACTER_CASPIAN = {
         wash:  ["neutral", "gentle"],
         gift:  ["adoring", "tender"],
         train: ["dancing", "reading"],
-        talk:  ["neutral", "gentle", "tender"]
+        // Talk uses the new dedicated talking poses (royal, gesturing)
+        talk:  ["talking1", "talking2", "talking3"]
     },
 
     emotionalProfile: {
