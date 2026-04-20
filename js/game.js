@@ -7402,12 +7402,16 @@ class PocketLoveGame {
         // Scene 3 — Day 2 first session: Morning Watch
         if (this.storyDay >= 2 && !sl.alistair_scene3.triggered) {
             sl.alistair_scene3.triggered = true;
+            this._alistairScene3PlayedAt = Date.now();
+            this.save();
             setTimeout(() => this._playAlistairScene3_MorningWatch(), 3000);
             return;
         }
         // Scene 4 — Day 2, bond ≥50: The Confession Attempt
+        // Pacing buffer: require 90s since Scene 3 so player can breathe
         if (this.storyDay >= 2 && this.bond >= 50 &&
             !sl.alistair_scene4.triggered && sl.alistair_scene3.triggered) {
+            if (this._alistairScene3PlayedAt && Date.now() - this._alistairScene3PlayedAt < 90000) return;
             sl.alistair_scene4.triggered = true;
             setTimeout(() => this._playAlistairScene4_Confession(), 1500);
             return;
@@ -7417,6 +7421,17 @@ class PocketLoveGame {
             !sl.alistair_scene5.triggered) {
             sl.alistair_scene5.triggered = true;
             setTimeout(() => this._playAlistairScene5_TheLine(), 1000);
+            return;
+        }
+        // Bridging scene — Day 4/5 quiet moment on the wall at night
+        if (CHARACTER.name === 'Alistair' &&
+            this.storyDay >= 4 && this.storyDay <= 5 &&
+            this.bond >= 55 &&
+            this.dayInteractions >= 2 &&
+            !this._alistairBridgeScenePlayed) {
+            this._alistairBridgeScenePlayed = true;
+            setTimeout(() => this._playAlistairBridgingScene(), 1500);
+            return;
         }
     }
 
@@ -7479,11 +7494,13 @@ class PocketLoveGame {
                 return;
             }
 
-            // True Bond Ending — stay/reflect path, high bond, peak played
+            // True Bond Ending — deterministic: earned through time + choice + bond
             if (!this.cinematicFlags.alistairTrueBondPlayed &&
+                this.storyDay >= 10 &&
                 this.alistairPeakChoice !== 'duty' &&
-                this.affectionLevel >= 4 && this.bond >= 80 &&
-                Math.random() > 0.998) {
+                this.bond >= 80 &&
+                this.affectionLevel >= 4 &&
+                this.endingPlayed !== 'true_bond') {
                 this.cinematicFlags.alistairTrueBondPlayed = true;
                 setTimeout(() => this._playAlistairTrueBondEnding(), 2000);
                 return;
@@ -7740,6 +7757,32 @@ class PocketLoveGame {
               }
             }
         ]);
+    }
+
+    // ── Bridging Scene: Day 4/5 Night on the Wall ───────────────────
+    // Quiet character moment — he's processing what's changing between you.
+    _playAlistairBridgingScene() {
+        const body = CHARACTER.bodySprites?.talking5 || CHARACTER.bodySprites?.neutral;
+        this._playScene([
+            { type: 'show', stage: 'stage-warm' },
+            { type: 'bg', src: 'assets/bg-alistair-hall.png', ms: 800 },
+            { type: 'char', src: body, wait: 900 },
+            { type: 'line', text: "I shouldn't be on the wall this late. The captain's quarters have a bed for a reason.", hold: 2400, speed: 36, pose: 'talking5' },
+            { type: 'clear' },
+            { type: 'delay', ms: 600 },
+            { type: 'line', text: "But I keep thinking. About things I'm not supposed to think about. About... someone.", hold: 2800, speed: 38, pose: 'shy2' },
+            { type: 'clear' },
+            { type: 'delay', ms: 800 },
+            { type: 'line', text: "I've been a knight long enough to know when something has changed in me. I just don't know what to call it yet.", hold: 3000, speed: 36, pose: 'soft-sad' },
+            { type: 'clear' },
+            { type: 'delay', ms: 700 },
+            { type: 'line', text: "...When you come back tomorrow, I'll pretend I slept.", hold: 2400, speed: 40, pose: 'smile' },
+            { type: 'clear' },
+            { type: 'hide' }
+        ], () => {
+            this._alistairBridgeScenePlayed = true;
+            this.save();
+        });
     }
 
     // ── Alistair Corruption Scene ────────────────────────────────────
@@ -9490,6 +9533,38 @@ class PocketLoveGame {
         setTimeout(() => {
             if (this.sceneActive || this.characterLeft) return;
             let line;
+
+            // Phase-aware lines (post-Peak, fire when alistairPhase is set)
+            if (this.alistairPhase === 'distant' && Math.random() < 0.20) {
+                const distantLines = [
+                    "I told myself I'd be over you by now. Knights are good at lying to themselves.",
+                    "The new captain doesn't ask if I sleep well. You did. I miss being asked.",
+                    "There's a tavern between here and the front. I keep your name there. I don't know why.",
+                    "I was right to leave. That doesn't make it lighter."
+                ];
+                this.typewriter.show(distantLines[Math.floor(Math.random() * distantLines.length)]);
+                return;
+            }
+            if (this.alistairPhase === 'conflicted' && Math.random() < 0.20) {
+                const conflictedLines = [
+                    "The kingdom calls in my dreams. I don't answer. Not yet.",
+                    "I keep my sword in the corner now. Not on me. That's new.",
+                    "I broke an oath for this. For us. I'd do it again. ...I think I'd do it again.",
+                    "My captain's letter sits unopened on the table. I look at it every morning."
+                ];
+                this.typewriter.show(conflictedLines[Math.floor(Math.random() * conflictedLines.length)]);
+                return;
+            }
+            if (this.alistairPhase === 'unstable' && Math.random() < 0.20) {
+                const unstableLines = [
+                    "I still don't know what I want. But I know I'm here. With you. That's the only honest answer I have.",
+                    "I asked you what I should do. You didn't answer. ...I think that was the answer.",
+                    "Some days I feel like I made the right choice. Some days I feel like I didn't make any choice at all.",
+                    "Living in the question. It's not as bad as I thought it'd be."
+                ];
+                this.typewriter.show(unstableLines[Math.floor(Math.random() * unstableLines.length)]);
+                return;
+            }
 
             // Duty pressure bleeds into daily lines
             if (this.dutyTension >= 40 && !this.dutyCallFired) {

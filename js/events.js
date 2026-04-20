@@ -408,6 +408,64 @@ const RANDOM_EVENTS = [
                 emotion: "corrupted"
             }
         ]
+    },
+    {
+        id: 'alistair_mirror',
+        title: 'The Mirror',
+        icon: '🪞',
+        character: 'alistair',
+        minAffection: 1,
+        minCorruption: 50,
+        description: "He's standing at the wash basin, staring at his reflection. He doesn't seem to recognize what he sees.",
+        choices: [
+            {
+                text: "Step closer to him",
+                effects: { bond: 8, corruption: -3 },
+                response: "...Don't. Don't be kind to me right now. I'll start to believe I deserve it.",
+                emotion: "sad"
+            },
+            {
+                text: "Take the mirror away",
+                effects: { bond: 12, corruption: -8 },
+                response: "...Yeah. Maybe I shouldn't keep looking. ...Thank you.",
+                emotion: "gentle"
+            },
+            {
+                text: "Let him stay there",
+                effects: { bond: -5, corruption: 5 },
+                response: "...You're right. Let me see it. Let me see all of it.",
+                emotion: "corrupted"
+            }
+        ]
+    },
+    {
+        id: 'alistair_neglect_sword',
+        title: 'Sword in the Corner',
+        icon: '⚔️',
+        character: 'alistair',
+        minAffection: 0,
+        minCorruption: 60,
+        description: "His sword leans in the corner, untouched for days. Dust on the pommel. A knight who isn't being a knight anymore.",
+        choices: [
+            {
+                text: "Polish it for him",
+                effects: { bond: 15, corruption: -10 },
+                response: "...You did that for me? I... I haven't picked it up. I couldn't say why. ...I will. Tomorrow.",
+                emotion: "gentle"
+            },
+            {
+                text: "Leave it where it is",
+                effects: { bond: 0, corruption: 3 },
+                response: "...You leave it there too. Good. Maybe it's where it belongs now.",
+                emotion: "corrupted"
+            },
+            {
+                text: "Ask him why he stopped training",
+                effects: { bond: 8, affection: 2 },
+                response: "Because I don't know what I'm protecting anymore. ...Or who I'm protecting it for.",
+                emotion: "sad"
+            }
+        ]
     }
     // ===== LYRA-SPECIFIC EVENTS =====
     ,{
