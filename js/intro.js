@@ -8,29 +8,46 @@ const INTRO_SCENES = {
         bgClass: 'intro-bg-knight',
         beats: [
             {
-                body: 'assets/alistair/body/neutral.png',
-                direction: 'He reaches for his sword before catching himself. His hand drops slowly.',
-                line: "...Who's there? How did you get past the gate?"
+                // Beat 1 — "Guard Up" (wary entry)
+                body: 'assets/alistair/body/fighting5.png',
+                direction: 'The sound of your steps stops him mid-drill. He turns slowly — blade unsettled but not drawn.',
+                line: "Identify yourself."
             },
             {
-                body: 'assets/alistair/body/armor3.png',
-                direction: 'He studies you for a long moment. The tension in his shoulders eases — barely.',
-                line: "You're not a threat. I can see that. I just... don't get visitors. Not real ones."
+                // Beat 2 — "Reading You" (assessing, not drawing)
+                body: 'assets/alistair/body/confuse.png',
+                direction: 'He studies you. The grip on his hilt eases, but not enough to let go.',
+                line: "...Not a soldier. Not one of mine. Who sent you?"
             },
             {
-                body: 'assets/alistair/body/gentle.png',
-                direction: "He sets the sword down on the table. The first deliberate thing he's done since you walked in.",
-                line: "I'm Alistair. If you're staying... I should probably know your name."
+                // Beat 3 — "Lowering the Sword" (guard drops)
+                body: 'assets/alistair/body/crossarms.png',
+                direction: 'He releases his stance. His shoulders drop a fraction.',
+                line: "No one sent you. You just... found your way here."
             },
             {
-                body: 'assets/alistair/body/happy.png',
-                direction: 'Something shifts in his expression. Not quite a smile — but close to one.',
-                line: "Take care of me... and maybe I'll learn how to let someone."
+                // Beat 4 — "Introducing Himself" (warming)
+                body: 'assets/alistair/body/talking6.png',
+                direction: "A quiet exhale. He sets the sword against the wall. The first deliberate thing he's done since you walked in.",
+                line: "I'm Alistair. Captain of the Guard. Though right now... just Alistair."
             },
             {
-                body: 'assets/alistair/body/gentle.png',
+                // Beat 5 — "Curious" (a glimpse of softness)
+                body: 'assets/alistair/body/wondering.png',
+                direction: 'He tilts his head slightly — curiosity getting the better of duty.',
+                line: "What's your name? If you're going to linger, I should know what to call you."
+            },
+            {
+                // Beat 6 — "The Ask" (vulnerable)
+                body: 'assets/alistair/body/shy2.png',
+                direction: 'His eyes drop. When they rise again, something has shifted.',
+                line: "If you're staying... take care of me. Not because I'm broken. Because I'd like to remember what it feels like."
+            },
+            {
+                // Beat 7 — "The Warning" (intimate admission)
+                body: 'assets/alistair/body/talking3.png',
                 direction: 'He looks away. The admission costs him something.',
-                line: "But don't vanish. I don't like what happens to me when people leave."
+                line: "Just don't vanish on me. I don't like what happens to me when people leave."
             }
         ]
     },
