@@ -16,17 +16,18 @@
 
     const IDLE_SETS = {
         alistair: {
+            // Idle behaviors — only clean main/idle poses (no action sprites
+            // like eating/fighting/shower). These are the moments Alistair
+            // has on screen when the player is just watching him.
             behaviors: [
-                { body: 'crossarms',  face: 'neutral2', duration: 6000 },
-                { body: 'crossarms',  face: 'annoyed',  duration: 5000, thought: "The candle's getting low." },
-                { body: 'armor2',     face: 'neutral',  duration: 5000, thought: "I should polish this before morning." },
-                { body: 'gentle',     face: 'gentle',   duration: 7000, thought: "It's quiet tonight." },
-                { body: 'default',    face: 'neutral2', duration: 6000 },
-                { body: 'fighting1',  face: 'neutral',  duration: 4000, thought: "Left foot forward. Pivot. Again." },
-                { body: 'talk',       face: 'gentle2',  duration: 5000, thought: "I wonder if you'll come back tomorrow." },
-                { body: 'armor3',     face: 'sad',      duration: 6000, thought: "The kingdom used to feel closer than this." },
-                { body: 'happy3',     face: 'cheeky',   duration: 5000 },
-                { body: 'crossarms',  face: 'happy',    duration: 4000, thought: "...Hm. That was almost a smile." },
+                { body: 'casual',      face: 'neutral2', duration: 6000 },
+                { body: 'crossarms',   face: 'neutral',  duration: 5000 },
+                { body: 'walking',     face: 'neutral2', duration: 5000 },
+                { body: 'lookaround1', face: 'neutral',  duration: 5000 },
+                { body: 'lookaround2', face: 'neutral2', duration: 5000 },
+                { body: 'confuse',     face: 'gentle',   duration: 6000 },
+                { body: 'talking1',    face: 'gentle2',  duration: 5000 },
+                { body: 'talking5',    face: 'neutral',  duration: 5000 },
             ],
         },
         lyra: {
