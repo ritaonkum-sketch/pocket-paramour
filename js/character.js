@@ -39,22 +39,48 @@ const CHARACTER_ALISTAIR = {
         walking:     "assets/alistair/body/walking.png",
         lookaround1: "assets/alistair/body/lookaround1.png",
         lookaround2: "assets/alistair/body/lookaround2.png",
+        // Real art — shy variants (portrait format)
+        shy1:        "assets/alistair/body/shy1.png",
+        shy2:        "assets/alistair/body/shy2.png",
+        shy3:        "assets/alistair/body/shy3.png",
+        // Real art — smile / laugh / silly (happy family)
+        smile:       "assets/alistair/body/smile.png",
+        smile1:      "assets/alistair/body/smile1.png",
+        smile2:      "assets/alistair/body/smile2.png",
+        happyNew:    "assets/alistair/body/happy.png",
+        laugh:       "assets/alistair/body/laugh.png",
+        laugh1:      "assets/alistair/body/laugh1.png",
+        laugh2:      "assets/alistair/body/laugh2.png",
+        silly:       "assets/alistair/body/silly.png",
+        // Real art — talking poses (6 variants for talk action)
+        talking1:    "assets/alistair/body/talking1.png",
+        talking2:    "assets/alistair/body/talking2.png",
+        talking3:    "assets/alistair/body/talking3.png",
+        talking4:    "assets/alistair/body/talking4.png",
+        talking5:    "assets/alistair/body/talking5.png",
+        talking6:    "assets/alistair/body/talking6.png",
+        // Real art — reflective / sad / thoughtful
+        "soft-sad":  "assets/alistair/body/soft-sad.png",
+        thinking1:   "assets/alistair/body/thinking1.png",
+        thinking2:   "assets/alistair/body/thinking2.png",
+        wondering:   "assets/alistair/body/wondering.png",
+        questioning: "assets/alistair/body/questioning.png",
         // BLANK — transparent 1x1 PNG placeholder for states without art yet.
         blank: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        // neutral / default use the main-screen idle sprites. All other
-        // emotion-named aliases stay transparent until dedicated art arrives.
+        // neutral / default use the main-screen idle sprites.
+        // Legacy emotion aliases now point to the new per-emotion art.
         neutral:     "assets/alistair/body/casual.png",
         default:     "assets/alistair/body/casual.png",
-        happy:       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        happy2:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        happy3:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        gentle:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad:         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad1:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad2:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        sad3:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        "sad-deep":  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        talk:        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        happy:       "assets/alistair/body/happy.png",
+        happy2:      "assets/alistair/body/smile1.png",
+        happy3:      "assets/alistair/body/smile2.png",
+        gentle:      "assets/alistair/body/smile.png",
+        sad:         "assets/alistair/body/soft-sad.png",
+        sad1:        "assets/alistair/body/soft-sad.png",
+        sad2:        "assets/alistair/body/thinking1.png",
+        sad3:        "assets/alistair/body/thinking2.png",
+        "sad-deep":  "assets/alistair/body/soft-sad.png",
+        talk:        "assets/alistair/body/talking1.png",
         // cross-arms / crossarms are real — point at the new cross-arm sprite
         "cross-arms":"assets/alistair/body/crossarms.png",
         crossarms:   "assets/alistair/body/crossarms.png",
@@ -94,38 +120,47 @@ const CHARACTER_ALISTAIR = {
         left: ["assets/alistair/face/crying2.png"]
     },
 
-    // ONLY the neutral/idle state uses the 6 main-screen poses (casual/
-    // confuse/crossarms/walking/lookaround1/2). All other emotions stay
-    // BLANK until dedicated per-emotion sprites are added. When new art
-    // arrives for happy/sad/angry/etc, replace each ['blank'] with the
-    // matching sprite names.
+    // Emotion-to-body pose pools. Per-emotion subsets are tuned for tone.
+    // angry / furious / corrupted stay BLANK per user request — no art yet.
     emotionToBody: {
+        // Main idle — 6-pose rotation (default/everyday state)
         neutral:  ["casual", "confuse", "crossarms", "walking", "lookaround1", "lookaround2"],
-        happy:    ["blank"],
-        love:     ["blank"],
-        gentle:   ["blank"],
-        sad:      ["blank"],
-        crying:   ["blank"],
+        // Happy family — smiles, laughs, the occasional silly pose
+        happy:    ["smile", "smile1", "smile2", "happyNew", "laugh", "laugh1"],
+        // Deep affection / love — soft-shy + laughing together
+        love:     ["shy1", "shy2", "laugh", "laugh2", "smile"],
+        // Warm gentle — soft smiles
+        gentle:   ["smile", "smile1", "happyNew"],
+        // Sad — reflective, soft sadness
+        sad:      ["soft-sad", "thinking1", "thinking2"],
+        // Crying — deepest sad
+        crying:   ["soft-sad"],
+        // Shy — user-specified 3 variants + wondering for variety
+        shy:      ["shy1", "shy2", "shy3", "wondering"],
+        // Wink / playful — silly + a cheeky smile
+        wink:     ["silly", "smile2", "laugh1"],
+        // Sleeping / calm contemplation — thinking poses
+        sleeping: ["thinking1", "thinking2"],
+        // Abandoned / gone quiet — reflective variants
+        left:     ["soft-sad", "thinking1", "wondering"],
+        // NOT WIRED — blank until dedicated art arrives
         angry:    ["blank"],
         furious:  ["blank"],
-        shy:      ["blank"],
-        wink:     ["blank"],
-        sleeping: ["blank"],
-        corrupted:["blank"],
-        left:     ["blank"]
+        corrupted:["blank"]
     },
 
     // Action-to-body mappings:
-    //   Feed  → 5-frame eating animation
+    //   Feed  → 5-frame eating/drinking animation
     //   Wash  → 5-frame shower animation
     //   Train → 5-frame sword fighting animation (Sword Forms)
-    //   Gift / Talk → blank (awaiting dedicated sprites)
+    //   Gift  → happy reactions (receiving with delight)
+    //   Talk  → 6 talking poses (gesturing, engaged)
     actionToBody: {
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
         wash:  ["shower1", "shower2", "shower3", "shower4", "shower5"],
-        gift:  ["blank"],
+        gift:  ["happyNew", "smile", "laugh", "smile1"],
         train: ["fighting1", "fighting2", "fighting3", "fighting4", "fighting5"],
-        talk:  ["blank"]
+        talk:  ["talking1", "talking2", "talking3", "talking4", "talking5", "talking6"]
     },
 
     // ── Emotional profile (drives hidden engine in game.js) ─────
