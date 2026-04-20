@@ -2345,6 +2345,7 @@ class GameUI {
         if (!bodyImg) { onComplete && onComplete(); return; }
 
         const isLyra = typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lyra';
+        const isAlistair = typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Alistair';
 
         // ── Lyra Drift: swap to ocean background + mermaid poses ──
         const prevBg = this.container.style.backgroundImage;
@@ -2356,9 +2357,17 @@ class GameUI {
         const mermaidPoses = isLyra
             ? [poses.mermaid1, poses.mermaid2, poses.mermaid3, poses.mermaid4].filter(Boolean)
             : null;
+
+        // ── Alistair "Steel of Mind": 3-frame kneeling-vigil animation ──
+        const focusFrames = isAlistair
+            ? [poses.focus1, poses.focus2, poses.focus3].filter(Boolean)
+            : null;
+
         const focusPose = (mermaidPoses && mermaidPoses.length)
             ? mermaidPoses[Math.floor(Math.random() * mermaidPoses.length)]
-            : (poses.gentle || poses.neutral);
+            : (focusFrames && focusFrames.length)
+                ? focusFrames[0]
+                : (poses.gentle || poses.neutral);
         const base = poses.neutral || poses.default;
 
         const ALL_FOCUS = ['focus-active','focus-enlighten','focus-breathe','focus-aura','mermaid-swim','bounce'];
@@ -2379,7 +2388,6 @@ class GameUI {
             // Lyra drift — swim animation with wave particles
             setTimeout(() => { set(null, 'mermaid-swim'); sounds.splash(); }, 250);
             setTimeout(() => {
-                // Swap to a different mermaid pose mid-sequence
                 const alt = (mermaidPoses && mermaidPoses.length > 1)
                     ? mermaidPoses[Math.floor(Math.random() * mermaidPoses.length)]
                     : focusPose;
@@ -2389,6 +2397,16 @@ class GameUI {
             }, 900);
             setTimeout(() => { set(null, 'focus-enlighten'); sounds.focusTone(); sounds.chime(); }, 1700);
             setTimeout(() => { set(null, 'mermaid-swim'); sounds.breathe(); }, 2400);
+        } else if (isAlistair && focusFrames && focusFrames.length >= 2) {
+            // Alistair Steel of Mind — cycle through the 3 kneeling frames
+            // frame 1 (standing / starting) → frame 2 (kneeling) → frame 3 (deep focus + aura)
+            const f1 = focusFrames[0];
+            const f2 = focusFrames[1] || f1;
+            const f3 = focusFrames[2] || f2;
+            setTimeout(() => { set(f1, 'focus-active'); sounds.focusTone(); }, 200);
+            setTimeout(() => { set(f2, 'focus-active'); sounds.focusTone(); }, 900);
+            setTimeout(() => { set(f3, 'focus-enlighten'); sounds.focusTone(); sounds.chime(); }, 1700);
+            setTimeout(() => { set(f3, 'focus-breathe'); sounds.breathe(); }, 2500);
         } else {
             setTimeout(() => { set(null, 'focus-active'); sounds.focusTone(); }, 300);
             setTimeout(() => sounds.focusTone(), 950);

@@ -33,6 +33,10 @@ const CHARACTER_ALISTAIR = {
         exercise2: "assets/alistair/body/exercise2.png",
         exercise3: "assets/alistair/body/exercise3.png",
         exercise4: "assets/alistair/body/exercise4.png",
+        // Real art — Steel of Mind (Focus training) 3-frame vigil
+        focus1:      "assets/alistair/body/focus1.png",
+        focus2:      "assets/alistair/body/focus2.png",
+        focus3:      "assets/alistair/body/focus3.png",
         // Real art — main idle poses (portrait format)
         casual:      "assets/alistair/body/casual.png",
         confuse:     "assets/alistair/body/confuse.png",
