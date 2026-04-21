@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v139';
+const CACHE_NAME = 'pocket-love-v140';
 
 const CORE_ASSETS = [
     '/index.html',
@@ -35,6 +35,27 @@ const CORE_ASSETS = [
     '/js/dates.js',
     '/js/crossovers.js',
     '/js/button-locks.js',
+    // Main-story route (opt-in; flag: pp_main_story_enabled)
+    '/js/main-story.js',
+    '/js/encounter-alistair.js',
+    '/js/encounter-elian.js',
+    '/js/encounter-lyra.js',
+    '/js/encounter-caspian.js',
+    '/js/encounter-lucien.js',
+    '/js/encounter-noir.js',
+    '/js/encounter-proto.js',
+    '/js/daily-purpose.js',
+    '/js/premium-card.js',
+    '/js/cards-library.js',
+    '/js/adaptive-thoughts.js',
+    '/js/endings.js',
+    '/js/monetization.js',
+    '/js/memory-gallery.js',
+    '/js/sound-design.js',
+    '/js/revenuecat-bridge.js',
+    '/js/main-story-toggle.js',
+    '/js/main-story-integration.js',
+    '/js/chapters.js',
     '/manifest.json'
 ];
 
