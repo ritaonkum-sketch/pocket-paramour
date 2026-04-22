@@ -79,6 +79,10 @@
         0%, 100% { opacity: 0.85; }
         50% { opacity: 1; }
       }
+      @keyframes mscardTapPulse {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.85; }
+      }
       .mscard-poseSwap { animation: mscardPoseSwap 620ms cubic-bezier(.2,.8,.2,1); }
       @keyframes mscardPoseSwap {
         0% { transform: scale(0.99) translateY(2px); opacity: 0.75; filter: blur(2px); }
@@ -203,12 +207,13 @@
     flourish.id = 'mscard-flourish';
     root.appendChild(flourish);
 
-    // Tap-to-advance hint
+    // Tap-to-advance hint (pulses softly so player notices they can tap)
     const tapHint = el('div', [
       'position:absolute', 'right:14px', 'bottom:14px',
       'color:' + (pal.accent || '#f4e6ff'), 'font-size:11px',
-      'letter-spacing:2px', 'opacity:0.35', 'pointer-events:none'
-    ].join(';'), 'tap');
+      'letter-spacing:2px', 'opacity:0.55', 'pointer-events:none',
+      'animation: mscardTapPulse 1.8s ease-in-out infinite'
+    ].join(';'), 'tap to continue');
     tapHint.id = 'mscard-taphint';
     root.appendChild(tapHint);
 
@@ -257,6 +262,42 @@
     _activeRoot = n.root;
     document.body.appendChild(n.root);
 
+    // Tap-to-skip: each beat gets a fresh "skip" promise that resolves the
+    // moment the player taps anywhere on the card. Beats that use waitS()
+    // or typeToS() race against it, so taps feel like "advance now."
+    let skipResolve = null;
+    let skipPromise = new Promise(res => { skipResolve = res; });
+    const resetSkip = () => { skipPromise = new Promise(res => { skipResolve = res; }); };
+    const onSkip = () => { if (skipResolve) { const r = skipResolve; skipResolve = null; r(); } };
+    n.root.addEventListener('click', onSkip);
+    n.root.addEventListener('touchstart', onSkip, { passive: true });
+
+    // Race helpers: returns immediately when either the timer or a tap
+    // fires. After each beat we reset the skip promise so the next tap
+    // can fire again.
+    const waitS = async (ms) => {
+      await Promise.race([wait(ms), skipPromise]);
+      resetSkip();
+    };
+    const typeToS = async (target, text, cps) => {
+      target.textContent = '';
+      const speed = Math.max(14, Math.round(1000 / (cps || 32)));
+      let i = 0;
+      let cancelled = false;
+      const tick = new Promise(resolve => {
+        const step = () => {
+          if (cancelled) { target.textContent = text; resolve(); return; }
+          if (i < text.length) { target.textContent += text[i++]; setTimeout(step, speed); }
+          else resolve();
+        };
+        step();
+      });
+      // If tap fires while typing, instantly complete the text.
+      const raced = skipPromise.then(() => { cancelled = true; target.textContent = text; });
+      await Promise.race([tick, raced]);
+      resetSkip();
+    };
+
     // Fade in overlay + title strip
     requestAnimationFrame(() => { n.root.style.opacity = '1'; });
     await wait(320);
@@ -270,7 +311,7 @@
             if (beat.pose) n.charImg.src = beat.pose;
             n.charWrap.style.opacity = '1';
             n.charWrap.style.transform = 'translateY(0) scale(1)';
-            await wait(beat.wait || 600);
+            await waitS(beat.wait || 600);
             n.dialogue.style.opacity = '1';
             n.dialogue.style.transform = 'translateY(0)';
             break;
@@ -283,36 +324,36 @@
               n.charImg.src = beat.src;
               if (beat.animate === 'swap') n.charImg.classList.add('mscard-poseSwap');
             }
-            await wait(beat.wait || 380);
+            await waitS(beat.wait || 380);
             break;
           }
           case 'line': {
-            await typeTo(n.line, beat.text || '', beat.cps || 32);
-            if (beat.hold) await wait(beat.hold);
+            await typeToS(n.line, beat.text || '', beat.cps || 32);
+            if (beat.hold) await waitS(beat.hold);
             break;
           }
           case 'zoom': {
             const amt = beat.amount || 1.1;
             n.charImg.style.transform = `scale(${amt})`;
             n.bg.style.transform = `scale(${1 + (amt - 1) * 0.3})`;
-            await wait(beat.duration || 1800);
+            await waitS(beat.duration || 1800);
             break;
           }
           case 'particles': {
             spawnParticles(n.particles, beat.count || 20, pal);
-            await wait(beat.duration || 1400);
+            await waitS(beat.duration || 1400);
             break;
           }
           case 'flourish': {
             n.flourish.textContent = beat.text || '';
             n.flourish.style.animation = 'mscardFlourish 1600ms ease-out forwards';
-            await wait(beat.duration || 1700);
+            await waitS(beat.duration || 1700);
             n.flourish.style.animation = '';
             n.flourish.textContent = '';
             break;
           }
           case 'hold': {
-            await wait(beat.ms || 1000);
+            await waitS(beat.ms || 1000);
             break;
           }
           case 'tap': {
