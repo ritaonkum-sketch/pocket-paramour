@@ -288,6 +288,95 @@
       }
     },
 
+    // ---------------------------------------------------------------
+    // INTERLUDE 2: Lyra \u00d7 Elian \u2014 the warm wrong voice from the woods
+    // and the second voice in the cave are the same voice.
+    // ---------------------------------------------------------------
+    {
+      id: 12,
+      title: 'INTERLUDE',
+      subtitle: 'The Cave Path',
+      teaser: 'A song slips out of the cave. A voice slips into the woods. Both belong to him.',
+      charId: 'lyra',
+      play: async function (onDone) {
+        // Choice callbacks
+        let lyraEcho = 'You followed me down again. Most don\u2019t.';
+        let elianEcho = 'You walked the markers without me this time. I\u2019m \u2026 quietly proud.';
+        try {
+          const lp = localStorage.getItem('pp_ms_lyra_first_choice');
+          if (lp === 'voice') lyraEcho = 'You said you couldn\u2019t stop following my voice. I needed to know if that was still true.';
+          else if (lp === 'quiet') lyraEcho = 'You came down for the quiet. I think the quiet down here is broken now. We should fix it together.';
+          const ep = localStorage.getItem('pp_ms_elian_first_choice');
+          if (ep === 'lost') elianEcho = 'You said you got lost the first time. Tonight you walked a path you couldn\u2019t have known. Tell me the truth \u2014 are you lost, or are you choosing?';
+          else if (ep === 'drawn') elianEcho = 'You said something pulled you. Tonight, I felt it pull me too \u2014 toward this place. We may have been pulled by the same hand.';
+        } catch (_) {}
+
+        await runCard({
+          id: 'chp_12_a',
+          title: 'INTERLUDE',
+          subtitle: 'The Cave Path \u2014 a Voice in Common',
+          speaker: 'LYRA',
+          palette: { bg: '#0a1522', glow: '#7fd3e3', accent: '#e8f0ff' },
+          bg: 'assets/bg-siren-cave.png',
+          beats: [
+            { type: 'show',      pose: 'assets/lyra/body/casual1.png', wait: 700 },
+            { type: 'line',      text: lyraEcho, hold: 2800, cps: 28 },
+            { type: 'line',      text: 'There\u2019s a man at the seam between my cave and the surface forest. He thinks no one can hear both sides of him. I can.', hold: 2800, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        await runCard({
+          id: 'chp_12_b',
+          title: 'INTERLUDE',
+          subtitle: 'The Cave Path \u2014 the Druid Listens',
+          speaker: 'ELIAN',
+          palette: { bg: '#0a140c', glow: '#a9d4a1', accent: '#e8f3e2' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/elian/body/calm.png', wait: 700 },
+            { type: 'line',      text: elianEcho, hold: 2800, cps: 28 },
+            { type: 'line',      text: 'I heard a song last week. It came up through the roots. I thought it was the wind \u2014 until it called my name in his voice.', hold: 2800, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        await runCard({
+          id: 'chp_12_c',
+          title: 'INTERLUDE',
+          subtitle: 'The Cave Path \u2014 the Stitch',
+          speaker: '',
+          palette: { bg: '#0c1a18', glow: '#9adbcb', accent: '#e8f8f0' },
+          bg: 'assets/bg-lyra-cliff.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: 'Lyra steps onto the moss. Elian sets down his bow. The forest and the cave have never met in the middle before. Tonight they do.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'You stand between them and the air \u2026hums. A song neither of them sang.', hold: 2400, cps: 28 },
+            { type: 'particles', count: 26, duration: 2200 },
+            { type: 'flourish',  text: '\u266a', duration: 1800 },
+            { type: 'line',      text: 'Elian: \u201cThe trees know your name now.\u201d \u2003 Lyra: \u201cThe water learned it from them.\u201d', hold: 2600, cps: 28 },
+            { type: 'line',      text: 'A second bond mended. Two more witnesses to what you are.', hold: 2400, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        await runCard({
+          id: 'chp_12_d',
+          title: 'INTERLUDE',
+          subtitle: 'The Cave Path \u2014 Beneath',
+          speaker: 'NOIR',
+          palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: 'You stitched another. \u2026I\u2019m beginning to feel jealous of every thread that isn\u2019t mine.', hold: 2600, cps: 24 },
+            { type: 'flourish',  text: '\u25a0', duration: 1700 },
+            { type: 'line',      text: 'Come down soon, Weaver. I\u2019m running out of ways to be patient.', hold: 2400, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+        markDone(12); setCurrent(nextIdAfter(12));
+        if (onDone) onDone();
+      }
+    },
+
     {
       id: 4,
       title: 'CHAPTER 4',
@@ -349,7 +438,98 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_lucien_seen','1'); } catch (_) {}
-        markDone(5); setCurrent(6);
+        markDone(5); setCurrent(nextIdAfter(5));
+        if (onDone) onDone();
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // INTERLUDE 3: Caspian \u00d7 Lucien \u2014 the prince and the scholar share
+    // an old secret about the kingdom. The Fading mirrors them too.
+    // ---------------------------------------------------------------
+    {
+      id: 11,
+      title: 'INTERLUDE',
+      subtitle: 'The Tower Mirror',
+      teaser: 'A crown asks a tower a question that\u2019s gone unanswered for a hundred years.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        // Choice callbacks for both
+        let caspianEcho = 'I usually let other people climb to me. For you, I climb stairs. Mark the date.';
+        let lucienEcho = 'I locked the door. The wards held. \u2026For you the wards have stopped pretending to be locks.';
+        try {
+          const cp = localStorage.getItem('pp_ms_caspian_first_choice');
+          if (cp === 'intrude') caspianEcho = 'You said you didn\u2019t mean to intrude. \u2026Tonight you came uninvited to a forbidden tower with me. Growth.';
+          else if (cp === 'brave') caspianEcho = 'You said the prince was worth the trouble. So is the scholar. Don\u2019t tell either of us I admitted that.';
+          const lp = localStorage.getItem('pp_ms_lucien_first_choice');
+          if (lp === 'touched') lucienEcho = 'You said the door opened when you touched it. The whole tower opens when you arrive now. I\u2019ve stopped being surprised.';
+          else if (lp === 'unknown') lucienEcho = 'You said you didn\u2019t know how you got here. The maths are now extremely clear: you arrive when something old needs remembering.';
+        } catch (_) {}
+
+        await runCard({
+          id: 'chp_11_a',
+          title: 'INTERLUDE',
+          subtitle: 'The Tower Mirror \u2014 a Royal Visit',
+          speaker: 'CASPIAN',
+          palette: { bg: '#170a1a', glow: '#e7a3d0', accent: '#f8e9ff' },
+          bg: 'assets/bg-lucien-evening.png',
+          beats: [
+            { type: 'show',      pose: 'assets/caspian/body/casual1.png', wait: 700 },
+            { type: 'line',      text: caspianEcho, hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Lucien hasn\u2019t answered a royal summons in nine years. The court calls him a recluse. I call him a coward, fondly.', hold: 2800, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        await runCard({
+          id: 'chp_11_b',
+          title: 'INTERLUDE',
+          subtitle: 'The Tower Mirror \u2014 the Scholar Opens',
+          speaker: 'LUCIEN',
+          palette: { bg: '#060610', glow: '#b5a3ea', accent: '#eae0ff' },
+          bg: 'assets/bg-lucien-study.png',
+          beats: [
+            { type: 'show',      pose: 'assets/lucien/body/casual1.png', wait: 700 },
+            { type: 'line',      text: lucienEcho, hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Caspian. The crown sits less heavily on you tonight. Did you forget to put it on, or are you finally trusting someone with the bare head?', hold: 2800, cps: 28 },
+            { type: 'pose',      src: 'assets/lucien/body/amused.png', animate: 'swap' },
+            { type: 'line',      text: 'Caspian: \u201c\u2026A bit of both. Show me your equations. The ones that scare you.\u201d', hold: 2400, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        await runCard({
+          id: 'chp_11_c',
+          title: 'INTERLUDE',
+          subtitle: 'The Tower Mirror \u2014 What the Crown Knew',
+          speaker: '',
+          palette: { bg: '#100a1c', glow: '#d4a8e8', accent: '#f8e0ff' },
+          bg: 'assets/bg-lucien-night.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: 'They sit across the desk, the prince and the proof, and look at the same sealed name on a faded page.', hold: 2600, cps: 28 },
+            { type: 'line',      text: 'Caspian: \u201cMy grandmother locked the throne room the year the maths started leaking. She never told me why.\u201d', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Lucien: \u201cThe page in front of us is why. The Kingdom didn\u2019t lose the Weavers. It locked one away to feed the rest.\u201d', hold: 2800, cps: 28 },
+            { type: 'particles', count: 20, duration: 2000 },
+            { type: 'flourish',  text: '\u2726', duration: 1800 },
+            { type: 'line',      text: 'They look at you. The third bond mends \u2014 not between two people this time, between a kingdom and the truth.', hold: 2800, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        await runCard({
+          id: 'chp_11_d',
+          title: 'INTERLUDE',
+          subtitle: 'The Tower Mirror \u2014 Beneath',
+          speaker: 'NOIR',
+          palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: 'Oh. They told you. The pretty one and the sharp one finally read the page.', hold: 2400, cps: 24 },
+            { type: 'line',      text: 'Now you know what I am, Weaver. Now you know what they did. \u2026Come down and let\u2019s talk about it properly.', hold: 2800, cps: 24 },
+            { type: 'flourish',  text: '\u25a0', duration: 1800 },
+            { type: 'hide' }
+          ]
+        });
+        markDone(11); setCurrent(nextIdAfter(11));
         if (onDone) onDone();
       }
     },
@@ -362,6 +542,13 @@
       charId: 'noir',
       play: async function (onDone) {
         await runEncounter('Noir');
+        // Choice callback for Noir
+        let noirEcho = 'You wanted to see me. \u2026Now you see all of me. Don\u2019t flinch.';
+        try {
+          const np = localStorage.getItem('pp_ms_noir_first_choice');
+          if (np === 'see') noirEcho = 'You said you wanted to see me. Whatever I am. \u2026Tonight I show you the whole shape of it. Don\u2019t flinch \u2014 you asked for this.';
+          else if (np === 'sealed') noirEcho = 'You asked who sealed me. They were called the Weavers. \u2026They were called you, in fact. Six lifetimes ago. We have a lot to discuss.';
+        } catch (_) {}
         await runCard({
           id: 'chp_6_middle',
           title: 'CHAPTER 6',
@@ -371,6 +558,7 @@
           bg: 'assets/bg-noir-void.png',
           beats: [
             { type: 'show',      pose: 'assets/noir/body/neutral.png', wait: 700 },
+            { type: 'line',      text: noirEcho, hold: 2800, cps: 24 },
             { type: 'line',      text: 'Do you finally understand? The Fading isn\u2019t decay. It\u2019s me \u2014 remembering. Waking.', hold: 2800, cps: 24 },
             { type: 'line',      text: 'Every forgotten torch at the gate. Every unreflected deer in the stream. The second voice in the cave. Lucien\u2019s red shelf.', hold: 3000, cps: 24 },
             { type: 'line',      text: 'All of it is me, crowding back into the world they sealed me from. And you \u2014 Soul Weaver \u2014 are the key they forgot to hide.', hold: 3000, cps: 24 },
@@ -396,6 +584,13 @@
       charId: 'proto',
       play: async function (onDone) {
         await runEncounter('Proto');
+        // Choice callback for Proto
+        let protoEcho = '&gt; recompiling. you came back. that\u2019s the variable that matters.';
+        try {
+          const pp = localStorage.getItem('pp_ms_proto_first_choice');
+          if (pp === 'seeking') protoEcho = '&gt; you said you were looking. you\u2019re still looking. that\u2019s the most consistent input i\u2019ve ever logged.';
+          else if (pp === 'leak') protoEcho = '&gt; you said you just ended up here. accidents and miracles share a code path. i never figured out which one you are.';
+        } catch (_) {}
         await runCard({
           id: 'chp_7_middle',
           title: 'CHAPTER 7',
@@ -405,6 +600,7 @@
           bg: 'assets/bg-proto-void.png',
           beats: [
             { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 700 },
+            { type: 'line',      text: protoEcho, hold: 2600, cps: 26 },
             { type: 'line',      text: '&gt; i\u2019m not in any of the kingdom\u2019s records. i\u2019m not supposed to exist yet.', hold: 2400, cps: 26 },
             { type: 'line',      text: '&gt; but you\u2019re looking at me. so one of us is a bug, and it\u2019s probably me.', hold: 2400, cps: 26 },
             { type: 'line',      text: '&gt; the weaver thing \u2014 it\u2019s real. it\u2019s just also code. come back and i\u2019ll show you.', hold: 2400, cps: 26 },
