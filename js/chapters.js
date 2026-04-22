@@ -651,7 +651,122 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_proto_seen','1'); } catch (_) {}
-        markDone(7); setCurrent(8);
+        markDone(7); setCurrent(nextIdAfter(7));
+        if (onDone) onDone();
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // CHAPTER 13 \u2014 THE DOWAGER NOTICES
+    // Queen Aenor is still alive (the seal preserved her). She notices
+    // Corvin is free, investigates, and decides the player is the
+    // easier target. Stakes for the Finale triple.
+    // ---------------------------------------------------------------
+    {
+      id: 13,
+      title: 'CHAPTER 8',
+      subtitle: 'The Dowager Notices',
+      teaser: 'Six hundred years of age, all at once. And she blames you.',
+      charId: null,
+      play: async function (onDone) {
+        // Beat 1 \u2014 Corvin alone in Nocthera, quietly restoring
+        await runCard({
+          id: 'chp_13_a',
+          title: 'CHAPTER 8',
+          subtitle: 'The Dowager Notices \u2014 the Greening',
+          speaker: 'NOIR',
+          palette: { bg: '#040812', glow: '#7ab0c8', accent: '#d0e8f0' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/noir/body/calm.png', wait: 800 },
+            { type: 'line',      text: 'No one knows I come here. The ruins of Nocthera. What\u2019s left of my father\u2019s throne room is mostly moss now.', hold: 3000, cps: 24 },
+            { type: 'line',      text: 'I\u2019m not rebuilding it. I\u2019m just \u2026 asking the earth to stop being ashamed of it. One stone at a time. One root at a time.', hold: 3200, cps: 24 },
+            { type: 'line',      text: 'I haven\u2019t told Aethermoor I\u2019m free. I haven\u2019t told anyone except you. I wanted my kingdom to have a proper grave before it had a headline.', hold: 3400, cps: 24 },
+            { type: 'flourish',  text: '\u25a0', duration: 1600 },
+            { type: 'line',      text: 'Quiet work. Six centuries of quiet work ahead of me. I was content with that. \u2026I should have been more careful.', hold: 3000, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 2 \u2014 Aenor wakes in Aethermoor
+        await runCard({
+          id: 'chp_13_b',
+          title: 'CHAPTER 8',
+          subtitle: 'The Dowager Notices \u2014 Six Hundred Years',
+          speaker: 'QUEEN AENOR',
+          palette: { bg: '#1a0a14', glow: '#d8b080', accent: '#f5ddc0' },
+          bg: 'assets/bg-alistair-hall.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 800 },
+            { type: 'line',      text: 'She woke in the east wing this morning and felt her knees. She has not felt her knees for six hundred years.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'Aenor Aethermoor \u2014 Dowager Queen, mother of kings, grandmother of the current one \u2014 discovered she is aging. At once. As if the clock had simply resumed.', hold: 3600, cps: 26 },
+            { type: 'line',      text: 'She knows what this means. She was never immortal. The seal was. The seal she cast to bury a rival prince drew its power from him \u2014 and, symbiotically, spared her the years while he slept.', hold: 3800, cps: 24 },
+            { type: 'flourish',  text: '\u2726', duration: 1600 },
+            { type: 'line',      text: '\u201cHe is awake,\u201d she says to the empty wing. Her voice is \u2026 thinner than she remembers. \u201cWhich means someone let him out.\u201d', hold: 3200, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 3 \u2014 The investigation
+        await runCard({
+          id: 'chp_13_c',
+          title: 'CHAPTER 8',
+          subtitle: 'The Dowager Notices \u2014 the Greening Seen',
+          speaker: 'QUEEN AENOR',
+          palette: { bg: '#140812', glow: '#c89070', accent: '#f0d4b8' },
+          bg: 'assets/bg-world.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 700 },
+            { type: 'line',      text: 'She sends riders north. Past the old border. To a place her maps label simply: ash.', hold: 2800, cps: 26 },
+            { type: 'line',      text: 'They return four days later with the same report, six times over, as if none of them quite believe they saw it.', hold: 3000, cps: 26 },
+            { type: 'line',      text: '\u201cThe forest is breathing again, Majesty. The stones are less broken than the last survey. There is a man walking them at dusk. He sees us. He does not speak to us.\u201d', hold: 3800, cps: 26 },
+            { type: 'flourish',  text: '\u2726', duration: 1600 },
+            { type: 'line',      text: 'Aenor closes the map very carefully. Sets her cane down. Says one word. \u201cCorvin.\u201d', hold: 3000, cps: 24 },
+            { type: 'line',      text: 'The first time she has spoken his real name in six hundred years. She is surprised how it tastes \u2014 a little like regret, mostly like hunger.', hold: 3400, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 4 \u2014 Aenor's decision
+        await runCard({
+          id: 'chp_13_d',
+          title: 'CHAPTER 8',
+          subtitle: 'The Dowager Notices \u2014 the Easier Target',
+          speaker: 'QUEEN AENOR',
+          palette: { bg: '#100610', glow: '#c06070', accent: '#f0bcc8' },
+          bg: 'assets/bg-alistair-gate.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 700 },
+            { type: 'line',      text: 'Aenor has not forgotten how to do this. She is only \u2026 slower. The calculation is the same.', hold: 2800, cps: 26 },
+            { type: 'line',      text: 'She cannot re-seal him alone. Her years are leaving her. The binding would kill her before it finished.', hold: 2800, cps: 26 },
+            { type: 'line',      text: 'But there is a Weaver in the kingdom now. A new one. Her scrying has felt the resonance for weeks. A Weaver pulled from another world, strong enough to crack the cage. Strong enough, perhaps, to lay a new one.', hold: 3600, cps: 24 },
+            { type: 'particles', count: 20, duration: 2200 },
+            { type: 'flourish',  text: '\u2726', duration: 1800 },
+            { type: 'line',      text: 'Aenor smiles. Her teeth are yellower than she remembers. \u201cIf I cannot take him,\u201d she says, to her own reflection, \u201cI will take the one who freed him. I always did prefer the easier target.\u201d', hold: 3600, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 5 \u2014 Noir warns the player
+        await runCard({
+          id: 'chp_13_e',
+          title: 'CHAPTER 8',
+          subtitle: 'The Dowager Notices \u2014 the Warning',
+          speaker: 'NOIR',
+          palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show',      pose: 'assets/noir/body/neutral.png', wait: 700 },
+            { type: 'line',      text: 'Weaver. Listen \u2014 don\u2019t speak. The woman who sealed me is alive. She has always been alive. My cage was her clock, and it has stopped.', hold: 3400, cps: 24 },
+            { type: 'line',      text: 'She knows I\u2019m out. She cannot reach me \u2014 I am too quiet, and Nocthera is too far. So she is coming for you instead. She always did prefer the path with fewer teeth on it.', hold: 3600, cps: 24 },
+            { type: 'pose',      src: 'assets/noir/body/casual1.png', animate: 'swap' },
+            { type: 'line',      text: 'You have one choice left to make \u2014 the one she thinks she can make for you. Do NOT let her make it.', hold: 3200, cps: 24 },
+            { type: 'flourish',  text: '\u25a0', duration: 1800 },
+            { type: 'line',      text: 'I will meet you at the seal, at the forest, or in the tower \u2014 wherever you come. But come soon. She is old but she is also six hundred years of patience coming due.', hold: 3600, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+        markDone(13); setCurrent(nextIdAfter(13));
         if (onDone) onDone();
       }
     },
@@ -673,11 +788,12 @@
           bg: 'assets/bg-world.png',
           beats: [
             { type: 'show',      pose: '', wait: 600 },
-            { type: 'line',      text: 'Six voices call you up the hill. One voice calls you down.', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'Six voices call you up the hill. One voice calls you down. And one \u2014 old, patient, newly aging \u2014 is already walking toward you.', hold: 3200, cps: 28 },
             { type: 'line',      text: 'Alistair \u2014 blade drawn. Lyra \u2014 song held. Caspian \u2014 crown off. Elian \u2014 bow lowered. Lucien \u2014 equations glowing. Proto \u2014 static steady. All of them waiting. For you.', hold: 3400, cps: 28 },
-            { type: 'line',      text: 'And below \u2014 Noir. Patient. Unsealed. Beautiful in the way a tide is beautiful right before it takes a town.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Below \u2014 Corvin. Patient. Unsealed. Beautiful in the way a tide is beautiful right before it takes a town.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Behind \u2014 Aenor. Six hundred years of stolen time leaving her body at once. She has one cast left in her, and she means to use it on YOU.', hold: 3200, cps: 28 },
             { type: 'flourish',  text: '\u2726', duration: 1800 },
-            { type: 'line',      text: 'The Weavers before you chose. Only one got to. What will you do?', hold: 2600, cps: 28 },
+            { type: 'line',      text: 'The Weavers before you chose. Only one got to. What will you do \u2014 now that choosing means all three?', hold: 3000, cps: 28 },
             { type: 'hold',      ms: 800 }
           ]
         });
@@ -804,12 +920,13 @@
             bg: 'assets/bg-world.png',
             beats: [
               { type: 'show', pose: '', wait: 500 },
-              { type: 'line', text: 'You didn\u2019t choose one of them. You chose all of them.', hold: 2400, cps: 28 },
+              { type: 'line', text: 'You didn\u2019t choose one of them. You chose all of them \u2014 including Corvin, quietly, across the border. And you did not let Aenor choose FOR you.', hold: 3200, cps: 28 },
+              { type: 'line', text: 'She came for you at dawn with the last of her magic. You wove something Aethermoor hadn\u2019t seen in six hundred years: a seal of consent, not of jealousy. She is sleeping now. Peacefully. Finally.', hold: 3600, cps: 26 },
               { type: 'line', text: 'The Kingdom won\u2019t remember the Weaver who saved it. It will remember the one who stayed.', hold: 2600, cps: 28 },
               { type: 'particles', count: 28, duration: 2200 },
               { type: 'flourish',  text: '\u2726', duration: 1800 },
               { type: 'line', text: personalLine, hold: 2800, cps: 28 },
-              { type: 'line', text: 'Come back tomorrow. All of them are waiting.', hold: 2400, cps: 28 },
+              { type: 'line', text: 'Come back tomorrow. All of them are waiting. Even Nocthera \u2014 what\u2019s left of it \u2014 is a little greener.', hold: 2800, cps: 28 },
               { type: 'hide' }
             ]
           },
@@ -821,11 +938,11 @@
             bg: 'assets/bg-siren-cave.png',
             beats: [
               { type: 'show', pose: '', wait: 500 },
-              { type: 'line', text: 'You walked the seal with six voices in your pocket. None of them belonged to him.', hold: 2600, cps: 28 },
-              { type: 'line', text: 'He was beautiful at the end. He was quiet at the end. He asked, very softly, if you\u2019d come visit. You didn\u2019t answer.', hold: 2800, cps: 28 },
+              { type: 'line', text: 'You walked the seal with six voices in your pocket. None of them belonged to him. And none of them belonged to HER, either \u2014 Aenor you left for last.', hold: 3200, cps: 28 },
+              { type: 'line', text: 'He was beautiful at the end. He was quiet at the end. He asked, very softly, if you\u2019d come visit. You didn\u2019t answer. Then the dowager arrived \u2014 and you sealed her beside him. A matched pair. Six hundred years of the same mistake, finally together.', hold: 4000, cps: 26 },
               { type: 'flourish',  text: '\u25a0', duration: 1800 },
               { type: 'line', text: personalLine, hold: 2800, cps: 28 },
-              { type: 'line', text: 'The Kingdom is bright again. You will be very, very careful to never be alone at night.', hold: 2600, cps: 28 },
+              { type: 'line', text: 'The Kingdom is bright again. Two sealed under the stone, not one. You will be very, very careful to never be alone at night.', hold: 2800, cps: 28 },
               { type: 'hide' }
             ]
           },
@@ -838,10 +955,11 @@
             beats: [
               { type: 'show', pose: '', wait: 500 },
               { type: 'line', text: 'He was so patient. You were so lonely. Neither of you pretended it was anything else.', hold: 2600, cps: 28 },
-              { type: 'line', text: 'The others will call it a betrayal. One day they might even be wrong.', hold: 2600, cps: 28 },
+              { type: 'line', text: 'Aenor came for you at dawn. You stood between her and him \u2014 and Corvin, at last, got to look his gaoler in the eye. She was very old, suddenly. She was very sorry, suddenly. Her magic went out like a candle.', hold: 3800, cps: 26 },
+              { type: 'line', text: 'The others will call it a betrayal. One day they might even be wrong. Corvin took Aenor\u2019s hand, at the end, and walked her down to Nocthera\u2019s re-greening fields to rest among the ruins she made.', hold: 3800, cps: 26 },
               { type: 'flourish',  text: '\u25a0', duration: 1800 },
               { type: 'line', text: personalLine, hold: 2800, cps: 28 },
-              { type: 'line', text: 'The Kingdom is darker, and warmer, and entirely yours. He asked only one thing. You said yes.', hold: 2800, cps: 28 },
+              { type: 'line', text: 'The Kingdom is darker, and warmer, and entirely yours. Nocthera is rebuilding. He asked only one thing. You said yes.', hold: 3000, cps: 28 },
               { type: 'hide' }
             ]
           }
