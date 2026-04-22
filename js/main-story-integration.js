@@ -210,7 +210,14 @@
       const title = document.getElementById('title-screen');
       if (title) title.classList.add('hidden');
 
-      window.MSChapters.open();
+      // Fire the Prologue automatically. Chapter 0\u2019s onDone already calls
+      // refreshOrb() + openPageSoftly() so the Main Story page will open
+      // right after the Prologue finishes.
+      if (typeof window.MSChapters.play === 'function') {
+        window.MSChapters.play(0);
+      } else {
+        window.MSChapters.open();
+      }
     }, true); // capture
   }
 
