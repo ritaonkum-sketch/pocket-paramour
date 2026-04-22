@@ -156,11 +156,13 @@
         choiceRow.innerHTML = '';
         options.forEach((opt) => {
           const btn = el('button', [
-            'padding:14px 18px', 'border-radius:22px', 'border:0',
-            'background:linear-gradient(180deg,#9cd3e3,#5fa2bd)',
-            'color:#0a1624', 'font-size:15px', 'font-weight:600',
-            'box-shadow:0 4px 14px rgba(95,162,189,0.35)',
-            'cursor:pointer', 'text-align:left', 'font-family:inherit'
+            'padding:14px 18px', 'border-radius:20px',
+            'border:1px solid rgba(156,211,227,0.35)',
+            'background:linear-gradient(180deg,rgba(18,30,46,0.94),rgba(10,20,32,0.94))',
+            'color:#e8f0ff', 'font-size:15px', 'font-weight:500', 'line-height:1.4',
+            'box-shadow:0 4px 14px rgba(0,0,0,0.4)',
+            'cursor:pointer', 'text-align:left', 'font-family:inherit',
+            'backdrop-filter:blur(4px)'
           ].join(';'), opt.text);
           btn.addEventListener('click', () => {
             choiceRow.style.pointerEvents = 'none';
