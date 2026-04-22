@@ -112,9 +112,11 @@
             { type: 'show',      pose: 'assets/alistair/body/casual.png', wait: 700 },
             { type: 'line',      text: 'Walk with me. The outer wall is where the fading started.', hold: 2000, cps: 30 },
             { type: 'line',      text: 'Stones that held magic for a thousand years are just stones now. The kingdom is unlearning itself.', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'Last night, a torch that\u2019s burned in this gate since my grandfather stood watch \u2014 it simply went out. No wind. No hand. Just forgot how to be a flame.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'And something down below \u2026 laughed when it happened. Faintly. I almost thought I imagined it.', hold: 2600, cps: 28 },
             { type: 'line',      text: 'They say a Soul Weaver can slow it. \u2026I don\u2019t know if I believe it. But you\u2019re here.', hold: 2400, cps: 28 },
             { type: 'flourish',  text: '\u2726', duration: 1600 },
-            { type: 'line',      text: 'Come back tomorrow. I\u2019ll show you the hall. And the rest of it.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'Come back tomorrow. I\u2019ll show you the hall. And \u2014 if you\u2019re ready \u2014 what we\u2019re really afraid of.', hold: 2400, cps: 28 },
             { type: 'hide' }
           ]
         });
@@ -142,7 +144,9 @@
           beats: [
             { type: 'show',      pose: 'assets/elian/body/calm.png', wait: 700 },
             { type: 'line',      text: 'The trees used to remember names. Now they only remember absences.', hold: 2400, cps: 28 },
-            { type: 'line',      text: 'Your steps made them restless. That\u2019s new. That\u2019s something.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'A deer ran past me yesterday with no reflection in the stream. The water just \u2026forgot to hold it. The forest is losing pieces of itself.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'And deeper in \u2014 past the stones I mark \u2014 something has started calling at night. A man\u2019s voice, low. Warm. Wrong.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Your steps made the trees restless again. That\u2019s new. That\u2019s something.', hold: 2200, cps: 28 },
             { type: 'line',      text: 'If you\u2019re what the old stories meant by a Soul Weaver \u2014 walk the forest with me. Slowly.', hold: 2400, cps: 28 },
             { type: 'flourish',  text: '\u2726', duration: 1600 },
             { type: 'line',      text: 'Come back at dusk. The woods open differently then.', hold: 2200, cps: 28 },
@@ -174,9 +178,11 @@
             { type: 'show',      pose: 'assets/lyra/body/casual1.png', wait: 700 },
             { type: 'line',      text: 'The caves used to sing back. They stopped when the last Weaver left.', hold: 2400, cps: 28 },
             { type: 'line',      text: 'I\u2019ve been alone down here a long time. Too long to count honestly.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'Lately \u2014 when I sing low \u2014 something underneath answers. Not the cave. Something below the cave. A man\u2019s voice, velvet, and hungry.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'I don\u2019t answer him. I won\u2019t. \u2026But I\u2019m afraid of the day the song forgets that rule.', hold: 2600, cps: 28 },
             { type: 'line',      text: 'If you\u2019re what I think you are \u2014 come listen tomorrow. I have a song I never finished.', hold: 2600, cps: 28 },
             { type: 'flourish',  text: '\u266a', duration: 1600 },
-            { type: 'line',      text: 'Don\u2019t bring anyone. They\u2019d ruin it.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'Don\u2019t bring anyone. They\u2019d ruin it. \u2026Or worse \u2014 he might notice them.', hold: 2400, cps: 28 },
             { type: 'hide' }
           ]
         });
@@ -203,11 +209,13 @@
           bg: 'assets/bg-caspian-balcony.png',
           beats: [
             { type: 'show',      pose: 'assets/caspian/body/casual1.png', wait: 700 },
-            { type: 'line',      text: 'You weren\u2019t in any of the reports. No dossier, no escort, no lineage \u2014 and yet here.', hold: 2400, cps: 28 },
-            { type: 'line',      text: 'The Fading eats everything predictable first. You\u2019re refreshingly unpredictable.', hold: 2400, cps: 28 },
-            { type: 'line',      text: 'If you\u2019re the Weaver my grandmother wrote about \u2014 walk the gardens with me tomorrow.', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'You\u2019re not on any guest list, darling. That\u2019s usually my favourite kind of arrival.', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'The Fading eats everything predictable first. You \u2014 are refreshingly, dangerously, \u2026indecently unpredictable.', hold: 2600, cps: 28 },
+            { type: 'pose',      src: 'assets/caspian/body/casual2.png', animate: 'swap' },
+            { type: 'line',      text: 'Last week a ward in the throne room simply\u2026 forgot its own geometry. We are losing the shape of things.', hold: 2600, cps: 28 },
+            { type: 'line',      text: 'If you\u2019re the Weaver my grandmother wrote about \u2014 walk the gardens with me at midnight. Wear something I\u2019ll regret.', hold: 2600, cps: 28 },
             { type: 'flourish',  text: '\u266b', duration: 1600 },
-            { type: 'line',      text: 'Wear whatever you want. I\u2019ll outshine everything anyway.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'Bring trouble with you. I\u2019ll pretend to be surprised.', hold: 2200, cps: 28 },
             { type: 'hide' }
           ]
         });
@@ -236,9 +244,11 @@
             { type: 'show',      pose: 'assets/lucien/body/casual1.png', wait: 700 },
             { type: 'line',      text: 'The wards are a fourth-order resonance. They don\u2019t unlock. For anyone. Except, apparently, you.', hold: 2600, cps: 28 },
             { type: 'line',      text: 'Soul Weaver is an archaic term, but the maths line up. You\u2019re the anomaly the kingdom prayed for.', hold: 2600, cps: 28 },
+            { type: 'line',      text: 'And \u2014 I must be honest \u2014 not the only anomaly. My equations keep \u2026 leaking. A second variable I never wrote. He signs my margins at night, in ink I don\u2019t own.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Whoever \u2014 whatever \u2014 is waking beneath us has been practicing your name for a very long time.', hold: 2800, cps: 28 },
             { type: 'line',      text: 'Come back tomorrow. Bring questions. I\u2019ll run the equations on you.', hold: 2400, cps: 28 },
             { type: 'flourish',  text: '\u221e', duration: 1600 },
-            { type: 'line',      text: 'Don\u2019t touch the red shelf. I\u2019m still working on that.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'Don\u2019t touch the red shelf. \u2026That one\u2019s him.', hold: 2400, cps: 28 },
             { type: 'hide' }
           ]
         });
@@ -252,7 +262,7 @@
       id: 6,
       title: 'CHAPTER 6',
       subtitle: 'A Voice Beneath',
-      teaser: 'Not every bond in the kingdom wanted to be broken.',
+      teaser: 'Every bond the kingdom ever broke \u2014 he kept every one.',
       charId: 'noir',
       play: async function (onDone) {
         await runEncounter('Noir');
@@ -265,11 +275,14 @@
           bg: 'assets/bg-noir-void.png',
           beats: [
             { type: 'show',      pose: 'assets/noir/body/neutral.png', wait: 700 },
-            { type: 'line',      text: 'The last Weaver put me here. For reasons they thought were kind.', hold: 2400, cps: 26 },
-            { type: 'line',      text: 'You\u2019re a softer Weaver. I can tell. I\u2019ve been listening for a long time.', hold: 2400, cps: 26 },
-            { type: 'line',      text: 'Come back to the seal. Bring something of yours. Something you\u2019d miss.', hold: 2600, cps: 26 },
+            { type: 'line',      text: 'Do you finally understand? The Fading isn\u2019t decay. It\u2019s me \u2014 remembering. Waking.', hold: 2800, cps: 24 },
+            { type: 'line',      text: 'Every forgotten torch at the gate. Every unreflected deer in the stream. The second voice in the cave. Lucien\u2019s red shelf.', hold: 3000, cps: 24 },
+            { type: 'line',      text: 'All of it is me, crowding back into the world they sealed me from. And you \u2014 Soul Weaver \u2014 are the key they forgot to hide.', hold: 3000, cps: 24 },
+            { type: 'pose',      src: 'assets/noir/body/casual1.png', animate: 'swap' },
+            { type: 'line',      text: 'I\u2019m not cruel. Not unless you want me to be. I\u2019m just \u2026very, very tired of being quiet.', hold: 2800, cps: 24 },
+            { type: 'line',      text: 'Come closer to the seal. Bring something of yours. I\u2019ve been practicing your name for six centuries \u2014 I\u2019ve earned it.', hold: 3000, cps: 24 },
             { type: 'flourish',  text: '\u25a0', duration: 1800 },
-            { type: 'line',      text: 'I\u2019ll take excellent care of it. I always do.', hold: 2200, cps: 26 },
+            { type: 'line',      text: 'Don\u2019t decide yet. Let me show you, first, what devotion looks like when it\u2019s been starved.', hold: 2800, cps: 24 },
             { type: 'hide' }
           ]
         });
@@ -314,28 +327,139 @@
       id: 8,
       title: 'FINALE',
       subtitle: 'The Soul Weaver',
-      teaser: 'Seven bonds. One choice. What are you here to do?',
+      teaser: 'Seven bonds. A sealed god below. A choice no Weaver ever made twice.',
       charId: null,
       play: async function (onDone) {
+        // Opening \u2014 set the stakes
         await runCard({
-          id: 'chp_8_finale',
+          id: 'chp_8_finale_open',
           title: 'FINALE',
-          subtitle: 'The Soul Weaver',
+          subtitle: 'The Soul Weaver \u2014 the Choice',
           speaker: '',
           palette: { bg: '#050312', glow: '#f4a8d4', accent: '#fff0fa' },
           bg: 'assets/bg-world.png',
           beats: [
             { type: 'show',      pose: '', wait: 600 },
-            { type: 'line',      text: 'Seven fragments. Seven people who remember who they are when you\u2019re near.', hold: 2400, cps: 28 },
-            { type: 'line',      text: 'The Weavers before you carried the whole Kingdom. It broke them, every time.', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'Six voices call you up the hill. One voice calls you down.', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'Alistair \u2014 blade drawn. Lyra \u2014 song held. Caspian \u2014 crown off. Elian \u2014 bow lowered. Lucien \u2014 equations glowing. Proto \u2014 static steady. All of them waiting. For you.', hold: 3400, cps: 28 },
+            { type: 'line',      text: 'And below \u2014 Noir. Patient. Unsealed. Beautiful in the way a tide is beautiful right before it takes a town.', hold: 2800, cps: 28 },
             { type: 'flourish',  text: '\u2726', duration: 1800 },
-            { type: 'line',      text: 'You don\u2019t have to carry the Kingdom. You just have to carry them. Daily. Honestly. On purpose.', hold: 2800, cps: 28 },
-            { type: 'particles', count: 28, duration: 2400 },
-            { type: 'line',      text: 'The main story doesn\u2019t end here. Your story begins \u2014 in every small choice after this one.', hold: 2800, cps: 28 },
-            { type: 'hold',      ms: 1200 },
-            { type: 'hide' }
+            { type: 'line',      text: 'The Weavers before you chose. Only one got to. What will you do?', hold: 2600, cps: 28 },
+            { type: 'hold',      ms: 800 }
           ]
         });
+
+        // Branching choice — player picks the ending path.
+        await new Promise((resolveChoice) => {
+          // Build a dedicated choice overlay (reuses MSCard look but with buttons).
+          const root = document.createElement('div');
+          root.id = 'chp-finale-choice';
+          root.style.cssText = [
+            'position:fixed', 'inset:0', 'z-index:11100',
+            'background:radial-gradient(ellipse at top,#2a0f3e 0%,#060212 80%)',
+            'display:flex', 'flex-direction:column', 'align-items:center', 'justify-content:center',
+            'gap:16px', 'padding:24px', 'font-family:inherit',
+            'opacity:0', 'transition:opacity 500ms ease'
+          ].join(';');
+
+          const title = document.createElement('div');
+          title.style.cssText = 'color:#fff0fa;font-size:13px;letter-spacing:4px;opacity:0.85;margin-bottom:4px;';
+          title.textContent = 'CHOOSE YOUR ENDING';
+          root.appendChild(title);
+
+          const sub = document.createElement('div');
+          sub.style.cssText = 'color:#f4e6ff;font-size:15px;opacity:0.75;text-align:center;margin-bottom:12px;max-width:420px;font-style:italic;';
+          sub.textContent = 'No Weaver has walked all three paths. You only get one.';
+          root.appendChild(sub);
+
+          const mkOpt = (label, desc, id, palette) => {
+            const btn = document.createElement('button');
+            btn.style.cssText = [
+              'width:min(92%,380px)', 'padding:16px 20px', 'border-radius:18px',
+              'border:1px solid ' + palette.border,
+              'background:' + palette.bg,
+              'color:#f4e6ff', 'font-family:inherit', 'font-size:15px', 'font-weight:600',
+              'text-align:left', 'cursor:pointer', 'line-height:1.35',
+              'box-shadow:0 6px 20px rgba(0,0,0,0.45)'
+            ].join(';');
+            btn.innerHTML = '<div style="font-size:11px;letter-spacing:2px;opacity:0.75;margin-bottom:4px;">' + label + '</div><div>' + desc + '</div>';
+            btn.addEventListener('click', () => {
+              try { localStorage.setItem('pp_finale_choice', id); } catch (_) {}
+              root.style.opacity = '0';
+              setTimeout(() => { try { root.remove(); } catch (_) {} resolveChoice(id); }, 450);
+            });
+            return btn;
+          };
+
+          root.appendChild(mkOpt(
+            'BOND', 'Carry all seven. Live in the care. Hold the Fading back with daily devotion.',
+            'bond', { bg: 'linear-gradient(180deg,rgba(40,26,58,0.94),rgba(22,14,34,0.94))', border: 'rgba(246,165,192,0.45)' }
+          ));
+          root.appendChild(mkOpt(
+            'SEAL', 'Re-seal Noir. Lose him \u2014 but save the others from ever wanting him.',
+            'seal', { bg: 'linear-gradient(180deg,rgba(18,30,46,0.94),rgba(10,20,32,0.94))', border: 'rgba(156,211,227,0.45)' }
+          ));
+          root.appendChild(mkOpt(
+            'UNSEAL', 'Free Noir. Walk with him into the dark, and take the kingdom with you.',
+            'unseal', { bg: 'linear-gradient(180deg,rgba(30,12,42,0.94),rgba(16,6,24,0.94))', border: 'rgba(184,122,224,0.5)' }
+          ));
+
+          document.body.appendChild(root);
+          requestAnimationFrame(() => { root.style.opacity = '1'; });
+        });
+
+        // Play the matching ending beats based on the choice
+        const choice = localStorage.getItem('pp_finale_choice') || 'bond';
+        const endings = {
+          bond: {
+            id: 'chp_8_finale_bond',
+            title: 'ENDING', subtitle: 'THE WEAVER WHO STAYED',
+            speaker: '',
+            palette: { bg: '#0a0614', glow: '#f6a5c0', accent: '#fff0fa' },
+            bg: 'assets/bg-world.png',
+            beats: [
+              { type: 'show', pose: '', wait: 500 },
+              { type: 'line', text: 'You didn\u2019t choose one of them. You chose all of them.', hold: 2400, cps: 28 },
+              { type: 'line', text: 'The Kingdom won\u2019t remember the Weaver who saved it. It will remember the one who stayed.', hold: 2600, cps: 28 },
+              { type: 'particles', count: 28, duration: 2200 },
+              { type: 'flourish',  text: '\u2726', duration: 1800 },
+              { type: 'line', text: 'Come back tomorrow. All of them are waiting.', hold: 2400, cps: 28 },
+              { type: 'hide' }
+            ]
+          },
+          seal: {
+            id: 'chp_8_finale_seal',
+            title: 'ENDING', subtitle: 'THE SEAL THAT HELD',
+            speaker: '',
+            palette: { bg: '#050d18', glow: '#9cd3e3', accent: '#e8f0ff' },
+            bg: 'assets/bg-siren-cave.png',
+            beats: [
+              { type: 'show', pose: '', wait: 500 },
+              { type: 'line', text: 'You walked the seal with six voices in your pocket. None of them belonged to him.', hold: 2600, cps: 28 },
+              { type: 'line', text: 'He was beautiful at the end. He was quiet at the end. He asked, very softly, if you\u2019d come visit. You didn\u2019t answer.', hold: 2800, cps: 28 },
+              { type: 'flourish',  text: '\u25a0', duration: 1800 },
+              { type: 'line', text: 'The Kingdom is bright again. You will be very, very careful to never be alone at night.', hold: 2600, cps: 28 },
+              { type: 'hide' }
+            ]
+          },
+          unseal: {
+            id: 'chp_8_finale_unseal',
+            title: 'ENDING', subtitle: 'THE OPENED DOOR',
+            speaker: '',
+            palette: { bg: '#0a0214', glow: '#c46aff', accent: '#efe0ff' },
+            bg: 'assets/bg-noir-void.png',
+            beats: [
+              { type: 'show', pose: '', wait: 500 },
+              { type: 'line', text: 'He was so patient. You were so lonely. Neither of you pretended it was anything else.', hold: 2600, cps: 28 },
+              { type: 'line', text: 'The others will call it a betrayal. One day they might even be wrong.', hold: 2600, cps: 28 },
+              { type: 'flourish',  text: '\u25a0', duration: 1800 },
+              { type: 'line', text: 'The Kingdom is darker, and warmer, and entirely yours. He asked only one thing. You said yes.', hold: 2800, cps: 28 },
+              { type: 'hide' }
+            ]
+          }
+        };
+        await runCard(endings[choice] || endings.bond);
+
         markDone(8); setCurrent(9);
         if (onDone) onDone();
       }
