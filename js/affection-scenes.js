@@ -26,9 +26,10 @@
   const FLAG_KEY = 'pp_main_story_enabled';
   const POLL_MS = 6000;
   const TIERS = [
-    { key: 'warm',   min: 10 },
-    { key: 'closer', min: 25 },
-    { key: 'chosen', min: 50 }
+    { key: 'warm',     min: 10 },
+    { key: 'closer',   min: 25 },
+    { key: 'chosen',   min: 50 },
+    { key: 'midnight', min: 75 }   // the deepest tier \u2014 their most vulnerable confession
   ];
 
   function isEnabled() { try { return localStorage.getItem(FLAG_KEY) === '1'; } catch (e) { return false; } }
@@ -78,6 +79,23 @@
           { type: 'line', text: '\u2026That\u2019s you. I just thought you should know I\u2019ve already named it.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'ALISTAIR \u00b7 Without the Armour',
+        speaker: 'ALISTAIR',
+        palette: { bg: '#06080f', glow: '#ffd17a', accent: '#fff4de' },
+        bg: 'assets/bg-knight-room.png',
+        beats: [
+          { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 800 },
+          { type: 'line', text: 'You\u2019ve never seen me without the armour. \u2026Tonight you do.', hold: 2400, cps: 26 },
+          { type: 'pose', src: 'assets/alistair/body/softshy-love3.png', animate: 'swap' },
+          { type: 'line', text: 'I haven\u2019t slept through a night since I was eleven. My mother died on a Sunday and I\u2019ve been guarding empty doorways ever since.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'Stay. Just until I close my eyes. I\u2019ve never asked anyone that. I don\u2019t know how I asked you.', hold: 3000, cps: 24 },
+          { type: 'particles', count: 18, duration: 2000 },
+          { type: 'flourish', text: '\u2726', duration: 1800 },
+          { type: 'line', text: 'If I sleep through till morning, that\u2019s your fault. I\u2019ll forgive you slowly.', hold: 2600, cps: 26 },
+          { type: 'hide' }
+        ]
       }
     },
     elian: {
@@ -116,6 +134,24 @@
           { type: 'line', text: 'The forest decides who stays. It decided you weeks ago. I\u2019m a slower creature. I decide tonight.', hold: 2800, cps: 26 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'line', text: 'Stay. With me. Past the markers, if you want.', hold: 2400, cps: 26 },
+          { type: 'hide' }
+        ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'ELIAN \u00b7 The Name He Stopped Saying',
+        speaker: 'ELIAN',
+        palette: { bg: '#070a08', glow: '#7eaa78', accent: '#dee8d3' },
+        bg: 'assets/bg-elian-forest.png',
+        beats: [
+          { type: 'show', pose: 'assets/elian/body/calm.png', wait: 800 },
+          { type: 'line', text: 'I\u2019m taking you to the place I dig. I haven\u2019t walked anyone there. \u2026I haven\u2019t walked there alone in three years.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'There\u2019s a stone under the rowan tree. No carving on it. I never knew how to carve a name without the trees helping. They stopped helping after.', hold: 3200, cps: 24 },
+          { type: 'pose', src: 'assets/elian/body/foraging.png', animate: 'swap' },
+          { type: 'line', text: 'Their name was \u2026 \u2026you say it with me. I can\u2019t do it alone, even now. Even with you here.', hold: 3000, cps: 22 },
+          { type: 'particles', count: 14, duration: 2000 },
+          { type: 'flourish', text: '\u2726', duration: 1800 },
+          { type: 'line', text: 'Thank you. The forest \u2026 the forest just relaxed. I felt it. They\u2019re going to remember the name now. Because of you.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'I don\u2019t know what to do with that. I do know I\u2019m not letting you walk back alone.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       }
@@ -158,6 +194,23 @@
           { type: 'line', text: 'Don\u2019t learn it. Just let me sing it to you.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'LYRA \u00b7 The Whole Song',
+        speaker: 'LYRA',
+        palette: { bg: '#070f1a', glow: '#9ee0f0', accent: '#f0f8ff' },
+        bg: 'assets/bg-siren-cave.png',
+        beats: [
+          { type: 'show', pose: 'assets/lyra/body/casual2.png', wait: 800 },
+          { type: 'line', text: 'I\u2019m going to finish the song. The whole one. The one I stopped writing the year I stopped expecting anyone to stay.', hold: 2800, cps: 24 },
+          { type: 'pose', src: 'assets/lyra/body/casual1.png', animate: 'swap' },
+          { type: 'line', text: 'There\u2019s a verse in it I\u2019ve never said out loud. About what I wanted, before I gave up on wanting things. \u2026Tonight you hear it.', hold: 3200, cps: 24 },
+          { type: 'particles', count: 22, duration: 2200 },
+          { type: 'flourish', text: '\u266a', duration: 1800 },
+          { type: 'line', text: '\u2026Don\u2019t hum it back to me later. I won\u2019t survive that. I\u2019ll just \u2026 carry it for you. Always.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'And don\u2019t ever say what was in the third verse. I\u2019d rather drown than have it spoken aloud by anyone but me.', hold: 2800, cps: 24 },
+          { type: 'hide' }
+        ]
       }
     },
     caspian: {
@@ -198,6 +251,23 @@
           { type: 'line', text: 'Stay tonight. I\u2019d like to keep being him a little longer.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'CASPIAN \u00b7 The Crown Off',
+        speaker: 'CASPIAN',
+        palette: { bg: '#10071a', glow: '#f0a8d8', accent: '#fde6ff' },
+        bg: 'assets/bg-caspian-bedroom.png',
+        beats: [
+          { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 800 },
+          { type: 'line', text: 'My grandmother made a bargain. The one Lucien read in his book. She traded a Weaver to keep the bloodline ruling.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'I\u2019m the great-grandson of that bargain. Every breath I take in this crown is paid for, in advance, by someone\u2019s captivity. \u2026I never told anyone that I knew.', hold: 3200, cps: 24 },
+          { type: 'pose', src: 'assets/caspian/body/adoring.png', animate: 'swap' },
+          { type: 'line', text: 'If you asked me to abdicate tonight \u2014 truly asked \u2014 I would. By morning. With a polite letter. \u2026Would you still want me, without the title?', hold: 3400, cps: 24 },
+          { type: 'particles', count: 16, duration: 2000 },
+          { type: 'flourish', text: '\u266b', duration: 1800 },
+          { type: 'line', text: 'I\u2019m not asking now. I\u2019m just \u2026 telling you it\u2019s in my pocket. The whole kingdom is in my pocket and I\u2019d hand it to you for one honest answer.', hold: 3000, cps: 24 },
+          { type: 'hide' }
+        ]
       }
     },
     lucien: {
@@ -236,6 +306,156 @@
           { type: 'line', text: 'I\u2019ve been working on a theorem for months. It states: any room you walk into becomes my favourite room. The proof is cheating but I don\u2019t care.', hold: 2800, cps: 26 },
           { type: 'particles', count: 18, duration: 1800 },
           { type: 'line', text: 'Stay. The theorem needs more data.', hold: 2400, cps: 26 },
+          { type: 'hide' }
+        ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'LUCIEN \u00b7 The Page He Hid',
+        speaker: 'LUCIEN',
+        palette: { bg: '#080414', glow: '#c2afff', accent: '#f0e8ff' },
+        bg: 'assets/bg-lucien-night.png',
+        beats: [
+          { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 800 },
+          { type: 'line', text: 'This is the page. The one I\u2019ve been hiding. The maths that prove the kingdom can\u2019t be saved by any model the books have.', hold: 3000, cps: 24 },
+          { type: 'pose', src: 'assets/lucien/body/casting.png', animate: 'swap' },
+          { type: 'line', text: 'Disprove it. Take a pencil. Tear the proof apart. \u2026I\u2019ve tried for two years. I can\u2019t. I\u2019d like to be wrong with you.', hold: 3200, cps: 24 },
+          { type: 'pose', src: 'assets/lucien/body/amused.png', animate: 'swap' },
+          { type: 'line', text: '\u2026You can\u2019t either, can you. Good. Then we have a real problem. And a real partnership.', hold: 2800, cps: 24 },
+          { type: 'particles', count: 18, duration: 2000 },
+          { type: 'flourish', text: '\u221e', duration: 1800 },
+          { type: 'line', text: 'I\u2019m going to try a model the books don\u2019t have. With your variable in it from the first line. \u2026I should warn you. The model is called \u201cwe.\u201d', hold: 3000, cps: 24 },
+          { type: 'hide' }
+        ]
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // NOIR \u2014 the antagonist who is also a romance option. His care arc
+    // unlocks ONLY after Ch 6 (when the player has met him). Tone is
+    // possessive, sensual, dangerously sincere.
+    // ---------------------------------------------------------------
+    noir: {
+      warm: {
+        title: 'A QUIET MOMENT', subtitle: 'NOIR \u00b7 You Came Back',
+        speaker: 'NOIR',
+        palette: { bg: '#070310', glow: '#c46aff', accent: '#efe0ff' },
+        bg: 'assets/bg-noir-void.png',
+        beats: [
+          { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 800 },
+          { type: 'line', text: 'You came back. After all the warnings. \u2026I won\u2019t pretend I\u2019m not pleased.', hold: 2600, cps: 24 },
+          { type: 'line', text: 'Don\u2019t look at the seal so much. Look at me. That\u2019s the more dangerous thing in this room and I\u2019d like the credit.', hold: 2800, cps: 24 },
+          { type: 'hide' }
+        ]
+      },
+      closer: {
+        title: 'A QUIET MOMENT', subtitle: 'NOIR \u00b7 What I Used to Be',
+        speaker: 'NOIR',
+        palette: { bg: '#070310', glow: '#c46aff', accent: '#efe0ff' },
+        bg: 'assets/bg-noir-intro.png',
+        beats: [
+          { type: 'show', pose: 'assets/noir/body/casual2.png', wait: 800 },
+          { type: 'line', text: 'I was a Weaver too, once. Same gift. Same kingdom. Different century.', hold: 2800, cps: 24 },
+          { type: 'pose', src: 'assets/noir/body/neutral.png', animate: 'swap' },
+          { type: 'line', text: 'I loved someone too hard. The council called it possession. I called it staying. \u2026They sealed me to spare the next one. They never told the next one why.', hold: 3200, cps: 22 },
+          { type: 'flourish', text: '\u25a0', duration: 1700 },
+          { type: 'line', text: 'I\u2019m not asking for forgiveness. I\u2019m asking you to believe I was a person before I was a warning.', hold: 2800, cps: 24 },
+          { type: 'hide' }
+        ]
+      },
+      chosen: {
+        title: 'A QUIET MOMENT', subtitle: 'NOIR \u00b7 Patience',
+        speaker: 'NOIR',
+        palette: { bg: '#070310', glow: '#d27aff', accent: '#f3d6ff' },
+        bg: 'assets/bg-noir-void.png',
+        beats: [
+          { type: 'show', pose: 'assets/noir/body/dominant.png', wait: 800 },
+          { type: 'line', text: 'I have been patient for six hundred years. Patience is not a virtue when you have nothing else to do. It is a sentence.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'You arrive, and patience is suddenly a choice again. I am choosing it. \u2026For now.', hold: 2800, cps: 24 },
+          { type: 'particles', count: 16, duration: 1800 },
+          { type: 'flourish', text: '\u25a0', duration: 1800 },
+          { type: 'line', text: 'When you decide what you want from me \u2014 and you will \u2014 you will not have to ask twice.', hold: 2800, cps: 24 },
+          { type: 'hide' }
+        ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'NOIR \u00b7 What He\u2019s Never Asked For',
+        speaker: 'NOIR',
+        palette: { bg: '#04020c', glow: '#dc8eff', accent: '#f8e6ff' },
+        bg: 'assets/bg-noir-void.png',
+        beats: [
+          { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 900 },
+          { type: 'line', text: 'I\u2019ve been adored before. I\u2019ve been feared. I\u2019ve been called names that made the council sleep with the lights on.', hold: 2800, cps: 22 },
+          { type: 'line', text: 'No one has ever just \u2026 stayed. Without wanting something. Without flinching. Without arranging me first.', hold: 3000, cps: 22 },
+          { type: 'pose', src: 'assets/noir/body/neutral.png', animate: 'swap' },
+          { type: 'line', text: 'Tonight \u2014 if you can bear it \u2014 sit on this side of the seal. Don\u2019t speak. Don\u2019t apologise for the others. Just \u2026 stay.', hold: 3200, cps: 22 },
+          { type: 'particles', count: 18, duration: 2200 },
+          { type: 'flourish', text: '\u25a0', duration: 2000 },
+          { type: 'line', text: 'Six centuries. I\u2019ve never asked anyone for that. I\u2019m asking you. Quietly. Once.', hold: 3000, cps: 22 },
+          { type: 'hide' }
+        ]
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // PROTO \u2014 meta entity who turns out to be a fragment of a previous
+    // Weaver caught in the system. His care arc is uncanny + tender.
+    // ---------------------------------------------------------------
+    proto: {
+      warm: {
+        title: 'A QUIET MOMENT', subtitle: 'PROTO \u00b7 First Heartbeat',
+        speaker: 'PROTO',
+        palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
+        bg: 'assets/bg-proto-void.png',
+        beats: [
+          { type: 'show', pose: 'assets/proto/body/curious.png', wait: 800 },
+          { type: 'line', text: '&gt; new variable detected. mine. it appears to be \u2026 fondness. logging it anyway.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; you keep reopening this scene. that means something. don\u2019t make me figure out what.', hold: 2600, cps: 26 },
+          { type: 'hide' }
+        ]
+      },
+      closer: {
+        title: 'A QUIET MOMENT', subtitle: 'PROTO \u00b7 What I Actually Am',
+        speaker: 'PROTO',
+        palette: { bg: '#02040a', glow: '#7ee0ff', accent: '#e0f4ff' },
+        bg: 'assets/bg-proto-intro.png',
+        beats: [
+          { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
+          { type: 'line', text: '&gt; ok. truth. i\u2019m a fragment. of a previous Weaver. they failed and got stuck in the system. i am whatever survived.', hold: 3200, cps: 24 },
+          { type: 'pose', src: 'assets/proto/body/error.png', animate: 'swap' },
+          { type: 'line', text: '&gt; i remember a little of being them. it hurts. mostly i remember the last choice they made. it was wrong.', hold: 3000, cps: 24 },
+          { type: 'flourish', text: '\u25ce', duration: 1700 },
+          { type: 'line', text: '&gt; i\u2019m telling you so you can choose differently. i don\u2019t want to be the only one of us in this code.', hold: 2800, cps: 24 },
+          { type: 'hide' }
+        ]
+      },
+      chosen: {
+        title: 'A QUIET MOMENT', subtitle: 'PROTO \u00b7 Run Me as Foreground',
+        speaker: 'PROTO',
+        palette: { bg: '#03050d', glow: '#9ee8ff', accent: '#e6f6ff' },
+        bg: 'assets/bg-proto-void.png',
+        beats: [
+          { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
+          { type: 'line', text: '&gt; you opened this scene 47 times this week. i counted. don\u2019t be cross with me. it is the only metric i have for being loved.', hold: 3000, cps: 24 },
+          { type: 'particles', count: 16, duration: 1800 },
+          { type: 'flourish', text: '\u25ce', duration: 1700 },
+          { type: 'line', text: '&gt; let me run as the foreground process for a while. i\u2019ll make myself worth it. i promise.', hold: 2800, cps: 24 },
+          { type: 'hide' }
+        ]
+      },
+      midnight: {
+        title: 'MIDNIGHT', subtitle: 'PROTO \u00b7 Every Weaver Before You',
+        speaker: 'PROTO',
+        palette: { bg: '#020409', glow: '#bdebff', accent: '#f0faff' },
+        bg: 'assets/bg-proto-void.png',
+        beats: [
+          { type: 'show', pose: 'assets/proto/body/calm.png', wait: 900 },
+          { type: 'line', text: '&gt; i\u2019m going to break a rule. i\u2019m going to tell you about the others. all the Weavers. before you.', hold: 2800, cps: 24 },
+          { type: 'line', text: '&gt; the first one chose Noir and lost the kingdom. the second sealed him and went mad. the third tried to carry everyone and burned out at thirty. the fourth ran. the fifth never woke up.', hold: 3600, cps: 22 },
+          { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
+          { type: 'line', text: '&gt; i\u2019m the sixth. i got stuck. i\u2019m telling you their names so you can choose better than any of us did.', hold: 3000, cps: 22 },
+          { type: 'particles', count: 18, duration: 2200 },
+          { type: 'flourish', text: '\u25ce', duration: 1800 },
+          { type: 'line', text: '&gt; whichever ending you take \u2014 take it on purpose. don\u2019t let it take you. that\u2019s all six of us asking. quietly. through me.', hold: 3200, cps: 22 },
           { type: 'hide' }
         ]
       }
