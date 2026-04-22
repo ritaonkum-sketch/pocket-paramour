@@ -215,6 +215,35 @@
   }
 
   // ---------------------------------------------------------------
+  // 5b) CHAPTER \u2194 MAIN-STORY STAGE SYNC
+  //
+  // chapters.js tracks its own progress (pp_chapter_done_<n>), but
+  // main-story.js\u2019s character-gate on the select grid is driven by
+  // `pp_ms_stage`. Without a sync, Proto/Noir stay locked even after
+  // their chapters complete. Map completed chapters \u2192 required stage.
+  //   Ch1 Alistair \u2192 stage 1
+  //   Ch2 Elian    \u2192 stage 2
+  //   Ch3 Lyra     \u2192 stage 3
+  //   Ch4 Caspian  \u2192 stage 4
+  //   Ch5 Lucien   \u2192 stage 5
+  //   Ch6 Noir     \u2192 stage 6
+  //   Ch7 Proto    \u2192 stage 7
+  function syncStageToChapters() {
+    if (!isEnabled()) return;
+    try {
+      let highestChar = 0;
+      for (let i = 1; i <= 7; i++) {
+        if (localStorage.getItem('pp_chapter_done_' + i) === '1') highestChar = i;
+      }
+      if (highestChar === 0) return;
+      const current = parseInt(localStorage.getItem('pp_ms_stage') || '1', 10);
+      if (!Number.isFinite(current) || current < highestChar) {
+        localStorage.setItem('pp_ms_stage', String(highestChar));
+      }
+    } catch (_) {}
+  }
+
+  // ---------------------------------------------------------------
   // 6) PROLOGUE completion \u2192 mark game world-intro seen
   //
   // So returning players never see the game\u2019s native world-intro after
@@ -251,6 +280,9 @@
       installProgressMerge();
       installStartRedirect();
       watchPrologueDone();
+      // Keep main-story stage in sync with chapter progress
+      setInterval(syncStageToChapters, 1500);
+      syncStageToChapters();
     } catch (e) {
       console.warn('[main-story-integration] disabled due to error:', e);
     }
