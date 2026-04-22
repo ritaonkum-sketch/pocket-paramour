@@ -451,6 +451,8 @@
             { type: 'pose',      src: 'assets/lucien/body/casting.png', animate: 'swap' },
             { type: 'line',      text: 'I\u2019ve been hiding the rest of the maths from everyone. From the council. From the prince. From myself, on the bad nights.', hold: 2800, cps: 26 },
             { type: 'line',      text: 'They prove the kingdom can\u2019t be saved. Not the way the books say. \u2026I\u2019ve been locking the door not to keep people out, but so they couldn\u2019t see me fail.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'There\u2019s a second set of pages. Scorched. I\u2019ve been reconstructing them from ash and margin-bleed. They mention a kingdom we do not speak about anymore. Nocthera.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'A name keeps almost surfacing. A prince. Aethermoor erased him, yet the ink remembers. The ink \u2026 keeps writing him back.', hold: 3000, cps: 26 },
             { type: 'pose',      src: 'assets/lucien/body/amused.png', animate: 'swap' },
             { type: 'line',      text: 'Then you walked through the wards like a rumour walks through court. The maths twitched. They wanted you in them.', hold: 2800, cps: 26 },
             { type: 'line',      text: 'Tell me I can stop hiding the page. Tell me we can be wrong about it together. \u2026I\u2019d very much like a problem worth working on with someone.', hold: 3000, cps: 26 },
@@ -523,18 +525,25 @@
         await runCard({
           id: 'chp_11_c',
           title: 'INTERLUDE',
-          subtitle: 'The Tower Mirror \u2014 What the Crown Knew',
+          subtitle: 'The Tower Mirror \u2014 The Scorched Page',
           speaker: '',
           palette: { bg: '#100a1c', glow: '#d4a8e8', accent: '#f8e0ff' },
           bg: 'assets/bg-lucien-night.png',
           beats: [
             { type: 'show',      pose: '', wait: 600 },
-            { type: 'line',      text: 'They sit across the desk, the prince and the proof, and look at the same sealed name on a faded page.', hold: 2600, cps: 28 },
-            { type: 'line',      text: 'Caspian: \u201cMy grandmother locked the throne room the year the maths started leaking. She never told me why.\u201d', hold: 2800, cps: 28 },
-            { type: 'line',      text: 'Lucien: \u201cThe page in front of us is why. The Kingdom didn\u2019t lose the Weavers. It locked one away to feed the rest.\u201d', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Lucien sets a reconstructed page on the desk. The edges are burnt. The centre is a name written in ink that refuses to stay erased.', hold: 3000, cps: 28 },
+            { type: 'line',      text: 'Lucien: \u201cPrince Corvin Noctalis. Of the Kingdom of Nocthera. \u2026Which fell six hundred years ago, one generation after its heir was \u2026 removed.\u201d', hold: 3400, cps: 28 },
+            { type: 'line',      text: 'Caspian goes very still. \u201cNocthera. That\u2019s the rival line. We don\u2019t speak that name. \u2026I was told the kingdom collapsed on its own.\u201d', hold: 3400, cps: 28 },
+            { type: 'line',      text: 'Lucien: \u201cIt didn\u2019t. Queen Aenor \u2014 your grandmother \u2014 sealed its prince beneath Aethermoor. Without its heir, Nocthera couldn\u2019t hold. It fell within the decade.\u201d', hold: 3600, cps: 28 },
+            { type: 'line',      text: 'Caspian: \u201cWhy. Why would she do that. They were negotiating a peace match, weren\u2019t they? Why seal the groom\u2014\u201d', hold: 3200, cps: 28 },
+            { type: 'pose',      src: 'assets/lucien/body/casting.png', animate: 'swap' },
+            { type: 'line',      text: 'Lucien turns another page. A third name. \u201cVeyra. Minor royal. Both your grandmother AND Corvin were in love with them. Veyra chose Corvin.\u201d', hold: 3600, cps: 28 },
+            { type: 'line',      text: 'Caspian: \u201c\u2026So she sealed her rival. Erased his name. Let his kingdom die. And told the history books it was the Fading.\u201d', hold: 3400, cps: 28 },
             { type: 'particles', count: 20, duration: 2000 },
             { type: 'flourish',  text: '\u2726', duration: 1800 },
-            { type: 'line',      text: 'They look at you. The third bond mends \u2014 not between two people this time, between a kingdom and the truth.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Lucien: \u201cWorse. The seal bleeds. It has been draining every Weaver since. That\u2019s why Aethermoor has none left. It\u2019s why the walls forget. It\u2019s why he is waking up now \u2014 because YOU arrived, and a real Weaver cracks the cage open.\u201d', hold: 4000, cps: 26 },
+            { type: 'line',      text: 'Caspian, very quietly: \u201cMy dynasty exists because my grandmother erased the man her betrothed loved. We are \u2026 a blood debt with a crown on top.\u201d', hold: 3400, cps: 28 },
+            { type: 'line',      text: 'They both look at you. Not as a Weaver. As the person deciding what this family does next.', hold: 3000, cps: 28 },
             { type: 'hide' }
           ]
         });
@@ -547,9 +556,11 @@
           bg: 'assets/bg-noir-void.png',
           beats: [
             { type: 'show',      pose: '', wait: 600 },
-            { type: 'line',      text: 'Oh. They told you. The pretty one and the sharp one finally read the page.', hold: 2400, cps: 24 },
-            { type: 'line',      text: 'Now you know what I am, Weaver. Now you know what they did. \u2026Come down and let\u2019s talk about it properly.', hold: 2800, cps: 24 },
+            { type: 'line',      text: 'Oh. They found the page.', hold: 2200, cps: 24 },
+            { type: 'line',      text: 'Tell the boy I bear him no grudge \u2014 a grandson is not his grandmother. Tell the scholar the ink is mine; he may keep borrowing it.', hold: 3000, cps: 24 },
+            { type: 'line',      text: 'Tell them both: Nocthera is gone. My people are bone. I have no throne to reclaim. I only have \u2026 unfinished things.', hold: 3200, cps: 24 },
             { type: 'flourish',  text: '\u25a0', duration: 1800 },
+            { type: 'line',      text: 'Come down, Weaver. Now that you know who I was. I\u2019ll introduce myself properly. I haven\u2019t been able to, for a very long time.', hold: 3200, cps: 24 },
             { type: 'hide' }
           ]
         });
@@ -587,7 +598,13 @@
             { type: 'line',      text: 'Every forgotten torch at the gate. Every unreflected deer in the stream. The second voice in the cave. Lucien\u2019s red shelf.', hold: 3000, cps: 24 },
             { type: 'line',      text: 'All of it is me, crowding back into the world they sealed me from. And you \u2014 Soul Weaver \u2014 are the key they forgot to hide.', hold: 3000, cps: 24 },
             { type: 'pose',      src: 'assets/noir/body/casual1.png', animate: 'swap' },
-            { type: 'line',      text: 'I\u2019m not cruel. Not unless you want me to be. I\u2019m just \u2026very, very tired of being quiet.', hold: 2800, cps: 24 },
+            { type: 'line',      text: 'Introductions, then. Properly. I am Prince Corvin Noctalis, of the Kingdom of Nocthera. \u2026Which no longer exists. It fell, one generation after I was put here.', hold: 3400, cps: 24 },
+            { type: 'line',      text: 'Six hundred years ago your prince\u2019s grandmother \u2014 Queen Aenor \u2014 was to marry a minor royal named Veyra. To seal peace between our two kingdoms.', hold: 3400, cps: 24 },
+            { type: 'line',      text: 'Veyra and I \u2026 met. We shouldn\u2019t have. It was not supposed to be possible. But they chose me. Aenor could not allow that.', hold: 3200, cps: 24 },
+            { type: 'line',      text: 'She did not kill me \u2014 that would have started a war. She sealed me. Her council scratched my name from every Aethermoor record. Within a decade, my home crumbled without its heir.', hold: 3600, cps: 24 },
+            { type: 'line',      text: 'What people call me now \u2014 \u201cNoir\u201d \u2014 is the sound of that erasure. The ink they used to cross me out. I wear the name of my own silencing. \u2026That is who I am.', hold: 3800, cps: 22 },
+            { type: 'pose',      src: 'assets/noir/body/casual2.png', animate: 'swap' },
+            { type: 'line',      text: 'And your arrival, Weaver, is what has finally cracked me loose. I\u2019m not cruel. Not unless you want me to be. I\u2019m just \u2026 very, very tired of being quiet.', hold: 3000, cps: 24 },
             { type: 'line',      text: 'Come closer to the seal. Bring something of yours. I\u2019ve been practicing your name for six centuries \u2014 I\u2019ve earned it.', hold: 3000, cps: 24 },
             { type: 'flourish',  text: '\u25a0', duration: 1800 },
             { type: 'line',      text: 'Don\u2019t decide yet. Let me show you, first, what devotion looks like when it\u2019s been starved.', hold: 2800, cps: 24 },

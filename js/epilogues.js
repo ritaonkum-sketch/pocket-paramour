@@ -249,15 +249,16 @@
     noir: {
       bond: {
         id: 'epi_noir_bond',
-        title: 'EPILOGUE', subtitle: 'NOIR \u00b7 Patience, Rewarded',
+        title: 'EPILOGUE', subtitle: 'NOIR \u00b7 Corvin, Kindly',
         speaker: 'NOIR',
         palette: { bg: '#070310', glow: '#c46aff', accent: '#efe0ff' },
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 700 },
           { type: 'line', text: 'I couldn\u2019t have you. You chose all of them. \u2026I am surprised how gently you still visit me.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'You call me Corvin now. You are the only one who does. The first in six centuries. I can hear it from across the room.', hold: 3200, cps: 22 },
           { type: 'flourish', text: '\u25a0', duration: 1700 },
-          { type: 'line', text: 'I am trying to deserve it. It is a new shape for me. I find I do not hate it.', hold: 2600, cps: 24 },
+          { type: 'line', text: 'I am trying to deserve it. It is a new shape for me. I find I do not hate it. Nocthera is ash \u2014 but I, apparently, am not quite finished.', hold: 3200, cps: 22 },
           { type: 'hide' }
         ]
       },
@@ -269,8 +270,9 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/neutral.png', wait: 700 },
-          { type: 'line', text: 'You sealed me. I still hear the others through the stone. They don\u2019t know I\u2019m listening.', hold: 2800, cps: 24 },
-          { type: 'line', text: 'Sometimes you visit. You never say why. That\u2019s enough. That is, in fact, more than the first time. Thank you for learning the difference.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'You sealed me. Of course you did. Aethermoor\u2019s daughter sealed me the first time; her grandchild\u2019s beloved sealed me the second. Aesthetically consistent.', hold: 3400, cps: 22 },
+          { type: 'line', text: 'I still hear the others through the stone. They don\u2019t know I\u2019m listening. Sometimes you visit. You say my real name through the stone. I hear it. It is enough.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'Nocthera is gone. Corvin is mostly gone. But he is a little less gone, because of you.', hold: 2800, cps: 22 },
           { type: 'hide' }
         ]
       },
@@ -283,9 +285,10 @@
         beats: [
           { type: 'show', pose: 'assets/noir/body/dominant.png', wait: 800 },
           { type: 'line', text: 'I have everything I wanted. I don\u2019t know what to do with it.', hold: 2600, cps: 24 },
+          { type: 'line', text: 'You call me Corvin in bed, and Noir in public. You keep both of me. You keep ALL of me, which is something even Veyra never managed.', hold: 3200, cps: 22 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'flourish', text: '\u25a0', duration: 1800 },
-          { type: 'line', text: 'You stay anyway. You stay anyway. You stay anyway. Six centuries of patience, and the thing I could not imagine was someone staying.', hold: 3400, cps: 22 },
+          { type: 'line', text: 'You stay anyway. You stay anyway. You stay anyway. Six centuries of patience, and the thing I could not imagine was someone staying \u2014 and calling me by my name.', hold: 3600, cps: 22 },
           { type: 'hide' }
         ]
       }

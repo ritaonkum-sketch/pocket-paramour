@@ -378,19 +378,21 @@
         ]
       },
       midnight: {
-        title: 'MIDNIGHT', subtitle: 'NOIR \u00b7 What He\u2019s Never Asked For',
+        title: 'MIDNIGHT', subtitle: 'NOIR \u00b7 The Name He Lost',
         speaker: 'NOIR',
         palette: { bg: '#04020c', glow: '#dc8eff', accent: '#f8e6ff' },
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 900 },
-          { type: 'line', text: 'I\u2019ve been adored before. I\u2019ve been feared. I\u2019ve been called names that made the council sleep with the lights on.', hold: 2800, cps: 22 },
-          { type: 'line', text: 'No one has ever just \u2026 stayed. Without wanting something. Without flinching. Without arranging me first.', hold: 3000, cps: 22 },
+          { type: 'line', text: 'I\u2019ve been adored before. I\u2019ve been feared. I\u2019ve been called names that made Aethermoor\u2019s council sleep with the lights on.', hold: 2800, cps: 22 },
+          { type: 'line', text: 'No one has called me by my own name in six hundred years. Not Veyra. Not my mother. Not my own brother, who died thinking our line was cursed because of me.', hold: 3400, cps: 22 },
           { type: 'pose', src: 'assets/noir/body/neutral.png', animate: 'swap' },
-          { type: 'line', text: 'Tonight \u2014 if you can bear it \u2014 sit on this side of the seal. Don\u2019t speak. Don\u2019t apologise for the others. Just \u2026 stay.', hold: 3200, cps: 22 },
+          { type: 'line', text: '\u2026I\u2019m going to tell you what it was. Out loud. And then I\u2019m going to ask you to say it back. Once. Gently. In that voice you use with me.', hold: 3400, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25a0', duration: 2000 },
-          { type: 'line', text: 'Six centuries. I\u2019ve never asked anyone for that. I\u2019m asking you. Quietly. Once.', hold: 3000, cps: 22 },
+          { type: 'line', text: 'Corvin. Prince Corvin Noctalis. Of Nocthera \u2014 the kingdom that is bone now.', hold: 3000, cps: 20 },
+          { type: 'line', text: 'That\u2019s me. That\u2019s who I was before they sealed me into a nickname. \u2026Say it.', hold: 2800, cps: 22 },
+          { type: 'line', text: '\u2026Thank you. I wanted to hear it kindly. Just once. Before I decide what I am now. You have given me \u2014 back \u2014 a version of myself I had stopped believing in.', hold: 3600, cps: 22 },
           { type: 'hide' }
         ]
       }
