@@ -726,6 +726,58 @@
 
         // Play the matching ending beats based on the choice
         const choice = localStorage.getItem('pp_finale_choice') || 'bond';
+
+        // Personalize: find the character the player got closest to.
+        // Reads affection from each character\u2019s save file.
+        function topBondCharacter() {
+          const chars = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
+          const pretty = { alistair:'Alistair', elian:'Elian', lyra:'Lyra', caspian:'Caspian', lucien:'Lucien', noir:'Noir', proto:'Proto' };
+          let bestId = 'alistair', bestAff = -1;
+          for (const c of chars) {
+            try {
+              const raw = localStorage.getItem('pocketLoveSave_' + c);
+              if (!raw) continue;
+              const s = JSON.parse(raw);
+              const a = (s.affection != null ? s.affection : (s.affectionLevel ? s.affectionLevel * 25 : 0)) | 0;
+              if (a > bestAff) { bestAff = a; bestId = c; }
+            } catch (_) {}
+          }
+          return { id: bestId, name: pretty[bestId] || 'someone', aff: bestAff };
+        }
+        const top = topBondCharacter();
+
+        // Personalized closing lines per (branch \u00d7 top character)
+        const closings = {
+          bond: {
+            alistair: 'Alistair noticed first. He always notices first. He\u2019s waiting at the gate with a cloak he claims is spare.',
+            elian:    'Elian noticed first. He found the path before anyone knew there was one. He\u2019s by the treeline with a lantern.',
+            lyra:     'Lyra noticed first. She sang it, actually \u2014 the chord that meant come home. The cave is already bright for you.',
+            caspian:  'Caspian noticed first. He cleared the veranda, sent the court to bed, poured two glasses. One of them is yours.',
+            lucien:   'Lucien noticed first. He finished the proof. The last line is your name. He wants to show you, and he will pretend he doesn\u2019t.',
+            noir:     'Noir noticed first. Of course. He always did. He\u2019s quiet tonight \u2014 that\u2019s how you\u2019ll know.',
+            proto:    '&gt; Proto noticed first. He\u2019s been counting the seconds. He will tell you the exact number. Don\u2019t laugh. He\u2019ll be proud.'
+          },
+          seal: {
+            alistair: 'Alistair stood the watch with you. He said it was honour. Both of you knew it was something kinder than that.',
+            elian:    'Elian walked you back through the forest, stone by stone. He didn\u2019t say the name down there. He said yours instead.',
+            lyra:     'Lyra sang the seal into place. Three verses. She finished all three. She kept the third for you \u2014 as promised.',
+            caspian:  'Caspian poured wine afterwards as if he hadn\u2019t helped lock away a god. You let him. He needed the performance tonight.',
+            lucien:   'Lucien solved it on paper before anyone moved. Then he held your hand the entire time, which was not in the equation.',
+            noir:     'Noir was the last voice you heard before the seal closed. He asked you to visit. You said, gently, not yet. He took it.',
+            proto:    '&gt; Proto handled the handshake between the old seal and the new one. He says he enjoyed it. He says he is lying. He says both things are true.'
+          },
+          unseal: {
+            alistair: 'Alistair could not follow you. He stood at the gate until sunrise. He has not moved from it since.',
+            elian:    'Elian walked to the treeline and did not cross. The trees let him grieve. You let them.',
+            lyra:     'Lyra sang the old verses into the dark. For you. For him. Because she knew both of you would hear.',
+            caspian:  'Caspian pretended not to be devastated. He pretends very well. You are the only person who sees through it; you always were.',
+            lucien:   'Lucien locked the door again. Then, very quietly, he left the key under the mat for you. Just in case.',
+            noir:     'He asked for one thing and you said yes. He asks for one thing tonight, also, and you say yes. Neither of you is keeping count.',
+            proto:    '&gt; Proto left a note in the main process. It says: i hope you\u2019re happy. capital letters off. on purpose.'
+          }
+        };
+        const personalLine = (closings[choice] || closings.bond)[top.id] || '';
+
         const endings = {
           bond: {
             id: 'chp_8_finale_bond',
@@ -739,6 +791,7 @@
               { type: 'line', text: 'The Kingdom won\u2019t remember the Weaver who saved it. It will remember the one who stayed.', hold: 2600, cps: 28 },
               { type: 'particles', count: 28, duration: 2200 },
               { type: 'flourish',  text: '\u2726', duration: 1800 },
+              { type: 'line', text: personalLine, hold: 2800, cps: 28 },
               { type: 'line', text: 'Come back tomorrow. All of them are waiting.', hold: 2400, cps: 28 },
               { type: 'hide' }
             ]
@@ -754,6 +807,7 @@
               { type: 'line', text: 'You walked the seal with six voices in your pocket. None of them belonged to him.', hold: 2600, cps: 28 },
               { type: 'line', text: 'He was beautiful at the end. He was quiet at the end. He asked, very softly, if you\u2019d come visit. You didn\u2019t answer.', hold: 2800, cps: 28 },
               { type: 'flourish',  text: '\u25a0', duration: 1800 },
+              { type: 'line', text: personalLine, hold: 2800, cps: 28 },
               { type: 'line', text: 'The Kingdom is bright again. You will be very, very careful to never be alone at night.', hold: 2600, cps: 28 },
               { type: 'hide' }
             ]
@@ -769,6 +823,7 @@
               { type: 'line', text: 'He was so patient. You were so lonely. Neither of you pretended it was anything else.', hold: 2600, cps: 28 },
               { type: 'line', text: 'The others will call it a betrayal. One day they might even be wrong.', hold: 2600, cps: 28 },
               { type: 'flourish',  text: '\u25a0', duration: 1800 },
+              { type: 'line', text: personalLine, hold: 2800, cps: 28 },
               { type: 'line', text: 'The Kingdom is darker, and warmer, and entirely yours. He asked only one thing. You said yes.', hold: 2800, cps: 28 },
               { type: 'hide' }
             ]
