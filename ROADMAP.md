@@ -4,6 +4,81 @@ Future to-do list. Focus right now: **Art + 2D cinematic animation**.
 
 ---
 
+## 📆 PASS 5 · PART 3 — "Daily Pulse" (next code pass, queued)
+
+Four Mystic-Messenger / Love-and-Deepspace-tier systems to close the gap
+from "small indie Otome" to "ULTIMATE Otome" in daily-retention feel.
+Say "do part 3" when you're ready to ship it.
+
+### 📱 3a. Phone-UI Text-Message System
+- [ ] Phone overlay UI — character portrait, chat bubbles, time stamps
+- [ ] Characters send 1–3 short messages per day, tied to real time
+- [ ] Quick-reply choices (2 options per message, like Mystic Messenger)
+- [ ] Reply choices feed back into affection + echo in future chapters
+- [ ] Missed-message system — if you don't reply within N hours, they notice
+- [ ] Message pool per character (~20 messages each to start, extend over time)
+- [ ] Per-character tone preserved (Alistair short + formal, Caspian emoji-flirty,
+      Lucien dense + clever, Lyra ethereal, Elian rare + weighty,
+      Noir nocturnal + sparse, Proto glitchy + data-speak)
+- [ ] Notification dot on the main menu when a message is waiting
+
+### 📅 3b. Real-Time Dated Events Framework
+- [ ] Event scheduler reads current date, fires matching events
+- [ ] Character birthdays (7 birthdays spread across the year)
+- [ ] Seasonal stories — Valentine's, solstice, New Year, Halloween equivalent
+- [ ] Each event = 1 short scene + unique memory card + themed outfit
+- [ ] Limited-time flavor (event window + permanent replay from gallery)
+- [ ] Birthday surprises — character initiates their own event on the day
+
+### ✨ 3c. Affection Level-Up Ceremonies
+- [ ] Full-screen celebration moment when crossing tier thresholds
+  (Warm → Closer → Chosen → Midnight)
+- [ ] Character-specific art + particle burst
+- [ ] New pose unlocked at each tier
+- [ ] Cross-character reaction — other chars acknowledge the milestone
+- [ ] Unlockable wallpaper / home-screen art per tier
+
+### 🔁 3d. New Game+ Mode
+- [ ] After finale complete, option to restart with previous choices locked
+- [ ] Forces player into different branches (no replaying same answers)
+- [ ] Some new content only accessible on NG+ playthroughs
+  (alternate chapter openings, secret dialogues, a hidden character?)
+- [ ] Save slot system — up to 3 playthroughs tracked
+- [ ] "Dream" mode — replay any finished chapter without affecting progress
+
+---
+
+## 📆 PASS 5 · PART 4 — "Collection Obsession" (later code pass)
+
+Gacha-grade collecting loops for players who love completionism.
+
+### 🎴 4a. Memory Card Pull Mechanics
+- [ ] SSR / SR / R rarity tiers on memory cards
+- [ ] Pull animation with gacha sparkle + rarity reveal
+- [ ] Pity system (guaranteed SSR at N pulls)
+- [ ] Free daily pull + premium coin pulls
+- [ ] Duplicate handling (convert to shards, dupe bonuses)
+
+### 🏆 4b. Achievement Badges
+- [ ] 50+ achievements tied to story milestones
+- [ ] Subtle pop-up when earned (not intrusive)
+- [ ] Dedicated achievement viewer in settings
+- [ ] Some achievements are secret (only visible when earned)
+
+### 💾 4c. Multiple Save Slots
+- [ ] 3 save slots per character
+- [ ] Name each save (default: character + date)
+- [ ] Quick-switch between saves
+- [ ] Cloud sync stub (Firebase Anonymous Auth later)
+
+### 👗 4d. Outfit / Skin System
+- [ ] Each character has 3–5 alternate outfits
+- [ ] Unlockable via story, events, or premium gifts
+- [ ] Outfit persists across scenes
+- [ ] Memory cards remember which outfit was worn
+
+---
+
 ## 🎨 CURRENT FOCUS — Art Pipeline
 
 ### Sprite art needed (critical blocker)
