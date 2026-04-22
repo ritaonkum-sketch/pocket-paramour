@@ -571,7 +571,22 @@
     const root = document.getElementById(PAGE_ID);
     if (!root) return;
     root.classList.remove('visible');
-    setTimeout(() => { try { root.remove(); } catch (_) {} refreshOrb(); }, 440);
+    setTimeout(() => {
+      try { root.remove(); } catch (_) {}
+      // If closing this page would leave the screen blank (title hidden,
+      // game container hidden, select hidden) \u2014 fall back to character
+      // select so the player always lands somewhere usable.
+      const title = document.getElementById('title-screen');
+      const select = document.getElementById('select-screen');
+      const game = document.getElementById('game-container');
+      const titleVisible = title && !title.classList.contains('hidden');
+      const gameVisible  = game  && !game.classList.contains('hidden');
+      const selectHidden = select && select.classList.contains('hidden');
+      if (!titleVisible && !gameVisible && selectHidden) {
+        select.classList.remove('hidden');
+      }
+      refreshOrb();
+    }, 440);
   }
 
   function openPageSoftly() { setTimeout(openPage, 300); }
