@@ -151,8 +151,8 @@
             { type: 'line',      text: 'A deer ran past me yesterday with no reflection in the stream. The water just \u2026 forgot to hold it. The forest is losing pieces of itself.', hold: 2800, cps: 28 },
             { type: 'line',      text: 'And deeper in \u2014 past the stones I mark \u2014 something has started calling at night. A man\u2019s voice, low. Warm. Wrong.', hold: 2800, cps: 28 },
             { type: 'pose',      src: 'assets/elian/body/foraging.png', animate: 'swap' },
-            { type: 'line',      text: 'I buried someone in this forest. A long time ago. The trees used to whisper the name when I walked past. \u2026They stopped whispering it last winter.', hold: 3000, cps: 26 },
-            { type: 'line',      text: 'I haven\u2019t said it out loud since. I think I\u2019ve been afraid the world won\u2019t know what to do with the sound.', hold: 2800, cps: 26 },
+            { type: 'line',      text: 'I buried someone in this forest. A long time ago. The one I buried was not from this kingdom. They came north to die in peace.', hold: 3000, cps: 26 },
+            { type: 'line',      text: 'My line has kept watch over the grave for six hundred years. None of us has said the name since my grandmother\u2019s grandmother. I think I\u2019ve been afraid the world won\u2019t know what to do with the sound.', hold: 3600, cps: 26 },
             { type: 'pose',      src: 'assets/elian/body/calm.png', animate: 'swap' },
             { type: 'line',      text: 'Then you walked in. The trees \u2026 leaned. They haven\u2019t leaned in years. You\u2019re the first thing this forest has remembered since I stopped saying that name.', hold: 3000, cps: 26 },
             { type: 'line',      text: 'I don\u2019t know what to do with that yet. I think the forest does.', hold: 2400, cps: 28 },
@@ -602,6 +602,7 @@
             { type: 'line',      text: 'Six hundred years ago your prince\u2019s grandmother \u2014 Queen Aenor \u2014 was to marry a minor royal named Veyra. To seal peace between our two kingdoms.', hold: 3400, cps: 24 },
             { type: 'line',      text: 'Veyra and I \u2026 met. We shouldn\u2019t have. It was not supposed to be possible. But they chose me. Aenor could not allow that.', hold: 3200, cps: 24 },
             { type: 'line',      text: 'She did not kill me \u2014 that would have started a war. She sealed me. Her council scratched my name from every Aethermoor record. Within a decade, my home crumbled without its heir.', hold: 3600, cps: 24 },
+            { type: 'line',      text: 'Veyra refused her hand after. They fled north. I do not know where they died. I do not know where they were laid. Aethermoor erased the grave too. \u2026I have grieved without knowing where to go to grieve.', hold: 3800, cps: 22 },
             { type: 'line',      text: 'What people call me now \u2014 \u201cNoir\u201d \u2014 is the sound of that erasure. The ink they used to cross me out. I wear the name of my own silencing. \u2026That is who I am.', hold: 3800, cps: 22 },
             { type: 'pose',      src: 'assets/noir/body/casual2.png', animate: 'swap' },
             { type: 'line',      text: 'And your arrival, Weaver, is what has finally cracked me loose. I\u2019m not cruel. Not unless you want me to be. I\u2019m just \u2026 very, very tired of being quiet.', hold: 3000, cps: 24 },
@@ -643,6 +644,7 @@
             { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 700 },
             { type: 'line',      text: protoEcho, hold: 2600, cps: 26 },
             { type: 'line',      text: '&gt; i\u2019m not in any of the kingdom\u2019s records. i\u2019m not supposed to exist yet.', hold: 2400, cps: 26 },
+            { type: 'line',      text: '&gt; also \u2014 i remember a face that wasn\u2019t mine. from before i got stuck. i\u2019ll tell you whose, later. when the forest asks.', hold: 3000, cps: 26 },
             { type: 'line',      text: '&gt; but you\u2019re looking at me. so one of us is a bug, and it\u2019s probably me.', hold: 2400, cps: 26 },
             { type: 'line',      text: '&gt; the weaver thing \u2014 it\u2019s real. it\u2019s just also code. come back and i\u2019ll show you.', hold: 2400, cps: 26 },
             { type: 'flourish',  text: '\u25ce', duration: 1800 },
@@ -652,6 +654,143 @@
         });
         try { localStorage.setItem('pp_ms_encounter_proto_seen','1'); } catch (_) {}
         markDone(7); setCurrent(nextIdAfter(7));
+        if (onDone) onDone();
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // CHAPTER 14 \u2014 WHAT THE TREES KEPT
+    // Elian takes the player to the grave his line has guarded for
+    // six centuries. The name is Veyra. Proto \u2014 who met them before
+    // he got stuck in the seal \u2014 gives the player Veyra's last words.
+    // Corvin arrives. For the first time in 600 years he sees where
+    // his beloved was laid. The emotional peak of the game.
+    // ---------------------------------------------------------------
+    {
+      id: 14,
+      title: 'CHAPTER',
+      subtitle: 'What the Trees Kept',
+      teaser: 'A grave. A memory. A name the kingdom erased twice.',
+      charId: 'elian',
+      play: async function (onDone) {
+        // Card 1 \u2014 The Long Walk
+        await runCard({
+          id: 'chp_14_a',
+          title: 'CHAPTER',
+          subtitle: 'What the Trees Kept \u2014 the Long Walk',
+          speaker: 'ELIAN',
+          palette: { bg: '#060a08', glow: '#8eb080', accent: '#d8e6cd' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/elian/body/calm.png', wait: 800 },
+            { type: 'line',      text: 'Come with me. No lantern. The moon does the work tonight.', hold: 2600, cps: 28 },
+            { type: 'line',      text: 'I\u2019ve been keeping something for six hundred years. My grandmother did. Her grandmother did. And hers. I think it\u2019s time.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'You\u2019re the first outsider the forest has let this far. I take that as permission.', hold: 2800, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Card 2 \u2014 The Stone
+        await runCard({
+          id: 'chp_14_b',
+          title: 'CHAPTER',
+          subtitle: 'What the Trees Kept \u2014 the Stone',
+          speaker: 'ELIAN',
+          palette: { bg: '#060a08', glow: '#a9d4a1', accent: '#e8f3e2' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/elian/body/foraging.png', wait: 800 },
+            { type: 'line',      text: 'Here. The stone under the rowan. You\u2019ve asked me before what the name was. I couldn\u2019t say it. I can now.', hold: 3000, cps: 26 },
+            { type: 'particles', count: 14, duration: 2000 },
+            { type: 'flourish',  text: '\u2726', duration: 1800 },
+            { type: 'line',      text: 'Veyra.', hold: 2400, cps: 20 },
+            { type: 'line',      text: 'They came north after the sealing. Refused Queen Aenor\u2019s hand. Walked into this forest to die in peace \u2014 and Aenor\u2019s scribes, who had already scrubbed one name, scrubbed theirs too.', hold: 3800, cps: 26 },
+            { type: 'line',      text: 'My ancestor buried them under this rowan. My line kept watch. The trees kept silent. Six hundred years.', hold: 3000, cps: 26 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Card 3 \u2014 What the Sixth Remembered (Proto speaks softly through whispers)
+        await runCard({
+          id: 'chp_14_c',
+          title: 'CHAPTER',
+          subtitle: 'What the Trees Kept \u2014 What the Sixth Remembered',
+          speaker: 'PROTO',
+          palette: { bg: '#030510', glow: '#9fd8f0', accent: '#e0f2fa' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 800 },
+            { type: 'line',      text: '&gt; allow me. this is not in my usual voice. i will not glitch tonight. this is too important.', hold: 2800, cps: 24 },
+            { type: 'line',      text: 'I am the sixth Weaver. Before Aenor\u2019s seal pulled me in, I met Veyra \u2014 once \u2014 in the chamber beneath the east wing. They were already dying.', hold: 3400, cps: 22 },
+            { type: 'line',      text: 'I caught the last words they said. I have held them, in whatever I am now, for two centuries. Waiting for people worth giving them to.', hold: 3400, cps: 22 },
+            { type: 'flourish',  text: '\u25ce', duration: 1800 },
+            { type: 'line',      text: 'Tonight. All three of you. Listen.', hold: 2400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Card 4 \u2014 Veyra\u2019s words (the memory itself, soft glow)
+        await runCard({
+          id: 'chp_14_d',
+          title: 'MEMORY',
+          subtitle: 'What the Trees Kept \u2014 Veyra',
+          speaker: 'VEYRA',
+          palette: { bg: '#0d0a18', glow: '#f8d4ff', accent: '#fff0fa' },
+          bg: 'assets/bg-world.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 800 },
+            { type: 'line',      text: 'Tell Corvin I did not regret him. Not once. Not even tonight.', hold: 3000, cps: 22 },
+            { type: 'line',      text: 'Tell Aenor I forgive her \u2014 it is the only thing she cannot take from me.', hold: 3200, cps: 22 },
+            { type: 'particles', count: 22, duration: 2400 },
+            { type: 'flourish',  text: '\u2726', duration: 2000 },
+            { type: 'line',      text: 'Tell whoever finds the grave: please plant rowan. Please let something be remembered.', hold: 3200, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Card 5 \u2014 Corvin arrives, kneels
+        await runCard({
+          id: 'chp_14_e',
+          title: 'CHAPTER',
+          subtitle: 'What the Trees Kept \u2014 Corvin Kneels',
+          speaker: 'NOIR',
+          palette: { bg: '#050410', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/noir/body/casual1.png', wait: 1000 },
+            { type: 'line',      text: 'Noir did not announce himself. He arrived the way dusk arrives \u2014 you only notice when it is all around you.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'He walks to the stone. Kneels. Six hundred years \u2014 he has not knelt for anything.', hold: 3000, cps: 26 },
+            { type: 'pose',      src: 'assets/noir/body/neutral.png', animate: 'swap' },
+            { type: 'line',      text: 'Veyra. I am sorry. I am sorry. I am sorry. I am sorry.', hold: 3200, cps: 20 },
+            { type: 'line',      text: '\u2026You asked for rowan. They planted it. You asked to be remembered. A boy and his grandmother and his grandmother\u2019s grandmother \u2014 kept you remembered.', hold: 3800, cps: 22 },
+            { type: 'particles', count: 20, duration: 2400 },
+            { type: 'flourish',  text: '\u25a0', duration: 2000 },
+            { type: 'line',      text: 'You were loved here. I did not know. I could not know. Thank you \u2014 all of you \u2014 for knowing for me.', hold: 3400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Card 6 \u2014 What you did today (close)
+        await runCard({
+          id: 'chp_14_f',
+          title: 'CHAPTER',
+          subtitle: 'What the Trees Kept \u2014 What You Did Today',
+          speaker: '',
+          palette: { bg: '#0a0e0a', glow: '#c0d8b0', accent: '#e8f0dd' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 800 },
+            { type: 'line',      text: 'The four of you stand around a grave no kingdom wanted to admit. Elian. Corvin. Proto, through the static. You.', hold: 3400, cps: 26 },
+            { type: 'line',      text: 'You did not save the Kingdom today. You did something smaller, and older, and more important.', hold: 3200, cps: 26 },
+            { type: 'flourish',  text: '\u2726', duration: 1800 },
+            { type: 'line',      text: 'You brought home a name.', hold: 3000, cps: 22 },
+            { type: 'line',      text: 'Elian, quietly: \u201cCome back tomorrow. The forest will be different. I will be different. \u2026Thank you.\u201d', hold: 3200, cps: 26 },
+            { type: 'hide' }
+          ]
+        });
+
+        try { localStorage.setItem('pp_veyra_grave_found','1'); } catch (_) {}
+        markDone(14); setCurrent(nextIdAfter(14));
         if (onDone) onDone();
       }
     },

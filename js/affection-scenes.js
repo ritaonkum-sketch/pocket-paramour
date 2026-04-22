@@ -147,11 +147,13 @@
           { type: 'line', text: 'I\u2019m taking you to the place I dig. I haven\u2019t walked anyone there. \u2026I haven\u2019t walked there alone in three years.', hold: 2800, cps: 24 },
           { type: 'line', text: 'There\u2019s a stone under the rowan tree. No carving on it. I never knew how to carve a name without the trees helping. They stopped helping after.', hold: 3200, cps: 24 },
           { type: 'pose', src: 'assets/elian/body/foraging.png', animate: 'swap' },
-          { type: 'line', text: 'Their name was \u2026 \u2026you say it with me. I can\u2019t do it alone, even now. Even with you here.', hold: 3000, cps: 22 },
+          { type: 'line', text: 'Their name is \u2026 \u2026you say it with me. I can\u2019t do it alone, even now. Even with you here.', hold: 3000, cps: 22 },
+          { type: 'line', text: 'Veyra.', hold: 2600, cps: 20 },
           { type: 'particles', count: 14, duration: 2000 },
           { type: 'flourish', text: '\u2726', duration: 1800 },
           { type: 'line', text: 'Thank you. The forest \u2026 the forest just relaxed. I felt it. They\u2019re going to remember the name now. Because of you.', hold: 3000, cps: 24 },
-          { type: 'line', text: 'I don\u2019t know what to do with that. I do know I\u2019m not letting you walk back alone.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'One day I might bring the others here. The prince. The scholar. \u2026Him. You\u2019d come with me for that \u2014 wouldn\u2019t you?', hold: 3200, cps: 24 },
+          { type: 'line', text: 'I don\u2019t know what to do with all this yet. I do know I\u2019m not letting you walk back alone.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       }
