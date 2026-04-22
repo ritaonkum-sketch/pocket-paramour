@@ -492,6 +492,10 @@
         </div>
     </div>
 
+    <!-- Storage guard runs FIRST — repairs partial/corrupt saves before any
+         other module tries to read localStorage. -->
+    <script src="js/storage-guard.js"></script>
+
     <!-- Live tuning + analytics + bandit must load before game.js -->
     <script src="js/remote-config.js"></script>
     <script src="js/analytics.js"></script>
@@ -557,6 +561,12 @@
     <script src="js/turning-points.js"></script>
     <script src="js/early-whispers.js"></script>
     <script src="js/affection-drift.js"></script>
+
+    <!-- Ship-readiness guards: one source of truth for ambient text overlap,
+         and a production gate on the mock payment stub. Load last so they
+         observe/wrap everything above them. -->
+    <script src="js/ambient-coordinator.js"></script>
+    <script src="js/payments-guard.js"></script>
     <script>
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {

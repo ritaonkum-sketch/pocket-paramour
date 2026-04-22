@@ -1,13 +1,24 @@
-const CACHE_NAME = 'pocket-love-v158';
+const CACHE_NAME = 'pocket-love-v159';
 
+// -----------------------------------------------------------------------------
+// CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
+// offline PWA play works. This list is kept intentionally explicit (rather
+// than generated) so you can see at a glance what ships.
+//
+// UPKEEP RULE: whenever you add a new <script src="js/*.js"> to index.html,
+// add the same path here AND bump CACHE_NAME (v160, v161, ...).
+// -----------------------------------------------------------------------------
 const CORE_ASSETS = [
     '/index.html',
     '/css/style.css',
+    '/manifest.json',
+
+    // Core engine
     '/js/remote-config.js',
     '/js/analytics.js',
     '/js/bandit.js',
-    '/js/game.js',
-    '/js/ui.js',
+    '/js/achievements.js',
+    '/js/events.js',
     '/js/dialogue.js',
     '/js/character.js',
     '/js/character-lyra.js',
@@ -17,17 +28,22 @@ const CORE_ASSETS = [
     '/js/character-proto.js',
     '/js/character-noir.js',
     '/js/puzzles.js',
-    '/js/payments.js',
-    '/js/daily-rewards.js',
     '/js/sounds.js',
     '/js/bgm.js',
+    '/js/payments.js',
+    '/js/daily-rewards.js',
     '/js/gallery.js',
     '/js/intro.js',
-    '/js/achievements.js',
-    '/js/events.js',
+    '/js/game.js',
+    '/js/ui.js',
+
+    // UX layers
     '/js/letter.js',
     '/js/ui-feel.js',
     '/js/day-progress.js',
+    '/js/action-feedback.js',
+    '/js/first-session.js',
+    '/js/idle-life.js',
     '/js/greetings.js',
     '/js/touch.js',
     '/js/talk-choices.js',
@@ -35,8 +51,8 @@ const CORE_ASSETS = [
     '/js/dates.js',
     '/js/crossovers.js',
     '/js/button-locks.js',
+
     // Main-story route (opt-in; flag: pp_main_story_enabled)
-    '/js/main-story.js',
     '/js/encounter-alistair.js',
     '/js/encounter-elian.js',
     '/js/encounter-lyra.js',
@@ -44,6 +60,7 @@ const CORE_ASSETS = [
     '/js/encounter-lucien.js',
     '/js/encounter-noir.js',
     '/js/encounter-proto.js',
+    '/js/main-story.js',
     '/js/daily-purpose.js',
     '/js/premium-card.js',
     '/js/cards-library.js',
@@ -56,7 +73,19 @@ const CORE_ASSETS = [
     '/js/main-story-toggle.js',
     '/js/main-story-integration.js',
     '/js/chapters.js',
-    '/manifest.json'
+    '/js/noir-whispers.js',
+    '/js/affection-scenes.js',
+    '/js/production-polish.js',
+    '/js/cross-char.js',
+    '/js/epilogues.js',
+    '/js/turning-points.js',
+    '/js/early-whispers.js',
+    '/js/affection-drift.js',
+
+    // Ship-readiness pass (April 2026): coordinator + guards
+    '/js/ambient-coordinator.js',
+    '/js/payments-guard.js',
+    '/js/storage-guard.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.
