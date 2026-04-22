@@ -187,7 +187,103 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_lyra_seen','1'); } catch (_) {}
-        markDone(3); setCurrent(4);
+        markDone(3); setCurrent(nextIdAfter(3));
+        if (onDone) onDone();
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // INTERLUDE \u2014 two characters meet, and the player's Weaver gift
+    // becomes visible for the first time.
+    // ---------------------------------------------------------------
+    {
+      id: 10,
+      title: 'INTERLUDE',
+      subtitle: 'The Crossroads',
+      teaser: 'A knight. A ranger. A bond that hasn\u2019t been named in a hundred years.',
+      charId: 'alistair',  // portrait for the card; scene features both
+      play: async function (onDone) {
+        // Choice callback: echoes the player's first answer in Ch 1.
+        let callbackLine = 'I wasn\u2019t supposed to come this far. You made me brave by proxy.';
+        try {
+          const pick = localStorage.getItem('pp_ms_alistair_first_choice');
+          if (pick === 'stay') {
+            callbackLine = 'You told me you were meant to find me. Maybe you were meant to find them too.';
+          } else if (pick === 'quiet') {
+            callbackLine = 'You didn\u2019t want to leave. That\u2019s why I brought you out here \u2014 you liked being quiet with me. I\u2019m hoping the trees will too.';
+          }
+        } catch (_) {}
+
+        // Beat 1 \u2014 Alistair brings the player to the treeline
+        await runCard({
+          id: 'chp_10_a',
+          title: 'INTERLUDE',
+          subtitle: 'The Crossroads \u2014 the Treeline',
+          speaker: 'ALISTAIR',
+          palette: { bg: '#0a0f12', glow: '#ffce6b', accent: '#fff4de' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/alistair/body/casual.png', wait: 700 },
+            { type: 'line',      text: 'I don\u2019t go past the markers. No knight has, not since the Fading began.', hold: 2400, cps: 28 },
+            { type: 'line',      text: callbackLine, hold: 2800, cps: 28 },
+            { type: 'line',      text: 'But the forest pulled you. So I came. The kingdom isn\u2019t supposed to remember the roads out here anymore. I think it\u2019s remembering again because of you.', hold: 3000, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        // Beat 2 \u2014 Elian steps in, cautious
+        await runCard({
+          id: 'chp_10_b',
+          title: 'INTERLUDE',
+          subtitle: 'The Crossroads \u2014 Elian Appears',
+          speaker: 'ELIAN',
+          palette: { bg: '#0a140c', glow: '#a9d4a1', accent: '#e8f3e2' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: 'assets/elian/body/guarded.png', wait: 700 },
+            { type: 'line',      text: 'Captain. You\u2019re past the markers. That\u2019s not like you.', hold: 2200, cps: 28 },
+            { type: 'pose',      src: 'assets/elian/body/calm.png', animate: 'swap' },
+            { type: 'line',      text: 'Oh. \u2026They\u2019re with you. Then I\u2019m not surprised. The trees leaned when they crossed the stream.', hold: 2600, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        // Beat 3 \u2014 the two men meet, and the bond restores ON SCREEN
+        await runCard({
+          id: 'chp_10_c',
+          title: 'INTERLUDE',
+          subtitle: 'The Crossroads \u2014 A Bond Restored',
+          speaker: '',
+          palette: { bg: '#0e1510', glow: '#d8e8a4', accent: '#f4f8e8' },
+          bg: 'assets/bg-elian-forest.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: 'Alistair and Elian look at each other for the first time in six years. Neither of them remembers why they stopped speaking.', hold: 2800, cps: 28 },
+            { type: 'line',      text: 'Then you step between them. Not on purpose. The air shifts. Something under the soil \u2026exhales.', hold: 2800, cps: 28 },
+            { type: 'particles', count: 26, duration: 2200 },
+            { type: 'flourish',  text: '\u2726', duration: 1800 },
+            { type: 'line',      text: 'Alistair: \u201cWe trained together. I remember now. I\u2019m sorry I forgot.\u201d', hold: 2400, cps: 28 },
+            { type: 'line',      text: 'Elian: \u201cThe forest remembered you first. It told me tonight.\u201d', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'A bond the kingdom had quietly lost \u2014 the first one \u2014 is whole again. Because of you. This is what a Soul Weaver does.', hold: 3000, cps: 28 },
+            { type: 'hide' }
+          ]
+        });
+        // Beat 4 \u2014 but the cost. Noir felt it.
+        await runCard({
+          id: 'chp_10_d',
+          title: 'INTERLUDE',
+          subtitle: 'The Crossroads \u2014 Something Stirred',
+          speaker: 'NOIR',
+          palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: '\u2026You stitched one. I felt it. All the way down here.', hold: 2400, cps: 24 },
+            { type: 'line',      text: 'Careful, Weaver. Every thread you mend \u2014 I feel the needle.', hold: 2600, cps: 24 },
+            { type: 'flourish',  text: '\u25a0', duration: 1800 },
+            { type: 'line',      text: 'Keep going. I like it when you get close enough to notice me.', hold: 2600, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+        markDone(10); setCurrent(nextIdAfter(10));
         if (onDone) onDone();
       }
     },
@@ -471,7 +567,17 @@
   // ---------------------------------------------------------------
   function chapterById(id) { return CHAPTERS.find(c => c.id === id); }
   function currentChapter() { return chapterById(getCurrent()); }
-  function allDone() { return getCurrent() >= CHAPTER_COUNT; }
+  function indexOfId(id) { return CHAPTERS.findIndex(c => c.id === id); }
+  function nextIdAfter(id) {
+    const i = indexOfId(id);
+    if (i < 0) return null;
+    const next = CHAPTERS[i + 1];
+    return next ? next.id : id + 1;  // +1 past end signals "all done"
+  }
+  function allDone() {
+    // Every chapter in the array must have its done flag set.
+    return CHAPTERS.every(c => isDone(c.id));
+  }
 
   function playChapter(id) {
     const ch = chapterById(id);
@@ -630,7 +736,12 @@
     progress.innerHTML =
       '<div style="display:flex;justify-content:space-between;align-items:center;color:rgba(244,230,255,0.6);font-size:11px;letter-spacing:2px;margin-bottom:6px;">'
       + '<span>' + doneCountAll + ' OF ' + CHAPTER_COUNT + ' COMPLETE</span>'
-      + '<span style="opacity:0.7;">' + (allDone() ? 'FINALE CLEARED' : 'CHAPTER ' + Math.min(getCurrent(), CHAPTER_COUNT - 1) + ' NEXT') + '</span>'
+      + (() => {
+          if (allDone()) return '<span style="opacity:0.7;">FINALE CLEARED</span>';
+          const nx = chapterById(getCurrent());
+          const label = nx ? (nx.title + (nx.subtitle ? ' \u00b7 ' + nx.subtitle : '')) : 'NEXT';
+          return '<span style="opacity:0.7;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + label + '</span>';
+        })()
       + '</div>'
       + '<div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;">'
       + '<div style="height:100%;width:' + Math.round((doneCountAll / CHAPTER_COUNT) * 100) + '%;'
@@ -646,11 +757,12 @@
     const list = document.createElement('div');
     list.className = 'chp-list';
     const cur = getCurrent();
-    CHAPTERS.forEach((ch) => {
+    const curIdx = indexOfId(cur);
+    CHAPTERS.forEach((ch, idx) => {
       const row = document.createElement('div');
       const done = isDone(ch.id);
       const isCurrent = ch.id === cur && !done;
-      const locked = ch.id > cur;
+      const locked = curIdx >= 0 ? idx > curIdx : ch.id > cur;
       row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '');
 
       const thumb = document.createElement('div');
