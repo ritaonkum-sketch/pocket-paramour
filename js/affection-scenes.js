@@ -452,12 +452,13 @@
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 900 },
           { type: 'line', text: '&gt; i\u2019m going to break a rule. i\u2019m going to tell you about the others. all the Weavers. before you.', hold: 2800, cps: 24 },
-          { type: 'line', text: '&gt; the first one chose Noir and lost the kingdom. the second sealed him and went mad. the third tried to carry everyone and burned out at thirty. the fourth ran. the fifth never woke up.', hold: 3600, cps: 22 },
+          { type: 'line', text: '&gt; the first one chose Corvin and lost the kingdom. the second sealed him and went mad. the third tried to carry everyone and burned out at thirty. the fourth ran. the fifth never woke up.', hold: 3600, cps: 22 },
           { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
-          { type: 'line', text: '&gt; i\u2019m the sixth. i got stuck. i\u2019m telling you their names so you can choose better than any of us did.', hold: 3000, cps: 22 },
+          { type: 'line', text: '&gt; but here\u2019s the part the books left out. we weren\u2019t just lost. we were EATEN. Aenor\u2019s seal has been chewing on every Weaver for six hundred years. She kept us all thin on purpose. That\u2019s why the kingdom has no Weavers left \u2014 she ate them. One per generation.', hold: 4400, cps: 22 },
+          { type: 'line', text: '&gt; i\u2019m the sixth. i got stuck in the seal itself. i can feel the others with me, still in there. still thin. still hers.', hold: 3200, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25ce', duration: 1800 },
-          { type: 'line', text: '&gt; whichever ending you take \u2014 take it on purpose. don\u2019t let it take you. that\u2019s all six of us asking. quietly. through me.', hold: 3200, cps: 22 },
+          { type: 'line', text: '&gt; whichever ending you take \u2014 take it on purpose. don\u2019t let HER take it for you. that\u2019s all six of us asking. quietly. through me.', hold: 3400, cps: 22 },
           { type: 'hide' }
         ]
       }

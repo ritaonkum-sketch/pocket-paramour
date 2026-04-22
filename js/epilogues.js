@@ -165,15 +165,16 @@
     caspian: {
       bond: {
         id: 'epi_caspian_bond',
-        title: 'EPILOGUE', subtitle: 'CASPIAN \u00b7 A Court That Behaves',
+        title: 'EPILOGUE', subtitle: 'CASPIAN \u00b7 The Grandmother in the Glass',
         speaker: 'CASPIAN',
         palette: { bg: '#170a1a', glow: '#e7a3d0', accent: '#f8e9ff' },
         bg: 'assets/bg-caspian-day.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/adoring.png', wait: 700 },
           { type: 'line', text: 'The court learned a new word. You. It still can\u2019t decide if you\u2019re trouble or salvation. I pour it more champagne so it stops asking.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'My grandmother is sleeping in the east wing. You made a seal that doesn\u2019t hurt. She looks \u2026 peaceful. I visit her on Thursdays. I forgive her on the good ones.', hold: 3400, cps: 26 },
           { type: 'flourish', text: '\u266b', duration: 1600 },
-          { type: 'line', text: 'Midnight on the balcony. I\u2019ll wear something you\u2019ll regret.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'Midnight on the balcony. I\u2019ll wear something you\u2019ll regret. Don\u2019t be late \u2014 I have a kingdom to pretend to run.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -186,7 +187,8 @@
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 700 },
           { type: 'line', text: 'I abdicated. Two weeks after the seal held. The council was horrified. You laughed. That was the day I knew I\u2019d chosen right.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'We live, now. Smaller. On purpose. I\u2019m writing a book no one will read. You\u2019re the only audience I need.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'My grandmother is beneath the stone now. With him. Matched pair. I don\u2019t visit \u2014 I don\u2019t know what I\u2019d say. I set a candle on the seal once a year. I think that\u2019s enough.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'We live, now. Smaller. On purpose. I\u2019m writing a book no one will read \u2014 the true history of the Dynasty. The one with its grandmother in it.', hold: 3200, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -199,6 +201,7 @@
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual2.png', wait: 700 },
           { type: 'line', text: 'He asked me, afterwards, if I was jealous. I said yes. He laughed. You let him laugh. I wore the crown anyway \u2014 he likes me in it.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I buried my grandmother at Nocthera. Corvin dug the grave himself. I stood with you. Neither of us cried. We both had six hundred years of reason not to.', hold: 3600, cps: 26 },
           { type: 'line', text: 'We\u2019ve all adjusted. It turns out a kingdom is just a room full of people trying not to be lonely. I\u2019m the politest version of that. I\u2019m yours.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
@@ -214,6 +217,7 @@
         beats: [
           { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
           { type: 'line', text: 'The tower is loud now. The good kind. You and the prince argue at the desk. I work in the margins. It\u2019s my favourite configuration.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'I\u2019m publishing the scorched pages. Unabridged. Aethermoor\u2019s council is choking on it \u2014 which is, statistically, the best possible outcome. The kingdom deserves to know what it was built on.', hold: 3600, cps: 26 },
           { type: 'flourish', text: '\u221e', duration: 1600 },
           { type: 'line', text: 'Bring tea tonight. The second shelf is yours. I moved my red shelf down. \u2026For reasons.', hold: 2800, cps: 26 },
           { type: 'hide' }
@@ -228,6 +232,7 @@
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
           { type: 'line', text: 'My equations went quiet. I miss the leaking, a little. I wrote you into the margins anyway \u2014 as the new variable. The model likes you.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I archived the scorched pages. Sealed box, tower vault. Not burned \u2014 burning would be another erasure, and I won\u2019t repeat that mistake. One day when the kingdom is ready, the box opens.', hold: 3600, cps: 26 },
           { type: 'line', text: 'Come read the proof sometime. It doesn\u2019t prove anything useful. It just \u2026 factors you in at every line. I needed you to see.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
@@ -241,6 +246,7 @@
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casting.png', wait: 700 },
           { type: 'line', text: 'The maths split in two. One half screams. The other half is calmer than it\u2019s been in decades. I suspect that\u2019s him. I suspect you suspect too.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I\u2019m co-authoring a new history with Corvin. Both kingdoms, one record. Nocthera\u2019s side has never been told out loud before. He dictates. I annotate. The council is \u2026 adjusting.', hold: 3600, cps: 26 },
           { type: 'line', text: 'I locked the tower again. Then left the key under the mat for you. I didn\u2019t tell him about the key. \u2026Yet.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
