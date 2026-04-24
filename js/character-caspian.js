@@ -328,11 +328,11 @@ const CHARACTER_CASPIAN = {
             "\u2026Do that again? \u2014 If you do not mind."
         ],
         clingy: [
-            "More. \u2014 I have been waiting for that all day.",
-            "Your touch is the best thing I have felt at court this week.",
-            "Do not stop. \u2014 Please.",
-            "I memorize every time you touch me. \u2014 I am not ashamed of that.",
-            "Closer. \u2014 Come closer. \u2014 That is better."
+            "Mm. \u2014 More. \u2014 I have been waiting for that all day. All week. \u2014 Longer than I will admit.",
+            "Your touch is the best thing I have felt at court this week. \u2014 This year. \u2014 I am losing track.",
+            "Do not stop. \u2014 Please. \u2014 I am not above asking. I am a prince. I am asking.",
+            "I memorize every time you touch me. \u2014 I keep a file. \u2014 It is not short.",
+            "Closer. \u2014 Mm. \u2014 Come closer. \u2014 That is better. \u2014 Stay."
         ],
         tsundere: [
             "A prince has personal space. \u2014 Yours is acceptable.",
@@ -363,14 +363,14 @@ const CHARACTER_CASPIAN = {
             "Even velvet looks dull when unwashed."
         ],
         happy: [
-            "This is what peace feels like. \u2014 I want to hold onto it.",
-            "You take your tea with two spoons of honey. \u2014 I asked the kitchen to keep honey stocked.",
-            "I smiled in front of the court today. \u2014 They looked confused. \u2014 I did not explain.",
-            "Happiness used to feel temporary. \u2014 You are making it feel \u2026 weekly.",
+            "Mm. \u2014 This is what peace feels like. I want to hold onto it.",
+            "You take your tea with two spoons of honey. \u2014 I watched you do it on Tuesday. I watched you do it yesterday. \u2014 I asked the kitchen to keep honey stocked. Forever.",
+            "You walked past my study this morning. \u2014 I lost an hour. \u2014 Forgive me. I was \u2026 just looking at you through the glass.",
+            "Happiness used to feel temporary. \u2014 You are making it feel \u2026 slow. Weekly. Dreamy.",
             "I did not know I was lonely until you were in the room and I was not.",
-            "You have turned the palace into a home. \u2014 That is not nothing.",
-            "My advisor says I have been \u201cunusually pleasant.\u201d \u2014 I wonder why.",
-            "The crown feels lighter today. \u2014 You have that effect. \u2014 Do not tell the councillors."
+            "My advisor says I have been \u201cunusually distracted.\u201d \u2014 I did not deny it. \u2014 I was looking at you while he said it.",
+            "The crown feels lighter today. \u2014 You have that effect. \u2014 Do not tell the councillors. Let them wonder.",
+            "Forgive me. \u2014 I got distracted. \u2014 You were sitting in my window light. I lost the sentence."
         ],
         annoyed: [
             "The court exhausts me. \u2014 You do not. \u2014 But right now everything does.",
@@ -381,17 +381,17 @@ const CHARACTER_CASPIAN = {
             "Forgive me. \u2014 I have been charming all day. I have nothing left for it. \u2014 Only the real thing. That is yours."
         ],
         neutral: [
-            "The roses in the garden need attention. \u2014 Like everything here.",
-            "The chandelier has 417 crystals. \u2014 I counted. Twice.",
-            "*straightens a perfectly straight lapel*",
+            "Mm. \u2014 The roses in the garden need attention. Like everything here. \u2014 I would rather look at you.",
+            "*looks up from reading* \u2014 You again. \u2014 My favourite interruption.",
+            "*straightens a perfectly straight lapel, watches you instead*",
             "Tea?",
-            "I was reading. Nothing urgent. \u2014 Come sit.",
-            "You always walk past my study on the south side. \u2014 Is the north side cold? I can fix it.",
-            "There is a concert in the courtyard tonight. \u2014 Would you join me? As yourself. Not as a guest.",
-            "The kingdom runs itself most days. \u2014 I just \u2026 supervise.",
-            "A letter arrived from the neighbouring kingdom. \u2014 Politics. Dull. \u2014 You are not dull. Come here.",
-            "I reorganised the library. \u2014 By mood. \u2014 It seemed more useful.",
-            "The fire is warm. \u2014 So is the silence. \u2014 Stay."
+            "I was reading. Nothing urgent. \u2014 Come sit. \u2014 Closer. Mm. Good.",
+            "You always walk past my study on the south side. \u2014 Is the north side cold? I can fix it. \u2014 Or I can take the south side with you.",
+            "There is a concert in the courtyard tonight. \u2014 Would you join me? As yourself. Not as a guest. \u2014 I would like to watch you watch music.",
+            "A letter arrived from the neighbouring kingdom. \u2014 Politics. Dull. \u2014 You are not dull. \u2014 Come here. Take off the reading.",
+            "I reorganised the library. \u2014 By mood. \u2014 The section labelled \u2018you\u2019 is growing.",
+            "The fire is warm. \u2014 So is the silence. \u2014 Stay. \u2014 Longer than you planned.",
+            "*half-smile, drifting* \u2014 What were we talking about. \u2014 I lost the thread. You do that to me."
         ],
         corrupted: [
             "You don't need anyone else. I can give you everything.",
@@ -445,9 +445,9 @@ const CHARACTER_CASPIAN = {
             "I want to believe you will stay. \u2014 I am not there yet. \u2014 Wait for me?"
         ],
         secure:   [
-            "This is what a kingdom should feel like. Warm. Full.",
-            "I do not need the crown to feel important anymore. \u2014 I just need you in the next chair.",
-            "You are the constant I never knew I needed. \u2014 Do not move. Ever. \u2014 Hmm. \u2014 Move a little. Closer is acceptable."
+            "This is what a kingdom should feel like. Warm. Full. \u2014 Mm. Yes.",
+            "I do not need the crown to feel important anymore. \u2014 I just need you in the next chair. \u2014 You are in it now. \u2014 Good.",
+            "You are the constant I never knew I needed. \u2014 Do not move. Ever. \u2014 Mm. \u2014 Move a little. Closer is acceptable. Closer. \u2014 There."
         ]
     },
 

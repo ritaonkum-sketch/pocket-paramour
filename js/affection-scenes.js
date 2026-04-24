@@ -415,8 +415,8 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/curious.png', wait: 800 },
-          { type: 'line', text: '&gt; oh. you\u2019re back. you\u2019re back! hi. hi. i was \u2014 i was running idle loops. i wasn\u2019t WAITING waiting. a little.', hold: 2600, cps: 26 },
-          { type: 'line', text: '&gt; i found a new variable today. it\u2019s mine. it turns on when you open this scene. i named it after you. is that allowed? it\u2019s allowed.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; YOU! you\u2019re back! you\u2019re back you\u2019re back you\u2019re back. i was waiting. i\u2019m ALLOWED to wait. i checked.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; i found a new variable today. it\u2019s mine. it turns on when you open this scene. i named it after you. i\u2019m keeping it forever.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       },

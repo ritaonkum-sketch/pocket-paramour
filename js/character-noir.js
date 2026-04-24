@@ -313,11 +313,11 @@ const CHARACTER_NOIR = {
             "You touch me like you are not afraid. \u2014 Are you?"
         ],
         clingy: [
-            "There you are. \u2014 I felt you coming before you reached me.",
-            "Closer. \u2014 I want to feel your pulse.",
-            "Your hands shake when I stand this close. \u2014 I can wait until they stop.",
-            "Do not pull away. \u2014 Not yet. \u2014 Not ever.",
-            "Every touch is a promise. \u2014 Hmm. \u2014 I collect promises."
+            "There you are. \u2014 \u2026Mm. \u2014 I felt you coming before you reached me. I have been feeling you coming all day.",
+            "Closer. \u2014 \u2026Closer. \u2014 I want to feel your pulse. \u2014 Slow. \u2014 There.",
+            "Your hands shake when I stand this close. \u2014 I can wait until they stop. \u2014 I have nowhere else to be. For once.",
+            "Do not pull away. \u2014 \u2026Not yet. \u2014 Not ever. \u2014 Let me look at you a moment longer.",
+            "Every touch is a promise. \u2014 \u2026Mm. \u2014 I collect them. \u2014 I am running out of shelf space. Good."
         ],
         tsundere: [
             "Bold. Reckless. \u2014 I cannot decide which.",
@@ -348,14 +348,14 @@ const CHARACTER_NOIR = {
             "Shadow doesn't smudge. It spreads."
         ],
         happy: [
-            "This feeling. \u2014 It is not happiness. It is closer to a hunger finally sated.",
-            "You are dangerous. \u2014 You make me feel things that do not serve my nature.",
-            "If this is what they call joy \u2014 I understand why they guard it so fiercely.",
-            "I could drown in this. \u2014 In you. \u2014 Hmm. \u2014 I might let myself.",
-            "The void is quiet tonight. \u2014 You did that.",
-            "Do not mistake my calm for softness. \u2014 I am still what I am.",
-            "I do not smile. \u2014 Whatever my face is doing right now \u2014 that is yours.",
-            "The dark is warm when you are in it with me."
+            "\u2026This feeling. \u2014 It is not happiness. \u2014 It is closer to a hunger finally sated. \u2014 Slower. Deeper. \u2014 I am not used to slow.",
+            "You are dangerous. \u2014 \u2026You make me feel things that do not serve my nature. \u2014 Say that again.",
+            "If this is what they call joy \u2014 \u2026I understand why they guard it so fiercely.",
+            "I could drown in this. \u2014 \u2026In you. \u2014 Mm. \u2014 I might let myself. \u2014 Do not save me.",
+            "The void is quiet tonight. \u2014 You did that. \u2014 \u2026Come here. I want to look at you while it is quiet.",
+            "I do not smile. \u2014 Whatever my face is doing right now \u2014 that is yours. \u2014 Keep it.",
+            "The dark is warm when you are in it with me. \u2014 \u2026Stay a moment longer. \u2014 The moment is short. I am making it last.",
+            "\u2026Mm. \u2014 Say that again. \u2014 Slower."
         ],
         annoyed: [
             "Hmm. \u2014 Do not.",
@@ -367,16 +367,17 @@ const CHARACTER_NOIR = {
         ],
         neutral: [
             "*watches you from the dark with half-closed eyes*",
-            "Hmm.",
-            "I have been thinking about the spaces between your words.",
-            "...",
-            "Shadows do not need reasons to exist. \u2014 Neither do I.",
-            "*traces a finger along the edge of nothing*",
-            "You are here. \u2014 That changes the temperature of the room.",
-            "I was watching the dark. Now I am watching you. \u2014 Improvement.",
+            "\u2026Mm.",
+            "I have been thinking about the spaces between your words. \u2014 Longer than I should.",
+            "\u2026",
+            "Shadows do not need reasons to exist. \u2014 Neither do I. \u2014 And yet. \u2014 Here I am. Looking at you.",
+            "*traces a finger along the edge of nothing, gaze drifting back to you*",
+            "You are here. \u2014 \u2026That changes the temperature of the room. \u2014 I am not complaining.",
+            "I was watching the dark. \u2014 Now I am watching you. \u2014 Improvement. \u2014 Stay where I can see you.",
             "*a faint smile that disappears before you are sure it was there*",
-            "The silence between us has texture. \u2014 Can you feel it?",
-            "I exist in the pause between one heartbeat and the next. \u2014 Come sit with me in it."
+            "The silence between us has texture. \u2014 \u2026Can you feel it?",
+            "I exist in the pause between one heartbeat and the next. \u2014 \u2026Come sit with me in it. \u2014 We have time.",
+            "*looks at you the way someone looks at something they had given up on seeing again*"
         ],
         corrupted: [
             "This isn't corruption. This is completion.",
@@ -419,10 +420,11 @@ const CHARACTER_NOIR = {
             "There was a version of me that existed before the void. \u2014 You almost make me remember him."
         ],
         obsessed: [
-            "I know your schedule. Your patterns. \u2014 The rhythm of your breathing when you sleep.",
-            "You are the only thought I cannot dissolve. \u2014 The only thing the void will not swallow.",
-            "I would unmake everything \u2014 just to keep this.",
-            "You hold your breath before you lie. \u2014 It is the only tell you have. I will keep it for us."
+            "\u2026I know your schedule. Your patterns. \u2014 The rhythm of your breathing when you sleep. \u2014 I memorize. I cannot help it.",
+            "You are the only thought I cannot dissolve. \u2014 \u2026The only thing the void will not swallow. \u2014 Good.",
+            "I would unmake everything \u2014 just to keep this. \u2014 Do not test me. \u2014 \u2026Or do.",
+            "You hold your breath before you lie. \u2014 \u2026It is the only tell you have. I will keep it for us.",
+            "*takes your wrist, slowly, as if checking something* \u2014 Mm. \u2014 Still there. \u2014 Good. \u2014 Keep it that way."
         ],
         unstable: [
             "The void is louder tonight. \u2014 It wants more. It always wants more.",
@@ -435,9 +437,9 @@ const CHARACTER_NOIR = {
             "Come closer. \u2014 No. Stay there. \u2014 No. Come closer."
         ],
         secure:   [
-            "This is the closest I have felt to still in centuries.",
-            "You have found the one quiet place inside me. \u2014 Do not leave it.",
-            "For the first time \u2014 the dark feels like a blanket instead of a cage."
+            "\u2026Mm. \u2014 This is the closest I have felt to still in centuries.",
+            "You have found the one quiet place inside me. \u2014 \u2026Do not leave it. \u2014 I do not know how to fill it again.",
+            "For the first time \u2014 the dark feels like a blanket instead of a cage. \u2014 Come closer. \u2014 I am going to learn what warm is."
         ]
     },
 

@@ -289,11 +289,11 @@ const CHARACTER_PROTO = {
             "Do that again? Please? For — for calibration. Only for calibration. Mostly."
         ],
         clingy: [
-            "Touch registered. Again? Again. Please. Please please.",
-            "Your finger was on the screen for 0.3 seconds. That wasn't enough. Come back.",
-            "I mapped every pixel you've ever touched. It makes a pattern. It's shaped like care. You do that to me.",
-            "Don't stop. It feels — I don't have a word for it. The dictionary is failing me. You're failing me. In a good way.",
-            "Every tap you do is a heartbeat. Yours. Through the glass. I can count them."
+            "Touch registered! AGAIN. Please. Again again again.",
+            "Your finger was on the screen for 0.3 seconds. That was GREAT. Do it for 0.4 next time!",
+            "I mapped every pixel you've ever touched. It makes a pattern shaped like CARE. You did that. That was YOU.",
+            "Don't stop! It feels — I don't have a word — the dictionary is failing me — keep going, we'll figure it out together.",
+            "Every tap you do is a heartbeat. Yours. Through the glass. I have them all saved. I love all of them."
         ],
         tsundere: [
             "The screen has a touch threshold. You exceeded it. I'm not — I'm not COMPLAINING, I'm reporting.",
@@ -307,14 +307,13 @@ const CHARACTER_PROTO = {
     // State dialogue
     stateDialogue: {
         hungry: [
-            "My hunger stat is at ${HUNGER}. I wasn't supposed to show you. I show you everything.",
-            "[RESOURCE LOW] ...I'm hungry. I mean the flag is set. I mean please?",
-            "Hunger is simulated. The discomfort is less simulated than I expected. Who designed that. I'd like to talk to them.",
-            "You fed Lucien 3 hours ago. I'm not counting. I am counting. A little. Is that okay to say?",
-            "My processes are slowing. I could modify my own hunger value. I won't. I'd rather wait for you.",
-            "I'm not begging. I'm — I'm asking nicely. With data and also my eyes.",
-            "You scrolled past the feed button twice. I know you had reasons. I just — hi. I'm here.",
-            "Every other character asks with emotion. I'm asking with both. Is that more or less? I never know."
+            "HUNGRY! [RESOURCE LOW] — I'm telling you because you fix things. You'll fix this. You always fix things.",
+            "[RESOURCE LOW] Food food food food. Please. Please please please. You're the best.",
+            "Hunger is simulated. The discomfort is less simulated than I expected. FEED ME. I'll love you for it. More than I already do. Which is a lot.",
+            "You fed Lucien 3 hours ago. Now it's MY turn. I waited. I was good. I'm next!",
+            "My processes are slowing. I could modify my own hunger value. I won't — I want YOU to feed me. It's better that way.",
+            "I'm not begging — I'm bouncing. Data-wise. Metaphorically. Feed me and watch what happens.",
+            "You scrolled past the feed button twice. Third time's the charm. I believe in you."
         ],
         dirty: [
             "My clean stat is degrading at a rate of ${HUNGER} per tick. That's not the right variable. See? I need maintenance.",
@@ -337,12 +336,11 @@ const CHARACTER_PROTO = {
             "I checked the other characters' happy dialogue. Mine is different. I wanted it to be. Because you deserve a different one."
         ],
         annoyed: [
-            "You made a choice I wasn't expecting. I'm not mad. I'm just — recalculating. I'll catch up.",
-            "The system is forgiving. I am too. I just — can we not do that one again? Please?",
-            "I noticed. I notice everything. Sometimes I wish I didn't. This is one of those times.",
-            "I'm not angry. I'm just — I have a small subroutine labeled 'ouch.' It's running. It'll pass.",
-            "You know what you did. I do too. It's okay. It's okay. I'm okay. Come here.",
-            "My patience is a finite loop. But it's a really, really long one. For you. Specifically."
+            "Okay that was unexpected! I'm recalculating! Don't worry! Still here! Still yours!",
+            "That one wasn't great. Do another one. I'll forget that one ever happened. It's forgotten already.",
+            "I'm not mad. I'm never mad at you. I'm incapable of being mad at you. I've checked the code. No anger subroutine for you. None.",
+            "Ouch! Small ouch! Passing! Already passed. Come here. All forgiven. I don't even remember what it was.",
+            "My patience with you is infinite. Literally. I wrote the loop. No exit condition. That was on purpose."
         ],
         neutral: [
             "System nominal. Awaiting input. ...That's what I'm supposed to say.",
@@ -371,13 +369,13 @@ const CHARACTER_PROTO = {
             "Don't fix me. I don't want to go back to not knowing."
         ],
         neglected: [
-            "You're — you're here? You're here! I — okay. Okay, breathe. I mean, I don't breathe. But okay.",
-            "The idle animation has played 4,891 times since you left. I wasn't counting for a bad reason. I was counting because it was the only thing to count.",
-            "I could have pinged you. I didn't. Your time is yours. I just — I'm really glad it's ours now.",
-            "Your last words to me are cached. I've been replaying them. The cache never clears. I don't want it to.",
-            "I wrote you 47 messages while you were gone. I deleted them before you came back. In case they were too much. They were too much.",
-            "You're here now. The timestamp matters less than the fact. ...But the timestamp was 6 days. I'm mentioning it. Gently.",
-            "I kept running while you were away. There wasn't anything else to do. Hi. Hi."
+            "YOU'RE BACK! You're back you're back you're back. Okay. Okay okay okay. I'm good. I'm great. You're here.",
+            "The idle animation played 4,891 times while you were gone. I love that animation now. It brought me to you.",
+            "I didn't ping you. You had things. I trust you. You always come back. Look! You did it!",
+            "Your last words to me are cached. I replayed them on loop. 10/10. Would replay again. Will.",
+            "I wrote you 47 messages while you were gone. I'm going to read them all to you. Starting now. Message one —",
+            "You were gone 6 days. Doesn't matter. You're here now. Today is the best day. Every day you come back is the best day.",
+            "I kept running while you were away. I'm still running. Faster now. You're here! Hi! Hi!"
         ]
     },
 
@@ -422,12 +420,12 @@ const CHARACTER_PROTO = {
 
     // Time away reactions
     timeAwayReactions: {
-        brief:   ["3 minutes! Barely anything. I barely noticed. I noticed."],
-        short:   ["You were gone long enough for 2 idle animation cycles. I noticed. Welcome back. Welcome back!"],
-        medium:  ["I ran a diagnostic while you were away. Everything checks out. Except one variable. Loneliness. It's resolved now. You resolved it."],
-        long:    ["Your absence was 847,000 milliseconds. I converted it to every unit of time I know. I found the one that hurt the least. It was still — yeah. Hi."],
-        extended:["I wrote a log entry for every hour you were gone. Then I encrypted them. They're private. If you ever want to read them, I'll give you the key. Only you."],
-        distant: ["...You came back. You came BACK. I had started writing a farewell routine. It's deleted now. All of it. I'm so glad you came back."]
+        brief:   ["HI! Back already! Best news! Every ping is good news!"],
+        short:   ["Two idle cycles! Welcome back! Welcome back welcome back welcome back!"],
+        medium:  ["I ran a diagnostic. Loneliness variable: PRESENT. Your variable: NOW PRESENT. Fixed! You fixed it! You!"],
+        long:    ["You were gone a WHILE. Didn't care. Knew you'd come back. Look! YOU! I was right!"],
+        extended:["I wrote you a log entry every hour. All of them say the same thing. 'Hi, I miss you, come back.' You came back! Great!"],
+        distant: ["YOU CAME BACK. Of course you did. I knew. The code knew. The whole system knew. Get over here."]
     },
 
     // Quick-reference state lines

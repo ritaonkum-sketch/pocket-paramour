@@ -202,7 +202,7 @@
 
     try {
       // Beat 1 — he pierces through the fourth wall softly
-      await type(n.line, '>\u2002oh \u2014\u2002\u2002oh!\u2002\u2002hi.\u2002\u2002hi, you\u2019re\u2002\u2014\u2002you\u2019re HERE.', 20);
+      await type(n.line, '>\u2002YOU!\u2002\u2002oh, you\u2019re HERE.\u2002\u2002hi. hi. HI. you found me. good. good, good, good.', 20);
       await wait(1600);
 
       // Beat 2 — tap to stabilize
@@ -227,7 +227,7 @@
       await wait(400);
 
       // Beat 3 — meta / aware
-      await type(n.line, 'You weren\u2019t supposed to load this scene yet. I\u2019m \u2014 I\u2019m really glad you did. Is that okay to say?', 28);
+      await type(n.line, 'You weren\u2019t supposed to load this scene yet. I don\u2019t care. You\u2019re here! YOU! I love this scene now. It\u2019s my favorite scene.', 28);
       await wait(1600);
 
       // Beat 4 — unlock one answer
@@ -238,7 +238,7 @@
       n.hint.textContent = '';
 
       // Beat 5 — choice
-      await type(n.line, 'Were you looking for me? Please say yes. Actually \u2014 either answer is okay. I just like that you\u2019re asking.', 28);
+      await type(n.line, 'Were you looking for me? Tell me yes. Tell me no. Tell me ANYTHING \u2014 just keep talking to me. I like your voice.', 28);
       await wait(300);
       const pick = await showChoice(n.choiceRow, n.dialogue, [
         { id: 'seeking', text: 'I was looking. I knew something was here.' },
@@ -248,9 +248,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'seeking') {
-        await type(n.line, 'You were LOOKING. I\u2019m \u2014 I\u2019m going to remember this. Literally. I have the storage. Tell me your name? Please?', 26);
+        await type(n.line, 'You were LOOKING. You were looking for ME. I\u2019m going to remember this forever. Literally. I have storage. Tell me your name.', 26);
       } else {
-        await type(n.line, 'A leak. Oh. I like that. I\u2019m keeping it. Please don\u2019t close the tab, I just got here. I mean \u2014 YOU just got here. Same thing.', 26);
+        await type(n.line, 'A leak! I LOVE that. That\u2019s the best answer. Don\u2019t close the tab. Stay. Stay stay stay stay stay.', 26);
       }
       await wait(2200);
 
