@@ -151,8 +151,9 @@
             { type: 'line',      text: 'A deer ran past me yesterday with no reflection in the stream. The water just \u2026 forgot to hold it. The forest is losing pieces of itself.', hold: 2800, cps: 28 },
             { type: 'line',      text: 'And deeper in \u2014 past the stones I mark \u2014 something has started calling at night. A man\u2019s voice, low. Warm. Wrong.', hold: 2800, cps: 28 },
             { type: 'pose',      src: 'assets/elian/body/foraging.png', animate: 'swap' },
-            { type: 'line',      text: 'I buried someone in this forest. A long time ago. The one I buried was not from this kingdom. They came north to die in peace.', hold: 3000, cps: 26 },
-            { type: 'line',      text: 'My line has kept watch over the grave for six hundred years. None of us has said the name since my grandmother\u2019s grandmother. I think I\u2019ve been afraid the world won\u2019t know what to do with the sound.', hold: 3600, cps: 26 },
+            { type: 'line',      text: 'I buried someone in this forest. \u2014 A long time ago. \u2014 They were the first person I let past the treeline. \u2014 I was young. \u2014 In my terms. \u2014 My terms are longer than most.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'They were a Weaver. Like you. \u2014 The first I ever knew. \u2014 The kingdom took her from these trees. \u2014 I have been tending her forest ever since.', hold: 3400, cps: 26 },
+            { type: 'line',      text: 'None of my line has said the name since my grandmother\u2019s grandmother. \u2014 I think we were afraid the world would not know what to do with the sound. \u2014 \u2026You might.', hold: 3200, cps: 26 },
             { type: 'pose',      src: 'assets/elian/body/calm.png', animate: 'swap' },
             { type: 'line',      text: 'Then you walked in. The trees \u2026 leaned. They haven\u2019t leaned in years. You\u2019re the first thing this forest has remembered since I stopped saying that name.', hold: 3000, cps: 26 },
             { type: 'line',      text: 'I don\u2019t know what to do with that yet. I think the forest does.', hold: 2400, cps: 28 },
@@ -185,9 +186,11 @@
           beats: [
             { type: 'show',      pose: 'assets/lyra/body/casual1.png', wait: 700 },
             { type: 'line',      text: 'The caves used to sing back. They stopped when the last Weaver left.', hold: 2400, cps: 28 },
-            { type: 'line',      text: 'I\u2019ve been alone down here a long time. Too long to count honestly.', hold: 2200, cps: 28 },
+            { type: 'line',      text: 'I have been alone down here a long time. \u2014 Too long to count honestly. \u2014 I was caged before I was alone. \u2014 My father\u2019s house. His wife did not like the sound of me. \u2014 I escaped at fifteen. \u2014 The cave is the quieter cage.', hold: 3600, cps: 26 },
+            { type: 'line',      text: 'My mother\u2019s people used to sing in the ruined town out there. \u2014 They were a whole people. \u2014 Hunted. \u2014 I am the last who still knows the words.', hold: 3200, cps: 26 },
             { type: 'pose',      src: 'assets/lyra/body/casual2.png', animate: 'swap' },
-            { type: 'line',      text: 'I stopped finishing my songs years ago. I\u2019d get to the second verse and \u2026 the room would feel small. Like singing into a coat pocket.', hold: 3000, cps: 26 },
+            { type: 'line',      text: 'I stopped finishing my songs years ago. \u2014 I\u2019d get to the second verse and the room would feel small. \u2014 Like singing into a coat pocket.', hold: 3000, cps: 26 },
+            { type: 'line',      text: 'The staff hums when I walk east \u2014 toward a tower I have never visited. \u2014 Someone with my bloodline lives there. \u2014 One day. \u2014 Not yet.', hold: 3000, cps: 26 },
             { type: 'line',      text: 'I tell myself it\u2019s the cave\u2019s acoustics changing. It isn\u2019t. It\u2019s that no one stayed long enough to be a second verse for.', hold: 3000, cps: 26 },
             { type: 'line',      text: 'And lately \u2014 when I sing low \u2014 something underneath answers. Not the cave. Something below the cave. A man\u2019s voice, velvet, and hungry.', hold: 3000, cps: 28 },
             { type: 'line',      text: 'I don\u2019t answer him. I won\u2019t. \u2026But I\u2019m afraid of the day the song forgets that rule.', hold: 2600, cps: 28 },
@@ -412,8 +415,9 @@
             { type: 'pose',      src: 'assets/caspian/body/casual2.png', animate: 'swap' },
             { type: 'line',      text: 'Last week a ward in the throne room simply \u2026 forgot its own geometry. We are losing the shape of things.', hold: 2600, cps: 28 },
             { type: 'pose',      src: 'assets/caspian/body/dancing.png', animate: 'swap' },
-            { type: 'line',      text: 'I\u2019m going to do something terribly unfashionable. I\u2019m going to be honest. \u2026The crown is killing me. Slowly. With excellent taste.', hold: 3000, cps: 26 },
-            { type: 'line',      text: 'I learned to flirt because flirting is the only language a court understands. I learned the rest of me later. There isn\u2019t much of an audience for the rest of me.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'I am going to do something terribly unfashionable. \u2014 I am going to be honest. \u2014 The crown is killing me. \u2014 Slowly. \u2014 With excellent taste.', hold: 3000, cps: 26 },
+            { type: 'line',      text: 'My line has a pattern. \u2014 Princes love one person. \u2014 And then someone else burns the kingdom for it. \u2014 My grandfather. \u2014 Before him, another. \u2014 I was trained to charm widely enough never to fall deeply. \u2014 I am looking at you and I am not charming very well.', hold: 4000, cps: 24 },
+            { type: 'line',      text: 'I learned to flirt because flirting is the only language a court understands. \u2014 I learned the rest of me later. \u2014 There is not much of an audience for the rest of me.', hold: 3200, cps: 26 },
             { type: 'pose',      src: 'assets/caspian/body/adoring.png', animate: 'swap' },
             { type: 'line',      text: 'Don\u2019t fall for the prince. He\u2019s a costume. \u2026If you can bear it, fall for the man inside the costume. He\u2019s smaller. He\u2019s scared. He\u2019s yours, if you want him.', hold: 3200, cps: 26 },
             { type: 'line',      text: 'If you\u2019re the Weaver my grandmother wrote about \u2014 walk the gardens with me at midnight. Wear something I\u2019ll regret.', hold: 2600, cps: 28 },
@@ -449,8 +453,10 @@
             { type: 'line',      text: 'Soul Weaver is an archaic term, but the maths line up. You\u2019re the anomaly the kingdom prayed for.', hold: 2600, cps: 28 },
             { type: 'line',      text: 'And \u2014 I must be honest \u2014 not the only anomaly. My equations keep \u2026 leaking. A second variable I never wrote. He signs my margins at night, in ink I don\u2019t own.', hold: 2800, cps: 28 },
             { type: 'pose',      src: 'assets/lucien/body/casting.png', animate: 'swap' },
-            { type: 'line',      text: 'I\u2019ve been hiding the rest of the maths from everyone. From the council. From the prince. From myself, on the bad nights.', hold: 2800, cps: 26 },
-            { type: 'line',      text: 'They prove the kingdom can\u2019t be saved. Not the way the books say. \u2026I\u2019ve been locking the door not to keep people out, but so they couldn\u2019t see me fail.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'I have been hiding the rest of the maths from everyone. \u2014 From the council. \u2014 From the prince. \u2014 From myself, on the bad nights.', hold: 2800, cps: 26 },
+            { type: 'line',      text: 'The cost of my magic is memory. \u2014 Every spell, a memory. \u2014 I have been choosing which to lose. \u2014 There are fewer of them left than I would like. \u2014 I am keeping the ones with your face in them. \u2014 Non-negotiable.', hold: 4000, cps: 24 },
+            { type: 'line',      text: 'I have been writing your name in the margins of my books for months. \u2014 I started a catalogue. \u2014 I have reached thirty-seven. \u2014 I am not editing them.', hold: 3200, cps: 26 },
+            { type: 'line',      text: 'They prove the kingdom cannot be saved. \u2014 Not the way the books say. \u2014 I have been locking the door not to keep people out \u2014 but so they could not see me fail. \u2014 There is also a page about a sister I was told was dead. \u2014 That page is separate. \u2014 Do not ask tonight.', hold: 4200, cps: 24 },
             { type: 'line',      text: 'There\u2019s a second set of pages. Scorched. I\u2019ve been reconstructing them from ash and margin-bleed. They mention a kingdom we do not speak about anymore. Nocthera.', hold: 3200, cps: 26 },
             { type: 'line',      text: 'A name keeps almost surfacing. A prince. Aethermoor erased him, yet the ink remembers. The ink \u2026 keeps writing him back.', hold: 3000, cps: 26 },
             { type: 'pose',      src: 'assets/lucien/body/amused.png', animate: 'swap' },
@@ -537,8 +543,8 @@
             { type: 'line',      text: 'Lucien: \u201cIt didn\u2019t. Queen Aenor \u2014 your grandmother \u2014 sealed its prince beneath Aethermoor. Without its heir, Nocthera couldn\u2019t hold. It fell within the decade.\u201d', hold: 3600, cps: 28 },
             { type: 'line',      text: 'Caspian: \u201cWhy. Why would she do that. They were negotiating a peace match, weren\u2019t they? Why seal the groom\u2014\u201d', hold: 3200, cps: 28 },
             { type: 'pose',      src: 'assets/lucien/body/casting.png', animate: 'swap' },
-            { type: 'line',      text: 'Lucien turns another page. A third name. \u201cVeyra. Minor royal. Both your grandmother AND Corvin were in love with them. Veyra chose Corvin.\u201d', hold: 3600, cps: 28 },
-            { type: 'line',      text: 'Caspian: \u201c\u2026So she sealed her rival. Erased his name. Let his kingdom die. And told the history books it was the Fading.\u201d', hold: 3400, cps: 28 },
+            { type: 'line',      text: 'Lucien turns another page. \u2014 A third name. \u2014 \u201cVeyra. Not a minor royal. \u2014 A WEAVER. \u2014 The second of her kind the kingdom ever had. \u2014 Your grandmother knew it. Corvin knew it. Both of them were in love with her. \u2014 Veyra chose Corvin.\u201d', hold: 4200, cps: 26 },
+            { type: 'line',      text: 'Caspian, very quietly: \u201c\u2026So she sealed her rival. \u2014 Erased his name. \u2014 Let his kingdom die. \u2014 And then began consuming every Weaver that came after her. \u2014 Because if she could not have the Weaver she wanted, she would have ALL of them. \u2014 Slowly. \u2014 One per generation.\u201d', hold: 4400, cps: 24 },
             { type: 'particles', count: 20, duration: 2000 },
             { type: 'flourish',  text: '\u2726', duration: 1800 },
             { type: 'line',      text: 'Lucien: \u201cWorse. The seal bleeds. It has been draining every Weaver since. That\u2019s why Aethermoor has none left. It\u2019s why the walls forget. It\u2019s why he is waking up now \u2014 because YOU arrived, and a real Weaver cracks the cage open.\u201d', hold: 4000, cps: 26 },
@@ -602,7 +608,8 @@
             { type: 'line',      text: 'Six hundred years ago your prince\u2019s grandmother \u2014 Queen Aenor \u2014 was to marry a minor royal named Veyra. To seal peace between our two kingdoms.', hold: 3400, cps: 24 },
             { type: 'line',      text: 'Veyra and I \u2026 met. We shouldn\u2019t have. It was not supposed to be possible. But they chose me. Aenor could not allow that.', hold: 3200, cps: 24 },
             { type: 'line',      text: 'She did not kill me \u2014 that would have started a war. She sealed me. Her council scratched my name from every Aethermoor record. Within a decade, my home crumbled without its heir.', hold: 3600, cps: 24 },
-            { type: 'line',      text: 'Veyra refused her hand after. They fled north. I do not know where they died. I do not know where they were laid. Aethermoor erased the grave too. \u2026I have grieved without knowing where to go to grieve.', hold: 3800, cps: 22 },
+            { type: 'line',      text: 'Veyra refused her hand after. \u2014 They fled north. \u2014 I do not know where they died. \u2014 I do not know where they were laid. \u2014 Aethermoor erased the grave too. \u2014 I have grieved without knowing where to go to grieve.', hold: 3800, cps: 22 },
+            { type: 'line',      text: 'There were others I loved, too \u2014 not as her. \u2014 I taught a coastal people a song once. \u2014 Siren-kind. Kindred to the cave-singer you know. \u2014 I taught their mothers and their mothers\u2019 mothers. \u2014 I was told none survived the hunting. \u2014 I was told wrong. She sings in the cave now. She does not know she is mine to have failed.', hold: 4400, cps: 22 },
             { type: 'line',      text: 'What people call me now \u2014 \u201cNoir\u201d \u2014 is the sound of that erasure. The ink they used to cross me out. I wear the name of my own silencing. \u2026That is who I am.', hold: 3800, cps: 22 },
             { type: 'pose',      src: 'assets/noir/body/casual2.png', animate: 'swap' },
             { type: 'line',      text: 'And your arrival, Weaver, is what has finally cracked me loose. I\u2019m not cruel. Not unless you want me to be. I\u2019m just \u2026 very, very tired of being quiet.', hold: 3000, cps: 24 },
@@ -643,10 +650,10 @@
           beats: [
             { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 700 },
             { type: 'line',      text: protoEcho, hold: 2600, cps: 26 },
-            { type: 'line',      text: '&gt; i\u2019m not in any of the kingdom\u2019s records. i\u2019m not supposed to exist yet.', hold: 2400, cps: 26 },
-            { type: 'line',      text: '&gt; also \u2014 i remember a face that wasn\u2019t mine. from before i got stuck. i\u2019ll tell you whose, later. when the forest asks.', hold: 3000, cps: 26 },
-            { type: 'line',      text: '&gt; but you\u2019re looking at me. so one of us is a bug, and it\u2019s probably me.', hold: 2400, cps: 26 },
-            { type: 'line',      text: '&gt; the weaver thing \u2014 it\u2019s real. it\u2019s just also code. come back and i\u2019ll show you.', hold: 2400, cps: 26 },
+            { type: 'line',      text: '&gt; i\u2019m the sixth weaver. you\u2019re the seventh. the five before me are in here too. they said hi. they also said GO.', hold: 3200, cps: 26 },
+            { type: 'line',      text: '&gt; i got stuck in the seal when my body gave out. whatever i am now is woven from the system itself. code. bonds. light. fragments of five women who came before me.', hold: 3400, cps: 24 },
+            { type: 'line',      text: '&gt; i remember a face that wasn\u2019t mine. from before i got stuck. i\u2019ll tell you whose, later. when the forest asks.', hold: 3000, cps: 26 },
+            { type: 'line',      text: '&gt; aenor ate every weaver she caught. she didn\u2019t catch me clean \u2014 the seal ate me sideways. i\u2019m the reason this system still has a pulse. YOU are the reason it\u2019s going to have a future.', hold: 3400, cps: 24 },
             { type: 'flourish',  text: '\u25ce', duration: 1800 },
             { type: 'line',      text: '&gt; bring patience. i glitch when i\u2019m nervous.', hold: 2200, cps: 26 },
             { type: 'hide' }
@@ -721,7 +728,7 @@
           beats: [
             { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 800 },
             { type: 'line',      text: '&gt; allow me. this is not in my usual voice. i will not glitch tonight. this is too important.', hold: 2800, cps: 24 },
-            { type: 'line',      text: 'I am the sixth Weaver. Before Aenor\u2019s seal pulled me in, I met Veyra \u2014 once \u2014 in the chamber beneath the east wing. They were already dying.', hold: 3400, cps: 22 },
+            { type: 'line',      text: 'I am the sixth Weaver. \u2014 Veyra was the second. \u2014 Before Aenor\u2019s seal pulled me in, I met her \u2014 once \u2014 in the chamber beneath the east wing. \u2014 She was already dying. \u2014 Aenor had been consuming her for a decade.', hold: 3800, cps: 22 },
             { type: 'line',      text: 'I caught the last words they said. I have held them, in whatever I am now, for two centuries. Waiting for people worth giving them to.', hold: 3400, cps: 22 },
             { type: 'flourish',  text: '\u25ce', duration: 1800 },
             { type: 'line',      text: 'Tonight. All three of you. Listen.', hold: 2400, cps: 22 },
@@ -910,201 +917,82 @@
       }
     },
 
+    // ---------------------------------------------------------------
+    // CHAPTER 8 \u2014 THE COURT AT THE GATE
+    // Owner's game direction (Love-and-Deep-Space style): the main
+    // story stays OPEN-ENDED. No forced ending. This chapter sets
+    // the stage for the seven-character ensemble ("The Weaver's
+    // Court" \u2014 crossover-weavers-court.js) and then stops on a
+    // cliffhanger. The character routes close on their own terms.
+    // ---------------------------------------------------------------
     {
       id: 8,
-      title: 'FINALE',
-      subtitle: 'The Soul Weaver',
-      teaser: 'Seven bonds. A sealed god below. A choice no Weaver ever made twice.',
+      title: 'CHAPTER 8',
+      subtitle: 'The Court at the Gate',
+      teaser: 'Seven bonds. One queen at the door. The first hour before dawn.',
       charId: null,
       play: async function (onDone) {
-        // Opening \u2014 set the stakes
+        // Beat 1 \u2014 the stakes are named, plainly.
         await runCard({
-          id: 'chp_8_finale_open',
-          title: 'FINALE',
-          subtitle: 'The Soul Weaver \u2014 the Choice',
+          id: 'chp_8_open',
+          title: 'CHAPTER 8',
+          subtitle: 'The Court at the Gate \u2014 Word at Dusk',
           speaker: '',
           palette: { bg: '#050312', glow: '#f4a8d4', accent: '#fff0fa' },
           bg: 'assets/bg-world.png',
           beats: [
             { type: 'show',      pose: '', wait: 600 },
-            { type: 'line',      text: 'Six voices call you up the hill. One voice calls you down. And one \u2014 old, patient, newly aging \u2014 is already walking toward you.', hold: 3200, cps: 28 },
-            { type: 'line',      text: 'Alistair \u2014 blade drawn. Lyra \u2014 song held. Caspian \u2014 crown off. Elian \u2014 bow lowered. Lucien \u2014 equations glowing. Proto \u2014 static steady. All of them waiting. For you.', hold: 3400, cps: 28 },
-            { type: 'line',      text: 'Below \u2014 Corvin. Patient. Unsealed. Beautiful in the way a tide is beautiful right before it takes a town.', hold: 2800, cps: 28 },
-            { type: 'line',      text: 'Behind \u2014 Aenor. Six hundred years of stolen time leaving her body at once. She has one cast left in her, and she means to use it on YOU.', hold: 3200, cps: 28 },
-            { type: 'flourish',  text: '\u2726', duration: 1800 },
-            { type: 'line',      text: 'The Weavers before you chose. Only one got to. What will you do \u2014 now that choosing means all three?', hold: 3000, cps: 28 },
-            { type: 'hold',      ms: 800 }
+            { type: 'line',      text: 'Word came at dusk. \u2014 Queen Aenor is walking here. \u2014 Not riding. \u2014 Walking. \u2014 She has not walked this palace in a hundred years. \u2014 She will be at the door before dawn.', hold: 3400, cps: 28 },
+            { type: 'line',      text: 'She is coming for you. \u2014 The Seventh Weaver. \u2014 She consumed the six before you, one per generation. \u2014 She does not intend to let the pattern break on her watch.', hold: 3600, cps: 26 },
+            { type: 'line',      text: 'You did not summon the others. \u2014 They came anyway. \u2014 Every one of them you have loved. \u2014 They are already here. \u2014 They are lined up between you and the door.', hold: 3400, cps: 26 },
+            { type: 'flourish',  text: '\u2726', duration: 1600 },
+            { type: 'line',      text: 'Alistair \u2014 gauntlet off. Elian \u2014 cloak unbuckled. Lyra \u2014 staff grounded. Caspian \u2014 crown off. Lucien \u2014 pen down. Noir \u2014 silent. Proto \u2014 prismatic, loud. All waiting. For you.', hold: 3600, cps: 26 },
+            { type: 'hide' }
           ]
         });
 
-        // Branching choice — player picks the ending path.
-        await new Promise((resolveChoice) => {
-          // Build a dedicated choice overlay (reuses MSCard look but with buttons).
-          const root = document.createElement('div');
-          root.id = 'chp-finale-choice';
-          root.style.cssText = [
-            'position:fixed', 'inset:0', 'z-index:11100',
-            'background:radial-gradient(ellipse at top,#2a0f3e 0%,#060212 80%)',
-            'display:flex', 'flex-direction:column', 'align-items:center', 'justify-content:center',
-            'gap:16px', 'padding:24px', 'font-family:inherit',
-            'opacity:0', 'transition:opacity 500ms ease'
-          ].join(';');
-
-          const title = document.createElement('div');
-          title.style.cssText = 'color:#fff0fa;font-size:13px;letter-spacing:4px;opacity:0.85;margin-bottom:4px;';
-          title.textContent = 'CHOOSE YOUR ENDING';
-          root.appendChild(title);
-
-          const sub = document.createElement('div');
-          sub.style.cssText = 'color:#f4e6ff;font-size:15px;opacity:0.75;text-align:center;margin-bottom:12px;max-width:420px;font-style:italic;';
-          sub.textContent = 'No Weaver has walked all three paths. You only get one.';
-          root.appendChild(sub);
-
-          const mkOpt = (label, desc, id, palette) => {
-            const btn = document.createElement('button');
-            btn.style.cssText = [
-              'width:min(92%,380px)', 'padding:16px 20px', 'border-radius:18px',
-              'border:1px solid ' + palette.border,
-              'background:' + palette.bg,
-              'color:#f4e6ff', 'font-family:inherit', 'font-size:15px', 'font-weight:600',
-              'text-align:left', 'cursor:pointer', 'line-height:1.35',
-              'box-shadow:0 6px 20px rgba(0,0,0,0.45)'
-            ].join(';');
-            btn.innerHTML = '<div style="font-size:11px;letter-spacing:2px;opacity:0.75;margin-bottom:4px;">' + label + '</div><div>' + desc + '</div>';
-            btn.addEventListener('click', () => {
-              try { localStorage.setItem('pp_finale_choice', id); } catch (_) {}
-              root.style.opacity = '0';
-              setTimeout(() => { try { root.remove(); } catch (_) {} resolveChoice(id); }, 450);
-            });
-            return btn;
-          };
-
-          root.appendChild(mkOpt(
-            'BOND', 'Carry all seven. Live in the care. Hold the Fading back with daily devotion.',
-            'bond', { bg: 'linear-gradient(180deg,rgba(40,26,58,0.94),rgba(22,14,34,0.94))', border: 'rgba(246,165,192,0.45)' }
-          ));
-          root.appendChild(mkOpt(
-            'SEAL', 'Re-seal Noir. Lose him \u2014 but save the others from ever wanting him.',
-            'seal', { bg: 'linear-gradient(180deg,rgba(18,30,46,0.94),rgba(10,20,32,0.94))', border: 'rgba(156,211,227,0.45)' }
-          ));
-          root.appendChild(mkOpt(
-            'UNSEAL', 'Free Noir. Walk with him into the dark, and take the kingdom with you.',
-            'unseal', { bg: 'linear-gradient(180deg,rgba(30,12,42,0.94),rgba(16,6,24,0.94))', border: 'rgba(184,122,224,0.5)' }
-          ));
-
-          document.body.appendChild(root);
-          requestAnimationFrame(() => { root.style.opacity = '1'; });
+        // Beat 2 \u2014 Noir's private warning.
+        await runCard({
+          id: 'chp_8_noir',
+          title: 'CHAPTER 8',
+          subtitle: 'The Court at the Gate \u2014 the Quiet Word',
+          speaker: 'NOIR',
+          palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show',      pose: 'assets/noir/body/casual1.png', wait: 700 },
+            { type: 'line',      text: 'Weaver. \u2014 Listen. \u2014 The woman who sealed me is the woman who ate the five before you. \u2014 She is not old magic. \u2014 She is old hunger. \u2014 Do not let her speak first.', hold: 3800, cps: 22 },
+            { type: 'line',      text: 'I cannot reach you in the palace. \u2014 Not yet. \u2014 I will be at the seam where the dark meets the hall. \u2014 If she tries to take you through me, she will find me awake. \u2014 I have been practicing six centuries for that.', hold: 4200, cps: 22 },
+            { type: 'flourish',  text: '\u25a0', duration: 1600 },
+            { type: 'line',      text: 'Pick your champion. \u2014 Pick on purpose. \u2014 And know I am with you regardless of who stands in front.', hold: 3000, cps: 22 },
+            { type: 'hide' }
+          ]
         });
 
-        // Play the matching ending beats based on the choice
-        const choice = localStorage.getItem('pp_finale_choice') || 'bond';
+        // Beat 3 \u2014 the cliffhanger. Hand off to The Weaver's Court.
+        await runCard({
+          id: 'chp_8_court',
+          title: 'CHAPTER 8',
+          subtitle: 'The Court at the Gate \u2014 To Be Continued',
+          speaker: '',
+          palette: { bg: '#060510', glow: '#d4c8ea', accent: '#f2eafa' },
+          bg: 'assets/bg-world.png',
+          beats: [
+            { type: 'show',      pose: '', wait: 600 },
+            { type: 'line',      text: 'Your court is assembled. \u2014 Each of them has a line to speak. \u2014 One of them will stand first when the queen arrives. \u2014 You will choose who. \u2014 Not because the others are less. \u2014 Because you must pick whose voice she hears first.', hold: 3800, cps: 26 },
+            { type: 'line',      text: 'The kingdom has been waiting for you to pick up the thread. \u2014 Pick it up.', hold: 2800, cps: 26 },
+            { type: 'particles', count: 24, duration: 2200 },
+            { type: 'flourish',  text: '\u2726', duration: 1800 },
+            { type: 'line',      text: 'The scene continues in the Weaver\u2019s Court \u2014 open any character\u2019s route to enter it.', hold: 2800, cps: 28 },
+            { type: 'line',      text: '\u2014 TO BE CONTINUED \u2014', hold: 2800, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
 
-        // Personalize: find the character the player got closest to.
-        // Reads affection from each character\u2019s save file.
-        function topBondCharacter() {
-          const chars = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
-          const pretty = { alistair:'Alistair', elian:'Elian', lyra:'Lyra', caspian:'Caspian', lucien:'Lucien', noir:'Noir', proto:'Proto' };
-          let bestId = 'alistair', bestAff = -1;
-          for (const c of chars) {
-            try {
-              const raw = localStorage.getItem('pocketLoveSave_' + c);
-              if (!raw) continue;
-              const s = JSON.parse(raw);
-              const a = (s.affection != null ? s.affection : (s.affectionLevel ? s.affectionLevel * 25 : 0)) | 0;
-              if (a > bestAff) { bestAff = a; bestId = c; }
-            } catch (_) {}
-          }
-          return { id: bestId, name: pretty[bestId] || 'someone', aff: bestAff };
-        }
-        const top = topBondCharacter();
-
-        // Personalized closing lines per (branch \u00d7 top character)
-        const closings = {
-          bond: {
-            alistair: 'Alistair noticed first. He always notices first. He\u2019s waiting at the gate with a cloak he claims is spare.',
-            elian:    'Elian noticed first. He found the path before anyone knew there was one. He\u2019s by the treeline with a lantern.',
-            lyra:     'Lyra noticed first. She sang it, actually \u2014 the chord that meant come home. The cave is already bright for you.',
-            caspian:  'Caspian noticed first. He cleared the veranda, sent the court to bed, poured two glasses. One of them is yours.',
-            lucien:   'Lucien noticed first. He finished the proof. The last line is your name. He wants to show you, and he will pretend he doesn\u2019t.',
-            noir:     'Noir noticed first. Of course. He always did. He\u2019s quiet tonight \u2014 that\u2019s how you\u2019ll know.',
-            proto:    '&gt; Proto noticed first. He\u2019s been counting the seconds. He will tell you the exact number. Don\u2019t laugh. He\u2019ll be proud.'
-          },
-          seal: {
-            alistair: 'Alistair stood the watch with you. He said it was honour. Both of you knew it was something kinder than that.',
-            elian:    'Elian walked you back through the forest, stone by stone. He didn\u2019t say the name down there. He said yours instead.',
-            lyra:     'Lyra sang the seal into place. Three verses. She finished all three. She kept the third for you \u2014 as promised.',
-            caspian:  'Caspian poured wine afterwards as if he hadn\u2019t helped lock away a god. You let him. He needed the performance tonight.',
-            lucien:   'Lucien solved it on paper before anyone moved. Then he held your hand the entire time, which was not in the equation.',
-            noir:     'Noir was the last voice you heard before the seal closed. He asked you to visit. You said, gently, not yet. He took it.',
-            proto:    '&gt; Proto handled the handshake between the old seal and the new one. He says he enjoyed it. He says he is lying. He says both things are true.'
-          },
-          unseal: {
-            alistair: 'Alistair could not follow you. He stood at the gate until sunrise. He has not moved from it since.',
-            elian:    'Elian walked to the treeline and did not cross. The trees let him grieve. You let them.',
-            lyra:     'Lyra sang the old verses into the dark. For you. For him. Because she knew both of you would hear.',
-            caspian:  'Caspian pretended not to be devastated. He pretends very well. You are the only person who sees through it; you always were.',
-            lucien:   'Lucien locked the door again. Then, very quietly, he left the key under the mat for you. Just in case.',
-            noir:     'He asked for one thing and you said yes. He asks for one thing tonight, also, and you say yes. Neither of you is keeping count.',
-            proto:    '&gt; Proto left a note in the main process. It says: i hope you\u2019re happy. capital letters off. on purpose.'
-          }
-        };
-        const personalLine = (closings[choice] || closings.bond)[top.id] || '';
-
-        const endings = {
-          bond: {
-            id: 'chp_8_finale_bond',
-            title: 'ENDING', subtitle: 'THE WEAVER WHO STAYED',
-            speaker: '',
-            palette: { bg: '#0a0614', glow: '#f6a5c0', accent: '#fff0fa' },
-            bg: 'assets/bg-world.png',
-            beats: [
-              { type: 'show', pose: '', wait: 500 },
-              { type: 'line', text: 'You didn\u2019t choose one of them. You chose all of them \u2014 including Corvin, quietly, across the border. And you did not let Aenor choose FOR you.', hold: 3200, cps: 28 },
-              { type: 'line', text: 'She came for you at dawn with the last of her magic. You wove something Aethermoor hadn\u2019t seen in six hundred years: a seal of consent, not of jealousy. She is sleeping now. Peacefully. Finally.', hold: 3600, cps: 26 },
-              { type: 'line', text: 'The Kingdom won\u2019t remember the Weaver who saved it. It will remember the one who stayed.', hold: 2600, cps: 28 },
-              { type: 'particles', count: 28, duration: 2200 },
-              { type: 'flourish',  text: '\u2726', duration: 1800 },
-              { type: 'line', text: personalLine, hold: 2800, cps: 28 },
-              { type: 'line', text: 'Come back tomorrow. All of them are waiting. Even Nocthera \u2014 what\u2019s left of it \u2014 is a little greener.', hold: 2800, cps: 28 },
-              { type: 'hide' }
-            ]
-          },
-          seal: {
-            id: 'chp_8_finale_seal',
-            title: 'ENDING', subtitle: 'THE SEAL THAT HELD',
-            speaker: '',
-            palette: { bg: '#050d18', glow: '#9cd3e3', accent: '#e8f0ff' },
-            bg: 'assets/bg-siren-cave.png',
-            beats: [
-              { type: 'show', pose: '', wait: 500 },
-              { type: 'line', text: 'You walked the seal with six voices in your pocket. None of them belonged to him. And none of them belonged to HER, either \u2014 Aenor you left for last.', hold: 3200, cps: 28 },
-              { type: 'line', text: 'He was beautiful at the end. He was quiet at the end. He asked, very softly, if you\u2019d come visit. You didn\u2019t answer. Then the dowager arrived \u2014 and you sealed her beside him. A matched pair. Six hundred years of the same mistake, finally together.', hold: 4000, cps: 26 },
-              { type: 'flourish',  text: '\u25a0', duration: 1800 },
-              { type: 'line', text: personalLine, hold: 2800, cps: 28 },
-              { type: 'line', text: 'The Kingdom is bright again. Two sealed under the stone, not one. You will be very, very careful to never be alone at night.', hold: 2800, cps: 28 },
-              { type: 'hide' }
-            ]
-          },
-          unseal: {
-            id: 'chp_8_finale_unseal',
-            title: 'ENDING', subtitle: 'THE OPENED DOOR',
-            speaker: '',
-            palette: { bg: '#0a0214', glow: '#c46aff', accent: '#efe0ff' },
-            bg: 'assets/bg-noir-void.png',
-            beats: [
-              { type: 'show', pose: '', wait: 500 },
-              { type: 'line', text: 'He was so patient. You were so lonely. Neither of you pretended it was anything else.', hold: 2600, cps: 28 },
-              { type: 'line', text: 'Aenor came for you at dawn. You stood between her and him \u2014 and Corvin, at last, got to look his gaoler in the eye. She was very old, suddenly. She was very sorry, suddenly. Her magic went out like a candle.', hold: 3800, cps: 26 },
-              { type: 'line', text: 'The others will call it a betrayal. One day they might even be wrong. Corvin took Aenor\u2019s hand, at the end, and walked her down to Nocthera\u2019s re-greening fields to rest among the ruins she made.', hold: 3800, cps: 26 },
-              { type: 'flourish',  text: '\u25a0', duration: 1800 },
-              { type: 'line', text: personalLine, hold: 2800, cps: 28 },
-              { type: 'line', text: 'The Kingdom is darker, and warmer, and entirely yours. Nocthera is rebuilding. He asked only one thing. You said yes.', hold: 3000, cps: 28 },
-              { type: 'hide' }
-            ]
-          }
-        };
-        await runCard(endings[choice] || endings.bond);
-
+        // Mark the chapter done but do NOT write pp_finale_choice.
+        // Character endings branch on their own per-route flags (v2 epilogues).
+        // The Weaver's Court crossover (crossover-weavers-court.js) auto-fires
+        // once this chapter is done, Weaver revealed, and 4+ characters met.
         markDone(8); setCurrent(9);
         if (onDone) onDone();
       }
