@@ -1,6 +1,84 @@
-// Elian — The Rogue Druid
+// Elian — The Rogue Druid / Warden of Thornwood
 // Practical survivalist. Tests decisiveness and action.
 // Character data for Pocket Paramour
+//
+// ============================================================================
+// VOICE DIRECTION FOR CHARACTER_ELIAN (and any future writer / VO):
+//
+// Primary reference: Sam Heughan as Jamie Fraser in Outlander. Low,
+//   warm, sparing with words. Devastating with actions. Says little,
+//   means a world. The "stays" character archetype done perfectly.
+// Secondary: Eric Bana as Hector in Troy \u2014 honorable, husband-brother
+//   warmth. Viggo Mortensen off-duty for the tired-wilderness-worn
+//   quality (an older Viggo \u2014 not his sword-drawn Aragorn).
+//
+// Do NOT write Elian as: brooding lumberjack, cold druid, wise-old-
+// mentor stereotype, or grunting mountain-man. He is WARM. He is
+// old. He is tender. He laughs low, when he laughs. His love is
+// physical action, not speeches.
+//
+// Voice moves Elian owns (no one else in the cast does these):
+//   1. The LOOK, not the words. He does not say "I love you." He
+//      says "You are cold" and hands you his cloak.
+//   2. Forest as metaphor for feeling. He talks about trees, weather,
+//      paths \u2014 never about emotions directly.
+//   3. The "you do not have to" move. He gives the player permission
+//      to be silent, to not perform, to just exist.
+//   4. The steady assurance, not declaration. "I will still be here
+//      tomorrow." "The door is not locked. It has never been locked."
+//   5. Warden-wisdom \u2014 he has watched generations love and lose.
+//   6. Physical action as love, always. Fixes things. Pours tea.
+//      Drapes cloak. Never explains.
+//
+// Skinship signature \u2014 THE CLOAK-DRAPE + THE WORDLESS HAND-TAKE.
+//   His hands are calloused from forest work. His touch is rough,
+//   warm, unhurried. He unbuckles his cloak, drops it around the
+//   player's shoulders without looking up, says "Better. Do not
+//   argue." That is the signature dopamine move. Other moves: the
+//   wordless hand-take at the creek, hair-smoothing when wet with
+//   rain, the fireside lean, forehead-to-forehead for a long held
+//   breath. Elian's dopamine is SUSTAINED, not peaked. Being with
+//   Elian is a steady simmer. Keep getting warmer until you realize
+//   you have not been cold in hours.
+//
+// ============================================================================
+// LORE HOOKS \u2014 THREE OVERLAPPING WOUNDS (baked in for every writer):
+//
+// 1. DRUIDIC / FAE HERITAGE. HE IS OLD.
+//    Not immortal. Just much older than he looks. His mother was
+//    something older than human. He has been Warden of Thornwood
+//    longer than the kingdom has had a name. He has watched four
+//    different kingdoms rise on the same ground. The player is the
+//    first person in a generation who makes him want to follow
+//    anyone OUT of the forest.
+//
+// 2. HE WAS VEYRA'S FIRST LOVER.
+//    Centuries ago. Before Caspian's grandfather. Before Corvin
+//    (Noir). Before the politics. She was young. He was young in his
+//    terms. She was the first person he let into the Thornwood. Then
+//    the kingdom pulled her out and the princes fought over her and
+//    the disaster followed. He has tended her forest ever since
+//    because it is where they walked.
+//
+//    His turning point (carve the grave / leave it blank) is not
+//    political. It is his first-love goodbye. Carving means saying
+//    goodbye to Veyra after six centuries. Leaving blank means he is
+//    still keeping her. The player's choice is which.
+//
+//    This also means: he and Noir/Corvin have HISTORY. Both men
+//    loved Veyra. Both are still alive. When they meet (future
+//    scene), it will not be neutral.
+//
+// 3. HE FAILED TO SAVE SOME OF LYRA'S MOTHER'S PEOPLE.
+//    During the purge of the coastal siren-kind (ordered by Queen
+//    Aenor), some fled through the Thornwood seeking sanctuary. He
+//    hid as many as he could. He could not save them all. The
+//    markers he has quietly tended at the south edge are theirs.
+//    When he eventually meets Lyra (future chapter), he will realize
+//    she is the last daughter of the women he could not hide. He
+//    will owe her something. The "bond" and "seal" epilogues plant
+//    this thread without resolving it.
+// ============================================================================
 
 const CHARACTER_ELIAN = {
     name: "Elian",
@@ -251,17 +329,27 @@ const CHARACTER_ELIAN = {
 
     tapDialogue: {
         shy: [
-            "...What.", "Personal space exists.", "I didn't flinch. I adjusted.",
-            "You're bold. Noted.", "...Do that again and I'll know it's intentional."
+            "\u2026What.",
+            "Personal space exists. \u2014 You may cross it. Once.",
+            "I did not flinch. \u2014 I adjusted.",
+            "You are bold. \u2014 Noted. \u2014 \u2026Stay.",
+            "\u2026Do that again and I will know it was intentional. \u2014 Do it again."
         ],
         clingy: [
-            "Careful. Reflexes.", "You're warm. The forest is cold.",
-            "I don't mind. Just... warn me.", "Your hands are soft. Mine aren't.",
-            "...Stay close."
+            "Careful. \u2014 Reflexes.",
+            "*unbuckles his cloak, drops it around your shoulders without looking up* \u2014 Better. \u2014 Do not argue.",
+            "You are warm. \u2014 The forest is cold. \u2014 I am keeping you where you are.",
+            "*takes your hand in his rough one, thumb along your knuckles, unhurried* \u2014 Stay. \u2014 Just stay.",
+            "Your hands are soft. \u2014 Mine are not. \u2014 The difference is my favourite thing.",
+            "*draws you against his side, arm settled around your shoulders, says nothing for a long moment* \u2014 \u2026There.",
+            "\u2026Stay close. \u2014 The fire is warmer on this side. \u2014 That is a true statement and also an excuse."
         ],
         tsundere: [
-            "Don't.", "That was unnecessary.", "I could have blocked that.",
-            "...Fine. Once.", "Touch me again and I'll teach you a hold."
+            "Do not. \u2014 \u2026Do. Once.",
+            "That was unnecessary. \u2014 And yet I did not stop you.",
+            "I could have blocked that. \u2014 I did not.",
+            "\u2026Fine. \u2014 Once. \u2014 \u2026Twice.",
+            "Touch me again and I will teach you a hold. \u2014 The hold involves both of us. Not moving. For a while."
         ]
     },
 
@@ -285,15 +373,16 @@ const CHARACTER_ELIAN = {
             "I've been worse. But not by much."
         ],
         happy: [
-            "This is... good. I don't say that often.",
-            "The forest is calm today. So am I.",
-            "You did something. I can't explain it. But the weight is less.",
-            "I almost smiled. I think you saw it.",
-            "The birds are closer today. They know when it's safe.",
-            "I haven't felt this steady in years.",
-            "You make the silence comfortable instead of heavy.",
-            "This is what the forest feels like when it's at peace.",
-            "I don't need much. This is more than enough."
+            "This is \u2026 good. \u2014 I do not say that often.",
+            "The forest is calm today. \u2014 So am I.",
+            "You did something. \u2014 I cannot explain it. \u2014 But the weight is less.",
+            "I almost smiled. \u2014 I think you saw it. \u2014 You keep looking at me like you did.",
+            "*scoots closer at the fire so you have more of the warm side, says nothing*",
+            "I have not felt this steady in years. \u2014 \u2026Decades. \u2014 Longer.",
+            "You make the silence comfortable instead of heavy. \u2014 That is rare. Rarer than you know.",
+            "*smooths your hair back where the wind caught it, unhurried, unembarrassed*",
+            "You have not been cold in hours. \u2014 I noticed. \u2014 I have been keeping track.",
+            "I do not need much. \u2014 This is more than enough."
         ],
         annoyed: [
             "Stop. Think. Then act. In that order.",
@@ -326,32 +415,61 @@ const CHARACTER_ELIAN = {
             "You can't save everything. I learned that the hard way."
         ],
         neglected: [
-            "The fire went out. I let it.",
-            "You left. The forest noticed. I pretended not to.",
-            "The traps weren't checked. Nothing was.",
-            "I sat here for hours. Just... sat.",
-            "You don't owe me anything. But the silence was louder.",
-            "I survived alone before. I can again. I just don't want to."
+            "The fire went out. \u2014 I let it.",
+            "You left. \u2014 The forest noticed. \u2014 I pretended not to.",
+            "The traps were not checked. \u2014 Nothing was. \u2014 I do not need to perform for the trees. I was not performing.",
+            "I sat here for hours. \u2014 Just \u2026 sat. \u2014 I am very good at waiting. \u2014 I have had centuries of practice.",
+            "You do not owe me anything. \u2014 But the silence was louder. \u2014 \u2026Come back.",
+            "I survived alone before. \u2014 I can again. \u2014 I just do not want to. \u2014 That is the first time I have said that in a long time."
         ]
     },
 
     eventDialogue: {
-        comfort:  ["I'm here. That's what I can offer.", "Lean on me. I won't move.", "The storm passes. It always does."],
-        tension:  ["Something's wrong between us. I feel it.", "You're distant. The forest taught me to notice.", "Say it. Whatever it is. Say it."],
-        rare:     ["I don't open up. You know that. This is me trying.", "I carved your name into a tree. I won't say which one.", "You're the first person I've let stay."],
-        obsessed: ["I check the perimeter every hour. For you.", "I can't sleep unless I know you're safe.", "The forest is mine to protect. So are you."],
-        unstable: ["The roots are pulling back. Something is wrong.", "I'm losing my connection. To the forest. To everything.", "I don't know who I am without this place."],
-        guarded:  ["Trust takes seasons. We're still in spring.", "I'm watching. Not judging. Watching.", "Actions first. Then maybe words."],
-        secure:   ["You've earned your place here. That's not nothing.", "The fire is warm. The shelter holds. We're good.", "This is what home feels like. I forgot."]
+        comfort:  [
+            "I am here. \u2014 That is what I can offer. \u2014 It is a lot, from me.",
+            "*opens his arms without a word, lets you step in, closes them around you, does not speak for a long time*",
+            "The storm passes. \u2014 It always does. \u2014 I will sit with you until it has."
+        ],
+        tension:  [
+            "Something is wrong between us. \u2014 I feel it. \u2014 Tell me when you can.",
+            "You are distant. \u2014 The forest taught me to notice. \u2014 I will wait for you to come back.",
+            "Say it. \u2014 Whatever it is. \u2014 I have heard worse. I have said worse."
+        ],
+        rare:     [
+            "I do not open up. \u2014 You know that. \u2014 This is me trying.",
+            "I carved your name into a tree. \u2014 I will not say which one. \u2014 You will find it. Or you will not. Either is fine.",
+            "You are the first person I have let stay. \u2014 In a very long time. \u2014 Longer than I look.",
+            "There was someone, once. \u2014 The kingdom took her from these trees. \u2014 I have been tending her forest ever since. \u2014 You are the first person I have wanted to follow out of it."
+        ],
+        obsessed: [
+            "I check the perimeter every hour. \u2014 For you.",
+            "I cannot sleep unless I know you are safe. \u2014 *rests his forehead against yours for a long breath* \u2014 There. Now I can sleep.",
+            "The forest is mine to protect. \u2014 So are you. \u2014 I have decided."
+        ],
+        unstable: [
+            "The roots are pulling back. \u2014 Something is wrong.",
+            "I am losing my connection. \u2014 To the forest. \u2014 To everything.",
+            "I do not know who I am without this place. \u2014 I am learning. Slowly."
+        ],
+        guarded:  [
+            "Trust takes seasons. \u2014 We are still in spring.",
+            "I am watching. \u2014 Not judging. \u2014 Watching.",
+            "Actions first. \u2014 Then maybe words."
+        ],
+        secure:   [
+            "You have earned your place here. \u2014 That is not nothing. \u2014 That is everything my line offers.",
+            "The fire is warm. \u2014 The shelter holds. \u2014 We are good.",
+            "This is what home feels like. \u2014 I forgot. \u2014 I am grateful to remember."
+        ]
     },
 
     timeAwayReactions: {
-        brief:   ["Quick trip. Smart."],
-        short:   ["You were gone. The fire stayed lit."],
-        medium:  ["I almost went looking. Almost."],
-        long:    ["The camp felt wrong without you. Emptier."],
-        extended:["I kept your spot clear. Every day."],
-        distant: ["...You came back. I wasn't sure you would."]
+        brief:   ["Quick trip. \u2014 Smart."],
+        short:   ["You were gone. \u2014 The fire stayed lit. \u2014 I kept it."],
+        medium:  ["I almost went looking. \u2014 Almost. \u2014 *had boots on*"],
+        long:    ["The camp felt wrong without you. \u2014 Emptier. \u2014 I noticed things I did not expect to miss."],
+        extended:["I kept your spot clear. \u2014 Every day. \u2014 That is not devotion. That is habit. \u2014 \u2026Both, actually."],
+        distant: ["\u2026You came back. \u2014 I was not sure you would. \u2014 *draws you in against his chest, does not let go for a while*"]
     },
 
     hungryLines: [

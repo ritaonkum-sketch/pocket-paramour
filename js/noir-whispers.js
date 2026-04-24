@@ -26,9 +26,9 @@
       'He would break his vow for you. \u2014 \u2026Mm. \u2014 I already did. \u2014 He and I are less different than he thinks.'
     ],
     elian: [
-      'The forest is easier to fool than you think. \u2014 He trusts it. Do not.',
+      'The Warden. \u2014 Hmm. \u2014 He and I are older than we look. Both of us. \u2014 He was there when I \u2014 when we \u2014 \u2026Never mind. \u2014 Let him tend his trees. He has earned them.',
       'He watches you when you bend to drink. \u2014 He will not say so. I will.',
-      'Ask him what he forgets at night. \u2014 Ask me what I remember for him.'
+      'Ask him what he forgets at night. \u2014 Ask me what I remember for him. \u2014 We loved the same woman once. \u2014 I do not hate him for it. \u2014 Six centuries has taught me things.'
     ],
     lyra: [
       'Lovely voice, is she not. \u2014 \u2026Mm. \u2014 I taught her mother\u2019s people a song, once. \u2014 I do not think she knows that. \u2014 Do not tell her. Yet.',

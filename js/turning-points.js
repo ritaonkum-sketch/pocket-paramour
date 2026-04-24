@@ -170,26 +170,26 @@
       speaker: 'ELIAN',
       pose: 'assets/elian/body/calm.png',
       setup: [
-        'I\u2019ve been carrying a chisel for weeks. I haven\u2019t used it. The stone under the rowan has no carving \u2014 six hundred years of no carving.',
-        'I could put the name there. Or yours. Or both. Or I could leave the stone blank, the way my line has.',
-        'Neither of us gets to undo it. That\u2019s the point of stone.'
+        'I have been carrying a chisel for weeks. \u2014 I have not used it. \u2014 The stone under the rowan has no carving. \u2014 Six hundred years of no carving.',
+        'She was mine first. \u2014 Before the princes. \u2014 I have tended her forest this long because it is where we walked. \u2014 To carve her name is to say goodbye. \u2014 To leave the stone blank is to keep her.',
+        'Neither of us gets to undo it. \u2014 That is the point of stone. \u2014 Decide with me.'
       ],
       prompt: 'Do we carve the name \u2014 or leave the stone silent?',
       choices: [
         {
           id: 'carve',
-          label: 'Carve it. They deserve to be read.',
+          label: 'Carve it. She deserves to be read.',
           response: [
-            'Then help me hold the chisel. Your hand over mine. The trees will not flinch \u2014 I can feel them leaning to watch.',
-            'There. \u201cVEYRA.\u201d And underneath, smaller \u2014 \u201cremembered by the forest, and one other.\u201d The other is you.'
+            '*hands the chisel over. Your hand over his. His hand over yours. Both of you carving.* \u2014 The trees will not flinch. \u2014 I can feel them leaning to watch.',
+            'There. \u201cVEYRA.\u201d \u2014 And underneath, smaller \u2014 \u201cremembered by the forest, and one other.\u201d \u2014 The other is me. \u2014 It was me for six hundred years. \u2014 Now I am someone else\u2019s. \u2014 *forehead to yours, long held, quiet*'
           ]
         },
         {
           id: 'leave',
           label: 'Leave it silent. The trees know enough.',
           response: [
-            'Good. \u2026I wanted to ask and not do it. Both at once. You gave me that.',
-            'The trees will remember the shape of the silence. That\u2019s a different kind of carving. It\u2019s the kind my line prefers.'
+            'Good. \u2026I wanted to ask and not do it. Both at once. \u2014 You gave me that.',
+            'The trees will remember the shape of the silence. \u2014 That is a different kind of carving. \u2014 The kind my line prefers. \u2014 *pulls you close to him at the rowan, quietly* \u2014 Thank you. \u2014 For letting me keep her a little longer.'
           ]
         }
       ]

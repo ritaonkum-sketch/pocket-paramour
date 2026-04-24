@@ -88,8 +88,9 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
-          { type: 'line', text: 'The forest remembers the name now. And yours. And mine. It hasn\u2019t forgotten anything since you came.', hold: 2800, cps: 26 },
-          { type: 'line', text: 'There\u2019s a rowan growing where we said it together. It\u2019s yours too. Walk there when you need to be known.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'The forest remembers the name now. \u2014 And yours. \u2014 And mine. \u2014 It has not forgotten anything since you came.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'There is a rowan growing where we said it together. \u2014 It is yours too. \u2014 Walk there when you need to be known. \u2014 It will know you.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'A singer came to the edge of the trees last month. \u2014 She did not cross. \u2014 I let her see me. \u2014 She had her mother\u2019s eyes. \u2014 I owed her mother\u2019s people something once. \u2014 I did not save them all. \u2014 I mean to do better this time. \u2014 *takes your hand without looking up*', hold: 4000, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -101,8 +102,9 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
-          { type: 'line', text: 'The trees finally rest. The second voice is gone. I planted a rowan where we stood when it happened.', hold: 2800, cps: 26 },
-          { type: 'line', text: 'You were quiet that day. The forest was, too. I prefer quiet people. I especially prefer you.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'The trees finally rest. \u2014 The deep voice is gone. \u2014 I planted a rowan where we stood when it happened.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'You were quiet that day. \u2014 The forest was, too. \u2014 I prefer quiet people. \u2014 I especially prefer you.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'I walked the south edge of the Thornwood last week. \u2014 Where I hid some of the siren-kind during the hunting. \u2014 I buried their markers properly this time. \u2014 You were with me. \u2014 Thank you.', hold: 3400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -114,8 +116,9 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/guarded.png', wait: 700 },
-          { type: 'line', text: 'The forest got darker. I learned its new language. You taught it to me \u2014 every night you walked past the markers.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'I am not angry. I buried someone here once. I understand choosing a person over what is safe. I understand it better than most.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'The forest got darker. \u2014 I learned its new language. \u2014 You taught it to me. \u2014 Every night you walked past the markers.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'I am not angry. \u2014 I buried someone here once. \u2014 I understand choosing a person over what is safe. \u2014 I understand it better than most.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'He came to the edge of my trees last month. \u2014 Noctalis. The old prince. \u2014 We looked at one another. \u2014 We both loved her. \u2014 Six hundred years late, we understood each other. \u2014 That is a kind of peace.', hold: 4000, cps: 26 },
           { type: 'hide' }
         ]
       }

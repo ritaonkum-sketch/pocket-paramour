@@ -109,8 +109,8 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
-          { type: 'line', text: 'The forest left a path open for you today. It doesn\u2019t do that for me anymore.', hold: 2400, cps: 30 },
-          { type: 'line', text: 'Walk it. I\u2019ll keep up.', hold: 2200, cps: 30 },
+          { type: 'line', text: 'The forest left a path open for you today. \u2014 It does not do that for me anymore. \u2014 I have been here a very long time. \u2014 Longer than I look.', hold: 2800, cps: 30 },
+          { type: 'line', text: '*unbuckles his cloak, drapes it around your shoulders without looking up from the path* \u2014 Walk it. \u2014 I will keep up. \u2014 Do not argue.', hold: 2600, cps: 30 },
           { type: 'hide' }
         ]
       },
@@ -121,9 +121,10 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
-          { type: 'line', text: 'There\u2019s a hollow in an oak by the stream. I\u2019ve never shown it to anyone. \u2026Tomorrow, then.', hold: 2800, cps: 28 },
+          { type: 'line', text: 'There is a hollow in an oak by the stream. \u2014 I have never shown it to anyone. \u2014 \u2026Tomorrow, then.', hold: 2800, cps: 28 },
           { type: 'flourish', text: '\u2726', duration: 1400 },
-          { type: 'line', text: 'Don\u2019t be late. The owls will judge you.', hold: 2200, cps: 28 },
+          { type: 'line', text: '*at the creek, holds out his hand without a word, waits* \u2014 Take it. \u2014 The stones are slick. \u2014 *keeps holding your hand after the water is behind you, does not explain*', hold: 3200, cps: 28 },
+          { type: 'line', text: 'Do not be late. \u2014 The owls will judge you. \u2014 So will I. Gently. \u2014 That is my way.', hold: 2400, cps: 28 },
           { type: 'hide' }
         ]
       },
@@ -134,9 +135,10 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
-          { type: 'line', text: 'The forest decides who stays. It decided you weeks ago. I\u2019m a slower creature. I decide tonight.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'The forest decides who stays. \u2014 It decided you weeks ago. \u2014 I am a slower creature. \u2014 I decide tonight.', hold: 2800, cps: 26 },
           { type: 'particles', count: 16, duration: 1800 },
-          { type: 'line', text: 'Stay. With me. Past the markers, if you want.', hold: 2400, cps: 26 },
+          { type: 'line', text: 'I do not age like other men. \u2014 My mother was something older than human. \u2014 I have watched this kingdom be four kingdoms. \u2014 I have not wanted to follow anyone out of these trees. \u2014 Until you.', hold: 3400, cps: 26 },
+          { type: 'line', text: '*takes your face in both rough hands, presses his forehead to yours, breathes. Just breathes. For a long time.* \u2014 Stay. \u2014 With me. \u2014 Past the markers, if you want.', hold: 3400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -147,16 +149,18 @@
         bg: 'assets/bg-elian-forest.png',
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 800 },
-          { type: 'line', text: 'I\u2019m taking you to the place I dig. I haven\u2019t walked anyone there. \u2026I haven\u2019t walked there alone in three years.', hold: 2800, cps: 24 },
-          { type: 'line', text: 'There\u2019s a stone under the rowan tree. No carving on it. I never knew how to carve a name without the trees helping. They stopped helping after.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'I am taking you to the place I dig. \u2014 I have not walked anyone there. \u2014 I have not walked there at all in a very long time.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'There is a stone under the rowan tree. \u2014 No carving on it. \u2014 I never knew how to carve a name without the trees helping. \u2014 The trees stopped helping. \u2014 That was a long time ago.', hold: 3400, cps: 24 },
           { type: 'pose', src: 'assets/elian/body/foraging.png', animate: 'swap' },
-          { type: 'line', text: 'Their name is \u2026 \u2026you say it with me. I can\u2019t do it alone, even now. Even with you here.', hold: 3000, cps: 22 },
+          { type: 'line', text: 'She was the first person I let into the Thornwood. \u2014 I was young. \u2014 In my terms. \u2014 The kingdom pulled her out of here. \u2014 The princes fought over her. \u2014 The disaster followed. You have read about it. You know the names.', hold: 4200, cps: 22 },
+          { type: 'line', text: 'Her name is\u2026 \u2014 \u2026you say it with me. \u2014 I cannot do it alone. Even now. Even with you here.', hold: 3000, cps: 22 },
           { type: 'line', text: 'Veyra.', hold: 2600, cps: 20 },
           { type: 'particles', count: 14, duration: 2000 },
           { type: 'flourish', text: '\u2726', duration: 1800 },
-          { type: 'line', text: 'Thank you. The forest \u2026 the forest just relaxed. I felt it. They\u2019re going to remember the name now. Because of you.', hold: 3000, cps: 24 },
-          { type: 'line', text: 'One day I might bring the others here. The prince. The scholar. \u2026Him. You\u2019d come with me for that \u2014 wouldn\u2019t you?', hold: 3200, cps: 24 },
-          { type: 'line', text: 'I don\u2019t know what to do with all this yet. I do know I\u2019m not letting you walk back alone.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'Thank you. \u2014 The forest \u2026 the forest just relaxed. \u2014 I felt it. \u2014 They are going to remember the name now. \u2014 Because of you.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'She was my first. \u2014 Before the princes. Before the history books. \u2014 I have tended her forest for centuries because it is where we walked. \u2014 I am ready to stop tending it alone. \u2014 You understand what that means.', hold: 3800, cps: 22 },
+          { type: 'line', text: 'One day I might bring the others here. \u2014 The prince. The scholar. \u2026Him. \u2014 You would come with me for that \u2014 would you not?', hold: 3200, cps: 24 },
+          { type: 'line', text: '*takes your face in both hands, rough thumbs against your cheeks, forehead to yours* \u2014 I do not know what to do with all this yet. \u2014 I do know I am not letting you walk back alone.', hold: 3400, cps: 24 },
           { type: 'hide' }
         ]
       }

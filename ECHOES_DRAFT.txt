@@ -19,8 +19,8 @@ Caspian:  "The captain is gone again. — I hate the way the palace
            I said that."
 Lyra:     "One of your knights left tonight. — The tide knew his name.
            — It did not keep him. — I wrote a verse about his boots."
-Elian:    "The Thornwood has one less visitor this week. Good. He always
-           stepped loud."
+Elian:    "The Thornwood has one less visitor this week. — Good. —
+           He always stepped loud."
 Lucien:   "A letter came from the front. — Unopened, for now. — I
            will not read what I cannot undo. — *sets the pen down,
            turns the page facedown, does not open the letter*"
@@ -38,8 +38,9 @@ Caspian:  "He broke protocol for you. — He has never broken
            fact, a little jealous."
 Lyra:     "Someone taught a knight to put down his sword. — That is
            rarer than love. — I am keeping the melody of it."
-Elian:    "He's still here. That's either very good or very bad for the
-           kingdom."
+Elian:    "He is still here. — That is either very good or very bad
+           for the kingdom. — Either way, a knight who stays is a
+           rare animal. — I respect it."
 Lucien:   "I suppose my treatise on Duty and Exception will need a
            footnote now. — Knights are not supposed to disobey. —
            Footnote: unless they love someone. Draft version."
@@ -57,8 +58,9 @@ Alistair: "The caves were loud last night, mi'lady. — I set an
 Caspian:  "The naval reports say the water is behaving oddly. — I
            thought of her first. — I am told princes do not think of
            singers first. I am a bad prince today."
-Elian:    "The birds won't fly over the coast anymore. That used to
-           mean something when my grandmother was alive."
+Elian:    "The birds will not fly over the coast anymore. — That used
+           to mean something when my grandmother was alive. — She
+           was older than I am. — That is saying a great deal."
 Lucien:   "I rewrote a chapter. — A voice that deep should not have
            a language. — It does now. — *the staff hums when I
            write about it. I am ignoring the staff.*"
@@ -77,7 +79,8 @@ Alistair: "The caves went quiet. — Quieter than they should be. —
 Caspian:  "The tide brought three dead fish to the palace steps. —
            A warning, perhaps. — Or a sulk. I have had both from
            lesser creatures."
-Elian:    "Good. The forest is tired of singing with the sea."
+Elian:    "Good. — The forest is tired of singing with the sea. —
+           The sea takes what it sings to. — I have buried enough."
 Lucien:   "She chose not to. — Not to do the brave thing. Not to
            do the stupid thing. — I admire it. — *the staff went
            quiet for the first time in weeks. I wrote that down.*"
@@ -96,8 +99,10 @@ Alistair: "The court knows your name now. — I have doubled the
 Lyra:     "Word reached the coast. — Fishermen are making up songs
            about you already. — The songs are terrible. — I will
            write you a better one. Give me until tide."
-Elian:    "They'll come for you, you know. Once a prince names someone,
-           the rest of the kingdom is a wolf."
+Elian:    "They will come for you, you know. — Once a prince names
+           someone, the rest of the kingdom is a wolf. — The
+           Thornwood is further away than it looks. — Come to me
+           if it gets loud."
 Lucien:   "I have begun a chapter titled 'The Beloved of Princes.'
            — Mostly a list of ways they died. — I have left space
            for a new ending. — I am hopeful. Moderately."
@@ -116,8 +121,9 @@ Alistair: "He did not name you. — That is not cowardice. — That is
            approve. Do not tell him I said so."
 Lyra:     "The palace shut its curtains tonight. — The tide noticed.
            — So did I."
-Elian:    "A secret prince is safer than a proud one. Whoever taught
-           him that, thank them."
+Elian:    "A secret prince is safer than a proud one. — Whoever
+           taught him that, thank them. — I learned the same lesson.
+           — The slow way."
 Lucien:   "He is buying time. — I wonder if he knows from whom. —
            His grandmother. Obviously. — I have been writing about
            her for years. In the margins. Where no one looks."
@@ -138,8 +144,9 @@ Lyra:     "The tower light is on. — It has not been on at that hour
 Caspian:  "Lucien sent me a letter I do not understand. — I think
            it is a confession. — I have drafted three kind replies.
            I have sent none."
-Elian:    "A book is being written. Books cause more trouble than
-           swords, in my experience."
+Elian:    "A book is being written. — Books cause more trouble than
+           swords, in my experience. — I have lived long enough to
+           know the difference."
 Noir:     "He kept the page. — Good. — Even my kind need something
            to be remembered by."
 Proto:    "LUCIEN.UNIT — STATUS: ARCHIVIST. A record not deleted
@@ -158,7 +165,9 @@ Lyra:     "A song I used to sing is gone from me. — I do not know
 Caspian:  "Lucien destroyed a page he once showed me. — I respect
            him more for it. — Princes are poor historians. Burners
            are truer."
-Elian:    "What was written is unwritten. The forest approves."
+Elian:    "What was written is unwritten. — The forest approves. —
+           Some histories should be ash. — I have suspected this
+           for a long time."
 Noir:     "He burned the truth. — Hmm. — People only burn things
            they love."
 Proto:    "LUCIEN.UNIT — STATUS: PURGED. Related entries are now
@@ -217,8 +226,9 @@ Lyra:     "Something dark is walking with you. — I sang it a lullaby.
 Caspian:  "There is a shadow in my gardens that was not there last
            season. — It bows when you pass. — I am deciding how to
            feel about that."
-Elian:    "The forest parts for you differently now. Be careful. It
-           remembers Nocthera."
+Elian:    "The forest parts for you differently now. — Be careful.
+           — It remembers Nocthera. — I remember Nocthera. — We are
+           going to have a talk about that, you and I."
 Lucien:   "A book in my tower rewrote itself last night. — The new
            passage is about you. — I did not write it. — Or — I did
            not write it consciously. — Worth investigating."
@@ -237,8 +247,9 @@ Lyra:     "The cave went silent. — He asked. — You said no. — The
 Caspian:  "I do not know what you refused. — The palace dreams are
            quieter. — Thank you. On behalf of the palace. On behalf
            of me."
-Elian:    "Smart. Some gifts have teeth, even when offered with soft
-           hands."
+Elian:    "Smart. — Some gifts have teeth, even when offered with
+           soft hands. — *takes your hand, turns it over, makes sure
+           there are no marks*"
 Lucien:   "A footnote I dreaded writing will not need to be written.
            — Thank you. — Precisely. Specifically. — Thank you."
 Proto:    "NOIR.UNIT — STATUS: SEPARATE. His offer was withdrawn at
@@ -255,7 +266,9 @@ Lyra:     "A verse I knew yesterday is blank in my mouth. — Did I
            do that to myself? — \u2026You did it. Kindly."
 Caspian:  "I lost an afternoon. Just... gone. — The staff say I
            was in my study. — I do not remember. I do not like it."
-Elian:    "The Thornwood feels thinner. One fewer story in the air."
+Elian:    "The Thornwood feels thinner. — One fewer story in the air.
+           — I have been the keeper of stories here for a long time.
+           — I noticed the absence."
 Lucien:   "A page in my memory has been torn out. — This is what
            people feel when they die, perhaps. — I made a note about
            it. — The note is also fading. — Fascinating, structurally."
@@ -275,8 +288,9 @@ Lyra:     "Your shoulders have a new weight. — The water sees it.
 Caspian:  "You did not tell me. — Something moved in your eyes
            today. — I noticed. — I will not ask. I am here when you
            want to."
-Elian:    "You kept a hurt. Brave. Hurts are maps, in my grandmother's
-           teaching."
+Elian:    "You kept a hurt. — Brave. — Hurts are maps, in my
+           grandmother's teaching. — Come walk it with me sometime.
+           — I am a good guide."
 Lucien:   "You chose to remember. — I will help you carry it. —
            If you let me. — My line of work is, precisely, this."
 Noir:     "You kept the memory. — Good. — The erased make thin
@@ -295,8 +309,9 @@ Lyra:     "The tide pulled back farther than it should. — Something
 Caspian:  "Grandmother's old seal is broken. — I felt it before the
            raven came. — I felt it in my teeth. — The family
            pattern is moving again. — I am moving with it."
-Elian:    "The Thornwood's northern edge smells of old rain again. It
-           has not smelled of old rain since before my birth."
+Elian:    "The Thornwood's northern edge smells of old rain again.
+           — It has not smelled of old rain since before my birth.
+           — Nocthera is awake. — I felt it in the trees first."
 Lucien:   "Chapter Twelve. — The one I was told never to write. —
            I am writing it. — The staff is humming as I do. — That
            is permission. Or warning. — I am continuing regardless."
@@ -318,8 +333,10 @@ Lyra:     "The sea sang a warning to me in the queen's old dialect.
 Caspian:  "She is here. My grandmother. — My — the Dowager. — The
            palace staff will not say her name. — I am going to have
            to. I would like you in the room when I do."
-Elian:    "An old woman crossed the Thornwood last night. The trees
-           moved for her. They have never moved for me."
+Elian:    "An old woman crossed the Thornwood last night. — The
+           trees moved for her. — They have never moved for me. —
+           Queen Aenor. I have outlived her twice. I will outlive
+           her again."
 Lucien:   "She came into my tower. — Asked what I was writing. —
            I lied. — Queen Aenor knew. — She has been watching my
            bloodline for as long as I have been alive. — She knew

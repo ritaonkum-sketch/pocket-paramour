@@ -1,7 +1,25 @@
 /* encounter-elian.js — forest meet-cute. Registers window.MSEncounterElian.
  *
- * SAFETY: same contract as encounter-alistair.js. Called only when main-story
- * advances to stage 2 and the encounter hasn't been seen. Self-contained overlay.
+ * VOICE DIRECTION (for writing + future VO consistency):
+ * Primary reference: Sam Heughan as Jamie Fraser in Outlander. Low,
+ * warm, sparing with words. Devastating with actions. Says "Sassenach"
+ * across a room and means everything.
+ * Secondary: Eric Bana as Hector in Troy \u2014 honorable, husband-brother
+ * warmth. Viggo Mortensen off-duty for the tired-wilderness-worn
+ * quality (an older Viggo \u2014 not his sword-drawn Aragorn).
+ *
+ * Do NOT write Elian as: brooding lumberjack, cold druid, wise-old-
+ * mentor stereotype, or grunting mountain-man. He is WARM. He is
+ * old. He is tender. He laughs low, when he laughs. His love is
+ * physical action, not speeches.
+ *
+ * His signature dopamine move is THE CLOAK-DRAPE \u2014 unbuckles his
+ * cloak, drops it around your shoulders without looking up from the
+ * fire. Says "Better. Do not argue." That is the whole scene.
+ *
+ * SAFETY: same contract as encounter-alistair.js. Called only when
+ * main-story advances to stage 2 and the encounter hasn't been seen.
+ * Self-contained overlay.
  */
 (function () {
   'use strict';
@@ -197,7 +215,7 @@
 
     try {
       // Beat 1 — a voice, no body yet
-      await type(n.line, 'Stay where you are. The forest doesn\u2019t like strangers.', 28);
+      await type(n.line, 'Stay where you are. \u2014 The forest does not like strangers. \u2014 Neither do I. Usually.', 28);
       await wait(1400);
 
       // Beat 2 — invite tap to "part the branches"
@@ -223,7 +241,7 @@
       await wait(400);
 
       // Beat 3 — he lowers his guard a notch
-      await type(n.line, 'Hm. You\u2019re not one of them. And you\u2019re not from around here.', 30);
+      await type(n.line, 'Hm. \u2014 You are not one of them. \u2014 And you are not from around here. \u2014 Come closer. Slowly. \u2014 Let the trees look at you.', 30);
       await wait(1400);
 
       // Beat 4 — prompt for one action
@@ -244,9 +262,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'lost') {
-        await type(n.line, 'Then I\u2019ll walk you back to something you recognize. Eventually.', 30);
+        await type(n.line, 'Then I will walk you back. \u2014 To something you recognise. \u2014 Eventually. \u2014 *unbuckles his cloak, drops it around your shoulders* \u2014 It is cold out. Do not argue.', 30);
       } else {
-        await type(n.line, 'The forest does that sometimes. It picks people. Quietly.', 30);
+        await type(n.line, 'The forest does that sometimes. \u2014 It picks people. \u2014 Quietly. \u2014 *watches you a moment too long* \u2014 Come. Walk with me. \u2014 The trees have not had company like this in a long time.', 30);
       }
       await wait(1800);
 
