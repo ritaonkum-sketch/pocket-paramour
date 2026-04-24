@@ -167,8 +167,8 @@
         bg: 'assets/bg-siren-cave.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I tried a new note today. The cave didn\u2019t flinch. \u2026That\u2019s your doing.', hold: 2400, cps: 30 },
-          { type: 'line', text: 'Stay for the next verse. It\u2019s warmer.', hold: 2200, cps: 30 },
+          { type: 'line', text: 'I tried a new note today. \u2014 The cave did not flinch. \u2014 That is your doing, little listener.', hold: 2400, cps: 30 },
+          { type: 'line', text: 'Stay for the next verse. \u2014 It is warmer. \u2014 This cave has not been warm in a long time. \u2014 You brought that in with you.', hold: 2400, cps: 30 },
           { type: 'hide' }
         ]
       },
@@ -179,9 +179,9 @@
         bg: 'assets/bg-lyra-cliff.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual2.png', wait: 700 },
-          { type: 'line', text: 'I\u2019ve always sung outward. Tonight \u2026 I sang inward. To the room. To you.', hold: 2800, cps: 28 },
+          { type: 'line', text: 'I have always sung outward. \u2014 Tonight\u2026 I sang inward. \u2014 To the room. \u2014 To you.', hold: 2800, cps: 28 },
           { type: 'flourish', text: '\u266a', duration: 1500 },
-          { type: 'line', text: 'It feels different. Like a song with a door instead of a window.', hold: 2400, cps: 28 },
+          { type: 'line', text: 'It feels different. \u2014 Like a song with a door instead of a window. \u2014 I was not allowed to sing through open doors when I was young. \u2014 Only windows. Only outward.', hold: 3200, cps: 28 },
           { type: 'hide' }
         ]
       },
@@ -192,9 +192,10 @@
         bg: 'assets/bg-lyra-ocean.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I made up a verse only you will ever hear. I made it short on purpose. So you\u2019ll come back for the rest of it.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'I made up a verse only you will ever hear. \u2014 I made it short on purpose. \u2014 So you will come back for the rest of it.', hold: 2800, cps: 26 },
           { type: 'particles', count: 18, duration: 1800 },
-          { type: 'line', text: 'Don\u2019t learn it. Just let me sing it to you.', hold: 2400, cps: 26 },
+          { type: 'line', text: 'This staff was my mother\u2019s. \u2014 It remembers her hands. \u2014 It does not remember mine yet. \u2014 It will. \u2014 You are watching it learn.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'Do not learn my song. \u2014 Just let me sing it to you.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -205,13 +206,16 @@
         bg: 'assets/bg-siren-cave.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual2.png', wait: 800 },
-          { type: 'line', text: 'I\u2019m going to finish the song. The whole one. The one I stopped writing the year I stopped expecting anyone to stay.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'I am going to finish the song. \u2014 The whole one. \u2014 The one I stopped writing the year I stopped expecting anyone to stay.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'It was my mother\u2019s song first. \u2014 Her mother\u2019s before her. \u2014 A whole town used to sing it. \u2014 This town. These rocks. \u2014 My people.', hold: 3400, cps: 24 },
           { type: 'pose', src: 'assets/lyra/body/casual1.png', animate: 'swap' },
-          { type: 'line', text: 'There\u2019s a verse in it I\u2019ve never said out loud. About what I wanted, before I gave up on wanting things. \u2026Tonight you hear it.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'They were hunted for their voices. Every one of them. \u2014 My mother last. \u2014 I hid in a tower. Not this one. Another. \u2014 My father\u2019s house. His wife did not like the sound of me.', hold: 3600, cps: 24 },
+          { type: 'line', text: 'I escaped the year I turned fifteen. \u2014 I came back here. \u2014 I have been the only one singing it since. \u2014 I teach the cave the words so when I am gone, something remembers.', hold: 3400, cps: 24 },
           { type: 'particles', count: 22, duration: 2200 },
           { type: 'flourish', text: '\u266a', duration: 1800 },
-          { type: 'line', text: '\u2026Don\u2019t hum it back to me later. I won\u2019t survive that. I\u2019ll just \u2026 carry it for you. Always.', hold: 2800, cps: 24 },
-          { type: 'line', text: 'And don\u2019t ever say what was in the third verse. I\u2019d rather drown than have it spoken aloud by anyone but me.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'There is a verse I have never sung aloud. \u2014 About what I wanted before I gave up on wanting things. \u2014 Tonight you hear it.', hold: 3200, cps: 24 },
+          { type: 'line', text: '\u2026Do not hum it back to me later. \u2014 I will not survive that. \u2014 I will just\u2026 carry it for you. \u2014 Always.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'And do not ever say what was in the third verse. \u2014 I would rather drown than have it spoken aloud by anyone but me.', hold: 2800, cps: 24 },
           { type: 'hide' }
         ]
       }

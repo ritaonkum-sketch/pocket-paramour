@@ -31,9 +31,9 @@
       'Ask him what he forgets at night. \u2014 Ask me what I remember for him.'
     ],
     lyra: [
-      'Lovely voice, is she not. \u2014 I gave her one of my notes last week. \u2014 She has not sung it yet.',
-      'Her cave was mine first. \u2014 I left her the acoustics. She owes me the echo.',
-      'Tell her I miss the second verse. \u2014 She will know which one.'
+      'Lovely voice, is she not. \u2014 \u2026Mm. \u2014 I taught her mother\u2019s people a song, once. \u2014 I do not think she knows that. \u2014 Do not tell her. Yet.',
+      'Her cave was mine first. \u2014 I left her the acoustics. \u2014 She owes me the echo. \u2014 I will not collect. \u2014 Not from her.',
+      'She is the last of a whole singing people. \u2014 I knew them when they were many. \u2014 Tell her I remember. \u2014 Quietly. In a good way.'
     ],
     caspian: [
       'The prince performs so prettily. \u2014 Hmm. \u2014 I performed too, once. It is our family trick. Look it up.',

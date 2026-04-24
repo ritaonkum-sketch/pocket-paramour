@@ -129,9 +129,10 @@
         bg: 'assets/bg-lyra-ocean.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'The caves sing back again. In my voice. In yours, sometimes. I finished the song. The third verse is ours.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'The caves sing back again. \u2014 In my voice. In yours, sometimes. \u2014 I finished the song. \u2014 The third verse is ours.', hold: 2800, cps: 26 },
           { type: 'flourish', text: '\u266a', duration: 1600 },
-          { type: 'line', text: 'Come down at tide. I\u2019ll sing the bridge. Only the bridge. You already know the rest.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'There is a man in a tower I have never visited. \u2014 Bloodline like mine. \u2014 The staff hummed when his name was said yesterday. \u2014 One day I will walk to him. \u2014 I think you already know what I will find.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'Come down at tide. \u2014 I will sing the bridge. \u2014 Only the bridge. \u2014 You already know the rest.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -143,8 +144,9 @@
         bg: 'assets/bg-siren-cave.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual2.png', wait: 700 },
-          { type: 'line', text: 'I sing full verses now. The second voice is gone. \u2026I miss it, a little. I don\u2019t tell anyone. Except you.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'There\u2019s a chord in the third verse that keeps trying to answer him. I have stopped singing it alone. Sit with me when I try.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'I sing full verses now. \u2014 The deep voice is gone. \u2014 I miss it, a little. \u2014 I do not tell anyone. Except you.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'I went back to the ruined town. \u2014 I stood in the square where my mother\u2019s people sang. \u2014 The stones remembered her. \u2014 I taught them her name.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'There is a chord in the third verse that keeps trying to answer him. \u2014 I have stopped singing it alone. \u2014 Sit with me when I try.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -156,8 +158,9 @@
         bg: 'assets/bg-lyra-night.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'He took me with him, at the end. You let him. I keep the cave lit for you anyway.', hold: 2800, cps: 26 },
-          { type: 'line', text: 'Sometimes you come back. Sometimes I sing both parts. I don\u2019t mind. I learned long ago how to hold a verse on my own.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'He came to me before he went to you. \u2014 He knelt in my cave. \u2014 He said he had taught a young siren a song, six hundred years ago. \u2014 I hummed it back. \u2014 I had not known where the melody came from.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'He did not stay. \u2014 You had him first. \u2014 I did not mind. \u2014 I have the song now. \u2014 With an author. \u2014 That is rarer than a man who stays.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'Come down when the tide is high. \u2014 Sometimes I sing both parts. \u2014 I have had practice.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       }

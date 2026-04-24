@@ -1,4 +1,25 @@
-/* encounter-lyra.js — the caves meet-cute. Registers window.MSEncounterLyra. */
+/* encounter-lyra.js — the caves meet-cute. Registers window.MSEncounterLyra.
+ *
+ * VOICE DIRECTION (for writing + future VO):
+ * Primary reference: Florence Welch. Half-spoken, half-sung cadence.
+ * Grief and beauty in the same breath. Every third sentence could be
+ * the first line of a song.
+ * Secondary: Anya Taylor-Joy in The Witch \u2014 eerie sovereign
+ * otherworldliness. Not human in the ordinary way, and she knows it.
+ * For the caged-child wound: Saoirse Ronan in Mary Queen of Scots.
+ * For the last-of-her-kind weight: Galadriel (Cate Blanchett, LotR).
+ *
+ * Do NOT write as: manic-pixie, Disney-mermaid sweet, or broken-doll
+ * waif. Lyra is a QUEEN IN RUINS. Sovereign of her sorrow. She does
+ * not need rescuing \u2014 she needs COMPANY. Those are different things.
+ *
+ * This meet-cute plants mystery without spilling the full lore. The
+ * deep backstory (half-siren, half-sister to Lucien, caged by father's
+ * family, escaped, hiding in her mother's ancestral coastal town whose
+ * people were hunted by Aenor's kingdom, last of her kind, carries her
+ * mother's staff) unfolds across affection scenes and chapters. Here
+ * she is simply: "the voice in the cave that no one has listened to
+ * in a very long time." */
 (function () {
   'use strict';
 
@@ -190,7 +211,7 @@
 
     try {
       // Beat 1 — faint voice, no body yet
-      await type(n.line, 'Someone is listening \u2026 a rare thing, in these caves.', 26);
+      await type(n.line, 'Someone is listening\u2026 \u2014 a rare thing. \u2014 These caves have not been listened to in a very long time.', 26);
       await wait(1600);
 
       // Beat 2 — invite tap to follow
@@ -217,7 +238,7 @@
       await wait(400);
 
       // Beat 3 — she speaks, startled but curious
-      await type(n.line, 'Most people turn back at the echo. You didn\u2019t.', 30);
+      await type(n.line, 'Most people turn back at the echo. \u2014 You did not. \u2014 \u2026Good.', 30);
       await wait(1400);
 
       // Beat 4 — prompt for one action
@@ -228,7 +249,7 @@
       n.hint.textContent = '';
 
       // Beat 5 — choice
-      await type(n.line, 'So. Why come this far, little listener?', 34);
+      await type(n.line, 'So. \u2014 Why come this far, little listener?', 34);
       await wait(300);
       const pick = await showChoice(n.choiceRow, n.dialogue, [
         { id: 'voice', text: 'Your voice. I couldn\u2019t stop following it.' },
@@ -238,9 +259,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'voice') {
-        await type(n.line, 'Then stay a while. I don\u2019t sing for everyone.', 30);
+        await type(n.line, 'Then stay a while. \u2014 I do not sing for everyone. \u2014 The few I have sung for\u2026 left. \u2014 Perhaps you will be different.', 30);
       } else {
-        await type(n.line, 'Quiet. That\u2019s what I thought too, the first time. It changes.', 30);
+        await type(n.line, 'Quiet. \u2014 That is what I thought too, the first time. \u2014 It changes. \u2014 Welcome to my country.', 30);
       }
       await wait(2000);
 

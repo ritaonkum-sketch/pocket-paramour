@@ -1,5 +1,76 @@
 // Lyra - The Half-Human Half-Siren
 // Character data for Pocket Paramour
+//
+// ============================================================================
+// VOICE DIRECTION FOR CHARACTER_LYRA (and any future writer / VO):
+//
+// Primary reference: Florence Welch (Florence + the Machine). Half-spoken,
+//   half-sung cadence. Grief and beauty in the same breath. Every third
+//   sentence could be the first line of a song.
+// Secondary: Anya Taylor-Joy in The Witch \u2014 eerie sovereign otherworldly
+//   tone. Not human in the ordinary way, and she knows it.
+// For the caged-child wound: Saoirse Ronan in Mary Queen of Scots.
+// For the last-of-her-kind weight: Cate Blanchett as Galadriel.
+//
+// Do NOT write Lyra as: manic-pixie, Disney-mermaid sweet, or broken-doll
+// waif. She is a QUEEN IN RUINS. Sovereign of her sorrow. Haunted but
+// not helpless. She does not need rescuing \u2014 she needs COMPANY. Those
+// are different things, and the distinction is her whole character.
+//
+// Voice moves Lyra owns (no one else in the cast does these):
+//   1. Musical observation \u2014 she notices people through their rhythm,
+//      their key, their silence ("your voice is higher when you lie").
+//   2. Half-sung speech \u2014 sentences trail like lyrics, soft endings.
+//   3. She FEELS your mood before you do ("the cave echoed wrong when
+//      you came in").
+//   4. The siren-warning \u2014 "do not follow me too far" \u2014 without menace.
+//   5. The "I made you a song" move \u2014 she writes FOR the player.
+//   6. Melancholy wisdom ("all beautiful things are a little cracked.
+//      That is why they sing").
+//   7. The vulnerable offering: Lyra is the ONE character who says "I
+//      love you" first, openly, knowing it may not come back. Alistair
+//      cannot say it. Caspian buries it. Noir refuses to. Lyra WILL.
+//
+// ============================================================================
+// LORE HOOK \u2014 her full backstory (baked in so every future writer sees it):
+//
+// Lyra is half-human, half-siren. Her father is of Lucien's bloodline
+// (the same magical line that gives Lucien his power). Lyra is LUCIEN'S
+// HALF-SISTER. Neither of them knows this yet. When they finally meet
+// (future chapter), their bloodline-staffs will resonate and the truth
+// will reveal itself.
+//
+// Her mother was a siren of the coastal town just past the cave. That
+// town was the home of her kind \u2014 a whole siren-people \u2014 who were
+// HUNTED by Aethermoor's kingdom during Aenor's reign. Caspian's
+// grandmother Aenor ordered their extermination. Lyra's mother was the
+// last of them to fall. Lyra is now the last of her kind.
+//
+// After her mother died, Lyra was taken into her father's house and
+// CAGED in a tower there. Her father's wife (not her mother) hated the
+// sound of her voice. She was kept hidden, the family's shame, and
+// learned to sing into a pillow so no one would hear her.
+//
+// She escaped at fifteen. Came back to the ruined coastal town where
+// her mother's people once lived. She has been the sole keeper of the
+// town and their dead language ever since. She teaches the cave the
+// words so something remembers when she is gone.
+//
+// She carries her MOTHER'S STAFF \u2014 bloodline-paired with Lucien's
+// (since they share a father). The staff is a relic first, a weapon
+// second.
+//
+// The cave where she sings was ALSO Prince Corvin Noctalis's (Noir's)
+// once, before his seal. He left her the acoustics. The deep voice
+// that calls her in her turning point IS Noir reaching her through
+// water. Neither of them recognizes the other yet. The melody he
+// taught young sirens 600 years ago is one she still hums.
+//
+// Her wound (the emotional engine): she sings for people who leave.
+// Everyone leaves the caves eventually. The player is the first person
+// who doesn't. She doesn't know how to compose a song for someone who
+// stays. That's her arc.
+// ============================================================================
 
 const CHARACTER_LYRA = {
     name: "Lyra",
@@ -189,87 +260,86 @@ const CHARACTER_LYRA = {
 
     // Smart dialogue pools
     hungryLines: [
-        "The sea gives life... but I need nourishment too...",
-        "I'm feeling faint...",
-        "Even sirens need to eat...",
-        "My voice weakens when I'm hungry..."
+        "The sea gives much. \u2014 It does not give bread.",
+        "My voice thins when I am hungry. \u2014 I would rather not thin today.",
+        "Even sirens eat. \u2014 Disappointing, I know.",
+        "I am teaching the cave your name. \u2014 I would teach it better with food."
     ],
 
     happyLines: [
-        "My heart sings when you're here!",
-        "The waves dance for us today...",
-        "I could sing forever with you near...",
-        "You make the silence beautiful..."
+        "You make the silence beautiful.",
+        "I wrote a verse this morning that did not hurt. \u2014 That is new.",
+        "The tide came in and did not take anything from me. \u2014 I think that is your doing.",
+        "The cave is warm. \u2014 It has not been warm in a long time.",
+        "I sang inward today. \u2014 To you. \u2014 It held."
     ],
 
     dirtyLines: [
-        "The salt is drying on my skin...",
-        "I miss the cool water...",
-        "I feel so dry and uncomfortable...",
-        "Can you help me feel fresh again?"
+        "The salt is drying on my skin. \u2014 I am half one thing and half another. The salt knows which half.",
+        "I miss the cool water. \u2014 Walk me to the tide.",
+        "There is a siren language for 'unwashed.' \u2014 My mother used it often.",
+        "Help me. \u2014 I do not want to feel less than I am tonight."
     ],
 
     annoyedLines: [
-        "The water is too rough today...",
-        "Please... not right now...",
-        "Even the ocean has its storms...",
-        "You're being careless..."
+        "The water is rough today. \u2014 So am I. \u2014 Give me a moment.",
+        "Please. \u2014 Not right now.",
+        "Even the ocean has storms. \u2014 I will pass. \u2014 Wait for me on the dry side.",
+        "You are being careless. \u2014 I have been broken once already. \u2014 Mind the pieces."
     ],
 
     neutralLines: [
-        "The tides are calm today...",
-        "Can you hear the waves?",
-        "I was humming a melody...",
-        "The moon will be beautiful tonight...",
-        "*hums softly*",
-        "Do you like the sound of the sea?"
+        "The tides are calm today.",
+        "Can you hear the waves? \u2014 They say your name differently than mine.",
+        "I was humming a melody. \u2014 I cannot remember where it came from. \u2014 Someone taught it to me once, I think.",
+        "The moon will be beautiful tonight. \u2014 The moon is the only audience I had for a long time.",
+        "*hums softly, the notes older than she is*",
+        "Do you like the sound of the sea? \u2014 It is the sound of what I used to be part of."
     ],
 
     // Personality-specific dialogue
     personalityDialogue: {
         shy: [
-            "I... I wrote a song about you...",
-            "W-when you look at me like that...",
-            "My heart beats so loud, can you hear it?",
-            "I feel safe... with you...",
-            "Please don't look away...",
-            "Your presence calms the storm in me..."
+            "I wrote a song about you. \u2014 I am not going to sing it. \u2014 Not yet.",
+            "When you look at me like that\u2026 \u2014 I forget the next verse.",
+            "My heart beats so loud I can hear it. \u2014 Can you?",
+            "I feel safe with you. \u2014 That is not a word I use lightly. \u2014 You should know.",
+            "Please do not look away. \u2014 I am practicing being seen.",
+            "Your presence calms the storm in me. \u2014 Do you know how many storms?"
         ],
         clingy: [
-            "Don't go to the surface without me!",
-            "Promise you'll come back...",
-            "I'll sing so you never forget me!",
-            "Stay in my waters forever...",
-            "I can't breathe without you...",
-            "The sea is cold when you're away..."
+            "Do not leave without telling me. \u2014 I have had enough of people leaving without telling me.",
+            "Promise you will come back. \u2014 Promise it on my mother\u2019s staff. \u2014 I know I cannot make you. \u2014 Promise anyway.",
+            "I will sing until you come back. \u2014 So the cave knows your way home.",
+            "Stay in my waters. \u2014 I will learn how to be enough for a person who stays.",
+            "The sea is cold when you are away. \u2014 I am colder."
         ],
         tsundere: [
-            "I wasn't waiting for you!",
-            "The song just happened to play when you arrived...",
-            "Don't think this means anything!",
-            "I sing for myself, not for you!",
-            "...Fine. One more song. But that's it!",
-            "My voice cracked because of the cold, not because of you!"
+            "I was not waiting for you. \u2014 \u2026I was. A little.",
+            "The song just happened to play when you arrived. \u2014 The cave is a bad liar. So am I.",
+            "Do not think this means anything. \u2014 \u2026It means something.",
+            "I sing for myself, not for you. \u2014 Mostly. \u2014 Fine. Not mostly.",
+            "One more song. \u2014 That is it. \u2014 \u2026Maybe two.",
+            "My voice cracked because of the cold, not because of you. \u2014 We will not speak of this again."
         ]
     },
 
     // Tap reactions
     tapDialogue: {
         shy: [
-            "Ah...!",
-            "T-that tickles...",
-            "You surprised me...",
-            "My scales are sensitive...",
-            "I-I don't mind...",
-            "Your touch is warm..."
+            "Oh\u2026",
+            "That tickles. \u2014 In a way that does not usually reach me.",
+            "You surprised me. \u2014 Good.",
+            "My scales are sensitive. \u2014 Most people do not know that. \u2014 Now you do.",
+            "I\u2026 I do not mind. \u2014 Do it again.",
+            "Your hand is warm. \u2014 Nothing in this cave is warm on its own."
         ],
         clingy: [
-            "More! Touch me more!",
-            "Your hands are so warm!",
-            "Don't stop!",
-            "I love when you do that!",
-            "Again, again!",
-            "I never want you to let go..."
+            "More. \u2014 Please.",
+            "Your hands are so warm. \u2014 I am not. \u2014 Teach me.",
+            "Do not stop. \u2014 The song I am writing has a chord in it that only plays when you do that.",
+            "Again. \u2014 Again. \u2014 I am keeping count for later.",
+            "I never want you to let go. \u2014 I know I cannot ask that. \u2014 I am asking anyway."
         ],
         tsundere: [
             "H-hey! My scales!",

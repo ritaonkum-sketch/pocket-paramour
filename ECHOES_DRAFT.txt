@@ -17,8 +17,8 @@ TRIGGER: ALISTAIR WENT TO THE FRONT LINE (pp_tp_alistair_choice = 'go')
 Caspian:  "The captain is gone again. — I hate the way the palace
            sounds without his boots in the hall. — Do not tell him
            I said that."
-Lyra:     "One of your knights left tonight. The tide knew his name. It
-           didn't keep him."
+Lyra:     "One of your knights left tonight. — The tide knew his name.
+           — It did not keep him. — I wrote a verse about his boots."
 Elian:    "The Thornwood has one less visitor this week. Good. He always
            stepped loud."
 Lucien:   "A letter came from the front. Unopened, for now. I will not
@@ -35,8 +35,8 @@ TRIGGER: ALISTAIR STAYED WITH YOU (pp_tp_alistair_choice = 'stay')
 Caspian:  "He broke protocol for you. — He has never broken
            protocol in his life. — I should be annoyed. I am, in
            fact, a little jealous."
-Lyra:     "Someone taught a knight to put down his sword. That's rarer
-           than love."
+Lyra:     "Someone taught a knight to put down his sword. — That is
+           rarer than love. — I am keeping the melody of it."
 Elian:    "He's still here. That's either very good or very bad for the
            kingdom."
 Lucien:   "I suppose my treatise on Duty and Exception will need a
@@ -89,8 +89,9 @@ TRIGGER: CASPIAN NAMED YOU PUBLICLY (pp_tp_caspian_choice = 'yes')
 ==============================================================
 Alistair: "The court knows your name now. — I have doubled the
            guard on your window. — Do not argue, mi'lady."
-Lyra:     "Word reached the coast. Fishermen are making up songs about
-           you already. The songs are terrible."
+Lyra:     "Word reached the coast. — Fishermen are making up songs
+           about you already. — The songs are terrible. — I will
+           write you a better one. Give me until tide."
 Elian:    "They'll come for you, you know. Once a prince names someone,
            the rest of the kingdom is a wolf."
 Lucien:   "I've begun a chapter titled 'The Beloved of Princes.' Mostly
@@ -108,7 +109,8 @@ TRIGGER: CASPIAN KEPT IT PRIVATE (pp_tp_caspian_choice = 'no')
 Alistair: "He did not name you. — That is not cowardice. — That is
            him protecting you the only way a prince can. — I
            approve. Do not tell him I said so."
-Lyra:     "The palace shut its curtains tonight. The tide noticed."
+Lyra:     "The palace shut its curtains tonight. — The tide noticed.
+           — So did I."
 Elian:    "A secret prince is safer than a proud one. Whoever taught
            him that, thank them."
 Lucien:   "He's buying time. I wonder if he knows from whom."
@@ -123,8 +125,9 @@ TRIGGER: LUCIEN KEPT THE SCORCHED PAGE (pp_tp_lucien_choice = 'stop')
 ==============================================================
 Alistair: "The scholar is writing again. — I do not know what. —
            I do not think he does either."
-Lyra:     "The tower light is on. It hasn't been on at that hour in
-           eight years."
+Lyra:     "The tower light is on. — It has not been on at that hour
+           in eight years. — The staff hums when I walk past the
+           window. — I have stopped asking why."
 Caspian:  "Lucien sent me a letter I do not understand. — I think
            it is a confession. — I have drafted three kind replies.
            I have sent none."
@@ -142,8 +145,9 @@ TRIGGER: LUCIEN BURNED THE PAGE (pp_tp_lucien_choice = 'let')
 ==============================================================
 Alistair: "The tower had a fire. — Small. Contained. — He looked
            relieved, is the strange part."
-Lyra:     "A song I used to sing is gone from me. I don't know why.
-           Ask the scholar."
+Lyra:     "A song I used to sing is gone from me. — I do not know
+           why. — Ask the scholar. — He burns things. It is a
+           bloodline thing, I think. I say 'I think.' I know."
 Caspian:  "Lucien destroyed a page he once showed me. — I respect
            him more for it. — Princes are poor historians. Burners
            are truer."
@@ -160,8 +164,9 @@ TRIGGER: YOU CARVED VEYRA'S GRAVE WITH ELIAN (pp_tp_elian_choice = 'carve')
 Alistair: "A grave was carved in the Thornwood. — The name is old.
            — Older than the kingdom. — Someone put a watch on her.
            — Finally."
-Lyra:     "The tide has been gentler this week. Someone finally told
-           her she could rest."
+Lyra:     "The tide has been gentler this week. — Someone finally
+           told her she could rest. — Thank you. — For her. For me.
+           For my mother, who could not."
 Caspian:  "My grandfather would have thanked you. — I do not know
            how to. — I am writing this instead. — Please take it
            as the letter he never managed."
@@ -179,8 +184,9 @@ TRIGGER: YOU LEFT VEYRA'S GRAVE BLANK (pp_tp_elian_choice = 'leave')
 ==============================================================
 Alistair: "The Thornwood grave stayed blank. — The warden said it
            was not his to name. — A knight respects that."
-Lyra:     "Something in the water is still asking who she was. I
-           don't have an answer."
+Lyra:     "Something in the water is still asking who she was. — I
+           do not have an answer. — I am teaching the cave to say
+           'unmarked' in my mother's dialect. It is trying."
 Caspian:  "He left the grave unnamed. — I understand. — Names
            finish things. Some things do not deserve finishing."
 Lucien:   "An absence is also an entry. I have noted it."
@@ -197,8 +203,8 @@ TRIGGER: YOU TOOK A PIECE OF NOIR (pp_tp_noir_choice = 'yes')
 Alistair: "You smell like night air that should not be here, mi'lady.
            — I do not like it. — I will not ask. — I will stand
            closer."
-Lyra:     "Something dark is walking with you. I sang it a lullaby.
-           It did not sleep."
+Lyra:     "Something dark is walking with you. — I sang it a lullaby.
+           — It did not sleep. — It hummed along. — That is worse."
 Caspian:  "There is a shadow in my gardens that was not there last
            season. — It bows when you pass. — I am deciding how to
            feel about that."
@@ -216,8 +222,8 @@ TRIGGER: YOU REFUSED NOIR'S OFFER (pp_tp_noir_choice = 'no')
 ==============================================================
 Alistair: "Whatever was near you has moved off. — I slept for the
            first time in a week. — Thank you, mi'lady."
-Lyra:     "The cave went silent. He asked. You said no. The sea
-           respects it."
+Lyra:     "The cave went silent. — He asked. — You said no. — The
+           sea respects it. — I did not know how to."
 Caspian:  "I do not know what you refused. — The palace dreams are
            quieter. — Thank you. On behalf of the palace. On behalf
            of me."
@@ -234,8 +240,8 @@ TRIGGER: YOU ERASED A MEMORY WITH PROTO (pp_tp_proto_choice = 'erase')
 ==============================================================
 Alistair: "Something went missing today. — I cannot tell what. —
            I keep reaching for it."
-Lyra:     "A verse I knew yesterday is blank in my mouth. Did I do
-           that to myself?"
+Lyra:     "A verse I knew yesterday is blank in my mouth. — Did I
+           do that to myself? — \u2026You did it. Kindly."
 Caspian:  "I lost an afternoon. Just... gone. — The staff say I
            was in my study. — I do not remember. I do not like it."
 Elian:    "The Thornwood feels thinner. One fewer story in the air."
@@ -251,8 +257,9 @@ TRIGGER: YOU KEPT THE MEMORY (pp_tp_proto_choice = 'keep')
 Alistair: "You look tired, mi'lady. — Carrying something, I think.
            — I will not ask. — I will carry whatever you set down.
            Wordlessly."
-Lyra:     "Your shoulders have a new weight. The water sees it. Rest
-           when you can."
+Lyra:     "Your shoulders have a new weight. — The water sees it.
+           — I see it. — Rest when you can. — I will sing for both
+           of us until you can."
 Caspian:  "You did not tell me. — Something moved in your eyes
            today. — I noticed. — I will not ask. I am here when you
            want to."
@@ -270,8 +277,9 @@ WORLD EVENT: NOIR UNSEALED (Chapter 6 complete)
 Alistair: "The south gate guard heard laughter last night. — In a
            language not spoken here for eight hundred years. — I am
            sleeping by your door."
-Lyra:     "The tide pulled back farther than it should. Something is
-           breathing on the other side of it."
+Lyra:     "The tide pulled back farther than it should. — Something
+           is breathing on the other side of it. — I recognize the
+           rhythm. — I do not know why I recognize it."
 Caspian:  "Grandmother's old seal is broken. — I felt it before the
            raven came. — I felt it in my teeth. — The family
            pattern is moving again. — I am moving with it."
@@ -291,7 +299,9 @@ Alistair: "There is a carriage in the palace forecourt I have never
            seen before. — The horses have no breath. — Stay in my
            line of sight, mi'lady. That is not a request tonight."
 Lyra:     "The sea sang a warning to me in the queen's old dialect.
-           I think she is listening through it."
+           — I think she is listening through it. — The queen who
+           hunted my kind. — I am not afraid of her. — Remember
+           that I said that."
 Caspian:  "She is here. My grandmother. — My — the Dowager. — The
            palace staff will not say her name. — I am going to have
            to. I would like you in the room when I do."

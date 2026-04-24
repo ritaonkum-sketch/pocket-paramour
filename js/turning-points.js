@@ -80,9 +80,9 @@
       speaker: 'LYRA',
       pose: 'assets/lyra/body/casual1.png',
       setup: [
-        'He\u2019s louder tonight. The second voice. He\u2019s \u2026 asking things now. Not of the cave. Of me.',
-        'He wants me to answer just one note. Just one. He says it won\u2019t bind me. I know better. But I\u2019m tempted.',
-        'I told myself I wouldn\u2019t decide alone. So \u2014 help me decide.'
+        'He is louder tonight. \u2014 The deep voice. He is\u2026 asking things now. \u2014 Not of the cave. \u2014 Of me.',
+        'He wants one note. \u2014 Just one. He says it will not bind me. \u2014 I know better. My mother answered a deep voice once. \u2014 They hunted her for it.',
+        'I told myself I would not decide alone. \u2014 So. \u2014 Help me decide, little listener.'
       ],
       prompt: 'Do I answer him tonight? Or do I stay silent with you?',
       choices: [
@@ -90,16 +90,16 @@
           id: 'answer',
           label: 'Answer him. One note. I\u2019ll be here.',
           response: [
-            'Alright. One note. Just the one. \u2026I\u2019m already a little bit his for asking. You know that.',
-            'Hold my hand while I do it. I want to remember, after, that I wasn\u2019t alone down there.'
+            'Alright. \u2014 One note. Just the one. \u2014 \u2026I am already a little bit his for asking. You know that.',
+            'Hold my hand while I do it. \u2014 I want to remember, after \u2014 that I was not alone down there. \u2014 That I sang from company this time. Not from a cage.'
           ]
         },
         {
           id: 'refuse',
           label: 'Don\u2019t answer. He doesn\u2019t own your voice.',
           response: [
-            'Good. \u2026I needed someone to say it with me out loud. I couldn\u2019t do it in my own voice alone.',
-            'He\u2019ll sulk for weeks. The cave will feel lighter. \u2026I\u2019ll sing to you instead. Quietly. Tonight.'
+            'Good. \u2014 I needed someone to say it with me out loud. \u2014 I could not do it in my own voice alone.',
+            'He will sulk for weeks. \u2014 The cave will feel lighter. \u2014 I will sing to you instead. \u2014 Quietly. Tonight.'
           ]
         }
       ]
