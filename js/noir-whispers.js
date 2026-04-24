@@ -36,9 +36,9 @@
       'Tell her I miss the second verse. \u2014 She will know which one.'
     ],
     caspian: [
-      'The prince performs so prettily. \u2014 Hmm. \u2014 I perform only when I mean it.',
-      'Ask him what he whispers when the balcony doors are closed. \u2014 Compare it to what I whisper.',
-      'He collects hearts. \u2014 I keep only one. \u2014 Guess whose.'
+      'The prince performs so prettily. \u2014 Hmm. \u2014 I performed too, once. It is our family trick. Look it up.',
+      'Ask him what he whispers when the balcony doors are closed. \u2014 Compare it to what I whisper. \u2014 He inherited our whispers. He just dresses them better.',
+      'He collects hearts. \u2014 I keep only one. \u2014 Guess whose. \u2014 He and I have more in common than either of us would like.'
     ],
     lucien: [
       'He writes in my margins and thinks it is inspiration. \u2014 Let him have that.',

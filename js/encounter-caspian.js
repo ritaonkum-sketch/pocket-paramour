@@ -1,5 +1,23 @@
 /* encounter-caspian.js — the balcony meet-cute. Flirty / charming tone.
- * Registers window.MSEncounterCaspian. */
+ * Registers window.MSEncounterCaspian.
+ *
+ * VOICE DIRECTION (for writing + future VO consistency):
+ * Reference: Richard Madden as Kit in Cinderella (2015). Warmth. Light
+ * footing. Playful charm as the public mask. Always kind \u2014 never cold,
+ * never arrogant. In THIS meet-cute he is still in full public-charm
+ * mode: he flirts with the player the way he flirts with the court. The
+ * "catch-himself" move (where he starts a charming sentence, stops, and
+ * says something real instead) arrives later in the route, once he has
+ * realised the player is different.
+ *
+ * Private-mode reference (for later scenes): Matt Smith as Philip in The
+ * Crown \u2014 formal weariness, earned kindness, the one real sentence per
+ * scene. Never brooding. Never ice-prince.
+ *
+ * Lore hook: Caspian's family line has a pattern. His grandfather loved
+ * Veyra. Corvin (Noir) loved Veyra. Aenor sealed Corvin for it. Caspian
+ * is the third prince in the line. He KNOWS the pattern. He is walking
+ * into it anyway \u2014 which is the engine of his route. */
 (function () {
   'use strict';
 
@@ -185,8 +203,8 @@
     n.dialogue.style.transform = 'translateY(0)';
 
     try {
-      // Beat 1 — he spots the player, amused
-      await type(n.line, 'Well. Someone wandered in who isn\u2019t on the guest list.', 30);
+      // Beat 1 — he spots the player, amused. Full public-charm mode.
+      await type(n.line, 'Well. \u2014 Someone wandered in who is not on the guest list. \u2014 Dressed for it, too. How inconvenient for me.', 30);
       await wait(1600);
 
       // Beat 2 — invite tap
@@ -205,7 +223,7 @@
       await wait(300);
 
       // Beat 3 — he turns up the charm
-      await type(n.line, 'Either you\u2019re lost, or you\u2019re brave. I find both \u2026entertaining.', 30);
+      await type(n.line, 'Either you are lost, or you are brave. \u2014 I find both \u2026entertaining. \u2014 Tell me you will not disappoint me.', 30);
       await wait(1400);
 
       // Beat 4 — unlock one answer
@@ -226,9 +244,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'intrude') {
-        await type(n.line, 'Mm. A shame. I was about to be very disappointed if it was anything else.', 30);
+        await type(n.line, 'Mm. \u2014 A shame. I was about to be very disappointed if it was anything else. \u2014 Stay a moment. I insist.', 30);
       } else {
-        await type(n.line, 'Flattery. My favorite language. \u2026You\u2019re already dangerous.', 30);
+        await type(n.line, 'Flattery. \u2014 My favorite language. \u2014 You are already dangerous. Come closer. \u2014 I want to see who just walked into my evening.', 30);
       }
       await wait(2000);
 

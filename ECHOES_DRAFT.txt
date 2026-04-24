@@ -14,8 +14,9 @@ How this will work in-game:
 ==============================================================
 TRIGGER: ALISTAIR WENT TO THE FRONT LINE (pp_tp_alistair_choice = 'go')
 ==============================================================
-Caspian:  "The captain is gone again. I hate the way the palace sounds
-           without his boots in the hall."
+Caspian:  "The captain is gone again. — I hate the way the palace
+           sounds without his boots in the hall. — Do not tell him
+           I said that."
 Lyra:     "One of your knights left tonight. The tide knew his name. It
            didn't keep him."
 Elian:    "The Thornwood has one less visitor this week. Good. He always
@@ -31,8 +32,9 @@ Proto:    "ALISTAIR.UNIT — STATUS: DEPLOYED. I'm logging your worry
 ==============================================================
 TRIGGER: ALISTAIR STAYED WITH YOU (pp_tp_alistair_choice = 'stay')
 ==============================================================
-Caspian:  "He broke protocol for you. He has never broken protocol in
-           his life."
+Caspian:  "He broke protocol for you. — He has never broken
+           protocol in his life. — I should be annoyed. I am, in
+           fact, a little jealous."
 Lyra:     "Someone taught a knight to put down his sword. That's rarer
            than love."
 Elian:    "He's still here. That's either very good or very bad for the
@@ -50,8 +52,9 @@ TRIGGER: LYRA ANSWERED THE DEEP VOICE (pp_tp_lyra_choice = 'answer')
 ==============================================================
 Alistair: "The caves were loud last night. I set an extra watch.
            Something is listening back."
-Caspian:  "The naval reports say the water is behaving oddly. I thought
-           of her first."
+Caspian:  "The naval reports say the water is behaving oddly. — I
+           thought of her first. — I am told princes do not think of
+           singers first. I am a bad prince today."
 Elian:    "The birds won't fly over the coast anymore. That used to
            mean something when my grandmother was alive."
 Lucien:   "I rewrote a chapter. A voice that deep shouldn't have a
@@ -68,8 +71,9 @@ TRIGGER: LYRA REFUSED THE DEEP VOICE (pp_tp_lyra_choice = 'refuse')
 ==============================================================
 Alistair: "The caves went quiet. Quieter than they should be. I don't
            trust quiet."
-Caspian:  "The tide brought three dead fish to the palace steps. A
-           warning, perhaps. Or a sulk."
+Caspian:  "The tide brought three dead fish to the palace steps. —
+           A warning, perhaps. — Or a sulk. I have had both from
+           lesser creatures."
 Elian:    "Good. The forest is tired of singing with the sea."
 Lucien:   "She chose not to. Not to do the brave thing. Not to do the
            stupid thing. I admire it."
@@ -120,8 +124,9 @@ Alistair: "The scholar is writing again. I don't know what. I don't
            think he does either."
 Lyra:     "The tower light is on. It hasn't been on at that hour in
            eight years."
-Caspian:  "Lucien sent me a letter I don't understand. I think it's a
-           confession."
+Caspian:  "Lucien sent me a letter I do not understand. — I think
+           it is a confession. — I have drafted three kind replies.
+           I have sent none."
 Elian:    "A book is being written. Books cause more trouble than
            swords, in my experience."
 Noir:     "He kept the page. — Good. — Even my kind need something
@@ -138,8 +143,9 @@ Alistair: "The tower had a fire. Small. Contained. He looked relieved,
            is the strange part."
 Lyra:     "A song I used to sing is gone from me. I don't know why.
            Ask the scholar."
-Caspian:  "Lucien destroyed a page he once showed me. I respect him
-           more for it."
+Caspian:  "Lucien destroyed a page he once showed me. — I respect
+           him more for it. — Princes are poor historians. Burners
+           are truer."
 Elian:    "What was written is unwritten. The forest approves."
 Noir:     "He burned the truth. — Hmm. — People only burn things
            they love."
@@ -154,8 +160,9 @@ Alistair: "A grave was carved in the Thornwood. The name is old. Older
            than the kingdom."
 Lyra:     "The tide has been gentler this week. Someone finally told
            her she could rest."
-Caspian:  "My grandfather would have thanked you. I don't know how to,
-           so I'm writing this instead."
+Caspian:  "My grandfather would have thanked you. — I do not know
+           how to. — I am writing this instead. — Please take it
+           as the letter he never managed."
 Lucien:   "Veyra's grave is marked. Three of my books just became
            correctable. I'm grateful."
 Noir:     (long pause) "...You gave her the stone we could not. —
@@ -172,8 +179,8 @@ Alistair: "The Thornwood grave stayed blank. The warden said it was
            not his to name."
 Lyra:     "Something in the water is still asking who she was. I
            don't have an answer."
-Caspian:  "He left the grave unnamed. I understand. Names finish
-           things. Some things don't deserve finishing."
+Caspian:  "He left the grave unnamed. — I understand. — Names
+           finish things. Some things do not deserve finishing."
 Lucien:   "An absence is also an entry. I have noted it."
 Noir:     "Good. — She does not need a stone. She needs someone to
            still be angry for her. — That is me."
@@ -189,8 +196,9 @@ Alistair: "You smell like night air that shouldn't be here. I don't
            like it. I won't ask."
 Lyra:     "Something dark is walking with you. I sang it a lullaby.
            It did not sleep."
-Caspian:  "There is a shadow in my gardens that wasn't there last
-           season. It bows when you pass."
+Caspian:  "There is a shadow in my gardens that was not there last
+           season. — It bows when you pass. — I am deciding how to
+           feel about that."
 Elian:    "The forest parts for you differently now. Be careful. It
            remembers Nocthera."
 Lucien:   "A book in my tower rewrote itself last night. The new
@@ -207,8 +215,9 @@ Alistair: "Whatever was near you has moved off. I slept for the first
            time in a week."
 Lyra:     "The cave went silent. He asked. You said no. The sea
            respects it."
-Caspian:  "I don't know what you refused, but the palace dreams are
-           quieter."
+Caspian:  "I do not know what you refused. — The palace dreams are
+           quieter. — Thank you. On behalf of the palace. On behalf
+           of me."
 Elian:    "Smart. Some gifts have teeth, even when offered with soft
            hands."
 Lucien:   "A footnote I dreaded writing will not need to be written."
@@ -224,8 +233,8 @@ Alistair: "Something went missing today. I can't tell what. I keep
            reaching for it."
 Lyra:     "A verse I knew yesterday is blank in my mouth. Did I do
            that to myself?"
-Caspian:  "I lost an afternoon. Just... gone. The staff say I was in
-           my study. I don't remember."
+Caspian:  "I lost an afternoon. Just... gone. — The staff say I
+           was in my study. — I do not remember. I do not like it."
 Elian:    "The Thornwood feels thinner. One fewer story in the air."
 Lucien:   "A page in my memory has been torn out. This is what people
            feel when they die, perhaps."
@@ -240,8 +249,9 @@ Alistair: "You look tired. Carrying something, I think. I won't ask
            what."
 Lyra:     "Your shoulders have a new weight. The water sees it. Rest
            when you can."
-Caspian:  "You didn't tell me, but something moved in your eyes today.
-           I noticed."
+Caspian:  "You did not tell me. — Something moved in your eyes
+           today. — I noticed. — I will not ask. I am here when you
+           want to."
 Elian:    "You kept a hurt. Brave. Hurts are maps, in my grandmother's
            teaching."
 Lucien:   "You chose to remember. I will help you carry it, if you let
@@ -257,8 +267,9 @@ Alistair: "The south gate guard heard laughter last night. In a
            language not spoken here for eight hundred years."
 Lyra:     "The tide pulled back farther than it should. Something is
            breathing on the other side of it."
-Caspian:  "Grandmother's old seal is broken. I felt it before the
-           raven came. I felt it in my teeth."
+Caspian:  "Grandmother's old seal is broken. — I felt it before the
+           raven came. — I felt it in my teeth. — The family
+           pattern is moving again. — I am moving with it."
 Elian:    "The Thornwood's northern edge smells of old rain again. It
            has not smelled of old rain since before my birth."
 Lucien:   "Chapter Twelve. The one I was told never to write. I am
@@ -275,8 +286,9 @@ Alistair: "There is a carriage in the palace forecourt I have never
            seen before. The horses have no breath."
 Lyra:     "The sea sang a warning to me in the queen's old dialect.
            I think she is listening through it."
-Caspian:  "She is here. My grandmother. My — the Dowager. The palace
-           staff will not say her name."
+Caspian:  "She is here. My grandmother. — My — the Dowager. — The
+           palace staff will not say her name. — I am going to have
+           to. I would like you in the room when I do."
 Elian:    "An old woman crossed the Thornwood last night. The trees
            moved for her. They have never moved for me."
 Lucien:   "She came into my tower and asked me what I was writing. I

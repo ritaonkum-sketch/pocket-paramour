@@ -223,8 +223,8 @@
         bg: 'assets/bg-caspian-balcony.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I dismissed the court early today. They thought I had a headache. \u2026I had a you.', hold: 2400, cps: 30 },
-          { type: 'line', text: 'Smile. They\u2019ll think I\u2019m being indulgent. They\u2019ll be correct.', hold: 2400, cps: 30 },
+          { type: 'line', text: 'I dismissed the court early today. \u2014 They thought I had a headache. \u2014 I had a you.', hold: 2400, cps: 30 },
+          { type: 'line', text: 'Smile. \u2014 They will think I am being indulgent. \u2014 They will be correct. \u2014 I do not care.', hold: 2400, cps: 30 },
           { type: 'hide' }
         ]
       },
@@ -235,9 +235,9 @@
         bg: 'assets/bg-caspian-bedroom.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual2.png', wait: 700 },
-          { type: 'line', text: 'I told you a true thing today. I haven\u2019t done that in court for a decade. It tasted strange. Familiar.', hold: 2800, cps: 28 },
+          { type: 'line', text: 'I told you a true thing today. \u2014 I have not said a true thing in court in a decade. \u2014 It tasted strange. Familiar.', hold: 2800, cps: 28 },
           { type: 'flourish', text: '\u266b', duration: 1500 },
-          { type: 'line', text: 'I might develop a habit. You\u2019ll be responsible.', hold: 2400, cps: 28 },
+          { type: 'line', text: 'I might develop a habit. \u2014 You will be responsible. \u2014 I do not mind.', hold: 2400, cps: 28 },
           { type: 'hide' }
         ]
       },
@@ -248,9 +248,10 @@
         bg: 'assets/bg-caspian-night.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/adoring.png', wait: 700 },
-          { type: 'line', text: 'My favourite version of myself is the one I am when no one is watching. \u2026Apparently you count as no one. That\u2019s a compliment.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'My favourite version of myself is the one when no one is watching. \u2014 Apparently you count as no one. \u2014 That is a compliment. The finest I have.', hold: 2800, cps: 26 },
           { type: 'particles', count: 16, duration: 1800 },
-          { type: 'line', text: 'Stay tonight. I\u2019d like to keep being him a little longer.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'I started a charming sentence a moment ago. \u2014 I stopped halfway. \u2014 Something has shifted. \u2014 I cannot flirt with you anymore. It would feel like lying.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'Stay tonight. \u2014 I would like to keep being him a little longer. \u2014 Please.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -261,13 +262,15 @@
         bg: 'assets/bg-caspian-bedroom.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 800 },
-          { type: 'line', text: 'My grandmother made a bargain. The one Lucien read in his book. She traded a Weaver to keep the bloodline ruling.', hold: 3000, cps: 24 },
-          { type: 'line', text: 'I\u2019m the great-grandson of that bargain. Every breath I take in this crown is paid for, in advance, by someone\u2019s captivity. \u2026I never told anyone that I knew.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'My grandfather loved a woman named Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 Our line has a pattern. One love apiece. It tends to burn the kingdom.', hold: 3400, cps: 24 },
+          { type: 'line', text: 'I have been watching for it to happen to me. \u2014 I have been trained, since I was a boy, to charm widely enough that I would never fall deeply. \u2014 It has not worked.', hold: 3400, cps: 24 },
           { type: 'pose', src: 'assets/caspian/body/adoring.png', animate: 'swap' },
-          { type: 'line', text: 'If you asked me to abdicate tonight \u2014 truly asked \u2014 I would. By morning. With a polite letter. \u2026Would you still want me, without the title?', hold: 3400, cps: 24 },
+          { type: 'line', text: 'I am the third prince in my line to look at someone the way I am looking at you. \u2014 The first two ended badly. \u2014 Forgive me. I am going to try anyway.', hold: 3400, cps: 24 },
+          { type: 'line', text: 'My grandmother would call this treason. \u2014 I call it \u2014 the first thing I have ever chosen.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'And if you asked me to abdicate tonight \u2014 truly asked \u2014 I would. By morning. With a polite letter. \u2014 Would you still want me, without the title?', hold: 3400, cps: 24 },
           { type: 'particles', count: 16, duration: 2000 },
           { type: 'flourish', text: '\u266b', duration: 1800 },
-          { type: 'line', text: 'I\u2019m not asking now. I\u2019m just \u2026 telling you it\u2019s in my pocket. The whole kingdom is in my pocket and I\u2019d hand it to you for one honest answer.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'I am not asking now. \u2014 I am just \u2026 telling you it is in my pocket. \u2014 The whole kingdom is in my pocket. I would hand it to you for one honest answer.', hold: 3000, cps: 24 },
           { type: 'hide' }
         ]
       }

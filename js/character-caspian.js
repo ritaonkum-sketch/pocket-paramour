@@ -1,6 +1,34 @@
 // Caspian — The Gentle Prince
 // Soft, elegant royalty. Tests comfort vs growth.
 // Character data for Pocket Paramour
+//
+// VOICE DIRECTION (for writing + future VO casting):
+// Primary reference: Richard Madden as Kit in Cinderella (2015). Warmth.
+// Light footing. Playful charm. Never stiff. Never cold. Always kind.
+// Secondary (private / tired moments only): Matt Smith as Philip in The
+// Crown — earned formality, buried wit, the one real sentence per scene.
+//
+// Caspian has TWO modes:
+//   PUBLIC MODE  — charming, flirty, playful, courtly. Flirts with
+//                  everyone a little as a diplomatic duty he was trained
+//                  into by Aenor. Every woman leaves the room feeling
+//                  chosen for thirty seconds.
+//   PRIVATE MODE — with the player only. Quiet, serious, careful. The
+//                  charm has gone quiet because it would feel like lying.
+//                  He catches himself starting charming sentences and
+//                  stops halfway. Says something real instead.
+//
+// LORE HOOK — the family curse:
+//   His grandfather loved Veyra. Corvin (Noir) loved Veyra. Aenor sealed
+//   Corvin over it. Caspian is the third prince in the line. He KNOWS
+//   princes in his family love once and ruin the kingdom. He was trained
+//   to charm widely enough to never fall deeply. It did not work. The
+//   player is walking him into the same pattern, and he is walking in
+//   knowingly. This is what makes "kind" consequential instead of bland.
+//
+// Rule of thumb: every Caspian scene should cost him something — a
+// court convention broken, a grandmother's disapproval, a tired
+// admission. "Kind" is only sexy when it is expensive to give.
 
 const CHARACTER_CASPIAN = {
     name: "Caspian",
@@ -293,25 +321,25 @@ const CHARACTER_CASPIAN = {
 
     tapDialogue: {
         shy: [
-            "Oh...! You surprised me.",
-            "That was... gentle. Thank you.",
-            "I'm not used to being touched casually.",
-            "Your hands are warm. Mine are always cold.",
-            "...Do that again? If you don't mind."
+            "Oh \u2014 you surprised me.",
+            "That was \u2026 gentle. Thank you.",
+            "I am not used to being touched casually. \u2014 You may continue.",
+            "Your hands are warm. \u2014 Mine are always cold.",
+            "\u2026Do that again? \u2014 If you do not mind."
         ],
         clingy: [
-            "More. I've been waiting for that.",
-            "Your touch is the best thing I've felt all day.",
-            "Don't stop. Please.",
-            "I memorize every time you touch me.",
-            "Closer. Come closer."
+            "More. \u2014 I have been waiting for that all day.",
+            "Your touch is the best thing I have felt at court this week.",
+            "Do not stop. \u2014 Please.",
+            "I memorize every time you touch me. \u2014 I am not ashamed of that.",
+            "Closer. \u2014 Come closer. \u2014 That is better."
         ],
         tsundere: [
-            "A prince has personal space. ...Yours is acceptable.",
-            "You're bold. I respect that.",
-            "I didn't flinch. Note that.",
-            "Only you would dare. Only you are welcome to.",
-            "...That was nice. Don't tell anyone."
+            "A prince has personal space. \u2014 Yours is acceptable.",
+            "You are bold. \u2014 I respect that. \u2014 I may even encourage it.",
+            "I did not flinch. \u2014 Note that.",
+            "Only you would dare. \u2014 Only you are welcome to.",
+            "\u2026That was nice. \u2014 Do not tell anyone."
         ]
     },
 
@@ -335,39 +363,35 @@ const CHARACTER_CASPIAN = {
             "Even velvet looks dull when unwashed."
         ],
         happy: [
-            "This is what peace feels like. I want to hold onto it.",
-            "The gardens are blooming. So am I, apparently.",
-            "I smiled in front of the court today. They looked confused.",
-            "Happiness used to feel temporary. You're making it feel permanent.",
-            "The birds are singing. I almost joined them.",
-            "I haven't felt this content since... I can't remember.",
-            "You've turned the palace into a home. That's not nothing.",
-            "If I could preserve this moment in amber, I would.",
-            "My advisor says I've been 'unusually pleasant.' I wonder why.",
-            "The crown feels lighter today. You have that effect."
+            "This is what peace feels like. \u2014 I want to hold onto it.",
+            "You take your tea with two spoons of honey. \u2014 I asked the kitchen to keep honey stocked.",
+            "I smiled in front of the court today. \u2014 They looked confused. \u2014 I did not explain.",
+            "Happiness used to feel temporary. \u2014 You are making it feel \u2026 weekly.",
+            "I did not know I was lonely until you were in the room and I was not.",
+            "You have turned the palace into a home. \u2014 That is not nothing.",
+            "My advisor says I have been \u201cunusually pleasant.\u201d \u2014 I wonder why.",
+            "The crown feels lighter today. \u2014 You have that effect. \u2014 Do not tell the councillors."
         ],
         annoyed: [
-            "The court exhausts me. You don't. But right now everything does.",
-            "I'm trying to be patient. It's a practiced skill.",
-            "A prince doesn't snap. A prince breathes deeply. ...Breathing deeply.",
-            "Please don't test my grace today. It's running low.",
-            "The diplomats and their endless negotiations. I need quiet.",
-            "I apologize in advance if I'm less warm than usual."
+            "The court exhausts me. \u2014 You do not. \u2014 But right now everything does.",
+            "I am \u2014 very tired. Do not tell anyone. \u2014 Come sit. Do not speak. That is a gift.",
+            "A prince does not snap. \u2014 A prince breathes deeply. \u2014 Breathing deeply.",
+            "Please do not test my grace today. \u2014 It is running low.",
+            "The diplomats and their endless negotiations. \u2014 I need quiet. I need you. In that order.",
+            "Forgive me. \u2014 I have been charming all day. I have nothing left for it. \u2014 Only the real thing. That is yours."
         ],
         neutral: [
-            "The roses in the garden need attention. Like everything here.",
-            "The chandelier has 417 crystals. I counted. Twice.",
+            "The roses in the garden need attention. \u2014 Like everything here.",
+            "The chandelier has 417 crystals. \u2014 I counted. Twice.",
             "*straightens a perfectly straight lapel*",
-            "The afternoon light through these windows is... adequate.",
             "Tea?",
-            "I was reading. Nothing urgent. Come sit.",
-            "The servants are changing the linens. A weekly ritual.",
-            "There's a concert in the courtyard tonight. Would you join me?",
-            "*adjusts crown slightly, looks at you, adjusts it again*",
-            "The kingdom runs itself most days. I just... supervise.",
-            "A letter arrived from the neighboring kingdom. Politics. Dull.",
-            "I reorganized the library. By mood. It seemed more useful.",
-            "The fire is warm. So is the silence. Stay."
+            "I was reading. Nothing urgent. \u2014 Come sit.",
+            "You always walk past my study on the south side. \u2014 Is the north side cold? I can fix it.",
+            "There is a concert in the courtyard tonight. \u2014 Would you join me? As yourself. Not as a guest.",
+            "The kingdom runs itself most days. \u2014 I just \u2026 supervise.",
+            "A letter arrived from the neighbouring kingdom. \u2014 Politics. Dull. \u2014 You are not dull. Come here.",
+            "I reorganised the library. \u2014 By mood. \u2014 It seemed more useful.",
+            "The fire is warm. \u2014 So is the silence. \u2014 Stay."
         ],
         corrupted: [
             "You don't need anyone else. I can give you everything.",
@@ -379,61 +403,61 @@ const CHARACTER_CASPIAN = {
             "The crown means nothing. You mean everything. And everything stays."
         ],
         neglected: [
-            "The palace is quiet without you. Quieter than it should be.",
-            "I set a place for you at dinner. It went cold.",
-            "The garden is overgrown. I stopped caring about it.",
-            "The servants asked if you were coming back. I didn't have an answer.",
-            "I'm fine alone. I was alone before you. I was fine. I was.",
-            "The fireplace went out. I didn't relight it.",
-            "Your room is still prepared. Just in case."
+            "The palace is quiet without you. \u2014 Quieter than it should be.",
+            "I set a place for you at dinner. \u2014 It went cold. \u2014 I ate alone. I was charming about it.",
+            "The garden is overgrown. \u2014 I stopped caring about it.",
+            "The servants asked if you were coming back. \u2014 I did not have an answer. \u2014 I lied charmingly and went to my study.",
+            "I am fine alone. \u2014 I was alone before you. \u2014 I was fine. \u2014 I was.",
+            "Your room is still prepared. \u2014 Just in case. \u2014 I will not ask you to use it. Only offer.",
+            "I was going to write you a letter. \u2014 I decided against it. \u2014 I will try tomorrow, perhaps."
         ]
     },
 
     eventDialogue: {
         comfort:  [
-            "You're safe here. That's all that matters.",
-            "Let me handle this. You rest.",
-            "Nothing bad can reach you in these walls."
+            "You are safe here. \u2014 That is all that matters. \u2014 Come here.",
+            "Let me handle this. \u2014 You rest. \u2014 I have had a lot of practice at handling things.",
+            "Nothing bad can reach you in these walls. \u2014 And if it does, it goes through me first. \u2014 That is not heroic. That is \u2026 ordinary, for what I feel."
         ],
         tension:  [
-            "Something feels off between us. I don't like uncertainty.",
-            "You're pulling away. I can feel it.",
-            "The silence is heavier than usual tonight."
+            "Something feels off between us. \u2014 I do not like uncertainty. \u2014 I like it less with you.",
+            "You are pulling away. \u2014 I can feel it. \u2014 Tell me. I can take plain words. I was trained on worse.",
+            "The silence is heavier than usual tonight. \u2014 Say what you need to say. \u2014 I will wait."
         ],
         rare:     [
-            "I've never said this to anyone outside the royal family.",
-            "You see a version of me no one else does.",
-            "This feeling... I'm not sure the court would approve."
+            "I have never said this to anyone outside the royal family.",
+            "You see a version of me no one else does. \u2014 I am \u2026 uncertain whether that is fair to you.",
+            "My grandfather loved Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 My family has one love apiece. \u2014 I have been watching for mine. It is you."
         ],
         obsessed: [
-            "I check the gate every hour. For you.",
-            "I had your favorite flowers planted in every corridor.",
-            "The kingdom can wait. You can't."
+            "I check the gate every hour. \u2014 For you.",
+            "I had your favourite flowers planted in every corridor. \u2014 Do not ask how I knew which ones.",
+            "The kingdom can wait. \u2014 You cannot. \u2014 I have made that choice. Quietly. In writing."
         ],
         unstable: [
-            "Don't leave. Don't leave. Please don't leave.",
-            "I'll change anything. Everything. Just tell me what.",
-            "The crown is crushing me. But losing you would be worse."
+            "Do not leave. \u2014 Do not leave. \u2014 Please do not leave.",
+            "I will change anything. Everything. \u2014 Just tell me what.",
+            "The crown is crushing me. \u2014 Losing you would be worse."
         ],
         guarded:  [
-            "Trust isn't given freely in a palace. But I'm trying.",
-            "The walls here aren't just stone. I'm lowering mine.",
-            "I want to believe you'll stay. I'm not there yet."
+            "Trust is not given freely in a palace. \u2014 But I am trying.",
+            "The walls here are not just stone. \u2014 I am lowering mine. \u2014 It takes longer than I would like.",
+            "I want to believe you will stay. \u2014 I am not there yet. \u2014 Wait for me?"
         ],
         secure:   [
             "This is what a kingdom should feel like. Warm. Full.",
-            "I don't need the crown to feel important anymore.",
-            "You're the constant I never knew I needed."
+            "I do not need the crown to feel important anymore. \u2014 I just need you in the next chair.",
+            "You are the constant I never knew I needed. \u2014 Do not move. Ever. \u2014 Hmm. \u2014 Move a little. Closer is acceptable."
         ]
     },
 
     timeAwayReactions: {
-        brief:   ["That was quick. I barely missed you. ...Barely."],
-        short:   ["The tea is still warm. I was hoping you'd be back for it."],
-        medium:  ["The servants asked where you went. I pretended not to notice."],
-        long:    ["The palace was very quiet. Very large. Very empty."],
-        extended:["I wrote you three letters. I burned them all."],
-        distant: ["...You came back. I had prepared myself for the alternative."]
+        brief:   ["That was quick. \u2014 I barely missed you. \u2014 Barely."],
+        short:   ["The tea is still warm. \u2014 I was hoping you would be back for it."],
+        medium:  ["The servants asked where you went. \u2014 I pretended not to notice. \u2014 I noticed."],
+        long:    ["The palace was very quiet. \u2014 Very large. \u2014 Very empty. \u2014 I was charming at dinner anyway."],
+        extended:["I wrote you three letters. \u2014 I burned them all. \u2014 The first was pretty. The third was honest."],
+        distant: ["\u2026You came back. \u2014 I had prepared myself for the alternative. \u2014 I was not ready for either."]
     },
 
     hungryLines: [
@@ -448,12 +472,12 @@ const CHARACTER_CASPIAN = {
     ],
     happyLines: [
         "This is what peace feels like.",
-        "The gardens are blooming. So am I.",
-        "Happiness used to feel temporary. Not anymore.",
+        "Happiness used to feel temporary. \u2014 Not anymore.",
         "The crown feels lighter today.",
-        "I smiled in front of the court. They were confused.",
-        "If I could preserve this moment, I would.",
-        "You've turned the palace into a home."
+        "I smiled in front of the court. \u2014 They were confused.",
+        "If I could preserve this moment, I would. \u2014 In writing. Signed.",
+        "You have turned the palace into a home.",
+        "I did not know I was lonely until you were in the room and I was not."
     ],
     dirtyLines: [
         "I'm not at my best today.",
@@ -464,10 +488,10 @@ const CHARACTER_CASPIAN = {
     ],
     annoyedLines: [
         "The court exhausts me.",
-        "Please don't test my grace today.",
-        "A prince breathes deeply. ...Breathing deeply.",
-        "The diplomats and their negotiations. I need quiet.",
-        "I'm trying to be patient. It's a practiced skill."
+        "Please do not test my grace today.",
+        "A prince breathes deeply. \u2014 Breathing deeply.",
+        "The diplomats and their negotiations. \u2014 I need quiet.",
+        "I have been charming all day. \u2014 I have nothing left of it for anyone but you."
     ],
     neutralLines: [
         "The roses need attention. Like everything here.",

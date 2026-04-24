@@ -171,10 +171,10 @@
         bg: 'assets/bg-caspian-day.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/adoring.png', wait: 700 },
-          { type: 'line', text: 'The court learned a new word. You. It still can\u2019t decide if you\u2019re trouble or salvation. I pour it more champagne so it stops asking.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'My grandmother is sleeping in the east wing. You made a seal that doesn\u2019t hurt. She looks \u2026 peaceful. I visit her on Thursdays. I forgive her on the good ones.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'The court learned a new word. \u2014 You. \u2014 It still cannot decide if you are trouble or salvation. I pour it more champagne so it stops asking.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'My grandmother sleeps in the east wing. \u2014 You made a seal that does not hurt. She looks \u2026 peaceful. \u2014 I visit her on Thursdays. I forgive her on the good ones.', hold: 3400, cps: 26 },
           { type: 'flourish', text: '\u266b', duration: 1600 },
-          { type: 'line', text: 'Midnight on the balcony. I\u2019ll wear something you\u2019ll regret. Don\u2019t be late \u2014 I have a kingdom to pretend to run.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'Midnight. On the balcony. \u2014 I will wear something you will regret. \u2014 Do not be late. I have a kingdom to pretend to run.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -186,9 +186,9 @@
         bg: 'assets/bg-caspian-night.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I abdicated. Two weeks after the seal held. The council was horrified. You laughed. That was the day I knew I\u2019d chosen right.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'My grandmother is beneath the stone now. With him. Matched pair. I don\u2019t visit \u2014 I don\u2019t know what I\u2019d say. I set a candle on the seal once a year. I think that\u2019s enough.', hold: 3600, cps: 26 },
-          { type: 'line', text: 'We live, now. Smaller. On purpose. I\u2019m writing a book no one will read \u2014 the true history of the Dynasty. The one with its grandmother in it.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I abdicated. \u2014 Two weeks after the seal held. \u2014 The council was horrified. You laughed. That was the day I knew I had chosen right.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'My grandmother is beneath the stone now. With him. \u2014 Matched pair. \u2014 I do not visit. I do not know what I would say. I set a candle on the seal once a year. I think that is enough.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'We live now. \u2014 Smaller. On purpose. \u2014 I am writing a book no one will read. The true history of the Dynasty. \u2014 The one with its grandmother in it.', hold: 3200, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -200,9 +200,9 @@
         bg: 'assets/bg-caspian-balcony.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual2.png', wait: 700 },
-          { type: 'line', text: 'He asked me, afterwards, if I was jealous. I said yes. He laughed. You let him laugh. I wore the crown anyway \u2014 he likes me in it.', hold: 3200, cps: 26 },
-          { type: 'line', text: 'I buried my grandmother at Nocthera. Corvin dug the grave himself. I stood with you. Neither of us cried. We both had six hundred years of reason not to.', hold: 3600, cps: 26 },
-          { type: 'line', text: 'We\u2019ve all adjusted. It turns out a kingdom is just a room full of people trying not to be lonely. I\u2019m the politest version of that. I\u2019m yours.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'He asked me, afterwards, if I was jealous. \u2014 I said yes. \u2014 He laughed. You let him laugh. \u2014 I wore the crown anyway. He likes me in it.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I buried my grandmother at Nocthera. \u2014 Corvin dug the grave himself. I stood with you. \u2014 Neither of us cried. We had six centuries of reason not to.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'We have all adjusted. \u2014 A kingdom, it turns out, is just a room full of people trying not to be lonely. \u2014 I am the politest version of that. \u2014 I am yours.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
       }

@@ -110,9 +110,9 @@
       speaker: 'CASPIAN',
       pose: 'assets/caspian/body/casual1.png',
       setup: [
-        'The council met without me this morning. They want me to name you. Publicly. As consort, as guest, as \u201csomething to manage.\u201d',
-        'Naming you means the court can pressure you. Also means I can\u2019t pretend we\u2019re a rumour anymore. \u2026Both options cost.',
-        'Your name is yours. I will say whatever you tell me to say.'
+        'The council met without me this morning. \u2014 They want me to name you. Publicly. As consort, as guest, as \u201csomething to manage.\u201d',
+        'Naming you means the court can pressure you. \u2014 It also means I stop flirting with every woman at every banquet. \u2014 That charm is a shield I have worn my whole life. I would be standing in front of you without it.',
+        'Your name is yours. \u2014 I will say whatever you tell me to say. \u2014 Please say it on purpose.'
       ],
       prompt: 'Do I name you to the court? Or keep you quiet?',
       choices: [
@@ -120,16 +120,16 @@
           id: 'yes',
           label: 'Name me. Let them look.',
           response: [
-            'Tomorrow, then. Silk, not armour. The whole thing. \u2026I am so proud. And so afraid. Both feel good. It\u2019s been a while.',
-            'I\u2019ll say your name twice. Once for the record. Once for the people who needed to hear me say it.'
+            'Tomorrow, then. Silk, not armour. The whole thing. \u2014 I am so proud. And so afraid. \u2014 Both feel good. It has been a while since I felt either.',
+            'I will say your name twice. \u2014 Once for the record. \u2014 Once for the people who needed to hear me say it.'
           ]
         },
         {
           id: 'no',
           label: 'Keep me quiet. Give me time.',
           response: [
-            'Then you are mine, privately, and the court will choke on its own guesswork. \u2026Darling, I am very good at secrets.',
-            'I\u2019ll keep the balcony door unlocked. That\u2019s my discreet public statement. Only you will notice it.'
+            'Then you are mine, privately. \u2014 The court will choke on its own guesswork. \u2014 I am very good at secrets. I was trained in them.',
+            'I will leave the balcony door unlocked. \u2014 That is my discreet public statement. \u2014 Only you will notice it. That is the point.'
           ]
         }
       ]
