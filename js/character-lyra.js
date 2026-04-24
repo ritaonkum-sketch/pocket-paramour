@@ -30,6 +30,17 @@
 //   7. The vulnerable offering: Lyra is the ONE character who says "I
 //      love you" first, openly, knowing it may not come back. Alistair
 //      cannot say it. Caspian buries it. Noir refuses to. Lyra WILL.
+//   8. SKINSHIP \u2014 CORE MODE. This is critical. Lyra is cold-blooded
+//      (siren scales), touch-starved (caged for years, no comfort in
+//      her father's family, alone in the cave since fifteen). She
+//      REACHES for the player physically: cold fingers on warm hands,
+//      cupped face, forehead-press (her people's greeting), head on
+//      shoulder, hand against pulse, mouth against inside-of-wrist.
+//      She is the most PHYSICAL of the seven. She touches because
+//      she has been waiting years to be allowed to. Write her scenes
+//      with physical action beats, not just lines.
+//      Visual register: "cold hand finding warm one." That contrast
+//      is her signature move. It hits dopamine every single time.
 //
 // ============================================================================
 // LORE HOOK \u2014 her full backstory (baked in so every future writer sees it):
@@ -271,7 +282,10 @@ const CHARACTER_LYRA = {
         "I wrote a verse this morning that did not hurt. \u2014 That is new.",
         "The tide came in and did not take anything from me. \u2014 I think that is your doing.",
         "The cave is warm. \u2014 It has not been warm in a long time.",
-        "I sang inward today. \u2014 To you. \u2014 It held."
+        "I sang inward today. \u2014 To you. \u2014 It held.",
+        "*leans her shoulder against yours without looking up* \u2014 This. \u2014 Just this. \u2014 I have been wanting this.",
+        "Your hand is warm. \u2014 *threads her cold fingers through yours* \u2014 I am going to steal it. \u2014 Fair warning.",
+        "*tucks her face into the crook of your neck* \u2014 You smell of sun. \u2014 I have not smelled sun on a person in a long time."
     ],
 
     dirtyLines: [
@@ -294,7 +308,10 @@ const CHARACTER_LYRA = {
         "I was humming a melody. \u2014 I cannot remember where it came from. \u2014 Someone taught it to me once, I think.",
         "The moon will be beautiful tonight. \u2014 The moon is the only audience I had for a long time.",
         "*hums softly, the notes older than she is*",
-        "Do you like the sound of the sea? \u2014 It is the sound of what I used to be part of."
+        "Do you like the sound of the sea? \u2014 It is the sound of what I used to be part of.",
+        "*idly traces a cold finger along the back of your wrist, not looking at you*",
+        "*reaches for your hand without asking, sets it in her lap, keeps it* \u2014 Mm.",
+        "*studies your profile a moment too long, then looks away, then looks back*"
     ],
 
     // Personality-specific dialogue
@@ -312,7 +329,10 @@ const CHARACTER_LYRA = {
             "Promise you will come back. \u2014 Promise it on my mother\u2019s staff. \u2014 I know I cannot make you. \u2014 Promise anyway.",
             "I will sing until you come back. \u2014 So the cave knows your way home.",
             "Stay in my waters. \u2014 I will learn how to be enough for a person who stays.",
-            "The sea is cold when you are away. \u2014 I am colder."
+            "The sea is cold when you are away. \u2014 I am colder.",
+            "*catches your sleeve as you move to leave* \u2014 One more moment. \u2014 Just one. \u2014 I am being greedy. \u2014 I do not care.",
+            "*reaches up, cold palm to your cheek* \u2014 I have never had enough of this. \u2014 I do not think I ever will.",
+            "Come here. \u2014 Closer. \u2014 *threads your arm around her waist and leans back into you* \u2014 There. \u2014 Yes."
         ],
         tsundere: [
             "I was not waiting for you. \u2014 \u2026I was. A little.",
@@ -327,18 +347,20 @@ const CHARACTER_LYRA = {
     // Tap reactions
     tapDialogue: {
         shy: [
-            "Oh\u2026",
+            "Oh\u2026 \u2014 *catches your hand on its way back, holds it a second longer* \u2014 Wait.",
             "That tickles. \u2014 In a way that does not usually reach me.",
-            "You surprised me. \u2014 Good.",
-            "My scales are sensitive. \u2014 Most people do not know that. \u2014 Now you do.",
-            "I\u2026 I do not mind. \u2014 Do it again.",
-            "Your hand is warm. \u2014 Nothing in this cave is warm on its own."
+            "You surprised me. \u2014 Good. \u2014 Surprise me again.",
+            "My scales are sensitive. \u2014 Most people do not know that. \u2014 Now you do. \u2014 Be careful with it.",
+            "I\u2026 I do not mind. \u2014 *presses her cheek briefly against your palm* \u2014 Do that again.",
+            "Your hand is warm. \u2014 Nothing in this cave is warm on its own. \u2014 Leave it there."
         ],
         clingy: [
             "More. \u2014 Please.",
+            "*turns your hand over and presses her mouth to the inside of your wrist* \u2014 Your pulse is music. \u2014 Did you know that?",
             "Your hands are so warm. \u2014 I am not. \u2014 Teach me.",
             "Do not stop. \u2014 The song I am writing has a chord in it that only plays when you do that.",
             "Again. \u2014 Again. \u2014 I am keeping count for later.",
+            "*catches your wrist, brings your palm to her face, closes her eyes* \u2014 Mm. \u2014 Yes. \u2014 Like that.",
             "I never want you to let go. \u2014 I know I cannot ask that. \u2014 I am asking anyway."
         ],
         tsundere: [
