@@ -301,8 +301,9 @@
         bg: 'assets/bg-lucien-study.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'My focus has improved by 14% on days you visit. Statistically suspicious. I\u2019m not investigating.', hold: 2400, cps: 30 },
-          { type: 'line', text: 'Sit. Don\u2019t move the third book. The third book has feelings.', hold: 2400, cps: 30 },
+          { type: 'line', text: '*sets the pen down with deliberate care, turns the page facedown, looks up* \u2014 You are early.', hold: 2400, cps: 30 },
+          { type: 'line', text: 'My focus has improved by 14 percent on days you visit. \u2014 Statistically suspicious. \u2014 I am not investigating. \u2014 I am choosing not to investigate. That is a different thing.', hold: 2800, cps: 30 },
+          { type: 'line', text: 'Sit. \u2014 Do not move the third book. \u2014 The third book has feelings. \u2014 I may have given them to it.', hold: 2400, cps: 30 },
           { type: 'hide' }
         ]
       },
@@ -313,9 +314,10 @@
         bg: 'assets/bg-lucien-evening.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
-          { type: 'line', text: 'I keep trying to factor you out of my equations. The equations resist. They prefer you in.', hold: 2800, cps: 28 },
+          { type: 'line', text: 'I keep trying to factor you out of my equations. \u2014 The equations resist. \u2014 They prefer you in. \u2014 So do I.', hold: 2800, cps: 28 },
           { type: 'flourish', text: '\u221e', duration: 1500 },
-          { type: 'line', text: 'I\u2019ve started annotating proofs with your initials in the margin. The tower will gossip.', hold: 2600, cps: 28 },
+          { type: 'line', text: '*slides a book across the desk, opens it to a margin page where YOUR NAME is written in his hand* \u2014 I have labeled thirty-seven books \u201cabout you.\u201d \u2014 I keep telling myself the category is too broad to be meaningful. \u2014 I keep adding books.', hold: 3400, cps: 28 },
+          { type: 'line', text: '*ink-stained fingers cup your face, realizes, starts to pull back, does not* \u2014 Oh. \u2014 I have marked you. \u2014 Forgive me. \u2014 I am not going to wipe it off.', hold: 3200, cps: 28 },
           { type: 'hide' }
         ]
       },
@@ -326,9 +328,11 @@
         bg: 'assets/bg-lucien-bedroom.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I\u2019ve been working on a theorem for months. It states: any room you walk into becomes my favourite room. The proof is cheating but I don\u2019t care.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'I have been working on a theorem for months. \u2014 It states: any room you walk into becomes my favourite room. \u2014 The proof is cheating. I do not care.', hold: 2800, cps: 26 },
           { type: 'particles', count: 18, duration: 1800 },
-          { type: 'line', text: 'Stay. The theorem needs more data.', hold: 2400, cps: 26 },
+          { type: 'line', text: 'I should tell you something. \u2014 The cost of my magic is memory. \u2014 Every spell, a memory. I have been choosing. \u2014 I lost the taste of my mother\u2019s soup. I lost my tenth birthday. \u2014 I do not grieve them. They were not you.', hold: 3600, cps: 26 },
+          { type: 'line', text: '*reaches across the desk, takes your hand, keeps reading with his other, ink-stained fingers warming against yours* \u2014 The first afternoon you sat in my tower \u2014 I put a lock on it. \u2014 Non-negotiable. \u2014 I will lose my own name before I lose that one.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'Stay. \u2014 The theorem needs more data. \u2014 So do I.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -339,14 +343,15 @@
         bg: 'assets/bg-lucien-night.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 800 },
-          { type: 'line', text: 'This is the page. The one I\u2019ve been hiding. The maths that prove the kingdom can\u2019t be saved by any model the books have.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'This is the page. \u2014 The one I have been hiding. \u2014 I told you it was maths. \u2014 It is not maths.', hold: 2800, cps: 24 },
           { type: 'pose', src: 'assets/lucien/body/casting.png', animate: 'swap' },
-          { type: 'line', text: 'Disprove it. Take a pencil. Tear the proof apart. \u2026I\u2019ve tried for two years. I can\u2019t. I\u2019d like to be wrong with you.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'It is a page from my father\u2019s family register. \u2014 It records a second child. \u2014 Born to a siren. \u2014 Half of me. \u2014 My father caged her when her mother died. She escaped at fifteen. I was told she was dead. \u2014 I was told this by the man who cradled me in the next room.', hold: 4400, cps: 22 },
+          { type: 'line', text: 'I have a sister. \u2014 I have passed her name a hundred times in books and not known it was hers. \u2014 There was a crib in the west tower when I was seven. \u2014 It was warm.', hold: 3800, cps: 22 },
           { type: 'pose', src: 'assets/lucien/body/amused.png', animate: 'swap' },
-          { type: 'line', text: '\u2026You can\u2019t either, can you. Good. Then we have a real problem. And a real partnership.', hold: 2800, cps: 24 },
+          { type: 'line', text: '*slides the page across the desk, ink-stained hands flat against the paper* \u2014 I can burn it. \u2014 The bloodline holds its lie. \u2014 My father never knows I knew. \u2014 Or I can keep it. \u2014 And find her. \u2014 I do not know which is the braver thing.', hold: 3800, cps: 22 },
           { type: 'particles', count: 18, duration: 2000 },
           { type: 'flourish', text: '\u221e', duration: 1800 },
-          { type: 'line', text: 'I\u2019m going to try a model the books don\u2019t have. With your variable in it from the first line. \u2026I should warn you. The model is called \u201cwe.\u201d', hold: 3000, cps: 24 },
+          { type: 'line', text: '*forehead against your shoulder, exhausted, just lost another memory to the spell that uncovered this page* \u2014 Stay. \u2014 The memory I kept today is this one. \u2014 Your hand on my back. \u2014 I chose it over two years of my life.', hold: 3800, cps: 22 },
           { type: 'hide' }
         ]
       }

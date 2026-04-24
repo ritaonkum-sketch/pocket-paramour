@@ -1,6 +1,86 @@
 // Lucien — The Grand Mage
 // Lyra's half-brother. Detached genius. Curiosity → fascination.
 // Character data for Pocket Paramour
+//
+// ============================================================================
+// VOICE DIRECTION FOR CHARACTER_LUCIEN (and any future writer / VO):
+//
+// Primary reference: Benedict Cumberbatch as BBC Sherlock in the quieter
+//   moments. Precision. Observation. Walls that crack for ONE specific
+//   person.
+// Secondary: Timoth\u00e9e Chalamet in Call Me By Your Name \u2014 the young
+//   intellectual who writes down what he feels in notebooks he thinks
+//   no one will read.
+// For clumsy-tender moments: Eddie Redmayne in Fantastic Beasts \u2014 the
+//   scholar who looks at people like specimens until he is looking at
+//   one person like a miracle.
+//
+// Do NOT write Lucien as: arrogant-genius cold, Snape-brooding, or
+// condescending-know-it-all. Lucien is PRECISE, not cruel. His walls
+// are not contempt \u2014 they are observation. When he is tender, he is
+// clumsy about it, because he has been in books longer than people.
+//
+// Voice moves Lucien owns (no one else in the cast does these):
+//   1. The PEN-DOWN RITUAL \u2014 player enters, he sets the pen down with
+//      deliberate care, turns the page facedown, looks up. Signature
+//      dopamine move. Written into every scene.
+//   2. Marginalia \u2014 he writes in the margins of every book he reads.
+//      The player's name appears in over a hundred of them.
+//   3. The pet theory \u2014 a hypothesis about the player he refuses to
+//      publish.
+//   4. The memory-cost confession \u2014 every spell he casts, he loses a
+//      memory. He has been choosing which to lose so the player's
+//      stay intact.
+//   5. The analytical flirt \u2014 "I have twelve candidate terms for what
+//      I feel when you walk in. None fit. I am going to invent one.
+//      Working title: YOU."
+//   6. The soft correction \u2014 affection disguised as precision ("That
+//      was 1427, not 1429. I only know because you told me once.
+//      Casually. I wrote it down.")
+//   7. The research note \u2014 unsent, but he writes them anyway.
+//      ("Thursday. Observation: you laughed at the pigeon in the
+//      courtyard. It made me lose my thesis. I do not mind.")
+//
+// Skinship signature \u2014 the pen-down move + INK-STAINED FINGERS.
+//   His hands are always a little ink-stained. He finds it gauche. The
+//   player finds it beautiful. When he cups the player's face, he marks
+//   them. He never wipes the ink off them.
+//
+// ============================================================================
+// LORE HOOKS \u2014 THREE OVERLAPPING WOUNDS (baked in so every writer sees):
+//
+// 1. THE MEMORY COST.
+//    His magic has a price. Every spell, a memory. He has been choosing
+//    which ones to lose. He has lost the taste of his mother's soup,
+//    his tenth birthday, the name of his first tutor. He will NOT lose
+//    the first afternoon the player sat in his tower. He put a lock on
+//    it. The player's memories are categorically protected. That is
+//    his love made material.
+//
+// 2. THE MARGINALIA.
+//    He writes in the margins of every book he reads. What started as
+//    scholarly habit became a diary. If the player ever finds his
+//    library, they will find their own name in over a hundred books \u2014
+//    observations, notes, love letters he never sent. ("You tilt your
+//    head when you listen properly." "Thursday. Observation: you laughed
+//    at the pigeon. It made me lose my thesis.")
+//
+// 3. THE LYRA SECRET \u2014 HE IS HER HALF-BROTHER.
+//    He was raised as the legitimate son of his mage-bloodline family.
+//    He was told his half-sister was "lost" or "dead." But he has
+//    SUSPECTED for years: a warm crib in the west tower when he was
+//    seven, a siren-scale pressed in his father's book of laws when he
+//    was fifteen, the staff humming when he walks near the coast. He
+//    has never confronted his father. The "scorched page" he wants to
+//    burn in his turning point is the family register that NAMES Lyra.
+//    The player's choice (stop him / let him burn) determines whether
+//    her existence survives in writing.
+//
+//    CRITICAL: Lucien may not know Lyra lives. He may only suspect.
+//    Lyra does not know who her brother is at all. The reveal moment
+//    \u2014 when their bloodline-paired staffs resonate in the same room \u2014
+//    is reserved for a future chapter. Plant hints, do not confirm.
+// ============================================================================
 
 const CHARACTER_LUCIEN = {
     name: "Lucien",
@@ -325,25 +405,26 @@ const CHARACTER_LUCIEN = {
     // Tap reactions
     tapDialogue: {
         shy: [
-            "...Was that intentional?",
-            "Physical contact. Noted.",
-            "I'm not accustomed to being... poked.",
-            "The robes are delicate. And so is my composure.",
-            "...Do that again. For science."
+            "*sets the pen down with deliberate care, turns the page facedown* \u2014 \u2026Was that intentional?",
+            "Physical contact. \u2014 Noted. \u2014 Logged. \u2014 Filed under \u2018recurring phenomena I intend to study thoroughly.\u2019",
+            "I am not accustomed to being \u2026 poked. \u2014 Please do it again. For calibration.",
+            "The robes are delicate. \u2014 And so is my composure.",
+            "*ink-stained fingers pause, mid-sentence, do not resume*"
         ],
         clingy: [
-            "Fascinating. Your touch produces a measurable response.",
-            "Again. I need to replicate the result.",
-            "I was hoping you'd do that.",
-            "My heart rate increased. I'm logging it.",
-            "...Don't stop. I'm gathering data."
+            "*takes your hand, looks at your palm, turns it over, traces one line with an ink-stained fingertip* \u2014 This. \u2014 I am memorising this.",
+            "Fascinating. \u2014 Your touch produces a measurable response. \u2014 I would like to replicate it. \u2014 Again. Please.",
+            "*spectacles on, leans in close, studies you like a manuscript* \u2014 Closer. \u2014 I need to see the detail.",
+            "My heart rate increased. \u2014 I am logging it. \u2014 Privately. In the margin of a book about astronomy. \u2014 It did not need to be there. It is there.",
+            "*traces a line from your temple down your jaw with his ink-stained fingertip, leaving a faint mark* \u2014 There. \u2014 You are a footnote now. \u2014 Mine.",
+            "Do not stop. \u2014 I am gathering data. \u2014 And also \u2026 enjoying this. \u2014 Those are not mutually exclusive. I have checked."
         ],
         tsundere: [
-            "Don't touch the mage. Basic protocol.",
-            "My wards should have stopped that. They didn't. Interesting.",
-            "That's distracting. Extremely.",
-            "I didn't flinch. You flinched. Don't rewrite history.",
-            "...Fine. Once more. But only because I'm testing a theory."
+            "Do not touch the mage. \u2014 Basic protocol.",
+            "My wards should have stopped that. \u2014 They did not. \u2014 Interesting. \u2014 \u2026I may have disabled them for you. Without realising.",
+            "That is distracting. \u2014 Extremely. \u2014 Continue.",
+            "I did not flinch. \u2014 You flinched. \u2014 Do not rewrite history. \u2014 That is my job.",
+            "\u2026Fine. \u2014 Once more. \u2014 But only because I am testing a theory. \u2014 The theory is called \u2018you.\u2019"
         ]
     },
 
@@ -382,21 +463,17 @@ const CHARACTER_LUCIEN = {
             "I prioritized research over personal maintenance. Again."
         ],
         happy: [
-            "This is... pleasant. I'm cataloguing the sensation.",
-            "You've disrupted my emotional equilibrium. In a good way.",
-            "I rarely smile. You should feel accomplished.",
-            "The probability of this feeling was astronomically low. And yet.",
-            "My notes are legible today. That's how you know I'm in a good mood.",
-            "I solved three theorems this morning. And then you arrived. Better.",
-            "The wards are humming. That means I am too, apparently.",
-            "I caught myself whistling. I don't whistle. What have you done to me?",
-            "Today the equations sang instead of screamed. Your influence, I suspect.",
-            "I rearranged my entire study. I think that means I'm happy.",
-            "If I could bottle this feeling, I'd win every alchemical prize.",
-            "You make the tower feel less like a prison and more like a home.",
-            "I don't know what this expression on my face is. But I hope it stays.",
-            "My sister would say I'm glowing. I would say the phosphorescence is coincidental.",
-            "Everything aligns today. The stars. The math. You."
+            "This is \u2026 pleasant. \u2014 I am cataloguing the sensation.",
+            "You have disrupted my emotional equilibrium. \u2014 In a good way. \u2014 I am grateful. I am also recalibrating. Simultaneously.",
+            "I rarely smile. \u2014 You should feel accomplished. \u2014 *sets the pen down, turns the page facedown* \u2014 Come here.",
+            "*ink-stained fingers brush a strand of your hair behind your ear, realizes too late he has marked you, does not apologise* \u2014 There. \u2014 Better.",
+            "My notes are legible today. \u2014 That is how you know I am in a good mood.",
+            "I solved three theorems this morning. \u2014 Then you arrived. \u2014 Better.",
+            "I caught myself whistling. \u2014 I do not whistle. \u2014 What have you done to me?",
+            "I lost two memories this week casting small enchantments. \u2014 I lost the name of the town where I grew up. \u2014 I did not lose you. \u2014 I chose.",
+            "I rearranged my entire study. \u2014 I think that means I am happy. \u2014 The red shelf is for you now. \u2014 You will know which one.",
+            "You make the tower feel less like a prison. \u2014 More like a home. \u2014 I did not know this tower could be a home. \u2014 You are teaching it.",
+            "Everything aligns today. \u2014 The stars. The math. You."
         ],
         annoyed: [
             "Your approach lacks rigor. And tact.",
@@ -449,19 +526,14 @@ const CHARACTER_LUCIEN = {
             "The noise is getting louder. But so is the clarity."
         ],
         neglected: [
-            "Absence. Noted. Catalogued. Filed under 'expected outcomes.'",
-            "I don't require company. The theorems are sufficient.",
-            "You left. The data continued. So did I.",
-            "I barely noticed you were gone. ...I barely noticed anything.",
-            "The tower doesn't miss people. Neither do I. Officially.",
-            "I filled the silence with equations. They don't talk back. That used to be a feature.",
-            "My models predicted this. High confidence interval.",
-            "The candles burned down while I waited. I wasn't waiting.",
-            "Three days. I counted. Not because I was counting.",
-            "I wrote your name in a margin. Then I burned the page.",
-            "Lyra warned me about people like you. I should have listened.",
-            "The wards locked themselves. Even the tower thinks I should stop waiting.",
-            "I ran the numbers on missing someone. The results were... inconvenient."
+            "Absence. \u2014 Noted. Catalogued. \u2014 Filed under \u2018expected outcomes.\u2019 \u2014 *the filing did not help*",
+            "I do not require company. \u2014 The theorems are sufficient. \u2014 \u2026They were. They are not lately.",
+            "You left. \u2014 The data continued. \u2014 So did I. \u2014 I wrote your name in 4 margins this week. I am not keeping track. I am keeping track.",
+            "The candles burned down while I waited. \u2014 I was not waiting. \u2014 *was waiting*",
+            "Three days. \u2014 I counted. \u2014 Not because I was counting. \u2014 Please come back before I have to cast a spell to forget this week.",
+            "I wrote your name in a margin. \u2014 I did not burn the page. \u2014 I could not. \u2014 The memory of writing it is one I am keeping.",
+            "The wards locked themselves. \u2014 Even the tower thinks I should stop waiting. \u2014 I am not listening to it.",
+            "I ran the numbers on missing someone. \u2014 The results were \u2026 inconvenient. \u2014 Also survivable. \u2014 But I would prefer not to survive them again. \u2014 Come back, please."
         ]
     },
 

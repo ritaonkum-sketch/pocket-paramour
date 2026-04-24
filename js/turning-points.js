@@ -140,26 +140,26 @@
       speaker: 'LUCIEN',
       pose: 'assets/lucien/body/casting.png',
       setup: [
-        'I\u2019ve decided. I\u2019m going to burn the scorched page. The one with the proof that the kingdom can\u2019t be saved. The one I\u2019ve been hiding.',
-        'If I destroy it, no one has to carry the weight of the maths. If I keep it, someone will eventually use it to hurt someone.',
-        'The candle is lit. I won\u2019t do this without you. Stop me, or let me.'
+        'I have decided. \u2014 I am going to burn the scorched page. \u2014 The one I have been hiding. \u2014 The one I told you was about the kingdom.',
+        'It is not about the kingdom. \u2014 It is my father\u2019s family register. \u2014 It names a second child. \u2014 A daughter. \u2014 A siren-born. \u2014 My half-sister. \u2014 I was told she was dead. \u2014 The page says otherwise.',
+        'If I burn it, the bloodline\u2019s lie holds. \u2014 My father never knows I knew. \u2014 She stays officially dead. \u2014 If I keep it, she survives in writing. \u2014 And I have to find her. \u2014 The candle is lit. \u2014 I will not do this without you. \u2014 Stop me, or let me.'
       ],
       prompt: 'Stop me \u2014 or let me burn it?',
       choices: [
         {
           id: 'stop',
-          label: 'Stop. The truth is worth the weight.',
+          label: 'Stop. She deserves to exist in writing.',
           response: [
-            'Thank you. I was hoping you\u2019d say that. I would have missed arguing with myself about it.',
-            'We carry it together. I\u2019ll write a new page \u2014 with you as the variable that disproves my proof. I\u2019ve been wanting to try.'
+            '*sets the page down, hands shaking, ink-stained fingers resting flat against the paper* \u2014 Thank you. \u2014 I was hoping you would say that. \u2014 I would have resented myself for the rest of my life.',
+            'We carry it together. \u2014 I am going to find her. \u2014 The tower hums when I walk toward the coast. \u2014 I think it has been trying to tell me for years. \u2014 I should have listened sooner. \u2014 Help me listen now.'
           ]
         },
         {
           id: 'let',
-          label: 'Let it burn. The kingdom deserves one mercy.',
+          label: 'Let it burn. The mercy is in the forgetting.',
           response: [
-            'Alright. \u2026I thought I\u2019d feel lighter. I feel cleaner. Different sensation. I\u2019ll get used to it.',
-            'The maths that survive will be about you. I can live with that model. \u2026I think I can, actually, now.'
+            '*holds the page over the candle, hand steady, expression unreadable* \u2014 Alright. \u2014 \u2026I thought I would feel lighter. \u2014 I feel cleaner. Different sensation. \u2014 I will get used to it.',
+            'The record that survives will be in my head. \u2014 I have been losing memories for years. \u2014 This one I am choosing not to lose. \u2014 I will know she existed. \u2014 Even if the world does not.'
           ]
         }
       ]

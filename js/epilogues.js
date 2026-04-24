@@ -219,10 +219,10 @@
         bg: 'assets/bg-lucien-study.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
-          { type: 'line', text: 'The tower is loud now. The good kind. You and the prince argue at the desk. I work in the margins. It\u2019s my favourite configuration.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'I\u2019m publishing the scorched pages. Unabridged. Aethermoor\u2019s council is choking on it \u2014 which is, statistically, the best possible outcome. The kingdom deserves to know what it was built on.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'The tower is loud now. \u2014 The good kind. \u2014 You and the prince argue at the desk. \u2014 I work in the margins. \u2014 It is my favourite configuration.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'I found her. \u2014 My sister. She sings in a cave past the coast. \u2014 She hummed a melody I had dreamed all my life without knowing where it came from. \u2014 We have tea on Thursdays. \u2014 Do not tell my father. \u2014 He does not deserve to know yet.', hold: 4000, cps: 26 },
           { type: 'flourish', text: '\u221e', duration: 1600 },
-          { type: 'line', text: 'Bring tea tonight. The second shelf is yours. I moved my red shelf down. \u2026For reasons.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'Bring tea tonight. \u2014 The second shelf is yours. \u2014 I moved my red shelf down. \u2026For reasons. \u2014 *pen-down, page facedown, looks up* \u2014 Come here.', hold: 3200, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -234,9 +234,10 @@
         bg: 'assets/bg-lucien-evening.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'My equations went quiet. I miss the leaking, a little. I wrote you into the margins anyway \u2014 as the new variable. The model likes you.', hold: 3200, cps: 26 },
-          { type: 'line', text: 'I archived the scorched pages. Sealed box, tower vault. Not burned \u2014 burning would be another erasure, and I won\u2019t repeat that mistake. One day when the kingdom is ready, the box opens.', hold: 3600, cps: 26 },
-          { type: 'line', text: 'Come read the proof sometime. It doesn\u2019t prove anything useful. It just \u2026 factors you in at every line. I needed you to see.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'My equations went quiet. \u2014 I miss the leaking, a little. \u2014 I wrote you into the margins anyway \u2014 as the new variable. \u2014 The model likes you.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I archived the scorched page. Sealed box. Tower vault. \u2014 Not burned. Burning would be another erasure. I will not repeat that mistake.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'I walked the coast alone last Thursday. \u2014 I heard a woman singing. \u2014 I did not approach. \u2014 I will, one day. \u2014 When I am certain I can carry what I will find there.', hold: 3600, cps: 26 },
+          { type: 'line', text: 'Come read the proof sometime. \u2014 It does not prove anything useful. \u2014 It just \u2026 factors you in at every line. \u2014 I needed you to see.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -248,9 +249,9 @@
         bg: 'assets/bg-lucien-night.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casting.png', wait: 700 },
-          { type: 'line', text: 'The maths split in two. One half screams. The other half is calmer than it\u2019s been in decades. I suspect that\u2019s him. I suspect you suspect too.', hold: 3200, cps: 26 },
-          { type: 'line', text: 'I\u2019m co-authoring a new history with Corvin. Both kingdoms, one record. Nocthera\u2019s side has never been told out loud before. He dictates. I annotate. The council is \u2026 adjusting.', hold: 3600, cps: 26 },
-          { type: 'line', text: 'I locked the tower again. Then left the key under the mat for you. I didn\u2019t tell him about the key. \u2026Yet.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'The maths split in two. \u2014 One half screams. \u2014 The other half is calmer than it has been in decades. \u2014 I suspect that is him. \u2014 I suspect you suspect, too.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I am co-authoring a new history with Corvin. \u2014 Both kingdoms, one record. \u2014 He dictates. I annotate. \u2014 He taught a siren a song six hundred years ago. \u2014 That siren was my sister\u2019s mother. \u2014 Our family tree has new branches. It is going to take me a while to draw it.', hold: 4000, cps: 26 },
+          { type: 'line', text: 'I locked the tower again. \u2014 Then left the key under the mat for you. \u2014 I did not tell him about the key. \u2026Yet.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
       }

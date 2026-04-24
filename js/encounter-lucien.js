@@ -1,5 +1,24 @@
 /* encounter-lucien.js — the tower library meet-cute. Scholar / curious tone.
- * Registers window.MSEncounterLucien. */
+ * Registers window.MSEncounterLucien.
+ *
+ * VOICE DIRECTION (for writing + future VO):
+ * Primary reference: Benedict Cumberbatch as BBC Sherlock in the
+ * quieter moments \u2014 precise, observant, walls that crack only for
+ * one specific person.
+ * Secondary: Timoth\u00e9e Chalamet in Call Me By Your Name \u2014 the young
+ * intellectual who writes what he feels in notebooks he thinks no
+ * one will read.
+ * For clumsy-tender moments: Eddie Redmayne in Fantastic Beasts \u2014
+ * the scholar who looks at people like specimens until suddenly he
+ * is looking at one person like a miracle.
+ * Do NOT write as: arrogant-genius cold, Snape-brooding, or
+ * condescending-know-it-all. Lucien is PRECISE, not cruel. His
+ * walls are not contempt \u2014 they are observation.
+ *
+ * The scholar's signature move is THE PEN-DOWN RITUAL. He is writing.
+ * The player enters. He stops mid-sentence, sets the pen down with
+ * deliberate care, turns the page facedown, looks up. That pause is
+ * the dopamine. */
 (function () {
   'use strict';
 
@@ -199,7 +218,7 @@
 
     try {
       // Beat 1 — he hasn\u2019t looked up from his work yet
-      await type(n.line, 'The door was locked. I locked it myself.', 28);
+      await type(n.line, 'The door was locked. \u2014 I locked it myself. \u2014 Twice. \u2014 I am very thorough.', 28);
       await wait(1600);
 
       // Beat 2 — tap to step closer
@@ -219,9 +238,9 @@
       );
       await wait(320);
 
-      // Beat 3 — he looks up, curious
-      await type(n.line, '\u2026And yet. Here you are. Interesting.', 26);
-      await wait(1400);
+      // Beat 3 — he looks up, curious. The pen-down ritual.
+      await type(n.line, '*sets the pen down with deliberate care, turns the page facedown, looks up* \u2014 \u2026And yet. \u2014 Here you are. \u2014 Interesting.', 26);
+      await wait(1600);
 
       // Beat 4 — unlock one answer
       n.hint.textContent = 'one answer unlocked \u2014 tap to speak';
@@ -231,7 +250,7 @@
       n.hint.textContent = '';
 
       // Beat 5 — choice
-      await type(n.line, 'How did you get past the wards?', 34);
+      await type(n.line, 'How did you get past the wards? \u2014 Precisely, please.', 34);
       await wait(300);
       const pick = await showChoice(n.choiceRow, n.dialogue, [
         { id: 'touched',  text: 'The door \u2026opened when I touched it.' },
@@ -241,9 +260,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'touched') {
-        await type(n.line, 'That shouldn\u2019t be possible. Which means you\u2019re worth observing. Sit. Don\u2019t touch anything else.', 28);
+        await type(n.line, 'That should not be possible. \u2014 Which means you are worth observing. \u2014 Sit. Do not touch anything else. \u2014 \u2026Please.', 28);
       } else {
-        await type(n.line, 'A stray variable, then. My favorite kind. Stay. I have questions.', 28);
+        await type(n.line, 'A stray variable. \u2014 My favourite kind. \u2014 Stay. I have questions. \u2014 I had them before you arrived, which is a complication I am already logging.', 28);
       }
       await wait(2200);
 

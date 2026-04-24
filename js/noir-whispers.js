@@ -41,9 +41,9 @@
       'He collects hearts. \u2014 I keep only one. \u2014 Guess whose. \u2014 He and I have more in common than either of us would like.'
     ],
     lucien: [
-      'He writes in my margins and thinks it is inspiration. \u2014 Let him have that.',
-      'His equations call me by a name the old Weaver gave me. \u2014 I allow it.',
-      'He will ask you soon whether monsters can miss someone. \u2014 Answer carefully.'
+      'He writes in my margins and thinks it is inspiration. \u2014 Let him have that. \u2014 Hmm. \u2014 His bloodline and mine were at one another\u2019s throats once. He is handling it better than I did.',
+      'His equations call me by a name the old Weaver gave me. \u2014 I allow it. \u2014 The boy is more honest on a page than his father ever was in a room.',
+      'He will ask you soon whether monsters can miss someone. \u2014 \u2026Answer carefully. \u2014 And ask him about his sister. \u2014 He has one. He does not know I know.'
     ],
     // Proto is meta \u2014 Noir breaks a different kind of fourth wall here.
     proto: [
