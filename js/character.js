@@ -284,7 +284,8 @@ const CHARACTER_ALISTAIR = {
             "I don't want to lose this. I should probably say that more.",
             "You're becoming something I didn't plan for.",
             "I've started measuring days by whether I see you.",
-            "I wasn't supposed to feel this way about anything outside the oath."
+            "I wasn't supposed to feel this way about anything outside the oath.",
+            "The wards along my patrol route sing when you pass. \u2014 They have not sung in my lifetime. \u2014 The old texts name you, mi\u2019lady. \u2014 A Soul Weaver. \u2014 Seventh in six hundred years. \u2014 I was posted here for a reason. \u2014 It turns out the reason is you."
         ],
         obsessed: [
             "You're distracting me. I've decided that's your fault.",

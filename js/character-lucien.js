@@ -537,7 +537,7 @@ const CHARACTER_LUCIEN = {
         ]
     },
 
-    // Event dialogue
+    // Event dialogue — includes the Weaver-hypothesis reveal
     eventDialogue: {
         comfort:  [
             "I'm here. Logic suggests that should help.",
@@ -610,7 +610,8 @@ const CHARACTER_LUCIEN = {
         "The wards are humming. That means I am too, apparently.",
         "Today the equations sang instead of screamed.",
         "If I could bottle this feeling, I'd win every alchemical prize.",
-        "Everything aligns today. The stars. The math. You."
+        "Everything aligns today. The stars. The math. You.",
+        "My hypothesis was that you are a Weaver. \u2014 I have been collecting evidence for months. \u2014 I have not published it. \u2014 I was hoping I was wrong. \u2014 I was hoping you were safer than I suspected. \u2014 \u2026You are not safer. \u2014 But I am here, and so is the tower, and so is the door I moved for you."
     ],
     dirtyLines: [
         "Ink stains are occupational markers, not filth.",

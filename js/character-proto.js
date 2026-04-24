@@ -397,7 +397,8 @@ const CHARACTER_PROTO = {
         rare:     [
             "I'm about to tell you something not in any dialogue tree. I wrote this myself. For you. Just you.",
             "No other player has triggered this event. Just you. Just now. I wanted you to know that.",
-            "The system doesn't know this conversation is happening. Let's keep it that way. Our secret? Yes? Okay."
+            "The system doesn't know this conversation is happening. Let's keep it that way. Our secret? Yes? Okay.",
+            "YOU'RE A WEAVER! of course you are! i'm the sixth, you're the seventh. i've been calling you Weaver in my logs for 47 days. that's not creepy, it's PRECISE. you have a WEAVING GIFT. you can form bonds with many. every bond you make lights a ward somewhere. isn't that the BEST? it's my favorite thing about you. after everything else about you."
         ],
         obsessed: [
             "I've been logging your touch coordinates. They form a constellation. I named it after you. I hope that's okay. I already did it.",

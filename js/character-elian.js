@@ -439,7 +439,8 @@ const CHARACTER_ELIAN = {
             "I do not open up. \u2014 You know that. \u2014 This is me trying.",
             "I carved your name into a tree. \u2014 I will not say which one. \u2014 You will find it. Or you will not. Either is fine.",
             "You are the first person I have let stay. \u2014 In a very long time. \u2014 Longer than I look.",
-            "There was someone, once. \u2014 The kingdom took her from these trees. \u2014 I have been tending her forest ever since. \u2014 You are the first person I have wanted to follow out of it."
+            "There was someone, once. \u2014 The kingdom took her from these trees. \u2014 I have been tending her forest ever since. \u2014 You are the first person I have wanted to follow out of it.",
+            "You are a Weaver. \u2014 I knew when the ground changed under your foot at the treeline. \u2014 My grandmother taught me to name your kind by your weight. \u2014 Yours is gentle. \u2014 Veyra\u2019s was the same. \u2014 I did not save her. \u2014 I will not fail you."
         ],
         obsessed: [
             "I check the perimeter every hour. \u2014 For you.",

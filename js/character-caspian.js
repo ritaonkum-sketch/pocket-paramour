@@ -430,7 +430,8 @@ const CHARACTER_CASPIAN = {
         rare:     [
             "I have never said this to anyone outside the royal family.",
             "You see a version of me no one else does. \u2014 I am \u2026 uncertain whether that is fair to you.",
-            "My grandfather loved Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 My family has one love apiece. \u2014 I have been watching for mine. It is you."
+            "My grandfather loved Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 My family has one love apiece. \u2014 I have been watching for mine. It is you.",
+            "The scholars in my grandfather\u2019s library wrote about Weavers. \u2014 I thought they were a story. \u2014 Then you arrived, and the wards on the palace doors did something they have not done in six generations. \u2014 You are what the books said was lost. \u2014 My family has been looking for you for six hundred years. \u2014 I found you. \u2014 I am not telling anyone. Not yet."
         ],
         obsessed: [
             "I check the gate every hour. \u2014 For you.",

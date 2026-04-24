@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v171';
+const CACHE_NAME = 'pocket-love-v172';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -55,6 +55,7 @@ const CORE_ASSETS = [
     // Main-story route (opt-in; flag: pp_main_story_enabled)
     '/js/encounter-alistair.js',
     '/js/encounter-elian.js',
+    '/js/encounter-elian-rescue.js',
     '/js/encounter-lyra.js',
     '/js/encounter-caspian.js',
     '/js/encounter-lucien.js',

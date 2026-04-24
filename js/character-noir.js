@@ -420,7 +420,8 @@ const CHARACTER_NOIR = {
         rare:     [
             "I am about to show you something I do not show anyone. \u2014 Not even the dark.",
             "You have earned a truth. \u2014 I hope you can carry it.",
-            "There was a version of me that existed before the void. \u2014 You almost make me remember him."
+            "There was a version of me that existed before the void. \u2014 You almost make me remember him.",
+            "You are a Weaver. \u2014 \u2026Mm. \u2014 I have known five in my long captivity. \u2014 Queen Aenor ate every one. \u2014 I watched it from inside the seal. \u2014 I could do nothing. \u2014 *slow breath, eye contact held* \u2014 I will not watch her eat you. \u2014 That is a vow. \u2014 I do not make them lightly. \u2014 Ask me again in a hundred years. It will still be true."
         ],
         obsessed: [
             "\u2026I know your schedule. Your patterns. \u2014 The rhythm of your breathing when you sleep. \u2014 I memorize. I cannot help it.",

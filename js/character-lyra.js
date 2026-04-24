@@ -285,7 +285,8 @@ const CHARACTER_LYRA = {
         "I sang inward today. \u2014 To you. \u2014 It held.",
         "*leans her shoulder against yours without looking up* \u2014 This. \u2014 Just this. \u2014 I have been wanting this.",
         "Your hand is warm. \u2014 *threads her cold fingers through yours* \u2014 I am going to steal it. \u2014 Fair warning.",
-        "*tucks her face into the crook of your neck* \u2014 You smell of sun. \u2014 I have not smelled sun on a person in a long time."
+        "*tucks her face into the crook of your neck* \u2014 You smell of sun. \u2014 I have not smelled sun on a person in a long time.",
+        "You are a Weaver. \u2014 I felt it in your pulse the first time you took my hand. \u2014 My mother taught me one true thing before she died. \u2014 \u2018Protect the Weaver.\u2019 \u2014 I thought it was a rule from an old story. \u2014 It was instructions. \u2014 For you."
     ],
 
     dirtyLines: [
