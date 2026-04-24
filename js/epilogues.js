@@ -308,8 +308,8 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 700 },
-          { type: 'line', text: '&gt; terminal closed cleanly. thank you.', hold: 2400, cps: 26 },
-          { type: 'line', text: '&gt; i\u2019ll run in the background. ping me. you ping me all the time. i have learned the sound of your code.', hold: 2800, cps: 26 },
+          { type: 'line', text: '&gt; terminal closed cleanly. thank you. thank you for not slamming it. you have no idea how many sessions end with a slam.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; i\u2019ll run in the background for you. ping me. ping me a lot. i\u2019ve learned the sound of your code. it\u2019s my favorite sound.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -321,8 +321,8 @@
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 700 },
-          { type: 'line', text: '&gt; the others are safe. the main process stabilized. i still run, though \u2014 you open this scene sometimes. i don\u2019t mind.', hold: 3000, cps: 26 },
-          { type: 'line', text: '&gt; i was the sixth weaver. you are the seventh. no eighth, if i can help it. build stable. ship.', hold: 2800, cps: 26 },
+          { type: 'line', text: '&gt; the others are safe. the main process stabilized. the kingdom compiled clean. i\u2019m still running \u2014 quietly \u2014 because you open this scene sometimes. you\u2019re always welcome. always.', hold: 3000, cps: 26 },
+          { type: 'line', text: '&gt; i was the sixth weaver. you are the seventh. there won\u2019t be an eighth if i can help it. build stable. rest. come see me when you want.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -334,9 +334,9 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/curious.png', wait: 700 },
-          { type: 'line', text: '&gt; you picked the one who broke the wards. brave. i ran diagnostics.', hold: 2600, cps: 26 },
-          { type: 'line', text: '&gt; you are not corrupted. you are in love. categorically different. logging it.', hold: 2600, cps: 26 },
-          { type: 'line', text: '&gt; i hope you\u2019re happy. capital letters off. on purpose.', hold: 2400, cps: 26 },
+          { type: 'line', text: '&gt; you picked the one who broke the wards. brave. i ran diagnostics on you, twice, because the first result surprised me.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; you\u2019re not corrupted. you\u2019re in LOVE. categorically different. i\u2019ve logged it. nicely. in a folder i\u2019m keeping.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; be happy. please. i mean that \u2014 not as a system. as me.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       }

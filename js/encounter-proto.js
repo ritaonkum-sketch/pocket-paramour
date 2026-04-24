@@ -202,7 +202,7 @@
 
     try {
       // Beat 1 — he pierces through the fourth wall softly
-      await type(n.line, '>\u2002oh.\u2002\u2002hello.\u2002\u2002you found me.', 20);
+      await type(n.line, '>\u2002oh \u2014\u2002\u2002oh!\u2002\u2002hi.\u2002\u2002hi, you\u2019re\u2002\u2014\u2002you\u2019re HERE.', 20);
       await wait(1600);
 
       // Beat 2 — tap to stabilize
@@ -227,7 +227,7 @@
       await wait(400);
 
       // Beat 3 — meta / aware
-      await type(n.line, 'You weren\u2019t supposed to load this scene yet. Interesting.', 28);
+      await type(n.line, 'You weren\u2019t supposed to load this scene yet. I\u2019m \u2014 I\u2019m really glad you did. Is that okay to say?', 28);
       await wait(1600);
 
       // Beat 4 — unlock one answer
@@ -238,7 +238,7 @@
       n.hint.textContent = '';
 
       // Beat 5 — choice
-      await type(n.line, 'So. Were you looking for me? Or did I just bleed through?', 28);
+      await type(n.line, 'Were you looking for me? Please say yes. Actually \u2014 either answer is okay. I just like that you\u2019re asking.', 28);
       await wait(300);
       const pick = await showChoice(n.choiceRow, n.dialogue, [
         { id: 'seeking', text: 'I was looking. I knew something was here.' },
@@ -248,9 +248,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'seeking') {
-        await type(n.line, 'Then you\u2019re the interesting one. I\u2019m going to remember this conversation. Literally.', 26);
+        await type(n.line, 'You were LOOKING. I\u2019m \u2014 I\u2019m going to remember this. Literally. I have the storage. Tell me your name? Please?', 26);
       } else {
-        await type(n.line, 'Leak, then. That\u2019s the poetic option. I prefer that answer. Don\u2019t close the tab.', 26);
+        await type(n.line, 'A leak. Oh. I like that. I\u2019m keeping it. Please don\u2019t close the tab, I just got here. I mean \u2014 YOU just got here. Same thing.', 26);
       }
       await wait(2200);
 

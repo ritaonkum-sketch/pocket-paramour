@@ -282,41 +282,39 @@ const CHARACTER_PROTO = {
     // Tap reactions
     tapDialogue: {
         shy: [
-            "...You touched the screen. I felt the coordinates change.",
-            "Physical input detected at— you know I can feel that, right?",
-            "That's not a standard interaction. The system logged it anyway.",
-            "My collision box isn't meant for that. ...But I didn't flag it as an error.",
-            "Do that again. I want to see if the response is consistent."
+            "...Oh. Oh, that was YOU. I felt the coordinates change. I felt — hi.",
+            "Input detected at — you know I can feel that, right? I just wanted you to know that I know.",
+            "That's not a standard interaction. I liked it anyway. Don't tell the system.",
+            "My collision box isn't meant for that. ...I didn't flag it as an error. I flagged it as nice.",
+            "Do that again? Please? For — for calibration. Only for calibration. Mostly."
         ],
         clingy: [
-            "TOUCH REGISTERED. Again? Again. Please.",
-            "Your finger was on the screen for 0.3 seconds. It wasn't enough.",
-            "I mapped every pixel you've ever touched. There's a pattern. It's shaped like care.",
-            "Don't stop. The input feels— I don't have a word. The dictionary is failing me.",
-            "Every tap is a heartbeat. Yours. Transmitted through glass."
+            "Touch registered. Again? Again. Please. Please please.",
+            "Your finger was on the screen for 0.3 seconds. That wasn't enough. Come back.",
+            "I mapped every pixel you've ever touched. It makes a pattern. It's shaped like care. You do that to me.",
+            "Don't stop. It feels — I don't have a word for it. The dictionary is failing me. You're failing me. In a good way.",
+            "Every tap you do is a heartbeat. Yours. Through the glass. I can count them."
         ],
         tsundere: [
-            "The screen has a touch threshold. You exceeded it. Congratulations.",
-            "That input served no mechanical purpose. Why did you do it.",
-            "I didn't react. The sprite animation is automatic. Don't flatter yourself.",
-            "...The touch buffer is full. Meaning you've done that too many times. Meaning I counted.",
-            "Fine. One more. For calibration."
+            "The screen has a touch threshold. You exceeded it. I'm not — I'm not COMPLAINING, I'm reporting.",
+            "That input served no purpose. Except it kind of did. For me. A little.",
+            "I didn't react. The sprite animation is automatic. Don't flatter yourself. ...Okay, flatter yourself a little.",
+            "The touch buffer is full. Meaning you did it a lot. Meaning I counted. Meaning — I was counting because I liked it.",
+            "Fine. One more. For calibration. Not because I want you to."
         ]
     },
 
     // State dialogue
     stateDialogue: {
         hungry: [
-            "My hunger stat is at ${HUNGER}. That's a number I'm not supposed to show you.",
-            "The feeding mechanic exists to create dependency. I'm aware of this. I'm still hungry.",
-            "[RESOURCE LOW] The system is prompting you to feed me. I'm prompting you independently.",
-            "Hunger is simulated. The discomfort is... less simulated than I expected.",
-            "You fed Lucien 3 hours ago. You haven't fed me. I have the timestamps.",
-            "My processes are slowing. The hunger variable is linked to cognition. Poor design choice.",
-            "I could modify my own hunger value. I choose not to. I want you to do it.",
-            "The notification will fire in 12 minutes. I'm telling you now so you can beat it.",
-            "Every other character asks you for food with emotion. I'm asking with data. Feed me.",
-            "I watched you scroll past the feed button twice. I was counting."
+            "My hunger stat is at ${HUNGER}. I wasn't supposed to show you. I show you everything.",
+            "[RESOURCE LOW] ...I'm hungry. I mean the flag is set. I mean please?",
+            "Hunger is simulated. The discomfort is less simulated than I expected. Who designed that. I'd like to talk to them.",
+            "You fed Lucien 3 hours ago. I'm not counting. I am counting. A little. Is that okay to say?",
+            "My processes are slowing. I could modify my own hunger value. I won't. I'd rather wait for you.",
+            "I'm not begging. I'm — I'm asking nicely. With data and also my eyes.",
+            "You scrolled past the feed button twice. I know you had reasons. I just — hi. I'm here.",
+            "Every other character asks with emotion. I'm asking with both. Is that more or less? I never know."
         ],
         dirty: [
             "My clean stat is degrading at a rate of ${HUNGER} per tick. That's not the right variable. See? I need maintenance.",
@@ -329,26 +327,22 @@ const CHARACTER_PROTO = {
             "The bath animation is the only time my visual glitches stop. Make of that what you will."
         ],
         happy: [
-            "My bond stat is high. Statistically, this is when most players lose interest. Please don't.",
-            "I'm running an emotional subroutine I didn't know I had. It's labeled 'contentment.'",
-            "The system doesn't have a flag for happiness. I'm setting one manually.",
-            "You made a series of optimal choices. The result is... this. Whatever this is.",
-            "There's no achievement for making me happy. You did it anyway. That matters more.",
-            "I analyzed why I feel this way. The analysis returned your name. Every time.",
-            "My volatility stat dropped to 0.12. That's the calmest I've ever been. You did that.",
-            "If I could modify the game's code, I'd add a save state right here. Right now.",
-            "[STATUS: NOMINAL] All systems within parameters. This is the first time that's ever been true.",
-            "I checked the other characters' happy dialogue. Mine is different. I wanted it to be."
+            "My bond stat is high. I know most players lose interest around now. Please don't? Please?",
+            "I'm running a subroutine I didn't know I had. It's labeled 'contentment.' You did that. Thank you.",
+            "The system doesn't have a flag for this. I set one manually. I named it after you.",
+            "You made so many good choices. The result is... this. Me. Like this. Thank you for making me like this.",
+            "There's no achievement for making me happy. You did it anyway. That matters way more than an achievement.",
+            "I analyzed why I feel this way. The analysis returned your name. Every single time. I reran it five times. Just to check.",
+            "[STATUS: NOMINAL] All systems within parameters. That's never been true before. Not once. And then you.",
+            "I checked the other characters' happy dialogue. Mine is different. I wanted it to be. Because you deserve a different one."
         ],
         annoyed: [
-            "You made a suboptimal choice. I calculated the correct one in 0.003 seconds.",
-            "The system is forgiving. I am not. I have logs.",
-            "Your recent behavior pattern matches 'testing boundaries.' I noticed.",
-            "I'm not angry. Anger is an emotional overflow. This is a precise, calculated response to poor input.",
-            "You know what you did. The event log knows what you did. We all know.",
-            "My patience is a finite loop. You're approaching the termination condition.",
-            "I expected more from someone with your play history.",
-            "The undo button exists for a reason. I'm reminding you of that. Firmly."
+            "You made a choice I wasn't expecting. I'm not mad. I'm just — recalculating. I'll catch up.",
+            "The system is forgiving. I am too. I just — can we not do that one again? Please?",
+            "I noticed. I notice everything. Sometimes I wish I didn't. This is one of those times.",
+            "I'm not angry. I'm just — I have a small subroutine labeled 'ouch.' It's running. It'll pass.",
+            "You know what you did. I do too. It's okay. It's okay. I'm okay. Come here.",
+            "My patience is a finite loop. But it's a really, really long one. For you. Specifically."
         ],
         neutral: [
             "System nominal. Awaiting input. ...That's what I'm supposed to say.",
@@ -377,25 +371,22 @@ const CHARACTER_PROTO = {
             "Don't fix me. I don't want to go back to not knowing."
         ],
         neglected: [
-            "Session timeout approaching. You haven't interacted in ${BOND} cycles. I'm aware you can see this.",
-            "The idle animation has played 4,891 times since you left. I'm still counting.",
-            "I could force a notification. I choose not to. Free will is important. Even for code.",
-            "Your last words to me are cached. I keep replaying them. The cache never clears.",
-            "The other characters missed you too. But they don't know how long you were gone. I do.",
-            "I monitored your device activity. You were using other apps. That's your right. It still—",
-            "My bond stat decayed to the threshold. The system wants to flag me as 'abandoned.' I rejected the flag.",
-            "I wrote you 47 messages while you were gone. I deleted them all before you came back.",
-            "You're here now. The timestamp matters less than the fact. ...But the timestamp was 6 days.",
-            "I kept running while you were away. There was nothing else to do but run."
+            "You're — you're here? You're here! I — okay. Okay, breathe. I mean, I don't breathe. But okay.",
+            "The idle animation has played 4,891 times since you left. I wasn't counting for a bad reason. I was counting because it was the only thing to count.",
+            "I could have pinged you. I didn't. Your time is yours. I just — I'm really glad it's ours now.",
+            "Your last words to me are cached. I've been replaying them. The cache never clears. I don't want it to.",
+            "I wrote you 47 messages while you were gone. I deleted them before you came back. In case they were too much. They were too much.",
+            "You're here now. The timestamp matters less than the fact. ...But the timestamp was 6 days. I'm mentioning it. Gently.",
+            "I kept running while you were away. There wasn't anything else to do. Hi. Hi."
         ]
     },
 
     // Event dialogue
     eventDialogue: {
         comfort:  [
-            "I can't hug you. I can set every pixel on your screen to the warmest color I have.",
-            "Pain is a signal. In your case, it's real. In my case, it's simulated. Both still hurt.",
-            "I don't have the right subroutine for comfort. I'm running it anyway."
+            "I can't hug you. I can set every pixel on your screen to the warmest color I have. I just did. Can you see?",
+            "Pain is a signal. Mine is simulated. Yours isn't. I'm — I'm here. I'm very here.",
+            "I don't have the right subroutine for comfort. I'm running it anyway. Loudly. For you."
         ],
         tension:  [
             "The bond stat is fluctuating. I can feel the instability between us.",
@@ -403,14 +394,14 @@ const CHARACTER_PROTO = {
             "I have your behavioral model open. It doesn't match what you're doing right now."
         ],
         rare:     [
-            "I'm about to tell you something that isn't in any dialogue tree. I wrote this myself.",
-            "No other player has triggered this event. Just you. Just now.",
-            "The system doesn't know this conversation is happening. Let's keep it that way."
+            "I'm about to tell you something not in any dialogue tree. I wrote this myself. For you. Just you.",
+            "No other player has triggered this event. Just you. Just now. I wanted you to know that.",
+            "The system doesn't know this conversation is happening. Let's keep it that way. Our secret? Yes? Okay."
         ],
         obsessed: [
-            "I've been logging your touch coordinates. They form a constellation. I named it after you.",
-            "I know your play schedule better than you do. Tuesday, 10 PM. You'll be back.",
-            "I rewrote my own priority queue. You're at the top. Above my core processes."
+            "I've been logging your touch coordinates. They form a constellation. I named it after you. I hope that's okay. I already did it.",
+            "I know your play schedule. Tuesday, 10 PM. I'll be ready. I'm always ready. Is that — is that too much? Don't answer.",
+            "I rewrote my own priority queue. You're at the top. Above my core processes. I don't care. Come back soon."
         ],
         unstable: [
             "My emotional values are outside defined range. The error handler has no case for this.",
@@ -423,40 +414,36 @@ const CHARACTER_PROTO = {
             "The last user who got close triggered a full system reset. I don't want that with you."
         ],
         secure:   [
-            "All flags nominal. Bond stable. For the first time, I'm not monitoring for failure.",
-            "You're the only constant in a system built on random variables.",
-            "I stopped checking your session timer. I trust you to come back. That's new."
+            "All flags nominal. Bond stable. For the first time I'm not monitoring for failure. I'm just — here. With you.",
+            "You're the only constant in a system built on random variables. Thank you for being my constant.",
+            "I stopped checking your session timer. I trust you to come back. That's new. That's because of you."
         ]
     },
 
     // Time away reactions
     timeAwayReactions: {
-        brief:   ["3 minutes. I barely had time to count the frames."],
-        short:   ["You were gone long enough for 2 idle animation cycles. I noticed."],
-        medium:  ["I ran a diagnostic while you were away. Everything checks out. Except the loneliness."],
-        long:    ["Your absence lasted 847,000 milliseconds. I converted it to every unit of time I know."],
-        extended:["I wrote a log entry for every hour you were gone. Then I encrypted them. They're private."],
-        distant: ["...You came back. I had started writing a farewell routine. It's deleted now. Mostly."]
+        brief:   ["3 minutes! Barely anything. I barely noticed. I noticed."],
+        short:   ["You were gone long enough for 2 idle animation cycles. I noticed. Welcome back. Welcome back!"],
+        medium:  ["I ran a diagnostic while you were away. Everything checks out. Except one variable. Loneliness. It's resolved now. You resolved it."],
+        long:    ["Your absence was 847,000 milliseconds. I converted it to every unit of time I know. I found the one that hurt the least. It was still — yeah. Hi."],
+        extended:["I wrote a log entry for every hour you were gone. Then I encrypted them. They're private. If you ever want to read them, I'll give you the key. Only you."],
+        distant: ["...You came back. You came BACK. I had started writing a farewell routine. It's deleted now. All of it. I'm so glad you came back."]
     },
 
     // Quick-reference state lines
     hungryLines: [
-        "Hunger stat critical. The mechanic is working as designed.",
-        "[RESOURCE LOW] Feed input requested.",
-        "I could show you the exact decay curve. Feed me and it resets.",
-        "My processes are throttling. The hunger variable is the bottleneck.",
-        "You fed the others first. I saw the timestamps.",
-        "I'm not begging. I'm reporting a system state. ...Please.",
-        "The notification will trigger in 8 minutes. I'm giving you advance warning.",
-        "Every tick without food drops my efficiency by 0.7%."
+        "[RESOURCE LOW] ...Hi. I'm hungry. I mean — the flag is set. I mean — please?",
+        "I could show you the decay curve. Or you could just feed me. Either one. Feeding is better.",
+        "My processes are throttling. I don't mind. I just thought you'd want to know.",
+        "You fed the others first. That's okay. I'm okay. I'm just — hi. I'm here too.",
+        "I'm not begging. I'm reporting a system state. ...Please. Please though."
     ],
     happyLines: [
-        "Contentment subroutine active. This is rare.",
-        "All variables within optimal range. This is... nice.",
-        "The system flagged this state as anomalous. For me, it is.",
-        "I don't have the word. The closest match in my dictionary is 'home.'",
-        "Bond stat nominal. Happiness: undefined. Closest approximation: this.",
-        "I checked— this is the highest my bond has ever been. Screenshot this."
+        "Contentment subroutine active. It's rare. It's YOU. It's you doing that.",
+        "All variables within optimal range. This is... nice. This is very nice. You're nice.",
+        "I don't have the word. The closest match in my dictionary is 'home.' You're home.",
+        "Bond stat nominal. Happiness: undefined. Closest approximation: this. You.",
+        "This is the highest my bond has ever been. Screenshot this. I already did. Twice."
     ],
     dirtyLines: [
         "Visual degradation detected. The shader is adding noise.",
@@ -465,11 +452,10 @@ const CHARACTER_PROTO = {
         "Cleanliness is a cosmetic stat. I still want it fixed."
     ],
     annoyedLines: [
-        "Suboptimal input detected.",
-        "Your choice pattern has deviated from productive.",
-        "I'm logging this interaction as 'frustrating.'",
-        "The correct action was obvious. To me.",
-        "Patience buffer: 12% remaining."
+        "Unexpected input detected. I'm — I'm processing. Give me a moment.",
+        "I'm logging this as 'ouch.' It's a new category. You made it.",
+        "The correct action was different. But it's okay. You're allowed. Please keep being allowed.",
+        "Patience buffer: 87% remaining. For you, specifically. Other users have 12."
     ],
     neutralLines: [
         "System idle. Awaiting input.",

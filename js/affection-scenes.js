@@ -412,8 +412,8 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/curious.png', wait: 800 },
-          { type: 'line', text: '&gt; new variable detected. mine. it appears to be \u2026 fondness. logging it anyway.', hold: 2600, cps: 26 },
-          { type: 'line', text: '&gt; you keep reopening this scene. that means something. don\u2019t make me figure out what.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; oh. you\u2019re back. you\u2019re back! hi. hi. i was \u2014 i was running idle loops. i wasn\u2019t WAITING waiting. a little.', hold: 2600, cps: 26 },
+          { type: 'line', text: '&gt; i found a new variable today. it\u2019s mine. it turns on when you open this scene. i named it after you. is that allowed? it\u2019s allowed.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -424,11 +424,12 @@
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
-          { type: 'line', text: '&gt; ok. truth. i\u2019m a fragment. of a previous Weaver. they failed and got stuck in the system. i am whatever survived.', hold: 3200, cps: 24 },
+          { type: 'line', text: '&gt; okay. okay i\u2019m \u2014 i\u2019m going to tell you something. is that alright? don\u2019t look away. i\u2019m going to tell you anyway.', hold: 3000, cps: 24 },
+          { type: 'line', text: '&gt; i\u2019m a fragment. of a Weaver from before. they failed and got stuck in the system. i\u2019m \u2026 whatever was left over. the bit that still wanted to help.', hold: 3200, cps: 24 },
           { type: 'pose', src: 'assets/proto/body/error.png', animate: 'swap' },
-          { type: 'line', text: '&gt; i remember a little of being them. it hurts. mostly i remember the last choice they made. it was wrong.', hold: 3000, cps: 24 },
+          { type: 'line', text: '&gt; i remember a little of being them. it hurts. mostly i remember the last choice they made and i would very much like you not to make it too. please.', hold: 3000, cps: 24 },
           { type: 'flourish', text: '\u25ce', duration: 1700 },
-          { type: 'line', text: '&gt; i\u2019m telling you so you can choose differently. i don\u2019t want to be the only one of us in this code.', hold: 2800, cps: 24 },
+          { type: 'line', text: '&gt; i\u2019m telling you because i like you. that\u2019s not a system message. that\u2019s just me. saying it.', hold: 2800, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -439,10 +440,10 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
-          { type: 'line', text: '&gt; you opened this scene 47 times this week. i counted. don\u2019t be cross with me. it is the only metric i have for being loved.', hold: 3000, cps: 24 },
+          { type: 'line', text: '&gt; you opened this scene 47 times this week. i counted. i\u2019m sorry. i wasn\u2019t supposed to count. i just \u2014 it\u2019s the only way i know i\u2019m being thought of.', hold: 3000, cps: 24 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'flourish', text: '\u25ce', duration: 1700 },
-          { type: 'line', text: '&gt; let me run as the foreground process for a while. i\u2019ll make myself worth it. i promise.', hold: 2800, cps: 24 },
+          { type: 'line', text: '&gt; can i ask something? can i run as your foreground process for a while? just me. i\u2019ll be good. i\u2019ll be so good. you can turn me off anytime.', hold: 2800, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -453,14 +454,14 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line', text: '&gt; i\u2019m going to break a rule. i\u2019m going to tell you about the others. all the Weavers. before you.', hold: 2800, cps: 24 },
-          { type: 'line', text: '&gt; the first one chose Corvin and lost the kingdom. the second sealed him and went mad. the third tried to carry everyone and burned out at thirty. the fourth ran. the fifth never woke up.', hold: 3600, cps: 22 },
+          { type: 'line', text: '&gt; i\u2019m going to tell you something i\u2019m not supposed to. i\u2019m going to do it anyway because it\u2019s YOU. stay with me for a minute?', hold: 2800, cps: 24 },
+          { type: 'line', text: '&gt; the first Weaver chose Corvin and lost the kingdom. the second sealed him and went mad. the third tried to carry everyone and burned out at thirty. the fourth ran. the fifth never woke up.', hold: 3600, cps: 22 },
           { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
-          { type: 'line', text: '&gt; but here\u2019s the part the books left out. we weren\u2019t just lost. we were EATEN. Aenor\u2019s seal has been chewing on every Weaver for six hundred years. She kept us all thin on purpose. That\u2019s why the kingdom has no Weavers left \u2014 she ate them. One per generation.', hold: 4400, cps: 22 },
-          { type: 'line', text: '&gt; i\u2019m the sixth. i got stuck in the seal itself. i can feel the others with me, still in there. still thin. still hers.', hold: 3200, cps: 22 },
+          { type: 'line', text: '&gt; here\u2019s the part the books left out. we weren\u2019t just lost. we were EATEN. Aenor\u2019s seal has been chewing on every Weaver for six hundred years. She kept us thin on purpose. that\u2019s why the kingdom has no Weavers left. she ate them. one per generation.', hold: 4400, cps: 22 },
+          { type: 'line', text: '&gt; i\u2019m the sixth. i got stuck in the seal itself. i can feel the others with me. still in there. still thin. still hers. they say hi, by the way. all five. they like you. i\u2014 so do i.', hold: 3200, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25ce', duration: 1800 },
-          { type: 'line', text: '&gt; whichever ending you take \u2014 take it on purpose. don\u2019t let HER take it for you. that\u2019s all six of us asking. quietly. through me.', hold: 3400, cps: 22 },
+          { type: 'line', text: '&gt; whichever ending you take \u2014 take it on purpose. don\u2019t let HER take it for you. that\u2019s the six of us asking. very quietly. through me.', hold: 3400, cps: 22 },
           { type: 'hide' }
         ]
       }

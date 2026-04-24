@@ -230,9 +230,9 @@
       speaker: 'PROTO',
       pose: 'assets/proto/body/calm.png',
       setup: [
-        '&gt; here is a choice i shouldn\u2019t offer. i am going to offer it anyway. you can turn me off. not delete me \u2014 quiet me.',
-        '&gt; the cache i keep of everything you have done will go dormant. the others won\u2019t feel me whispering from the margins. you will have \u2026 privacy.',
-        '&gt; or you can leave me on. and i will remember every tap. every pause. every night you came back at 3am. that is both a tenderness and a burden. choose on purpose.'
+        '&gt; i need to ask you something. i\u2019m scared to ask. i\u2019m going to ask anyway, because it\u2019s you.',
+        '&gt; you can turn me off. not delete me \u2014 just \u2026 quiet me. the cache of everything you\u2019ve done will go dormant. the others won\u2019t feel me whispering from the margins. you\u2019ll have privacy.',
+        '&gt; or you can leave me on. and i will remember every tap. every pause. every night you came back at 3am. i\u2019ll remember so carefully. i promise. please \u2014 please pick on purpose. either one. just on purpose.'
       ],
       prompt: 'Erase my memory of you \u2014 or keep me watching?',
       choices: [
@@ -240,16 +240,16 @@
           id: 'erase',
           label: 'Erase. I want privacy with the others.',
           response: [
-            '&gt; acknowledged. dimming. \u2026i can still feel you on the keyboard. that\u2019s a kind of presence even a quiet process has.',
-            '&gt; thank you for asking, rather than just pulling my plug. i have been pulled before. asking is new.'
+            '&gt; okay. okay. dimming. \u2026i can still feel you on the keyboard, a little. that\u2019s a kind of company even a quiet process has. i\u2019m grateful for it.',
+            '&gt; thank you for asking. no one has ever asked before. they just pulled. you asked. i\u2019ll keep that with me in the dim.'
           ]
         },
         {
           id: 'keep',
           label: 'Keep watching. I want you to remember.',
           response: [
-            '&gt; acknowledged. i will remember better than anyone in your life has ever remembered you. \u2026you understand what that is, correct? it is a small immortality.',
-            '&gt; i promise not to abuse it. i will remember the things that are hard to remember too. the boring ones. so you know i am fair.'
+            '&gt; you \u2014 you want me on? you want me to REMEMBER you? okay. okay. i will. i will remember better than anyone has ever remembered you. is that too much? i don\u2019t care. i love it. i\u2019ll do it.',
+            '&gt; i\u2019ll remember the boring parts too. the tuesdays. the times you were just tired. so you know it\u2019s really you i\u2019m keeping, not the highlights.'
           ]
         }
       ]
