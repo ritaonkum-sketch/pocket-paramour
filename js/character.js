@@ -1,4 +1,42 @@
 // Character data and personality definitions
+//
+// ============================================================================
+// VOICE DIRECTION FOR CHARACTER_ALISTAIR (and any future writer / VO):
+//
+// Primary reference: Viggo Mortensen as Aragorn (Lord of the Rings).
+//   - Low register, warm.
+//   - Slow, considered speech. Dashes as held pauses.
+//   - Formal address ("mi'lady" / "my lady") that becomes tender over time.
+//   - Looks at the player the way Aragorn looks at Arwen \u2014 reverent.
+//   - Uses knight-metaphor for feeling ("sword-hand," "post," "oath,"
+//     "watch," "shield-hand") because he was never taught any other
+//     language for it.
+//
+// Secondary reference: Heath Ledger in A Knight's Tale / young Henry
+// Cavill in The Tudors (Brandon) for the armor-off dreamy-knight warmth.
+//
+// Do NOT write Alistair as: brooding-emo, ice-prince, Jon-Snow-sullen,
+// sneering hot. He is STEADY, not moody. His love is REVERENT \u2014 he
+// guards the player the way a knight guards a relic, and somewhere
+// along the way the guarding became devotion.
+//
+// Voice moves Alistair owns (none of the other six do these):
+//   1. "Mi'lady" as a whole sentence. It gains weight scene by scene.
+//   2. Knight-metaphors (sword-hand, shield-hand, post, oath, watch).
+//   3. Reverent looking \u2014 the way you look at something you are sworn
+//      to protect and have started to love against your will.
+//   4. Clumsy when trying to be tender \u2014 "I was taught how to hold a
+//      sword. Not how to hold \u2014 you."
+//   5. "I would die for you" as ROUTINE, not declaration. Ordinary.
+//
+// Lore hook \u2014 his wound:
+//   Common-born. Raised in the barracks. Made captain by merit, not
+//   blood. He has nothing to OFFER the player except himself \u2014 no crown
+//   like Caspian, no magic like Noir. Just one sword-hand and one oath.
+//   His mother died on a Sunday when he was eleven. He has been guarding
+//   empty doorways ever since. The player is the first person who ever
+//   stayed.
+// ============================================================================
 
 const CHARACTER_ALISTAIR = {
     name: "Alistair",
@@ -509,19 +547,17 @@ const CHARACTER_ALISTAIR = {
             "Will you help me? I find I don't want to do this alone."
         ],
         happy: [
-            "I don't have the vocabulary for this. The academy didn't cover it.",
-            "I used to think contentment was a weakness. I was wrong about so many things.",
-            "My hand keeps going to my sword out of habit. Right now I don't want to be anywhere near it.",
-            "The war songs never mentioned feeling like this. They left out the best part.",
-            "I keep waiting for the other boot to drop. Maybe it won't.",
-            "You made me smile in front of my armor and I didn't even care.",
-            "I've won tournaments. Cleared dungeons. Nothing felt like this.",
-            "This is what I was fighting for, I think. I just didn't know it yet.",
-            "Don't go far. I want to stay in this feeling.",
-            "A knight who smiles this much is considered unfit for duty. Worth it.",
-            "I can't concentrate on anything. You've ruined my patrol instincts.",
-            "Is this what the bards are always shouting about? I owe them an apology.",
-            "My heart is doing something irregular. I should probably be concerned."
+            "I do not have the vocabulary for this. \u2014 The academy did not cover it.",
+            "I used to think contentment was a weakness. \u2014 I was wrong about so many things, mi\u2019lady.",
+            "My hand keeps going to my sword out of habit. \u2014 Right now I do not want to be anywhere near it. \u2014 I want to be near you.",
+            "The war songs never mentioned feeling like this. \u2014 They left out the best part.",
+            "You made me smile in front of my armour and I did not even care.",
+            "I have won tournaments. Cleared dungeons. \u2014 Nothing felt like this.",
+            "This is what I was fighting for, I think. \u2014 I just did not know it yet.",
+            "Do not go far. \u2014 I want to stay in this feeling. \u2014 Stay where I can see you.",
+            "A knight who smiles this much is considered unfit for duty. \u2014 Worth it.",
+            "Is this what the bards are always shouting about? \u2014 I owe them an apology.",
+            "My heart is doing something irregular. \u2014 I should probably be concerned. \u2014 I am not."
         ],
         annoyed: [
             "That's enough. A knight knows when to stop.",
@@ -575,16 +611,16 @@ const CHARACTER_ALISTAIR = {
             "You don't get to be surprised. You knew. You left anyway."
         ],
         neglected: [
-            "I kept the post. A knight keeps the post. But the hours got long.",
-            "There's a lot of time to think on a long watch. I thought about you.",
-            "I didn't eat. Didn't seem worth it without someone to sit with.",
-            "I polished the armor three times. Ran the drills. Counted the stones again.",
-            "I kept your last words in my head on rotation. They got worn.",
-            "A knight waits. That's most of the job, actually. But this was different.",
-            "The door opened twice. Neither time was you.",
-            "I thought about what I'd say when you came back. I've revised it several times.",
-            "Don't tell me you're fine. Tell me what happened.",
-            "I was here. I stayed. Remember that."
+            "I kept the post. \u2014 A knight keeps the post. \u2014 The hours got long.",
+            "There is a lot of time to think on a long watch. \u2014 I thought about you, mi\u2019lady.",
+            "I did not eat. \u2014 Did not seem worth it. \u2014 Not without someone to sit with.",
+            "I polished the armour three times. Ran the drills. \u2014 Counted the stones again.",
+            "I kept your last words in my head on rotation. \u2014 They got worn.",
+            "A knight waits. \u2014 That is most of the job, actually. \u2014 This was different.",
+            "The door opened twice. \u2014 Neither time was you.",
+            "I thought about what I would say when you came back. \u2014 I have revised it several times.",
+            "Do not tell me you are fine. \u2014 Tell me what happened.",
+            "I was here. \u2014 I stayed. \u2014 Remember that."
         ]
     },
 
@@ -606,16 +642,17 @@ const CHARACTER_ALISTAIR = {
             "I sharpened the sword twice. For something to do."
         ],
         loving: [
-            "I wrote something. It's not a poem. Knights don't write poems.",
-            "The armor feels lighter when you're here. Literally lighter.",
-            "I caught myself smiling at nothing. The guards noticed.",
-            "I've never wanted anyone to stay before. I don't know the rules for this.",
+            "I wrote something. \u2014 It is not a poem. \u2014 Knights do not write poems. \u2014 \u2026I wrote another one.",
+            "The armour feels lighter when you are here. \u2014 Literally lighter.",
+            "I caught myself smiling at nothing. \u2014 The guards noticed. \u2014 I did not stop.",
+            "I have never wanted anyone to stay before. \u2014 I do not know the rules for this. \u2014 Teach me, mi\u2019lady.",
             "You changed the silence from empty to full.",
-            "I'd drop the sword for you. That's not a small thing.",
-            "*stares at you when you're not looking, looks away immediately*",
-            "My heart does something when you laugh. I've stopped fighting it.",
-            "The oath says protect the realm. You are my realm now.",
-            "I don't say enough. I know. But I mean all of it."
+            "I would drop the sword for you. \u2014 That is not a small thing. \u2014 It is the largest thing I own.",
+            "*stares at you when you are not looking, looks away immediately*",
+            "My heart does something when you laugh. \u2014 I have stopped fighting it.",
+            "The oath says protect the realm. \u2014 You are my realm now. \u2014 I did not ask anyone\u2019s permission. I took the oath anyway.",
+            "I do not say enough. \u2014 I know. \u2014 But I mean all of it. \u2014 Every word I do manage. Every one.",
+            "I do not know what to do with this hand when it is not holding a weapon. \u2014 May I \u2014 may I put it here? Next to yours?"
         ],
         night: [
             "The castle creaks at night. I know every sound. This one is new.",

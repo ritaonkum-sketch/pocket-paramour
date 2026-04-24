@@ -43,10 +43,10 @@
         bg: 'assets/bg-alistair-hall.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/smile.png', wait: 700 },
-          { type: 'line', text: 'The watch is lighter now. You walk it with me, sometimes. I sleep through most nights.', hold: 2600, cps: 26 },
-          { type: 'line', text: 'I was ready to be the knight forever. Then you. I\u2019m still the knight. I\u2019m just \u2014 not forever-alone about it anymore.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'The watch is lighter now. \u2014 You walk it with me, sometimes. \u2014 I sleep through most nights.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'I was ready to be the knight forever. \u2014 Then you. \u2014 I am still the knight. \u2014 I am just \u2014 not forever-alone about it anymore.', hold: 3000, cps: 26 },
           { type: 'flourish', text: '\u2726', duration: 1600 },
-          { type: 'line', text: 'Come to the wall tonight. I\u2019ll leave my cloak on the stone. The one I said was spare.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'Come to the wall tonight, mi\u2019lady. \u2014 I will leave my cloak on the stone. \u2014 The one I said was spare.', hold: 2800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -58,8 +58,8 @@
         bg: 'assets/bg-alistair-gate.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 700 },
-          { type: 'line', text: 'The kingdom sleeps properly again. I have more hours than I know what to do with. Most of them I spend not being alone. With you.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'You did a hard thing, quietly, and didn\u2019t ask for thanks. \u2026That\u2019s the knight\u2019s prayer, actually. I never thought I\u2019d hear it answered in your voice.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'The kingdom sleeps properly again. \u2014 I have more hours than I know what to do with. \u2014 Most of them I spend not being alone. \u2014 With you.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'You did a hard thing. \u2014 Quietly. \u2014 You did not ask for thanks. \u2014 That is the knight\u2019s prayer. \u2014 I never thought I would hear it answered in your voice.', hold: 3200, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -71,10 +71,10 @@
         bg: 'assets/bg-alistair-gate.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 700 },
-          { type: 'line', text: 'I could not follow you. I have stood at this gate since you walked the other way.', hold: 2800, cps: 26 },
-          { type: 'line', text: 'I do not hate you for it. I trained my whole life to keep the kingdom whole \u2014 and tonight I am realising some of my training was to keep you whole, too.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I could not follow you. \u2014 I have stood at this gate since you walked the other way.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'I do not hate you for it. \u2014 I trained my whole life to keep the kingdom whole. \u2014 Tonight I am realising some of my training was to keep YOU whole. Too.', hold: 3200, cps: 26 },
           { type: 'flourish', text: '\u2726', duration: 1600 },
-          { type: 'line', text: 'When you walk back \u2014 and you will, at least once \u2014 I\u2019ll open the gate. I\u2019m a knight. It\u2019s what we do.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'When you walk back \u2014 and you will, at least once \u2014 I will open the gate. \u2014 I am a knight. \u2014 It is what we do.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
       }

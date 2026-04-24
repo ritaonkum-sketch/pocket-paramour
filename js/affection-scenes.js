@@ -49,8 +49,8 @@
         bg: 'assets/bg-alistair-hall.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 700 },
-          { type: 'line', text: 'I caught myself standing easier today. Less weight on the back foot. \u2026I think that\u2019s your fault.', hold: 2400, cps: 30 },
-          { type: 'line', text: 'Don\u2019t apologise. Stay anyway.', hold: 2200, cps: 30 },
+          { type: 'line', text: 'I caught myself standing easier today. \u2014 Less weight on the back foot. \u2014 I think that is your fault, mi\u2019lady.', hold: 2400, cps: 30 },
+          { type: 'line', text: 'Do not apologise. \u2014 Stay anyway. \u2014 Please.', hold: 2200, cps: 30 },
           { type: 'hide' }
         ]
       },
@@ -61,9 +61,9 @@
         bg: 'assets/bg-knight-room.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 700 },
-          { type: 'line', text: 'I haven\u2019t been honest with anyone in years. Including myself. \u2026Then you walked in. Now I keep slipping.', hold: 2800, cps: 28 },
+          { type: 'line', text: 'I have not been honest with anyone in years. \u2014 Including myself. \u2014 Then you walked in. \u2014 Now I keep slipping.', hold: 2800, cps: 28 },
           { type: 'flourish', text: '\u2726', duration: 1400 },
-          { type: 'line', text: 'I think I\u2019m glad. I\u2019m not used to glad.', hold: 2400, cps: 28 },
+          { type: 'line', text: 'I think I am glad. \u2014 I am not used to glad. \u2014 Forgive me if I am slow with it, mi\u2019lady.', hold: 2400, cps: 28 },
           { type: 'hide' }
         ]
       },
@@ -74,9 +74,9 @@
         bg: 'assets/bg-alistair-hall.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/smile.png', wait: 700 },
-          { type: 'line', text: 'I\u2019ve been writing this in my head all week and I keep choosing the same word. Beloved.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'I have been writing this in my head all week. \u2014 I keep choosing the same word. \u2014 Beloved.', hold: 2800, cps: 26 },
           { type: 'particles', count: 16, duration: 1800 },
-          { type: 'line', text: '\u2026That\u2019s you. I just thought you should know I\u2019ve already named it.', hold: 2600, cps: 26 },
+          { type: 'line', text: '\u2026That is you. \u2014 I just thought you should know. \u2014 I have already named it. \u2014 Privately. In the way a knight names a thing he means to defend.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -87,13 +87,14 @@
         bg: 'assets/bg-knight-room.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 800 },
-          { type: 'line', text: 'You\u2019ve never seen me without the armour. \u2026Tonight you do.', hold: 2400, cps: 26 },
+          { type: 'line', text: 'You have never seen me without the armour. \u2014 \u2026Tonight you do.', hold: 2400, cps: 26 },
           { type: 'pose', src: 'assets/alistair/body/softshy-love3.png', animate: 'swap' },
-          { type: 'line', text: 'I haven\u2019t slept through a night since I was eleven. My mother died on a Sunday and I\u2019ve been guarding empty doorways ever since.', hold: 3200, cps: 24 },
-          { type: 'line', text: 'Stay. Just until I close my eyes. I\u2019ve never asked anyone that. I don\u2019t know how I asked you.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'I have not slept through a night since I was eleven. \u2014 My mother died on a Sunday. \u2014 I have been guarding empty doorways ever since. \u2014 I am tired, mi\u2019lady.', hold: 3400, cps: 24 },
+          { type: 'line', text: 'Look at me. \u2014 This is who I am when I am not being a knight. \u2014 Shorter than you thought. Tireder. Less certain. \u2014 You are seeing him. \u2014 Only you.', hold: 3400, cps: 24 },
+          { type: 'line', text: 'Stay. \u2014 Just until I close my eyes. \u2014 I have never asked anyone that. \u2014 I do not know how I asked you.', hold: 3000, cps: 24 },
           { type: 'particles', count: 18, duration: 2000 },
           { type: 'flourish', text: '\u2726', duration: 1800 },
-          { type: 'line', text: 'If I sleep through till morning, that\u2019s your fault. I\u2019ll forgive you slowly.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'If I sleep through till morning \u2014 that is your fault. \u2014 I will forgive you slowly.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       }

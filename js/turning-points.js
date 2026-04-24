@@ -50,9 +50,9 @@
       speaker: 'ALISTAIR',
       pose: 'assets/alistair/body/casual.png',
       setup: [
-        'I have to tell you something. A royal courier came this morning. The king is summoning me to the front line.',
-        'I\u2019ve served three generations. I don\u2019t refuse summons. I haven\u2019t, ever. \u2026But I came to you before I answered.',
-        'Tell me what you want. I\u2019ll do it. I need to hear it from you.'
+        'I have to tell you something, mi\u2019lady. \u2014 A royal courier came this morning. \u2014 The king is summoning me to the front line.',
+        'I have served three generations. \u2014 I do not refuse summons. \u2014 I never have. \u2014 But I came to you before I answered.',
+        'Tell me what you want. \u2014 I will do it. \u2014 I need to hear it from you.'
       ],
       prompt: 'Do you want me to go, or to stay?',
       choices: [
@@ -60,16 +60,16 @@
           id: 'go',
           label: 'Go. You said yes once. Say yes again.',
           response: [
-            'Then I go. I\u2019ll come back with a thousand stories and one heart. Yours, if you still want it.',
-            'I\u2019m leaving my cloak on your chair. The one I said was spare. You know the one.'
+            'Then I go. \u2014 I will come back with a thousand stories and one heart. \u2014 Yours, if you still want it.',
+            'I am leaving my cloak on your chair. \u2014 The one I said was spare. \u2014 You know the one. \u2014 Return it to me in person. \u2014 That is an order.'
           ]
         },
         {
           id: 'stay',
           label: 'Stay. The king\u2019s war is not yours anymore.',
           response: [
-            'Then I stay. I\u2019ve been a knight longer than I\u2019ve been a man. \u2026Tonight I\u2019m a man first.',
-            'The council will call me a traitor by morning. \u2026I\u2019ll be in your doorway by morning. Same thing, possibly.'
+            'Then I stay. \u2014 I have been a knight longer than I have been a man. \u2014 \u2026Tonight I am a man first.',
+            'The council will call me a traitor by morning. \u2014 I will be in your doorway by morning. \u2014 Same thing, possibly. \u2014 I do not care.'
           ]
         }
       ]

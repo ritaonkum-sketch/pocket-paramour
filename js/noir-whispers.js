@@ -21,9 +21,9 @@
   // about the character they\u2019re with. Gendered for male Noir.
   const WHISPERS = {
     alistair: [
-      'You smell like a knight tonight. \u2014 Careful. \u2014 Devotion like his used to be mine.',
-      'His oath is so loud from down here. \u2014 Tell him, quietly, that oaths end. \u2014 See what he says.',
-      'He would break his vow for you. \u2014 Hmm. \u2014 I already did.'
+      'You smell like a knight tonight. \u2014 \u2026Careful. \u2014 Devotion like his used to be mine. \u2014 I know the shape of it.',
+      'His oath is so loud from down here. \u2014 Tell him, quietly, that oaths end. \u2014 See what he says. \u2014 I am curious which one of us he believes.',
+      'He would break his vow for you. \u2014 \u2026Mm. \u2014 I already did. \u2014 He and I are less different than he thinks.'
     ],
     elian: [
       'The forest is easier to fool than you think. \u2014 He trusts it. Do not.',

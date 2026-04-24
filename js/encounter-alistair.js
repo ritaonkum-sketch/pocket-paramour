@@ -1,5 +1,41 @@
 /* encounter-alistair.js — the new interaction-first "meet-cute" for Alistair.
  *
+ * VOICE DIRECTION (for writing + future VO consistency):
+ * Primary reference: Viggo Mortensen as Aragorn (LotR). Low register.
+ * Slow, considered speech. Formal address that becomes tender over
+ * time. Looks at the player the way Aragorn looks at Arwen.
+ * Secondary: Heath Ledger in A Knight's Tale / young Henry Cavill as
+ * Brandon in The Tudors \u2014 for the armor-off dreamy-knight warmth.
+ *
+ * Absolutely NOT brooding-emo, ice-prince, or Jon-Snow-sullen. Alistair
+ * is STEADY, not moody. His love is REVERENT \u2014 he guards you the way
+ * a knight guards a relic, and somewhere along the way the guarding
+ * became devotion. He has no idea what to do with that, because he
+ * was never trained for it.
+ *
+ * Voice moves Alistair owns (no one else in the cast does these):
+ *   - Formal address ("mi'lady" / "my lady") that gains weight scene
+ *     by scene. By midnight it's a confession.
+ *   - Knight-metaphors bleeding into daily speech (sword-hand, shield-
+ *     hand, post, oath, watch).
+ *   - Reverent looking \u2014 not seduction, not distracted admiration:
+ *     the way you look at something you are sworn to protect and have
+ *     started to love against your will.
+ *   - Clumsy when trying to be tender \u2014 he was taught how to hold a
+ *     sword, not how to hold a feeling.
+ *   - "I would die for you" treated as ROUTINE, not declaration. It's
+ *     the ordinary part. The extraordinary part is that it's no longer
+ *     about duty.
+ *
+ * Lore hook \u2014 his wound:
+ *   Common-born. Raised in the barracks. Made captain by merit, not
+ *   blood. He has nothing to OFFER the player except himself \u2014 no
+ *   crown like Caspian, no magic like Noir, just one sword-hand and
+ *   one oath. He failed to save someone at seventeen (his first
+ *   captain, in a skirmish he believes he should have prevented). The
+ *   grief made him who he is. The player is his "never again."
+ */
+ *
  * SAFETY CONTRACT:
  *  - Purely additive. Registers window.MSEncounterAlistair.
  *  - Only runs when main-story.js calls play() — which only happens when
@@ -227,7 +263,7 @@
 
     try {
       // Beat 1 — he speaks first, no input
-      await type(nodes.line, '\u2026You shouldn\u2019t be here.', 28);
+      await type(nodes.line, '\u2026You shouldn\u2019t be here. \u2014 This is my post.', 28);
       await wait(1800);
 
       // Beat 2 — invite tap
@@ -243,7 +279,7 @@
       await wait(300);
 
       // Beat 3 — he softens
-      await type(nodes.line, '\u2026You\u2019re really going to stay, aren\u2019t you?', 30);
+      await type(nodes.line, '\u2026You\u2019re really going to stay. \u2014 Aren\u2019t you, mi\u2019lady.', 30);
       await wait(1600);
 
       // Beat 4 — unlock ONE action: Talk
@@ -254,7 +290,7 @@
       reactionPulse(nodes.charImg);
 
       // Beat 5 — first micro-choice
-      await type(nodes.line, 'Why are you still here?', 34);
+      await type(nodes.line, 'Why are you still here, mi\u2019lady.', 34);
       await wait(400);
       const pick = await showChoice(nodes.choiceRow, nodes.dialogue, [
         { id: 'stay',  text: 'I got lost. I think I was meant to find you.' },
@@ -267,9 +303,9 @@
       // Response
       nodes.dialogue.style.opacity = '1';
       if (pick.id === 'stay') {
-        await type(nodes.line, 'Then I\u2019ll keep watch until you find your way. Or I do.', 30);
+        await type(nodes.line, 'Then I will keep watch. \u2014 Until you find your way. Or I do. \u2014 Whichever comes first.', 30);
       } else {
-        await type(nodes.line, 'Then stay. Quietly, if you must. I don\u2019t mind the company.', 30);
+        await type(nodes.line, 'Then stay. \u2014 Quietly, if you must. \u2014 I do not mind the company. \u2014 I did not know I wanted it.', 30);
       }
       await wait(2000);
 

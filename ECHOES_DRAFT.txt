@@ -50,8 +50,8 @@ Proto:    "ALISTAIR.UNIT — STATUS: ANCHORED. He stayed. That's a
 ==============================================================
 TRIGGER: LYRA ANSWERED THE DEEP VOICE (pp_tp_lyra_choice = 'answer')
 ==============================================================
-Alistair: "The caves were loud last night. I set an extra watch.
-           Something is listening back."
+Alistair: "The caves were loud last night, mi'lady. — I set an
+           extra watch. — Something is listening back."
 Caspian:  "The naval reports say the water is behaving oddly. — I
            thought of her first. — I am told princes do not think of
            singers first. I am a bad prince today."
@@ -69,8 +69,8 @@ Proto:    "LYRA.UNIT — STATUS: OPEN CHANNEL. Warning: someone else
 ==============================================================
 TRIGGER: LYRA REFUSED THE DEEP VOICE (pp_tp_lyra_choice = 'refuse')
 ==============================================================
-Alistair: "The caves went quiet. Quieter than they should be. I don't
-           trust quiet."
+Alistair: "The caves went quiet. — Quieter than they should be. —
+           I do not trust quiet. — Stay inside tonight, mi'lady."
 Caspian:  "The tide brought three dead fish to the palace steps. —
            A warning, perhaps. — Or a sulk. I have had both from
            lesser creatures."
@@ -87,8 +87,8 @@ Proto:    "LYRA.UNIT — STATUS: CLOSED. The thing on the other end
 ==============================================================
 TRIGGER: CASPIAN NAMED YOU PUBLICLY (pp_tp_caspian_choice = 'yes')
 ==============================================================
-Alistair: "The court knows your name now. I've doubled the guard on
-           your window. Don't argue."
+Alistair: "The court knows your name now. — I have doubled the
+           guard on your window. — Do not argue, mi'lady."
 Lyra:     "Word reached the coast. Fishermen are making up songs about
            you already. The songs are terrible."
 Elian:    "They'll come for you, you know. Once a prince names someone,
@@ -105,8 +105,9 @@ Proto:    "CASPIAN.UNIT — STATUS: DISCLOSED. Public record updated.
 ==============================================================
 TRIGGER: CASPIAN KEPT IT PRIVATE (pp_tp_caspian_choice = 'no')
 ==============================================================
-Alistair: "He didn't name you. That's not cowardice. That's him
-           protecting you the only way a prince can."
+Alistair: "He did not name you. — That is not cowardice. — That is
+           him protecting you the only way a prince can. — I
+           approve. Do not tell him I said so."
 Lyra:     "The palace shut its curtains tonight. The tide noticed."
 Elian:    "A secret prince is safer than a proud one. Whoever taught
            him that, thank them."
@@ -120,8 +121,8 @@ Proto:    "CASPIAN.UNIT — STATUS: WITHHELD. You remain difficult to
 ==============================================================
 TRIGGER: LUCIEN KEPT THE SCORCHED PAGE (pp_tp_lucien_choice = 'stop')
 ==============================================================
-Alistair: "The scholar is writing again. I don't know what. I don't
-           think he does either."
+Alistair: "The scholar is writing again. — I do not know what. —
+           I do not think he does either."
 Lyra:     "The tower light is on. It hasn't been on at that hour in
            eight years."
 Caspian:  "Lucien sent me a letter I do not understand. — I think
@@ -139,8 +140,8 @@ Proto:    "LUCIEN.UNIT — STATUS: ARCHIVIST. A record not deleted
 ==============================================================
 TRIGGER: LUCIEN BURNED THE PAGE (pp_tp_lucien_choice = 'let')
 ==============================================================
-Alistair: "The tower had a fire. Small. Contained. He looked relieved,
-           is the strange part."
+Alistair: "The tower had a fire. — Small. Contained. — He looked
+           relieved, is the strange part."
 Lyra:     "A song I used to sing is gone from me. I don't know why.
            Ask the scholar."
 Caspian:  "Lucien destroyed a page he once showed me. — I respect
@@ -156,8 +157,9 @@ Proto:    "LUCIEN.UNIT — STATUS: PURGED. Related entries are now
 ==============================================================
 TRIGGER: YOU CARVED VEYRA'S GRAVE WITH ELIAN (pp_tp_elian_choice = 'carve')
 ==============================================================
-Alistair: "A grave was carved in the Thornwood. The name is old. Older
-           than the kingdom."
+Alistair: "A grave was carved in the Thornwood. — The name is old.
+           — Older than the kingdom. — Someone put a watch on her.
+           — Finally."
 Lyra:     "The tide has been gentler this week. Someone finally told
            her she could rest."
 Caspian:  "My grandfather would have thanked you. — I do not know
@@ -175,8 +177,8 @@ Proto:    "VEYRA.NODE — STATUS: RESTED. System weight reduced by 2.4
 ==============================================================
 TRIGGER: YOU LEFT VEYRA'S GRAVE BLANK (pp_tp_elian_choice = 'leave')
 ==============================================================
-Alistair: "The Thornwood grave stayed blank. The warden said it was
-           not his to name."
+Alistair: "The Thornwood grave stayed blank. — The warden said it
+           was not his to name. — A knight respects that."
 Lyra:     "Something in the water is still asking who she was. I
            don't have an answer."
 Caspian:  "He left the grave unnamed. — I understand. — Names
@@ -192,8 +194,9 @@ Proto:    "VEYRA.NODE — STATUS: UNMARKED. Weight unchanged. The world
 ==============================================================
 TRIGGER: YOU TOOK A PIECE OF NOIR (pp_tp_noir_choice = 'yes')
 ==============================================================
-Alistair: "You smell like night air that shouldn't be here. I don't
-           like it. I won't ask."
+Alistair: "You smell like night air that should not be here, mi'lady.
+           — I do not like it. — I will not ask. — I will stand
+           closer."
 Lyra:     "Something dark is walking with you. I sang it a lullaby.
            It did not sleep."
 Caspian:  "There is a shadow in my gardens that was not there last
@@ -211,8 +214,8 @@ Proto:    "NOIR.UNIT — STATUS: BONDED. Weaver, you are carrying a
 ==============================================================
 TRIGGER: YOU REFUSED NOIR'S OFFER (pp_tp_noir_choice = 'no')
 ==============================================================
-Alistair: "Whatever was near you has moved off. I slept for the first
-           time in a week."
+Alistair: "Whatever was near you has moved off. — I slept for the
+           first time in a week. — Thank you, mi'lady."
 Lyra:     "The cave went silent. He asked. You said no. The sea
            respects it."
 Caspian:  "I do not know what you refused. — The palace dreams are
@@ -229,8 +232,8 @@ Proto:    "NOIR.UNIT — STATUS: SEPARATE. His offer was withdrawn at
 ==============================================================
 TRIGGER: YOU ERASED A MEMORY WITH PROTO (pp_tp_proto_choice = 'erase')
 ==============================================================
-Alistair: "Something went missing today. I can't tell what. I keep
-           reaching for it."
+Alistair: "Something went missing today. — I cannot tell what. —
+           I keep reaching for it."
 Lyra:     "A verse I knew yesterday is blank in my mouth. Did I do
            that to myself?"
 Caspian:  "I lost an afternoon. Just... gone. — The staff say I
@@ -245,8 +248,9 @@ Noir:     "The construct did a kindness. — Hmm. — Remember:
 ==============================================================
 TRIGGER: YOU KEPT THE MEMORY (pp_tp_proto_choice = 'keep')
 ==============================================================
-Alistair: "You look tired. Carrying something, I think. I won't ask
-           what."
+Alistair: "You look tired, mi'lady. — Carrying something, I think.
+           — I will not ask. — I will carry whatever you set down.
+           Wordlessly."
 Lyra:     "Your shoulders have a new weight. The water sees it. Rest
            when you can."
 Caspian:  "You did not tell me. — Something moved in your eyes
@@ -263,8 +267,9 @@ Noir:     "You kept the memory. — Good. — The erased make thin
 ==============================================================
 WORLD EVENT: NOIR UNSEALED (Chapter 6 complete)
 ==============================================================
-Alistair: "The south gate guard heard laughter last night. In a
-           language not spoken here for eight hundred years."
+Alistair: "The south gate guard heard laughter last night. — In a
+           language not spoken here for eight hundred years. — I am
+           sleeping by your door."
 Lyra:     "The tide pulled back farther than it should. Something is
            breathing on the other side of it."
 Caspian:  "Grandmother's old seal is broken. — I felt it before the
@@ -283,7 +288,8 @@ Proto:    "SYSTEM ALERT — NOCTHERA.NODE REAWAKENED. Weaver, the queen
 WORLD EVENT: DOWAGER QUEEN AENOR ARRIVED (Chapter 13 complete)
 ==============================================================
 Alistair: "There is a carriage in the palace forecourt I have never
-           seen before. The horses have no breath."
+           seen before. — The horses have no breath. — Stay in my
+           line of sight, mi'lady. That is not a request tonight."
 Lyra:     "The sea sang a warning to me in the queen's old dialect.
            I think she is listening through it."
 Caspian:  "She is here. My grandmother. — My — the Dowager. — The
