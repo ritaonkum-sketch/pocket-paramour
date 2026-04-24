@@ -344,8 +344,8 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 800 },
-          { type: 'line', text: 'You came back. After all the warnings. \u2026I won\u2019t pretend I\u2019m not pleased.', hold: 2600, cps: 24 },
-          { type: 'line', text: 'Don\u2019t look at the seal so much. Look at me. That\u2019s the more dangerous thing in this room and I\u2019d like the credit.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'You came back. \u2014 After all the warnings. \u2014 Hmm. \u2014 I will not pretend I am not pleased. That would be beneath us both.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'Do not stare at the seal. Look at me. \u2014 The seal is old. I am worse. I would like the credit.', hold: 2800, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -356,11 +356,11 @@
         bg: 'assets/bg-noir-intro.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/casual2.png', wait: 800 },
-          { type: 'line', text: 'I was a Weaver too, once. Same gift. Same kingdom. Different century.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'I was a Weaver. \u2014 Once. Same gift you carry. Same kingdom. Different century.', hold: 2800, cps: 24 },
           { type: 'pose', src: 'assets/noir/body/neutral.png', animate: 'swap' },
-          { type: 'line', text: 'I loved someone too hard. The council called it possession. I called it staying. \u2026They sealed me to spare the next one. They never told the next one why.', hold: 3200, cps: 22 },
+          { type: 'line', text: 'I loved someone too hard. \u2014 The council called it possession. I called it staying. They sealed me to spare the next one. \u2014 They never told the next one why.', hold: 3200, cps: 22 },
           { type: 'flourish', text: '\u25a0', duration: 1700 },
-          { type: 'line', text: 'I\u2019m not asking for forgiveness. I\u2019m asking you to believe I was a person before I was a warning.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'Hmm. \u2014 I am not asking for forgiveness. I am asking you to believe I was a man before I was a warning. \u2014 That is less than forgiveness. I will take it.', hold: 3000, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -371,11 +371,11 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/dominant.png', wait: 800 },
-          { type: 'line', text: 'I have been patient for six hundred years. Patience is not a virtue when you have nothing else to do. It is a sentence.', hold: 3000, cps: 24 },
-          { type: 'line', text: 'You arrive, and patience is suddenly a choice again. I am choosing it. \u2026For now.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'I have been patient for six hundred years. \u2014 Patience is not a virtue when you have nothing else to do. It is a sentence.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'Then you arrived. \u2014 And patience became a choice again. \u2014 I am choosing it. For now.', hold: 2800, cps: 24 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'flourish', text: '\u25a0', duration: 1800 },
-          { type: 'line', text: 'When you decide what you want from me \u2014 and you will \u2014 you will not have to ask twice.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'When you decide what you want from me \u2014 and you will \u2014 you will not have to ask twice. \u2014 Hmm. \u2014 Think carefully before you choose. I do not forget.', hold: 3000, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -386,15 +386,15 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 900 },
-          { type: 'line', text: 'I\u2019ve been adored before. I\u2019ve been feared. I\u2019ve been called names that made Aethermoor\u2019s council sleep with the lights on.', hold: 2800, cps: 22 },
-          { type: 'line', text: 'No one has called me by my own name in six hundred years. Not Veyra. Not my mother. Not my own brother, who died thinking our line was cursed because of me.', hold: 3400, cps: 22 },
+          { type: 'line', text: 'I have been adored. \u2014 I have been feared. I have been called names that made Aethermoor\u2019s council sleep with the lights on.', hold: 2800, cps: 22 },
+          { type: 'line', text: 'No one has called me by my own name in six centuries. \u2014 Not Veyra. Not my mother. Not my brother \u2014 who died believing our line was cursed because of me.', hold: 3400, cps: 22 },
           { type: 'pose', src: 'assets/noir/body/neutral.png', animate: 'swap' },
-          { type: 'line', text: '\u2026I\u2019m going to tell you what it was. Out loud. And then I\u2019m going to ask you to say it back. Once. Gently. In that voice you use with me.', hold: 3400, cps: 22 },
+          { type: 'line', text: 'I am going to tell you what it was. \u2014 Out loud. \u2014 Then I am going to ask you to say it back. Once. Gently. \u2014 In the voice you use only with me.', hold: 3400, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25a0', duration: 2000 },
           { type: 'line', text: 'Corvin. Prince Corvin Noctalis. Of Nocthera \u2014 the kingdom that is bone now.', hold: 3000, cps: 20 },
-          { type: 'line', text: 'That\u2019s me. That\u2019s who I was before they sealed me into a nickname. \u2026Say it.', hold: 2800, cps: 22 },
-          { type: 'line', text: '\u2026Thank you. I wanted to hear it kindly. Just once. Before I decide what I am now. You have given me \u2014 back \u2014 a version of myself I had stopped believing in.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'That is me. That was me. \u2014 Before they sealed me into a nickname. \u2014 Say it.', hold: 2800, cps: 22 },
+          { type: 'line', text: '\u2026Thank you. \u2014 I wanted to hear it kindly. Once. Before I decide what I am now. \u2014 You have given me back a version of myself I had stopped believing in. \u2014 Do not say it again tonight. I cannot afford it.', hold: 3800, cps: 22 },
           { type: 'hide' }
         ]
       }

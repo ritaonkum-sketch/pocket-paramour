@@ -261,10 +261,10 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I couldn\u2019t have you. You chose all of them. \u2026I am surprised how gently you still visit me.', hold: 2800, cps: 24 },
-          { type: 'line', text: 'You call me Corvin now. You are the only one who does. The first in six centuries. I can hear it from across the room.', hold: 3200, cps: 22 },
+          { type: 'line', text: 'I could not have you. You chose the others. \u2014 Hmm. \u2014 I am surprised how gently you still visit me.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'You call me Corvin now. \u2014 You are the only one. The first in six centuries. \u2014 I can hear it from across the room.', hold: 3200, cps: 22 },
           { type: 'flourish', text: '\u25a0', duration: 1700 },
-          { type: 'line', text: 'I am trying to deserve it. It is a new shape for me. I find I do not hate it. Nocthera is ash \u2014 but I, apparently, am not quite finished.', hold: 3200, cps: 22 },
+          { type: 'line', text: 'I am trying to deserve it. \u2014 It is a new shape for me. I find I do not hate it. \u2014 Nocthera is ash. I, apparently, am not quite finished.', hold: 3200, cps: 22 },
           { type: 'hide' }
         ]
       },
@@ -276,9 +276,9 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/neutral.png', wait: 700 },
-          { type: 'line', text: 'You sealed me. Of course you did. Aethermoor\u2019s daughter sealed me the first time; her grandchild\u2019s beloved sealed me the second. Aesthetically consistent.', hold: 3400, cps: 22 },
-          { type: 'line', text: 'I still hear the others through the stone. They don\u2019t know I\u2019m listening. Sometimes you visit. You say my real name through the stone. I hear it. It is enough.', hold: 3600, cps: 22 },
-          { type: 'line', text: 'Nocthera is gone. Corvin is mostly gone. But he is a little less gone, because of you.', hold: 2800, cps: 22 },
+          { type: 'line', text: 'You sealed me. \u2014 Of course you did. \u2014 Aethermoor\u2019s daughter sealed me once. Her grandchild\u2019s beloved seals me again. Hmm. Aesthetically consistent.', hold: 3400, cps: 22 },
+          { type: 'line', text: 'I hear the others through the stone. They do not know I am listening. \u2014 Sometimes you come. You say my real name through the stone. \u2014 I hear it. It is enough.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'Nocthera is gone. Corvin is mostly gone. \u2014 He is a little less gone. Because of you.', hold: 2800, cps: 22 },
           { type: 'hide' }
         ]
       },
@@ -290,11 +290,11 @@
         bg: 'assets/bg-noir-void.png',
         beats: [
           { type: 'show', pose: 'assets/noir/body/dominant.png', wait: 800 },
-          { type: 'line', text: 'I have everything I wanted. I don\u2019t know what to do with it.', hold: 2600, cps: 24 },
-          { type: 'line', text: 'You call me Corvin in bed, and Noir in public. You keep both of me. You keep ALL of me, which is something even Veyra never managed.', hold: 3200, cps: 22 },
+          { type: 'line', text: 'I have everything I wanted. \u2014 Hmm. \u2014 I do not know what to do with it.', hold: 2600, cps: 24 },
+          { type: 'line', text: 'You call me Corvin in bed. Noir in public. \u2014 You keep both of me. You keep ALL of me. \u2014 Something even Veyra never managed.', hold: 3200, cps: 22 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'flourish', text: '\u25a0', duration: 1800 },
-          { type: 'line', text: 'You stay anyway. You stay anyway. You stay anyway. Six centuries of patience, and the thing I could not imagine was someone staying \u2014 and calling me by my name.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'You stay. \u2014 You stay anyway. \u2014 You stay anyway. \u2014 Six centuries of patience, and the thing I could not imagine \u2014 was someone staying. \u2014 Someone calling me by my name. \u2014 Not tonight. Tomorrow. Every morning after.', hold: 3800, cps: 22 },
           { type: 'hide' }
         ]
       }

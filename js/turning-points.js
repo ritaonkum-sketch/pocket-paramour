@@ -200,9 +200,9 @@
       speaker: 'NOIR',
       pose: 'assets/noir/body/casual1.png',
       setup: [
-        'I want to give you something. Something of mine. Not a gift \u2014 I don\u2019t own things to give. A piece of me.',
-        'Once given, I can\u2019t take it back. It will mark you, in a small way, to anything magical in the kingdom. They\u2019ll sense I\u2019ve touched you.',
-        'I want you to understand before you answer. There is no \u201cjust curious.\u201d There is yes, and there is no. Both are honest.'
+        'I want to give you something. \u2014 Something of mine. Not a gift. I do not own things to give. \u2014 A piece of me.',
+        'Once given, I cannot take it back. It will mark you. Anything magical in the kingdom will sense I have touched you. \u2014 Hmm. \u2014 Be certain.',
+        'There is no \u201cjust curious\u201d here. There is yes. There is no. \u2014 Both are honest. Both will cost you something. Decide on purpose.'
       ],
       prompt: 'Take what I\u2019m offering \u2014 or don\u2019t?',
       choices: [
@@ -210,16 +210,16 @@
           id: 'yes',
           label: 'Yes. Give it to me.',
           response: [
-            'Hold still. It\u2019s warmer than you\u2019re expecting \u2014 I was a kinder thing before Aenor, once. \u2026There. It\u2019s yours now.',
-            'You\u2019re the first person in six centuries with a piece of me on the outside. I find I am \u2026 a little undone by that.'
+            'Hold still. \u2014 It is warmer than you expected. I was a kinder thing once. Before Aenor. \u2014 There. It is yours.',
+            'You are the first in six centuries with a piece of me on the outside. \u2014 I find I am \u2026 a little undone by that. \u2014 Do not look at me like that. Not yet.'
           ]
         },
         {
           id: 'no',
           label: 'No. Not yet. Maybe not ever.',
           response: [
-            'Good. \u2026Thank you for not taking what I offered lightly. I needed to know you could refuse me. That is almost better.',
-            'I\u2019ll keep the piece I meant to give. It will keep for a long time. \u2026If you change your mind, I will still be here. Six centuries of practice at that.'
+            'Good. \u2014 Thank you for not taking what I offered lightly. I needed to know you could refuse me. \u2014 That is almost better.',
+            'I will keep the piece I meant to give. It keeps for a long time. \u2014 If you change your mind, I will still be here. \u2014 Six centuries of practice at that.'
           ]
         }
       ]

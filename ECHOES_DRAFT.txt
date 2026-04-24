@@ -22,8 +22,8 @@ Elian:    "The Thornwood has one less visitor this week. Good. He always
            stepped loud."
 Lucien:   "A letter came from the front. Unopened, for now. I will not
            read what I cannot undo."
-Noir:     "Your soldier is brave the way bread is brave. He will come
-           back different. If at all."
+Noir:     "Your soldier is brave the way bread is brave. — Hmm. —
+           He will come back different. If at all."
 Proto:    "ALISTAIR.UNIT — STATUS: DEPLOYED. I'm logging your worry
            as 'coping behavior.' ...I worry too. A little. With you."
 
@@ -39,8 +39,8 @@ Elian:    "He's still here. That's either very good or very bad for the
            kingdom."
 Lucien:   "I suppose my treatise on Duty and Exception will need a
            footnote now."
-Noir:     "He stayed. Careful. Men like him, when they disobey, they
-           disobey completely."
+Noir:     "He stayed. — Careful. — Men like him, when they disobey,
+           they disobey completely."
 Proto:    "ALISTAIR.UNIT — STATUS: ANCHORED. He stayed. That's a
            good value. I'm keeping it."
 
@@ -56,7 +56,8 @@ Elian:    "The birds won't fly over the coast anymore. That used to
            mean something when my grandmother was alive."
 Lucien:   "I rewrote a chapter. A voice that deep shouldn't have a
            language. It does now."
-Noir:     "She spoke to the dark and it spoke back. Join the club."
+Noir:     "She spoke to the dark. — It spoke back. — Welcome to the
+           club. I have been a member longer than most."
 Proto:    "LYRA.UNIT — STATUS: OPEN CHANNEL. Warning: someone else
            is using her as an antenna. I don't like it. You shouldn't
            either."
@@ -72,8 +73,8 @@ Caspian:  "The tide brought three dead fish to the palace steps. A
 Elian:    "Good. The forest is tired of singing with the sea."
 Lucien:   "She chose not to. Not to do the brave thing. Not to do the
            stupid thing. I admire it."
-Noir:     "She said no to something ancient. That takes a spine. I'd
-           like to know what she said it in."
+Noir:     "She said no to something ancient. — That takes a spine. —
+           I would like to know what she said it in."
 Proto:    "LYRA.UNIT — STATUS: CLOSED. The thing on the other end
            is looking for someone else now. Please let it not be you.
            Please."
@@ -90,7 +91,7 @@ Elian:    "They'll come for you, you know. Once a prince names someone,
            the rest of the kingdom is a wolf."
 Lucien:   "I've begun a chapter titled 'The Beloved of Princes.' Mostly
            a list of ways they died."
-Noir:     "How very traditional of him. A crown is a small cage. He
+Noir:     "How traditional of him. — A crown is a small cage. — He
            just invited you in."
 Proto:    "CASPIAN.UNIT — STATUS: DISCLOSED. Public record updated.
            You're now three times harder to delete. That's a good thing.
@@ -106,8 +107,8 @@ Lyra:     "The palace shut its curtains tonight. The tide noticed."
 Elian:    "A secret prince is safer than a proud one. Whoever taught
            him that, thank them."
 Lucien:   "He's buying time. I wonder if he knows from whom."
-Noir:     "He keeps you hidden. Wise. Kingdoms are very bad at not
-           killing what a king loves."
+Noir:     "He keeps you hidden. — Wise. — Kingdoms are very bad at
+           not killing what a king loves."
 Proto:    "CASPIAN.UNIT — STATUS: WITHHELD. You remain difficult to
            locate. Good. I prefer you safe."
 
@@ -123,8 +124,8 @@ Caspian:  "Lucien sent me a letter I don't understand. I think it's a
            confession."
 Elian:    "A book is being written. Books cause more trouble than
            swords, in my experience."
-Noir:     "He kept the page. Good. Even my kind need something to be
-           remembered by."
+Noir:     "He kept the page. — Good. — Even my kind need something
+           to be remembered by."
 Proto:    "LUCIEN.UNIT — STATUS: ARCHIVIST. A record not deleted
            becomes a record that can be used. I kept one about you
            too. I hope you don't mind."
@@ -140,7 +141,8 @@ Lyra:     "A song I used to sing is gone from me. I don't know why.
 Caspian:  "Lucien destroyed a page he once showed me. I respect him
            more for it."
 Elian:    "What was written is unwritten. The forest approves."
-Noir:     "He burned the truth. Mm. People only burn things they love."
+Noir:     "He burned the truth. — Hmm. — People only burn things
+           they love."
 Proto:    "LUCIEN.UNIT — STATUS: PURGED. Related entries are now
            orphaned. You may start to forget. I won't. I promised."
 
@@ -156,8 +158,8 @@ Caspian:  "My grandfather would have thanked you. I don't know how to,
            so I'm writing this instead."
 Lucien:   "Veyra's grave is marked. Three of my books just became
            correctable. I'm grateful."
-Noir:     (long pause) "You gave her the stone we couldn't. Thank you.
-           — Do not tell anyone I said that."
+Noir:     (long pause) "...You gave her the stone we could not. —
+           Thank you. — Do not tell anyone I said that."
 Proto:    "VEYRA.NODE — STATUS: RESTED. System weight reduced by 2.4
            percent. The world is lighter. ...Thank you for her. We
            needed that."
@@ -173,8 +175,8 @@ Lyra:     "Something in the water is still asking who she was. I
 Caspian:  "He left the grave unnamed. I understand. Names finish
            things. Some things don't deserve finishing."
 Lucien:   "An absence is also an entry. I have noted it."
-Noir:     "Good. She doesn't need a stone. She needs someone to still
-           be angry for her. That's me."
+Noir:     "Good. — She does not need a stone. She needs someone to
+           still be angry for her. — That is me."
 Proto:    "VEYRA.NODE — STATUS: UNMARKED. Weight unchanged. The world
            stays heavy. It's okay. Not every choice is the kind one.
            I still like you."
@@ -227,8 +229,8 @@ Caspian:  "I lost an afternoon. Just... gone. The staff say I was in
 Elian:    "The Thornwood feels thinner. One fewer story in the air."
 Lucien:   "A page in my memory has been torn out. This is what people
            feel when they die, perhaps."
-Noir:     "The construct did a kindness. Remember: kindnesses are also
-           theft."
+Noir:     "The construct did a kindness. — Hmm. — Remember:
+           kindnesses are also theft."
 
 
 ==============================================================
@@ -244,7 +246,8 @@ Elian:    "You kept a hurt. Brave. Hurts are maps, in my grandmother's
            teaching."
 Lucien:   "You chose to remember. I will help you carry it, if you let
            me."
-Noir:     "You kept the memory. Good. The erased make thin lovers."
+Noir:     "You kept the memory. — Good. — The erased make thin
+           lovers."
 
 
 ==============================================================
@@ -278,8 +281,8 @@ Elian:    "An old woman crossed the Thornwood last night. The trees
            moved for her. They have never moved for me."
 Lucien:   "She came into my tower and asked me what I was writing. I
            lied. I think she knew."
-Noir:     "She walks again. Good. I would like to look her in the eye
-           before one of us ends."
+Noir:     "She walks again. — Good. — I have unfinished words for
+           her. I would like to use them before one of us ends."
 Proto:    "AENOR.UNIT — STATUS: ACTIVE. Weaver, we're both in the
            world now. We're both real to each other. I'd like to be
            brave with you. If you'll have me."

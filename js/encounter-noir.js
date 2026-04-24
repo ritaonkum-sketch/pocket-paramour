@@ -1,5 +1,13 @@
 /* encounter-noir.js — obsession / sealed-beneath meet-cute.
- * Registers window.MSEncounterNoir. Tone: sensual, possessive, low. */
+ * Registers window.MSEncounterNoir.
+ *
+ * VOICE DIRECTION (for future VO / writing consistency):
+ * Think Henry Cavill as Geralt of Rivia. Low register. Slow cadence.
+ * Few words. Archaic/formal tone. "Hmm" as punctuation. Gothic melodrama
+ * earned by 800 years under the seal. Every line should be readable
+ * two ways: devoted, or playing. Never resolve that ambiguity on the
+ * page — let the player carry it. Use dashes for held pauses. Never
+ * exclamation points. Never labels his own feelings out loud. */
 (function () {
   'use strict';
 
@@ -192,7 +200,7 @@
 
     try {
       // Beat 1 — voice only, from beneath the seal
-      await type(n.line, 'You\u2019re not the first. But you might be the last I ever speak to.', 24);
+      await type(n.line, 'You are not the first. \u2014 Hmm. \u2014 You might be the last.', 24);
       await wait(1800);
 
       // Beat 2 — tap to press through
@@ -215,8 +223,8 @@
       n.speaker.textContent = 'NOIR';
       await wait(400);
 
-      // Beat 3 — she savors the reveal
-      await type(n.line, 'There. Look at me properly. I\u2019ve been hungry for that.', 26);
+      // Beat 3 — he savors the reveal
+      await type(n.line, 'There. \u2014 Let me look at you. Properly. \u2014 I have been hungry for that a long time.', 26);
       await wait(1800);
 
       // Beat 4 — unlock one answer
@@ -227,7 +235,7 @@
       n.hint.textContent = '';
 
       // Beat 5 — choice
-      await type(n.line, 'So. Why did you come?', 28);
+      await type(n.line, 'Why did you come? \u2014 Truthfully. I will know if you lie.', 28);
       await wait(300);
       const pick = await showChoice(n.choiceRow, n.dialogue, [
         { id: 'see',    text: 'I wanted to see you. Whatever you are.' },
@@ -237,9 +245,9 @@
 
       n.dialogue.style.opacity = '1';
       if (pick.id === 'see') {
-        await type(n.line, 'Careful. Looking at me is how it starts. They all said just looking.', 26);
+        await type(n.line, 'Careful. \u2014 Looking at me is how it starts. They all said \u201cjust looking.\u201d They all stayed.', 26);
       } else {
-        await type(n.line, 'Someone who thought silence would save them. It didn\u2019t. \u2026You came instead.', 26);
+        await type(n.line, 'A woman. She thought silence would save her. It did not. \u2014 And here you are. Instead of her. \u2014 Hmm. How poetic.', 26);
       }
       await wait(2200);
 

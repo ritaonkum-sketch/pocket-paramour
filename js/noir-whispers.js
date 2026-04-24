@@ -21,35 +21,35 @@
   // about the character they\u2019re with. Gendered for male Noir.
   const WHISPERS = {
     alistair: [
-      'You smell like a knight tonight. Be careful. Devotion like his used to be mine.',
-      'His oath is so loud from down here. Tell him, quietly, that oaths end. See what he says.',
-      'He\u2019d break his vow for you. I already did.'
+      'You smell like a knight tonight. \u2014 Careful. \u2014 Devotion like his used to be mine.',
+      'His oath is so loud from down here. \u2014 Tell him, quietly, that oaths end. \u2014 See what he says.',
+      'He would break his vow for you. \u2014 Hmm. \u2014 I already did.'
     ],
     elian: [
-      'The forest is easier to fool than you think. He trusts it. Don\u2019t.',
-      'He watches you when you bend to drink. He won\u2019t say so. I will.',
-      'Ask him what he forgets at night. Ask me what I remember for him.'
+      'The forest is easier to fool than you think. \u2014 He trusts it. Do not.',
+      'He watches you when you bend to drink. \u2014 He will not say so. I will.',
+      'Ask him what he forgets at night. \u2014 Ask me what I remember for him.'
     ],
     lyra: [
-      'Lovely voice, isn\u2019t she. I gave her one of my notes last week. She hasn\u2019t sung it.',
-      'Her cave was mine first. I left her the acoustics. She owes me the echo.',
-      'Tell her I miss the second verse. She\u2019ll know which one.'
+      'Lovely voice, is she not. \u2014 I gave her one of my notes last week. \u2014 She has not sung it yet.',
+      'Her cave was mine first. \u2014 I left her the acoustics. She owes me the echo.',
+      'Tell her I miss the second verse. \u2014 She will know which one.'
     ],
     caspian: [
-      'The prince performs so prettily. I perform only when I mean it.',
-      'Ask him what he whispers when the balcony doors are closed. Compare it to what I whisper.',
-      'He collects hearts. I keep only one. Guess whose.'
+      'The prince performs so prettily. \u2014 Hmm. \u2014 I perform only when I mean it.',
+      'Ask him what he whispers when the balcony doors are closed. \u2014 Compare it to what I whisper.',
+      'He collects hearts. \u2014 I keep only one. \u2014 Guess whose.'
     ],
     lucien: [
-      'He writes in my margins and thinks it\u2019s inspiration. Let him have that.',
-      'His maths call me by a name the old Weaver gave me. I allow it.',
-      'He will ask you, soon, whether monsters can miss someone. Answer carefully.'
+      'He writes in my margins and thinks it is inspiration. \u2014 Let him have that.',
+      'His equations call me by a name the old Weaver gave me. \u2014 I allow it.',
+      'He will ask you soon whether monsters can miss someone. \u2014 Answer carefully.'
     ],
     // Proto is meta \u2014 Noir breaks a different kind of fourth wall here.
     proto: [
-      '&gt; I\u2019m in his logs. He hasn\u2019t told you. Don\u2019t be cross with him \u2014 I asked nicely.',
-      '&gt; A ghost in the machine is still a ghost, love. I\u2019ve been one longer than this machine has existed.',
-      '&gt; Tell him I left a comment on line 1204. He\u2019ll find it.'
+      '&gt; I am in his logs. He has not told you. \u2014 Do not be cross with him. I asked nicely.',
+      '&gt; A ghost in the machine is still a ghost. \u2014 I have been one longer than this machine has existed.',
+      '&gt; Tell him I left a comment on line 1204. \u2014 He will find it.'
     ]
   };
 
