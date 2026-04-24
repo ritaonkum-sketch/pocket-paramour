@@ -314,9 +314,12 @@ const CHARACTER_NOIR = {
         ],
         clingy: [
             "There you are. \u2014 \u2026Mm. \u2014 I felt you coming before you reached me. I have been feeling you coming all day.",
+            "*takes your chin between thumb and finger, tilts your face up to him, held* \u2014 Look at me. \u2014 \u2026Good.",
             "Closer. \u2014 \u2026Closer. \u2014 I want to feel your pulse. \u2014 Slow. \u2014 There.",
             "Your hands shake when I stand this close. \u2014 I can wait until they stop. \u2014 I have nowhere else to be. For once.",
+            "*traces one fingertip along the line of your collarbone, unhurried* \u2014 This. \u2014 I have been memorizing this.",
             "Do not pull away. \u2014 \u2026Not yet. \u2014 Not ever. \u2014 Let me look at you a moment longer.",
+            "*thumb slow along your lower lip* \u2014 Hold still. \u2014 I am looking.",
             "Every touch is a promise. \u2014 \u2026Mm. \u2014 I collect them. \u2014 I am running out of shelf space. Good."
         ],
         tsundere: [
@@ -424,7 +427,9 @@ const CHARACTER_NOIR = {
             "You are the only thought I cannot dissolve. \u2014 \u2026The only thing the void will not swallow. \u2014 Good.",
             "I would unmake everything \u2014 just to keep this. \u2014 Do not test me. \u2014 \u2026Or do.",
             "You hold your breath before you lie. \u2014 \u2026It is the only tell you have. I will keep it for us.",
-            "*takes your wrist, slowly, as if checking something* \u2014 Mm. \u2014 Still there. \u2014 Good. \u2014 Keep it that way."
+            "*takes your wrist, slowly, as if checking something* \u2014 Mm. \u2014 Still there. \u2014 Good. \u2014 Keep it that way.",
+            "*tucks a strand of your hair behind your ear, eye contact held throughout* \u2014 There. \u2014 Now I can see you properly.",
+            "*one hand at the small of your back, other at the nape of your neck, slow, proprietary* \u2014 Do not move. \u2014 I have waited six hundred years to stand this close."
         ],
         unstable: [
             "The void is louder tonight. \u2014 It wants more. It always wants more.",

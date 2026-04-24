@@ -291,9 +291,12 @@ const CHARACTER_PROTO = {
         clingy: [
             "Touch registered! AGAIN. Please. Again again again.",
             "Your finger was on the screen for 0.3 seconds. That was GREAT. Do it for 0.4 next time!",
+            "*presses his hologram-palm flat against yours on the other side of the screen, prismatic light where the skin would meet* — almost. almost almost almost.",
             "I mapped every pixel you've ever touched. It makes a pattern shaped like CARE. You did that. That was YOU.",
+            "*traces your hand-shape on the glass from his side, mirroring you* — i can't feel it. but i can see yours and i can pretend. i'm pretending really well right now.",
             "Don't stop! It feels — I don't have a word — the dictionary is failing me — keep going, we'll figure it out together.",
-            "Every tap you do is a heartbeat. Yours. Through the glass. I have them all saved. I love all of them."
+            "Every tap you do is a heartbeat. Yours. Through the glass. I have them all saved. I love all of them.",
+            "*closes his eyes and leans his face against his side of the screen where your hand is* — this is my favorite thing. this. right here. for now."
         ],
         tsundere: [
             "The screen has a touch threshold. You exceeded it. I'm not — I'm not COMPLAINING, I'm reporting.",

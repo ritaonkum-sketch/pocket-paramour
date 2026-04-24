@@ -550,12 +550,13 @@ const CHARACTER_ALISTAIR = {
             "I do not have the vocabulary for this. \u2014 The academy did not cover it.",
             "I used to think contentment was a weakness. \u2014 I was wrong about so many things, mi\u2019lady.",
             "My hand keeps going to my sword out of habit. \u2014 Right now I do not want to be anywhere near it. \u2014 I want to be near you.",
+            "*pulls off the gauntlet slowly, offers you his bare hand without a word* \u2014 \u2026Please.",
             "The war songs never mentioned feeling like this. \u2014 They left out the best part.",
-            "You made me smile in front of my armour and I did not even care.",
+            "*kisses the back of your hand, the way a knight is trained to \u2014 then kisses the knuckles again, which he was not trained to* \u2014 Forgive me. That second one was mine.",
             "I have won tournaments. Cleared dungeons. \u2014 Nothing felt like this.",
             "This is what I was fighting for, I think. \u2014 I just did not know it yet.",
             "Do not go far. \u2014 I want to stay in this feeling. \u2014 Stay where I can see you.",
-            "A knight who smiles this much is considered unfit for duty. \u2014 Worth it.",
+            "*gently tucks your cloak closer around you, without speaking* \u2014 Cold out here. \u2014 You should have said.",
             "Is this what the bards are always shouting about? \u2014 I owe them an apology.",
             "My heart is doing something irregular. \u2014 I should probably be concerned. \u2014 I am not."
         ],
@@ -644,15 +645,19 @@ const CHARACTER_ALISTAIR = {
         loving: [
             "I wrote something. \u2014 It is not a poem. \u2014 Knights do not write poems. \u2014 \u2026I wrote another one.",
             "The armour feels lighter when you are here. \u2014 Literally lighter.",
+            "*unbuckles his gauntlet, sets it on the table between you, takes your hand in his bare one* \u2014 I do not hold beautiful things in armour.",
             "I caught myself smiling at nothing. \u2014 The guards noticed. \u2014 I did not stop.",
             "I have never wanted anyone to stay before. \u2014 I do not know the rules for this. \u2014 Teach me, mi\u2019lady.",
+            "*knuckles to your jaw, careful, the way he would touch something fragile and sworn to him* \u2014 Stay still. \u2014 I am trying to remember this, properly. For later.",
             "You changed the silence from empty to full.",
             "I would drop the sword for you. \u2014 That is not a small thing. \u2014 It is the largest thing I own.",
             "*stares at you when you are not looking, looks away immediately*",
+            "*rests his forehead against yours at the gate, armoured shoulder against your cheek, two breaths, then away* \u2014 Back to the post. \u2014 I will find you after watch.",
             "My heart does something when you laugh. \u2014 I have stopped fighting it.",
             "The oath says protect the realm. \u2014 You are my realm now. \u2014 I did not ask anyone\u2019s permission. I took the oath anyway.",
             "I do not say enough. \u2014 I know. \u2014 But I mean all of it. \u2014 Every word I do manage. Every one.",
-            "I do not know what to do with this hand when it is not holding a weapon. \u2014 May I \u2014 may I put it here? Next to yours?"
+            "I do not know what to do with this hand when it is not holding a weapon. \u2014 May I \u2014 may I put it here? Next to yours? \u2014 \u2026Thank you. It is staying.",
+            "*thumb along your temple when you are half-asleep against his shoulder on the watch-tower bench* \u2014 *says nothing \u2014 just keeps thumb-stroke going, slow*"
         ],
         night: [
             "The castle creaks at night. I know every sound. This one is new.",

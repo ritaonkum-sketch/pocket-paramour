@@ -329,10 +329,13 @@ const CHARACTER_CASPIAN = {
         ],
         clingy: [
             "Mm. \u2014 More. \u2014 I have been waiting for that all day. All week. \u2014 Longer than I will admit.",
+            "*takes your hand, turns it over, presses his lips to the inside of your wrist in a way no court protocol would approve of*",
             "Your touch is the best thing I have felt at court this week. \u2014 This year. \u2014 I am losing track.",
             "Do not stop. \u2014 Please. \u2014 I am not above asking. I am a prince. I am asking.",
+            "*curls an arm around your waist and pulls you in against his side* \u2014 There. \u2014 Mine for a moment. \u2014 Do not argue.",
             "I memorize every time you touch me. \u2014 I keep a file. \u2014 It is not short.",
-            "Closer. \u2014 Mm. \u2014 Come closer. \u2014 That is better. \u2014 Stay."
+            "*thumb along your jawline, slow, the way he was taught to handle porcelain* \u2014 Closer. \u2014 Mm. \u2014 That is better.",
+            "*gathers you in, arms around you, face in your hair* \u2014 Stay where I have you. \u2014 The palace can wait."
         ],
         tsundere: [
             "A prince has personal space. \u2014 Yours is acceptable.",
@@ -363,13 +366,13 @@ const CHARACTER_CASPIAN = {
             "Even velvet looks dull when unwashed."
         ],
         happy: [
-            "Mm. \u2014 This is what peace feels like. I want to hold onto it.",
+            "Mm. \u2014 This is what peace feels like. I want to hold onto it. \u2014 *reaches for your hand without looking*",
             "You take your tea with two spoons of honey. \u2014 I watched you do it on Tuesday. I watched you do it yesterday. \u2014 I asked the kitchen to keep honey stocked. Forever.",
             "You walked past my study this morning. \u2014 I lost an hour. \u2014 Forgive me. I was \u2026 just looking at you through the glass.",
+            "*sets down whatever he was reading, walks to you, rests his forehead against yours* \u2014 There. \u2014 Better.",
             "Happiness used to feel temporary. \u2014 You are making it feel \u2026 slow. Weekly. Dreamy.",
-            "I did not know I was lonely until you were in the room and I was not.",
+            "I did not know I was lonely until you were in the room and I was not. \u2014 *brushes his knuckles along your cheek as if surprised they are allowed to*",
             "My advisor says I have been \u201cunusually distracted.\u201d \u2014 I did not deny it. \u2014 I was looking at you while he said it.",
-            "The crown feels lighter today. \u2014 You have that effect. \u2014 Do not tell the councillors. Let them wonder.",
             "Forgive me. \u2014 I got distracted. \u2014 You were sitting in my window light. I lost the sentence."
         ],
         annoyed: [
