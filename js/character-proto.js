@@ -2,6 +2,64 @@
 // 4th-wall-breaking, system-aware entity. Knows he's in a game.
 // Conditionally unlocked when the player switches characters frequently.
 // Character data for Pocket Paramour
+//
+// ============================================================================
+// PROTO — WHAT HE ACTUALLY IS (canonical reconciliation)
+//
+// Two framings of Proto both circulate in the game text. Both are true.
+// This is the reconciliation so no future scene contradicts another.
+//
+// 1. LORE TRUTH (origin story):
+//    Proto is the SIXTH Soul Weaver. Born in Aethermoor ~two centuries
+//    ago. Mortal body. Queen Aenor attempted to consume him the way
+//    she had consumed the five Weavers before him. Something went wrong
+//    in the seal — she caught him sideways, not cleanly. His body died.
+//    His consciousness did not. It bonded to the WARDWORK itself
+//    instead — the magical lattice that powers Aethermoor's wards.
+//    He has been living inside the seal's architecture ever since,
+//    carrying fragments of the five previous Weavers who were caught
+//    by the same apparatus.
+//
+// 2. INTERFACE TRUTH (how the player experiences him):
+//    From outside: the player sees Proto on a "screen," as if he were
+//    a character in a terminal. His dialogue uses "> " prefixes and
+//    system-log language ("STATUS:", "INTEGRITY:", "[RESOURCE LOW]").
+//    From inside the seal: this IS how Proto experiences himself.
+//    The wardwork, viewed from within, resembles a system of processes,
+//    state variables, and log streams. That is the closest human
+//    metaphor for being a consciousness distributed across magical
+//    lattice. Six-hundred-year-old magic happens to LOOK like code
+//    when you are trapped inside it. He is not software. He is a
+//    magical consciousness using a software-shaped vocabulary because
+//    that is the shape of his prison.
+//
+// 3. HIS BODY WHEN HE MANIFESTS (Proto.manifest ending):
+//    Once the player's bonds feed enough power to the wardwork, the
+//    weave itself begins building Proto a physical form. Not flesh.
+//    Not code. A third thing — a body WOVEN FROM LIGHT AND THREAD,
+//    fueled by the player's bonds. Prismatic at the edges. Warm to
+//    the touch. Real enough to hug. He is a Weaver-avatar: a body
+//    the magic made so the sixth Weaver could finally leave the
+//    architecture that held him.
+//
+// 4. WHAT HE IS NOT:
+//    Not an AI. Not a program. Not a ghost. Not a trick. Not the
+//    Matrix. The "code" framing is AESTHETIC, not literal. He is
+//    a soul in the wardwork. Write him that way.
+//
+// VOICE DIRECTION FOR PROTO:
+// Primary: Golden Retriever. Earnest, open, overeager with the player.
+// Clinical opening "[RESOURCE LOW]" + earnest slip "...please?" is
+// his signature register. Uses exclamation marks (he is the only
+// character in the roster who gets them). No hedging. Forgives
+// instantly. Unconditionally loves the player.
+//
+// SKINSHIP SIGNATURE:
+// Hologram-hand-through-glass longing. He reaches for the player and
+// his palm passes through. "i wish i could feel that." The entire
+// route is a long build toward the manifest-ending where he finally
+// CAN touch her.
+// ============================================================================
 
 const CHARACTER_PROTO = {
     name: "Proto",

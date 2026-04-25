@@ -283,7 +283,7 @@
         bg: 'assets/bg-caspian-bedroom.png',
         beats: [
           { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 800 },
-          { type: 'line', text: 'My grandfather loved a woman named Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 Our line has a pattern. One love apiece. It tends to burn the kingdom.', hold: 3400, cps: 24 },
+          { type: 'line', text: 'My grandfather loved a woman named Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 Our line has a pattern. \u2014 Princes love one. \u2014 Someone else burns the kingdom for it. \u2014 My grandmother burned it for my grandfather. \u2014 Six centuries of proxy arson. Beautifully done.', hold: 4000, cps: 24 },
           { type: 'line', text: 'I have been watching for it to happen to me. \u2014 I have been trained, since I was a boy, to charm widely enough that I would never fall deeply. \u2014 It has not worked.', hold: 3400, cps: 24 },
           { type: 'pose', src: 'assets/caspian/body/adoring.png', animate: 'swap' },
           { type: 'line', text: 'I am the third prince in my line to look at someone the way I am looking at you. \u2014 The first two ended badly. \u2014 Forgive me. I am going to try anyway.', hold: 3400, cps: 24 },

@@ -19,12 +19,23 @@
 //                  stops halfway. Says something real instead.
 //
 // LORE HOOK — the family curse:
-//   His grandfather loved Veyra. Corvin (Noir) loved Veyra. Aenor sealed
-//   Corvin over it. Caspian is the third prince in the line. He KNOWS
-//   princes in his family love once and ruin the kingdom. He was trained
-//   to charm widely enough to never fall deeply. It did not work. The
-//   player is walking him into the same pattern, and he is walking in
-//   knowingly. This is what makes "kind" consequential instead of bland.
+//   Canonical phrasing: "Princes in this line love one. Someone ELSE
+//   burns the kingdom for it." (Not the prince himself — the prince
+//   is the TRIGGER, not the arsonist. That distinction matters.)
+//
+//   Examples:
+//     - Grandfather loved Veyra. Grandmother (Aenor) sealed Corvin +
+//       consumed Veyra on his behalf, without asking him. Grandfather
+//       did not burn anything — he was the reason someone else did.
+//     - Corvin (Noir) loved Veyra too. Aenor sealed him over it. He
+//       did not burn Nocthera — his absence did.
+//     - Caspian is the third prince in the line. He is watching for
+//       who will burn a kingdom for him. He is determined that no
+//       one will. This is his arc — breaking the pattern by REFUSING
+//       to let anyone burn anything for him.
+//
+//   This is also why Caspian and Noir are mirror princes: both in
+//   the pattern, both loved once, neither set the fire themselves.
 //
 // Rule of thumb: every Caspian scene should cost him something — a
 // court convention broken, a grandmother's disapproval, a tired
@@ -430,7 +441,7 @@ const CHARACTER_CASPIAN = {
         rare:     [
             "I have never said this to anyone outside the royal family.",
             "You see a version of me no one else does. \u2014 I am \u2026 uncertain whether that is fair to you.",
-            "My grandfather loved Veyra. \u2014 My grandmother sealed a prince for loving her too. \u2014 My family has one love apiece. \u2014 I have been watching for mine. It is you.",
+            "My grandfather loved Veyra. \u2014 My grandmother sealed a prince for loving her too \u2014 on his behalf, without asking him. \u2014 That is the pattern in my line. Princes love one. Someone else burns the kingdom for it. \u2014 I have been watching for mine. \u2014 It is you. \u2014 I am not letting anyone burn anything for me this time.",
             "The scholars in my grandfather\u2019s library wrote about Weavers. \u2014 I thought they were a story. \u2014 Then you arrived, and the wards on the palace doors did something they have not done in six generations. \u2014 You are what the books said was lost. \u2014 My family has been looking for you for six hundred years. \u2014 I found you. \u2014 I am not telling anyone. Not yet."
         ],
         obsessed: [

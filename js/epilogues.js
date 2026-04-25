@@ -264,9 +264,11 @@
         bg: 'assets/bg-lyra-ocean.png',
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I have tea with my brother on Thursdays in his tower. \u2014 I have told him every verse my mother taught me. \u2014 He has told me three things about our father. \u2014 I am going to confront him. \u2014 Soon. \u2014 Not yet.', hold: 4000, cps: 24 },
-          { type: 'line', text: 'My mother\u2019s staff knows my hands now. \u2014 The cave knows your footsteps. \u2014 The tower knows my name. My real one. \u2014 I have four homes. \u2014 I did not know I could have four.', hold: 3600, cps: 24 },
-          { type: 'line', text: 'Come down when the tide is high. \u2014 I am going to sing the third verse for you. \u2014 The whole one. \u2014 Corvin finished it. \u2014 I have rehearsed it thirty times. \u2014 Tonight you hear it.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'I have tea with my brother on Thursdays in his tower. \u2014 I have told him every verse my mother taught me. \u2014 He has told me seven things about our father. \u2014 Six of them are about his cruelty. One is about the crib in the west tower.', hold: 4200, cps: 24 },
+          { type: 'line', text: 'I went to see our father. \u2014 Last month. \u2014 My brother stood with me at the door. I walked in alone. \u2014 I did not raise my voice. \u2014 I did not need to.', hold: 3600, cps: 24 },
+          { type: 'line', text: 'I spoke the dialect of my mother\u2019s people. \u2014 He flinched. \u2014 I showed him the staff. \u2014 He wept. \u2014 I told him I did not need him to apologise. \u2014 I needed him to know I lived. \u2014 I left. \u2014 He is old now. He does not matter the way he thought he would.', hold: 4600, cps: 22 },
+          { type: 'line', text: 'My mother\u2019s staff knows my hands now. \u2014 The cave knows your footsteps. \u2014 The tower knows my real name. \u2014 I have four homes. \u2014 I did not know I could have four.', hold: 3600, cps: 24 },
+          { type: 'line', text: 'Come down when the tide is high. \u2014 Corvin finished the third verse for me. \u2014 I have rehearsed it thirty times. \u2014 Tonight you hear it.', hold: 3200, cps: 26 },
           { type: 'hide' }
         ]
       }
@@ -328,7 +330,8 @@
         beats: [
           { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
           { type: 'line', text: 'The tower is loud now. \u2014 The good kind. \u2014 You and my sister argue about the kettle. \u2014 I work in the margins. \u2014 It is my favourite configuration.', hold: 3200, cps: 26 },
-          { type: 'line', text: 'I confronted my father last week. \u2014 He lied. I expected that. \u2014 I have been expecting it since I was seven. \u2014 I have a sister now. \u2014 He lost the privilege of denying her. \u2014 I have rewritten the family register myself. \u2014 Her name is at the top.', hold: 4200, cps: 24 },
+          { type: 'line', text: 'I confronted my father last week. \u2014 He lied. I expected that. \u2014 I have been expecting it since I was seven. \u2014 My sister went in after me. \u2014 She was gentler than I was. \u2014 He broke harder for her than he broke for me. \u2014 That is fair. He owed her more.', hold: 4400, cps: 24 },
+          { type: 'line', text: 'He has not retaliated. \u2014 He is too old to be dangerous now. \u2014 Too proud to admit what he did. \u2014 He gets the register he deserves \u2014 one without him in it. \u2014 I rewrote the family record myself. Her name at the top. Mine below. \u2014 His is gone.', hold: 4200, cps: 24 },
           { type: 'flourish', text: '\u221e', duration: 1600 },
           { type: 'line', text: 'Bring tea tonight. \u2014 The second shelf is yours. \u2014 The red shelf is my sister\u2019s. \u2014 I moved everything else down. \u2014 *sets the pen down, turns the page facedown, looks up* \u2014 Come here.', hold: 3200, cps: 26 },
           { type: 'hide' }
@@ -358,6 +361,7 @@
           { type: 'show', pose: 'assets/lucien/body/casting.png', wait: 700 },
           { type: 'line', text: 'I published. \u2014 Everything. \u2014 The register. \u2014 The sister. \u2014 The Weavers Aenor ate. \u2014 The song. \u2014 The seal. \u2014 The bloodline. \u2014 Every footnote I was told to leave blank is now the main text.', hold: 4200, cps: 24 },
           { type: 'line', text: 'The council wants me tried for treason. \u2014 My father wants me disowned. \u2014 Half the kingdom wants me canonised. \u2014 I do not care which happens. \u2014 The truth is on the page. \u2014 That is all I ever promised.', hold: 4000, cps: 24 },
+          { type: 'line', text: 'Father tried to contest the publication. \u2014 His allies deserted him the day the press began. \u2014 He is old. He is disgraced. He will die in his house without visitors. \u2014 That is not revenge. \u2014 That is consequence. \u2014 He walked into it for thirty years.', hold: 4400, cps: 24 },
           { type: 'line', text: 'My sister is in the tower. \u2014 You are in the tower. \u2014 My father is not in the tower. \u2014 Those three conditions are my new definition of home. \u2014 *sets the pen down* \u2014 Stay.', hold: 3400, cps: 26 },
           { type: 'hide' }
         ]
