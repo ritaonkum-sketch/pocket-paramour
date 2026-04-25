@@ -222,27 +222,47 @@
     const dir = _root.querySelector('.pp-bridge-direction');
     const lineEl = _root.querySelector('.pp-bridge-line');
 
-    // Wait for any currently-visible text to fully fade out before showing
-    // the next one. CSS transitions on .pp-bridge-direction and
-    // .pp-bridge-line are 540-600ms; we use 660ms for safety.
+    // Hard-clear: remove .show, wait the full transition, then explicitly
+    // hide via visibility AND display so the previous beat is GONE from the
+    // paint tree before the next one arrives. Belt-and-suspenders against
+    // any timing/cache issue.
     async function clearText() {
-      let changed = false;
-      if (dir.classList.contains('show'))    { dir.classList.remove('show');    changed = true; }
-      if (lineEl.classList.contains('show')) { lineEl.classList.remove('show'); changed = true; }
-      if (changed) await wait(660);
+      const wasVisible =
+        dir.classList.contains('show') || lineEl.classList.contains('show');
+      dir.classList.remove('show');
+      lineEl.classList.remove('show');
+      if (wasVisible) await wait(680);
+      dir.style.visibility = 'hidden';
+      lineEl.style.visibility = 'hidden';
+      lineEl.style.display = 'none';
+      dir.textContent = '';
+      lineEl.innerHTML = '';
+    }
+
+    function showDirection(text) {
+      dir.style.visibility = '';
+      dir.textContent = text;
+      // eslint-disable-next-line no-unused-expressions
+      dir.offsetHeight;
+      dir.classList.add('show');
+    }
+    function showLineLocal(speaker, text) {
+      lineEl.style.display = '';
+      lineEl.style.visibility = '';
+      lineEl.innerHTML = '<span class="pp-speaker">' + speaker + '</span>' + text;
+      // eslint-disable-next-line no-unused-expressions
+      lineEl.offsetHeight;
+      lineEl.classList.add('show');
     }
 
     for (const b of BEATS) {
       await clearText();
-      dir.textContent = b.direction;
-      // eslint-disable-next-line no-unused-expressions
-      dir.offsetHeight;
-      dir.classList.add('show');
+      showDirection(b.direction);
       await waitForTap();
     }
     // Final hand-off: hide narration fully, then show the man's line.
     await clearText();
-    showLine('A MAN\u2019S VOICE',
+    showLineLocal('A MAN\u2019S VOICE',
       "\u2014 alright. You are alright. Do not move. I have you.");
     await waitForTap();
     // Hide line fully before showing the CTA so they do not overlap.

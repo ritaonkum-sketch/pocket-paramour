@@ -200,10 +200,31 @@
     const cta = _root.querySelector('.pp-bridge-cta');
 
     async function clearText() {
-      let changed = false;
-      if (dir.classList.contains('show'))    { dir.classList.remove('show');    changed = true; }
-      if (lineEl.classList.contains('show')) { lineEl.classList.remove('show'); changed = true; }
-      if (changed) await wait(660);
+      const wasVisible =
+        dir.classList.contains('show') || lineEl.classList.contains('show');
+      dir.classList.remove('show');
+      lineEl.classList.remove('show');
+      if (wasVisible) await wait(680);
+      dir.style.visibility = 'hidden';
+      lineEl.style.visibility = 'hidden';
+      lineEl.style.display = 'none';
+      dir.textContent = '';
+      lineEl.innerHTML = '';
+    }
+    function showDirection(text) {
+      dir.style.visibility = '';
+      dir.textContent = text;
+      // eslint-disable-next-line no-unused-expressions
+      dir.offsetHeight;
+      dir.classList.add('show');
+    }
+    function showLineBeat(speaker, text) {
+      lineEl.style.display = '';
+      lineEl.style.visibility = '';
+      lineEl.innerHTML = '<span class="pp-speaker">' + speaker + '</span>' + text;
+      // eslint-disable-next-line no-unused-expressions
+      lineEl.offsetHeight;
+      lineEl.classList.add('show');
     }
 
     for (const beat of BEATS) {
@@ -220,24 +241,15 @@
       }
       if (beat.kind === 'narration') {
         await clearText();
-        dir.textContent = beat.text;
-        // eslint-disable-next-line no-unused-expressions
-        dir.offsetHeight;
-        dir.classList.add('show');
+        showDirection(beat.text);
         await waitForTap();
       } else if (beat.kind === 'line') {
         await clearText();
-        lineEl.innerHTML = `<span class="pp-speaker">${beat.speaker}</span>${beat.text}`;
-        // eslint-disable-next-line no-unused-expressions
-        lineEl.offsetHeight;
-        lineEl.classList.add('show');
+        showLineBeat(beat.speaker, beat.text);
         await waitForTap();
       } else if (beat.kind === 'tutorial') {
         await clearText();
-        dir.textContent = beat.text;
-        // eslint-disable-next-line no-unused-expressions
-        dir.offsetHeight;
-        dir.classList.add('show');
+        showDirection(beat.text);
         _root.classList.add('cta-mode');
         cta.textContent = beat.cta;
         // eslint-disable-next-line no-unused-expressions
