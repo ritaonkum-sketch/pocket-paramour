@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v177';
+const CACHE_NAME = 'pocket-love-v178';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -90,10 +90,11 @@ const CORE_ASSETS = [
     '/js/early-whispers.js',
     '/js/affection-drift.js',
 
-    // Ship-readiness pass (April 2026): coordinator + guards
+    // Ship-readiness pass (April 2026): coordinator + guards + dev panel
     '/js/ambient-coordinator.js',
     '/js/payments-guard.js',
-    '/js/storage-guard.js'
+    '/js/storage-guard.js',
+    '/js/dev-panel.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.

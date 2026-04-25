@@ -575,6 +575,12 @@
          observe/wrap everything above them. -->
     <script src="js/ambient-coordinator.js"></script>
     <script src="js/payments-guard.js"></script>
+
+    <!-- Dev panel. Hidden from normal players. Activated by ?dev=1 URL
+         param, pp_dev_panel=1 localStorage flag, or a triple-tap on the
+         top-right corner. REMOVE or gate this script tag before shipping
+         to production if you do not want testers to find it. -->
+    <script src="js/dev-panel.js"></script>
     <script>
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {
