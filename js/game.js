@@ -10286,17 +10286,25 @@ let selectedCharacter = 'alistair';
                 "They found you.\nNow they won\u2019t let go."
             ];
             var worldIndex = 0;
+            var __wiTransitioning = false;
+            var __wiAcceptingTaps = false;
+            var __wiLastTap       = 0;
 
             worldIntro.classList.remove('hidden');
             requestAnimationFrame(function() { worldIntro.classList.add('visible'); });
 
             var showWorldBeat = function() {
                 if (worldIndex < worldBeats.length) {
+                    __wiTransitioning = true;
                     worldText.classList.remove('show');
                     setTimeout(function() {
                         worldText.textContent = worldBeats[worldIndex];
                         worldText.style.whiteSpace = 'pre-line';
-                        requestAnimationFrame(function() { worldText.classList.add('show'); });
+                        requestAnimationFrame(function() {
+                            worldText.classList.add('show');
+                            // Lock taps until the fade-in finishes.
+                            setTimeout(function() { __wiTransitioning = false; }, 600);
+                        });
                     }, 300);
                 } else {
                     // Done — save and show select
@@ -10325,11 +10333,25 @@ let selectedCharacter = 'alistair';
                 }
             };
 
+            // Show the first beat. We do NOT attach the click handler
+            // synchronously — the original Start-button click can bubble
+            // and immediately advance to beat 2. Wait ~700ms before
+            // accepting taps. The "tap to continue" hint pulses on its
+            // own to signal interactivity.
             showWorldBeat();
-            worldIntro.addEventListener('click', function() {
+            setTimeout(function() { __wiAcceptingTaps = true; }, 700);
+
+            var __wiAdvance = function(ev) {
+                if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+                if (!__wiAcceptingTaps) return;        // grace period
+                if (__wiTransitioning)  return;        // mid-fade
+                var __now = Date.now();
+                if (__now - __wiLastTap < 350) return; // debounce
+                __wiLastTap = __now;
                 worldIndex++;
                 showWorldBeat();
-            });
+            };
+            worldIntro.addEventListener('click', __wiAdvance);
         } else {
             // Already seen — go straight to select
             setTimeout(function() {
