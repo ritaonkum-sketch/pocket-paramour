@@ -344,7 +344,7 @@
 
     const tabs = document.createElement('div');
     tabs.id = 'pp-dev-tabs';
-    [['overview','Overview'],['characters','Characters'],['playtest','Playtest'],['scenes','Scenes'],['storage','Storage']].forEach(([id, label]) => {
+    [['overview','Overview'],['characters','Characters'],['chain','Chain'],['playtest','Playtest'],['scenes','Scenes'],['storage','Storage']].forEach(([id, label]) => {
       const btn = document.createElement('button');
       btn.textContent = label;
       btn.dataset.tab = id;
@@ -377,9 +377,102 @@
     body.innerHTML = '';
     if (_tabId === 'overview')   return renderOverview(body);
     if (_tabId === 'characters') return renderCharacters(body);
+    if (_tabId === 'chain')      return renderChain(body);
     if (_tabId === 'playtest')   return renderPlaytest(body);
     if (_tabId === 'scenes')     return renderScenes(body);
     if (_tabId === 'storage')    return renderStorage(body);
+  }
+
+  // ============================================================================
+  // CHAIN TAB — jump between prologue chain steps for testing
+  // ============================================================================
+  function renderChain(body) {
+    body.innerHTML = '';
+    const steps = [
+      { idx: 0, name: 'Arrival',   desc: 'Wake face-down in the moss.', launch: () => window.PPWorldArrival && window.PPWorldArrival.play() },
+      { idx: 1, name: 'Alistair',  desc: 'Patrol rescue + maid\u2019s chamber.', launch: () => window.PPBridgeAlistair && window.PPBridgeAlistair.play() },
+      { idx: 2, name: 'Elian',     desc: 'Slip out, follow smoke, "what are you."', launch: () => window.PPBridgeElian && window.PPBridgeElian.play() },
+      { idx: 3, name: 'Lyra',      desc: 'South coast journey + cave-mouth.', launch: () => window.PPBridgeLyra && window.PPBridgeLyra.play() },
+      { idx: 4, name: 'Caspian',   desc: 'Royal letter + reception in silk.', launch: () => window.PPBridgeCaspian && window.PPBridgeCaspian.play() },
+      { idx: 5, name: 'Lucien',    desc: 'Lose the guard + the tower.', launch: () => window.PPBridgeLucien && window.PPBridgeLucien.play() },
+      { idx: 6, name: 'Noir',      desc: 'Dark pull + the alley.', launch: () => window.PPBridgeNoir && window.PPBridgeNoir.play() },
+      { idx: 7, name: 'Proto',     desc: 'The mirror at midnight.', launch: () => window.PPBridgeProto && window.PPBridgeProto.play() }
+    ];
+
+    const cur = (window.PPChain && window.PPChain.step()) || 0;
+    const skipped = window.PPChain && window.PPChain.isSkipped() && window.PPChain.isSkipped();
+    const ready = window.PPChain && window.PPChain.tutorialReady && window.PPChain.tutorialReady();
+
+    const head = document.createElement('div');
+    head.style.cssText = 'padding:10px 14px; background:rgba(180,150,230,0.08); border-radius:8px; margin-bottom:12px; font-size:12.5px; line-height:1.5;';
+    head.innerHTML = `
+      <div><b>Current step:</b> ${cur} / 7</div>
+      <div><b>Skipped flag:</b> ${skipped ? 'YES (chain bypassed)' : 'no'}</div>
+      <div><b>Tutorial ready (Alistair aff\u226525 + full cycle):</b> ${ready ? 'yes' : 'no'}</div>
+    `;
+    body.appendChild(head);
+
+    steps.forEach(s => {
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid rgba(180,150,230,0.10);';
+      const lbl = document.createElement('div');
+      lbl.style.cssText = 'flex:1;';
+      lbl.innerHTML = `<b>${s.idx}. ${s.name}</b><br><span style="font-size:11.5px; opacity:0.7;">${s.desc}</span>`;
+      row.appendChild(lbl);
+
+      const playBtn = document.createElement('button');
+      playBtn.textContent = 'Play';
+      playBtn.style.cssText = 'padding:5px 10px; font-size:11.5px;';
+      playBtn.addEventListener('click', () => { if (s.launch) s.launch(); close(); });
+      row.appendChild(playBtn);
+
+      const setBtn = document.createElement('button');
+      setBtn.textContent = 'Set step';
+      setBtn.style.cssText = 'padding:5px 10px; font-size:11.5px;';
+      setBtn.addEventListener('click', () => {
+        if (window.PPChain) window.PPChain.setStep(s.idx);
+        renderBody();
+      });
+      row.appendChild(setBtn);
+
+      body.appendChild(row);
+    });
+
+    // Action row
+    const actions = document.createElement('div');
+    actions.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;';
+    const mk = (label, fn, bg) => {
+      const b = document.createElement('button');
+      b.textContent = label;
+      b.style.cssText = 'padding:7px 12px; font-size:12px;' + (bg ? ` background:${bg};` : '');
+      b.addEventListener('click', fn);
+      return b;
+    };
+    actions.appendChild(mk('Skip prologue (unlock all)', () => {
+      if (window.PPChain) window.PPChain.skip();
+      ['alistair','elian','lyra','caspian','lucien','noir','proto'].forEach(c => {
+        try { localStorage.setItem('pp_met_' + c, '1'); } catch(_) {}
+      });
+      renderBody();
+    }, '#5a4296'));
+    actions.appendChild(mk('Un-skip', () => { if (window.PPChain) window.PPChain.unskip(); renderBody(); }));
+    actions.appendChild(mk('Reset chain', () => {
+      if (window.PPChain) window.PPChain.reset();
+      try { localStorage.removeItem('pp_chain_complete'); } catch(_) {}
+      try { localStorage.removeItem('pp_chain_skip_prompt_seen'); } catch(_) {}
+      renderBody();
+    }, '#963c4f'));
+    actions.appendChild(mk('Show "skip prologue?" prompt', () => {
+      if (window.PPChainSkip) { window.PPChainSkip.reset(); window.PPChainSkip.show(); close(); }
+    }));
+    actions.appendChild(mk('Force tutorial gate ready', () => {
+      try {
+        localStorage.setItem('pp_affection_alistair', '25');
+        localStorage.setItem('pp_chain_alistair_cycle', JSON.stringify({feed:1,clean:1,talk:1,train:1}));
+      } catch(_) {}
+      renderBody();
+    }));
+    body.appendChild(actions);
   }
 
   // ============================================================================
