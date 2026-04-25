@@ -171,6 +171,13 @@
     const lineEl = _root.querySelector('.pp-bridge-line');
     const cta = _root.querySelector('.pp-bridge-cta');
 
+    async function clearText() {
+      let changed = false;
+      if (dir.classList.contains('show'))    { dir.classList.remove('show');    changed = true; }
+      if (lineEl.classList.contains('show')) { lineEl.classList.remove('show'); changed = true; }
+      if (changed) await wait(660);
+    }
+
     for (const beat of BEATS) {
       if (beat.portrait) {
         if (portraitEl.getAttribute('src') !== beat.portrait) {
@@ -184,31 +191,26 @@
         }
       }
       if (beat.kind === 'narration') {
-        lineEl.classList.remove('show');
-        await wait(200);
-        lineEl.style.display = 'none';
-        dir.classList.remove('show');
-        await wait(240);
+        await clearText();
         dir.textContent = beat.text;
+        // eslint-disable-next-line no-unused-expressions
+        dir.offsetHeight;
         dir.classList.add('show');
         await waitForTap();
       } else if (beat.kind === 'line') {
-        dir.classList.remove('show');
-        await wait(180);
-        lineEl.style.display = '';
+        await clearText();
         lineEl.innerHTML = `<span class="pp-speaker">${beat.speaker}</span>${beat.text}`;
         // eslint-disable-next-line no-unused-expressions
         lineEl.offsetHeight;
         lineEl.classList.add('show');
         await waitForTap();
       } else if (beat.kind === 'tutorial') {
-        lineEl.classList.remove('show');
-        await wait(200);
-        lineEl.style.display = 'none';
+        await clearText();
         dir.textContent = beat.text;
+        // eslint-disable-next-line no-unused-expressions
+        dir.offsetHeight;
         dir.classList.add('show');
         _root.classList.add('cta-mode');
-        cta.style.display = '';
         cta.textContent = beat.cta;
         // eslint-disable-next-line no-unused-expressions
         cta.offsetHeight;

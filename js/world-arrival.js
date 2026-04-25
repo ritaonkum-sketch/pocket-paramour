@@ -220,17 +220,33 @@
 
   async function runBeats() {
     const dir = _root.querySelector('.pp-bridge-direction');
+    const lineEl = _root.querySelector('.pp-bridge-line');
+
+    // Wait for any currently-visible text to fully fade out before showing
+    // the next one. CSS transitions on .pp-bridge-direction and
+    // .pp-bridge-line are 540-600ms; we use 660ms for safety.
+    async function clearText() {
+      let changed = false;
+      if (dir.classList.contains('show'))    { dir.classList.remove('show');    changed = true; }
+      if (lineEl.classList.contains('show')) { lineEl.classList.remove('show'); changed = true; }
+      if (changed) await wait(660);
+    }
+
     for (const b of BEATS) {
-      dir.classList.remove('show');
-      await wait(380);
+      await clearText();
       dir.textContent = b.direction;
+      // eslint-disable-next-line no-unused-expressions
+      dir.offsetHeight;
       dir.classList.add('show');
       await waitForTap();
     }
-    // Final hand-off: a short bit of dialogue from the man, then continue.
+    // Final hand-off: hide narration fully, then show the man's line.
+    await clearText();
     showLine('A MAN\u2019S VOICE',
       "\u2014 alright. You are alright. Do not move. I have you.");
     await waitForTap();
+    // Hide line fully before showing the CTA so they do not overlap.
+    await clearText();
     _root.classList.add('cta-mode');
     showCTA('Continue');
   }

@@ -160,6 +160,16 @@
     const lineEl     = _root.querySelector('.pp-bridge-line');
     const cta        = _root.querySelector('.pp-bridge-cta');
 
+    // Wait for any currently-visible text to fully fade out (660ms covers
+    // the 540-600ms CSS opacity transitions) before showing the next beat.
+    // Without this, narration and dialogue overlap visibly during the gap.
+    async function clearText() {
+      let changed = false;
+      if (dir.classList.contains('show'))    { dir.classList.remove('show');    changed = true; }
+      if (lineEl.classList.contains('show')) { lineEl.classList.remove('show'); changed = true; }
+      if (changed) await wait(660);
+    }
+
     for (const beat of BEATS) {
       // Update portrait if changed
       if (beat.portrait) {
@@ -175,32 +185,26 @@
       }
 
       if (beat.kind === 'narration') {
-        lineEl.classList.remove('show');
-        await wait(220);
-        lineEl.style.display = 'none';
-        dir.classList.remove('show');
-        await wait(260);
+        await clearText();
         dir.textContent = beat.text;
+        // eslint-disable-next-line no-unused-expressions
+        dir.offsetHeight;
         dir.classList.add('show');
         await waitForTap();
       } else if (beat.kind === 'line') {
-        dir.classList.remove('show');
-        await wait(180);
-        lineEl.style.display = '';
+        await clearText();
         lineEl.innerHTML = `<span class="pp-speaker">${beat.speaker}</span>${beat.text}`;
         // eslint-disable-next-line no-unused-expressions
         lineEl.offsetHeight;
         lineEl.classList.add('show');
         await waitForTap();
       } else if (beat.kind === 'tutorial') {
-        // Final beat — show direction + CTA together, then hand off
-        lineEl.classList.remove('show');
-        await wait(200);
-        lineEl.style.display = 'none';
+        await clearText();
         dir.textContent = beat.text;
+        // eslint-disable-next-line no-unused-expressions
+        dir.offsetHeight;
         dir.classList.add('show');
         _root.classList.add('cta-mode');
-        cta.style.display = '';
         cta.textContent = beat.cta;
         // eslint-disable-next-line no-unused-expressions
         cta.offsetHeight;
