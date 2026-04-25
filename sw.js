@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v181';
+const CACHE_NAME = 'pocket-love-v182';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -65,6 +65,7 @@ const CORE_ASSETS = [
     '/js/crossover-weavers-court.js',
     '/js/crossover-alistair-caspian.js',
     '/js/crossover-alistair-lucien.js',
+    '/js/crossover-caspian-lucien.js',
     '/js/encounter-lyra.js',
     '/js/encounter-caspian.js',
     '/js/encounter-lucien.js',

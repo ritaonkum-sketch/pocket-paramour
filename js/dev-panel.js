@@ -118,6 +118,8 @@
       force: () => window.MSCrossAlistairCaspian && window.MSCrossAlistairCaspian.force && window.MSCrossAlistairCaspian.force() },
     { id: 'cross_alistair_lucien', label: 'The Watch and the Tower (Alistair \u00d7 Lucien)', category: 'crossovers', seenFlag: 'pp_cross_alistair_lucien_seen',
       force: () => window.MSCrossAlistairLucien && window.MSCrossAlistairLucien.force && window.MSCrossAlistairLucien.force() },
+    { id: 'cross_caspian_lucien', label: 'The Library (Caspian \u00d7 Lucien)', category: 'crossovers', seenFlag: 'pp_cross_caspian_lucien_seen',
+      force: () => window.MSCrossCaspianLucien && window.MSCrossCaspianLucien.force && window.MSCrossCaspianLucien.force() },
 
     // Endings (route-specific \u2014 per character, fires the computed ending)
     ...CHARS.map(c => ({
@@ -481,14 +483,16 @@
                 ['cross_elian_lyra', 'elian-lyra', 'MSCrossElianLyra']],
       lucien:  [['cross_lyra_lucien', 'lyra-lucien', 'MSCrossLyraLucien'],
                 ['cross_lucien_aenor', 'lucien-aenor', 'MSCrossLucienAenor'],
-                ['cross_alistair_lucien', 'alistair-lucien', 'MSCrossAlistairLucien']],
+                ['cross_alistair_lucien', 'alistair-lucien', 'MSCrossAlistairLucien'],
+                ['cross_caspian_lucien', 'caspian-lucien', 'MSCrossCaspianLucien']],
       noir:    [['cross_noir_elian', 'noir-elian', 'MSCrossNoirElian'],
                 ['cross_noir_lyra', 'noir-lyra', 'MSCrossNoirLyra'],
                 ['cross_caspian_noir', 'caspian-noir', 'MSCrossCaspianNoir']],
       elian:   [['cross_noir_elian', 'noir-elian', 'MSCrossNoirElian'],
                 ['cross_elian_lyra', 'elian-lyra', 'MSCrossElianLyra']],
       caspian: [['cross_caspian_noir', 'caspian-noir', 'MSCrossCaspianNoir'],
-                ['cross_alistair_caspian', 'alistair-caspian', 'MSCrossAlistairCaspian']],
+                ['cross_alistair_caspian', 'alistair-caspian', 'MSCrossAlistairCaspian'],
+                ['cross_caspian_lucien', 'caspian-lucien', 'MSCrossCaspianLucien']],
       alistair:[['cross_alistair_caspian', 'alistair-caspian', 'MSCrossAlistairCaspian'],
                 ['cross_alistair_lucien', 'alistair-lucien', 'MSCrossAlistairLucien']],
       proto:   []
