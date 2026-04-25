@@ -33,6 +33,7 @@
         overflow:hidden;
       }
       .pp-bridge-root.show { opacity:1; }
+      .pp-bridge-root:not(.show) { pointer-events:none; }
       .pp-bridge-bg {
         position:absolute; inset:0;
         background-position:center; background-size:cover;
@@ -245,18 +246,24 @@
   function finish() {
     if (!_root) return;
     lsSet(FLAG_PLAYED, '1');
-    // NOTE: we no longer set pp_world_intro_seen here. The unified flow is:
-    //   1. Old world intro (game.js, "Kingdom of Aethermoor is dying...")
-    //   2. Arrival (this scene)
-    //   3. Bridge 1 (Alistair) etc.
-    // The old world intro sets pp_world_intro_seen itself when it finishes,
-    // BEFORE arrival fires. Arrival doesn't suppress it.
+    // Mark the bridge done in the chapter system so the menu shows it as
+    // completed even if the player came in via the prologue chain instead
+    // of the chapter menu. Move the menu's current pointer to b_alistair.
+    try {
+      localStorage.setItem('pp_chapter_done_b_arrival', '1');
+      localStorage.setItem('pp_current_chapter', 'b_alistair');
+    } catch (_) {}
     _root.classList.remove('show');
     setTimeout(() => {
       if (_root && _root.parentNode) _root.parentNode.removeChild(_root);
       _root = null;
-      // Hand off to Alistair bridge immediately.
-      if (window.PPBridgeAlistair && typeof window.PPBridgeAlistair.play === 'function') {
+      // Auto-handoff to bridge-alistair ONLY on first playthrough. On a
+      // replay from the chapter menu (when chain step is already >= 1),
+      // arrival plays standalone — no cascade.
+      var stepNow = (window.PPChain && typeof window.PPChain.step === 'function')
+        ? window.PPChain.step() : 0;
+      if (stepNow === 0 && window.PPBridgeAlistair &&
+          typeof window.PPBridgeAlistair.play === 'function') {
         window.PPBridgeAlistair.play();
       }
       if (_resolveDone) { _resolveDone(); _resolveDone = null; }

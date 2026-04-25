@@ -254,9 +254,12 @@
     setTimeout(() => {
       if (_root && _root.parentNode) _root.parentNode.removeChild(_root);
       _root = null;
+      try { localStorage.setItem('pp_chapter_done_b_elian', '1'); } catch (_) {}
+      var stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')
+        ? window.PPChain.step() : 0;
       if (window.PPChain && typeof window.PPChain.advance === 'function') {
         window.PPChain.advance(2);
-        if (typeof window.PPChain.fireChapterFor === 'function') {
+        if (stepBefore < 2 && typeof window.PPChain.fireChapterFor === 'function') {
           window.PPChain.fireChapterFor(2);
         }
       }

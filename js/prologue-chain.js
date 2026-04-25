@@ -299,6 +299,14 @@
     // Allow the next ready-to-move-on toast to fire after the next care threshold
     _readyToastShown = false;
     refreshGrid();
+    // Sync the chapter-menu pointer so bridges show as completed and the
+    // matching numbered chapter becomes "current" in the chapter list.
+    try {
+      const bridgeIds = { 1:'b_alistair', 2:'b_elian', 3:'b_lyra', 4:'b_caspian', 5:'b_lucien', 6:'b_noir', 7:'b_proto' };
+      const bid = bridgeIds[target];
+      if (bid) lsSet('pp_chapter_done_' + bid, '1');
+      if (target >= 1 && target <= 7) lsSet('pp_current_chapter', String(target));
+    } catch (_) {}
     const meta = STEPS[target];
     if (meta && meta.char) {
       // Mark met for downstream systems (phone-ui, multi-romance, etc.)

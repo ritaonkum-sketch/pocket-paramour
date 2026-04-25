@@ -241,12 +241,16 @@
     setTimeout(() => {
       if (_root && _root.parentNode) _root.parentNode.removeChild(_root);
       _root = null;
-      // Advance the chain. PPChain handles the unlock toast and grid refresh.
+      // Mark the bridge done in the chapter menu.
+      try { localStorage.setItem('pp_chapter_done_b_alistair', '1'); } catch (_) {}
+      // Advance the chain. On FIRST playthrough (stepBefore=0) we also fire
+      // the matching chapter. On replay (stepBefore>=1) advance is a no-op
+      // and we DON'T re-fire the chapter \u2014 bridge plays standalone.
+      var stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')
+        ? window.PPChain.step() : 0;
       if (window.PPChain && typeof window.PPChain.advance === 'function') {
         window.PPChain.advance(1);
-        // Fire the matching main-story chapter (CHAPTER 1: You Arrive).
-        // This is the unified flow: bridge \u2192 chapter \u2192 care \u2192 next bridge.
-        if (typeof window.PPChain.fireChapterFor === 'function') {
+        if (stepBefore < 1 && typeof window.PPChain.fireChapterFor === 'function') {
           window.PPChain.fireChapterFor(1);
         }
       } else {

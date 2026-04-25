@@ -88,7 +88,39 @@
             { type: 'hide' }
           ]
         });
-        markDone(0); setCurrent(1);
+        markDone(0); setCurrent(nextIdAfter(0));
+        if (onDone) onDone();
+      }
+    },
+
+    // -- BRIDGE: ARRIVAL ------------------------------------------------------
+    {
+      id: 'b_arrival',
+      title: 'ARRIVAL',
+      subtitle: 'Face Down in Moss',
+      teaser: 'You wake in a wood that has not learned your name yet. A torn page. The Aethermoor seal.',
+      charId: null,
+      play: async function (onDone) {
+        if (window.PPWorldArrival && typeof window.PPWorldArrival.play === 'function') {
+          await window.PPWorldArrival.play();
+        }
+        markDone('b_arrival'); setCurrent(nextIdAfter('b_arrival'));
+        if (onDone) onDone();
+      }
+    },
+
+    // -- BRIDGE 1: ALISTAIR RESCUE -------------------------------------------
+    {
+      id: 'b_alistair',
+      title: 'BRIDGE — ALISTAIR',
+      subtitle: 'The Captain’s Patrol',
+      teaser: 'A captain on solo dawn patrol finds you in the moss. He carries you to a chamber that is not the chamberlain’s.',
+      charId: 'alistair',
+      play: async function (onDone) {
+        if (window.PPBridgeAlistair && typeof window.PPBridgeAlistair.play === 'function') {
+          await window.PPBridgeAlistair.play();
+        }
+        markDone('b_alistair'); setCurrent(nextIdAfter('b_alistair'));
         if (onDone) onDone();
       }
     },
@@ -125,7 +157,23 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_alistair_seen','1'); } catch (_) {}
-        markDone(1); setCurrent(2);
+        markDone(1); setCurrent(nextIdAfter(1));
+        if (onDone) onDone();
+      }
+    },
+
+    // -- BRIDGE 2: ELIAN ------------------------------------------------------
+    {
+      id: 'b_elian',
+      title: 'BRIDGE — ELIAN',
+      subtitle: 'Smoke at the Treeline',
+      teaser: 'You slip the kitchen postern and follow smoke to a fire. A man with a knife. He bandages you before he asks the question.',
+      charId: 'elian',
+      play: async function (onDone) {
+        if (window.PPBridgeElian && typeof window.PPBridgeElian.play === 'function') {
+          await window.PPBridgeElian.play();
+        }
+        markDone('b_elian'); setCurrent(nextIdAfter('b_elian'));
         if (onDone) onDone();
       }
     },
@@ -163,7 +211,23 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_elian_seen','1'); } catch (_) {}
-        markDone(2); setCurrent(3);
+        markDone(2); setCurrent(nextIdAfter(2));
+        if (onDone) onDone();
+      }
+    },
+
+    // -- BRIDGE 3: LYRA -------------------------------------------------------
+    {
+      id: 'b_lyra',
+      title: 'BRIDGE — LYRA',
+      subtitle: 'The South Coast Road',
+      teaser: 'A day-and-a-half walk to a cave-mouth at the end of the world. A woman barefoot in the surf says your name before you do.',
+      charId: 'lyra',
+      play: async function (onDone) {
+        if (window.PPBridgeLyra && typeof window.PPBridgeLyra.play === 'function') {
+          await window.PPBridgeLyra.play();
+        }
+        markDone('b_lyra'); setCurrent(nextIdAfter('b_lyra'));
         if (onDone) onDone();
       }
     },
@@ -393,6 +457,22 @@
       }
     },
 
+    // -- BRIDGE 4: CASPIAN ----------------------------------------------------
+    {
+      id: 'b_caspian',
+      title: 'BRIDGE \u2014 CASPIAN',
+      subtitle: 'The Royal Letter',
+      teaser: 'The captain reports to the prince \u2014 not the queen. A letter no prince should write himself. The reception, in silk.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        if (window.PPBridgeCaspian && typeof window.PPBridgeCaspian.play === 'function') {
+          await window.PPBridgeCaspian.play();
+        }
+        markDone('b_caspian'); setCurrent(nextIdAfter('b_caspian'));
+        if (onDone) onDone();
+      }
+    },
+
     {
       id: 4,
       title: 'CHAPTER 4',
@@ -427,7 +507,23 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_caspian_seen','1'); } catch (_) {}
-        markDone(4); setCurrent(5);
+        markDone(4); setCurrent(nextIdAfter(4));
+        if (onDone) onDone();
+      }
+    },
+
+    // -- BRIDGE 5: LUCIEN -----------------------------------------------------
+    {
+      id: 'b_lucien',
+      title: 'BRIDGE — LUCIEN',
+      subtitle: 'The Tower on the Hill',
+      teaser: 'Alistair appointed your personal guard. The dome catches the dusk. You lose him on purpose. The door is wedged with a book.',
+      charId: 'lucien',
+      play: async function (onDone) {
+        if (window.PPBridgeLucien && typeof window.PPBridgeLucien.play === 'function') {
+          await window.PPBridgeLucien.play();
+        }
+        markDone('b_lucien'); setCurrent(nextIdAfter('b_lucien'));
         if (onDone) onDone();
       }
     },
@@ -575,6 +671,22 @@
       }
     },
 
+    // -- BRIDGE 6: NOIR -------------------------------------------------------
+    {
+      id: 'b_noir',
+      title: 'BRIDGE — NOIR',
+      subtitle: 'The Alley',
+      teaser: 'Something old and dark calls you out at the third bell. Six watchful streets that don’t see you. Hands on your wrists. The chin-lift.',
+      charId: 'noir',
+      play: async function (onDone) {
+        if (window.PPBridgeNoir && typeof window.PPBridgeNoir.play === 'function') {
+          await window.PPBridgeNoir.play();
+        }
+        markDone('b_noir'); setCurrent(nextIdAfter('b_noir'));
+        if (onDone) onDone();
+      }
+    },
+
     {
       id: 6,
       title: 'CHAPTER 6',
@@ -620,7 +732,23 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_noir_seen','1'); } catch (_) {}
-        markDone(6); setCurrent(7);
+        markDone(6); setCurrent(nextIdAfter(6));
+        if (onDone) onDone();
+      }
+    },
+
+    // -- BRIDGE 7: PROTO ------------------------------------------------------
+    {
+      id: 'b_proto',
+      title: 'BRIDGE — PROTO',
+      subtitle: 'The Mirror at Midnight',
+      teaser: 'You run home from the alley. Heart hammering. The mirror is wrong. A nervous glow. Forty-seven drafts.',
+      charId: 'proto',
+      play: async function (onDone) {
+        if (window.PPBridgeProto && typeof window.PPBridgeProto.play === 'function') {
+          await window.PPBridgeProto.play();
+        }
+        markDone('b_proto'); setCurrent(nextIdAfter('b_proto'));
         if (onDone) onDone();
       }
     },
