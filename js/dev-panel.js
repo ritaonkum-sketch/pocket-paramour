@@ -462,10 +462,18 @@
       try { localStorage.removeItem('pp_chain_skip_prompt_seen'); } catch(_) {}
       renderBody();
     }, '#963c4f'));
-    actions.appendChild(mk('Force tutorial gate ready', () => {
+    actions.appendChild(mk('Force care-gate ready (current step)', () => {
       try {
-        localStorage.setItem('pp_affection_alistair', '25');
-        localStorage.setItem('pp_chain_alistair_cycle', JSON.stringify({feed:1,clean:1,talk:1,train:1}));
+        const order = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
+        const s = (window.PPChain && window.PPChain.step()) || 0;
+        if (s < 1) {
+          alert('No previous character to gate. Play the Alistair bridge first.');
+          return;
+        }
+        const prevChar = order[s - 1];
+        if (!prevChar) return;
+        localStorage.setItem('pp_affection_' + prevChar, '25');
+        localStorage.setItem('pp_chain_' + prevChar + '_cycle', JSON.stringify({feed:1,clean:1,talk:1,train:1}));
       } catch(_) {}
       renderBody();
     }));

@@ -247,6 +247,9 @@
       _root = null;
       if (window.PPChain && typeof window.PPChain.advance === 'function') {
         window.PPChain.advance(7);
+        if (typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(7);
+        }
       }
       // Mark the chain "completed" in a separate flag for end-of-arc systems.
       try { localStorage.setItem('pp_chain_complete', '1'); } catch (_) {}

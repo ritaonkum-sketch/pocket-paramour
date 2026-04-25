@@ -245,9 +245,12 @@
   function finish() {
     if (!_root) return;
     lsSet(FLAG_PLAYED, '1');
-    // Suppress the legacy game.js world intro so the player isn't shown two
-    // arrivals back to back.
-    lsSet('pp_world_intro_seen', '1');
+    // NOTE: we no longer set pp_world_intro_seen here. The unified flow is:
+    //   1. Old world intro (game.js, "Kingdom of Aethermoor is dying...")
+    //   2. Arrival (this scene)
+    //   3. Bridge 1 (Alistair) etc.
+    // The old world intro sets pp_world_intro_seen itself when it finishes,
+    // BEFORE arrival fires. Arrival doesn't suppress it.
     _root.classList.remove('show');
     setTimeout(() => {
       if (_root && _root.parentNode) _root.parentNode.removeChild(_root);

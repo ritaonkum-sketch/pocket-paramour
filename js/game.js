@@ -10286,11 +10286,24 @@ let selectedCharacter = 'alistair';
                 } else {
                     // Done — save and show select
                     localStorage.setItem('pp_world_intro_seen', '1');
+                    // Auto-enable main-story for fresh saves so the unified
+                    // chain (arrival → bridges → chapters) runs by default.
+                    if (!localStorage.getItem('pp_main_story_enabled')) {
+                        localStorage.setItem('pp_main_story_enabled', '1');
+                    }
                     worldIntro.classList.remove('visible');
                     setTimeout(function() {
                         worldIntro.classList.add('hidden');
                         refreshUnlockedCards();
                         selectScreen.classList.remove('hidden');
+                        // Hand off to the prologue chain immediately. tryArrival
+                        // will fire the new arrival scene, which then plays the
+                        // Alistair bridge, which fires Chapter 1.
+                        try {
+                            if (window.PPChain && typeof window.PPChain.tryArrival === 'function') {
+                                window.PPChain.tryArrival();
+                            }
+                        } catch (e) {}
                     }, 800);
                 }
             };

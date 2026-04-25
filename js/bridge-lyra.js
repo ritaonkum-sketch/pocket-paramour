@@ -237,6 +237,9 @@
       _root = null;
       if (window.PPChain && typeof window.PPChain.advance === 'function') {
         window.PPChain.advance(3);
+        if (typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(3);
+        }
       }
     }, 700);
   }

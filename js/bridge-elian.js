@@ -256,6 +256,9 @@
       _root = null;
       if (window.PPChain && typeof window.PPChain.advance === 'function') {
         window.PPChain.advance(2);
+        if (typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(2);
+        }
       }
       // Stash a flag the Lyra bridge will look for ("Elian gave you a map.")
       try { localStorage.setItem('pp_bridge_elian_gave_map', '1'); } catch (_) {}

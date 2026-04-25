@@ -80,9 +80,13 @@
     return v2 != null ? (parseInt(v2, 10) || 0) : 0;
   }
 
-  function getCycle() {
+  // Per-character care-cycle store: pp_chain_<char>_cycle = JSON {feed,clean,talk,train}
+  // Tracked separately for each character so that EACH bridge gates behind the
+  // previous character's care progress. Alistair's bridge gates Elian; Elian's
+  // gates Lyra; etc.
+  function getCycleFor(char) {
     try {
-      const raw = lsGet(ALI_CYCLE_KEY);
+      const raw = lsGet('pp_chain_' + char + '_cycle');
       if (!raw) return { feed: 0, clean: 0, talk: 0, train: 0 };
       const o = JSON.parse(raw);
       return {
@@ -93,23 +97,42 @@
       };
     } catch (_) { return { feed: 0, clean: 0, talk: 0, train: 0 }; }
   }
-  function setCycle(c) { try { lsSet(ALI_CYCLE_KEY, JSON.stringify(c)); } catch (_) {} }
+  function setCycleFor(char, c) {
+    try { lsSet('pp_chain_' + char + '_cycle', JSON.stringify(c)); } catch (_) {}
+  }
+
+  // True when the named character has affection >=25 AND has had at least one
+  // of each care action (feed, clean, talk, train).
+  function careReadyFor(char) {
+    if (!char) return false;
+    if (affOf(char) < 25) return false;
+    const c = getCycleFor(char);
+    return !!(c.feed && c.clean && c.talk && c.train);
+  }
+
+  function activeChar() {
+    try {
+      const g = window._game;
+      if (g && (g.selectedCharacter || g.characterId)) return g.selectedCharacter || g.characterId;
+    } catch (_) {}
+    return lsGet('pp_current_character') || null;
+  }
 
   function recordCare(action) {
-    const c = getCycle();
+    const char = activeChar();
+    if (!char) return;
+    const c = getCycleFor(char);
     if (!(action in c)) return;
     if (c[action] === 1) return; // idempotent
     c[action] = 1;
-    setCycle(c);
+    setCycleFor(char, c);
     refreshUnlockReadyToast();
   }
 
-  function tutorialReady() {
-    if (step() < 1) return false;       // must have done Alistair bridge first
-    if (affOf('alistair') < 25) return false;
-    const c = getCycle();
-    return !!(c.feed && c.clean && c.talk && c.train);
-  }
+  // Back-compat alias used by older code paths.
+  function tutorialReady() { return careReadyFor('alistair'); }
+
+  function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
 
   // ---------------------------------------------------------------------------
   // Character-grid locks
@@ -164,34 +187,37 @@
     document.head.appendChild(s);
   }
 
+  const ORDER = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
+
   // Returns true if this character should currently be locked from selection.
+  // The "next-up" character (idx === step) is locked until the PREVIOUS
+  // character's care has reached the gate (affection 25 + full cycle).
   function isLocked(char) {
     if (isSkipped()) return false;
     const s = step();
-    // step 0: nothing met, but arrival hasn't played — everything locked
-    if (s === 0) return true;
-    // step 1: only alistair has been met. others locked until tutorial done.
-    if (s === 1) return char !== 'alistair';
-    // beyond: each step unlocks the next character
-    const order = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
-    const idx = order.indexOf(char);
+    if (s === 0) return true; // arrival hasn't played
+    const idx = ORDER.indexOf(char);
     if (idx < 0) return false;
-    return idx >= s; // unlocked when s > idx
+    if (idx < s) return false;        // already met & unlocked
+    if (idx > s) return true;         // not next yet
+    // idx === s — next-up. Locked until previous character's care is done.
+    const prevChar = ORDER[s - 1];
+    if (prevChar && !careReadyFor(prevChar)) return true;
+    return false;                      // ready: tappable to fire the bridge
   }
 
   function lockText(char) {
     const s = step();
     if (s === 0) return 'You have not arrived yet.';
-    if (s === 1 && char !== 'alistair') {
-      if (tutorialReady()) return '\u2728 Ready. Slip out tonight.';
-      return 'Care for Alistair first.';
-    }
-    const order = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
-    const idx = order.indexOf(char);
+    const idx = ORDER.indexOf(char);
     if (idx < 0) return '';
     if (idx === s) {
-      // The next-up character — show the bridge tagline as a hint
-      return STEPS[idx + 1]?.tagline || 'Your path will lead you here.';
+      const prevChar = ORDER[s - 1];
+      if (prevChar && !careReadyFor(prevChar)) {
+        return 'Care for ' + capitalize(prevChar) + ' first.';
+      }
+      // Ready — would normally not be locked, but show tagline if it is
+      return STEPS[idx + 1]?.tagline || 'Your path leads here next.';
     }
     return 'Your path has not led here yet.';
   }
@@ -242,17 +268,23 @@
     el.addEventListener('touchstart', close, { once: true, passive: true });
   }
 
-  // Re-checked whenever care state changes — surfaces "ready to slip out" hint.
+  // Re-checked whenever care state changes — fires once per transition when
+  // the previous character's care threshold flips ready, telling the player
+  // they may now meet the next character on the grid.
   let _readyToastShown = false;
   function refreshUnlockReadyToast() {
     if (_readyToastShown) return;
-    if (step() !== 1) return;
-    if (!tutorialReady()) return;
+    const s = step();
+    if (s < 1 || s >= 7) return;
+    const prevChar = ORDER[s - 1];
+    const nextChar = ORDER[s];
+    if (!prevChar || !nextChar) return;
+    if (!careReadyFor(prevChar)) return;
     _readyToastShown = true;
     toast(
-      '\u2728 You feel restless tonight.',
-      'The castle is too still. The south postern would not be hard to slip past.',
-      'Tap Elian on the character grid to play the bridge.'
+      '\u2728 You are ready to move on.',
+      capitalize(nextChar) + ' is on the character grid. Tap them to continue your journey.',
+      ''
     );
     refreshGrid();
   }
@@ -264,6 +296,8 @@
     const target = (toStep | 0);
     if (target <= step()) { refreshGrid(); return; }
     setStepRaw(target);
+    // Allow the next ready-to-move-on toast to fire after the next care threshold
+    _readyToastShown = false;
     refreshGrid();
     const meta = STEPS[target];
     if (meta && meta.char) {
@@ -296,17 +330,11 @@
     return null;
   }
   function onCareClick(e) {
-    if (step() !== 1) return; // only matters during the tutorial gate
+    // Track care for ANY character. recordCare reads the active character and
+    // updates that char's cycle. Each transition gates behind the matching
+    // previous char.
     const action = classifyClick(e.target);
     if (!action) return;
-    // Only count if the active character is alistair
-    let active = null;
-    try {
-      const g = window._game;
-      if (g && (g.selectedCharacter || g.characterId)) active = g.selectedCharacter || g.characterId;
-    } catch (_) {}
-    if (!active) active = lsGet('pp_current_character');
-    if (active !== 'alistair') return;
     recordCare(action);
   }
 
@@ -335,27 +363,29 @@
     const card = e.target && e.target.closest && e.target.closest('.select-card[data-character]');
     if (!card) return;
     const char = card.getAttribute('data-character');
-    const order = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
-    const idx = order.indexOf(char);
+    const idx = ORDER.indexOf(char);
     if (idx < 0) return;
     const s = step();
 
-    // Locked entirely (not next-up)? swallow the click.
+    // Future characters — swallow with a friendly hint.
     if (idx > s) {
       e.preventDefault(); e.stopPropagation();
-      // Friendly hint
       const meta = STEPS[idx + 1];
       toast('Not yet.', meta?.tagline || 'Your path has not led here yet.');
       return;
     }
-    // Next-up? if the bridge for this char hasn't played, play it first.
+
+    // Next-up character: gate behind previous character's care progress, then
+    // fire the matching bridge.
     if (idx === s) {
-      // For Elian: gate behind tutorial completion
-      if (char === 'elian' && !tutorialReady()) {
-        e.preventDefault(); e.stopPropagation();
-        toast('Care for Alistair first.',
-              'Reach his affection 25 and complete one full care cycle (feed, clean, talk, train).');
-        return;
+      if (s > 0) {
+        const prevChar = ORDER[s - 1];
+        if (prevChar && !careReadyFor(prevChar)) {
+          e.preventDefault(); e.stopPropagation();
+          toast('Care for ' + capitalize(prevChar) + ' first.',
+                'Reach affection 25 and complete one full care cycle (feed, clean, talk, train).');
+          return;
+        }
       }
       const launcher = bridgeLauncherFor(char);
       if (launcher) {
@@ -364,16 +394,17 @@
         return;
       }
     }
-    // Already-unlocked: let the normal click proceed.
+    // idx < s — already met, click proceeds normally to game.
   }
 
   // ---------------------------------------------------------------------------
   // Boot — also kicks the arrival scene on a fresh save once the route is on
   // ---------------------------------------------------------------------------
-  // Fire-once arrival. We wait politely for the route flag and the
-  // PPWorldArrival module to be present, retry a small number of times,
-  // then give up. We NEVER set up an open-ended interval — that would
-  // re-trigger arrival on any state hiccup and create a loop.
+  // Fire-once arrival. The arrival should ONLY play after the old world intro
+  // has completed (pp_world_intro_seen='1'). game.js calls tryArrival()
+  // explicitly when its world-intro finishes; the timer below is just a
+  // safety net for already-loaded saves where the world-intro was already
+  // seen.
   let _arrivalAttempted = false;
   let _arrivalRetries   = 0;
   function tryArrival() {
@@ -381,8 +412,12 @@
     if (isSkipped()) { _arrivalAttempted = true; return; }
     if (step() !== 0) { _arrivalAttempted = true; return; }
     if (lsGet('pp_bridge_alistair_played') === '1') { _arrivalAttempted = true; return; }
+    // The old world intro must play first.
+    if (lsGet('pp_world_intro_seen') !== '1') {
+      if (_arrivalRetries++ < 60) setTimeout(tryArrival, 4000);
+      return;
+    }
     if (!routeOn()) {
-      // wait for player to enable main-story
       if (_arrivalRetries++ < 30) setTimeout(tryArrival, 4000);
       return;
     }
@@ -396,14 +431,17 @@
 
   function boot() {
     injectStyles();
+    // Auto-enable main story for fresh saves so the chain runs by default.
+    // Players who explicitly set the toggle to '0' stay disabled.
+    if (lsGet('pp_main_story_enabled') == null) lsSet('pp_main_story_enabled', '1');
     refreshGrid();
     document.addEventListener('click', onSelectCardClick, true);
     document.addEventListener('click', onCareClick, true);
     document.addEventListener('touchend', onCareClick, true);
     // Re-check grid periodically (the select-screen DOM may render after boot)
     setInterval(refreshGrid, 4000);
-    // Try the arrival scene once. tryArrival self-schedules retries while
-    // it waits for the route flag; it does NOT loop forever.
+    // Safety net: try arrival after a delay. If world intro hasn't played,
+    // tryArrival self-reschedules until it has.
     setTimeout(tryArrival, 2500);
   }
 
@@ -423,17 +461,45 @@
     unskip() { lsSet(SKIPPED_KEY, '0'); refreshGrid(); },
     canPlay(char) { return !isLocked(char); },
     tutorialReady,
-    cycle: getCycle,
+    careReadyFor,
+    cycleFor: getCycleFor,
     recordCare,
+    tryArrival,                       // hooked by game.js after world intro
+    // Bridges call this after they finish so the matching main-story
+    // chapter fires automatically — completing the unified flow:
+    //   bridge \u2192 chapter \u2192 care \u2192 next bridge.
+    fireChapterFor(stepIdx) {
+      const map = {
+        1: 'chp_1_middle',  // CHAPTER 1 — You Arrive (Alistair)
+        2: 'chp_2_middle',  // CHAPTER 2 — The Forest Finds You (Elian)
+        3: 'chp_3_middle',  // CHAPTER 3 — The Caves Answer (Lyra)
+        4: 'chp_4_middle',  // A Courtier's Game (Caspian)
+        5: 'chp_5_middle',  // The Tower Opens (Lucien)
+        6: 'chp_6_middle',  // A Voice Beneath (Noir)
+        7: 'chp_7_middle'   // An Unmapped Variable (Proto)
+      };
+      const id = map[stepIdx];
+      if (!id) return;
+      // Small breath after the unlock toast so the player isn't slammed.
+      setTimeout(() => {
+        try {
+          if (window.MSChapters && typeof window.MSChapters.play === 'function') {
+            window.MSChapters.play(id);
+          }
+        } catch (_) {}
+      }, 1400);
+    },
     toast,
     refreshGrid,
     reset() {
       try {
         localStorage.removeItem(STEP_KEY);
         localStorage.removeItem(SKIPPED_KEY);
-        localStorage.removeItem(ALI_CYCLE_KEY);
+        ORDER.forEach(c => localStorage.removeItem('pp_chain_' + c + '_cycle'));
       } catch (_) {}
       _readyToastShown = false;
+      _arrivalAttempted = false;
+      _arrivalRetries = 0;
       refreshGrid();
     }
   };

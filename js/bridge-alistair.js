@@ -244,16 +244,17 @@
       // Advance the chain. PPChain handles the unlock toast and grid refresh.
       if (window.PPChain && typeof window.PPChain.advance === 'function') {
         window.PPChain.advance(1);
+        // Fire the matching main-story chapter (CHAPTER 1: You Arrive).
+        // This is the unified flow: bridge \u2192 chapter \u2192 care \u2192 next bridge.
+        if (typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(1);
+        }
       } else {
         // Fallback: set state directly so we never strand the player.
         lsSet('pp_chain_step', '1');
         lsSet('pp_met_alistair', '1');
         lsSet('pp_ms_encounter_alistair_seen', '1');
       }
-      // NOTE: we no longer auto-click the Alistair card. That was creating
-      // a perceived "stuck on Alistair" loop because the legacy intro then
-      // fired on top of the bridge. The player now lands on the select
-      // grid — Alistair is the only one unlocked — and chooses for themselves.
     }, 700);
   }
 
