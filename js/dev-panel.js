@@ -462,9 +462,6 @@
       try { localStorage.removeItem('pp_chain_skip_prompt_seen'); } catch(_) {}
       renderBody();
     }, '#963c4f'));
-    actions.appendChild(mk('Show "skip prologue?" prompt', () => {
-      if (window.PPChainSkip) { window.PPChainSkip.reset(); window.PPChainSkip.show(); close(); }
-    }));
     actions.appendChild(mk('Force tutorial gate ready', () => {
       try {
         localStorage.setItem('pp_affection_alistair', '25');
