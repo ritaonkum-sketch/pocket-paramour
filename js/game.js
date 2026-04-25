@@ -10257,8 +10257,23 @@ let selectedCharacter = 'alistair';
 
         titleScreen.classList.add('hidden');
 
-        // World intro plays ONCE
-        if (!localStorage.getItem('pp_world_intro_seen')) {
+        // Decide whether to play the OLD world intro.
+        //
+        // Unified flow rule: the old world intro is the entrance to the
+        // threaded prologue. It plays whenever the chain hasn't started
+        // (chain step < 1) AND main-story is enabled AND not skipped.
+        // Otherwise (returning save mid-chain or chain skipped) we fall
+        // back to the legacy behaviour (play once if pp_world_intro_seen
+        // is unset, else go straight to the select grid).
+        var __chainStep    = parseInt(localStorage.getItem('pp_chain_step') || '0', 10) || 0;
+        var __chainSkipped = localStorage.getItem('pp_chain_skipped') === '1';
+        var __routeOn      = localStorage.getItem('pp_main_story_enabled') === '1';
+        var __seenWorldIntro = localStorage.getItem('pp_world_intro_seen') === '1';
+        var __playForChain   = __routeOn && !__chainSkipped && __chainStep < 1;
+        var __playLegacy     = !__playForChain && !__seenWorldIntro;
+        var __shouldPlayIntro = __playForChain || __playLegacy;
+
+        if (__shouldPlayIntro) {
             var worldIntro = document.getElementById('world-intro');
             var worldText = document.getElementById('world-intro-text');
             var worldBeats = [
@@ -10296,14 +10311,16 @@ let selectedCharacter = 'alistair';
                         worldIntro.classList.add('hidden');
                         refreshUnlockedCards();
                         selectScreen.classList.remove('hidden');
-                        // Hand off to the prologue chain immediately. tryArrival
-                        // will fire the new arrival scene, which then plays the
-                        // Alistair bridge, which fires Chapter 1.
-                        try {
-                            if (window.PPChain && typeof window.PPChain.tryArrival === 'function') {
-                                window.PPChain.tryArrival();
-                            }
-                        } catch (e) {}
+                        // Hand off to the prologue chain ONLY if this play
+                        // was for the chain. (Legacy plays — main-story
+                        // disabled / mid-chain — do not fire arrival.)
+                        if (__playForChain) {
+                            try {
+                                if (window.PPChain && typeof window.PPChain.tryArrival === 'function') {
+                                    window.PPChain.tryArrival();
+                                }
+                            } catch (e) {}
+                        }
                     }, 800);
                 }
             };

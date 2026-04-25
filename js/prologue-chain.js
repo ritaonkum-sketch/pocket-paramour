@@ -400,29 +400,26 @@
   // ---------------------------------------------------------------------------
   // Boot — also kicks the arrival scene on a fresh save once the route is on
   // ---------------------------------------------------------------------------
-  // Fire-once arrival. The arrival should ONLY play after the old world intro
-  // has completed (pp_world_intro_seen='1'). game.js calls tryArrival()
-  // explicitly when its world-intro finishes; the timer below is just a
-  // safety net for already-loaded saves where the world-intro was already
-  // seen.
+  // Arrival is now ONLY fired via explicit hand-off from game.js after the
+  // OLD world intro completes. There is NO polling, NO safety-net timer —
+  // both caused arrival to fire on its own before the player tapped Start
+  // on returning saves.
   let _arrivalAttempted = false;
-  let _arrivalRetries   = 0;
   function tryArrival() {
     if (_arrivalAttempted) return;
     if (isSkipped()) { _arrivalAttempted = true; return; }
     if (step() !== 0) { _arrivalAttempted = true; return; }
     if (lsGet('pp_bridge_alistair_played') === '1') { _arrivalAttempted = true; return; }
-    // The old world intro must play first.
-    if (lsGet('pp_world_intro_seen') !== '1') {
-      if (_arrivalRetries++ < 60) setTimeout(tryArrival, 4000);
-      return;
-    }
-    if (!routeOn()) {
-      if (_arrivalRetries++ < 30) setTimeout(tryArrival, 4000);
-      return;
-    }
+    if (!routeOn()) return; // game.js shouldn't call us if route is off, but guard
     if (!(window.PPWorldArrival && typeof window.PPWorldArrival.play === 'function')) {
-      if (_arrivalRetries++ < 10) setTimeout(tryArrival, 1500);
+      // Module not loaded yet (race) — retry once after a short wait.
+      setTimeout(() => {
+        if (_arrivalAttempted) return;
+        if (window.PPWorldArrival && typeof window.PPWorldArrival.play === 'function') {
+          _arrivalAttempted = true;
+          window.PPWorldArrival.play();
+        }
+      }, 800);
       return;
     }
     _arrivalAttempted = true;
@@ -440,9 +437,8 @@
     document.addEventListener('touchend', onCareClick, true);
     // Re-check grid periodically (the select-screen DOM may render after boot)
     setInterval(refreshGrid, 4000);
-    // Safety net: try arrival after a delay. If world intro hasn't played,
-    // tryArrival self-reschedules until it has.
-    setTimeout(tryArrival, 2500);
+    // NO arrival auto-trigger here. game.js calls PPChain.tryArrival()
+    // explicitly after the world intro finishes.
   }
 
   if (document.readyState === 'loading') {
