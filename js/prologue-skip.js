@@ -156,14 +156,17 @@
     show();
   }
 
-  function boot() {
-    setTimeout(maybeOffer, 1800);
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot, { once: true });
-  } else {
-    boot();
-  }
+  // AUTO-OFFER DISABLED.
+  // The Welcome-back card was popping for returning saves and the user
+  // didn't want it surfacing on its own. The API (window.PPChainSkip.show)
+  // is still callable from the dev panel's Chain tab for testing.
+  // To re-enable, uncomment the boot() call below.
+  // function boot() { setTimeout(maybeOffer, 1800); }
+  // if (document.readyState === 'loading') {
+  //   document.addEventListener('DOMContentLoaded', boot, { once: true });
+  // } else {
+  //   boot();
+  // }
 
   window.PPChainSkip = {
     show, close,
