@@ -100,6 +100,20 @@
         background:transparent; border:none; padding:6px 10px;
       }
       .pp-bridge-skip:hover { opacity:1; }
+      .pp-bridge-tap-hint {
+        position:absolute; bottom:18px; right:22px; z-index:3;
+        font-size:11.5px; color:#c8b9e0; opacity:0;
+        letter-spacing:1.4px; pointer-events:none;
+        font-style:italic;
+        transition:opacity 600ms ease;
+        animation: pp-bridge-pulse 1.6s ease-in-out infinite;
+      }
+      .pp-bridge-root.show .pp-bridge-tap-hint { opacity:0.55; }
+      .pp-bridge-root.cta-mode .pp-bridge-tap-hint { display:none; }
+      @keyframes pp-bridge-pulse {
+        0%, 100% { transform: translateX(0); }
+        50%      { transform: translateX(4px); }
+      }
       @keyframes pp-bridge-rain {
         from { background-position: 0 0; }
         to   { background-position: 80px 200px; }
@@ -167,6 +181,7 @@
           <div class="pp-bridge-line" style="display:none;"></div>
           <button class="pp-bridge-cta" style="display:none;">Continue</button>
         </div>
+        <div class="pp-bridge-tap-hint">tap to continue \u203A</div>
       `;
       document.body.appendChild(_root);
       _root.querySelector('[data-skip]').addEventListener('click', skip);
@@ -184,12 +199,13 @@
       await wait(380);
       dir.textContent = b.direction;
       dir.classList.add('show');
-      await waitForTap(3600);
+      await waitForTap();
     }
     // Final hand-off: a short bit of dialogue from the man, then continue.
     showLine('A MAN\u2019S VOICE',
       "\u2014 alright. You are alright. Do not move. I have you.");
-    await waitForTap(4400);
+    await waitForTap();
+    _root.classList.add('cta-mode');
     showCTA('Continue');
   }
 
@@ -212,17 +228,16 @@
   }
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-  function waitForTap(autoMs) {
+  // Tap-only — no auto-advance. Slow readers can take their time.
+  function waitForTap() {
     return new Promise((resolve) => {
       let done = false;
       const handler = (e) => {
         if (e.target.closest && e.target.closest('.pp-bridge-cta, [data-skip]')) return;
-        if (done) return; done = true;
-        cleanup(); resolve();
+        if (done) return; done = true; cleanup(); resolve();
       };
       _root.addEventListener('click', handler, true);
-      const t = setTimeout(() => { if (done) return; done = true; cleanup(); resolve(); }, autoMs);
-      function cleanup() { clearTimeout(t); _root.removeEventListener('click', handler, true); }
+      function cleanup() { _root.removeEventListener('click', handler, true); }
     });
   }
 
@@ -230,6 +245,9 @@
   function finish() {
     if (!_root) return;
     lsSet(FLAG_PLAYED, '1');
+    // Suppress the legacy game.js world intro so the player isn't shown two
+    // arrivals back to back.
+    lsSet('pp_world_intro_seen', '1');
     _root.classList.remove('show');
     setTimeout(() => {
       if (_root && _root.parentNode) _root.parentNode.removeChild(_root);

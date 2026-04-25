@@ -160,6 +160,12 @@
     `;
     document.body.appendChild(_root);
     _root.querySelector('[data-skip]').addEventListener('click', skip);
+    if (!_root.querySelector('.pp-bridge-tap-hint')) {
+      const hint = document.createElement('div');
+      hint.className = 'pp-bridge-tap-hint';
+      hint.textContent = 'tap to continue \u203A';
+      _root.appendChild(hint);
+    }
     // eslint-disable-next-line no-unused-expressions
     _root.offsetHeight;
     _root.classList.add('show');
@@ -192,7 +198,7 @@
         await wait(240);
         dir.textContent = beat.text;
         dir.classList.add('show');
-        await waitForTap(3700);
+        await waitForTap();
       } else if (beat.kind === 'line') {
         dir.classList.remove('show');
         await wait(180);
@@ -201,13 +207,14 @@
         // eslint-disable-next-line no-unused-expressions
         lineEl.offsetHeight;
         lineEl.classList.add('show');
-        await waitForTap(4500);
+        await waitForTap();
       } else if (beat.kind === 'tutorial') {
         lineEl.classList.remove('show');
         await wait(200);
         lineEl.style.display = 'none';
         dir.textContent = beat.text;
         dir.classList.add('show');
+        _root.classList.add('cta-mode');
         cta.style.display = '';
         cta.textContent = beat.cta;
         // eslint-disable-next-line no-unused-expressions
@@ -222,7 +229,7 @@
   }
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-  function waitForTap(autoMs) {
+  function waitForTap() {
     return new Promise((resolve) => {
       let done = false;
       const handler = (e) => {
@@ -230,8 +237,7 @@
         if (done) return; done = true; cleanup(); resolve();
       };
       _root.addEventListener('click', handler, true);
-      const t = setTimeout(() => { if (done) return; done = true; cleanup(); resolve(); }, autoMs);
-      function cleanup() { clearTimeout(t); _root.removeEventListener('click', handler, true); }
+      function cleanup() { _root.removeEventListener('click', handler, true); }
     });
   }
 
@@ -239,6 +245,7 @@
 
   function finish() {
     if (!_root) return;
+    try { localStorage.setItem('pp_intro_caspian', '1'); } catch (_) {}
     _root.classList.remove('show');
     setTimeout(() => {
       if (_root && _root.parentNode) _root.parentNode.removeChild(_root);

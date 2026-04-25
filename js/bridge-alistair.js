@@ -131,6 +131,13 @@
     `;
     document.body.appendChild(_root);
     _root.querySelector('[data-skip]').addEventListener('click', skip);
+    // Add tap-hint
+    if (!_root.querySelector('.pp-bridge-tap-hint')) {
+      const hint = document.createElement('div');
+      hint.className = 'pp-bridge-tap-hint';
+      hint.textContent = 'tap to continue \u203A';
+      _root.appendChild(hint);
+    }
     // eslint-disable-next-line no-unused-expressions
     _root.offsetHeight;
     _root.classList.add('show');
@@ -175,7 +182,7 @@
         await wait(260);
         dir.textContent = beat.text;
         dir.classList.add('show');
-        await waitForTap(3700);
+        await waitForTap();
       } else if (beat.kind === 'line') {
         dir.classList.remove('show');
         await wait(180);
@@ -184,7 +191,7 @@
         // eslint-disable-next-line no-unused-expressions
         lineEl.offsetHeight;
         lineEl.classList.add('show');
-        await waitForTap(4500);
+        await waitForTap();
       } else if (beat.kind === 'tutorial') {
         // Final beat — show direction + CTA together, then hand off
         lineEl.classList.remove('show');
@@ -192,6 +199,7 @@
         lineEl.style.display = 'none';
         dir.textContent = beat.text;
         dir.classList.add('show');
+        _root.classList.add('cta-mode');
         cta.style.display = '';
         cta.textContent = beat.cta;
         // eslint-disable-next-line no-unused-expressions
@@ -206,7 +214,8 @@
   }
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
-  function waitForTap(autoMs) {
+  // Tap-only — no auto-advance. Slow readers control the pace.
+  function waitForTap() {
     return new Promise((resolve) => {
       let done = false;
       const handler = (e) => {
@@ -214,8 +223,7 @@
         if (done) return; done = true; cleanup(); resolve();
       };
       _root.addEventListener('click', handler, true);
-      const t = setTimeout(() => { if (done) return; done = true; cleanup(); resolve(); }, autoMs);
-      function cleanup() { clearTimeout(t); _root.removeEventListener('click', handler, true); }
+      function cleanup() { _root.removeEventListener('click', handler, true); }
     });
   }
 
@@ -224,6 +232,9 @@
   function finish() {
     if (!_root) return;
     lsSet(FLAG_PLAYED, '1');
+    // Suppress the legacy intro.js drill-yard meet-cute so the player
+    // doesn't see Alistair twice back-to-back.
+    lsSet('pp_intro_alistair', '1');
     // Ensure main-story flag is on so downstream systems honour the chain
     if (lsGet('pp_main_story_enabled') !== '1') lsSet('pp_main_story_enabled', '1');
     _root.classList.remove('show');
@@ -239,14 +250,10 @@
         lsSet('pp_met_alistair', '1');
         lsSet('pp_ms_encounter_alistair_seen', '1');
       }
-      // Auto-route the player to Alistair's tamagotchi care for the tutorial.
-      try {
-        if (typeof window.selectCharacter === 'function') window.selectCharacter('alistair');
-        // Try to jump to play screen if game.js exposes a hook; otherwise the
-        // player can pick him from the (now-locked-except-alistair) grid.
-        const playBtn = document.querySelector('.select-card[data-character="alistair"]');
-        if (playBtn) setTimeout(() => playBtn.click(), 300);
-      } catch (_) {}
+      // NOTE: we no longer auto-click the Alistair card. That was creating
+      // a perceived "stuck on Alistair" loop because the legacy intro then
+      // fired on top of the bridge. The player now lands on the select
+      // grid — Alistair is the only one unlocked — and chooses for themselves.
     }, 700);
   }
 

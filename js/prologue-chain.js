@@ -370,13 +370,28 @@
   // ---------------------------------------------------------------------------
   // Boot — also kicks the arrival scene on a fresh save once the route is on
   // ---------------------------------------------------------------------------
+  // Fire-once arrival. We wait politely for the route flag and the
+  // PPWorldArrival module to be present, retry a small number of times,
+  // then give up. We NEVER set up an open-ended interval — that would
+  // re-trigger arrival on any state hiccup and create a loop.
+  let _arrivalAttempted = false;
+  let _arrivalRetries   = 0;
   function tryArrival() {
-    if (isSkipped()) return;
-    if (step() !== 0) return;
-    if (!routeOn()) return; // wait for player to enable main-story
-    if (window.PPWorldArrival && typeof window.PPWorldArrival.play === 'function') {
-      window.PPWorldArrival.play();
+    if (_arrivalAttempted) return;
+    if (isSkipped()) { _arrivalAttempted = true; return; }
+    if (step() !== 0) { _arrivalAttempted = true; return; }
+    if (lsGet('pp_bridge_alistair_played') === '1') { _arrivalAttempted = true; return; }
+    if (!routeOn()) {
+      // wait for player to enable main-story
+      if (_arrivalRetries++ < 30) setTimeout(tryArrival, 4000);
+      return;
     }
+    if (!(window.PPWorldArrival && typeof window.PPWorldArrival.play === 'function')) {
+      if (_arrivalRetries++ < 10) setTimeout(tryArrival, 1500);
+      return;
+    }
+    _arrivalAttempted = true;
+    window.PPWorldArrival.play();
   }
 
   function boot() {
@@ -387,8 +402,9 @@
     document.addEventListener('touchend', onCareClick, true);
     // Re-check grid periodically (the select-screen DOM may render after boot)
     setInterval(refreshGrid, 4000);
-    // Try arrival scene once route flag flips on
-    setInterval(tryArrival, 3000);
+    // Try the arrival scene once. tryArrival self-schedules retries while
+    // it waits for the route flag; it does NOT loop forever.
+    setTimeout(tryArrival, 2500);
   }
 
   if (document.readyState === 'loading') {
