@@ -11,6 +11,52 @@
     <meta name="apple-mobile-web-app-title" content="Pocket Paramour">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Force-reset URL trigger. Visit ?reset=1 to wipe the save, the SW
+         cache, and the SW registration, then reload cleanly. -->
+    <script>
+    (function () {
+      try {
+        var p = new URLSearchParams(window.location.search);
+        if (p.get('reset') === '1') {
+          // Wipe localStorage + sessionStorage
+          try { Object.keys(localStorage).forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+          try { sessionStorage.clear(); } catch (e) {}
+          // Wipe IndexedDB databases (best-effort)
+          try {
+            if (indexedDB && indexedDB.databases) {
+              indexedDB.databases().then(function (dbs) {
+                (dbs || []).forEach(function (db) { if (db.name) indexedDB.deleteDatabase(db.name); });
+              }).catch(function () {});
+            }
+          } catch (e) {}
+          // Wipe SW caches and registrations
+          var jobs = [];
+          try {
+            if (window.caches && caches.keys) {
+              jobs.push(caches.keys().then(function (ks) {
+                return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+              }));
+            }
+          } catch (e) {}
+          try {
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+              jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) {
+                return Promise.all(rs.map(function (r) { return r.unregister(); }));
+              }));
+            }
+          } catch (e) {}
+          Promise.allSettled(jobs).then(function () {
+            // Reload to a clean URL (drop the ?reset=1).
+            var url = window.location.pathname + window.location.hash;
+            window.location.replace(url);
+          });
+          // Block the rest of page rendering until reload by stalling on a
+          // never-resolving promise (visible white screen, very brief).
+          document.documentElement.innerHTML = '<body style="background:#0a0617;color:#e8dff8;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;font-size:14px;letter-spacing:1px;">resetting...</body>';
+        }
+      } catch (e) {}
+    })();
+    </script>
 </head>
 <body>
     <!-- TITLE SCREEN -->
