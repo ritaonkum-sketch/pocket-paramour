@@ -45,37 +45,58 @@
         background:radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.85) 100%);
         pointer-events:none;
       }
+      /* Stage uses absolute-positioned children pinned to fixed screen
+         coordinates so the portrait, direction, dialogue line, and CTA
+         do NOT shift around when content changes between beats. */
       .pp-bridge-stage {
-        position:relative; z-index:2;
-        width:92%; max-width:560px;
-        display:flex; flex-direction:column;
-        align-items:center; gap:18px;
-        padding:24px 18px;
+        position:absolute; inset:0; z-index:2;
+        pointer-events:none;
       }
       .pp-bridge-portrait {
+        position:absolute;
+        left:50%;
+        bottom:260px;
         width:240px; max-width:64vw; height:auto;
-        opacity:0; transform:translateY(14px) scale(0.97);
+        opacity:0;
+        transform:translate(-50%, 14px) scale(0.97);
         transition:opacity 900ms ease, transform 900ms cubic-bezier(.2,.8,.2,1);
         filter: drop-shadow(0 12px 24px rgba(0,0,0,0.55));
+        pointer-events:none;
       }
-      .pp-bridge-portrait.show { opacity:1; transform:translateY(0) scale(1); }
+      .pp-bridge-portrait.show {
+        opacity:1;
+        transform:translate(-50%, 0) scale(1);
+      }
+      /* Both direction and line live at the SAME bottom-pinned slot —
+         they overlap, only one is visible at a time. No layout shift. */
       .pp-bridge-direction {
+        position:absolute;
+        left:50%;
+        bottom:120px;
+        transform:translateX(-50%);
+        width:92%; max-width:540px;
         font-size:13.5px; line-height:1.55; color:#c8b9e0;
         font-style:italic; text-align:center;
-        max-width:96%;
         opacity:0; transition:opacity 600ms ease;
+        pointer-events:none;
       }
       .pp-bridge-direction.show { opacity:1; }
       .pp-bridge-line {
+        position:absolute;
+        left:50%;
+        bottom:120px;
+        transform:translateX(-50%);
+        width:92%; max-width:540px;
         font-size:15.5px; line-height:1.5; color:#fff8ff;
         text-align:center; font-weight:500;
         background:linear-gradient(180deg, rgba(28,18,52,0.85), rgba(18,10,38,0.78));
         border:1px solid rgba(190,150,235,0.30);
         border-radius:14px;
         padding:12px 16px;
-        max-width:96%;
         opacity:0; transition:opacity 540ms ease;
         box-shadow:0 8px 22px rgba(0,0,0,0.5), 0 0 16px rgba(180,140,220,0.18) inset;
+        box-sizing:border-box;
+        pointer-events:none;
       }
       .pp-bridge-line.show { opacity:1; }
       .pp-bridge-line .pp-speaker {
@@ -83,17 +104,21 @@
         color:#ffd8ec; font-weight:700; margin-bottom:6px; opacity:0.9;
       }
       .pp-bridge-cta {
-        margin-top:10px;
+        position:absolute;
+        left:50%;
+        bottom:36px;
+        transform:translateX(-50%);
         background:linear-gradient(180deg, #6a4ec0, #4d3796);
         color:#fff; border:1px solid rgba(255,255,255,0.18);
-        border-radius:12px; padding:10px 20px;
+        border-radius:12px; padding:10px 24px;
         font-size:14px; font-weight:600;
         cursor:pointer; user-select:none;
         opacity:0; transition:opacity 520ms ease, transform 220ms ease;
         box-shadow:0 6px 16px rgba(0,0,0,0.45);
+        pointer-events:auto;
       }
       .pp-bridge-cta.show { opacity:1; }
-      .pp-bridge-cta:hover { transform:translateY(-1px); }
+      .pp-bridge-cta:hover { transform:translateX(-50%) translateY(-1px); }
       .pp-bridge-skip {
         position:absolute; top:14px; right:18px; z-index:3;
         font-size:11.5px; color:#a89bc4; opacity:0.6;
