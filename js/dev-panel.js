@@ -338,7 +338,7 @@
 
     const tabs = document.createElement('div');
     tabs.id = 'pp-dev-tabs';
-    [['overview','Overview'],['characters','Characters'],['scenes','Scenes'],['storage','Storage']].forEach(([id, label]) => {
+    [['overview','Overview'],['characters','Characters'],['playtest','Playtest'],['scenes','Scenes'],['storage','Storage']].forEach(([id, label]) => {
       const btn = document.createElement('button');
       btn.textContent = label;
       btn.dataset.tab = id;
@@ -371,8 +371,318 @@
     body.innerHTML = '';
     if (_tabId === 'overview')   return renderOverview(body);
     if (_tabId === 'characters') return renderCharacters(body);
+    if (_tabId === 'playtest')   return renderPlaytest(body);
     if (_tabId === 'scenes')     return renderScenes(body);
     if (_tabId === 'storage')    return renderStorage(body);
+  }
+
+  // ============================================================================
+  // PLAYTEST MODE \u2014 the 2-hour-per-character validation surface
+  // ============================================================================
+  // For each character, this builds a sequenced "route walkthrough" that
+  // queues all the scenes that character is part of (meet-cute through
+  // ending). The user clicks "Play next" to advance \u2014 each step sets
+  // affection/flags as needed and fires the next scene. Lets a full route
+  // be tested in roughly 2 hours including reading all the dialogue.
+  // ============================================================================
+
+  // Per-character route definition. Each step is { label, prep(), force() }.
+  // prep() sets up state (affection, flags) so the scene's trigger conditions
+  // are satisfied, then force() actually fires the scene.
+  function buildRoute(c) {
+    const cap = c.charAt(0).toUpperCase() + c.slice(1);
+    const steps = [];
+
+    // Always need the route enabled
+    steps.push({
+      label: 'Step 0 \u2014 Enable main story + mark prologue done',
+      prep: () => {
+        lsSet('pp_main_story_enabled', '1');
+        lsSet('pp_chapter_done_0', '1');
+        lsSet('pp_chapter_current', '1');
+      },
+      force: null
+    });
+
+    // Meet-cute (encounter)
+    steps.push({
+      label: 'Step 1 \u2014 Meet-cute',
+      prep: () => { lsDel('pp_ms_encounter_' + c + '_seen'); },
+      force: () => {
+        const mod = window['MSEncounter' + cap];
+        if (mod && mod.play) mod.play();
+      }
+    });
+
+    // Mark met after meet-cute
+    steps.push({
+      label: 'Step 1b \u2014 Mark met (post meet-cute)',
+      prep: () => {
+        lsSet('pp_met_' + c, '1');
+        lsSet('pp_ms_encounter_' + c + '_seen', '1');
+      },
+      force: null
+    });
+
+    // Affection scenes (warm 10, closer 25, chosen 50, midnight 75)
+    const affSteps = [
+      { tier: 'warm',    aff: 10 },
+      { tier: 'closer',  aff: 25 },
+      { tier: 'chosen',  aff: 50 },
+      { tier: 'midnight',aff: 75 }
+    ];
+    affSteps.forEach(({ tier, aff }) => {
+      steps.push({
+        label: 'Step \u2014 Affection ' + tier + ' (set bond to ' + aff + ', then auto-fire)',
+        prep: () => {
+          setAffection(c, aff);
+          lsDel('pp_scene_seen_' + c + '_' + tier);
+        },
+        force: () => {
+          // Affection scenes auto-fire via affection-scenes.js poll loop.
+          // Force-trigger by calling the public hook if available.
+          if (window.MSAffectionScenes && window.MSAffectionScenes.play) {
+            window.MSAffectionScenes.play(c, tier);
+          } else {
+            alert('Affection scene "' + tier + '" will fire on next poll. Wait ~6s or interact with the character.');
+          }
+        }
+      });
+    });
+
+    // Turning point
+    const tpDefault = (TP_OPTIONS[c] && TP_OPTIONS[c][0]) ? TP_OPTIONS[c][0].id : '';
+    steps.push({
+      label: 'Step \u2014 Turning point (set bond to 35, fire scene)',
+      prep: () => { setAffection(c, Math.max(getAffection(c), 35)); lsDel('pp_tp_' + c + '_seen'); },
+      force: () => { if (window.TurningPoints && window.TurningPoints.force) window.TurningPoints.force(c); }
+    });
+
+    // Elian-specific: rescue scene
+    if (c === 'elian') {
+      steps.push({
+        label: 'Step \u2014 Thornwood Rescue (Weaver naming)',
+        prep: () => {
+          setAffection(c, Math.max(getAffection(c), 25));
+          lsDel('pp_elian_rescue_seen');
+        },
+        force: () => { if (window.MSEncounterElianRescue && window.MSEncounterElianRescue.force) window.MSEncounterElianRescue.force(); }
+      });
+    }
+
+    // Crossovers \u2014 only the ones this character is in
+    const crossovers = {
+      lyra:    [['cross_lyra_lucien', 'lyra-lucien', 'MSCrossLyraLucien'],
+                ['cross_noir_lyra', 'noir-lyra', 'MSCrossNoirLyra'],
+                ['cross_elian_lyra', 'elian-lyra', 'MSCrossElianLyra']],
+      lucien:  [['cross_lyra_lucien', 'lyra-lucien', 'MSCrossLyraLucien'],
+                ['cross_lucien_aenor', 'lucien-aenor', 'MSCrossLucienAenor']],
+      noir:    [['cross_noir_elian', 'noir-elian', 'MSCrossNoirElian'],
+                ['cross_noir_lyra', 'noir-lyra', 'MSCrossNoirLyra'],
+                ['cross_caspian_noir', 'caspian-noir', 'MSCrossCaspianNoir']],
+      elian:   [['cross_noir_elian', 'noir-elian', 'MSCrossNoirElian'],
+                ['cross_elian_lyra', 'elian-lyra', 'MSCrossElianLyra']],
+      caspian: [['cross_caspian_noir', 'caspian-noir', 'MSCrossCaspianNoir']],
+      alistair:[],
+      proto:   []
+    };
+    (crossovers[c] || []).forEach(([id, slug, modName]) => {
+      steps.push({
+        label: 'Step \u2014 Crossover: ' + slug,
+        prep: () => {
+          // Crossovers need both characters met + appropriate bonds
+          setAffection(c, Math.max(getAffection(c), 50));
+          lsDel('pp_cross_' + slug.replace('-','_') + '_seen');
+        },
+        force: () => { const mod = window[modName]; if (mod && mod.force) mod.force(); }
+      });
+    });
+
+    // Weaver's Court (ensemble)
+    steps.push({
+      label: "Step \u2014 The Weaver's Court (ensemble)",
+      prep: () => {
+        lsSet('pp_chapter_done_13', '1');
+        lsSet('pp_weaver_revealed', '1');
+        // Make sure at least 4 chars are met
+        ['alistair','elian','lyra','caspian','lucien','noir','proto'].forEach(x => {
+          lsSet('pp_met_' + x, '1');
+          lsSet('pp_ms_encounter_' + x + '_seen', '1');
+        });
+        lsDel('pp_cross_weavers_court_seen');
+      },
+      force: () => { if (window.MSCrossWeaversCourt && window.MSCrossWeaversCourt.force) window.MSCrossWeaversCourt.force(); }
+    });
+
+    // Make this character the champion (so the ending gets the champion beat)
+    steps.push({
+      label: 'Step \u2014 Make ' + PRETTY[c] + ' your champion',
+      prep: () => { lsSet('pp_weaver_champion', c); },
+      force: null
+    });
+
+    // Set TP if not yet set + push to ending threshold
+    steps.push({
+      label: 'Step \u2014 Push to ending threshold (bond 85, set TP)',
+      prep: () => {
+        setAffection(c, 85);
+        if (!getTP(c) && tpDefault) setTP(c, tpDefault);
+        lsDel('pp_epi_seen_' + c);
+      },
+      force: null
+    });
+
+    // Fire route ending
+    steps.push({
+      label: 'Step \u2014 Route ending (auto-pick by flags)',
+      prep: null,
+      force: () => { if (window.MSEpilogues && window.MSEpilogues.play) window.MSEpilogues.play(c); }
+    });
+
+    return steps;
+  }
+
+  // Track playtest state
+  function getPlaytestState() {
+    try {
+      const raw = lsGet('pp_dev_playtest');
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (_) { return null; }
+  }
+  function setPlaytestState(s) {
+    try { lsSet('pp_dev_playtest', JSON.stringify(s)); } catch (_) {}
+  }
+  function clearPlaytestState() { lsDel('pp_dev_playtest'); }
+
+  function renderPlaytest(body) {
+    const intro = document.createElement('div');
+    intro.className = 'pp-dev-section';
+    intro.innerHTML = '<h3>Route Playthrough \u2014 ~2h Per Character</h3>'
+      + '<p style="font-size:12px;opacity:0.7;margin:0 0 10px 0;">Pick a character, then click <b>Play next</b> to walk through their full route in order. Each step preps the right state and fires the matching scene. Designed for end-to-end validation in roughly two hours including reading every line.</p>';
+    body.appendChild(intro);
+
+    const state = getPlaytestState();
+    const charSelectSec = document.createElement('div');
+    charSelectSec.className = 'pp-dev-section';
+    charSelectSec.innerHTML = '<h3>Choose Character to Test</h3>';
+    body.appendChild(charSelectSec);
+
+    const charBtnRow = document.createElement('div');
+    charBtnRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;';
+    CHARS.forEach(c => {
+      const b = document.createElement('button');
+      b.textContent = PRETTY[c];
+      b.style.cssText = 'background:' + (state && state.char === c ? 'linear-gradient(180deg,#5b3f8a,#3a2660)' : 'rgba(255,255,255,0.06)') + ';color:#fff;border:0;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;';
+      b.addEventListener('click', () => {
+        // Start a new playthrough
+        const steps = buildRoute(c);
+        setPlaytestState({ char: c, idx: 0, total: steps.length });
+        renderBody();
+      });
+      charBtnRow.appendChild(b);
+    });
+    charSelectSec.appendChild(charBtnRow);
+
+    if (!state || !state.char) return;
+
+    // Build route walkthrough
+    const steps = buildRoute(state.char);
+    const idx = state.idx || 0;
+
+    const progSec = document.createElement('div');
+    progSec.className = 'pp-dev-section';
+    progSec.innerHTML = '<h3>' + PRETTY[state.char] + " \u2014 Step " + (idx + 1) + ' of ' + steps.length + '</h3>';
+    body.appendChild(progSec);
+
+    // Progress bar
+    const bar = document.createElement('div');
+    bar.style.cssText = 'height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:12px;';
+    const fill = document.createElement('div');
+    fill.style.cssText = 'height:100%;background:linear-gradient(90deg,#7b5fb0,#a87fd8);width:' + Math.round((idx/steps.length)*100) + '%;';
+    bar.appendChild(fill);
+    progSec.appendChild(bar);
+
+    // Current step
+    if (idx < steps.length) {
+      const step = steps[idx];
+      const cur = document.createElement('div');
+      cur.style.cssText = 'background:rgba(120,90,180,0.18);padding:14px;border-radius:10px;margin-bottom:10px;';
+      const lbl = document.createElement('div');
+      lbl.style.cssText = 'font-size:14px;color:#f0e4ff;margin-bottom:8px;font-weight:600;';
+      lbl.textContent = step.label;
+      cur.appendChild(lbl);
+
+      const playBtn = document.createElement('button');
+      playBtn.textContent = step.force ? 'Prep + play this step \u25B6' : 'Apply prep \u2192 next';
+      playBtn.style.cssText = 'background:linear-gradient(180deg,#7b5fb0,#5b3f8a);color:#fff;border:0;border-radius:10px;padding:10px 18px;font-size:14px;cursor:pointer;font-weight:600;';
+      playBtn.addEventListener('click', () => {
+        try { if (step.prep) step.prep(); } catch (e) { console.warn('prep error', e); }
+        try { if (step.force) step.force(); } catch (e) { alert('Step force failed: ' + (e.message || e)); }
+        // Advance pointer
+        setPlaytestState({ char: state.char, idx: idx + 1, total: steps.length });
+        // Auto-close panel so the scene is visible
+        if (step.force) closePanel();
+        // After scene, the panel can be reopened via FAB
+        setTimeout(() => renderBody(), 400);
+      });
+      cur.appendChild(playBtn);
+
+      const skipBtn = document.createElement('button');
+      skipBtn.textContent = 'Skip step';
+      skipBtn.className = 'ghost';
+      skipBtn.style.cssText = 'background:rgba(255,255,255,0.06);color:#c0b0d8;border:0;border-radius:10px;padding:8px 14px;font-size:12px;cursor:pointer;margin-left:8px;';
+      skipBtn.addEventListener('click', () => {
+        setPlaytestState({ char: state.char, idx: idx + 1, total: steps.length });
+        renderBody();
+      });
+      cur.appendChild(skipBtn);
+
+      progSec.appendChild(cur);
+    } else {
+      // Done
+      const done = document.createElement('div');
+      done.style.cssText = 'background:rgba(120,200,140,0.15);padding:16px;border-radius:10px;text-align:center;color:#a8e8c0;font-size:15px;';
+      done.textContent = 'Route walkthrough complete. Take notes on what landed and what dragged.';
+      progSec.appendChild(done);
+    }
+
+    // List of all steps with marker
+    const listSec = document.createElement('div');
+    listSec.className = 'pp-dev-section';
+    listSec.innerHTML = '<h3>Full Route Outline</h3>';
+    body.appendChild(listSec);
+    steps.forEach((step, i) => {
+      const r = document.createElement('div');
+      r.style.cssText = 'padding:6px 8px;font-size:12px;color:' + (i < idx ? '#88aa9c' : i === idx ? '#f0d8a0' : '#a8a0c0') + ';';
+      r.textContent = (i < idx ? '\u2713' : i === idx ? '\u25B6' : '\u00B7') + ' ' + step.label;
+      listSec.appendChild(r);
+    });
+
+    // Reset
+    const resetSec = document.createElement('div');
+    resetSec.className = 'pp-dev-section';
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = 'Restart this route from step 0';
+    resetBtn.className = 'ghost';
+    resetBtn.style.cssText = 'background:rgba(255,255,255,0.06);color:#c0b0d8;border:0;border-radius:10px;padding:8px 14px;font-size:12px;cursor:pointer;';
+    resetBtn.addEventListener('click', () => {
+      setPlaytestState({ char: state.char, idx: 0, total: steps.length });
+      renderBody();
+    });
+    resetSec.appendChild(resetBtn);
+
+    const exitBtn = document.createElement('button');
+    exitBtn.textContent = 'Exit playtest mode';
+    exitBtn.className = 'ghost';
+    exitBtn.style.cssText = 'background:rgba(255,255,255,0.06);color:#c0b0d8;border:0;border-radius:10px;padding:8px 14px;font-size:12px;cursor:pointer;margin-left:8px;';
+    exitBtn.addEventListener('click', () => {
+      clearPlaytestState();
+      renderBody();
+    });
+    resetSec.appendChild(exitBtn);
+
+    body.appendChild(resetSec);
   }
 
   function renderOverview(body) {
