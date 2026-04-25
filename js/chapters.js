@@ -27,10 +27,28 @@
   function isEnabled() {
     try { return localStorage.getItem(FLAG_KEY) === '1'; } catch (e) { return false; }
   }
+  // "Current" is derived as the first chapter in array order that is NOT
+  // yet done. The stored CUR_KEY value is kept as a hint (and for legacy)
+  // but it does NOT take precedence — a player who has done chapters
+  // 1, 2, 3 but not the bridge between them should see the bridge as
+  // current, not the next numeric chapter.
+  //
+  // This also fixes the subtle bug where setCurrent('b_arrival') (string)
+  // would be read back via parseInt as NaN → 0, making the menu think
+  // PROLOGUE was current instead of the bridge.
   function getCurrent() {
-    try { const n = parseInt(localStorage.getItem(CUR_KEY) || '0', 10); return Number.isFinite(n) && n >= 0 ? n : 0; } catch (e) { return 0; }
+    try {
+      for (let i = 0; i < CHAPTERS.length; i++) {
+        if (!isDone(CHAPTERS[i].id)) return CHAPTERS[i].id;
+      }
+      // All chapters done — return last as current for "all complete" state.
+      return CHAPTERS.length > 0 ? CHAPTERS[CHAPTERS.length - 1].id : 0;
+    } catch (e) { return 0; }
   }
-  function setCurrent(n) { try { localStorage.setItem(CUR_KEY, String(n)); } catch (e) {} }
+  function setCurrent(n) {
+    // Stored as a hint only — getCurrent() derives from done-state.
+    try { localStorage.setItem(CUR_KEY, String(n)); } catch (e) {}
+  }
   function isDone(id) { try { return localStorage.getItem('pp_chapter_done_' + id) === '1'; } catch (e) { return false; } }
   function markDone(id) { try { localStorage.setItem('pp_chapter_done_' + id, '1'); } catch (e) {} }
 
