@@ -215,50 +215,49 @@
     return false;
   }
 
+  // True when the element is in the DOM AND actually has a non-zero
+  // rendered bounding rect (rules out elements that are hidden via parent
+  // display:none, visibility:hidden, opacity:0 + pointer-events:none, or
+  // simply have zero width/height).
+  function isReallyVisible(el) {
+    if (!el) return false;
+    if (el.classList && el.classList.contains('hidden')) return false;
+    const rect = el.getBoundingClientRect();
+    if (!rect || (rect.width <= 0 && rect.height <= 0)) return false;
+    const cs = window.getComputedStyle ? window.getComputedStyle(el) : null;
+    if (cs && (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0')) return false;
+    return true;
+  }
+
   // Visibility rule: ONLY show the button while the player is actually in
   // the care-loop game screen, with no full-screen overlay/scene blocking
   // the view. Hides during title, world intro, bridges, chapter cards,
   // letter overlay itself, settings, loading, etc.
   function isGameVisibleAndIdle() {
-    // 1. game-container must be visible
     const game = document.getElementById('game-container');
-    if (!game) return false;
-    // .hidden class OR display:none means hidden
-    if (game.classList.contains('hidden')) return false;
-    if (game.offsetParent === null) {
-      const cs = window.getComputedStyle ? window.getComputedStyle(game) : null;
-      if (!cs || cs.display === 'none' || cs.visibility === 'hidden') return false;
-    }
+    if (!isReallyVisible(game)) return false;
 
-    // 2. No blocking overlay or cinematic scene present
-    const blockers = [
-      '#title-screen:not(.hidden)',
-      '#world-intro:not(.hidden)',
-      '#loading-screen:not(.hidden)',
-      '#select-screen:not(.hidden)',
-      '#mscard-root',                              // bridges + chapter cards
-      '#ms-encounter-root',                        // legacy meet-cutes
-      '#chp-page',                                 // chapter list page
-      '#tp-root',                                  // turning points
-      '#mg-overlay',                               // memory gallery
-      '#mon-bundle-back',                          // monetization
-      '#settings-overlay:not(.hidden)',
-      '#letter-overlay:not(.hidden)',              // don't show over a letter
-      '#pp-letters-overlay',                       // archive overlay itself
-      '#cinematic-overlay.visible',
-      '#event-overlay:not(.hidden)',
-      '#gift-panel:not(.hidden)',
-      '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)',
-      '#story-overlay:not(.hidden)',
-      '#main-story-page:not(.hidden)',
-      '#pp-onboarding-overlay',
-      '#pp-skip-overlay',
-      '#mst-confirm-overlay',
-      '.pp-bridge-root',                           // legacy bridge UI (if any)
-      '#chp-page'
-    ].join(',');
-    if (document.querySelector(blockers)) return false;
+    // Each blocker is identified by id (or class for bridge legacy). We
+    // confirm BOTH that it's present in DOM AND actually visible — many
+    // overlay elements stay in the DOM after dismiss but with
+    // display:none / .hidden / zero rect, and they should NOT block the
+    // letter button.
+    const ids = [
+      'title-screen', 'world-intro', 'loading-screen', 'select-screen',
+      'mscard-root', 'ms-encounter-root', 'chp-page', 'tp-root',
+      'mg-overlay', 'mon-bundle-back', 'settings-overlay',
+      'letter-overlay', 'pp-letters-overlay', 'cinematic-overlay',
+      'event-overlay', 'gift-panel', 'training-panel', 'dress-panel',
+      'story-overlay', 'main-story-page', 'pp-onboarding-overlay',
+      'pp-skip-overlay', 'mst-confirm-overlay'
+    ];
+    for (let i = 0; i < ids.length; i++) {
+      const el = document.getElementById(ids[i]);
+      if (el && isReallyVisible(el)) return false;
+    }
+    // Legacy bridge root (was a class, not an id)
+    const bridgeRoot = document.querySelector('.pp-bridge-root');
+    if (bridgeRoot && isReallyVisible(bridgeRoot)) return false;
 
     return true;
   }

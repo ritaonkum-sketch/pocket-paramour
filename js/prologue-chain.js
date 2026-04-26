@@ -537,17 +537,13 @@
     // chapter fires automatically — completing the unified flow:
     //   bridge \u2192 chapter \u2192 care \u2192 next bridge.
     fireChapterFor(stepIdx) {
-      const map = {
-        1: 'chp_1_middle',  // CHAPTER 1 — You Arrive (Alistair)
-        2: 'chp_2_middle',  // CHAPTER 2 — The Forest Finds You (Elian)
-        3: 'chp_3_middle',  // CHAPTER 3 — The Caves Answer (Lyra)
-        4: 'chp_4_middle',  // A Courtier's Game (Caspian)
-        5: 'chp_5_middle',  // The Tower Opens (Lucien)
-        6: 'chp_6_middle',  // A Voice Beneath (Noir)
-        7: 'chp_7_middle'   // An Unmapped Variable (Proto)
-      };
+      // Maps prologue chain step → CHAPTERS array entry id (the OUTER id,
+      // not the inner runCard id). chapters.js plays the chapter via
+      // MSChapters.play(<outer-id>), and the chapter's own play() function
+      // internally calls runEncounter + runCard with the right inner data.
+      const map = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7 };
       const id = map[stepIdx];
-      if (!id) return;
+      if (id == null) return;
       // Small breath after the unlock toast so the player isn't slammed.
       setTimeout(() => {
         try {

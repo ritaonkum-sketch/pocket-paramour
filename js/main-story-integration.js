@@ -285,7 +285,12 @@
 
       installAdaptivePoliteness();
       installProgressMerge();
-      installStartRedirect();
+      // installStartRedirect() — DISABLED. Conflicted with the new unified
+      // flow (world intro → arrival → bridge-alistair → chapter 1 → care).
+      // The legacy redirect intercepted the Start click and fired the
+      // chapter-system Prologue instead, which left the player stuck because
+      // it ran above all main screens and bypassed the chain.
+      // installStartRedirect();
       watchPrologueDone();
       // Keep main-story stage in sync with chapter progress
       setInterval(syncStageToChapters, 1500);
