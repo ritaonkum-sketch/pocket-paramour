@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v216';
+const CACHE_NAME = 'pocket-love-v217';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -54,8 +54,8 @@ const CORE_ASSETS = [
     '/js/button-locks.js',
 
     // Main-story route (opt-in; flag: pp_main_story_enabled)
-    '/js/encounter-alistair.js',
-    '/js/encounter-elian.js',
+    // The 7 legacy encounter-<char>.js files were removed — bridges
+    // in the prologue chain are the meet-cutes now.
     '/js/encounter-elian-rescue.js',
     '/js/crossover-lyra-lucien.js',
     '/js/crossover-noir-elian.js',
@@ -67,11 +67,6 @@ const CORE_ASSETS = [
     '/js/crossover-alistair-caspian.js',
     '/js/crossover-alistair-lucien.js',
     '/js/crossover-caspian-lucien.js',
-    '/js/encounter-lyra.js',
-    '/js/encounter-caspian.js',
-    '/js/encounter-lucien.js',
-    '/js/encounter-noir.js',
-    '/js/encounter-proto.js',
     '/js/main-story.js',
     '/js/daily-purpose.js',
     '/js/premium-card.js',

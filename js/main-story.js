@@ -236,35 +236,11 @@
   }
 
   // ---------------------------------------------------------------
-  // First-time flow for brand-new players with the flag enabled.
-  // If there are no saves yet and the Alistair encounter hasn't run,
-  // hook the title's Start button to run our encounter before the world
-  // intro. Encounter is in encounter-alistair.js (loaded separately).
-  function maybeHookFirstEncounter() {
-    if (hasAnyExistingSave()) return;    // don't disturb returning players
-    if (alistairEncounterSeen()) return;
-    if (typeof window.MSEncounterAlistair !== 'object') return; // module not loaded
-
-    const startBtn = document.getElementById('title-start-btn');
-    if (!startBtn) return;
-
-    // We capture the click before game.js's handler runs. Our handler runs
-    // the encounter, then lets the player continue into the normal flow.
-    startBtn.addEventListener('click', function onceStart(e) {
-      if (alistairEncounterSeen()) return; // belt-and-suspenders
-      e.stopPropagation();
-      e.preventDefault();
-      startBtn.removeEventListener('click', onceStart, true);
-
-      window.MSEncounterAlistair.play(function onDone() {
-        try { localStorage.setItem(ENCOUNTER_KEY, '1'); } catch (_) {}
-        // Set stage to 1 (Alistair unlocked) if not already set higher
-        if (getStage() < 1) setStage(1);
-        // Hand off to the normal Start flow
-        startBtn.click();
-      });
-    }, true);
-  }
+  // maybeHookFirstEncounter() was removed in the cleanup pass. Its job —
+  // running the legacy MSEncounterAlistair scene before the world intro —
+  // is now handled by the prologue chain (world intro → arrival →
+  // bridge-alistair → chapter 1 → care). encounter-alistair.js was
+  // deleted along with its 6 sibling encounter modules.
 
   // ---------------------------------------------------------------
   function boot() {
@@ -272,13 +248,7 @@
     try {
       injectStyles();
       watchSelectScreen();
-      // maybeHookFirstEncounter() — DISABLED. The new prologue chain
-      // (world intro → arrival → bridge-alistair → chapter 1 → care)
-      // fully replaces this hook. Bridge-alistair IS the Alistair
-      // meet-cute now. Running both fired the legacy MSEncounterAlistair
-      // scene on top of the title screen the moment the player tapped
-      // Start, blocking the chain from running.
-      // setTimeout(maybeHookFirstEncounter, 50);
+      // First-encounter hook removed — the prologue chain handles this now.
     } catch (e) {
       console.warn('[main-story] disabled due to error:', e);
     }

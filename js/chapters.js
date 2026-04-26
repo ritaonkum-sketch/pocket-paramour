@@ -150,7 +150,7 @@
       teaser: 'The first face you see is carrying a sword.',
       charId: 'alistair',
       play: async function (onDone) {
-        await runEncounter('Alistair');
+        // legacy meet-cute removed — bridge-alistair is the meet-cute now
         await runCard({
           id: 'chp_1_middle',
           title: 'CHAPTER 1',
@@ -203,7 +203,7 @@
       teaser: 'A path that isn\u2019t on any map, and a voice from the trees.',
       charId: 'elian',
       play: async function (onDone) {
-        await runEncounter('Elian');
+        // legacy meet-cute removed — bridge-elian is the meet-cute now
         await runCard({
           id: 'chp_2_middle',
           title: 'CHAPTER 2',
@@ -257,7 +257,7 @@
       teaser: 'A song from the deep. You are the first to stay.',
       charId: 'lyra',
       play: async function (onDone) {
-        await runEncounter('Lyra');
+        // legacy meet-cute removed — bridge-lyra is the meet-cute now
         await runCard({
           id: 'chp_3_middle',
           title: 'CHAPTER 3',
@@ -498,7 +498,7 @@
       teaser: 'A crown, a balcony, and a prince who notices everything.',
       charId: 'caspian',
       play: async function (onDone) {
-        await runEncounter('Caspian');
+        // legacy meet-cute removed — bridge-caspian is the meet-cute now
         await runCard({
           id: 'chp_4_middle',
           title: 'CHAPTER 4',
@@ -553,7 +553,7 @@
       teaser: 'A locked door, and a scholar who has questions.',
       charId: 'lucien',
       play: async function (onDone) {
-        await runEncounter('Lucien');
+        // legacy meet-cute removed — bridge-lucien is the meet-cute now
         await runCard({
           id: 'chp_5_middle',
           title: 'CHAPTER 5',
@@ -712,7 +712,7 @@
       teaser: 'Every bond the kingdom ever broke \u2014 he kept every one.',
       charId: 'noir',
       play: async function (onDone) {
-        await runEncounter('Noir');
+        // legacy meet-cute removed — bridge-noir is the meet-cute now
         // Choice callback for Noir
         let noirEcho = 'You wanted to see me. \u2026Now you see all of me. Don\u2019t flinch.';
         try {
@@ -778,7 +778,7 @@
       teaser: 'Someone has been watching you load into this world.',
       charId: 'proto',
       play: async function (onDone) {
-        await runEncounter('Proto');
+        // legacy meet-cute removed — bridge-proto is the meet-cute now
         // Choice callback for Proto
         let protoEcho = '&gt; recompiling. you came back. that\u2019s the variable that matters.';
         try {

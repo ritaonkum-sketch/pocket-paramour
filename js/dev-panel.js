@@ -88,14 +88,10 @@
       force: () => window.MSChapters && window.MSChapters.playChapter && window.MSChapters.playChapter(id)
     })),
 
-    // Encounters (meet-cutes)
-    { id: 'enc_alistair', label: 'Meet: Alistair',  category: 'encounters', seenFlag: 'pp_ms_encounter_alistair_seen', force: () => window.MSEncounterAlistair && window.MSEncounterAlistair.play && window.MSEncounterAlistair.play() },
-    { id: 'enc_elian',    label: 'Meet: Elian',     category: 'encounters', seenFlag: 'pp_ms_encounter_elian_seen',    force: () => window.MSEncounterElian    && window.MSEncounterElian.play    && window.MSEncounterElian.play() },
-    { id: 'enc_lyra',     label: 'Meet: Lyra',      category: 'encounters', seenFlag: 'pp_ms_encounter_lyra_seen',     force: () => window.MSEncounterLyra     && window.MSEncounterLyra.play     && window.MSEncounterLyra.play() },
-    { id: 'enc_caspian',  label: 'Meet: Caspian',   category: 'encounters', seenFlag: 'pp_ms_encounter_caspian_seen',  force: () => window.MSEncounterCaspian  && window.MSEncounterCaspian.play  && window.MSEncounterCaspian.play() },
-    { id: 'enc_lucien',   label: 'Meet: Lucien',    category: 'encounters', seenFlag: 'pp_ms_encounter_lucien_seen',   force: () => window.MSEncounterLucien   && window.MSEncounterLucien.play   && window.MSEncounterLucien.play() },
-    { id: 'enc_noir',     label: 'Meet: Noir',      category: 'encounters', seenFlag: 'pp_ms_encounter_noir_seen',     force: () => window.MSEncounterNoir     && window.MSEncounterNoir.play     && window.MSEncounterNoir.play() },
-    { id: 'enc_proto',    label: 'Meet: Proto',     category: 'encounters', seenFlag: 'pp_ms_encounter_proto_seen',    force: () => window.MSEncounterProto    && window.MSEncounterProto.play    && window.MSEncounterProto.play() },
+    // Encounters — the 7 legacy per-character meet-cutes were removed.
+    // Bridges (in the prologue chain) are the meet-cutes now. Use the
+    // Chain tab to play any bridge directly. Only the Thornwood Rescue
+    // (Elian's mid-game scene) remains here.
     { id: 'enc_rescue',   label: 'Thornwood Rescue (Elian)', category: 'encounters', seenFlag: 'pp_elian_rescue_seen',
       force: () => window.MSEncounterElianRescue && window.MSEncounterElianRescue.force && window.MSEncounterElianRescue.force() },
 
