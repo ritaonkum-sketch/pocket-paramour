@@ -1345,7 +1345,11 @@
       const row = document.createElement('div');
       const done = isDone(ch.id);
       const isCurrent = ch.id === cur && !done;
-      const locked = curIdx >= 0 ? idx > curIdx : ch.id > cur;
+      // "Locked" relative to the current chapter pointer. BUT \u2014 done chapters
+      // are NEVER locked (the player has already played them, so Replay must
+      // always be available regardless of where the current pointer sits).
+      const lockedByGate = curIdx >= 0 ? idx > curIdx : ch.id > cur;
+      const locked = lockedByGate && !done;
       row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '');
 
       const thumb = document.createElement('div');
@@ -1363,6 +1367,9 @@
 
       const text = document.createElement('div');
       text.className = 'chp-text';
+      // For done chapters, always show real subtitle + teaser even if they
+      // would be locked-by-gate. For not-done locked chapters, show the
+      // "complete previous chapter first" hint.
       text.innerHTML =
         `<div class="c1">${ch.title}${done ? ' \u00b7 \u2713' : ''}</div>` +
         `<div class="c2">${locked ? '\u2014 locked \u2014' : ch.subtitle}</div>` +
@@ -1372,7 +1379,8 @@
       const btn = document.createElement('button');
       btn.className = 'chp-play';
       btn.textContent = done ? 'Replay' : (isCurrent ? 'Begin' : 'Locked');
-      btn.disabled = locked;
+      btn.disabled = locked;  // Note: done chapters were unlocked above, so
+                              // Replay buttons are always enabled.
       btn.addEventListener('click', (e) => { e.stopPropagation(); playChapter(ch.id); });
       row.appendChild(btn);
 
@@ -1416,14 +1424,17 @@
     if (!isEnabled()) return;
     injectStyles();
 
-    // First-time auto-open: if player has never played a chapter AND is
-    // fresh (no saves) AND is currently on the title/select, pop the Main
-    // Story page so they see the journey ahead.
-    const neverStarted = getCurrent() === 0 && !isDone(0);
-    if (neverStarted) {
-      // Wait for title START click flow to settle, then auto-open when the
-      // select screen first appears.
-    }
+    // Migration for existing saves: if ARRIVAL bridge has been played but
+    // PROLOGUE chapter (id 0) was never marked done, mark it now. Arrival
+    // covers the same narrative ground — PROLOGUE shouldn't keep showing
+    // up as the "current" entry in the menu after the player has already
+    // walked through arrival in the new flow.
+    try {
+      if (localStorage.getItem('pp_chapter_done_b_arrival') === '1' &&
+          localStorage.getItem('pp_chapter_done_0') !== '1') {
+        localStorage.setItem('pp_chapter_done_0', '1');
+      }
+    } catch (_) {}
 
     // Watch for character select visibility to show orb
     setInterval(refreshOrb, 900);

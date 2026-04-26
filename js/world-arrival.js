@@ -134,6 +134,10 @@
     // "current" pointer to b_alistair.
     try {
       lsSet('pp_chapter_done_b_arrival', '1');
+      // Auto-mark PROLOGUE (legacy chapter id 0) done — arrival covers the
+      // same narrative ground ("you woke with no memory") so PROLOGUE
+      // shouldn't re-prompt as the next "current" entry in the menu.
+      lsSet('pp_chapter_done_0', '1');
       lsSet('pp_current_chapter', 'b_alistair');
     } catch (_) {}
 
