@@ -353,12 +353,22 @@
               }
             }
             await typeToS(n.line, beat.text || '', beat.cps || 32);
-            // No auto-advance. After the typewriter finishes, wait for an
-            // EXPLICIT tap before moving to the next beat. Slow readers
-            // control the pace; fast readers tap immediately. The first tap
-            // (during typing) completes the typewriter; the second tap
-            // advances. beat.hold is now ignored.
-            await skipPromise;
+            // BULLETPROOF tap-to-advance. Don't reuse skipPromise — it can
+            // be racing with stale state from the typewriter phase. Register
+            // a brand-new one-shot tap listener and wait for it. The first
+            // tap (during typing) completes the typewriter via the existing
+            // skip system; this fresh listener requires ANOTHER, separate tap
+            // before the next beat fires. No timer. No auto-advance ever.
+            await new Promise((resolve) => {
+              const tap = (e) => {
+                if (e && e.stopPropagation) e.stopPropagation();
+                n.root.removeEventListener('click', tap);
+                n.root.removeEventListener('touchstart', tap);
+                resolve();
+              };
+              n.root.addEventListener('click', tap);
+              n.root.addEventListener('touchstart', tap, { passive: true });
+            });
             resetSkip();
             break;
           }
