@@ -378,20 +378,27 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Boot — refresh on DOM changes (so the button hides/shows responsively
-  // when scenes/overlays appear and disappear) plus a fast-poll safety net.
+  // Boot — gentle polling only. The previous MutationObserver watched the
+  // entire body subtree for every class/style change, which fired hundreds
+  // of times per second during MSCard scenes (typewriter chars, particles,
+  // pose swaps, etc.) and froze the game. A 900ms poll is plenty
+  // responsive for show/hide transitions while costing almost nothing.
   // ---------------------------------------------------------------------------
+  let _refreshScheduled = false;
+  function refreshDebounced() {
+    if (_refreshScheduled) return;
+    _refreshScheduled = true;
+    setTimeout(() => { _refreshScheduled = false; refresh(); }, 80);
+  }
+
   function boot() {
     refresh();
-    // Fast-poll covers transitions where the MutationObserver may miss a
-    // class-only flip (e.g., .hidden toggled on an existing node).
-    setInterval(refresh, 600);
-    // Observe the DOM for added/removed scene roots so the button reacts
-    // immediately when overlays open or close.
-    try {
-      const mo = new MutationObserver(() => refresh());
-      mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
-    } catch (_) {}
+    setInterval(refresh, 900);
+    // Light listeners: refresh when the player taps anywhere (cheap, gives
+    // us a near-immediate response when they navigate via taps), and when
+    // the page becomes visible.
+    document.addEventListener('click', refreshDebounced, true);
+    document.addEventListener('visibilitychange', refreshDebounced);
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });
