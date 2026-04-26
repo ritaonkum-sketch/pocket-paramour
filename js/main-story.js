@@ -272,8 +272,13 @@
     try {
       injectStyles();
       watchSelectScreen();
-      // Wait a tick so encounter-alistair.js has time to register itself.
-      setTimeout(maybeHookFirstEncounter, 50);
+      // maybeHookFirstEncounter() — DISABLED. The new prologue chain
+      // (world intro → arrival → bridge-alistair → chapter 1 → care)
+      // fully replaces this hook. Bridge-alistair IS the Alistair
+      // meet-cute now. Running both fired the legacy MSEncounterAlistair
+      // scene on top of the title screen the moment the player tapped
+      // Start, blocking the chain from running.
+      // setTimeout(maybeHookFirstEncounter, 50);
     } catch (e) {
       console.warn('[main-story] disabled due to error:', e);
     }
