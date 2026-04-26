@@ -215,11 +215,64 @@
     return false;
   }
 
-  // The button is always visible (so the player can discover the feature
-  // and learn how letters work). It dims slightly when there are no letters
-  // yet, brightens with a pulse + red dot when there's attention needed.
+  // Visibility rule: ONLY show the button while the player is actually in
+  // the care-loop game screen, with no full-screen overlay/scene blocking
+  // the view. Hides during title, world intro, bridges, chapter cards,
+  // letter overlay itself, settings, loading, etc.
+  function isGameVisibleAndIdle() {
+    // 1. game-container must be visible
+    const game = document.getElementById('game-container');
+    if (!game) return false;
+    // .hidden class OR display:none means hidden
+    if (game.classList.contains('hidden')) return false;
+    if (game.offsetParent === null) {
+      const cs = window.getComputedStyle ? window.getComputedStyle(game) : null;
+      if (!cs || cs.display === 'none' || cs.visibility === 'hidden') return false;
+    }
+
+    // 2. No blocking overlay or cinematic scene present
+    const blockers = [
+      '#title-screen:not(.hidden)',
+      '#world-intro:not(.hidden)',
+      '#loading-screen:not(.hidden)',
+      '#select-screen:not(.hidden)',
+      '#mscard-root',                              // bridges + chapter cards
+      '#ms-encounter-root',                        // legacy meet-cutes
+      '#chp-page',                                 // chapter list page
+      '#tp-root',                                  // turning points
+      '#mg-overlay',                               // memory gallery
+      '#mon-bundle-back',                          // monetization
+      '#settings-overlay:not(.hidden)',
+      '#letter-overlay:not(.hidden)',              // don't show over a letter
+      '#pp-letters-overlay',                       // archive overlay itself
+      '#cinematic-overlay.visible',
+      '#event-overlay:not(.hidden)',
+      '#gift-panel:not(.hidden)',
+      '#training-panel:not(.hidden)',
+      '#dress-panel:not(.hidden)',
+      '#story-overlay:not(.hidden)',
+      '#main-story-page:not(.hidden)',
+      '#pp-onboarding-overlay',
+      '#pp-skip-overlay',
+      '#mst-confirm-overlay',
+      '.pp-bridge-root',                           // legacy bridge UI (if any)
+      '#chp-page'
+    ].join(',');
+    if (document.querySelector(blockers)) return false;
+
+    return true;
+  }
+
+  // Button is shown only on the game screen with no overlay blocking.
+  // - Hidden everywhere else (title, intro, bridges, chapters, letters, etc.)
+  // - Dimmed when there are no letters yet (still discoverable)
+  // - Bright + pulse + dot when there's an unread letter or reply owed
   function refresh() {
     ensureButton();
+    if (!isGameVisibleAndIdle()) {
+      _btn.style.display = 'none';
+      return;
+    }
     _btn.style.display = 'flex';
     const dot = _btn.querySelector('.pp-letters-dot');
     const attention = window.LetterSystem && window.LetterSystem.hasAttention && window.LetterSystem.hasAttention();
@@ -325,11 +378,20 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Boot — show button if any letter has been seen, and refresh periodically.
+  // Boot — refresh on DOM changes (so the button hides/shows responsively
+  // when scenes/overlays appear and disappear) plus a fast-poll safety net.
   // ---------------------------------------------------------------------------
   function boot() {
     refresh();
-    setInterval(refresh, 6000);
+    // Fast-poll covers transitions where the MutationObserver may miss a
+    // class-only flip (e.g., .hidden toggled on an existing node).
+    setInterval(refresh, 600);
+    // Observe the DOM for added/removed scene roots so the button reacts
+    // immediately when overlays open or close.
+    try {
+      const mo = new MutationObserver(() => refresh());
+      mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
+    } catch (_) {}
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });
