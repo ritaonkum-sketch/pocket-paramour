@@ -34,7 +34,6 @@
  *   one oath. He failed to save someone at seventeen (his first
  *   captain, in a skirmish he believes he should have prevented). The
  *   grief made him who he is. The player is his "never again."
- */
  *
  * SAFETY CONTRACT:
  *  - Purely additive. Registers window.MSEncounterAlistair.

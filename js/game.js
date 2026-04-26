@@ -455,13 +455,47 @@ class PocketLoveGame {
         // Watchdog: if tickInterval gets lost (e.g. an intro that never
         // completed its callback), auto-restart it after 30s so stat
         // bars don't get stuck. Only runs if character is actually
-        // being played and no intro overlay is visible.
+        // being played and NO known scene/overlay is currently up — a
+        // tick pause is intentional during scenes (MSCard chapters,
+        // bridges, intros, letters, cinematics, encounters, settings,
+        // etc.) and the scene's own onClose handler will resume tick.
+        const SCENE_SELECTORS = [
+            '#intro-overlay:not(.hidden)',
+            '#mscard-root',
+            '#ms-encounter-root',
+            '#letter-overlay:not(.hidden)',
+            '#chp-page',
+            '#tp-root',
+            '#mg-overlay',
+            '#mon-bundle-back',
+            '#cinematic-overlay.visible',
+            '#event-overlay:not(.hidden)',
+            '#gift-panel:not(.hidden)',
+            '#training-panel:not(.hidden)',
+            '#dress-panel:not(.hidden)',
+            '#story-overlay:not(.hidden)',
+            '#main-story-page:not(.hidden)',
+            '#settings-overlay:not(.hidden)',
+            '#pp-onboarding-overlay',
+            '#pp-letters-overlay',
+            '#mst-confirm-overlay',
+            '#pp-chain-lock-overlay',
+            '.pp-bridge-root'
+        ];
+        function anySceneIsActuallyVisible() {
+            for (let i = 0; i < SCENE_SELECTORS.length; i++) {
+                const el = document.querySelector(SCENE_SELECTORS[i]);
+                if (!el) continue;
+                const cs = window.getComputedStyle ? window.getComputedStyle(el) : null;
+                if (cs && (cs.display === 'none' || cs.visibility === 'hidden')) continue;
+                const rect = el.getBoundingClientRect();
+                if (rect && (rect.width > 0 || rect.height > 0)) return true;
+            }
+            return false;
+        }
         setInterval(() => {
             if (this.tickInterval || this.characterLeft) return;
-            const introOverlay = document.getElementById('intro-overlay');
-            const introVisible = introOverlay && !introOverlay.classList.contains('hidden')
-                && getComputedStyle(introOverlay).display !== 'none';
-            if (introVisible) return; // intro still running, don't interfere
+            if (anySceneIsActuallyVisible()) return; // pause is intentional
             // Recover
             console.warn('[watchdog] tickInterval was lost — restarting');
             this.lastTick = Date.now();
