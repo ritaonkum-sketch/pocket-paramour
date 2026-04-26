@@ -477,7 +477,7 @@ const CHARACTER_LYRA = {
             "The coral was turning grey. It's getting color back. Because of you, I think.",
             "A Soul Weaver... my mother used to sing about your kind. I thought they were myths.",
             "Your bonds heal the ocean. Every time you care for me, the tide grows stronger.",
-            "The last Weaver... someone loved them very much. And when they died, that love turned dark."
+            "The last Weaver... someone loved them very much. And when they died, that love turned dark.",
             "*braids a strand of hair, unbraids it*",
             "The water is colder today. I don't mind.",
             "*catches a droplet from the ceiling, watches it fall*",
