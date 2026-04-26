@@ -44,6 +44,125 @@
   }
 
   // ---------------------------------------------------------------
+  // Confirmation dialog before toggling — explains what changes.
+  function injectConfirmStyles() {
+    if (document.getElementById('mst-confirm-styles')) return;
+    const s = document.createElement('style');
+    s.id = 'mst-confirm-styles';
+    s.textContent = `
+      #mst-confirm-overlay {
+        position:fixed; inset:0; z-index:11500;
+        background:rgba(8,5,18,0.84);
+        backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+        display:flex; align-items:center; justify-content:center;
+        opacity:0; pointer-events:none;
+        transition:opacity 280ms ease;
+        padding:18px;
+      }
+      #mst-confirm-overlay.show { opacity:1; pointer-events:auto; }
+      #mst-confirm-card {
+        width:100%; max-width:420px;
+        background:linear-gradient(180deg, #1c1235 0%, #0e0820 100%);
+        border:1px solid rgba(200,170,240,0.40);
+        border-radius:18px;
+        padding:22px 22px 18px;
+        color:#ece2f6; text-align:left;
+        box-shadow:0 18px 44px rgba(0,0,0,0.65), 0 0 26px rgba(180,140,220,0.22) inset;
+        transform:scale(0.94);
+        transition:transform 280ms cubic-bezier(.2,.8,.2,1);
+      }
+      #mst-confirm-overlay.show #mst-confirm-card { transform:scale(1); }
+      #mst-confirm-card h3 {
+        margin:0 0 12px; font-size:16px; letter-spacing:0.5px;
+        color:#ffd8ec; text-align:center; font-weight:700;
+      }
+      #mst-confirm-card .body {
+        font-size:13px; line-height:1.55; color:#d8cfe6;
+        margin-bottom:16px;
+      }
+      #mst-confirm-card .body p { margin:0 0 8px; }
+      #mst-confirm-card .body .heads-up {
+        background:rgba(255,200,150,0.08);
+        border:1px solid rgba(255,200,150,0.25);
+        border-radius:10px; padding:10px 12px;
+        font-size:12px; line-height:1.5;
+        color:#ffe0b8; font-style:italic; margin-top:10px;
+      }
+      #mst-confirm-card .btns {
+        display:flex; gap:10px; justify-content:center; margin-top:6px;
+      }
+      #mst-confirm-card .btns button {
+        flex:1; padding:11px 14px; border-radius:12px;
+        font-size:13.5px; font-weight:600; cursor:pointer;
+        border:1px solid rgba(255,255,255,0.18);
+        font-family:inherit;
+      }
+      #mst-confirm-card .btns .cancel {
+        background:rgba(40,28,68,0.78); color:#d8c8f5;
+      }
+      #mst-confirm-card .btns .confirm {
+        background:linear-gradient(180deg,#f6a5c0,#e879a2);
+        color:#22112a;
+      }
+      #mst-confirm-card .btns button:active { transform:translateY(1px); }
+    `;
+    document.head.appendChild(s);
+  }
+
+  function showConfirmDialog(turningOn, onConfirm) {
+    injectConfirmStyles();
+    const existing = document.getElementById('mst-confirm-overlay');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    const overlay = document.createElement('div');
+    overlay.id = 'mst-confirm-overlay';
+
+    const title = turningOn ? '✨ Turn ON Main Story Route?' : 'Turn OFF Main Story Route?';
+    const body = turningOn
+      ? '<p>This unlocks the full Aethermoor experience on top of the Tamagotchi care loop:</p>' +
+        '<p>• Threaded prologue chain (arrival → 7 character bridges)<br>' +
+        '• Main story chapters with cinematic dialogue cards<br>' +
+        '• Meet-cutes for each character<br>' +
+        '• Aenor villain arc, turning points, multi-character crossovers<br>' +
+        '• Endings, memory cards, the Weaver’s Court</p>' +
+        '<div class="heads-up">If you have already played the prologue chain on this device, it will <b>not</b> replay. New scenes will trigger naturally as you play.</div>'
+      : '<p>Turning this off will:</p>' +
+        '<p>• Hide all chapter cards and bridge scenes<br>' +
+        '• Disable the prologue chain and locked-character grid<br>' +
+        '• Suppress Aenor presence, multi-romance bubbles, and care-Weaver thread lines<br>' +
+        '• Stop new letter triggers</p>' +
+        '<p>You will keep the pure Tamagotchi care loop — feed, clean, talk, train, gift — with no narrative interruptions.</p>' +
+        '<div class="heads-up">Your progress is <b>not lost</b>. You can turn it back on any time and pick up where you left off.</div>';
+
+    const confirmLabel = turningOn ? 'Turn On' : 'Turn Off';
+
+    overlay.innerHTML = '' +
+      '<div id="mst-confirm-card">' +
+        '<h3>' + title + '</h3>' +
+        '<div class="body">' + body + '</div>' +
+        '<div class="btns">' +
+          '<button class="cancel" data-act="cancel">Cancel</button>' +
+          '<button class="confirm" data-act="confirm">' + confirmLabel + '</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    // eslint-disable-next-line no-unused-expressions
+    overlay.offsetHeight;
+    overlay.classList.add('show');
+
+    function close() {
+      overlay.classList.remove('show');
+      setTimeout(() => { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 320);
+    }
+    overlay.addEventListener('click', (e) => {
+      const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+      if (act === 'cancel') { close(); }
+      else if (act === 'confirm') { close(); try { onConfirm && onConfirm(); } catch (_) {} }
+      else if (e.target === overlay) { close(); }
+    });
+  }
+
+  // ---------------------------------------------------------------
   // 2) Inject toggle into settings panel
   function injectSettingsToggle() {
     const panel = document.getElementById('settings-content');
@@ -82,11 +201,14 @@
 
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      setOn(!on());
-      markDecided();
-      paint();
-      // Reload so orchestrator / gates / observers rehydrate from the new state
-      setTimeout(() => location.reload(), 200);
+      const turningOn = !on();
+      showConfirmDialog(turningOn, () => {
+        setOn(turningOn);
+        markDecided();
+        paint();
+        // Reload so orchestrator / gates / observers rehydrate from the new state
+        setTimeout(() => location.reload(), 200);
+      });
     });
     row.appendChild(btn);
 
