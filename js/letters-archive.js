@@ -215,21 +215,24 @@
     return false;
   }
 
+  // The button is always visible (so the player can discover the feature
+  // and learn how letters work). It dims slightly when there are no letters
+  // yet, brightens with a pulse + red dot when there's attention needed.
   function refresh() {
-    if (!anyLetterSeen()) {
-      if (_btn) _btn.style.display = 'none';
-      return;
-    }
     ensureButton();
     _btn.style.display = 'flex';
     const dot = _btn.querySelector('.pp-letters-dot');
     const attention = window.LetterSystem && window.LetterSystem.hasAttention && window.LetterSystem.hasAttention();
+    const hasAny = anyLetterSeen();
+
     if (attention) {
       dot.classList.remove('hidden');
       _btn.classList.add('pp-letters-pulse');
+      _btn.style.opacity = '1';
     } else {
       dot.classList.add('hidden');
       _btn.classList.remove('pp-letters-pulse');
+      _btn.style.opacity = hasAny ? '1' : '0.55';
     }
   }
 
