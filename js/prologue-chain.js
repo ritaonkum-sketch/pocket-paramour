@@ -145,20 +145,64 @@
       .select-card.pp-chain-locked {
         position:relative;
         filter: grayscale(0.85) brightness(0.45) blur(0.5px);
-        pointer-events:none;
         opacity:0.62;
+        cursor:pointer;
       }
-      .select-card.pp-chain-locked::after {
-        content: attr(data-pp-lock-text);
-        position:absolute; left:50%; top:50%;
-        transform:translate(-50%, -50%);
-        color:#e8dff8; font-size:11.5px; font-style:italic;
+      /* Subtle lock badge in the corner — replaces the old text overlay. */
+      .select-card.pp-chain-locked::before {
+        content: '\u{1F512}';
+        position:absolute; top:8px; right:8px;
+        font-size:14px; opacity:0.9;
         background:rgba(10,6,22,0.78);
-        border:1px solid rgba(180,150,230,0.30);
-        border-radius:10px;
-        padding:6px 10px; max-width:90%;
-        text-align:center; pointer-events:none;
+        border:1px solid rgba(180,150,230,0.40);
+        width:24px; height:24px; border-radius:50%;
+        display:flex; align-items:center; justify-content:center;
+        z-index:2; pointer-events:none;
+        filter:none;
       }
+
+      /* Lock-explanation popup — shown when a locked card is tapped. */
+      #pp-chain-lock-overlay {
+        position:fixed; inset:0; z-index:9800;
+        background:rgba(8,5,18,0.78);
+        backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+        display:flex; align-items:center; justify-content:center;
+        opacity:0; pointer-events:none;
+        transition:opacity 280ms ease;
+      }
+      #pp-chain-lock-overlay.show { opacity:1; pointer-events:auto; }
+      #pp-chain-lock-card {
+        width:88%; max-width:380px;
+        background:linear-gradient(180deg, #1c1235 0%, #0e0820 100%);
+        border:1px solid rgba(200,170,240,0.40);
+        border-radius:18px;
+        padding:24px 22px 18px;
+        color:#ece2f6; text-align:center;
+        box-shadow:0 18px 44px rgba(0,0,0,0.65), 0 0 26px rgba(180,140,220,0.22) inset;
+        transform:scale(0.94);
+        transition:transform 280ms cubic-bezier(.2,.8,.2,1);
+      }
+      #pp-chain-lock-overlay.show #pp-chain-lock-card { transform:scale(1); }
+      #pp-chain-lock-card .lock-icon {
+        font-size:28px; margin-bottom:8px; opacity:0.85;
+      }
+      #pp-chain-lock-card .lock-title {
+        font-size:15px; font-weight:700; letter-spacing:0.6px;
+        color:#ffd8ec; margin-bottom:8px;
+      }
+      #pp-chain-lock-card .lock-body {
+        font-size:13.5px; line-height:1.5; color:#c8b9e0;
+        font-style:italic; margin-bottom:18px;
+      }
+      #pp-chain-lock-card .lock-ok {
+        background:linear-gradient(180deg, #6a4ec0, #4d3796);
+        color:#fff; border:1px solid rgba(255,255,255,0.18);
+        border-radius:12px; padding:10px 28px;
+        font-size:14px; font-weight:600;
+        cursor:pointer; user-select:none;
+        font-family:inherit;
+      }
+      #pp-chain-lock-card .lock-ok:active { transform:translateY(1px); }
 
       #pp-chain-toast {
         position:fixed; left:50%; bottom:120px;
@@ -227,16 +271,47 @@
     document.querySelectorAll('.select-card[data-character]').forEach(card => {
       const char = card.getAttribute('data-character');
       if (!char) return;
-      // Respect existing locks (proto/noir use select-card-locked already for
-      // legacy reasons; we add our own class so we never clobber the original).
       if (isLocked(char)) {
         card.classList.add('pp-chain-locked');
-        card.setAttribute('data-pp-lock-text', lockText(char));
       } else {
         card.classList.remove('pp-chain-locked');
-        card.removeAttribute('data-pp-lock-text');
       }
+      // Always drop the legacy text-overlay attribute — replaced by popup.
+      card.removeAttribute('data-pp-lock-text');
     });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Lock-explanation popup (shown when a locked character card is tapped)
+  // ---------------------------------------------------------------------------
+  function showLockPopup(char) {
+    injectStyles();
+    const existing = document.getElementById('pp-chain-lock-overlay');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    const NAME = (char || '').charAt(0).toUpperCase() + (char || '').slice(1);
+    const reason = lockText(char);
+
+    const overlay = document.createElement('div');
+    overlay.id = 'pp-chain-lock-overlay';
+    overlay.innerHTML = '' +
+      '<div id="pp-chain-lock-card">' +
+        '<div class="lock-icon">\u{1F512}</div>' +
+        '<div class="lock-title">' + NAME + '</div>' +
+        '<div class="lock-body">' + reason + '</div>' +
+        '<button class="lock-ok" type="button">OK</button>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    // eslint-disable-next-line no-unused-expressions
+    overlay.offsetHeight;
+    overlay.classList.add('show');
+
+    function close() {
+      overlay.classList.remove('show');
+      setTimeout(() => { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 320);
+    }
+    overlay.querySelector('.lock-ok').addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
   }
 
   // ---------------------------------------------------------------------------
@@ -364,8 +439,8 @@
     return window[m].play;
   }
 
-  // Hook the select-screen card clicks. If the player taps a card whose
-  // char matches the current "next-up" step, fire the bridge first.
+  // Hook the select-screen card clicks. If the player taps a locked card,
+  // show the lock-explanation popup. If next-up, fire the bridge.
   function onSelectCardClick(e) {
     if (isSkipped()) return;
     const card = e.target && e.target.closest && e.target.closest('.select-card[data-character]');
@@ -375,26 +450,15 @@
     if (idx < 0) return;
     const s = step();
 
-    // Future characters — swallow with a friendly hint.
-    if (idx > s) {
+    // Locked? Show the popup explaining why.
+    if (isLocked(char)) {
       e.preventDefault(); e.stopPropagation();
-      const meta = STEPS[idx + 1];
-      toast('Not yet.', meta?.tagline || 'Your path has not led here yet.');
+      showLockPopup(char);
       return;
     }
 
-    // Next-up character: gate behind previous character's care progress, then
-    // fire the matching bridge.
+    // Next-up and unlocked? Fire the bridge.
     if (idx === s) {
-      if (s > 0) {
-        const prevChar = ORDER[s - 1];
-        if (prevChar && !careReadyFor(prevChar)) {
-          e.preventDefault(); e.stopPropagation();
-          toast('Care for ' + capitalize(prevChar) + ' first.',
-                'Reach affection 25 and complete one full care cycle (feed, clean, talk, train).');
-          return;
-        }
-      }
       const launcher = bridgeLauncherFor(char);
       if (launcher) {
         e.preventDefault(); e.stopPropagation();
