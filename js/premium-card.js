@@ -353,7 +353,13 @@
               }
             }
             await typeToS(n.line, beat.text || '', beat.cps || 32);
-            if (beat.hold) await waitS(beat.hold);
+            // No auto-advance. After the typewriter finishes, wait for an
+            // EXPLICIT tap before moving to the next beat. Slow readers
+            // control the pace; fast readers tap immediately. The first tap
+            // (during typing) completes the typewriter; the second tap
+            // advances. beat.hold is now ignored.
+            await skipPromise;
+            resetSkip();
             break;
           }
           case 'zoom': {
