@@ -185,8 +185,9 @@
       'pointer-events:none'
     ].join(';'));
     dialogue.id = 'mscard-dialogue';
-    const speaker = el('div', 'font-size:11px;letter-spacing:2px;opacity:0.65;margin-bottom:6px;', card.speaker || '');
-    const line = el('div', 'min-height:42px;', '');
+    const speaker = el('div', 'font-size:11px;letter-spacing:2px;opacity:0.65;margin-bottom:6px;transition:opacity 220ms ease;', card.speaker || '');
+    speaker.id = 'mscard-speaker';
+    const line = el('div', 'min-height:42px;transition:font-style 220ms ease, opacity 220ms ease;', '');
     line.id = 'mscard-line';
     dialogue.appendChild(speaker);
     dialogue.appendChild(line);
@@ -217,7 +218,7 @@
     tapHint.id = 'mscard-taphint';
     root.appendChild(tapHint);
 
-    return { root, bg, charWrap, charImg, dialogue, line, titleStrip, particles, flourish };
+    return { root, bg, charWrap, charImg, dialogue, line, speaker, titleStrip, particles, flourish };
   }
 
   function spawnParticles(container, count, pal) {
@@ -328,6 +329,29 @@
             break;
           }
           case 'line': {
+            // Per-beat speaker override. Used by bridges that mix narration
+            // and character speech in the same card. When beat.speaker is
+            // explicitly an empty string, render in italic narration mode
+            // with no speaker label. When non-empty, replace the speaker
+            // label. When undefined, leave the card-level speaker intact.
+            if (beat.speaker !== undefined && n.speaker) {
+              if (beat.speaker === '') {
+                n.speaker.style.opacity = '0';
+                n.speaker.style.height = '0';
+                n.speaker.style.marginBottom = '0';
+                n.speaker.style.overflow = 'hidden';
+                n.line.style.fontStyle = 'italic';
+                n.line.style.opacity = '0.92';
+              } else {
+                n.speaker.textContent = beat.speaker;
+                n.speaker.style.opacity = '0.65';
+                n.speaker.style.height = '';
+                n.speaker.style.marginBottom = '6px';
+                n.speaker.style.overflow = '';
+                n.line.style.fontStyle = 'normal';
+                n.line.style.opacity = '1';
+              }
+            }
             await typeToS(n.line, beat.text || '', beat.cps || 32);
             if (beat.hold) await waitS(beat.hold);
             break;
