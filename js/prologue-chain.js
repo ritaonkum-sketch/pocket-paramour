@@ -384,7 +384,7 @@
     } catch (_) {}
     const meta = STEPS[target];
     if (meta && meta.char) {
-      // Mark met for downstream systems (phone-ui, multi-romance, etc.)
+      // Mark met for downstream systems (multi-romance, letter, etc.)
       lsSet('pp_met_' + meta.char, '1');
       lsSet('pp_ms_encounter_' + meta.char + '_seen', '1');
     }
