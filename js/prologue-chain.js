@@ -123,9 +123,15 @@
     if (!char) return;
     const c = getCycleFor(char);
     if (!(action in c)) return;
-    if (c[action] === 1) return; // idempotent
+    if (c[action] === 1) {
+      // Even if action was already recorded, refresh display so affection
+      // bar reflects any new affection gained from this tap.
+      refreshCareProgress();
+      return;
+    }
     c[action] = 1;
     setCycleFor(char, c);
+    refreshCareProgress();
     refreshUnlockReadyToast();
   }
 
@@ -217,6 +223,92 @@
         display: none !important;
       }
 
+      /* Care-progress indicator on the care screen — small floating chip
+         that shows the player how close they are to unlocking the next
+         character. Visible only during care, hidden during scenes. */
+      #pp-care-progress {
+        position: fixed; top: 96px; left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(180deg, rgba(36,22,60,0.92), rgba(20,10,38,0.88));
+        border: 1px solid rgba(200,170,240,0.35);
+        border-radius: 14px;
+        padding: 8px 14px;
+        color: #f3ebff; font-size: 11.5px; line-height: 1.35;
+        text-align: center; letter-spacing: 0.3px;
+        z-index: 8400;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+        opacity: 0; pointer-events: none;
+        transition: opacity 320ms ease;
+        max-width: 88vw;
+      }
+      #pp-care-progress.show { opacity: 1; }
+      #pp-care-progress .pp-cp-title {
+        font-weight: 700; color: #ffd8ec; letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      #pp-care-progress .pp-cp-bar {
+        margin-top: 6px; height: 4px; border-radius: 4px;
+        background: rgba(255,255,255,0.10); overflow: hidden;
+      }
+      #pp-care-progress .pp-cp-fill {
+        height: 100%; border-radius: 4px;
+        background: linear-gradient(90deg, #f6a5c0, #e879a2);
+        transition: width 360ms ease;
+      }
+      #pp-care-progress .pp-cp-cycle {
+        margin-top: 5px; font-size: 10.5px; opacity: 0.75;
+      }
+
+      /* "Ready to move on" modal — replaces the easy-to-miss toast. */
+      #pp-ready-overlay {
+        position: fixed; inset: 0; z-index: 9750;
+        background: rgba(8,5,18,0.82);
+        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; pointer-events: none;
+        transition: opacity 280ms ease;
+        padding: 18px;
+      }
+      #pp-ready-overlay.show { opacity: 1; pointer-events: auto; }
+      #pp-ready-card {
+        width: 100%; max-width: 420px;
+        background: linear-gradient(180deg, #1c1235 0%, #0e0820 100%);
+        border: 1px solid rgba(200,170,240,0.45);
+        border-radius: 18px;
+        padding: 24px 22px 20px;
+        color: #ece2f6; text-align: center;
+        box-shadow: 0 18px 44px rgba(0,0,0,0.65), 0 0 26px rgba(180,140,220,0.30) inset;
+        transform: scale(0.94);
+        transition: transform 280ms cubic-bezier(.2,.8,.2,1);
+      }
+      #pp-ready-overlay.show #pp-ready-card { transform: scale(1); }
+      #pp-ready-card .ready-icon { font-size: 32px; margin-bottom: 6px; }
+      #pp-ready-card .ready-title {
+        font-size: 17px; font-weight: 700; letter-spacing: 0.5px;
+        color: #ffd8ec; margin-bottom: 12px;
+      }
+      #pp-ready-card .ready-body {
+        font-size: 13px; line-height: 1.55; color: #d8cfe6;
+        font-style: italic; margin-bottom: 18px;
+      }
+      #pp-ready-card .ready-btns {
+        display: flex; gap: 10px; justify-content: center;
+      }
+      #pp-ready-card .ready-btns button {
+        flex: 1; padding: 11px 14px; border-radius: 12px;
+        font-size: 13.5px; font-weight: 600; cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.18);
+        font-family: inherit;
+      }
+      #pp-ready-card .ready-stay {
+        background: rgba(40,28,68,0.78); color: #d8c8f5;
+      }
+      #pp-ready-card .ready-go {
+        background: linear-gradient(180deg, #f6a5c0, #e879a2);
+        color: #22112a;
+      }
+      #pp-ready-card .ready-btns button:active { transform: translateY(1px); }
+
       #pp-chain-toast {
         position:fixed; left:50%; bottom:120px;
         transform:translateX(-50%) translateY(14px);
@@ -292,6 +384,83 @@
       // Always drop the legacy text-overlay attribute — replaced by popup.
       card.removeAttribute('data-pp-lock-text');
     });
+    refreshCareProgress();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Care progress chip — visible during care, shows the player how close
+  // they are to unlocking the next character. Big visible answer to "I do
+  // not know when affection reaches 25."
+  // ---------------------------------------------------------------------------
+  function ensureCareProgress() {
+    let el = document.getElementById('pp-care-progress');
+    if (el) return el;
+    injectStyles();
+    el = document.createElement('div');
+    el.id = 'pp-care-progress';
+    el.innerHTML =
+      '<div class="pp-cp-title"></div>' +
+      '<div class="pp-cp-aff"></div>' +
+      '<div class="pp-cp-bar"><div class="pp-cp-fill"></div></div>' +
+      '<div class="pp-cp-cycle"></div>';
+    document.body.appendChild(el);
+    return el;
+  }
+  function refreshCareProgress() {
+    const s = step();
+    // Show only during care of a character whose care-gate matters
+    // (i.e., they have a successor in the chain). After step 7, chain is
+    // complete — no progress chip needed.
+    if (s < 1 || s >= 7) {
+      const ex = document.getElementById('pp-care-progress');
+      if (ex) ex.classList.remove('show');
+      return;
+    }
+    // Only show when the care-gating character is currently selected
+    // AND game-container is visible.
+    const gateChar = ORDER[s - 1];           // e.g., 'alistair' when s=1
+    const nextChar = ORDER[s];               // e.g., 'elian'
+    const active = activeChar();
+    if (active !== gateChar) {
+      const ex = document.getElementById('pp-care-progress');
+      if (ex) ex.classList.remove('show');
+      return;
+    }
+    const game = document.getElementById('game-container');
+    const gameVisible = game && !game.classList.contains('hidden') &&
+      window.getComputedStyle(game).display !== 'none';
+    if (!gameVisible) {
+      const ex = document.getElementById('pp-care-progress');
+      if (ex) ex.classList.remove('show');
+      return;
+    }
+    // Hide if any blocking scene/overlay is present
+    const blocker = document.querySelector(
+      '#mscard-root, #ms-encounter-root, #chp-page, #letter-overlay:not(.hidden), ' +
+      '#cinematic-overlay.visible, #event-overlay:not(.hidden), #story-overlay:not(.hidden), ' +
+      '#pp-ready-overlay, #pp-chain-lock-overlay, #pp-onboarding-overlay'
+    );
+    if (blocker) {
+      const ex = document.getElementById('pp-care-progress');
+      if (ex) ex.classList.remove('show');
+      return;
+    }
+
+    const aff = affOf(gateChar);
+    const cap = (s2) => s2.charAt(0).toUpperCase() + s2.slice(1);
+    const pct = Math.min(100, Math.round((aff / 25) * 100));
+    const cycle = getCycleFor(gateChar);
+    const cycleNames = ['feed','clean','talk','train'];
+    const cycleDone = cycleNames.filter(n => cycle[n]).length;
+    const labels = { feed: 'Feed', clean: 'Wash', talk: 'Talk', train: 'Train' };
+    const cycleStr = cycleNames.map(n => (cycle[n] ? '✓ ' : '◯ ') + labels[n]).join('   ');
+
+    const el = ensureCareProgress();
+    el.querySelector('.pp-cp-title').textContent = 'Care for ' + cap(gateChar) + ' to meet ' + cap(nextChar);
+    el.querySelector('.pp-cp-aff').innerHTML = 'Affection <b>' + Math.min(aff, 25) + ' / 25</b>';
+    el.querySelector('.pp-cp-fill').style.width = pct + '%';
+    el.querySelector('.pp-cp-cycle').textContent = cycleStr + '   (' + cycleDone + '/4)';
+    el.classList.add('show');
   }
 
   // ---------------------------------------------------------------------------
@@ -377,9 +546,66 @@
     el.addEventListener('touchstart', close, { once: true, passive: true });
   }
 
+  // ---------------------------------------------------------------------------
+  // "Ready to move on" modal — replaces the old toast. Modal because a toast
+  // is too easy to miss (user reported this exact issue). Modal includes a
+  // big action button that auto-routes the player to the select grid where
+  // the next character is now tappable.
+  // ---------------------------------------------------------------------------
+  function showReadyModal(prevChar, nextChar) {
+    injectStyles();
+    const existing = document.getElementById('pp-ready-overlay');
+    if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+
+    const NEXT = nextChar.charAt(0).toUpperCase() + nextChar.slice(1);
+    const PREV = prevChar.charAt(0).toUpperCase() + prevChar.slice(1);
+    const tagline = (STEPS.find(s => s.char === nextChar) || {}).tagline || '';
+
+    const overlay = document.createElement('div');
+    overlay.id = 'pp-ready-overlay';
+    overlay.innerHTML = '' +
+      '<div id="pp-ready-card">' +
+        '<div class="ready-icon">✨</div>' +
+        '<div class="ready-title">' + NEXT + ' is ready to meet you.</div>' +
+        '<div class="ready-body">' +
+          'You’ve cared for ' + PREV + ' enough that the kingdom notices. ' +
+          (tagline || 'Your path opens to ' + NEXT + ' now.') +
+        '</div>' +
+        '<div class="ready-btns">' +
+          '<button class="ready-stay" type="button">Stay with ' + PREV + '</button>' +
+          '<button class="ready-go" type="button">Take me to ' + NEXT + '</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    // eslint-disable-next-line no-unused-expressions
+    overlay.offsetHeight;
+    overlay.classList.add('show');
+
+    function close() {
+      overlay.classList.remove('show');
+      setTimeout(() => { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 320);
+    }
+    overlay.querySelector('.ready-stay').addEventListener('click', close);
+    overlay.querySelector('.ready-go').addEventListener('click', () => {
+      close();
+      // Auto-route: hide game container, show select-screen so player can
+      // tap the newly-unlocked next character.
+      try {
+        const game = document.getElementById('game-container');
+        const select = document.getElementById('select-screen');
+        if (game) game.classList.add('hidden');
+        if (select) {
+          select.classList.remove('hidden');
+        }
+        // Refresh the grid so the next character's lock state reflects the
+        // new care-ready state.
+        refreshGrid();
+      } catch (_) {}
+    });
+  }
+
   // Re-checked whenever care state changes — fires once per transition when
-  // the previous character's care threshold flips ready, telling the player
-  // they may now meet the next character on the grid.
+  // the previous character's care threshold flips ready.
   let _readyToastShown = false;
   function refreshUnlockReadyToast() {
     if (_readyToastShown) return;
@@ -390,11 +616,8 @@
     if (!prevChar || !nextChar) return;
     if (!careReadyFor(prevChar)) return;
     _readyToastShown = true;
-    toast(
-      '\u2728 You are ready to move on.',
-      capitalize(nextChar) + ' is on the character grid. Tap them to continue your journey.',
-      ''
-    );
+    // Show the prominent modal (with auto-route button) instead of a toast.
+    showReadyModal(prevChar, nextChar);
     refreshGrid();
   }
 
@@ -438,10 +661,13 @@
   function classifyClick(target) {
     if (!target || !target.closest) return null;
     const sels = [
+      // Match BOTH naming conventions: actual game.js uses #btn-feed,
+      // #btn-wash, #btn-talk, #btn-train, #btn-gift. Older code used
+      // #feed-btn etc. Match both so we never miss a care action.
       ['feed',  '.feed-btn, [data-action="feed"], #feed-btn, #btn-feed'],
-      ['clean', '.clean-btn, .wash-btn, [data-action="clean"], #clean-btn, #wash-btn'],
+      ['clean', '.clean-btn, .wash-btn, [data-action="clean"], #clean-btn, #wash-btn, #btn-wash, #btn-clean'],
       ['talk',  '.talk-btn, [data-action="talk"], #talk-btn, #btn-talk, .chat-btn'],
-      ['train', '.train-btn, [data-action="train"], #train-btn, .exercise-btn']
+      ['train', '.train-btn, [data-action="train"], #train-btn, #btn-train, .exercise-btn']
     ];
     for (const [k, sel] of sels) if (target.closest(sel)) return k;
     return null;
