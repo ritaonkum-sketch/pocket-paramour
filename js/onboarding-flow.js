@@ -53,6 +53,26 @@
   function shouldFire() {
     if (lsGet(FLAG_DONE) === '1') return false;
     if (lsGet(FLAG_DEV) === '1') return false;
+    // CRITICAL: this card is "BEFORE YOU PICK" — it must never appear after
+    // the player has already started the prologue. If they have advanced the
+    // chain at all (step >= 1) OR completed any chapter, the moment for this
+    // tour has passed and showing it now feels like an interruption.
+    // Auto-mark complete and bail.
+    try {
+      const step = parseInt(lsGet('pp_chain_step') || '0', 10);
+      if (step >= 1) { lsSet(FLAG_DONE, '1'); return false; }
+    } catch (_) {}
+    try {
+      // Any chapter done (1..8) means the player is past onboarding territory.
+      for (let i = 1; i <= 8; i++) {
+        if (lsGet('pp_chapter_done_' + i) === '1') { lsSet(FLAG_DONE, '1'); return false; }
+      }
+      // Any bridge done means same.
+      const bridges = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
+      for (const b of bridges) {
+        if (lsGet('pp_chapter_done_b_' + b) === '1') { lsSet(FLAG_DONE, '1'); return false; }
+      }
+    } catch (_) {}
     // Don't compete with any active chain transition.
     if (document.body.classList.contains('pp-chain-in-progress')) return false;
     // Don't compete with any open scene/overlay.
