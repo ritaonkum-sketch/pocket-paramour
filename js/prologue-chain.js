@@ -124,12 +124,16 @@
   }
 
   // True when the named character has affection >=25 AND has had at least one
-  // of each care action (feed, clean, talk, train).
+  // of each STARTING care action: feed, clean (wash), talk.
+  // Train and Gift are intentionally excluded — they're locked behind
+  // affection level 1 by button-locks.js, which means the player can't
+  // even tap them until they've already reached the affection threshold.
+  // Requiring them would be a circular gate.
   function careReadyFor(char) {
     if (!char) return false;
     if (affOf(char) < 25) return false;
     const c = getCycleFor(char);
-    return !!(c.feed && c.clean && c.talk && c.train);
+    return !!(c.feed && c.clean && c.talk);
   }
 
   function activeChar() {
@@ -472,16 +476,18 @@
     const cap = (s2) => s2.charAt(0).toUpperCase() + s2.slice(1);
     const pct = Math.min(100, Math.round((aff / 25) * 100));
     const cycle = getCycleFor(gateChar);
-    const cycleNames = ['feed','clean','talk','train'];
+    // Only the 3 starting actions count toward the gate — Train/Gift are
+    // locked until affection level 1 and would be a circular requirement.
+    const cycleNames = ['feed','clean','talk'];
     const cycleDone = cycleNames.filter(n => cycle[n]).length;
-    const labels = { feed: 'Feed', clean: 'Wash', talk: 'Talk', train: 'Train' };
+    const labels = { feed: 'Feed', clean: 'Wash', talk: 'Talk' };
     const cycleStr = cycleNames.map(n => (cycle[n] ? '✓ ' : '◯ ') + labels[n]).join('   ');
 
     const el = ensureCareProgress();
     el.querySelector('.pp-cp-title').textContent = 'Care for ' + cap(gateChar) + ' to meet ' + cap(nextChar);
     el.querySelector('.pp-cp-aff').innerHTML = 'Affection <b>' + Math.min(aff, 25) + ' / 25</b>';
     el.querySelector('.pp-cp-fill').style.width = pct + '%';
-    el.querySelector('.pp-cp-cycle').textContent = cycleStr + '   (' + cycleDone + '/4)';
+    el.querySelector('.pp-cp-cycle').textContent = cycleStr + '   (' + cycleDone + '/3)';
     el.classList.add('show');
   }
 
