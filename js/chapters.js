@@ -1277,18 +1277,26 @@
 
   function refreshOrb() {
     const sel = document.getElementById('select-screen');
-    const onSelect = sel && !sel.classList.contains('hidden');
+    // Use COMPUTED display to detect "actually visible", not just .hidden
+    // class \u2014 chain transitions hide via display:none, not the class.
+    const selCS = sel && window.getComputedStyle ? window.getComputedStyle(sel) : null;
+    const onSelect = sel && !sel.classList.contains('hidden')
+      && (!selCS || (selCS.display !== 'none' && selCS.visibility !== 'hidden'));
+    // Hide orb whenever the game container is up (player is in care, not
+    // browsing) so the floating "Main 4/22" badge doesn't clutter care UI.
+    const game = document.getElementById('game-container');
+    const gameCS = game && window.getComputedStyle ? window.getComputedStyle(game) : null;
+    const inCare = game && !game.classList.contains('hidden')
+      && (!gameCS || (gameCS.display !== 'none' && gameCS.visibility !== 'hidden'));
     const pageOpen = !!document.getElementById(PAGE_ID);
-    const should = isEnabled() && onSelect && !pageOpen;
+    const should = isEnabled() && onSelect && !inCare && !pageOpen;
     const orb = should ? ensureOrb() : document.getElementById(ORB_ID);
     if (!orb) return;
     if (should) {
       orb.classList.add('visible');
-      // Show chapter count "Main \u00b7 3/8"
       const doneCount = CHAPTERS.filter(c => isDone(c.id)).length;
       const total = CHAPTER_COUNT;
       orb.innerHTML = '\u2726 Main <span style="opacity:0.7;font-weight:500;margin-left:4px;">' + doneCount + '/' + total + '</span>';
-      // Pulse if there\u2019s a current chapter not yet complete
       const cur = getCurrent();
       if (cur < CHAPTER_COUNT && !isDone(cur)) orb.classList.add('pulse');
       else orb.classList.remove('pulse');

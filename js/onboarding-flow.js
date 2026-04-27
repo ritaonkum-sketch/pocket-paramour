@@ -53,15 +53,24 @@
   function shouldFire() {
     if (lsGet(FLAG_DONE) === '1') return false;
     if (lsGet(FLAG_DEV) === '1') return false;
-    // Don't compete with any active chain transition (arrival → bridge →
-    // chapter). The chain hides the select-grid via body class but doesn't
-    // add .hidden, which used to fool this check.
+    // Don't compete with any active chain transition.
     if (document.body.classList.contains('pp-chain-in-progress')) return false;
-    // Don't compete with any open MSCard scene (chapter or bridge replay).
+    // Don't compete with any open scene/overlay.
     if (document.querySelector('#mscard-root')) return false;
-    // Don't compete with any open scene root.
     if (document.querySelector('#letter-overlay:not(.hidden)')) return false;
     if (document.querySelector('#ms-encounter-root')) return false;
+    if (document.querySelector('#chp-page')) return false;
+    // CRITICAL: don't fire if the player is already in the care game
+    // (game-container visible). Onboarding is "BEFORE YOU PICK" — once they
+    // have picked a character and started caring, this card is irrelevant
+    // and feels like an interruption.
+    const game = document.getElementById('game-container');
+    if (game && !game.classList.contains('hidden')) {
+      const gcs = window.getComputedStyle ? window.getComputedStyle(game) : null;
+      if (!gcs || (gcs.display !== 'none' && gcs.visibility !== 'hidden')) {
+        return false;
+      }
+    }
     // Only show on the select screen
     const grid = document.getElementById('select-screen');
     if (!grid || grid.classList.contains('hidden')) return false;
