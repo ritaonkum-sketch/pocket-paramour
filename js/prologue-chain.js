@@ -204,12 +204,17 @@
       }
       #pp-chain-lock-card .lock-ok:active { transform:translateY(1px); }
 
-      /* While a chain transition is in flight, hide the select grid and
-         game container so the player doesn't see them flash between
-         scenes (arrival → bridge → chapter has natural fade gaps). */
+      /* While a chain transition is in flight, fully remove the select
+         grid and game container from layout so the player doesn't see
+         them flash between scenes AND so polling modules (onboarding,
+         ambient triggers) can't detect them as "visible". */
       body.pp-chain-in-progress #select-screen,
       body.pp-chain-in-progress #game-container {
-        visibility: hidden !important;
+        display: none !important;
+      }
+      /* Also suppress the onboarding overlay during chain transitions. */
+      body.pp-chain-in-progress #pp-onboarding-overlay {
+        display: none !important;
       }
 
       #pp-chain-toast {

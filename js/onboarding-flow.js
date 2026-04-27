@@ -53,9 +53,21 @@
   function shouldFire() {
     if (lsGet(FLAG_DONE) === '1') return false;
     if (lsGet(FLAG_DEV) === '1') return false;
+    // Don't compete with any active chain transition (arrival → bridge →
+    // chapter). The chain hides the select-grid via body class but doesn't
+    // add .hidden, which used to fool this check.
+    if (document.body.classList.contains('pp-chain-in-progress')) return false;
+    // Don't compete with any open MSCard scene (chapter or bridge replay).
+    if (document.querySelector('#mscard-root')) return false;
+    // Don't compete with any open scene root.
+    if (document.querySelector('#letter-overlay:not(.hidden)')) return false;
+    if (document.querySelector('#ms-encounter-root')) return false;
     // Only show on the select screen
     const grid = document.getElementById('select-screen');
     if (!grid || grid.classList.contains('hidden')) return false;
+    // Verify select-screen is actually visible (not just present in DOM).
+    const cs = window.getComputedStyle ? window.getComputedStyle(grid) : null;
+    if (cs && (cs.visibility === 'hidden' || cs.display === 'none')) return false;
     // Don't compete with the title screen
     const title = document.getElementById('title-screen');
     if (title && !title.classList.contains('hidden')) return false;
@@ -121,6 +133,7 @@
         font-family:inherit; color:#f0e4ff;
       }
       #pp-onboarding-overlay.show { opacity:1; }
+      #pp-onboarding-overlay:not(.show) { pointer-events:none; }
       #pp-onboarding-card {
         max-width:420px; width:100%;
         background:linear-gradient(180deg, rgba(38,24,68,0.95), rgba(20,12,40,0.95));
