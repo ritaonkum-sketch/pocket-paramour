@@ -58,6 +58,7 @@
     if (_playing) return Promise.resolve();
     if (!window.MSCard || !window.PPBridgeCompile) return Promise.resolve();
     _playing = true;
+    if (window.PPChain && window.PPChain.setChainInProgress) window.PPChain.setChainInProgress(true);
     return new Promise((resolve) => {
       const card = {
         id: 'b_caspian',
@@ -83,6 +84,8 @@
       window.PPChain.advance(4);
       if (stepBefore < 4 && typeof window.PPChain.fireChapterFor === 'function') {
         window.PPChain.fireChapterFor(4);
+      } else if (window.PPChain.setChainInProgress) {
+        window.PPChain.setChainInProgress(false);
       }
     }
   }

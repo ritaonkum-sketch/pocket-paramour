@@ -62,6 +62,7 @@
     if (_playing) return Promise.resolve();
     if (!window.MSCard || !window.PPBridgeCompile) return Promise.resolve();
     _playing = true;
+    if (window.PPChain && window.PPChain.setChainInProgress) window.PPChain.setChainInProgress(true);
     return new Promise((resolve) => {
       const card = {
         id: 'b_noir',
@@ -88,6 +89,8 @@
       window.PPChain.advance(6);
       if (stepBefore < 6 && typeof window.PPChain.fireChapterFor === 'function') {
         window.PPChain.fireChapterFor(6);
+      } else if (window.PPChain.setChainInProgress) {
+        window.PPChain.setChainInProgress(false);
       }
     }
   }

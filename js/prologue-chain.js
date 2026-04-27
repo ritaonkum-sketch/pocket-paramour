@@ -204,6 +204,14 @@
       }
       #pp-chain-lock-card .lock-ok:active { transform:translateY(1px); }
 
+      /* While a chain transition is in flight, hide the select grid and
+         game container so the player doesn't see them flash between
+         scenes (arrival → bridge → chapter has natural fade gaps). */
+      body.pp-chain-in-progress #select-screen,
+      body.pp-chain-in-progress #game-container {
+        visibility: hidden !important;
+      }
+
       #pp-chain-toast {
         position:fixed; left:50%; bottom:120px;
         transform:translateX(-50%) translateY(14px);
@@ -282,22 +290,35 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Lock-explanation popup (shown when a locked character card is tapped)
+  // Lock-explanation popup. Used by both the character grid and the chapter
+  // menu when a locked entry is tapped. Pass either a character name (for
+  // the grid case — popup builds title + reason from chain state) OR a
+  // {title, reason} options object (for chapter-menu use).
   // ---------------------------------------------------------------------------
-  function showLockPopup(char) {
+  function showLockPopup(arg) {
     injectStyles();
     const existing = document.getElementById('pp-chain-lock-overlay');
     if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
 
-    const NAME = (char || '').charAt(0).toUpperCase() + (char || '').slice(1);
-    const reason = lockText(char);
+    let title, reason;
+    if (typeof arg === 'string') {
+      // Character grid case: arg is a character id
+      title = arg.charAt(0).toUpperCase() + arg.slice(1);
+      reason = lockText(arg);
+    } else if (arg && typeof arg === 'object') {
+      title = arg.title || 'Locked';
+      reason = arg.reason || '';
+    } else {
+      title = 'Locked';
+      reason = '';
+    }
 
     const overlay = document.createElement('div');
     overlay.id = 'pp-chain-lock-overlay';
     overlay.innerHTML = '' +
       '<div id="pp-chain-lock-card">' +
         '<div class="lock-icon">\u{1F512}</div>' +
-        '<div class="lock-title">' + NAME + '</div>' +
+        '<div class="lock-title">' + title + '</div>' +
         '<div class="lock-body">' + reason + '</div>' +
         '<button class="lock-ok" type="button">OK</button>' +
       '</div>';
@@ -312,6 +333,14 @@
     }
     overlay.querySelector('.lock-ok').addEventListener('click', close);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  }
+
+  // Body-class management for chain transitions. While this class is set,
+  // CSS hides #select-screen and #game-container so the player doesn't see
+  // them flicker between scenes (arrival → bridge → chapter has gaps).
+  function setChainInProgress(on) {
+    if (on) document.body.classList.add('pp-chain-in-progress');
+    else    document.body.classList.remove('pp-chain-in-progress');
   }
 
   // ---------------------------------------------------------------------------
@@ -533,24 +562,34 @@
     cycleFor: getCycleFor,
     recordCare,
     tryArrival,                       // hooked by game.js after world intro
+    setChainInProgress,               // bridges call this to hide select-grid
+    showLockPopup,                    // chapters.js calls for locked rows
     // Bridges call this after they finish so the matching main-story
     // chapter fires automatically — completing the unified flow:
     //   bridge \u2192 chapter \u2192 care \u2192 next bridge.
     fireChapterFor(stepIdx) {
-      // Maps prologue chain step → CHAPTERS array entry id (the OUTER id,
-      // not the inner runCard id). chapters.js plays the chapter via
-      // MSChapters.play(<outer-id>), and the chapter's own play() function
-      // internally calls runEncounter + runCard with the right inner data.
+      // Maps prologue chain step → CHAPTERS array entry id.
       const map = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7 };
       const id = map[stepIdx];
-      if (id == null) return;
+      if (id == null) {
+        setChainInProgress(false);
+        return;
+      }
       // Small breath after the unlock toast so the player isn't slammed.
+      // Pass an onDone callback so the chain-in-progress class clears
+      // when the chapter card finishes (player lands on select grid clean).
       setTimeout(() => {
         try {
           if (window.MSChapters && typeof window.MSChapters.play === 'function') {
-            window.MSChapters.play(id);
+            window.MSChapters.play(id, function chainChapterDone() {
+              setChainInProgress(false);
+            });
+          } else {
+            setChainInProgress(false);
           }
-        } catch (_) {}
+        } catch (_) {
+          setChainInProgress(false);
+        }
       }, 1400);
     },
     toast,

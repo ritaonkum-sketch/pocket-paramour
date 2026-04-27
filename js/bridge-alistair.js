@@ -54,6 +54,7 @@
     if (!window.MSCard || typeof window.MSCard.show !== 'function') return Promise.resolve();
     if (!window.PPBridgeCompile) return Promise.resolve();
     _playing = true;
+    if (window.PPChain && window.PPChain.setChainInProgress) window.PPChain.setChainInProgress(true);
     return new Promise((resolve) => {
       const card = {
         id: 'b_alistair',
@@ -80,7 +81,11 @@
     if (window.PPChain && typeof window.PPChain.advance === 'function') {
       window.PPChain.advance(1);
       if (stepBefore < 1 && typeof window.PPChain.fireChapterFor === 'function') {
+        // Chapter onDone clears chain-in-progress
         window.PPChain.fireChapterFor(1);
+      } else if (window.PPChain.setChainInProgress) {
+        // Replay (no chapter follows) — clear class now.
+        window.PPChain.setChainInProgress(false);
       }
     } else {
       lsSet('pp_chain_step', '1');

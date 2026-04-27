@@ -56,6 +56,7 @@
     if (_playing) return Promise.resolve();
     if (!window.MSCard || !window.PPBridgeCompile) return Promise.resolve();
     _playing = true;
+    if (window.PPChain && window.PPChain.setChainInProgress) window.PPChain.setChainInProgress(true);
     return new Promise((resolve) => {
       const card = {
         id: 'b_lucien',
@@ -81,6 +82,8 @@
       window.PPChain.advance(5);
       if (stepBefore < 5 && typeof window.PPChain.fireChapterFor === 'function') {
         window.PPChain.fireChapterFor(5);
+      } else if (window.PPChain.setChainInProgress) {
+        window.PPChain.setChainInProgress(false);
       }
     }
   }

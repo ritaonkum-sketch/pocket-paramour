@@ -1162,11 +1162,24 @@
     return CHAPTERS.every(c => isDone(c.id));
   }
 
-  function playChapter(id) {
+  function playChapter(id, onDone) {
     const ch = chapterById(id);
     if (!ch || typeof ch.play !== 'function') return;
     closePage();
-    try { ch.play(() => { refreshOrb(); openPageSoftly(); }); } catch (_) {}
+    try {
+      ch.play(() => {
+        if (typeof onDone === 'function') {
+          // External caller (e.g. PPChain.fireChapterFor) controls what
+          // happens after the chapter — typically: clear chain-in-progress
+          // and let the player land on the select grid.
+          try { onDone(); } catch (_) {}
+        } else {
+          // Manual-replay path from the chapter menu — restore the menu.
+          refreshOrb();
+          openPageSoftly();
+        }
+      });
+    } catch (_) {}
   }
 
   // ---------------------------------------------------------------
@@ -1341,6 +1354,13 @@
     list.className = 'chp-list';
     const cur = getCurrent();
     const curIdx = indexOfId(cur);
+    // Maps each bridge entry id \u2192 the previous-character that must have
+    // care-ready (affection 25 + full cycle) before the bridge unlocks.
+    const BRIDGE_CARE_GATE = {
+      b_elian: 'alistair', b_lyra: 'elian', b_caspian: 'lyra',
+      b_lucien: 'caspian', b_noir: 'lucien', b_proto: 'noir'
+    };
+
     CHAPTERS.forEach((ch, idx) => {
       const row = document.createElement('div');
       const done = isDone(ch.id);
@@ -1349,7 +1369,22 @@
       // are NEVER locked (the player has already played them, so Replay must
       // always be available regardless of where the current pointer sits).
       const lockedByGate = curIdx >= 0 ? idx > curIdx : ch.id > cur;
-      const locked = lockedByGate && !done;
+
+      // Additional care-gate for bridge entries. Even if the chapter
+      // pointer says a bridge is "current", it stays locked until the
+      // PREVIOUS character's care is done. This is the same gate used
+      // on the character-select grid \u2014 kept consistent so the chapter
+      // menu doesn't allow a back-door past the tutorial.
+      let lockedByCare = false;
+      let careGateChar = null;
+      if (typeof ch.id === 'string' && BRIDGE_CARE_GATE[ch.id]) {
+        careGateChar = BRIDGE_CARE_GATE[ch.id];
+        if (window.PPChain && window.PPChain.careReadyFor &&
+            !window.PPChain.careReadyFor(careGateChar)) {
+          lockedByCare = true;
+        }
+      }
+      const locked = (lockedByGate || lockedByCare) && !done;
       row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '');
 
       const thumb = document.createElement('div');
@@ -1365,23 +1400,38 @@
       }
       row.appendChild(thumb);
 
+      // Lock reason text (used for inline label AND popup body)
+      let lockReason = 'Complete the previous chapter first.';
+      if (lockedByCare && careGateChar) {
+        const NAME = careGateChar.charAt(0).toUpperCase() + careGateChar.slice(1);
+        lockReason = 'Care for ' + NAME + ' first \u2014 reach affection 25 and complete one full care cycle (feed, clean, talk, train).';
+      }
+
       const text = document.createElement('div');
       text.className = 'chp-text';
-      // For done chapters, always show real subtitle + teaser even if they
-      // would be locked-by-gate. For not-done locked chapters, show the
-      // "complete previous chapter first" hint.
       text.innerHTML =
         `<div class="c1">${ch.title}${done ? ' \u00b7 \u2713' : ''}</div>` +
         `<div class="c2">${locked ? '\u2014 locked \u2014' : ch.subtitle}</div>` +
-        `<div class="c3">${locked ? 'Complete the previous chapter first.' : (ch.teaser || '')}</div>`;
+        `<div class="c3">${locked ? lockReason : (ch.teaser || '')}</div>`;
       row.appendChild(text);
 
       const btn = document.createElement('button');
       btn.className = 'chp-play';
-      btn.textContent = done ? 'Replay' : (isCurrent ? 'Begin' : 'Locked');
-      btn.disabled = locked;  // Note: done chapters were unlocked above, so
-                              // Replay buttons are always enabled.
-      btn.addEventListener('click', (e) => { e.stopPropagation(); playChapter(ch.id); });
+      btn.textContent = done ? 'Replay' : ((isCurrent && !locked) ? 'Begin' : 'Locked');
+      // Tappable even when locked \u2014 opens a warning popup explaining why.
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (locked) {
+          if (window.PPChain && window.PPChain.showLockPopup) {
+            window.PPChain.showLockPopup({
+              title: ch.title + (ch.subtitle ? ' \u2014 ' + ch.subtitle : ''),
+              reason: lockReason
+            });
+          }
+          return;
+        }
+        playChapter(ch.id);
+      });
       row.appendChild(btn);
 
       list.appendChild(row);

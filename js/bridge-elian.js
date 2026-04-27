@@ -58,6 +58,7 @@
     if (_playing) return Promise.resolve();
     if (!window.MSCard || !window.PPBridgeCompile) return Promise.resolve();
     _playing = true;
+    if (window.PPChain && window.PPChain.setChainInProgress) window.PPChain.setChainInProgress(true);
     return new Promise((resolve) => {
       const card = {
         id: 'b_elian',
@@ -84,6 +85,8 @@
       window.PPChain.advance(2);
       if (stepBefore < 2 && typeof window.PPChain.fireChapterFor === 'function') {
         window.PPChain.fireChapterFor(2);
+      } else if (window.PPChain.setChainInProgress) {
+        window.PPChain.setChainInProgress(false);
       }
     }
   }

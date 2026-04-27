@@ -111,6 +111,11 @@
       return Promise.resolve();
     }
     _playing = true;
+    // Hide the select grid / game container behind us. Cleared by the chapter
+    // onDone (or by bridge.finish if this is a replay).
+    if (window.PPChain && window.PPChain.setChainInProgress) {
+      window.PPChain.setChainInProgress(true);
+    }
     return new Promise((resolve) => {
       _resolveDone = resolve;
       const card = {
@@ -148,7 +153,14 @@
         ? window.PPChain.step() : 0;
       if (stepNow === 0 && window.PPBridgeAlistair &&
           typeof window.PPBridgeAlistair.play === 'function') {
+        // Bridge will keep the chain-in-progress class set; chapter clears it.
         window.PPBridgeAlistair.play();
+      } else {
+        // Replay path — no bridge follows. Clear the class so the player
+        // sees their game/select again.
+        if (window.PPChain && window.PPChain.setChainInProgress) {
+          window.PPChain.setChainInProgress(false);
+        }
       }
       if (_resolveDone) { _resolveDone(); _resolveDone = null; }
     }, 400);

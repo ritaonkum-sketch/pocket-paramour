@@ -52,6 +52,7 @@
     if (_playing) return Promise.resolve();
     if (!window.MSCard || !window.PPBridgeCompile) return Promise.resolve();
     _playing = true;
+    if (window.PPChain && window.PPChain.setChainInProgress) window.PPChain.setChainInProgress(true);
     return new Promise((resolve) => {
       const card = {
         id: 'b_lyra',
@@ -77,6 +78,8 @@
       window.PPChain.advance(3);
       if (stepBefore < 3 && typeof window.PPChain.fireChapterFor === 'function') {
         window.PPChain.fireChapterFor(3);
+      } else if (window.PPChain.setChainInProgress) {
+        window.PPChain.setChainInProgress(false);
       }
     }
   }
