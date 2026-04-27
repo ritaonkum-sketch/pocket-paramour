@@ -472,6 +472,15 @@
       return;
     }
 
+    // Gate already cleared? Hide the chip — it's no longer useful and just
+    // adds visual noise. The player has done what they needed; let them
+    // enjoy the care loop without a stale "do this!" reminder.
+    if (careReadyFor(gateChar)) {
+      const ex = document.getElementById('pp-care-progress');
+      if (ex) ex.classList.remove('show');
+      return;
+    }
+
     const aff = affOf(gateChar);
     const cap = (s2) => s2.charAt(0).toUpperCase() + s2.slice(1);
     const pct = Math.min(100, Math.round((aff / 25) * 100));
