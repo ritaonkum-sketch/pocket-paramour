@@ -74,10 +74,32 @@
   function routeOn()   { return lsGet(ROUTE_FLAG) === '1'; }
 
   function affOf(char) {
+    // PRIMARY: live in-memory value from the game instance, when the
+    // queried char matches the currently selected character. game.js
+    // tracks affection on `this.affection` and only persists it inside
+    // a JSON save blob, never as a standalone pp_affection_<char> key —
+    // so reading localStorage alone returns 0 even at affection 100.
+    try {
+      const g = window._game;
+      if (g && (g.selectedCharacter === char) && typeof g.affection === 'number') {
+        return Math.max(0, Math.min(100, g.affection));
+      }
+    } catch (_) {}
+    // FALLBACK 1: explicit pp_affection_<char> key (used by chain code)
     const v = lsGet('pp_affection_' + char);
     if (v != null) return parseInt(v, 10) || 0;
+    // FALLBACK 2: legacy <char>_affection key
     const v2 = lsGet(char + '_affection');
-    return v2 != null ? (parseInt(v2, 10) || 0) : 0;
+    if (v2 != null) return parseInt(v2, 10) || 0;
+    // FALLBACK 3: parse the JSON save blob if game.js wrote one
+    try {
+      const blob = lsGet('pocket_love_save_' + char);
+      if (blob) {
+        const o = JSON.parse(blob);
+        if (o && typeof o.affection === 'number') return o.affection;
+      }
+    } catch (_) {}
+    return 0;
   }
 
   // Per-character care-cycle store: pp_chain_<char>_cycle = JSON {feed,clean,talk,train}
@@ -767,8 +789,15 @@
     document.addEventListener('click', onSelectCardClick, true);
     document.addEventListener('click', onCareClick, true);
     document.addEventListener('touchend', onCareClick, true);
-    // Re-check grid periodically (the select-screen DOM may render after boot)
-    setInterval(refreshGrid, 4000);
+    // Re-check grid + care progress periodically. Care progress reads live
+    // game.affection — needs to refresh in real time, not every 4s, or the
+    // player won't see their bar fill in response to taps. 1s is responsive
+    // without being expensive.
+    setInterval(refreshGrid, 1000);
+    // Also poll the unlock-ready check in case affection crosses 25
+    // through a non-care-tap path (scenes, gifts, idle effects). Without
+    // this, the modal would only fire when the player taps a care button.
+    setInterval(refreshUnlockReadyToast, 1500);
     // NO arrival auto-trigger here. game.js calls PPChain.tryArrival()
     // explicitly after the world intro finishes.
   }
