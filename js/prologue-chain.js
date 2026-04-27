@@ -616,18 +616,25 @@
     overlay.querySelector('.ready-stay').addEventListener('click', close);
     overlay.querySelector('.ready-go').addEventListener('click', () => {
       close();
-      // Auto-route: hide game container, show select-screen so player can
-      // tap the newly-unlocked next character.
+      // Auto-route to the Main Story page so the player sees the chapter
+      // list with the next bridge as "Begin". Hide game, prep select
+      // grid as the backdrop so closing the chapter page lands them
+      // somewhere usable.
       try {
         const game = document.getElementById('game-container');
         const select = document.getElementById('select-screen');
         if (game) game.classList.add('hidden');
-        if (select) {
-          select.classList.remove('hidden');
-        }
-        // Refresh the grid so the next character's lock state reflects the
-        // new care-ready state.
+        if (select) select.classList.remove('hidden');
         refreshGrid();
+        // Open the chapter page after a tiny breath — the player just
+        // tapped a button, give the modal-close animation a moment.
+        setTimeout(() => {
+          try {
+            if (window.MSChapters && typeof window.MSChapters.open === 'function') {
+              window.MSChapters.open();
+            }
+          } catch (_) {}
+        }, 360);
       } catch (_) {}
     });
   }
