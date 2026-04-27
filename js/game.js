@@ -1892,7 +1892,11 @@ class PocketLoveGame {
 
         this.clean = Math.min(100, this.clean + 25);
         this.bond = Math.max(0, this.bond - 3);
-        this.affection = Math.max(0, this.affection - 1);
+        // Wash is affection-neutral: bond drops a little (a wash is a small
+        // chore, not a romantic moment) but romance score does NOT drop.
+        // Previously this was -1 affection, which actively penalised the
+        // player for using one of the 3 starting care actions — and made
+        // it harder to reach the affection 25 gate. UX bug, fixed.
 
         this.timesWashed++;
         this.dayInteractions++;
