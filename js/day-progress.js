@@ -99,8 +99,9 @@
         lastDay = day;
         lastChar = charId;
 
-        // Dots: past = filled, current = active (pulsing), future = empty
-        const dots = strip.querySelectorAll('.day-dot');
+        // Dots may have been relocated into #topbar-day-dots-wrap by relocateDots().
+        // Query document-wide so we find them wherever they ended up.
+        const dots = document.querySelectorAll('#topbar-day-dots-wrap .day-dot, #day-progress .day-dot');
         dots.forEach((dot) => {
             const d = parseInt(dot.getAttribute('data-day'), 10);
             dot.classList.remove('past', 'active', 'future');
@@ -110,7 +111,7 @@
         });
         // Day 8+ lights the final dot as active (story past the dot row)
         if (day >= 8) {
-            const last = strip.querySelector('.day-dot[data-day="7"]');
+            const last = document.querySelector('#topbar-day-dots-wrap .day-dot[data-day="7"], #day-progress .day-dot[data-day="7"]');
             if (last) { last.classList.remove('future', 'past'); last.classList.add('active'); }
         }
 
@@ -119,7 +120,7 @@
         if (dayLabel) dayLabel.textContent = 'Day ' + (day >= 8 ? '7+' : day);
 
         // Hint: fade out, swap text, fade in
-        const hint = strip.querySelector('.day-hint');
+        const hint = document.querySelector('#topbar-day-dots-wrap .day-hint, #day-progress .day-hint');
         if (hint) {
             const newText = getHint(charId, day);
             if (hint.textContent !== newText) {

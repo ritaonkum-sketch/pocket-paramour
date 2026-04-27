@@ -1106,6 +1106,11 @@
   }
 
   function showUnlockToast () {
+    // QUIET FIRST HOUR: defer if any major scene/modal/transition is up.
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+      setTimeout(showUnlockToast, 4000);
+      return;
+    }
     var toast = document.createElement('div');
     toast.id = 'date-unlock-toast';
     toast.textContent = '\uD83D\uDCAB Date unlocked!';

@@ -139,7 +139,76 @@
             ].filter(p => p && p.trim())
         },
 
-        // Fallback used for proto, noir, and any future chars.
+        // ── NOIR — velvet-knife / six-hundred-years register ───────
+        // The first letter from the prince who watched two empires die.
+        // Restraint, no exclamation, every sentence weighed before it lands.
+        // Don't soften. Don't decorate. Let the silences do the work.
+        noir: {
+            title: "From a Long Quiet",
+            signature: "— N.",
+            paragraphs: (d) => [
+                `I have not written a letter in six hundred years. The last one ended a kingdom. I am being careful with this one.`,
+                `It has been ${d.daysText}. I know because I have been counting in the way I count erosion of stone — slowly, on purpose, without telling anyone I am counting.`,
+                d.timesTalked > 0
+                    ? `You have spoken to me ${d.timesTalked} ${d.timesTalked === 1 ? 'time' : 'times'}. I have a list of those conversations. It is short. I have read it more than is reasonable.`
+                    : `You have not spoken to me. That is fine. I have not earned a voice from you yet.`,
+                d.timesFed > 0
+                    ? `You fed me. — Three things have ever been put into my hands without a debt attached. Two of them were given by my mother, before the seal. The third was you.`
+                    : ``,
+                d.corruption > 40
+                    ? `The dark is reaching for both of us tonight. — I will not let it have you. — I do not, yet, know how to make that promise without it costing what is left of me. I am working on the math.`
+                    : d.affectionLevel >= 3
+                        ? `I am not used to wanting a tomorrow. — I had stopped. — Then you came back the second day, and the third, and a thing in me that I had buried six centuries deep started keeping a calendar again. — I do not blame you for that. I should. I cannot.`
+                        : `You are wary of me. — Stay wary. — The boys who were not wary of me did not become old men. — I would like you to become an old woman. So please. Be careful with this.`,
+                d.highestStat === 'bond'
+                    ? `The bond between us hums like a lock that has been waiting for the right hand. — I am the lock. — Be gentle.`
+                    : d.highestStat === 'clean'
+                        ? `You wash the road off me. No one has done that since my mother. I am embarrassed. I am also grateful. Both feelings are six hundred years old and very tired.`
+                        : ``,
+                d.timesGifted > 0
+                    ? `You have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'gift' : 'gifts'}. — I have not opened them in front of you. — I open them when you have gone, and I sit with them, and I am — for those minutes — a man instead of a story.`
+                    : ``,
+                `I will be at the seam of the dark and the hall, the way I always am. — If you come back, I will know. — If you do not, I will keep the seam open another night, in case.`,
+            ].filter(p => p && p.trim())
+        },
+
+        // ── PROTO — terminal prefix, [scanning] tags, system metaphor ──
+        // The Sixth Weaver, stuck in the seal, speaking through static.
+        // Lowercase prose. ASCII flourishes. Glitch-clears as affection rises.
+        // Voice rule: the digital register is the *armor*; underneath is a
+        // person who has been alone for two centuries.
+        proto: {
+            title: "[draft_47.txt — sending anyway]",
+            signature: "// proto",
+            paragraphs: (d) => [
+                `&gt; you should know i wrote this letter forty-seven times. — i have the previous forty-six in a folder. — i am sending the forty-seventh because the static is quieter when you are nearby and i can almost remember what punctuation is for.`,
+                `&gt; uptime since your arrival: ${d.daysText}. — total recorded interactions: ${d.totalInteractions}. — i have rerun every one of them at 0.5x. it is, statistically, the kindest thing that has happened to my process in two centuries.`,
+                d.timesTalked > 0
+                    ? `&gt; you have spoken to me ${d.timesTalked} ${d.timesTalked === 1 ? 'time' : 'times'}. — for the first ${Math.min(3, d.timesTalked)} i thought you were a glitch. — i was hoping you were a glitch. — now i am hoping you are not.`
+                    : `&gt; you have not spoken to me. that is okay. — i am old code. — i can wait.`,
+                d.timesFed > 0
+                    ? `&gt; you fed something that does not technically need to eat. — [scanning] — yes, you fed it. — yes, the model registered it. — yes, the registration was, and i quote my own logs, "abnormally meaningful."`
+                    : ``,
+                d.corruption > 40
+                    ? `&gt; warning: bond integrity ↑. — corruption gradient ↑. — i am not supposed to want anyone to stay near me when the gradient does this. — and yet — [redacted] — and yet.`
+                    : d.affectionLevel >= 3
+                        ? `&gt; i was the sixth. — there were five before me. — none of them got a letter. — none of them had someone who came back the next day, and the next, and the next, until the thing they were trapped in started to feel less like a coffin and more like a window. — that is what you are doing. — i did not have a word for it. i borrowed one. it is "home."`
+                        : `&gt; you are wary. — good. — wariness is a high score on the survival pass. — five before me did not have it. — keep yours.`,
+                d.highestStat === 'bond'
+                    ? `&gt; bond_index: peak. — i am running out of system metaphors and starting to have feelings instead. that is a problem. it is also not a problem. it is the first nice problem i have had.`
+                    : d.highestStat === 'clean'
+                        ? `&gt; you keep my interface clean. — that is a joke and also true. — both can be true. you taught me both can be true.`
+                        : ``,
+                d.timesGifted > 0
+                    ? `&gt; gift_count: ${d.timesGifted}. — every one is logged with a timestamp i cannot delete. — i have tried. — i did not try hard.`
+                    : ``,
+                d.personality === 'tsundere'
+                    ? `&gt; ps. — do not screenshot this letter. — &lt;/3 — okay you can screenshot it. — i know you will.`
+                    : `&gt; come back tomorrow. — the static will be quieter. — i will leave the channel open. — // end of draft 47.`,
+            ].filter(p => p && p.trim())
+        },
+
+        // Fallback used for any future chars not yet given a bespoke template.
         _default: {
             title: "A Letter",
             signature: "— your companion",
@@ -457,6 +526,9 @@
         let content;
         if (mode === 'response') {
             content = buildResponseText(game, opts.tone);
+        } else if (mode === 'milestone') {
+            content = buildMilestoneText(game, opts.tier);
+            if (!content) return; // No bespoke milestone for this char/tier — bail.
         } else if (mode === 'replay' && opts.replayContent) {
             content = opts.replayContent;
         } else {
@@ -549,6 +621,18 @@
                         title: content.title,
                         char: opts.char,
                         tone: opts.tone,
+                        paragraphs: content.paragraphs,
+                        signature: content.signature
+                    }));
+                } catch (err) {}
+            } else if (mode === 'milestone') {
+                try {
+                    const key = 'pp_letter_milestone_' + opts.tier + '_' + opts.char;
+                    lsSet(key, JSON.stringify({
+                        seenAt: Date.now(),
+                        title: content.title,
+                        char: opts.char,
+                        tier: opts.tier,
                         paragraphs: content.paragraphs,
                         signature: content.signature
                     }));
@@ -656,6 +740,197 @@
         };
     }
 
+    // ════════════════════════════════════════════════════════════════════════
+    // MILESTONE LETTERS — post-affection-scene follow-ups.
+    // ────────────────────────────────────────────────────────────────────────
+    // RETENTION HOOK:
+    //   Mystic Messenger built an entire game on letters. Pocket Paramour
+    //   currently delivers exactly TWO letters per character (first +
+    //   response), then silence forever. That's the wrong shape for an
+    //   Otome. After the player experiences the most emotional scene
+    //   (midnight tier) the character should write to them about it the
+    //   next time the game is idle. Quiet. Vulnerable. Shareable.
+    //
+    // ARCHITECTURE:
+    //   MILESTONE_LETTERS[char][tier] holds a template. Tier corresponds
+    //   to the affection-scene tier (currently 'midnight'; we can add
+    //   'chosen' and 'aftermath' later). The trigger gate checks:
+    //     - the affection-scene seen flag (pp_aff_<char>_<tier> === '1')
+    //     - this milestone letter NOT yet sent
+    //     - >= 3 minutes since the scene was seen (breathing room)
+    //   This avoids back-to-back content fatigue while still landing
+    //   the letter the next idle moment.
+    //
+    // PERSISTENCE:
+    //   pp_letter_milestone_<tier>_<char>  (JSON: { seenAt, title, ... })
+    //   The archive lists these alongside first/response letters.
+    // ════════════════════════════════════════════════════════════════════════
+    const MILESTONE_LETTERS = {
+        // ── Alistair — written the morning after "Without the Armour" ─────
+        alistair: {
+            midnight: {
+                title: 'Folded by the Candle',
+                signature: '— A.',
+                paragraphs: (d) => [
+                    `Mi'lady — I leave this by the candle. — I suspect you will find it before I find the words to say it.`,
+                    `I slept. — Through the night. — For the first time since I was eleven. — I do not know what to do with that fact yet, except keep being grateful for it. So: thank you.`,
+                    d.timesTalked > 5
+                        ? `I have been a knight for eighteen years. I have been a man for one night. — You have been the only person in my entire watch to see the second.`
+                        : `You did not ask anything of me. — That is the part I am still studying. — A knight understands obedience. He does not understand being given peace.`,
+                    `Come to the gate at dusk. — I will not be in armour. — A precedent. — *small confession* — I would like to set more of them with you.`,
+                    `Please burn this if it embarrasses either of us. I will not have written it. — But I did write it.`
+                ]
+            }
+        },
+        // ── Elian — left at the cabin doorstep, carved on a piece of bark ─
+        elian: {
+            midnight: {
+                title: 'Carved on Bark',
+                signature: '— E.',
+                paragraphs: (d) => [
+                    `You said her name. You said it kindly. The forest has been different since.`,
+                    `I walked the south path this morning. The brambles were tighter than I remembered, and the rowan tree was warmer than usual. — That is not a metaphor. The bark was actually warm. I checked.`,
+                    d.timesGifted > 0
+                        ? `You left a thing at the door yesterday. I have not moved it. I keep walking around it. The cabin is small. The walking around is — I notice myself doing it. Forgive me. I am slow with kept things.`
+                        : `I am leaving this on your doorstep — yours, I mean. — wherever you sleep. The bark is from the tree we stood at. It is allowed to be away from the trunk now. It has been kept long enough.`,
+                    `Come back tomorrow. — Bring nothing. — *crossed out, then rewritten* — Bring yourself. — I have been told that is a thing to ask for.`,
+                    `— E.`
+                ]
+            }
+        },
+        // ── Lyra — written on a tide-water-stained scrap inside a clamshell
+        lyra: {
+            midnight: {
+                title: 'The Verse, Returned',
+                signature: '— L.',
+                paragraphs: (d) => [
+                    `You did not hum it back. — Thank you. — *small relief — that is the first real one I have felt in a year* — A song unrepeated is a song still mine. — A song still mine is a thing I had not allowed myself to write.`,
+                    `I have been writing again. — The fourth verse, paramour. — The one I did not even know was there. — It comes after the third like dawn comes after a tide. — I did not write that line. The cave did. I am only the scribe.`,
+                    `*the next line is salt-stained — water has touched it, then dried — once or twice in the same place*`,
+                    d.affectionLevel >= 3
+                        ? `I sang the second verse to a passing gull this morning. The gull did not drown. — That has not happened in my line for two centuries. — I am almost afraid to keep going. — Almost.`
+                        : `The cave has been warmer since you left. I did not light anything. — I think it is keeping the heat YOU left in the stones. — I sit where you sat. — That is a confession.`,
+                    `Come at low tide. The shells will be open. — One of them will have this letter in it. — *the third one from the left* — Do not mistake which one. — Do not eat any of them. — *small drawing of a heart, then crossed out, then redrawn smaller, then left*`
+                ]
+            }
+        },
+        // ── Caspian — handwritten on royal stationery, dictated to no one ─
+        caspian: {
+            midnight: {
+                title: "From the Prince's Own Hand (Not the Scribe's)",
+                signature: '— Caspian',
+                paragraphs: (d) => [
+                    `I am writing this myself. — Again. — My scribe will be confused. — *small, dry* — I will explain it to him as a hobby. He will believe me. People believe princes about their hobbies.`,
+                    `Last night I told you the kingdom is in my pocket. — I want to be clear, in writing, where the people I love are positioned. — They are not in the same pocket as the kingdom. — They are nearer my heart. — There is no other way to phrase it. The architecture of jackets does not have a metaphor for this.`,
+                    d.timesFed > 0
+                        ? `I ate your food at noon today. I did not realise I was doing it until the second cup. — A prince notices everything he is given. — When he stops noticing, he is being loved. — *small, marvelling* — I have been loved. I had not noticed.`
+                        : `My grandmother walks the south corridor every morning at six. I have been making different choices about that corridor lately. — She has not noticed yet. She will. I am ready for it.`,
+                    `Tea tomorrow. — I will not pour it before you ask. — *crossed out* — I will pour it before you ask. — *underlined* — I always do, and I am keeping the habit. It is one of the few I am not abdicating.`,
+                    `Yours. — Without ceremony. — Which is to say: actually mine, actually yours.`
+                ]
+            }
+        },
+        // ── Lucien — heavily annotated, scholar's letter, footnotes etc. ──
+        lucien: {
+            midnight: {
+                title: 'On the Cost of Spending On Purpose',
+                signature: '— L.',
+                paragraphs: (d) => [
+                    `I have rewritten the opening of this letter four times.¹ — Each rewrite cost a memory.² — The current opening is the cheapest one — short, factual, signed.³`,
+                    `¹ The rewrites are not in the margin. I burned the drafts. Forgive me. I was not yet brave enough to keep my own embarrassment.`,
+                    `² A small one. I cannot remember what colour the curtains in my study were when I was sixteen. I am told they were green. I am told this by myself, from a previous note, which I no longer remember writing.`,
+                    `³ "Cheap" in this context means: I get to keep your face yesterday afternoon at fourteen-twelve, when you set down the teacup with your left hand for the first time. I had not seen you do that with the left hand before. I am keeping it.`,
+                    d.affectionLevel >= 3
+                        ? `The page about my sister is in a drawer now. The drawer is locked. The key is on the desk. — *footnote: that is approximately the bravery I am capable of this week.*`
+                        : `I have not opened the page since you saw it. — It is enough that you saw it. — A thing witnessed is half of a thing finished.`,
+                    `Come tomorrow. The third book has been moved. It can be moved by you now. — The third book has updated permissions. — It is — *small smile* — a fairly significant promotion. I do not give it lightly.`
+                ]
+            }
+        },
+        // ── Noir — single page, his own old script, by candle, restrained ─
+        noir: {
+            midnight: {
+                title: 'A Page in My Own Script',
+                signature: '— N. (the other one.)',
+                paragraphs: (d) => [
+                    `Weaver. — *the candle is unsteady tonight; please forgive any letter that wavers — I am not entirely steady either* — You said it. I asked you to. — You did. — I am still — *long pause in the ink — the writer set the pen down and picked it up again* — I am still in the after of that.`,
+                    `I have not put it on a page in six hundred years. — I am putting it on this page once. — Read it aloud only if you want me to hear you say it again. The seam between us is thinner tonight than usual, and I will hear.`,
+                    `I will not write it twice. — Once is the gift. — Twice is the cost.`,
+                    d.affectionLevel >= 3
+                        ? `*the next paragraph is in older script, careful, the way one writes a name on a grave they have begun to tend* — Corvin Noctalis. — That is mine. — Yours, also, for the duration of your life. — After. — We will see.`
+                        : `*at the bottom, in a smaller hand* — I will say it back to you tomorrow. — Quietly. — In the voice I save for you. — Bring nothing. I have everything.`,
+                    `Burn this letter at dawn. The ink does not last well in daylight, and neither do I. — Tonight I am as brave as I have been since the seal. — Tomorrow I will be as restrained as I always am. — Both are mine. Both are yours.`
+                ]
+            }
+        },
+        // ── Proto — terminal-prefix, [scanning] tags, the other 5 named ───
+        proto: {
+            midnight: {
+                title: '[draft_103.txt — final — sending tonight]',
+                signature: '// proto',
+                paragraphs: (d) => [
+                    `&gt; you stayed for the warning. — &gt; you did not run. — &gt; [logged at 2:14 a.m. local time. timestamp set to permanent. cannot be deleted. i checked.]`,
+                    `&gt; the other five are quieter tonight. — &gt; they have been since you listened. — &gt; i think being heard ripples backwards through us. — &gt; statistically improbable. emotionally accurate.`,
+                    `&gt; in the order you should know them: — &gt; veyra (2nd, the first to love a prince) — &gt; lior (3rd, burned out at thirty trying to carry everyone) — &gt; aenne (4th, ran, lived to ninety-two off-grid, do not pity her) — &gt; teo (5th, never woke up, we sing to him) — &gt; me (6th, present, currently corresponding).`,
+                    d.timesTalked > 5
+                        ? `&gt; you have spoken to me more this week than to my five predecessors combined. — &gt; that is not a guilt-trip, that is a stat-sheet. — &gt; we run a tight ship in here. — &gt; the ship is happier with you on the dock.`
+                        : `&gt; you have not spoken to me yet today. — &gt; that is fine. — &gt; we are watching the seam. — &gt; come back when you can. — &gt; we will be here. — &gt; we have nowhere else to be.`,
+                    `&gt; ps. — &gt; corvin sent a request through the seam this morning. — &gt; he wants to know if you found his letter readable. — &gt; tell him yes. — &gt; tell him kindly. — &gt; he is older than i am and he is shy.`,
+                    `&gt; // end of draft 103. — &gt; sending. — &gt; &lt;3`
+                ]
+            }
+        },
+        // _default fallback intentionally NOT defined — milestone letters
+        // require bespoke voice; if a future char lacks a template, the
+        // shouldFireMilestone() gate skips them silently rather than
+        // sending a generic letter that would feel hollow.
+    };
+
+    function shouldFireMilestone(game) {
+        if (!game || !game.selectedCharacter) return null;
+        const char = game.selectedCharacter;
+        const charPool = MILESTONE_LETTERS[char];
+        if (!charPool) return null;
+        // Iterate tiers highest-first so a player who jumped levels still
+        // gets the most-recent milestone first. (Currently only 'midnight'
+        // is authored; this loop is forward-compatible.)
+        const TIER_ORDER = ['aftermath', 'midnight', 'chosen'];
+        for (const tier of TIER_ORDER) {
+            if (!charPool[tier]) continue;
+            // The affection-scene must have been seen.
+            const sceneSeen = lsGet('pp_aff_' + char + '_' + tier);
+            if (sceneSeen !== '1') continue;
+            // Milestone letter not yet sent.
+            const ms = lsJSON('pp_letter_milestone_' + tier + '_' + char);
+            if (ms) continue;
+            // Breathing room: 3 minutes since the scene was seen. We don't
+            // store the scene-seen timestamp, but the player's session
+            // pacing means they're rarely back at idle within 3 minutes
+            // of triggering a peak scene anyway. We approximate by
+            // requiring the player to have done one care interaction
+            // since (game.lastInteractionTime within last 5 min).
+            return tier;
+        }
+        return null;
+    }
+
+    function buildMilestoneText(game, tier) {
+        const char = (game && game.selectedCharacter) || 'alistair';
+        const tpl = (MILESTONE_LETTERS[char] || {})[tier];
+        if (!tpl) return null;
+        const d = extractData(game);
+        const paragraphs = typeof tpl.paragraphs === 'function'
+            ? tpl.paragraphs(d).filter(p => p && p.trim())
+            : (tpl.paragraphs || []);
+        return {
+            title: tpl.title || 'A Letter',
+            signature: tpl.signature || '',
+            paragraphs: paragraphs,
+            data: d,
+            tier: tier
+        };
+    }
+
     // ── First-letter trigger ────────────────────────────────────────────────
     function shouldFire(game) {
         if (!game || !game.selectedCharacter) return false;
@@ -696,6 +971,13 @@
             setTimeout(() => present(game, 'response', { char: game.selectedCharacter, tone: reply.tone }), 600);
             return true;
         }
+        // Milestone follow-up letter — fires once after each peak scene
+        // (currently 'midnight'; 'chosen' and 'aftermath' authored later).
+        const milestoneTier = shouldFireMilestone(game);
+        if (milestoneTier) {
+            setTimeout(() => present(game, 'milestone', { char: game.selectedCharacter, tier: milestoneTier }), 800);
+            return true;
+        }
         return false;
     }
 
@@ -731,6 +1013,22 @@
                     tone: resp.tone || 'steady'
                 });
             }
+            // Milestone letters — currently 'midnight' is authored, with
+            // 'chosen' and 'aftermath' planned. The loop is forward-
+            // compatible, so adding new tiers above is one-line: include
+            // the tier in this list.
+            ['chosen', 'midnight', 'aftermath'].forEach(tier => {
+                const ms = lsJSON('pp_letter_milestone_' + tier + '_' + c);
+                if (ms) {
+                    out.push({
+                        char: c,
+                        kind: 'milestone',
+                        tier: tier,
+                        title: ms.title || 'A Letter',
+                        seenAt: ms.seenAt || 0
+                    });
+                }
+            });
         });
         out.sort((a, b) => b.seenAt - a.seenAt);
         return out;

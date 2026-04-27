@@ -788,9 +788,49 @@ class GallerySystem {
         if (!overlay) return;
 
         this.checkUnlocks();
+        // Default the active tab to whoever the player is currently caring for.
+        if (!this._activeTab) {
+            this._activeTab = this.game.selectedCharacter || 'all';
+        }
+        this.renderTabs();
         this.renderCards();
         overlay.classList.remove('hidden');
         this.newCards.clear(); // Mark all as seen
+    }
+
+    // Per-character tab strip — owner request: per-character pages + See All.
+    cardsForChar(charId) {
+        const prefixes = [charId, charId.substring(0, 3), charId.substring(0, 4)];
+        return GALLERY_CARDS.filter(c => prefixes.some(p => c.id.startsWith(p)));
+    }
+
+    renderTabs() {
+        const tabs = document.getElementById('gallery-tabs');
+        if (!tabs) return;
+        const CHARS = [
+            { id: 'all',      label: 'All' },
+            { id: 'alistair', label: 'Alistair' },
+            { id: 'elian',    label: 'Elian' },
+            { id: 'lyra',     label: 'Lyra' },
+            { id: 'caspian',  label: 'Caspian' },
+            { id: 'lucien',   label: 'Lucien' },
+            { id: 'noir',     label: 'Noir' },
+            { id: 'proto',    label: 'Proto' }
+        ];
+        tabs.innerHTML = '';
+        CHARS.forEach(c => {
+            const btn = document.createElement('button');
+            btn.className = 'gallery-tab' + (this._activeTab === c.id ? ' active' : '');
+            const cards = c.id === 'all' ? GALLERY_CARDS : this.cardsForChar(c.id);
+            const unlocked = cards.filter(card => this.unlockedCards.has(card.id)).length;
+            btn.innerHTML = '<span class="gtl">' + c.label + '</span><span class="gtc">' + unlocked + '/' + cards.length + '</span>';
+            btn.addEventListener('click', () => {
+                this._activeTab = c.id;
+                this.renderTabs();
+                this.renderCards();
+            });
+            tabs.appendChild(btn);
+        });
     }
 
     close() {
@@ -802,20 +842,37 @@ class GallerySystem {
         const grid = document.getElementById('gallery-grid');
         if (!grid) return;
 
-        // Update counter — show per-character breakdown
+        // Pick the card list for the active tab. 'all' shows everything.
+        const tab = this._activeTab || 'all';
+        const filteredCards = tab === 'all' ? GALLERY_CARDS : this.cardsForChar(tab);
+
+        // Counter reflects the active tab. On the All tab we just show the
+        // grand total. On a per-character tab we show "<Name>: X/Y" without
+        // duplicating the total \u2014 the tabs strip already shows X/Y per char.
         const counter = document.getElementById('gallery-counter');
         if (counter) {
-            const charId = this.game.selectedCharacter || 'alistair';
-            const prefix = charId.charAt(0).toUpperCase() + charId.slice(1);
-            // Count cards for current character
-            const charCards = GALLERY_CARDS.filter(c => c.id.startsWith(charId) || c.id.startsWith(charId.substring(0,3)));
-            const charUnlocked = charCards.filter(c => this.unlockedCards.has(c.id)).length;
-            counter.textContent = `${prefix}: ${charUnlocked}/${charCards.length} \u2022 Total: ${this.unlockedCards.size}/${GALLERY_CARDS.length}`;
+            const charUnlocked = filteredCards.filter(c => this.unlockedCards.has(c.id)).length;
+            if (tab === 'all') {
+                counter.textContent = this.unlockedCards.size + ' / ' + GALLERY_CARDS.length;
+            } else {
+                const prefix = tab.charAt(0).toUpperCase() + tab.slice(1);
+                counter.textContent = prefix + ': ' + charUnlocked + ' / ' + filteredCards.length;
+            }
         }
 
         grid.innerHTML = '';
 
-        GALLERY_CARDS.forEach(card => {
+        // Empty-state hint when a character tab has zero cards (shouldn't happen
+        // with the seed data but we render gracefully if it ever does).
+        if (!filteredCards.length) {
+            const empty = document.createElement('div');
+            empty.style.cssText = 'grid-column:1/-1;text-align:center;color:rgba(255,255,255,0.5);padding:32px 16px;font-style:italic;';
+            empty.textContent = 'No cards yet for this character — keep playing.';
+            grid.appendChild(empty);
+            return;
+        }
+
+        filteredCards.forEach(card => {
             const isUnlocked = this.unlockedCards.has(card.id);
             const isNew = this.newCards.has(card.id);
 

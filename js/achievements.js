@@ -619,6 +619,13 @@ class AchievementSystem {
 
     // Show popup notification
     showNotification(ach) {
+        // QUIET FIRST HOUR: don't pop achievement notifications during a
+        // chain transition, scene, or modal — they look like spam there.
+        // Defer; the achievement is already unlocked & saved.
+        if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+            setTimeout(() => { try { this.showNotification(ach); } catch (_) {} }, 4000);
+            return;
+        }
         const popup = document.createElement('div');
         popup.className = 'achievement-popup';
         popup.innerHTML = `

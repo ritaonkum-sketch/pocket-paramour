@@ -143,6 +143,9 @@
     }
 
     function showToast(msg) {
+        // QUIET FIRST HOUR: don't surprise the player with a drift toast
+        // while they're in a cinematic, modal, or chain transition.
+        if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
         injectToastStyles();
         // Avoid stacking — if one exists, drop it.
         const prev = document.getElementById('ad-toast');

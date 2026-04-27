@@ -154,6 +154,10 @@
     if (!routeEnabled()) return;
     if (!noirMet()) return; // pre-Ch6: silent
     if (_showing) return;
+    // QUIET FIRST HOUR: defer if any major overlay/scene/transition is up.
+    // This catches blockers sceneActive() doesn't (chain in progress,
+    // ready modal, lock popup, mst-confirm, letter overlay).
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
     if (sceneActive()) return;
     if (ambientBusy()) return;
     if (inCooldown()) return;

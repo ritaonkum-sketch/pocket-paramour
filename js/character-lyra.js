@@ -1,6 +1,17 @@
 // Lyra - The Half-Human Half-Siren
 // Character data for Pocket Paramour
 //
+// ════════════════════════════════════════════════════════════════════════════
+//  ▸ THIS IS THE LYRA EDITING FILE.
+//  ▸ For idle / feed / wash / affection-rising / ocean-themed gift dialogue,
+//    EDIT THE CHARACTER_LYRA OBJECT BELOW. The merge patch at the bottom
+//    of this file injects those pools into CHARACTER_LYRA_FULL (which lives
+//    in character.js) at runtime. Do NOT duplicate these fields in
+//    character.js — the patch overwrites whatever's there.
+//  ▸ For sprites / poses / outfits / state-dialogue / story-events / endings,
+//    EDIT character.js (CHARACTER_LYRA_FULL). See the SSOT header there.
+// ════════════════════════════════════════════════════════════════════════════
+//
 // ============================================================================
 // VOICE DIRECTION FOR CHARACTER_LYRA (and any future writer / VO):
 //
@@ -511,28 +522,53 @@ const CHARACTER_LYRA = {
     }
 };
 
-// ── Patch: merge CHARACTER_LYRA rich data into CHARACTER_LYRA_FULL ────────
-// CHARACTER_LYRA_FULL (in character.js) is what the game actually uses.
-// CHARACTER_LYRA (above) has richer dialogue that was never wired up.
-// This patch runs after both files load and fills the gaps.
-if (typeof CHARACTER_LYRA_FULL !== 'undefined') {
+// ════════════════════════════════════════════════════════════════════════════
+// ▸ MERGE PATCH — Runs at load time to wire CHARACTER_LYRA's rich dialogue
+//   pools into CHARACTER_LYRA_FULL (the active object selectCharacter
+//   points to). Without this, the game would use the thinner LYRA_FULL
+//   stubs in character.js instead.
+//
+// EDIT-HERE RULES:
+//   - Want to change idle / feed / wash / affection-rising lines?
+//     Edit them in CHARACTER_LYRA above. They land here automatically.
+//   - Want to add a new ocean-themed gift reaction? Add the key to
+//     CHARACTER_LYRA.giftDialogue above. It only lands if LYRA_FULL
+//     does not already define that key (LYRA_FULL wins on collisions
+//     — this is intentional so the main file can override per-key).
+//
+// SAFETY:
+//   - Defensive console warning if CHARACTER_LYRA_FULL hasn't loaded —
+//     this catches script-order bugs early instead of silently
+//     producing a Lyra with stub dialogue.
+//   - The patch is idempotent. Hot-reloading this file twice produces
+//     the same final state.
+// ════════════════════════════════════════════════════════════════════════════
+(function applyLyraMergePatch() {
+    if (typeof CHARACTER_LYRA_FULL === 'undefined') {
+        console.warn(
+            '[character-lyra.js] CHARACTER_LYRA_FULL is not defined when this ' +
+            'patch ran. Lyra will load with the stub dialogue from character.js. ' +
+            'Check <script> order in index.html — character.js must load BEFORE ' +
+            'character-lyra.js.'
+        );
+        return;
+    }
 
-    // Ocean-specific gift reactions (extend the standard gift reactions)
+    // Ocean-specific gift reactions — additive only. LYRA_FULL keys win
+    // so the main file can override on a per-gift basis.
     CHARACTER_LYRA_FULL.giftDialogue = CHARACTER_LYRA_FULL.giftDialogue || {};
-    const _lyraGifts = CHARACTER_LYRA.giftDialogue;
+    const _lyraGifts = CHARACTER_LYRA.giftDialogue || {};
     for (const key in _lyraGifts) {
         if (!CHARACTER_LYRA_FULL.giftDialogue[key]) {
             CHARACTER_LYRA_FULL.giftDialogue[key] = _lyraGifts[key];
         }
     }
 
-    // Rich idle dialogue pools
-    CHARACTER_LYRA_FULL.idleDialogue = CHARACTER_LYRA.idleDialogue;
-
-    // Feed & wash dialogue
-    CHARACTER_LYRA_FULL.feedDialogue = CHARACTER_LYRA.feedDialogue;
-    CHARACTER_LYRA_FULL.washDialogue = CHARACTER_LYRA.washDialogue;
-
-    // Affection-rising dialogue
+    // Rich idle / feed / wash / affection-rising pools — REPLACE whatever
+    // LYRA_FULL had (which is now intentionally empty per the SSOT note
+    // in character.js). The wrapper is the canonical source for these.
+    CHARACTER_LYRA_FULL.idleDialogue      = CHARACTER_LYRA.idleDialogue;
+    CHARACTER_LYRA_FULL.feedDialogue      = CHARACTER_LYRA.feedDialogue;
+    CHARACTER_LYRA_FULL.washDialogue      = CHARACTER_LYRA.washDialogue;
     CHARACTER_LYRA_FULL.affectionDialogue = CHARACTER_LYRA.affectionDialogue;
-}
+})();

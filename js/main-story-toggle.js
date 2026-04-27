@@ -35,10 +35,14 @@
   }
 
   // ---------------------------------------------------------------
-  // 1) Auto-enable for first-ever boot
+  // 1) Auto-enable for ALL players. Main Story is now the canonical
+  //    Pocket Paramour experience — the prologue chain, bridges, and
+  //    chapters ARE the game. We no longer ask. The Settings panel
+  //    keeps a toggle for anyone who wants the bare Tamagotchi loop,
+  //    but the default is "on" for everyone, every boot.
   function autoEnableIfFresh() {
-    if (decided()) return;
-    if (hasAnySave()) return;  // returning players go through the chip
+    if (decided() && on()) return;       // already on by deliberate choice
+    if (decided() && !on()) return;      // user previously turned it off — respect that
     setOn(true);
     markDecided();
   }
@@ -212,7 +216,15 @@
     });
     row.appendChild(btn);
 
-    // Insert near the top of settings-content so it's easy to find
+    // Prefer the dedicated Story section if the new grouped settings layout
+    // is present. Falls back to top-of-panel for older builds.
+    const storySection = document.getElementById('settings-section-story');
+    if (storySection) {
+      // Strip default outer margin since the section already has padding.
+      row.style.cssText += ';margin:0;background:rgba(0,0,0,0)';
+      storySection.appendChild(row);
+      return;
+    }
     const first = panel.firstElementChild;
     if (first) panel.insertBefore(row, first); else panel.appendChild(row);
   }
@@ -225,65 +237,17 @@
   }
 
   // ---------------------------------------------------------------
-  // 3) First-time chip for returning players (has saves, hasn't decided yet)
-  function maybeShowFirstTimeChip() {
-    if (decided()) return;
-    if (!hasAnySave()) return;  // fresh players already auto-enabled
-
-    const title = document.getElementById('title-screen');
-    if (!title || title.classList.contains('hidden')) return;
-
-    if (document.getElementById('mst-first-chip')) return;
-
-    const chip = document.createElement('div');
-    chip.id = 'mst-first-chip';
-    chip.style.cssText = [
-      'position:fixed', 'left:50%', 'bottom:5%', 'transform:translateX(-50%) translateY(10px)',
-      'width:min(92%, 340px)', 'background:rgba(14,8,24,0.94)', 'color:#f4e6ff',
-      'padding:14px 18px', 'border-radius:18px',
-      'box-shadow:0 8px 30px rgba(0,0,0,0.55)', 'backdrop-filter:blur(6px)',
-      'z-index:10050', 'opacity:0', 'transition:opacity 400ms ease, transform 400ms ease',
-      'display:flex', 'flex-direction:column', 'gap:12px', 'align-items:stretch',
-      'text-align:center', 'font-size:13px', 'line-height:1.4'
-    ].join(';');
-
-    const intro = document.createElement('div');
-    intro.innerHTML = '<div style="font-weight:600;letter-spacing:1px;margin-bottom:2px;">\u2726 NEW \u2014 MAIN STORY ROUTE</div>'
-                    + '<div style="opacity:0.75;font-style:italic;">Meet each character first. Daily purpose. Real endings.</div>';
-    chip.appendChild(intro);
-
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;gap:10px;justify-content:stretch;';
-    const mk = (text, primary, onClick) => {
-      const b = document.createElement('button');
-      b.textContent = text;
-      b.style.cssText = [
-        'flex:1', 'padding:12px 16px', 'border-radius:16px', 'border:0',
-        'font-size:14px', 'font-weight:700', 'cursor:pointer', 'white-space:nowrap', 'font-family:inherit',
-        primary
-          ? 'background:linear-gradient(180deg,#f6a5c0,#e879a2);color:#22112a;box-shadow:0 4px 10px rgba(232,121,162,0.35);'
-          : 'background:rgba(255,255,255,0.08);color:#f4e6ff;'
-      ].join(';');
-      b.addEventListener('click', onClick);
-      return b;
-    };
-    const accept = mk('Try Main Story', true, () => { setOn(true); markDecided(); location.reload(); });
-    const decline = mk('Classic', false, () => { setOn(false); markDecided(); hideChip(); });
-    row.appendChild(accept);
-    row.appendChild(decline);
-    chip.appendChild(row);
-
-    document.body.appendChild(chip);
-    requestAnimationFrame(() => {
-      chip.style.opacity = '1';
-      chip.style.transform = 'translateX(-50%) translateY(0)';
-    });
-
-    function hideChip() {
-      chip.style.opacity = '0';
-      chip.style.transform = 'translateX(-50%) translateY(10px)';
-      setTimeout(() => { try { chip.remove(); } catch (_) {} }, 420);
-    }
+  // 3) First-time chip \u2014 REMOVED.
+  //    The "\u2726 NEW \u2014 MAIN STORY ROUTE / Try Main Story / Classic" popup
+  //    used to ask returning players whether to opt in. Owner decision:
+  //    Main Story is the game now \u2014 never ask. Anyone who wants Classic
+  //    can flip the toggle in Settings. Any leftover chip in the DOM
+  //    from a stale cached page is also scrubbed below.
+  function purgeAnyStaleChip() {
+    try {
+      const stale = document.getElementById('mst-first-chip');
+      if (stale && stale.parentNode) stale.parentNode.removeChild(stale);
+    } catch (_) {}
   }
 
   // ---------------------------------------------------------------
@@ -294,8 +258,10 @@
   function boot() {
     try {
       watchSettings();
-      // Defer chip a moment so the title-screen fade-in settles
-      setTimeout(maybeShowFirstTimeChip, 1200);
+      // Scrub any lingering chip element from a previous (cached) build.
+      purgeAnyStaleChip();
+      setTimeout(purgeAnyStaleChip, 600);
+      setTimeout(purgeAnyStaleChip, 1500);
     } catch (e) {
       console.warn('[main-story-toggle] disabled due to error:', e);
     }

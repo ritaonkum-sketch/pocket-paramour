@@ -506,6 +506,24 @@
     if (!isEnabled()) return;
     if (_playing) return;
 
+    // CRITICAL GATE: route endings must NEVER fire while the player is still
+    // in the prologue chain. The prologue's care-loop pushes affection past
+    // the ending threshold (≥85) on side characters as a side-effect of
+    // teaching the care mechanic — if we fire endings then, the player
+    // sees a "ROUTE ENDING — Caspian — Honey on the Table" while they are
+    // mid-Noir-care, which is jarring and feels broken.
+    //
+    // Endings only become available AFTER pp_chain_complete = '1' is set
+    // (Chapter 8 finale "Court at the Gate" finished). Before that, the
+    // game is still onboarding — no endings yet.
+    try { if (lsGet('pp_chain_complete') !== '1') return; } catch (_) { return; }
+
+    // Also block while a chain transition or any cinematic scene is mid-flight,
+    // so we never overlap a bridge / chapter / interlude with an ending card.
+    if (document.body.classList.contains('pp-chain-in-progress')) return;
+    if (document.querySelector('#mscard-root')) return;
+    if (document.querySelector('#ms-encounter-root')) return;
+
     const unseen = CHARS
       .filter(c => !epilogueSeen(c))
       .map(c => ({ c, aff: affectionOf(c), key: routeEndingKey(c) }))

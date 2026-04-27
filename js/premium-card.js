@@ -402,8 +402,113 @@
             break;
           }
           case 'hide': {
+            n.root.style.pointerEvents = 'none';
             n.root.style.opacity = '0';
             await wait(560);
+            break;
+          }
+          case 'choice': {
+            // Renders a centered choice card with N tappable options.
+            // Beat shape:
+            //   { type: 'choice',
+            //     prompt: 'What do you tell him?',
+            //     options: [ { id: 'keep', text: '...' }, ... ],
+            //     onChoose: (id) => { ... }   // called with the picked id
+            //   }
+            //
+            // The Phase 2 "Other Page" Lucien chapter is the first place
+            // this beat type is used in-line in the chain. Earlier chapters
+            // captured choices in their bridges/encounters; bringing the
+            // choice into a chapter beat itself lets us keep all the
+            // narrative weight (and the localStorage hook) inside one
+            // authored block.
+            const opts = Array.isArray(beat.options) ? beat.options : [];
+            if (!opts.length) break;
+            // Hide the dialogue line briefly so the choice card has the stage.
+            const prevDialogueOpacity = n.dialogue.style.opacity;
+            n.dialogue.style.transition = 'opacity 280ms ease';
+            n.dialogue.style.opacity = '0.25';
+
+            const choiceWrap = document.createElement('div');
+            choiceWrap.id = 'mscard-choice';
+            choiceWrap.style.cssText = [
+              'position:absolute', 'left:6%', 'right:6%', 'top:50%',
+              'transform:translateY(-50%)',
+              'display:flex', 'flex-direction:column', 'gap:10px',
+              'padding:18px 18px 16px',
+              'background:rgba(10,6,22,0.94)',
+              'border:1px solid rgba(200,170,240,0.30)',
+              'border-radius:18px',
+              'box-shadow:0 12px 40px rgba(0,0,0,0.65), 0 0 22px rgba(180,140,220,0.18) inset',
+              'backdrop-filter:blur(8px)',
+              'opacity:0', 'transition:opacity 360ms ease, transform 360ms ease',
+              'transform:translateY(-50%) scale(0.96)',
+              'z-index:5'
+            ].join(';');
+
+            if (beat.prompt) {
+              const promptEl = document.createElement('div');
+              promptEl.style.cssText = [
+                'font-size:11px', 'letter-spacing:2px',
+                'color:rgba(244,230,255,0.7)', 'text-align:center',
+                'margin-bottom:6px', 'text-transform:uppercase'
+              ].join(';');
+              promptEl.textContent = beat.prompt;
+              choiceWrap.appendChild(promptEl);
+            }
+
+            const pickedId = await new Promise((resolve) => {
+              opts.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.style.cssText = [
+                  'padding:13px 16px',
+                  'background:linear-gradient(180deg, rgba(50,32,80,0.95), rgba(34,22,60,0.95))',
+                  'border:1px solid rgba(200,170,240,0.32)',
+                  'color:#f4e6ff', 'font-family:inherit',
+                  'font-size:14px', 'line-height:1.45',
+                  'border-radius:14px', 'cursor:pointer',
+                  'text-align:left',
+                  'transition:background 0.18s, border-color 0.18s, transform 0.12s'
+                ].join(';');
+                btn.textContent = opt.text;
+                btn.addEventListener('mouseenter', () => {
+                  btn.style.background = 'linear-gradient(180deg, rgba(80,52,130,0.95), rgba(60,38,100,0.95))';
+                  btn.style.borderColor = 'rgba(220,190,255,0.5)';
+                });
+                btn.addEventListener('mouseleave', () => {
+                  btn.style.background = 'linear-gradient(180deg, rgba(50,32,80,0.95), rgba(34,22,60,0.95))';
+                  btn.style.borderColor = 'rgba(200,170,240,0.32)';
+                });
+                btn.addEventListener('click', (e) => {
+                  if (e && e.stopPropagation) e.stopPropagation();
+                  resolve(opt.id);
+                });
+                btn.addEventListener('touchstart', (e) => {
+                  if (e && e.stopPropagation) e.stopPropagation();
+                }, { passive: true });
+                choiceWrap.appendChild(btn);
+              });
+              n.root.appendChild(choiceWrap);
+              // eslint-disable-next-line no-unused-expressions
+              choiceWrap.offsetHeight;
+              choiceWrap.style.opacity = '1';
+              choiceWrap.style.transform = 'translateY(-50%) scale(1)';
+            });
+
+            // Fade out the choice card cleanly.
+            choiceWrap.style.opacity = '0';
+            choiceWrap.style.transform = 'translateY(-50%) scale(0.96)';
+            await wait(360);
+            try { choiceWrap.remove(); } catch (_) {}
+
+            // Restore dialogue layer for any subsequent beats.
+            n.dialogue.style.opacity = prevDialogueOpacity || '1';
+
+            // Fire the onChoose hook with the selected id. Wrapped in
+            // try/catch so a faulty hook doesn't kill the card.
+            if (typeof beat.onChoose === 'function') {
+              try { beat.onChoose(pickedId); } catch (e) { console.warn('[mscard] onChoose threw:', e); }
+            }
             break;
           }
           default:
@@ -412,6 +517,7 @@
       }
       // Ensure we fade out even if the card didn't include a 'hide' beat
       if (n.root.style.opacity !== '0') {
+        n.root.style.pointerEvents = 'none';
         n.root.style.opacity = '0';
         await wait(560);
       }

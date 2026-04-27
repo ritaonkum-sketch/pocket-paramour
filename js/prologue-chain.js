@@ -345,12 +345,12 @@
         color:#f3ebff; font-size:14px; line-height:1.45;
         text-align:center;
         box-shadow:0 12px 36px rgba(0,0,0,0.7), 0 0 22px rgba(180,140,230,0.30) inset;
-        opacity:0; pointer-events:auto;
+        opacity:0; pointer-events:none;
         z-index:9700;
         cursor:pointer; user-select:none;
         transition:opacity 480ms ease, transform 480ms ease;
       }
-      #pp-chain-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+      #pp-chain-toast.show { opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
       #pp-chain-toast .pp-chain-toast-title {
         font-weight:700; letter-spacing:0.5px; color:#ffd8ec;
         margin-bottom:6px; font-size:13px;
@@ -650,16 +650,32 @@
 
   // Re-checked whenever care state changes — fires once per transition when
   // the previous character's care threshold flips ready.
-  let _readyToastShown = false;
+  //
+  // BUGFIX: previously used a single `_readyToastShown` boolean that got
+  // stuck `true` if the modal was dismissed (Stay button) or wiped by a
+  // racing overlay during a chain transition. That broke the Noir→Proto
+  // hand-off in playtest. We now track which step last received a fired
+  // modal AND scrub the marker against the live DOM so a wiped overlay
+  // can re-fire on the same step.
+  let _lastReadyModalStep = -1;
   function refreshUnlockReadyToast() {
-    if (_readyToastShown) return;
     const s = step();
     if (s < 1 || s >= 7) return;
+    // Already showing the modal? Nothing to do.
+    if (document.getElementById('pp-ready-overlay')) return;
+    // Already shown for THIS step? Don't pester the player again — they
+    // either took the route or chose to stay. Step changes will reset this.
+    if (_lastReadyModalStep === s) return;
     const prevChar = ORDER[s - 1];
     const nextChar = ORDER[s];
     if (!prevChar || !nextChar) return;
     if (!careReadyFor(prevChar)) return;
-    _readyToastShown = true;
+    // Don't compete with any active chain transition or open scene/overlay.
+    if (document.body.classList.contains('pp-chain-in-progress')) return;
+    if (document.querySelector('#mscard-root')) return;
+    if (document.querySelector('#ms-encounter-root')) return;
+    if (document.querySelector('#letter-overlay:not(.hidden)')) return;
+    _lastReadyModalStep = s;
     // Show the prominent modal (with auto-route button) instead of a toast.
     showReadyModal(prevChar, nextChar);
     refreshGrid();
@@ -672,8 +688,8 @@
     const target = (toStep | 0);
     if (target <= step()) { refreshGrid(); return; }
     setStepRaw(target);
-    // Allow the next ready-to-move-on toast to fire after the next care threshold
-    _readyToastShown = false;
+    // Allow the next ready-to-move-on modal to fire after the next care threshold
+    _lastReadyModalStep = -1;
     refreshGrid();
     // Sync the chapter-menu pointer so bridges show as completed and the
     // matching numbered chapter becomes "current" in the chapter list.

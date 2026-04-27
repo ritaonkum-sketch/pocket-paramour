@@ -428,6 +428,8 @@
   function tick() {
     if (!routeEnabled()) return;
     if (_showing) return;
+    // QUIET FIRST HOUR: umbrella gate.
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
     if (sceneActive()) return;
     if (ambientBusy()) return;
     if (inCooldown()) return;

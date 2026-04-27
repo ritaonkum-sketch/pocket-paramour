@@ -590,6 +590,187 @@
     },
 
     // ---------------------------------------------------------------
+    // CHAPTER 15 \u2014 THE OTHER PAGE  (Lucien, solo, deep)
+    // ---------------------------------------------------------------
+    // PURPOSE (informed by the Phase 1 audit):
+    //   Lucien trailed the original three on chapter coverage \u2014 only 2
+    //   dedicated chapters despite a 838-line character file and 4
+    //   crossovers. His "page he hid" reveal lived ONLY inside the
+    //   midnight affection-scene tier. That made it feel like an Easter
+    //   egg, not a story beat. This chapter lifts it into the Main Story
+    //   chain so every player who reaches Lucien's care threshold sees
+    //   it, and so Lyra \u00d7 Lucien (which depends on the audience knowing
+    //   he has a sister) has narrative weight when it fires.
+    //
+    // PLACEMENT IN ARC:
+    //   - Chapter 5 ("The Tower Opens") plants the seed: "there is also
+    //     a page about a sister I was told was dead. That page is
+    //     separate. Do not ask tonight."
+    //   - This chapter is the player coming back THE NEXT NIGHT and
+    //     asking. Lucien shows the page. Reveals the family register,
+    //     the caged siren mother, the warm crib in the west tower he
+    //     remembers from when he was seven. Hands the page to the
+    //     Weaver and lets the Weaver choose: burn it (the bloodline
+    //     keeps its lie, the father never knows) or keep it (and find
+    //     her). The choice writes pp_ms_lucien_sister_choice for use
+    //     by the Lyra \u00d7 Lucien crossover and the route endings.
+    //   - Interlude 11 ("The Tower Mirror") follows: that's the
+    //     scorched-page reveal with Caspian about Nocthera/Veyra.
+    //     This chapter has to come BEFORE that one because the player
+    //     needs to already know Lucien has been hiding pages.
+    //
+    // VOICE NOTES:
+    //   Lucien is exhausted at the open \u2014 he just lost a memory to cast
+    //   the spell that surfaced this page. He recovers as he talks.
+    //   Equations as armor. Footnotes. Underneath: a child who slept
+    //   next to a warm crib once and was told he imagined it.
+    //
+    // MECHANICAL HOOKS:
+    //   - localStorage 'pp_ms_lucien_sister_choice' = 'keep' | 'burn'
+    //   - localStorage 'pp_lucien_sister_revealed' = '1'
+    //     (read by lucien-lyra crossover so the sister-recognition beat
+    //     has weight; if this chapter never fires, that crossover
+    //     still works but does heavier lifting cold)
+    //   - Memory-spell counter: bumps a 'pp_lucien_memories_lost'
+    //     integer for use in his ending logic.
+    // ---------------------------------------------------------------
+    {
+      id: 15,
+      title: 'INTERLUDE',
+      subtitle: 'The Other Page',
+      teaser: 'You came back. He hoped you would. He has not been hoping for things in a long time.',
+      charId: 'lucien',
+      play: async function (onDone) {
+        // Beat 1 \u2014 Lucien is wrecked. He just lost a memory to surface this.
+        await runCard({
+          id: 'chp_15_a',
+          title: 'INTERLUDE',
+          subtitle: 'The Other Page \u2014 the Cost',
+          speaker: 'LUCIEN',
+          palette: { bg: '#060410', glow: '#b5a3ea', accent: '#eae0ff' },
+          bg: 'assets/bg-lucien-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 800 },
+            { type: 'line', text: 'You came back. \u2014 I was hoping you would. \u2014 I have not been hoping for things in a long time. The verb felt rusty.', hold: 3000, cps: 26 },
+            { type: 'line', text: '*sets down a glass of water with both hands \u2014 they are shaking, just slightly* \u2014 Forgive me. \u2014 I cast the spell that pulled the page up an hour ago. \u2014 The cost was a summer. \u2014 I lost the summer I was twelve. \u2014 I do not remember swimming that year. \u2014 I am told I did.', hold: 4400, cps: 22 },
+            { type: 'pose', src: 'assets/lucien/body/casting.png', animate: 'swap' },
+            { type: 'line', text: 'I would have lost more. \u2014 I told the spell to take whatever it wanted, only \u2014 *quiet* \u2014 only not the months you have been here. \u2014 It listened.', hold: 3600, cps: 22 },
+            { type: 'line', text: 'You asked, last night, if you could ask tonight. \u2014 I said yes. \u2014 So. \u2014 *exhales* \u2014 Ask.', hold: 3000, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 2 \u2014 The page itself. The family register. A second name.
+        await runCard({
+          id: 'chp_15_b',
+          title: 'INTERLUDE',
+          subtitle: 'The Other Page \u2014 A Second Name',
+          speaker: 'LUCIEN',
+          palette: { bg: '#080614', glow: '#c2afff', accent: '#f0e8ff' },
+          bg: 'assets/bg-lucien-study.png',
+          beats: [
+            { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
+            { type: 'line', text: 'This is the page. \u2014 It is from my father\u2019s family register. \u2014 The bound copy he keeps in his locked drawer. \u2014 I have been making my own from memory for thirty years. \u2014 Mine is incomplete. \u2014 His is a lie.', hold: 4200, cps: 22 },
+            { type: 'line', text: 'My father had two children. \u2014 I am the legitimate one. \u2014 There was a second. \u2014 Born to a siren he caught in the cove south of the cliff road. \u2014 He kept her in the west tower. \u2014 I think he loved her. \u2014 I think she loved him for as long as she had to. \u2014 He thought that was the same thing.', hold: 5200, cps: 22 },
+            { type: 'pose', src: 'assets/lucien/body/casting.png', animate: 'swap' },
+            { type: 'line', text: 'When she died, he kept their child. \u2014 A girl. \u2014 Half siren. \u2014 Quiet. \u2014 Warm. \u2014 *softer* \u2014 There was a crib in the west tower when I was seven. \u2014 I remember the crib was warm. \u2014 I was told I imagined it. \u2014 *taps the page* \u2014 I did not.', hold: 5400, cps: 20 },
+            { type: 'line', text: 'She escaped at fifteen. \u2014 The register says she died of fever the same week. \u2014 That is the lie. \u2014 Sirens do not die of fever. \u2014 She walked into the sea. \u2014 Her name was struck from the household roll the day after. \u2014 I have a sister. \u2014 *first time he has said it aloud* \u2014 I have a sister.', hold: 6000, cps: 20 },
+            { type: 'flourish', text: '\u2726', duration: 1800 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 3 \u2014 The Weaver's choice.
+        // Two paths:
+        //   KEEP \u2014 stand by the page, find her. Writes 'keep'.
+        //   BURN \u2014 the bloodline holds its lie, the father never knows.
+        //          Writes 'burn'. (Note: the lyra-lucien crossover still
+        //          fires; this just changes Lucien's emotional starting
+        //          point in his ending.)
+        await runCard({
+          id: 'chp_15_c',
+          title: 'INTERLUDE',
+          subtitle: 'The Other Page \u2014 Yours to Decide',
+          speaker: 'LUCIEN',
+          palette: { bg: '#0a0518', glow: '#d0bfff', accent: '#f4ecff' },
+          bg: 'assets/bg-lucien-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
+            { type: 'line', text: '*slides the page across the desk, ink-stained hands flat against the paper* \u2014 I cannot decide this one. \u2014 The maths refuse. \u2014 Every model I run on it returns the same error. \u2014 Variable: heart. \u2014 Type: undefined.', hold: 4400, cps: 22 },
+            { type: 'line', text: 'So I am asking the Weaver. \u2014 *eyes up, finally meeting yours* \u2014 Do I burn it? \u2014 The bloodline holds its lie. \u2014 My father never knows I knew. \u2014 His sleep stays clean. \u2014 I keep the only home I have ever had.', hold: 4400, cps: 22 },
+            { type: 'line', text: 'Or do I keep it? \u2014 And find her. \u2014 Wherever the sea took her. \u2014 Whatever she has built without us. \u2014 Knowing that the moment I knock on her door I will be a stranger asking her to remember a brother she has had thirty years not to want.', hold: 4800, cps: 22 },
+            { type: 'line', text: '*quietly* \u2014 I will do whichever you tell me. \u2014 That is not a strong choice. \u2014 I am aware. \u2014 But you are the first person to ever look at this page and not have a stake in keeping it buried. \u2014 Tell me what the page says it should be.', hold: 4400, cps: 22 },
+            { type: 'choice', prompt: 'What do you tell him?', options: [
+              { id: 'keep', text: 'Keep it. Find her. She is owed the chance to say no to you both.' },
+              { id: 'burn', text: 'Burn it. She built her life without this house. Don\u2019t drag it back to her door.' }
+            ], onChoose: (choice) => {
+              try {
+                localStorage.setItem('pp_ms_lucien_sister_choice', choice);
+                localStorage.setItem('pp_lucien_sister_revealed', '1');
+              } catch (_) {}
+            }},
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 4 \u2014 Branched response. The Weaver's choice changes his line,
+        // and the spell-cost moment that follows.
+        let choice = 'keep';
+        try { choice = localStorage.getItem('pp_ms_lucien_sister_choice') || 'keep'; } catch (_) {}
+
+        await runCard({
+          id: 'chp_15_d',
+          title: 'INTERLUDE',
+          subtitle: 'The Other Page \u2014 His Reply',
+          speaker: 'LUCIEN',
+          palette: { bg: '#080614', glow: '#c4afe8', accent: '#f0e0ff' },
+          bg: 'assets/bg-lucien-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
+            choice === 'keep'
+              ? { type: 'line', text: '*long exhale* \u2014 Keep it. \u2014 Yes. \u2014 *folds the page along its existing crease, slips it into the inside of his coat, against his ribs* \u2014 She is owed the chance. \u2014 I am, too. \u2014 I have been the only child in this house for thirty years and it has been very loud. \u2014 I am ready for the room to be smaller and warmer.', hold: 5400, cps: 22 }
+              : { type: 'line', text: '*long exhale* \u2014 Burn it. \u2014 Yes. \u2014 *holds the page above the candle but does not, yet, lower it* \u2014 She walked into the sea to be free of us. \u2014 I would not haul her back into us. \u2014 I will keep the warm crib in my own memory. \u2014 That is enough. \u2014 *the page goes into the flame* \u2014 That is enough.', hold: 5400, cps: 22 },
+            { type: 'pose', src: 'assets/lucien/body/casting.png', animate: 'swap' },
+            { type: 'line', text: '*the room flickers as a small spell pays its toll* \u2014 There. \u2014 That is the cost of telling you. \u2014 I just lost the name of my first cat. \u2014 He was orange. \u2014 I remember orange. \u2014 I remember loving him. \u2014 I do not remember what I called him. \u2014 *small, real smile* \u2014 A fair trade.', hold: 4800, cps: 22 },
+            { type: 'line', text: 'I have been hoarding memory like a miser. \u2014 Tonight, for the first time, I spent some on purpose. \u2014 On YOU being the person I told. \u2014 On either side of this choice, I am keeping that. \u2014 *quiet* \u2014 Thank you for being the kind of person someone could tell.', hold: 4800, cps: 22 },
+            { type: 'flourish', text: '\u221e', duration: 1800 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Beat 5 \u2014 Closing tag. Sets up Interlude 11 (the Caspian-pair tower
+        // mirror) and seeds the lucien-lyra crossover pull.
+        await runCard({
+          id: 'chp_15_e',
+          title: 'INTERLUDE',
+          subtitle: 'The Other Page \u2014 Tomorrow',
+          speaker: 'LUCIEN',
+          palette: { bg: '#040310', glow: '#a99add', accent: '#e6dcff' },
+          bg: 'assets/bg-lucien-study.png',
+          beats: [
+            { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
+            { type: 'line', text: 'Caspian is coming up the tower stairs tomorrow night. \u2014 He has not climbed them in nine years. \u2014 The fact that he is climbing them tonight tells me my other reconstruction \u2014 *gestures at the desk* \u2014 the burnt page about Nocthera \u2014 is also about to stop being mine alone.', hold: 4800, cps: 22 },
+            { type: 'line', text: 'You should be here when he arrives. \u2014 I would like the prince and the Weaver in the same room when I show him what his grandmother did. \u2014 I am not brave enough to hold that page alone in front of a crown.', hold: 4400, cps: 22 },
+            { type: 'pose', src: 'assets/lucien/body/casual1.png', animate: 'swap' },
+            { type: 'line', text: '*at the door, quietly* \u2014 I have been a tower for a long time. \u2014 A sealed one. \u2014 *small smile* \u2014 You arrived, and the wards stopped pretending to be locks. \u2014 Come back tomorrow. \u2014 Bring the prince. \u2014 We have one more page to read.', hold: 4400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        // Side-effects: bump the memory-loss counter so the route ending
+        // logic in epilogues.js can see he has paid for the page reveal.
+        try {
+          const k = 'pp_lucien_memories_lost';
+          const cur = parseInt(localStorage.getItem(k) || '0', 10) || 0;
+          localStorage.setItem(k, String(cur + 1));
+        } catch (_) {}
+
+        markDone(15); setCurrent(nextIdAfter(15));
+        if (onDone) onDone();
+      }
+    },
+
+    // ---------------------------------------------------------------
     // INTERLUDE 3: Caspian \u00d7 Lucien \u2014 the prince and the scholar share
     // an old secret about the kingdom. The Fading mirrors them too.
     // ---------------------------------------------------------------
@@ -821,7 +1002,7 @@
     // ---------------------------------------------------------------
     {
       id: 14,
-      title: 'CHAPTER',
+      title: 'INTERLUDE',
       subtitle: 'What the Trees Kept',
       teaser: 'A grave. A memory. A name the kingdom erased twice.',
       charId: 'elian',
@@ -829,7 +1010,7 @@
         // Card 1 \u2014 The Long Walk
         await runCard({
           id: 'chp_14_a',
-          title: 'CHAPTER',
+          title: 'INTERLUDE',
           subtitle: 'What the Trees Kept \u2014 the Long Walk',
           speaker: 'ELIAN',
           palette: { bg: '#060a08', glow: '#8eb080', accent: '#d8e6cd' },
@@ -846,7 +1027,7 @@
         // Card 2 \u2014 The Stone
         await runCard({
           id: 'chp_14_b',
-          title: 'CHAPTER',
+          title: 'INTERLUDE',
           subtitle: 'What the Trees Kept \u2014 the Stone',
           speaker: 'ELIAN',
           palette: { bg: '#060a08', glow: '#a9d4a1', accent: '#e8f3e2' },
@@ -866,7 +1047,7 @@
         // Card 3 \u2014 What the Sixth Remembered (Proto speaks softly through whispers)
         await runCard({
           id: 'chp_14_c',
-          title: 'CHAPTER',
+          title: 'INTERLUDE',
           subtitle: 'What the Trees Kept \u2014 What the Sixth Remembered',
           speaker: 'PROTO',
           palette: { bg: '#030510', glow: '#9fd8f0', accent: '#e0f2fa' },
@@ -904,7 +1085,7 @@
         // Card 5 \u2014 Corvin arrives, kneels
         await runCard({
           id: 'chp_14_e',
-          title: 'CHAPTER',
+          title: 'INTERLUDE',
           subtitle: 'What the Trees Kept \u2014 Corvin Kneels',
           speaker: 'NOIR',
           palette: { bg: '#050410', glow: '#c46aff', accent: '#efe0ff' },
@@ -926,7 +1107,7 @@
         // Card 6 \u2014 What you did today (close)
         await runCard({
           id: 'chp_14_f',
-          title: 'CHAPTER',
+          title: 'INTERLUDE',
           subtitle: 'What the Trees Kept \u2014 What You Did Today',
           speaker: '',
           palette: { bg: '#0a0e0a', glow: '#c0d8b0', accent: '#e8f0dd' },
@@ -1073,7 +1254,7 @@
     // ---------------------------------------------------------------
     {
       id: 8,
-      title: 'CHAPTER 8',
+      title: 'FINALE',
       subtitle: 'The Court at the Gate',
       teaser: 'Seven bonds. One queen at the door. The first hour before dawn.',
       charId: null,
@@ -1081,7 +1262,7 @@
         // Beat 1 \u2014 the stakes are named, plainly.
         await runCard({
           id: 'chp_8_open',
-          title: 'CHAPTER 8',
+          title: 'FINALE',
           subtitle: 'The Court at the Gate \u2014 Word at Dusk',
           speaker: '',
           palette: { bg: '#050312', glow: '#f4a8d4', accent: '#fff0fa' },
@@ -1100,7 +1281,7 @@
         // Beat 2 \u2014 Noir's private warning.
         await runCard({
           id: 'chp_8_noir',
-          title: 'CHAPTER 8',
+          title: 'FINALE',
           subtitle: 'The Court at the Gate \u2014 the Quiet Word',
           speaker: 'NOIR',
           palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
@@ -1118,7 +1299,7 @@
         // Beat 3 \u2014 the cliffhanger. Hand off to The Weaver's Court.
         await runCard({
           id: 'chp_8_court',
-          title: 'CHAPTER 8',
+          title: 'FINALE',
           subtitle: 'The Court at the Gate \u2014 To Be Continued',
           speaker: '',
           palette: { bg: '#060510', glow: '#d4c8ea', accent: '#f2eafa' },
@@ -1165,7 +1346,14 @@
   function playChapter(id, onDone) {
     const ch = chapterById(id);
     if (!ch || typeof ch.play !== 'function') return;
-    closePage();
+    // Kill the chapter list INSTANTLY (no fade) before the cinematic mounts.
+    // The default closePage() runs a 420ms opacity fade; during that window
+    // the mscard is fully visible on top, but the chp-page's character-
+    // portrait thumbs (.chp-thumb) bleed through the mscard's semi-
+    // transparent regions and appear as little "face pixel" pop-ins to
+    // the player. Owner-reported visual bug. The fix is to remove the
+    // chapter list synchronously here so there is zero overlap.
+    closePage({ instant: true });
     try {
       ch.play(() => {
         if (typeof onDone === 'function') {
@@ -1458,11 +1646,13 @@
     const orb = document.getElementById(ORB_ID); if (orb) orb.classList.remove('visible');
   }
 
-  function closePage() {
+  function closePage(opts) {
     const root = document.getElementById(PAGE_ID);
     if (!root) return;
-    root.classList.remove('visible');
-    setTimeout(() => {
+    const instant = opts && opts.instant === true;
+    // Fallback chain \u2014 same logic regardless of fade vs instant. Pulled
+    // into a closure so both paths use it.
+    const finalize = () => {
       try { root.remove(); } catch (_) {}
       // If closing this page would leave the screen blank (title hidden,
       // game container hidden, select hidden) \u2014 fall back to character
@@ -1477,7 +1667,21 @@
         select.classList.remove('hidden');
       }
       refreshOrb();
-    }, 440);
+    };
+    if (instant) {
+      // Disable the opacity transition for this teardown so we don't
+      // get a 420ms fade where the .chp-thumb portrait circles bleed
+      // through the mscard. Element is also set display:none in case
+      // any layout pass briefly references it.
+      root.style.transition = 'none';
+      root.style.opacity = '0';
+      root.style.display = 'none';
+      root.classList.remove('visible');
+      finalize();
+      return;
+    }
+    root.classList.remove('visible');
+    setTimeout(finalize, 440);
   }
 
   function openPageSoftly() { setTimeout(openPage, 300); }

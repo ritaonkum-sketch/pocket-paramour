@@ -179,6 +179,9 @@
   let _lastChar = '';
   function tick() {
     if (!isEnabled()) { hideBanner(); return; }
+    // QUIET FIRST HOUR: hide the banner during cinematics, modals, chain
+    // transitions, etc. Banners on top of scenes look broken.
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) { hideBanner(); return; }
     const g = window._game;
     if (!g || !(g.characterId || g.selectedCharacter)) { hideBanner(); return; }
 

@@ -474,6 +474,9 @@
   function tick() {
     if (!isEnabled()) return;
     if (_playing) return;
+    // QUIET FIRST HOUR: turning points are big, narrative-claiming scenes.
+    // They must not collide with the chain or any other overlay.
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
     const g = window._game;
     if (!g) return;
     if (!isGameIdle(g)) return;

@@ -128,12 +128,105 @@
         obs.observe(document.body, { childList: true, subtree: true });
     }
 
+    // ========================================================================
+    // QUIET FIRST HOUR — global popup arbiter
+    // ------------------------------------------------------------------------
+    // The "first hour" of play stacks several systems that each poll on their
+    // own timers (affection-drift, daily-purpose banner, aenor-presence,
+    // multi-romance, turning-points, monetization, daily-rewards, dates,
+    // achievements, payments-guard, affection-scenes, surprises). Each one
+    // checks "is the game busy?" with its own custom logic — none of them
+    // know about each other. Result: in playtest we saw a Noir affection-
+    // scene stack on top of the Take-me-to-Proto modal during the prologue
+    // care-loop. To a fresh player that reads as "the game is broken".
+    //
+    // SOLUTION: one centralized predicate. PPAmbient.firstHourBusy() returns
+    // true if ANY of the major scene/chain blockers are present. Every
+    // popup-spawning module calls it at the top of their polling tick and
+    // bails if true. Modules that already gate themselves (like the chain's
+    // own ready modal) keep their own logic — this is purely additive.
+    // ========================================================================
+
+    // Selectors that should suppress *all* ambient/secondary popups.
+    // Order: chain transitions first (most fragile), then scene overlays,
+    // then modals. Any one of these matching means "the player is in a
+    // moment that should not be interrupted".
+    const HARD_BLOCKERS = [
+        // Active chain transition (bridge → chapter, etc.) — body-class flag.
+        // Checked separately below so we don't waste a query.
+        '#mscard-root',                    // any scene card playing (bridges, chapters, endings, affection scenes)
+        '#ms-encounter-root',              // crossover / encounter scenes
+        '#chp-page',                       // main story chapter list overlay
+        '#letter-overlay:not(.hidden)',    // open letter
+        '#pp-onboarding-overlay',          // onboarding tour
+        '#pp-ready-overlay',               // chain "Take me to X" modal
+        '#pp-chain-lock-overlay',          // chain "locked" popup
+        '#mst-confirm-overlay',            // main-story toggle confirm
+        '#world-intro:not(.hidden)',       // initial world intro
+        '#cinematic-overlay.visible',      // cinematic overlay
+        '#event-overlay:not(.hidden)',     // event overlay
+        '#story-overlay:not(.hidden)',     // story overlay
+        '#daily-reward-overlay:not(.hidden)', // daily reward modal
+        '#tp-root',                        // turning-point card (when shown)
+        '#talk-choice-overlay:not(.hidden)' // talk choice modal
+    ];
+
+    function firstHourBusy() {
+        try {
+            if (document.body && document.body.classList.contains('pp-chain-in-progress')) return true;
+            for (const sel of HARD_BLOCKERS) {
+                if (document.querySelector(sel)) return true;
+            }
+            return false;
+        } catch (_) { return false; }
+    }
+
+    // Defensive scrub — if any of the registered ambient bubbles is in the DOM
+    // while a hard blocker is up, remove it. Runs cheaply on a 1.5s interval.
+    // This catches the case where a module mounted its bubble *just before*
+    // a chain transition started (race window). Without this, the bubble would
+    // sit on top of the cinematic.
+    const SCRUB_IDS = [
+        'cc-bubble', 'noir-whisper', 'ew-whisper', 'adaptive-thought',
+        'pp-aenor-bubble', 'pp-multirom-bubble', 'pp-care-thread-toast',
+        'ad-toast', 'date-unlock-toast', 'mon-chip', 'pg-notice',
+        'pp-chain-toast'
+    ];
+    // Class-based popups (achievement notifications, etc.) — same scrub logic.
+    const SCRUB_CLASSES = ['.achievement-popup'];
+    function scrubDuringBlocker() {
+        if (!firstHourBusy()) return;
+        for (const id of SCRUB_IDS) {
+            const el = document.getElementById(id);
+            if (el) {
+                try { dismiss(el); } catch (_) {}
+            }
+        }
+        for (const sel of SCRUB_CLASSES) {
+            const els = document.querySelectorAll(sel);
+            els.forEach(el => { try { dismiss(el); } catch (_) {} });
+        }
+    }
+
     // --- Public API ----------------------------------------------------------
     window.PPAmbient = {
         // Is any ambient bubble currently showing? Future modules should
         // check this before rendering and back off if true.
         busy() { return !!currentlyVisible(); },
-        // Which one is on top?
+        // ALL-systems busy check: scenes, chain transitions, modals.
+        // This is what most polling modules should call before mounting.
+        firstHourBusy,
+        // Convenience: returns true if the player is in the prologue chain
+        // (chain step 1..6, not yet completed). Several systems should defer
+        // their "look how cool we are" popups until prologue is done.
+        inPrologue() {
+            try {
+                const step = parseInt(localStorage.getItem('pp_chain_step') || '0', 10);
+                const done = localStorage.getItem('pp_chain_complete') === '1';
+                return !done && step >= 0 && step < 7;
+            } catch (_) { return false; }
+        },
+        // Which bubble is on top?
         top() {
             const cur = currentlyVisible();
             return cur ? cur.name : null;
@@ -156,4 +249,46 @@
     } else {
         startObserver();
     }
+
+    // INSTANT SCRUB on blocker arrival.
+    // The 1.5s setInterval is a backstop, but a popup that mounts in the same
+    // tick as a hard blocker would still be visible for ~1.5s. To kill that
+    // window, watch the DOM and scrub the moment a blocker appears.
+    const BLOCKER_IDS_FAST = new Set([
+        'mscard-root','ms-encounter-root','chp-page','pp-ready-overlay',
+        'pp-onboarding-overlay','pp-chain-lock-overlay','mst-confirm-overlay',
+        'world-intro','cinematic-overlay','event-overlay','story-overlay',
+        'daily-reward-overlay','tp-root','talk-choice-overlay','letter-overlay'
+    ]);
+    function startBlockerObserver() {
+        const obs = new MutationObserver(mutations => {
+            for (const m of mutations) {
+                if (m.type !== 'childList') continue;
+                for (const n of m.addedNodes) {
+                    if (n.nodeType !== 1) continue;
+                    if (n.id && BLOCKER_IDS_FAST.has(n.id)) { scrubDuringBlocker(); return; }
+                    // Some blockers nest under a wrapper (rare but cheap to check).
+                    if (n.querySelector) {
+                        for (const id of BLOCKER_IDS_FAST) {
+                            if (n.querySelector('#' + id)) { scrubDuringBlocker(); return; }
+                        }
+                    }
+                }
+                // class-based mounts (cinematic-overlay.visible, etc.) — check
+                // attribute mutations on body class as well.
+                if (m.type === 'attributes' && m.attributeName === 'class') {
+                    if (firstHourBusy()) { scrubDuringBlocker(); return; }
+                }
+            }
+        });
+        obs.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startBlockerObserver, { once: true });
+    } else {
+        startBlockerObserver();
+    }
+
+    // Scrub sweep — cheap, defensive, runs forever as a backstop.
+    setInterval(scrubDuringBlocker, 1500);
 })();

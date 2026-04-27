@@ -419,38 +419,63 @@
                 <button id="settings-close">&#x2715;</button>
             </div>
             <div id="settings-content">
-                <div class="settings-group">
-                    <label class="settings-label">SFX Volume</label>
-                    <input type="range" id="sfx-volume" min="0" max="100" value="70" class="settings-slider">
+
+                <!-- ▸ AUDIO ────────────────────────────────────────────── -->
+                <div class="settings-section">
+                    <div class="settings-section-title">Audio</div>
+                    <div class="settings-group">
+                        <label class="settings-label">SFX Volume</label>
+                        <input type="range" id="sfx-volume" min="0" max="100" value="70" class="settings-slider">
+                    </div>
+                    <div class="settings-group">
+                        <label class="settings-label">Music Volume</label>
+                        <input type="range" id="bgm-volume" min="0" max="100" value="50" class="settings-slider">
+                    </div>
+                    <div class="settings-group settings-toggle-row">
+                        <label class="settings-label">Music</label>
+                        <button id="settings-music-toggle" class="settings-toggle-btn">🎵 On</button>
+                    </div>
                 </div>
-                <div class="settings-group">
-                    <label class="settings-label">Music Volume</label>
-                    <input type="range" id="bgm-volume" min="0" max="100" value="50" class="settings-slider">
+
+                <!-- ▸ STORY ────────────────────────────────────────────── -->
+                <!-- The Main Story Route toggle row injects itself into
+                     #settings-section-story via main-story-toggle.js. -->
+                <div class="settings-section" id="settings-section-story">
+                    <div class="settings-section-title">Story</div>
                 </div>
-                <div class="settings-group settings-toggle-row">
-                    <label class="settings-label">Music</label>
-                    <button id="settings-music-toggle" class="settings-toggle-btn">🎵 On</button>
+
+                <!-- ▸ CHARACTER ────────────────────────────────────────── -->
+                <div class="settings-section">
+                    <div class="settings-section-title">Current Character</div>
+                    <div class="settings-group">
+                        <label class="settings-label">Name</label>
+                        <div id="settings-character-name"></div>
+                    </div>
+                    <div class="settings-group">
+                        <label class="settings-label">Stats</label>
+                        <div id="settings-stats"></div>
+                    </div>
+                    <button id="settings-switch-char" class="settings-switch-btn">Switch Character</button>
                 </div>
-                <div class="settings-group">
-                    <label class="settings-label">Character</label>
-                    <div id="settings-character-name"></div>
+
+                <!-- ▸ DANGER ZONE ──────────────────────────────────────── -->
+                <div class="settings-section settings-section-danger">
+                    <div class="settings-section-title">Reset</div>
+                    <button id="settings-reset" class="settings-danger-btn">Reset This Character</button>
+                    <button id="settings-reset-all" class="settings-danger-btn" style="margin-top:8px;opacity:0.7;font-size:12px;">Reset All Characters</button>
                 </div>
-                <div class="settings-group">
-                    <label class="settings-label">Stats</label>
-                    <div id="settings-stats"></div>
+
+                <!-- ▸ ABOUT ────────────────────────────────────────────── -->
+                <div class="settings-section">
+                    <div class="settings-section-title">About</div>
+                    <div id="settings-credits">
+                        <div class="settings-credits-title">Pocket Paramour</div>
+                        <div class="settings-credits-line">A Tamagotchi x Otome Game</div>
+                        <div class="settings-credits-line">Created with love</div>
+                        <div class="settings-credits-line">v1.0</div>
+                    </div>
                 </div>
-                <div class="settings-divider"></div>
-                <button id="settings-switch-char" class="settings-switch-btn">Switch Character</button>
-                <div class="settings-divider"></div>
-                <button id="settings-reset" class="settings-danger-btn">Reset This Character</button>
-                <button id="settings-reset-all" class="settings-danger-btn" style="margin-top:8px;opacity:0.7;font-size:12px;">Reset All Characters</button>
-                <div class="settings-divider"></div>
-                <div id="settings-credits">
-                    <div class="settings-credits-title">Pocket Paramour</div>
-                    <div class="settings-credits-line">A Tamagotchi x Otome Game</div>
-                    <div class="settings-credits-line">Created with love</div>
-                    <div class="settings-credits-line">v1.0</div>
-                </div>
+
             </div>
         </div>
 
@@ -461,6 +486,8 @@
                 <span id="gallery-counter">0 / 8</span>
                 <button id="gallery-close">&#x2715;</button>
             </div>
+            <!-- Per-character tab strip (built by gallery.js) -->
+            <div id="gallery-tabs"></div>
             <div id="gallery-grid"></div>
         </div>
 
@@ -588,6 +615,7 @@
     <script src="js/crossover-noir-elian.js"></script>
     <script src="js/crossover-noir-lyra.js"></script>
     <script src="js/crossover-caspian-noir.js"></script>
+    <script src="js/crossover-proto-noir.js"></script>
     <script src="js/crossover-elian-lyra.js"></script>
     <script src="js/crossover-lucien-aenor.js"></script>
     <script src="js/crossover-weavers-court.js"></script>

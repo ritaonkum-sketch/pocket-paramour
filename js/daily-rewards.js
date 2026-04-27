@@ -12,6 +12,14 @@ class DailyRewardSystem {
         const lastLogin = this.game.lastLoginDate;
         if (lastLogin === today) return; // Already claimed today
 
+        // QUIET FIRST HOUR: don't surprise the player with a daily-reward
+        // modal mid-cinematic. Defer until the screen is calm — re-check
+        // every 4s. The reward will land cleanly between scenes.
+        if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+            setTimeout(() => { try { this.check(); } catch (_) {} }, 4000);
+            return;
+        }
+
         const streak = this.game.dailyStreak || 0;
         const reward = this._getReward(streak);
 

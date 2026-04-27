@@ -79,6 +79,14 @@
   // CHIP — a small floating action prompt after a memorable moment.
   function showChip(opts) {
     // opts: { text, actions: [{label, onClick}], ttlMs }
+    // QUIET FIRST HOUR: defer showing the chip until the screen is calm.
+    // It targets post-ending moments anyway, but a race with a scene/modal
+    // would feel like advertising-on-top-of-feels.
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+      // Retry in 4s — by then the scene/modal/transition should be gone.
+      setTimeout(() => { try { showChip(opts); } catch (_) {} }, 4000);
+      return;
+    }
     // Close any existing chip
     const prev = document.getElementById('mon-chip');
     if (prev) prev.remove();

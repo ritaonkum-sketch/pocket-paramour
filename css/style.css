@@ -2068,8 +2068,39 @@ body {
     padding: 20px;
 }
 
+/* ▸ Settings sections — grouped panels with visible titles. */
+.settings-section {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px 16px 12px;
+    margin-bottom: 16px;
+}
+
+.settings-section-title {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #f8bbd0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.85;
+}
+
+.settings-section-danger {
+    background: rgba(180, 50, 90, 0.06);
+    border-color: rgba(220, 80, 110, 0.18);
+}
+.settings-section-danger .settings-section-title {
+    color: #ff8fa3;
+}
+
 .settings-group {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+}
+.settings-section .settings-group:last-child {
+    margin-bottom: 0;
 }
 
 .settings-label {
@@ -2215,6 +2246,53 @@ body {
     cursor: pointer;
     padding: 4px 8px;
 }
+
+/* Per-character tab strip — sits above the grid, horizontally scrollable. */
+#gallery-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+#gallery-tabs::-webkit-scrollbar { display: none; }
+
+.gallery-tab {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.7);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 14px;
+    padding: 8px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.gallery-tab:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+}
+.gallery-tab.active {
+    background: linear-gradient(180deg, rgba(246,165,192,0.92), rgba(232,121,162,0.92));
+    border-color: rgba(255,255,255,0.4);
+    color: #22112a;
+}
+.gallery-tab .gtl { letter-spacing: 0.5px; }
+.gallery-tab .gtc {
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 0.75;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.18);
+}
+.gallery-tab.active .gtc { background: rgba(34,17,42,0.18); opacity: 0.9; }
 
 #gallery-grid {
     display: grid;

@@ -101,6 +101,13 @@
     let noticeShown = false;
     function showUnavailableNotice() {
         if (noticeShown) return;
+        // QUIET FIRST HOUR: never show a "premium unavailable" notice during
+        // a cinematic, modal, or chain transition. The player's hand probably
+        // brushed a button — quietly defer.
+        if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+            setTimeout(showUnavailableNotice, 4000);
+            return;
+        }
         noticeShown = true;
 
         const el = document.createElement('div');

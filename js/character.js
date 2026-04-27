@@ -1012,6 +1012,41 @@ const CHARACTER_ALISTAIR = {
 };
 
 // ===== LYRA CHARACTER DATA =====
+// ════════════════════════════════════════════════════════════════════════════
+//  LYRA — SINGLE-SOURCE-OF-TRUTH NOTICE
+// ────────────────────────────────────────────────────────────────────────────
+//  Lyra's data lives in TWO files for historical reasons:
+//
+//    1. THIS FILE (character.js, CHARACTER_LYRA_FULL below)
+//       — sprites, poses, outfits, stateDialogue, departureDialogue,
+//         storyEvents (affection1..affection4 cinematic scenes), etc.
+//       — selectCharacter('lyra') points the active CHARACTER global here.
+//
+//    2. character-lyra.js
+//       — voice direction docs (the Florence-Welch-half-sung header),
+//         half-siren / Lucien-sister lore notes,
+//         AND the rich dialogue pools: idleDialogue, feedDialogue,
+//         washDialogue, affectionDialogue, plus extra giftDialogue keys.
+//       — At boot, character-lyra.js's bottom patch block MERGES those
+//         pools into CHARACTER_LYRA_FULL, REPLACING any same-named field
+//         set here.
+//
+//  EDITING RULES (read before changing anything Lyra):
+//    - sprites / outfits / stateDialogue / storyEvents / endings →
+//      EDIT IN THIS FILE.
+//    - idle / feed / wash / affection-rising dialogue →
+//      EDIT IN character-lyra.js (the patch is where they actually
+//      take effect; values set here are silently overwritten).
+//    - giftDialogue: base keys can live here; ocean-themed extensions
+//      live in character-lyra.js and are merged via Object.assign-style
+//      copy. Don't define the same key in both files — the wrapper wins.
+//
+//  WHY NOT JUST CONSOLIDATE? The 1100-line LYRA_FULL block is too
+//  fragile to copy-merge in one pass without risking sprite-key drift
+//  or storyEvent typos. The patch architecture is intentional: it
+//  keeps voice-direction docs adjacent to the dialogue pools that
+//  obey them.
+// ════════════════════════════════════════════════════════════════════════════
 const CHARACTER_LYRA_FULL = {
     name: "Lyra",
     title: "The Resonant Siren",
@@ -1409,12 +1444,11 @@ const CHARACTER_LYRA_FULL = {
         ]
     },
 
-    affectionDialogue: [
-        "I'm starting to hear your heartbeat[shy] in the waves...",
-        "Your voice... it's becoming my favorite melody...[love]",
-        "I think... my song is changing[shy] because of you...",
-        "I love you...[shy] more than the sea loves the shore..."
-    ],
+    // affectionDialogue intentionally NOT defined here. The richer pool
+    // lives in character-lyra.js and is merged in by the patch block at
+    // the bottom of that file. Defining it here would be silently
+    // overwritten — a footgun for future writers. See the SINGLE-SOURCE-
+    // OF-TRUTH header at the top of CHARACTER_LYRA_FULL.
 
     departureDialogue: [
         "The sea calls me back... goodbye...",

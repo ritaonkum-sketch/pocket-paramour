@@ -626,6 +626,9 @@
 
   function tryFireSurprise () {
     if (!canFire()) return;
+    // QUIET FIRST HOUR: surprise scenes claim the screen with a story beat.
+    // Never fire during a chain transition, scene, or modal.
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
     if (Math.random() > CHANCE) return;
 
     var surprise = pickSurprise();
