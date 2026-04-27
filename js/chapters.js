@@ -1196,9 +1196,15 @@
         color: #1a0a26; font-weight: 600; font-size: 13px; letter-spacing: 0.5px;
         box-shadow: 0 6px 16px rgba(100,40,140,0.4);
         cursor: pointer; z-index: 9800; opacity: 0;
+        /* CRITICAL: when not .visible, do not receive taps. The orb
+           occupies the bottom-left corner — same area as the Feed
+           button during care. Without pointer-events:none, an
+           invisible-but-tappable orb was catching Feed taps and
+           opening the chapter list page. */
+        pointer-events: none;
         transition: opacity 360ms ease, transform 220ms cubic-bezier(.2,.8,.2,1);
       }
-      #${ORB_ID}.visible { opacity: 1; }
+      #${ORB_ID}.visible { opacity: 1; pointer-events: auto; }
       #${ORB_ID}:active { transform: scale(0.96); }
       #${ORB_ID}.pulse { animation: chpPulse 1.6s ease-in-out infinite; }
       @keyframes chpPulse {
