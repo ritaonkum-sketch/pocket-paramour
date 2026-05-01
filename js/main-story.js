@@ -185,14 +185,28 @@
     const s = document.createElement('style');
     s.id = 'ms-style';
     s.textContent = `
-      .select-card.ms-locked { filter: grayscale(0.85) brightness(0.55); cursor: default; position: relative; }
+      .select-card.ms-locked { filter: grayscale(0.78) brightness(0.62); cursor: default; position: relative; }
       .select-card.ms-locked::after {
         content: '\u2728';
         position: absolute; top: 8px; right: 10px;
-        font-size: 14px; opacity: 0.7;
+        font-size: 14px; opacity: 0.85;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.8);
       }
-      .select-card.ms-locked .select-card-name,
-      .select-card.ms-locked .select-card-role { opacity: 0.4; }
+      /* Visual audit fix: locked names were unreadable at opacity 0.4 on top
+         of a 55% brightness card. Pull the name back up to 0.75 + add a hard
+         text-shadow so the silver-on-grey contrast becomes legible. The
+         CARD stays visibly locked via grayscale/brightness; the LABEL stays
+         the player's anchor so they can still tell who's behind the silhouette. */
+      .select-card.ms-locked .select-card-name {
+        opacity: 0.78;
+        color: #f4e6c8;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.5);
+      }
+      .select-card.ms-locked .select-card-role {
+        opacity: 0.62;
+        color: rgba(220, 220, 240, 0.88);
+        text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+      }
     `;
     document.head.appendChild(s);
   }

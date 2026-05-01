@@ -185,6 +185,40 @@
       .pp-letters-row .badge.response {
         background: rgba(200,160,240,0.22); color: #e2cdf7;
       }
+      .pp-letters-row .badge.milestone {
+        background: rgba(246,165,192,0.22); color: #ffcfdd;
+        letter-spacing: 1.5px;
+      }
+
+      /* Grouped layout — character-section header + indented rows. */
+      .pp-letters-group-header {
+        display: flex; align-items: center; gap: 10px;
+        padding: 14px 16px 8px;
+        margin-top: 4px;
+        border-bottom: 1px solid rgba(220,180,120,0.10);
+      }
+      .pp-letters-group-portrait {
+        width: 36px; height: 36px;
+        border-radius: 50%; overflow: hidden;
+        flex-shrink: 0;
+        background: rgba(220,180,120,0.08);
+        border: 1px solid rgba(220,180,120,0.22);
+      }
+      .pp-letters-group-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .pp-letters-group-meta { flex: 1; min-width: 0; }
+      .pp-letters-group-name {
+        font-size: 12px; letter-spacing: 2px; font-weight: 700;
+        color: #f7e6c0;
+      }
+      .pp-letters-group-count {
+        font-size: 10.5px; color: rgba(240,216,160,0.55);
+        margin-top: 2px; font-style: italic;
+      }
+      /* When a row is grouped under a header, drop its own portrait
+         and indent slightly so the visual hierarchy reads "section". */
+      .pp-letters-row-grouped {
+        padding-left: 56px;   /* aligns under the 36px portrait + 10px gap + 10px header pad */
+      }
     `;
     document.head.appendChild(s);
   }
@@ -338,36 +372,80 @@
       return;
     }
     body.innerHTML = '';
-    items.forEach((item) => {
-      const row = document.createElement('div');
-      row.className = 'pp-letters-row';
-      const portrait = CHAR_PORTRAIT[item.char] || '';
-      const name = (CHAR_NAME[item.char] || item.char).toUpperCase();
-      let badgeClass = 'read';
-      let badgeText  = 'READ';
-      if (item.kind === 'first') {
-        if (!item.replied) { badgeClass = 'unread'; badgeText = 'REPLY →'; }
-        else               { badgeClass = 'replied'; badgeText = '↩ REPLIED'; }
-      } else if (item.kind === 'response') {
-        badgeClass = 'response'; badgeText = '← REPLY';
-      }
-      const preview = item.kind === 'response'
-        ? 'Their reply to your letter.'
-        : (item.replied ? 'You wrote: ' + escapeHTML(item.reply.text) : 'Tap to read — then reply.');
-      row.innerHTML =
-        '<div class="avatar">' + (portrait ? '<img src="' + portrait + '" alt="">' : '') + '</div>' +
-        '<div class="meta">' +
-          '<div class="name">' + name + '</div>' +
-          '<div class="title">' + escapeHTML(item.title) + '</div>' +
-          '<div class="preview">' + preview + '</div>' +
-        '</div>' +
-        '<div class="badge ' + badgeClass + '">' + badgeText + '</div>';
-      row.addEventListener('click', () => {
-        // Re-open the letter via LetterSystem.showStored.
-        try { window.LetterSystem.showStored(item.char, item.kind); } catch (_) {}
-        closeArchive();
+
+    // ── GROUP BY CHARACTER ───────────────────────────────────────────────
+    // The flat chronological list works fine at 2 letters per character but
+    // breaks down at 5 (first + response + 3 milestones). With 7 characters
+    // that's potentially 35+ items in one scrolling list — un-scannable.
+    // Now grouped: per-character section, sorted by most-recent activity,
+    // each section header shows portrait + name + count.
+    const groups = {};
+    for (const item of items) {
+      if (!groups[item.char]) groups[item.char] = [];
+      groups[item.char].push(item);
+    }
+
+    // Sort each character's letters newest-first; sort characters by their
+    // most-recent letter timestamp.
+    const charsSorted = Object.keys(groups).sort((a, b) => {
+      const aMax = Math.max.apply(null, groups[a].map(i => i.seenAt || 0));
+      const bMax = Math.max.apply(null, groups[b].map(i => i.seenAt || 0));
+      return bMax - aMax;
+    });
+
+    charsSorted.forEach(charId => {
+      const list = groups[charId].slice().sort((a, b) => (b.seenAt || 0) - (a.seenAt || 0));
+
+      // Section header
+      const header = document.createElement('div');
+      header.className = 'pp-letters-group-header';
+      const portrait = CHAR_PORTRAIT[charId] || '';
+      const name = (CHAR_NAME[charId] || charId).toUpperCase();
+      header.innerHTML =
+        '<div class="pp-letters-group-portrait">' + (portrait ? '<img src="' + portrait + '" alt="">' : '') + '</div>' +
+        '<div class="pp-letters-group-meta">' +
+          '<div class="pp-letters-group-name">' + name + '</div>' +
+          '<div class="pp-letters-group-count">' + list.length + (list.length === 1 ? ' letter' : ' letters') + '</div>' +
+        '</div>';
+      body.appendChild(header);
+
+      // Rows
+      list.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'pp-letters-row';
+        let badgeClass = 'read';
+        let badgeText  = 'READ';
+        if (item.kind === 'first') {
+          if (!item.replied) { badgeClass = 'unread'; badgeText = 'REPLY →'; }
+          else               { badgeClass = 'replied'; badgeText = '↩ REPLIED'; }
+        } else if (item.kind === 'response') {
+          badgeClass = 'response'; badgeText = '← REPLY';
+        } else if (item.kind === 'milestone') {
+          // Milestone letters (chosen / midnight / aftermath) — small
+          // tier-marker badge.
+          badgeClass = 'milestone';
+          badgeText = (item.tier || 'milestone').toUpperCase();
+        }
+        const preview = item.kind === 'response'
+          ? 'Their reply to your letter.'
+          : item.kind === 'milestone'
+            ? 'Tap to re-read.'
+            : (item.replied ? 'You wrote: ' + escapeHTML(item.reply.text) : 'Tap to read — then reply.');
+        // Indent rows so they visually nest under the header.
+        row.classList.add('pp-letters-row-grouped');
+        row.innerHTML =
+          '<div class="meta">' +
+            '<div class="title">' + escapeHTML(item.title) + '</div>' +
+            '<div class="preview">' + preview + '</div>' +
+          '</div>' +
+          '<div class="badge ' + badgeClass + '">' + badgeText + '</div>';
+        row.addEventListener('click', () => {
+          // Re-open the letter via LetterSystem.showStored.
+          try { window.LetterSystem.showStored(item.char, item.kind, item.tier); } catch (_) {}
+          closeArchive();
+        });
+        body.appendChild(row);
       });
-      body.appendChild(row);
     });
   }
 

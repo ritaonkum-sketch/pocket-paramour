@@ -1276,6 +1276,17 @@ class GameUI {
         this.cleanBar.style.width = g.clean + '%';
         this.bondBar.style.width = g.bond + '%';
 
+        // Visual polish: write integer values into the .stat-value spans so
+        // the player has a concrete number alongside each bar. (Audit: bars
+        // alone don't tell you the difference between 30 and 50 at a glance.)
+        // Cached element refs so we don't query every tick.
+        if (!this._hungerValEl) this._hungerValEl = document.getElementById('hunger-value');
+        if (!this._cleanValEl)  this._cleanValEl  = document.getElementById('clean-value');
+        if (!this._bondValEl)   this._bondValEl   = document.getElementById('bond-value');
+        if (this._hungerValEl) this._hungerValEl.textContent = ' ' + Math.round(g.hunger);
+        if (this._cleanValEl)  this._cleanValEl.textContent  = ' ' + Math.round(g.clean);
+        if (this._bondValEl)   this._bondValEl.textContent   = ' ' + Math.round(g.bond);
+
         // Brief glow + icon bounce when stat increases significantly
         if (g.hunger - prevH > 3) {
             this.hungerBar.classList.add('stat-changed'); setTimeout(() => this.hungerBar.classList.remove('stat-changed'), 600);

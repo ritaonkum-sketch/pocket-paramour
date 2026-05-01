@@ -1222,4 +1222,36 @@
     }
   }, 1000);
 
+  /* ================================================================
+     PUBLIC API — exposed for the Memories archive (stories.js).
+     replay(id) re-fires a date scene without deducting hunger/clean
+     and without touching the cooldown. Used from the Memories tab
+     so the player can re-watch any earned date.
+     ================================================================ */
+  window.PPDates = {
+    replay: function (dateId) {
+      var g = window._game;
+      if (!g || typeof g._playScene !== 'function') return false;
+      var loc = null;
+      for (var i = 0; i < LOCATIONS.length; i++) {
+        if (LOCATIONS[i].id === dateId) { loc = LOCATIONS[i]; break; }
+      }
+      if (!loc) return false;
+      g._playScene(loc.beats, function () {
+        // Replay still sets memory + applies effects — same as a first
+        // play would have — so the player's bond reflects the moment.
+        applyEffects(loc.effects);
+        if (!g.choiceMemory) g.choiceMemory = {};
+        g.choiceMemory[loc.memoryKey] = true;
+        try { g.save(); } catch (e) {}
+      });
+      return true;
+    },
+    list: function () {
+      return LOCATIONS.map(function (l) {
+        return { id: l.id, character: l.character, name: l.name, memoryKey: l.memoryKey };
+      });
+    }
+  };
+
 })();

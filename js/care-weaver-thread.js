@@ -216,6 +216,13 @@
     setTimeout(() => {
       // Re-check after delay (scene might have started)
       if (sceneActive() || ambientBusy() || _showing) return;
+      // First-care-session quiet window — defer ambient toasts until the
+      // greeting + first-action hint have done their job.
+      if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) return;
+      if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
+      // Don't talk over an active typewriter line.
+      const g = window._game;
+      if (g && g.typewriter && typeof g.typewriter.busy === 'function' && g.typewriter.busy()) return;
       const line = pickLine(char, action);
       if (line) show(line);
     }, FIRE_DELAY_MS);

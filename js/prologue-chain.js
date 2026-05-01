@@ -248,41 +248,70 @@
       body.pp-chain-in-progress #pp-onboarding-overlay {
         display: none !important;
       }
+      /* Replace the default pink page background while chain is active.
+         The body's normal gradient (pink → magenta in style.css) is the
+         "candy" palette for the title/select screens; it doesn't fit
+         dark-fantasy story moments. While the chain is in progress, the
+         underlying body bg is exposed between MSCard scenes (when
+         #game-container is display:none) — without this override the
+         player sees a pink page flash between transitions. */
+      body.pp-chain-in-progress {
+        background: linear-gradient(180deg, #06080f 0%, #0a0c1a 50%, #06080f 100%) !important;
+      }
 
       /* Care-progress indicator on the care screen — small floating chip
          that shows the player how close they are to unlocking the next
          character. Visible only during care, hidden during scenes. */
+      /* Care-progress chip — fourth design iteration.
+         History: was a tall block at top:96px (blocked face), then moved
+         to bottom:168px (overlapped dialogue), then to top:102 as a
+         single-line strip (still felt too close to character head).
+         Now: same compact horizontal pill, anchored to BOTTOM in the
+         clear band between the character's waist (~y=420) and the
+         dialogue bubble top (y=454). Lower opacity background so the
+         character's armor reads through faintly behind the strip. */
       #pp-care-progress {
-        position: fixed; top: 96px; left: 50%;
+        position: fixed; bottom: 272px; left: 50%;
         transform: translateX(-50%);
-        background: linear-gradient(180deg, rgba(36,22,60,0.92), rgba(20,10,38,0.88));
-        border: 1px solid rgba(200,170,240,0.35);
-        border-radius: 14px;
-        padding: 8px 14px;
-        color: #f3ebff; font-size: 11.5px; line-height: 1.35;
-        text-align: center; letter-spacing: 0.3px;
-        z-index: 8400;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+        background: linear-gradient(180deg, rgba(14,18,36,0.78), rgba(6,8,15,0.74));
+        border: 1px solid rgba(255,206,107,0.38);
+        border-radius: 999px;
+        padding: 4px 12px;
+        color: #e8dec4; font-size: 10.5px; line-height: 1.3;
+        letter-spacing: 0.3px;
+        z-index: 30;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.55);
         opacity: 0; pointer-events: none;
         transition: opacity 320ms ease;
-        max-width: 88vw;
+        max-width: 92vw;
+        display: flex; align-items: center; gap: 8px;
+        white-space: nowrap;
       }
       #pp-care-progress.show { opacity: 1; }
       #pp-care-progress .pp-cp-title {
-        font-weight: 700; color: #ffd8ec; letter-spacing: 0.5px;
-        margin-bottom: 4px;
+        font-weight: 700; color: #ffce6b; letter-spacing: 0.4px;
+        font-size: 10px;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      /* Hide the bulky title and just show character names; the strip
+         already implies "care progress" by its placement. */
+      #pp-care-progress .pp-cp-aff {
+        font-weight: 600; color: #fff4de;
       }
       #pp-care-progress .pp-cp-bar {
-        margin-top: 6px; height: 4px; border-radius: 4px;
-        background: rgba(255,255,255,0.10); overflow: hidden;
+        margin: 0; height: 3px; min-width: 56px; max-width: 96px; flex: 1 1 60px;
+        border-radius: 3px;
+        background: rgba(255,255,255,0.12); overflow: hidden;
       }
       #pp-care-progress .pp-cp-fill {
-        height: 100%; border-radius: 4px;
-        background: linear-gradient(90deg, #f6a5c0, #e879a2);
+        height: 100%; border-radius: 3px;
+        background: linear-gradient(90deg, #ffce6b, #ffe5a8);
         transition: width 360ms ease;
       }
       #pp-care-progress .pp-cp-cycle {
-        margin-top: 5px; font-size: 10.5px; opacity: 0.75;
+        margin: 0; font-size: 10px; opacity: 0.85;
+        color: #ffce6b;
       }
 
       /* "Ready to move on" modal — replaces the easy-to-miss toast. */
@@ -296,67 +325,104 @@
         padding: 18px;
       }
       #pp-ready-overlay.show { opacity: 1; pointer-events: auto; }
+      /* Ready card — repalette to match the chain-toast aesthetic
+         (navy backdrop + warm gold accents). Was a purple/pink Otome
+         palette; the route-open card and the failure scenes are now
+         dark-fantasy and the ready modal needs to feel like the same
+         world, not a candy popup. */
       #pp-ready-card {
         width: 100%; max-width: 420px;
-        background: linear-gradient(180deg, #1c1235 0%, #0e0820 100%);
-        border: 1px solid rgba(200,170,240,0.45);
-        border-radius: 18px;
-        padding: 24px 22px 20px;
-        color: #ece2f6; text-align: center;
-        box-shadow: 0 18px 44px rgba(0,0,0,0.65), 0 0 26px rgba(180,140,220,0.30) inset;
+        background: linear-gradient(180deg, #0e1224 0%, #06080f 100%);
+        border: 1px solid #ffce6b;
+        border-radius: 14px;
+        padding: 26px 24px 22px;
+        color: #fff4de; text-align: center;
+        box-shadow:
+          0 18px 60px rgba(0,0,0,0.78),
+          0 0 38px #ffce6b inset,
+          0 0 0 1px rgba(255,255,255,0.04);
         transform: scale(0.94);
         transition: transform 280ms cubic-bezier(.2,.8,.2,1);
       }
       #pp-ready-overlay.show #pp-ready-card { transform: scale(1); }
-      #pp-ready-card .ready-icon { font-size: 32px; margin-bottom: 6px; }
+      #pp-ready-card .ready-icon { font-size: 32px; margin-bottom: 6px; color: #ffce6b; }
       #pp-ready-card .ready-title {
-        font-size: 17px; font-weight: 700; letter-spacing: 0.5px;
-        color: #ffd8ec; margin-bottom: 12px;
+        font-size: 17px; font-weight: 700; letter-spacing: 1.2px;
+        color: #ffce6b; margin-bottom: 12px;
+        text-transform: uppercase;
       }
       #pp-ready-card .ready-body {
-        font-size: 13px; line-height: 1.55; color: #d8cfe6;
+        font-size: 14px; line-height: 1.55; color: #e8dec4;
         font-style: italic; margin-bottom: 18px;
       }
       #pp-ready-card .ready-btns {
         display: flex; gap: 10px; justify-content: center;
       }
       #pp-ready-card .ready-btns button {
-        flex: 1; padding: 11px 14px; border-radius: 12px;
+        flex: 1; padding: 12px 14px; border-radius: 10px;
         font-size: 13.5px; font-weight: 600; cursor: pointer;
-        border: 1px solid rgba(255,255,255,0.18);
+        border: 1px solid rgba(255,206,107,0.4);
         font-family: inherit;
+        letter-spacing: 0.5px;
       }
       #pp-ready-card .ready-stay {
-        background: rgba(40,28,68,0.78); color: #d8c8f5;
+        background: rgba(20,24,40,0.78); color: #e8dec4;
       }
       #pp-ready-card .ready-go {
-        background: linear-gradient(180deg, #f6a5c0, #e879a2);
-        color: #22112a;
+        background: linear-gradient(180deg, #ffce6b, #d4a04a);
+        color: #1a1208;
+        border-color: #ffce6b;
       }
       #pp-ready-card .ready-btns button:active { transform: translateY(1px); }
 
+      /* Route-open card. Centred, holds the screen, waits for tap.
+         Palette is per-character — each character supplies their own
+         bg / glow / accent via CSS custom properties set inline at
+         render time. Defaults below match Alistair (navy + warm gold)
+         since he's the first character and acts as the reference. */
       #pp-chain-toast {
-        position:fixed; left:50%; bottom:120px;
-        transform:translateX(-50%) translateY(14px);
-        padding:14px 22px; max-width:88vw;
-        background:linear-gradient(180deg, rgba(36,22,60,0.95), rgba(20,10,38,0.92));
-        border:1px solid rgba(200,170,240,0.45);
-        border-radius:16px;
-        color:#f3ebff; font-size:14px; line-height:1.45;
+        --pp-toast-bg-1: #0e1224;
+        --pp-toast-bg-2: #06080f;
+        --pp-toast-glow: #ffce6b;
+        --pp-toast-accent: #fff4de;
+        --pp-toast-ink: #e8dec4;
+        position:fixed; left:50%; top:50%;
+        transform:translate(-50%, calc(-50% + 14px)) scale(0.97);
+        padding:22px 28px 20px; max-width:86vw; min-width:260px;
+        background:linear-gradient(180deg, var(--pp-toast-bg-1), var(--pp-toast-bg-2));
+        border:1px solid var(--pp-toast-glow);
+        border-radius:14px;
+        color:var(--pp-toast-ink); font-size:14px; line-height:1.5;
         text-align:center;
-        box-shadow:0 12px 36px rgba(0,0,0,0.7), 0 0 22px rgba(180,140,230,0.30) inset;
+        box-shadow:
+          0 18px 60px rgba(0,0,0,0.78),
+          0 0 38px var(--pp-toast-glow) inset,
+          0 0 0 1px rgba(255,255,255,0.04);
         opacity:0; pointer-events:none;
         z-index:9700;
         cursor:pointer; user-select:none;
-        transition:opacity 480ms ease, transform 480ms ease;
+        transition:opacity 520ms ease, transform 520ms ease;
+        font-family: inherit;
       }
-      #pp-chain-toast.show { opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+      #pp-chain-toast.show {
+        opacity:1;
+        transform:translate(-50%, -50%) scale(1);
+        pointer-events:auto;
+      }
       #pp-chain-toast .pp-chain-toast-title {
-        font-weight:700; letter-spacing:0.5px; color:#ffd8ec;
-        margin-bottom:6px; font-size:13px;
+        font-weight:700; letter-spacing:1.2px;
+        color:var(--pp-toast-glow);
+        margin-bottom:10px; font-size:12.5px;
+        text-transform:uppercase;
+      }
+      #pp-chain-toast .pp-chain-toast-body {
+        color:var(--pp-toast-accent); font-size:15px;
+        font-weight:500; line-height:1.55;
       }
       #pp-chain-toast .pp-chain-toast-cta {
-        margin-top:8px; font-size:12px; color:#c8b2e8;
+        margin-top:18px; font-size:11px;
+        color:var(--pp-toast-glow); opacity:0.7;
+        letter-spacing:1.4px; text-transform:uppercase;
       }
     `;
     document.head.appendChild(s);
@@ -493,10 +559,14 @@
     const cycleStr = cycleNames.map(n => (cycle[n] ? '✓ ' : '◯ ') + labels[n]).join('   ');
 
     const el = ensureCareProgress();
-    el.querySelector('.pp-cp-title').textContent = 'Care for ' + cap(gateChar) + ' to meet ' + cap(nextChar);
-    el.querySelector('.pp-cp-aff').innerHTML = 'Affection <b>' + Math.min(aff, 25) + ' / 25</b>';
+    // Compact horizontal-strip layout. The full sentence "Care for X to
+    // meet Y" doesn't fit in a single-line strip; the arrow + next-char
+    // name is enough context, and the strip's placement implies care
+    // progress by its location.
+    el.querySelector('.pp-cp-title').textContent = '→ ' + cap(nextChar);
+    el.querySelector('.pp-cp-aff').innerHTML = '<b>' + Math.min(aff, 25) + '/25</b>';
     el.querySelector('.pp-cp-fill').style.width = pct + '%';
-    el.querySelector('.pp-cp-cycle').textContent = cycleStr + '   (' + cycleDone + '/3)';
+    el.querySelector('.pp-cp-cycle').textContent = cycleStr + ' (' + cycleDone + '/3)';
     el.classList.add('show');
   }
 
@@ -557,30 +627,59 @@
   // ---------------------------------------------------------------------------
   // Unlock toast
   // ---------------------------------------------------------------------------
-  let _toastTimer = null;
-  function toast(title, line, cta) {
+  // Per-character toast palettes — each one matches the character's
+  // story-card palette so the route-open card feels native to that
+  // character, not a generic system notification.
+  const TOAST_PALETTES = {
+    alistair: { bg1: '#0e1224', bg2: '#06080f', glow: '#ffce6b', accent: '#fff4de', ink: '#e8dec4' },
+    elian:    { bg1: '#0e1a12', bg2: '#06100a', glow: '#a9d4a1', accent: '#e8f3e2', ink: '#cde2c5' },
+    lyra:     { bg1: '#0a1622', bg2: '#04101c', glow: '#7fd3e3', accent: '#e8f0ff', ink: '#cfe2ec' },
+    caspian:  { bg1: '#1a0d1d', bg2: '#0c0410', glow: '#e7a3d0', accent: '#f8e9ff', ink: '#ecd2e2' },
+    lucien:   { bg1: '#16111e', bg2: '#08060e', glow: '#b29ce8', accent: '#ece2ff', ink: '#d6c8e8' },
+    noir:     { bg1: '#0a0a12', bg2: '#040408', glow: '#9ab8d4', accent: '#dde6f2', ink: '#bcc8d8' },
+    proto:    { bg1: '#08141a', bg2: '#020a10', glow: '#7fdaee', accent: '#dff5ff', ink: '#b4d6e2' }
+  };
+
+  let _toastResolve = null;
+  function toast(title, line, opts) {
+    opts = opts || {};
     injectStyles();
     let el = document.getElementById('pp-chain-toast');
     if (el && el.parentNode) el.parentNode.removeChild(el);
     el = document.createElement('div');
     el.id = 'pp-chain-toast';
-    el.innerHTML = `
-      <div class="pp-chain-toast-title">${title || ''}</div>
-      <div>${line || ''}</div>
-      ${cta ? `<div class="pp-chain-toast-cta">${cta}</div>` : ''}
-    `;
+
+    // Apply per-character palette via CSS custom properties.
+    const pal = (opts.char && TOAST_PALETTES[opts.char]) || TOAST_PALETTES.alistair;
+    el.style.setProperty('--pp-toast-bg-1', pal.bg1);
+    el.style.setProperty('--pp-toast-bg-2', pal.bg2);
+    el.style.setProperty('--pp-toast-glow', pal.glow);
+    el.style.setProperty('--pp-toast-accent', pal.accent);
+    el.style.setProperty('--pp-toast-ink', pal.ink);
+
+    const cta = opts.cta || 'tap to continue';
+    el.innerHTML = ''
+      + '<div class="pp-chain-toast-title">' + (title || '') + '</div>'
+      + '<div class="pp-chain-toast-body">' + (line || '') + '</div>'
+      + '<div class="pp-chain-toast-cta">' + cta + '</div>';
     document.body.appendChild(el);
     // eslint-disable-next-line no-unused-expressions
     el.offsetHeight;
     el.classList.add('show');
-    if (_toastTimer) clearTimeout(_toastTimer);
-    _toastTimer = setTimeout(close, 7200);
-    function close() {
-      el.classList.remove('show');
-      setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 520);
-    }
-    el.addEventListener('click', close, { once: true });
-    el.addEventListener('touchstart', close, { once: true, passive: true });
+
+    return new Promise(function (resolve) {
+      _toastResolve = resolve;
+      function close() {
+        el.classList.remove('show');
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+          if (_toastResolve === resolve) _toastResolve = null;
+          resolve();
+        }, 520);
+      }
+      el.addEventListener('click', close, { once: true });
+      el.addEventListener('touchstart', close, { once: true, passive: true });
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -686,7 +785,7 @@
   // ---------------------------------------------------------------------------
   function advance(toStep) {
     const target = (toStep | 0);
-    if (target <= step()) { refreshGrid(); return; }
+    if (target <= step()) { refreshGrid(); return Promise.resolve(); }
     setStepRaw(target);
     // Allow the next ready-to-move-on modal to fire after the next care threshold
     _lastReadyModalStep = -1;
@@ -705,14 +804,17 @@
       lsSet('pp_met_' + meta.char, '1');
       lsSet('pp_ms_encounter_' + meta.char + '_seen', '1');
     }
-    // Toast the unlock
+    // Route-open card. Holds the screen, waits for tap, palette matches
+    // the character. Returns a Promise so the bridge can await it before
+    // firing the next chapter.
     if (meta && meta.char) {
-      toast(
-        '\u2728 ' + meta.name + "'s route is open.",
+      return toast(
+        meta.name + "'s route is open",
         meta.tagline || '',
-        ''
+        { char: meta.char }
       );
     }
+    return Promise.resolve();
   }
 
   // ---------------------------------------------------------------------------

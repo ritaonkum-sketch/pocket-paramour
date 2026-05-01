@@ -496,8 +496,11 @@ class PocketLoveGame {
         setInterval(() => {
             if (this.tickInterval || this.characterLeft) return;
             if (anySceneIsActuallyVisible()) return; // pause is intentional
-            // Recover
-            console.warn('[watchdog] tickInterval was lost — restarting');
+            // Silent recovery. We used to console.warn here but it produced
+            // false-positive noise during normal pause/resume cycles (intro
+            // playback, letter overlays, scene transitions) — the watchdog
+            // self-heals correctly either way, so the warning was just
+            // making the console hard to read while debugging.
             this.lastTick = Date.now();
             this.tickInterval = setInterval(() => this.tick(), 100);
         }, 30000);
@@ -612,11 +615,21 @@ class PocketLoveGame {
             }
         }
 
-        // Standard mood ladder
+        // Standard mood ladder.
+        //
+        // Per-character ambient bed (audit fix): when nothing dramatic is
+        // happening (stats fine, no corruption, daytime), prefer the
+        // character-specific stem — fireplace for Alistair, forest for
+        // Elian, ocean-hum for Lyra, dark-drone for Noir, digital-static
+        // for Proto, etc. These were defined in sounds.js but never invoked.
+        // Romantic / night / corrupted moods still take priority because
+        // they reflect dramatic moments the player should hear.
         if (this.affectionLevel >= 3 && this.bond > 60) {
             bgm.setMood('romantic');
         } else if (isNight) {
             bgm.setMood('night');
+        } else if (this.selectedCharacter) {
+            bgm.setMood(this.selectedCharacter);
         } else {
             bgm.setMood('calm');
         }
@@ -771,7 +784,7 @@ class PocketLoveGame {
         }
 
         // Long absence with high fear → full reunion scene (dramatic return)
-        if (minutesAway > 120 && this.emotion.fear > 40 && this.sceneLibrary && !this.sceneLibrary.reunion.triggered) {
+        if (minutesAway > 120 && this.emotion.fear > 40 && this.sceneLibrary?.reunion && !this.sceneLibrary.reunion.triggered) {
             setTimeout(() => this.playReunionScene(minutesAway), 800);
             return;
         }
@@ -876,8 +889,26 @@ class PocketLoveGame {
     tick() {
         if (this.characterLeft) return;
 
+        // Pause stat decay + animations when the tab is hidden. The 100ms
+        // tick was running unconditionally, burning CPU + battery on
+        // backgrounded tabs (Production audit flagged this as the single
+        // biggest perf drain on low-end Android). On resume, the next tick
+        // computes dt against the stored lastTick — so absent-time decay
+        // is still applied as a single catch-up step. We don't want that
+        // catch-up to be punishingly large though: cap dt to 5 minutes
+        // worth of decay max, so a player who tabbed away for an hour
+        // doesn't return to a starving + dirty + unloved character.
+        try {
+            if (document.hidden || document.visibilityState === 'hidden') return;
+        } catch (_) {}
+
         const now = Date.now();
-        const dt = (now - this.lastTick) / 1000;
+        let dt = (now - this.lastTick) / 1000;
+        // Cap catch-up window. 300s = 5 minutes. The 6h+ return-cinematic
+        // system handles longer absences via its own pathway, so this cap
+        // doesn't double-count. Without the cap, a 1-hour-hidden tab would
+        // apply 36000 ticks worth of decay in a single frame — kills stats.
+        if (dt > 300) dt = 300;
         this.lastTick = now;
 
         // Stat decay — Proto gets erratic randomized rates
@@ -1035,7 +1066,7 @@ class PocketLoveGame {
             this._updateLyraPhase();
             // Lucien competition event at high influence
             if (this.lucienActive && this.lucienInfluence >= 50 &&
-                !this.sceneLibrary.lucien_competition.triggered && !this.sceneActive) {
+                this.sceneLibrary?.lucien_competition && !this.sceneLibrary.lucien_competition.triggered && !this.sceneActive) {
                 this.sceneLibrary.lucien_competition.triggered = true;
                 setTimeout(() => this._playLucienCompetitionEvent(), 2000);
             }
@@ -2573,6 +2604,23 @@ class PocketLoveGame {
     // ===== AFFECTION =====
 
     onAffectionLevelUp() {
+        // Audio cue: affection-level-up was previously silent — a missed
+        // dopamine hit. Heartbeat for early levels (subtle), fanfare for the
+        // confession-tier jump. Production audit flagged this as a key
+        // emotional moment going unmarked. `sounds` is a bare const-global
+        // from sounds.js so we use a typeof guard.
+        try {
+            if (typeof sounds !== 'undefined') {
+                if (this.affectionLevel >= 4 && typeof sounds.fanfare === 'function') {
+                    sounds.fanfare();
+                } else if (typeof sounds.heartbeat === 'function') {
+                    sounds.heartbeat();
+                } else if (typeof sounds.chime === 'function') {
+                    sounds.chime();
+                }
+            }
+        } catch (_) {}
+
         // Big affection milestones get story scenes
         const storyMilestones = {
             1: { key: 'firstTrust', emotion: 'shy' },
@@ -2584,6 +2632,15 @@ class PocketLoveGame {
         const storyInfo = storyMilestones[this.affectionLevel];
         if (storyInfo && !this.storyMilestonesShown.includes(storyInfo.key)) {
             this.storyMilestonesShown.push(storyInfo.key);
+            // Persistent per-character flag for the Stories archive.
+            // Keys: pp_storymilestone_<char>_<key> = '1'
+            // Used by stories.js to surface affection-tier scene cards
+            // (The Oath Softens / Behind the Armor / Knight Kneels /
+            // Sword and Heart) as archive entries.
+            try {
+                const ch = this.selectedCharacter || 'alistair';
+                localStorage.setItem('pp_storymilestone_' + ch + '_' + storyInfo.key, '1');
+            } catch (_) {}
             const event = CHARACTER.milestoneEvents[storyInfo.key];
             if (event) {
                 setTimeout(() => {
@@ -2786,6 +2843,16 @@ class PocketLoveGame {
     // beats: array of { type, ... } objects
     // onComplete: called when all beats finish
     async _playScene(beats, onComplete) {
+        // Defensive guard: if a caller passes null / undefined / empty / non-iterable
+        // beats (e.g. PPDates.replay with a wrong id, or a corrupted scene table),
+        // we'd previously throw "beats is not iterable" from the for-of below as an
+        // unhandled promise rejection. Fail soft instead — fire onComplete with no
+        // scene shown so the calling flow doesn't deadlock waiting on us.
+        if (!Array.isArray(beats) || beats.length === 0) {
+            this.sceneActive = false;
+            if (onComplete) try { onComplete(); } catch (_) {}
+            return;
+        }
         this.sceneActive = true;
         // Reset overlay sub-elements before each new scene
         const overlay = document.getElementById('cinematic-overlay');
@@ -4967,10 +5034,12 @@ class PocketLoveGame {
             this.gallery?.unlockById('lyra-loop-survived');
             this.day47LoopCount++;
             // Loop reset — flags clear, difficulty scales slightly
-            this.sceneLibrary.scene_day4.triggered         = false;
-            this.sceneLibrary.scene_day5.triggered         = false;
-            this.sceneLibrary.scene_day6_jealousy.triggered = false;
-            this.sceneLibrary.scene_day7_loop.triggered    = false;
+            if (this.sceneLibrary) {
+                if (this.sceneLibrary.scene_day4)          this.sceneLibrary.scene_day4.triggered         = false;
+                if (this.sceneLibrary.scene_day5)          this.sceneLibrary.scene_day5.triggered         = false;
+                if (this.sceneLibrary.scene_day6_jealousy) this.sceneLibrary.scene_day6_jealousy.triggered = false;
+                if (this.sceneLibrary.scene_day7_loop)     this.sceneLibrary.scene_day7_loop.triggered    = false;
+            }
             // Difficulty ramp — decay quickens, Lucien baseline rises
             this.decayRates.hunger = Math.min(0.055, this.decayRates.hunger * 1.08);
             this.decayRates.bond   = Math.min(0.025, this.decayRates.bond   * 1.08);
@@ -5829,6 +5898,7 @@ class PocketLoveGame {
 
     // ── Day 3 Ending Router ──────────────────────────────────────────
     _playDay3Ending() {
+        if (!this.sceneLibrary?.day3_ending) return;
         if (this.sceneLibrary.day3_ending.triggered) return;
         this.sceneLibrary.day3_ending.triggered = true;
         if (this.bond >= 70 && this.affection >= 50)      this._playDay3EndingA();
@@ -7258,7 +7328,7 @@ class PocketLoveGame {
         }
 
         this.emotion.trust += 3;
-        if (this.sceneLibrary) this.sceneLibrary.reunion.triggered = true;
+        if (this.sceneLibrary?.reunion) this.sceneLibrary.reunion.triggered = true;
         this.save();
     }
 
@@ -7304,7 +7374,7 @@ class PocketLoveGame {
 
         this.emotion.obsession += 8;
         this.emotion.trust     += 5;
-        if (this.sceneLibrary) this.sceneLibrary.private_moment.triggered = true;
+        if (this.sceneLibrary?.private_moment) this.sceneLibrary.private_moment.triggered = true;
         this.save();
     }
 
@@ -7358,7 +7428,7 @@ class PocketLoveGame {
             });
         }
 
-        if (this.sceneLibrary) this.sceneLibrary.almost_confession.triggered = true;
+        if (this.sceneLibrary?.almost_confession) this.sceneLibrary.almost_confession.triggered = true;
         this.save();
     }
 
@@ -8919,12 +8989,12 @@ class PocketLoveGame {
                   if (i === 0) {
                       this.caspianPhase = 'possessive';
                       this.comfortLevel = 100;
-                      this.sceneLibrary.caspian_comfort_loop.triggered = true;
+                      if (this.sceneLibrary?.caspian_comfort_loop) this.sceneLibrary.caspian_comfort_loop.triggered = true;
                       this.gallery?.unlockById('caspian-cage');
                       this._playCaspianComfortLoop();
                   } else if (i === 1) {
                       this.caspianPhase = 'released';
-                      this.sceneLibrary.caspian_gentle_release.triggered = true;
+                      if (this.sceneLibrary?.caspian_gentle_release) this.sceneLibrary.caspian_gentle_release.triggered = true;
                       this.gallery?.unlockById('caspian-kingdom');
                       this._playCaspianGentleRelease();
                   } else {
@@ -9365,7 +9435,7 @@ class PocketLoveGame {
                           this.lucienPhase = 'obsessed';
                           this.realityStability = Math.max(0, this.realityStability - 40);
                           this.emotion.obsession = Math.min(100, this.emotion.obsession + 15);
-                          this.sceneLibrary.lucien_reality_fracture.triggered = true;
+                          if (this.sceneLibrary?.lucien_reality_fracture) this.sceneLibrary.lucien_reality_fracture.triggered = true;
                           this.gallery?.unlockById('lucien-fracture');
                           this._playLucienFractureBeat();
                       } else {
@@ -9380,7 +9450,7 @@ class PocketLoveGame {
                           this.lucienPhase = 'vulnerable';
                           this.affection = Math.min(100, this.affection + 20);
                           this.emotion.trust = Math.min(100, this.emotion.trust + 15);
-                          this.sceneLibrary.lucien_human_answer.triggered = true;
+                          if (this.sceneLibrary?.lucien_human_answer) this.sceneLibrary.lucien_human_answer.triggered = true;
                           this.gallery?.unlockById('lucien-vulnerable');
                           this._playLucienVulnerableBeat();
                       } else {

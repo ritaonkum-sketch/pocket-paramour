@@ -121,10 +121,9 @@ const CHARACTER_ALISTAIR = {
         corrupted3:  "assets/alistair/body/corrupted3.png",
         "soft-corrupted1": "assets/alistair/body/soft-corrupted1.png",
         "soft-corrupted2": "assets/alistair/body/soft-corrupted2.png",
-        // Real art — crying (6 variants)
+        // Real art — crying (5 variants; cry3 removed — bad crop)
         cry1:        "assets/alistair/body/cry1.png",
         cry2:        "assets/alistair/body/cry2.png",
-        cry3:        "assets/alistair/body/cry3.png",
         cry4:        "assets/alistair/body/cry4.png",
         cry5:        "assets/alistair/body/cry5.png",
         cry6:        "assets/alistair/body/cry6.png",
@@ -214,8 +213,8 @@ const CHARACTER_ALISTAIR = {
         gentle:   ["smile", "smile1", "talking2", "talking4", "softshy-love1", "softshy-love2", "softshy-love3"],
         // Sad — soft sadness + reflective talking
         sad:      ["soft-sad", "talking3"],
-        // Crying — 6 cry variants (deepest despair)
-        crying:   ["cry1", "cry2", "cry3", "cry4", "cry5", "cry6"],
+        // Crying — 5 cry variants (cry3 removed: bad crop)
+        crying:   ["cry1", "cry2", "cry4", "cry5", "cry6"],
         // Shy — user-specified 3 variants
         shy:      ["shy1", "shy2", "shy3"],
         // Wink / playful — silly + smile + playful talking + winks

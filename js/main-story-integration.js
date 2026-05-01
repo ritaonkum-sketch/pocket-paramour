@@ -44,7 +44,15 @@
   // to '1', also set pp_intro_<char>='1' so intro.js skips its native intro
   // for that character. We poll because the meet-cute module writes the
   // flag asynchronously on onDone, and we don\u2019t want to touch that file.
-  const CHARS = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
+  // ALL 7 characters now have post-bridge-timeline intros (with name
+  // prompts + post-name beats) authored in intro.js. Each one is
+  // INTENDED to fire as the care-route intro the first time the
+  // player picks that character. Auto-suppressing pp_intro_<char>
+  // here would block the name prompt and break the scene.
+  // The CHARS list is empty — no characters get auto-suppressed.
+  // (Kept the loop scaffolding so re-introducing suppression for any
+  // future character is just adding their id back to this list.)
+  const CHARS = [];
   let _encSnap = {};
   function syncIntroFlags() {
     if (!isEnabled()) return;

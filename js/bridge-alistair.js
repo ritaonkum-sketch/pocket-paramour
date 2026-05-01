@@ -72,20 +72,38 @@
   function finish() {
     _playing = false;
     lsSet(FLAG_PLAYED, '1');
-    lsSet('pp_intro_alistair', '1');
+    // NOTE: previously we set `pp_intro_alistair = 1` here so the OLD
+    // per-character intro (intro.js) wouldn't fire on top of the bridge.
+    // That had a side-effect of also suppressing the NAME PROMPT (which
+    // lives in intro.js) — players ended up in the care loop with no
+    // name entered and every {name} dialogue token resolving to empty.
+    // Now intro.js's Alistair scene has been rewritten to fit the
+    // post-bridge timeline (he already met you, you slept a day in the
+    // maid's chamber, this is the morning after) AND the name prompt
+    // is its climax. Letting it fire is the intended flow.
     if (lsGet('pp_main_story_enabled') !== '1') lsSet('pp_main_story_enabled', '1');
     try { localStorage.setItem('pp_chapter_done_b_alistair', '1'); } catch (_) {}
 
     const stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')
       ? window.PPChain.step() : 0;
     if (window.PPChain && typeof window.PPChain.advance === 'function') {
-      window.PPChain.advance(1);
-      if (stepBefore < 1 && typeof window.PPChain.fireChapterFor === 'function') {
-        // Chapter onDone clears chain-in-progress
-        window.PPChain.fireChapterFor(1);
-      } else if (window.PPChain.setChainInProgress) {
-        // Replay (no chapter follows) — clear class now.
-        window.PPChain.setChainInProgress(false);
+      // advance() now returns a Promise that resolves AFTER the route-open
+      // card has been tapped by the player. Chapter must wait — otherwise
+      // the chapter card buries the route announcement. (Old behaviour:
+      // toast and chapter both fired synchronously; user only saw the
+      // toast for ~1s before the chapter covered it.)
+      const advanced = window.PPChain.advance(1);
+      const fireChapter = () => {
+        if (stepBefore < 1 && typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(1);
+        } else if (window.PPChain.setChainInProgress) {
+          window.PPChain.setChainInProgress(false);
+        }
+      };
+      if (advanced && typeof advanced.then === 'function') {
+        advanced.then(fireChapter, fireChapter);
+      } else {
+        fireChapter();
       }
     } else {
       lsSet('pp_chain_step', '1');

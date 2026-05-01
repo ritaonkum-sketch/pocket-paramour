@@ -46,6 +46,24 @@
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (_) {} }
   function lsDel(k) { try { localStorage.removeItem(k); } catch (_) {} }
 
+  // --- Production / dev environment detection ------------------------------
+  // Mirrors the same logic in payments-guard.js so the two stay aligned.
+  // In production we still allow ?dev=1 URL access (so the owner can debug
+  // a live install) but we DO NOT allow triple-tap activation — that's the
+  // shipping gate. A casual player accidentally tapping the top-right
+  // corner three times in 800ms won't enter the panel.
+  function isProductionContext() {
+    try {
+      if (typeof window.PP_PRODUCTION === 'boolean') return window.PP_PRODUCTION;
+      const h = (location.hostname || '').toLowerCase();
+      const DEV = ['localhost', '127.0.0.1', '0.0.0.0', ''];
+      if (DEV.indexOf(h) !== -1) return false;
+      if (location.protocol === 'file:') return false;
+      if (/(^|\.)preview\.|(^|\.)staging\.|claude\.ai$/i.test(h)) return false;
+      return true;
+    } catch (_) { return false; }
+  }
+
   // --- Activation gate ------------------------------------------------------
   function shouldActivate() {
     try {
@@ -58,8 +76,14 @@
     return lsGet('pp_dev_panel') === '1';
   }
 
-  // Triple-tap top-right activator (for mobile without URL params)
+  // Triple-tap top-right activator (for mobile without URL params).
+  // SHIP-GATE: skipped entirely in production. Owner / testers must use
+  // ?dev=1 in a production build.
   function installTripleTapActivator() {
+    if (isProductionContext()) {
+      console.info('[dev-panel] Triple-tap activator disabled (production context). Use ?dev=1 to access.');
+      return;
+    }
     let taps = 0, last = 0;
     document.addEventListener('click', (e) => {
       const w = window.innerWidth, h = window.innerHeight;

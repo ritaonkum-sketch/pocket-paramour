@@ -272,6 +272,12 @@
         localStorage.setItem('pp_last_greeting_tod', tod);
     }
 
+    // Greeting retry-window. The greeting earns the FIRST typewriter slot
+    // on the care page — at T+1.5s after init. If the typewriter is still
+    // busy at that moment (a chain handoff line, a chapter-end line, etc.)
+    // we retry ONCE 3s later instead of giving up forever (the old
+    // behaviour silently dropped the greeting and the player never saw
+    // their character speak first).
     function showGreeting(tod) {
         const game = window._game;
         if (!game || game.sceneActive || game.characterLeft) return;
@@ -284,13 +290,35 @@
         if (!lines || lines.length === 0) return;
 
         const line = pick(lines);
+
+        // Mark seen now so we don't double-fire if the retry path runs.
         markGreetingShown(tod);
 
-        // Small delay so it doesn't collide with other init dialogue
-        setTimeout(() => {
-            if (game.sceneActive || game.characterLeft) return;
-            game.typewriter.show(line, () => {});
-        }, 2000);
+        const tryFire = (attempt) => {
+            const g = window._game;
+            if (!g || g.sceneActive || g.characterLeft) return;
+            // Don't talk over an active line.
+            const tw = g.typewriter;
+            if (tw && typeof tw.busy === 'function' && tw.busy()) {
+                if (attempt < 1) {
+                    setTimeout(() => tryFire(attempt + 1), 3000);
+                }
+                return;
+            }
+            // Hard blockers (scene/modal) — retry once if early.
+            if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+                if (attempt < 1) {
+                    setTimeout(() => tryFire(attempt + 1), 3000);
+                }
+                return;
+            }
+            tw && tw.show(line, () => {});
+        };
+
+        // T+1.5s. Earlier than the old 2s window; gives the greeting first
+        // claim on the typewriter before any other system has a chance to
+        // call .show().
+        setTimeout(() => tryFire(0), 1500);
     }
 
     // ── Sleepy Night Override (after 11pm, 20% chance) ─────────

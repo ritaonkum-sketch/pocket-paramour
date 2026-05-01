@@ -123,13 +123,17 @@
     }
     root.appendChild(bg);
 
-    // Glow ring
+    // Glow ring — the spotlight halo behind the character. Starts
+    // hidden so prologue narration beats (no pose) don't show it as
+    // an orphan circle. Faded in by the `show` beat when a pose is
+    // actually present.
     const glow = el('div', [
       'position:absolute', 'left:50%', 'top:45%', 'transform:translate(-50%,-50%)',
       'width:80vmin', 'height:80vmin', 'border-radius:50%',
       `box-shadow: inset 0 0 120px 40px ${pal.glow || '#3a2568'}, 0 0 140px 20px rgba(0,0,0,0.45)`,
-      'pointer-events:none', 'opacity:0.55'
+      'pointer-events:none', 'opacity:0', 'transition:opacity 900ms ease'
     ].join(';'));
+    glow.id = 'mscard-glow';
     root.appendChild(glow);
 
     // Character
@@ -218,7 +222,7 @@
     tapHint.id = 'mscard-taphint';
     root.appendChild(tapHint);
 
-    return { root, bg, charWrap, charImg, dialogue, line, speaker, titleStrip, particles, flourish };
+    return { root, bg, charWrap, charImg, dialogue, line, speaker, titleStrip, particles, flourish, glow };
   }
 
   function spawnParticles(container, count, pal) {
@@ -309,9 +313,22 @@
       for (const beat of card.beats) {
         switch (beat.type) {
           case 'show': {
-            if (beat.pose) n.charImg.src = beat.pose;
-            n.charWrap.style.opacity = '1';
-            n.charWrap.style.transform = 'translateY(0) scale(1)';
+            if (beat.pose) {
+              n.charImg.src = beat.pose;
+              n.charWrap.style.opacity = '1';
+              n.charWrap.style.transform = 'translateY(0) scale(1)';
+              if (n.glow) n.glow.style.opacity = '0.55';
+            } else {
+              // Pose-less beat (e.g. prologue narration before any
+              // character is on stage). Hide the wrap AND the glow
+              // halo — without a character behind it, the halo just
+              // looks like an orphan circle over the bg.
+              n.charImg.removeAttribute('src');
+              n.charWrap.style.opacity = '0';
+              n.charWrap.style.background = 'transparent';
+              n.charWrap.style.minHeight = '';
+              if (n.glow) n.glow.style.opacity = '0';
+            }
             await waitS(beat.wait || 600);
             n.dialogue.style.opacity = '1';
             n.dialogue.style.transform = 'translateY(0)';

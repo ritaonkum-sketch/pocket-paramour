@@ -129,12 +129,30 @@ class BGMSystem {
     }
 
     _playMoodTrack(mood) {
+        // Mood / character → audio file lookup.
+        // The original system shipped 5 mood tracks (calm/night/tense/
+        // corrupted/romantic). We have additional ambient stems sitting in
+        // assets/audio (forest-crickets, fireplace-crackle, dark-drone,
+        // digital-static, mermaid-hum) that the production audit flagged as
+        // "defined but never invoked." We map character keys to those stems
+        // so each route can have a distinct ambient bed.
         const tracks = {
-            calm: 'assets/audio/bgm-calm.mp3',
-            night: 'assets/audio/bgm-night.mp3',
-            tense: 'assets/audio/bgm-tense.mp3',
+            // Mood tracks
+            calm:      'assets/audio/bgm-calm.mp3',
+            night:     'assets/audio/bgm-night.mp3',
+            tense:     'assets/audio/bgm-tense.mp3',
             corrupted: 'assets/audio/bgm-corrupted.mp3',
-            romantic: 'assets/audio/bgm-romantic.mp3'
+            romantic:  'assets/audio/bgm-romantic.mp3',
+            // Per-character ambient beds (callers can pass a character id as
+            // mood; falls back to calm if the file doesn't exist on the
+            // device — error swallowed by audio.play().catch).
+            alistair:  'assets/audio/fireplace-crackle.mp3',
+            elian:     'assets/audio/forest-crickets.mp3',
+            lyra:      'assets/audio/mermaid-hum.mp3',
+            caspian:   'assets/audio/bgm-romantic.mp3',
+            lucien:    'assets/audio/bgm-night.mp3',
+            noir:      'assets/audio/dark-drone.mp3',
+            proto:     'assets/audio/digital-static.mp3'
         };
         const src = tracks[mood] || tracks.calm;
 
@@ -149,9 +167,12 @@ class BGMSystem {
             }, 100);
         }
 
-        // Start new track
+        // Start new track. LOOP is on — each mood/character BGM should keep
+        // playing until the mood changes or the player navigates away. The
+        // production audit caught that this was previously `false`, which
+        // produced 2 minutes of music followed by total silence. Bad vibes.
         const audio = new Audio(src);
-        audio.loop = false;  // No loop — plays once then stops
+        audio.loop = true;
         audio.volume = this.volume;
         audio.play().catch(function() {});
         this._bgmAudio = audio;

@@ -158,9 +158,13 @@
     // This catches blockers sceneActive() doesn't (chain in progress,
     // ready modal, lock popup, mst-confirm, letter overlay).
     if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
+    if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) return;
     if (sceneActive()) return;
     if (ambientBusy()) return;
     if (inCooldown()) return;
+    // Don't talk over an active typewriter line.
+    const g = window._game;
+    if (g && g.typewriter && typeof g.typewriter.busy === 'function' && g.typewriter.busy()) return;
     show(pickLine());
   }
 

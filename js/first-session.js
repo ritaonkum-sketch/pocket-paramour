@@ -1,7 +1,11 @@
 // ============================================================
 //  FIRST SESSION POLISH
-//  Patches the three dead moments in the first 10 minutes:
-//   A. "What do I do?" — one-time action hint tooltip
+//  Patches the dead moments in the first 10 minutes:
+//   A. (REMOVED) "What do I do?" hint tooltip — was a tall narrow
+//      vertical column over the Talk button. Per user feedback the
+//      pulsing Talk button + dialogue line are sufficient cue, and
+//      the explicit "Try talking to him" tooltip read as a 2016
+//      indie-game tutorial overlay rather than a 2025 Otome.
 //   B. No urgency — lower starting stats so the care loop bites
 //   C. No story beat — day-1 quiet moment after 6+ interactions
 //  All additive. Does NOT modify game.js. Safe to delete entirely.
@@ -10,76 +14,7 @@
 (function () {
     'use strict';
 
-    const STORAGE_KEY_HINT   = 'pp_first_action_hint_shown';
     const STORAGE_KEY_MOMENT = 'pp_day1_quiet_moment';
-
-    // ── A. First-action hint ────────────────────────────────────
-    // A gentle tooltip near the Talk button the first time a player
-    // lands on the care loop. Fires once, never again.
-    function showFirstActionHint() {
-        if (localStorage.getItem(STORAGE_KEY_HINT)) return;
-        const g = window._game;
-        if (!g) return;
-        // Only show if truly no interactions yet.
-        const total = (g.timesFed||0) + (g.timesWashed||0) + (g.timesTalked||0) + (g.timesGifted||0) + (g.timesTrained||0);
-        if (total > 0) return;
-
-        const talkBtn = document.getElementById('btn-talk');
-        const container = document.getElementById('game-container');
-        if (!talkBtn || !container) return;
-
-        const hint = document.createElement('div');
-        hint.className = 'pp-first-hint';
-        // Character-specific hint text
-        const hints = {
-            alistair: "Try talking to him.\nHe's been alone a long time.",
-            lyra:     "Try talking to her.\nThe cave has been quiet.",
-            lucien:   "Try talking to him.\nThe tower gets lonely.",
-            caspian:  "Try talking to him.\nPrinces rarely get honesty.",
-            elian:    "Try talking to him.\nThe forest listens, but it doesn't answer.",
-        };
-        const charId = g.selectedCharacter || 'alistair';
-        hint.textContent = hints[charId] || "Try talking to them.";
-        hint.style.whiteSpace = 'pre-line';
-        container.appendChild(hint);
-
-        // Position above the stats panel (not directly above the talk button,
-        // which would put it on top of the Bond bar). Centered horizontally
-        // over the Talk button for clear visual association.
-        requestAnimationFrame(() => {
-            const btnRect = talkBtn.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            const statsBar = document.getElementById('stats-bar');
-            const fading  = document.getElementById('fading-meter');
-            const dialogueRow = document.getElementById('dialogue-row');
-            // Find the highest (smallest top) UI element above the buttons and
-            // sit above that, so we don't overlap any stat/dialogue chrome.
-            let topOfBottomStack = btnRect.top;
-            [statsBar, fading, dialogueRow].forEach(el => {
-                if (el) {
-                    const r = el.getBoundingClientRect();
-                    if (r.top > 0 && r.top < topOfBottomStack) topOfBottomStack = r.top;
-                }
-            });
-            hint.style.left = (btnRect.left - containerRect.left + btnRect.width / 2) + 'px';
-            hint.style.bottom = (containerRect.bottom - topOfBottomStack + 16) + 'px';
-            hint.classList.add('show');
-        });
-
-        // Dismiss on any action button click.
-        function dismiss() {
-            hint.classList.remove('show');
-            setTimeout(() => hint.remove(), 400);
-            localStorage.setItem(STORAGE_KEY_HINT, '1');
-            document.querySelectorAll('.action-btn').forEach(b => b.removeEventListener('click', dismiss));
-        }
-        document.querySelectorAll('.action-btn').forEach(b => b.addEventListener('click', dismiss, { once: true }));
-
-        // Auto-dismiss after 8 seconds if player is just looking.
-        setTimeout(() => {
-            if (hint.parentNode) dismiss();
-        }, 8000);
-    }
 
     // ── B. First-session stat adjustment ────────────────────────
     // On a brand-new save, lower starting stats so the urgency loop
@@ -211,8 +146,13 @@
             // B: adjust stats for first session
             adjustFirstSessionStats();
 
-            // A: show hint after a brief delay (let player absorb the scene)
-            setTimeout(() => showFirstActionHint(), 1500);
+            // A (REMOVED): the Talk-button hint tooltip used to fire here.
+            // It was rendering as a tall narrow vertical column over the
+            // Talk button (broken layout) AND, even when positioned
+            // correctly, it read like a 2016 indie-game tutorial overlay
+            // rather than a clean Otome cue. The pulsing Talk button
+            // (existing UI affordance) plus the dialogue line are
+            // sufficient to direct a new player.
 
             // C: poll for quiet moment trigger
             setInterval(() => checkQuietMoment(), 3000);

@@ -1427,6 +1427,14 @@ class EventSystem {
         const timeSinceInteraction = now - this.game.lastInteractionTime;
         if (timeSinceInteraction < 8000) return false;
 
+        // First-care-session quiet window: don't pop a random event modal
+        // ("Storm at the Castle") on top of a brand-new player who hasn't
+        // even tapped Talk yet. The greeting + first-action hint own the
+        // first 5 minutes / 6 interactions of a fresh save.
+        if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) return false;
+        // Don't fire while typewriter is busy with a line.
+        if (this.game.typewriter && typeof this.game.typewriter.busy === 'function' && this.game.typewriter.busy()) return false;
+
         return Math.random() < 0.004; // ~0.4% per tick ≈ every 25-50 sec of idle
     }
 
@@ -1474,6 +1482,11 @@ class EventSystem {
         this.triggeredCount++;
         this.lastEventTime = Date.now();
         this.seenEvents.add(event.id);
+        // Persistent per-event seen flag (additive — alongside the
+        // existing in-save seenEvents Set). Used by the Stories
+        // archive (stories.js) to surface which events the player has
+        // experienced, and to guard the lock state on locked entries.
+        try { localStorage.setItem('pp_event_' + event.id + '_seen', '1'); } catch (_) {}
 
         this.showEvent(event);
     }
@@ -1579,4 +1592,22 @@ class EventSystem {
         const today    = new Date().toDateString();
         this.triggeredCount = (lastDate === today) ? (data.triggeredCount || 0) : 0;
     }
+
+    // Force-show an event by ID, bypassing the random-trigger gates.
+    // Used by the Stories archive's Replay button so a player can
+    // re-experience an event they've already encountered. Does NOT
+    // count against the per-session/per-day limits — replay is
+    // explicit player intent, not RNG.
+    forceShow(eventId) {
+        const event = RANDOM_EVENTS.find(e => e.id === eventId);
+        if (!event) return false;
+        this.showEvent(event);
+        return true;
+    }
+}
+
+// Expose the class so the Stories archive can find an active instance
+// via window._game.eventSystem and call forceShow(id) for replays.
+if (typeof window !== 'undefined') {
+    window.EventSystem = EventSystem;
 }

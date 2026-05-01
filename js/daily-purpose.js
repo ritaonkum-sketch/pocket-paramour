@@ -30,58 +30,120 @@
   // `detect(game, snap)` returns true when complete. `snap` is the per-visit
   // baseline we capture when the quest first becomes active — lets us check
   // deltas like "Talk 3 more times today" without mutating game state.
-  const QUESTS = [
-    { // Day 1
-      id: 'd1',
-      label: 'Spend a moment \u2014 one Talk.',
-      baseline: (g) => ({ talkScore: g.talkScore || 0 }),
-      detect:   (g, s) => (g.talkScore || 0) > s.talkScore,
-    },
-    { // Day 2
-      id: 'd2',
-      label: 'Feed them once \u2014 they\u2019re watching.',
-      baseline: (g) => ({ timesFed: g.timesFed || 0 }),
-      detect:   (g, s) => (g.timesFed || 0) > s.timesFed,
-    },
-    { // Day 3
-      id: 'd3',
-      label: 'Keep every stat above 40 today.',
-      baseline: () => ({}),
-      detect:   (g) => (g.hunger|0) > 40 && (g.clean|0) > 40 && (g.bond|0) > 40,
-    },
-    { // Day 4
-      id: 'd4',
-      label: 'Talk three times. Let them feel heard.',
-      baseline: (g) => ({ talkScore: g.talkScore || 0 }),
-      detect:   (g, s) => (g.talkScore || 0) >= s.talkScore + 3,
-    },
-    { // Day 5
-      id: 'd5',
-      label: 'Bond above 60 today.',
-      baseline: () => ({}),
-      detect:   (g) => (g.bond|0) >= 60,
-    },
-    { // Day 6
-      id: 'd6',
-      label: 'A full round \u2014 Feed, Wash, and Talk.',
-      baseline: (g) => ({ fed: g.timesFed || 0, washed: g.timesWashed || 0, talked: g.talkScore || 0 }),
-      detect:   (g, s) => (g.timesFed || 0) > s.fed && (g.timesWashed || 0) > s.washed && (g.talkScore || 0) > s.talked,
-    },
-    { // Day 7
-      id: 'd7',
-      label: 'Give them a gift \u2014 make it count.',
-      baseline: (g) => ({ gifted: g.totalGifts || g.giftCount || 0 }),
-      detect:   (g, s) => ((g.totalGifts || g.giftCount || 0) > s.gifted),
-    },
+  // \u2500\u2500 BASE quest detect-logic, day 1..7 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+  // The detect closures are shared across all characters \u2014 they read the
+  // same game-state counters. Per-character labels differ so a fresh
+  // player feels each route's voice immediately. (Production audit
+  // flagged the original unified labels as feeling generic.)
+  const BASE = [
+    { id: 'd1', baseline: (g) => ({ talkScore: g.talkScore || 0 }),
+                detect:   (g, s) => (g.talkScore || 0) > s.talkScore },
+    { id: 'd2', baseline: (g) => ({ timesFed: g.timesFed || 0 }),
+                detect:   (g, s) => (g.timesFed || 0) > s.timesFed },
+    { id: 'd3', baseline: () => ({}),
+                detect:   (g) => (g.hunger|0) > 40 && (g.clean|0) > 40 && (g.bond|0) > 40 },
+    { id: 'd4', baseline: (g) => ({ talkScore: g.talkScore || 0 }),
+                detect:   (g, s) => (g.talkScore || 0) >= s.talkScore + 3 },
+    { id: 'd5', baseline: () => ({}),
+                detect:   (g) => (g.bond|0) >= 60 },
+    { id: 'd6', baseline: (g) => ({ fed: g.timesFed || 0, washed: g.timesWashed || 0, talked: g.talkScore || 0 }),
+                detect:   (g, s) => (g.timesFed || 0) > s.fed && (g.timesWashed || 0) > s.washed && (g.talkScore || 0) > s.talked },
+    { id: 'd7', baseline: (g) => ({ gifted: g.totalGifts || g.giftCount || 0 }),
+                detect:   (g, s) => ((g.totalGifts || g.giftCount || 0) > s.gifted) },
+  ];
+
+  // \u2500\u2500 Per-character labels (Mystic-Messenger / Tears-of-Themis tier) \u2500\u2500
+  // Voice rule: each label sounds like the character thinking it about
+  // themselves, not like the game telling the player what to do.
+  const LABELS = {
+    alistair: [
+      'Walk the gate with him \u2014 one Talk.',
+      'Bring food to the watch. He has not eaten.',
+      'Steady is enough today \u2014 keep him level.',
+      'Three times around the wall. Three times he hears you.',
+      'Trust earned, slowly. Bond past sixty.',
+      'A round at the captain\u2019s table \u2014 fed, mended, heard.',
+      'A small gift. A knight does not expect.'
+    ],
+    elian: [
+      'Step into the Thornwood. One word counts.',
+      'Bring him something edible. The forest does not.',
+      'Match the woods today \u2014 nothing under forty.',
+      'Three exchanges by the fire. He counts them.',
+      'A bond the cabin learns. Past sixty.',
+      'A full circuit \u2014 fed, cleaned, spoken to.',
+      'Carve something small. Leave it on the doorstep.'
+    ],
+    lyra: [
+      'Sit at the cave-mouth. One word back.',
+      'Bring her a tide-warm meal. Sirens forget.',
+      'Tide-balance \u2014 keep all three above forty.',
+      'Three verses, three answers. Sing back.',
+      'Bond past sixty \u2014 the pool will rest.',
+      'A whole evening \u2014 fed, washed, spoken to.',
+      'Drop something in the third pool from the left.'
+    ],
+    caspian: [
+      'Court hours. One private word.',
+      'Eat with him at the small table. No retainers.',
+      'Composure today \u2014 every stat above forty.',
+      'Three real exchanges. Not charm \u2014 the other thing.',
+      'Past sixty bond. The crown notices.',
+      'A full evening \u2014 fed, dressed, listened to.',
+      'A gift not from the treasury. From you.'
+    ],
+    lucien: [
+      'A footnote in his margin. One word.',
+      'Bring him bread. He forgets.',
+      'Stable variables \u2014 every stat above forty.',
+      'Three observations. The catalogue grows.',
+      'Bond past sixty. The maths will permit it.',
+      'A full session \u2014 fed, washed, spoken to.',
+      'A book he has not read. Mark the page.'
+    ],
+    noir: [
+      'Go to the seam. One word, gentle.',
+      'Bring something warm. He has been cold longer than you have been alive.',
+      'Hold the line \u2014 nothing under forty today.',
+      'Three exchanges in his old script. Slowly.',
+      'Bond past sixty. The dark will permit you.',
+      'A full evening \u2014 fed, cleaned, spoken to. Once.',
+      'A gift made by hand. He keeps everything.'
+    ],
+    proto: [
+      '&gt; ping him. one talk.',
+      '&gt; he eats data. give it kindly. one feed.',
+      '&gt; keep the system stable \u2014 all stats above 40.',
+      '&gt; three exchanges. logged. archived. kept.',
+      '&gt; bond_index &gt; 60. he will render in color.',
+      '&gt; full diagnostic \u2014 fed, cleaned, spoken to.',
+      '&gt; one gift. file it under \u201ckept by you.\u201d'
+    ]
+  };
+
+  // Generic fallback for any future character not yet in LABELS.
+  const FALLBACK = [
+    'Spend a moment \u2014 one Talk.',
+    'Feed them once \u2014 they\u2019re watching.',
+    'Keep every stat above 40 today.',
+    'Talk three times. Let them feel heard.',
+    'Bond above 60 today.',
+    'A full round \u2014 Feed, Wash, and Talk.',
+    'Give them a gift \u2014 make it count.'
   ];
 
   function isEnabled() {
     try { return localStorage.getItem(FLAG_KEY) === '1'; } catch (e) { return false; }
   }
 
-  function questFor(day) {
-    const i = Math.max(1, Math.min(QUESTS.length, day|0)) - 1;
-    return QUESTS[i];
+  // questFor(day, charId?) returns a quest object with the right LABEL for
+  // this character. The detect/baseline closures come from the shared BASE
+  // table (game-state checks are universal); only the label string changes.
+  function questFor(day, charId) {
+    const i = Math.max(1, Math.min(BASE.length, day|0)) - 1;
+    const base = BASE[i];
+    const labels = (charId && LABELS[charId]) || FALLBACK;
+    return Object.assign({}, base, { label: labels[i] || FALLBACK[i] });
   }
 
   // Per-character+day completion flag
@@ -189,7 +251,7 @@
     const day = g.storyDay | 0;
     if (day < 1) { hideBanner(); return; }
 
-    const quest = questFor(day);
+    const quest = questFor(day, charId);
     if (!quest) { hideBanner(); return; }
 
     // Day or character changed — refresh banner & baseline if needed
@@ -250,7 +312,7 @@
     isEnabled,
     currentQuest: () => {
       const g = window._game; if (!g) return null;
-      return questFor(g.storyDay | 0);
+      return questFor(g.storyDay | 0, g.characterId || g.selectedCharacter);
     },
     _debug_reset: () => {
       try {

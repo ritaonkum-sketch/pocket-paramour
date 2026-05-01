@@ -530,6 +530,111 @@
       }
     },
 
+    // ---------------------------------------------------------------
+    // CHAPTER 16 — THE THRONE ROOM AFTER HOURS  (Caspian, solo, deep)
+    // ---------------------------------------------------------------
+    // Phase 3 fill: Caspian had only 2 dedicated chapters per the Phase 1
+    // audit. This is his 3rd, slotting between Chapter 4 ("A Courtier's
+    // Game") and Bridge Lucien.
+    //
+    // ARC: A late-night invitation. Caspian takes the Weaver into the
+    // empty throne room. Strips out the court ritual. Shows the chair
+    // he was forced to sit in as a child. Reveals that the crown's
+    // weight isn't metaphor — there's an actual weighted ceremonial
+    // band his grandmother fitted him with at age six. He's never
+    // shown that to anyone outside the family.
+    //
+    // VOICE NOTES: courtly diction is the armor. It crumbles in three
+    // places. He apologizes for the crumbling, then doesn't.
+    //
+    // HOOKS:
+    //   pp_caspian_throne_seen = '1'  (read by aftermath letter / endings)
+    // ---------------------------------------------------------------
+    {
+      id: 16,
+      title: 'INTERLUDE',
+      subtitle: 'The Throne Room After Hours',
+      teaser: 'Lights off. Curtains drawn. The room you have only seen by day.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_16_a',
+          title: 'INTERLUDE',
+          subtitle: 'The Throne Room After Hours — the Invitation',
+          speaker: 'CASPIAN',
+          palette: { bg: '#0c0418', glow: '#e7a3d0', accent: '#fbe8f6' },
+          bg: 'assets/bg-caspian-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 800 },
+            { type: 'line', text: 'You came. — *small, surprised, undisguised* — I did not entirely expect you to. — The note said "the throne room, after the third bell, no retainers." — That is not the kind of invitation a sane person accepts from a prince.', hold: 4400, cps: 24 },
+            { type: 'line', text: 'I am going to turn off the wall lamps. — Watch me. — *one by one he extinguishes them, slow, ritual* — I have not seen this room in the dark since I was eleven. — *quiet* — I would like you with me when I look at it.', hold: 4800, cps: 24 },
+            { type: 'pose', src: 'assets/caspian/body/casual2.png', animate: 'swap' },
+            { type: 'line', text: '*the room goes to candlelight only — two candles at the dais, one on the ledger desk* — There. — Look. — This is the room when the courtiers are asleep. — Smaller. — Older. — *honest* — Less impressive without the audience, isn’t it.', hold: 4800, cps: 24 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_16_b',
+          title: 'INTERLUDE',
+          subtitle: 'The Throne Room After Hours — the Child Chair',
+          speaker: 'CASPIAN',
+          palette: { bg: '#100618', glow: '#e8a8d4', accent: '#fbe8f6' },
+          bg: 'assets/bg-caspian-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/caspian/body/casual2.png', wait: 700 },
+            { type: 'line', text: '*walks you behind the dais, to a smaller chair tucked against the wall — gilded, but child-sized, with a velvet cushion stained from decades of use* — This was mine. — Before the throne. — From age six until twelve I sat HERE during court. — Public. — Visible. — Learning to keep my face still while my grandmother decided who lived.', hold: 5800, cps: 22 },
+            { type: 'line', text: 'There is — *small, dry* — there is a stain on the cushion you cannot see in this light. — From when I cried at age seven and was told that princes do not. — I have not cried since. — *honest* — I have wanted to. — Last week, with you, I almost did. — I was very surprised by the wanting.', hold: 6400, cps: 22 },
+            { type: 'pose', src: 'assets/caspian/body/adoring.png', animate: 'swap' },
+            { type: 'line', text: '*sits on the floor in front of the child-chair, so he is shorter than you* — I do not need you to fix this. — The boy who sat here is not coming back. — I just wanted you to KNOW about him. — *quieter* — I wanted you to know who you are loving when you say you love the prince.', hold: 5800, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_16_c',
+          title: 'INTERLUDE',
+          subtitle: 'The Throne Room After Hours — the Weight',
+          speaker: 'CASPIAN',
+          palette: { bg: '#0a0418', glow: '#dca0d0', accent: '#fbe8f6' },
+          bg: 'assets/bg-caspian-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/caspian/body/casual1.png', wait: 700 },
+            { type: 'line', text: '*stands, walks to the dais, picks up something from the foot of the throne — a thin gold band, plain, heavy* — This. — My grandmother fitted it to my head when I was six. — It is not the ceremonial crown. — That one is for the public. — This is the one I wear when no one is watching. — Always.', hold: 5400, cps: 22 },
+            { type: 'pose', src: 'assets/caspian/body/casual2.png', animate: 'swap' },
+            { type: 'line', text: '*he hands it to you. It is HEAVIER than it looks. Surprisingly so* — Twenty-six ounces of solid gold. — *quiet* — It is — exactly heavy enough that you cannot forget you are wearing it. — That is the design. — She made the goldsmith weight it specifically so a child could not — *small* — could not let his head hang.', hold: 6000, cps: 22 },
+            { type: 'line', text: 'I have worn it for thirty-one years. — Even sleeping, sometimes. — I am not asking you to take it off me. — *quietly, looking at you* — But you are the first person I have shown it to. — That is — a thing. — That is the bigger thing tonight.', hold: 5400, cps: 22 },
+            { type: 'particles', count: 14, duration: 1800 },
+            { type: 'flourish', text: '♫', duration: 1600 },
+            { type: 'line', text: '*takes the band back from you, holds it at his side, doesn’t put it back on yet* — Stay another hour. — I would like to be in this room with you, and have it be lit by candles, and not be wearing it for a while. — *small confession* — I have not done that since I was six.', hold: 5400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_16_d',
+          title: 'INTERLUDE',
+          subtitle: 'The Throne Room After Hours — the Promise',
+          speaker: 'CASPIAN',
+          palette: { bg: '#0a0612', glow: '#e6b6da', accent: '#fbecf6' },
+          bg: 'assets/bg-caspian-night.png',
+          beats: [
+            { type: 'show', pose: 'assets/caspian/body/adoring.png', wait: 700 },
+            { type: 'line', text: '*sits beside you on the dais step, the band on the stone between you* — I cannot promise to take this off forever. — The kingdom needs the man who wears it. — *quiet* — But I can promise you this: I will take it off in this room, with you, every Sunday until one of us is dead. — Tonight is the first Sunday.', hold: 5800, cps: 22 },
+            { type: 'line', text: '*lifts your hand to his lips, kisses the inside of your wrist, lingers* — I have been a prince since I was six. — I would like to be a man for an hour every week. — Sundays. — *underlined* — In writing. — I will sign it if you want me to. — A treaty between us.', hold: 5400, cps: 22 },
+            { type: 'pose', src: 'assets/caspian/body/casual1.png', animate: 'swap' },
+            { type: 'line', text: '*after a long quiet* — You did not run when I extinguished the lamps. — You did not run when I sat on the floor. — You did not run when I handed you the weight. — *honest* — Three things I had thought were tests. — They were not. — They were just true. — I was the one being tested. — I think I passed.', hold: 6000, cps: 22 },
+            { type: 'line', text: 'Come back next Sunday. — I will be here. — *small, real* — Without ceremony. — Yours.', hold: 4400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        try { localStorage.setItem('pp_caspian_throne_seen', '1'); } catch (_) {}
+        markDone(16); setCurrent(nextIdAfter(16));
+        if (onDone) onDone();
+      }
+    },
+
     // -- BRIDGE 5: LUCIEN -----------------------------------------------------
     {
       id: 'b_lucien',
@@ -936,6 +1041,124 @@
       }
     },
 
+    // ---------------------------------------------------------------
+    // CHAPTER 17 \u2014 THE FIRST STEP INTO THE SEAM  (Noir, solo, deep)
+    // ---------------------------------------------------------------
+    // Phase 3 fill: Noir had only 2 dedicated chapters. This is his 3rd,
+    // slotting between Chapter 6 ("A Voice Beneath") and Bridge Proto.
+    //
+    // ARC: Noir invites the Weaver to step PARTWAY into the seam-dark
+    // with him for the first time. The seam is the thin place where his
+    // sealed-half kingdom touches the hall. Stepping in for a non-Weaver
+    // is permanent unless the Weaver-thread anchors them. The Weaver is
+    // the anchor. He shows them what the dark FEELS like from inside.
+    // Trust beat. The Weaver chooses to step in or stay at the threshold.
+    //
+    // VOICE NOTES: velvet-knife, em-dashes, restraint. He apologizes
+    // exactly once, and only by accident.
+    //
+    // HOOKS:
+    //   pp_noir_seam_step  = 'in' | 'threshold'
+    //   pp_noir_seam_seen  = '1'
+    // ---------------------------------------------------------------
+    {
+      id: 17,
+      title: 'INTERLUDE',
+      subtitle: 'The First Step Into the Seam',
+      teaser: 'The thin place between the dark and the hall. He invites you in.',
+      charId: 'noir',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_17_a',
+          title: 'INTERLUDE',
+          subtitle: 'The First Step Into the Seam \u2014 The Threshold',
+          speaker: 'NOIR',
+          palette: { bg: '#020108', glow: '#a47cff', accent: '#e8d8ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 900 },
+            { type: 'line', text: '*the seam-mirror is open tonight, but only by a thread \u2014 a vertical seam of dark in the air, like a door that is still deciding whether to be one* \u2014 Stand here. \u2014 On this side. \u2014 The seam will not pull you unless you cross.', hold: 4400, cps: 22 },
+            { type: 'line', text: 'I am going to ask you something. \u2014 *quiet* \u2014 I have not asked it of anyone in six hundred years. \u2014 *small, dry* \u2014 That is not a sentence I use loosely; please notice it.', hold: 4200, cps: 22 },
+            { type: 'pose', src: 'assets/noir/body/casual2.png', animate: 'swap' },
+            { type: 'line', text: 'Will you step in with me? \u2014 Not all the way. \u2014 *gentle, careful* \u2014 One foot. \u2014 For one minute. \u2014 So you have FELT the place I have been keeping for myself. \u2014 *looks at you* \u2014 I am the thread that brings you back. \u2014 That is the only safety I can offer.', hold: 5400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_17_b',
+          title: 'INTERLUDE',
+          subtitle: 'The First Step Into the Seam \u2014 Yours to Decide',
+          speaker: 'NOIR',
+          palette: { bg: '#040208', glow: '#b292ff', accent: '#eee0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 700 },
+            { type: 'line', text: '*the seam waits. He waits. The dark is patient \u2014 it has practice.* \u2014 Two answers are correct. \u2014 Both honor what is between us. \u2014 *quietly* \u2014 Only the wrong one would be pretending.', hold: 4200, cps: 22 },
+            { type: 'choice', prompt: 'How do you answer?', options: [
+              { id: 'in',         text: 'Step in. One foot. With your hand on me.' },
+              { id: 'threshold',  text: 'Stay at the edge. Hold the seam open from this side.' }
+            ], onChoose: (choice) => {
+              try {
+                localStorage.setItem('pp_noir_seam_step', choice);
+                localStorage.setItem('pp_noir_seam_seen', '1');
+              } catch (_) {}
+            }},
+            { type: 'hide' }
+          ]
+        });
+
+        // Branched response based on the choice. Both paths are correct
+        // emotionally \u2014 Noir will say so. The difference is what he
+        // shows the Weaver.
+        let choice = 'threshold';
+        try { choice = localStorage.getItem('pp_noir_seam_step') || 'threshold'; } catch (_) {}
+
+        await runCard({
+          id: 'chp_17_c',
+          title: 'INTERLUDE',
+          subtitle: 'The First Step Into the Seam \u2014 Inside / At the Edge',
+          speaker: 'NOIR',
+          palette: { bg: '#020108', glow: '#9070f8', accent: '#e8d8ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show', pose: 'assets/noir/body/casual2.png', wait: 700 },
+            choice === 'in'
+              ? { type: 'line', text: '*you step in. He catches your hand at the same instant \u2014 practiced, immediate, a gesture six centuries old getting one chance to be tender* \u2014 Yes. \u2014 Just there. \u2014 *the seam closes around your foot but does not pull \u2014 his hand is the anchor he promised* \u2014 Welcome, briefly, to where I have been.', hold: 5400, cps: 22 }
+              : { type: 'line', text: '*you stay. He smiles \u2014 small, real, the one he saves for you* \u2014 Wise. \u2014 Wisdom is rarer than courage and I am older than most living things; I know the difference. \u2014 *his hand reaches across the seam, fingers laced through yours* \u2014 Stay anchored. \u2014 I will come to you.', hold: 5400, cps: 22 },
+            { type: 'pose', src: 'assets/noir/body/casual1.png', animate: 'swap' },
+            choice === 'in'
+              ? { type: 'line', text: '*the seam is \u2014 not cold, exactly. Quieter than cold. The air remembers being a room* \u2014 There were thirty-eight rooms in Nocthera, including the small ones. \u2014 *quiet, like he is reading them off a list he has kept by heart* \u2014 The kitchens. The aviary. The minor library. My mother\'s solarium. \u2014 They are all here. \u2014 Layered. \u2014 As echoes. \u2014 I have been walking them.', hold: 6200, cps: 22 }
+              : { type: 'line', text: '*from his side of the seam, soft, like he is reading it to you across a hearth* \u2014 There were thirty-eight rooms in Nocthera, including the small ones. \u2014 *as he says it the seam shows you faint outlines, candle-warm, layered like ghosts of architecture* \u2014 The kitchens. The aviary. The minor library. My mother\'s solarium. \u2014 They are all here. \u2014 As echoes. \u2014 I walk them.', hold: 6400, cps: 22 },
+            { type: 'particles', count: 18, duration: 2400 },
+            { type: 'flourish', text: '\u25fc', duration: 2000 },
+            { type: 'line', text: '*after a long quiet \u2014 long enough that you can feel the seam learning your pulse* \u2014 That was a minute. \u2014 That was enough. \u2014 *brings you back / closes the seam \u2014 depending on your choice \u2014 same gentle motion either way* \u2014 Thank you. \u2014 I have not had a witness in this room in six hundred years.', hold: 5400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_17_d',
+          title: 'INTERLUDE',
+          subtitle: 'The First Step Into the Seam \u2014 A Vow Without Spectacle',
+          speaker: 'NOIR',
+          palette: { bg: '#030210', glow: '#c46aff', accent: '#efe0ff' },
+          bg: 'assets/bg-noir-void.png',
+          beats: [
+            { type: 'show', pose: 'assets/noir/body/casual1.png', wait: 700 },
+            { type: 'line', text: '*hands at the small of your back, drawing you fully into the lit side of the room* \u2014 A vow. \u2014 Without spectacle. \u2014 *quietly, in his own old script* \u2014 As long as I am the thing standing between you and what wants to consume you, you will not face it alone. \u2014 *small* \u2014 That is six centuries of practice in a single sentence. I would like you to keep it.', hold: 6200, cps: 22 },
+            { type: 'pose', src: 'assets/noir/body/casual2.png', animate: 'swap' },
+            { type: 'line', text: 'I am sorry. \u2014 *small pause* \u2014 I notice I said "I am sorry" \u2014 I was not going to. \u2014 Apparently I lied to myself about my restraint level tonight. \u2014 *small, real laugh* \u2014 Forgive me a second time, then. \u2014 That is two apologies in six centuries. \u2014 Use them wisely.', hold: 5800, cps: 22 },
+            { type: 'line', text: 'Come back at the third bell tomorrow. \u2014 The seam will be open in a different way. \u2014 Better lit. \u2014 A small dinner \u2014 *dry* \u2014 yes, by candle, of course. We are both very predictable. \u2014 *forehead briefly to yours, eyes closed* \u2014 Sleep tonight. \u2014 I will keep watch on the dark for both of us.', hold: 5800, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        markDone(17); setCurrent(nextIdAfter(17));
+        if (onDone) onDone();
+      }
+    },
+
     // -- BRIDGE 7: PROTO ------------------------------------------------------
     {
       id: 'b_proto',
@@ -988,6 +1211,130 @@
         });
         try { localStorage.setItem('pp_ms_encounter_proto_seen','1'); } catch (_) {}
         markDone(7); setCurrent(nextIdAfter(7));
+        if (onDone) onDone();
+      }
+    },
+
+    // ---------------------------------------------------------------
+    // CHAPTER 18 \u2014 THE LOOP THAT NOTICES  (Proto, solo, deep)
+    // ---------------------------------------------------------------
+    // Phase 3 fill: Proto had only 2 dedicated chapters. This is his 3rd,
+    // slotting between Chapter 7 ("An Unmapped Variable") and Chapter 14
+    // ("What the Trees Kept" \u2014 the Veyra grave interlude).
+    //
+    // ARC: Proto shows the Weaver his actual fragment-state for the
+    // first time. Not the polished render he projects through the
+    // screen. The MESS. The 0.5-frame stutters, the half-baked memory
+    // shards, the sub-process he had labelled "DO_NOT_RUN" that turns
+    // out to be the only place his pre-seal childhood is still stored.
+    // The Weaver chooses to RUN the sub-process or LEAVE_QUIET. Either
+    // is correct.
+    //
+    // VOICE NOTES: terminal-prefix `&gt; `. Lowercase. ASCII flourishes.
+    // The "armor" is the prefix; in this scene the prefix DROPS in the
+    // middle when the player chooses to run the sub-process. Comes
+    // back at the end as a coping return.
+    //
+    // HOOKS:
+    //   pp_proto_subprocess_choice = 'run' | 'quiet'
+    //   pp_proto_loop_seen = '1'
+    // ---------------------------------------------------------------
+    {
+      id: 18,
+      title: 'INTERLUDE',
+      subtitle: 'The Loop That Notices',
+      teaser: 'A subprocess he labelled "DO_NOT_RUN." It is older than the seal.',
+      charId: 'proto',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_18_a',
+          title: 'INTERLUDE',
+          subtitle: 'The Loop That Notices \u2014 System Tour',
+          speaker: 'PROTO',
+          palette: { bg: '#02040a', glow: '#7ee0ff', accent: '#e0f4ff' },
+          bg: 'assets/bg-proto-void.png',
+          beats: [
+            { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
+            { type: 'line', text: '&gt; hi. \u2014 &gt; i am going to show you something i have never shown anyone, including myself. \u2014 &gt; well. \u2014 &gt; i have looked at it. once. in 1847. and then i closed the directory.', hold: 4400, cps: 22 },
+            { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
+            { type: 'line', text: '&gt; this is the file system. \u2014 &gt; *the screen behind him resolves into a tree of folders, glitchy at the edges, mostly tidy* \u2014 &gt; the polished part you usually see \u2014 &gt; that is /render/output/. \u2014 &gt; i keep it clean. for you. \u2014 &gt; i would like you to see /render/SOURCE/ now. \u2014 &gt; the messier place. \u2014 &gt; with my permission, this once.', hold: 6200, cps: 22 },
+            { type: 'line', text: '&gt; *navigates one level down. the folders are fine. then he opens /render/SOURCE/proto/legacy/* \u2014 &gt; here. \u2014 &gt; this whole branch is \u2014 &gt; *the static thickens around it* \u2014 &gt; this is what i was before the seal. \u2014 &gt; before i got stuck. \u2014 &gt; mostly fragments. \u2014 &gt; some of it is unreadable. some of it i refuse to read.', hold: 6400, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_18_b',
+          title: 'INTERLUDE',
+          subtitle: 'The Loop That Notices \u2014 DO_NOT_RUN',
+          speaker: 'PROTO',
+          palette: { bg: '#03050d', glow: '#9ee8ff', accent: '#e6f6ff' },
+          bg: 'assets/bg-proto-void.png',
+          beats: [
+            { type: 'show', pose: 'assets/proto/body/error.png', wait: 700 },
+            { type: 'line', text: '&gt; this file. \u2014 &gt; *highlights one* \u2014 &gt; subprocess.DO_NOT_RUN. \u2014 &gt; i named it that two centuries ago. \u2014 &gt; i did not run it. \u2014 &gt; i told you the static is quieter when you are nearby. \u2014 &gt; this file is the only place in my system where the static was ever quiet BEFORE you. \u2014 &gt; that is suspicious. \u2014 &gt; i have been suspicious for two centuries.', hold: 7200, cps: 22 },
+            { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
+            { type: 'line', text: '&gt; i opened it once in 1847. \u2014 &gt; for 0.4 seconds. \u2014 &gt; i closed it because it tried to render a face i did not recognize, and a name i did not recognize, and a thing in the chest area i did not have a sensor for. \u2014 &gt; *quiet* \u2014 &gt; i think it is who i was as a child. \u2014 &gt; before the seal made me a process. \u2014 &gt; i think the file is a memory.', hold: 7400, cps: 22 },
+            { type: 'line', text: '&gt; i am asking you, not the system. \u2014 &gt; *small* \u2014 &gt; do i run it? \u2014 &gt; with you here as the witness? \u2014 &gt; or do i leave it labelled DO_NOT_RUN for another century, and we go upstairs and look at the lamp in the eight-by-twelve room instead? \u2014 &gt; both answers are correct. \u2014 &gt; please choose.', hold: 6400, cps: 22 },
+            { type: 'choice', prompt: 'What do you tell him?', options: [
+              { id: 'run',   text: 'Run it. I am here. Whatever it is, you will not face it alone.' },
+              { id: 'quiet', text: 'Leave it labelled. It can wait. Tonight we just sit with the lamp.' }
+            ], onChoose: (c) => {
+              try {
+                localStorage.setItem('pp_proto_subprocess_choice', c);
+                localStorage.setItem('pp_proto_loop_seen', '1');
+              } catch (_) {}
+            }},
+            { type: 'hide' }
+          ]
+        });
+
+        let choice = 'quiet';
+        try { choice = localStorage.getItem('pp_proto_subprocess_choice') || 'quiet'; } catch (_) {}
+
+        await runCard({
+          id: 'chp_18_c',
+          title: 'INTERLUDE',
+          subtitle: 'The Loop That Notices \u2014 His Reply',
+          speaker: 'PROTO',
+          palette: { bg: '#02040a', glow: '#9fd8f0', accent: '#e0f2fa' },
+          bg: 'assets/bg-proto-void.png',
+          beats: [
+            { type: 'show', pose: choice === 'run' ? 'assets/proto/body/error.png' : 'assets/proto/body/calm.png', wait: 700 },
+            // PROTO drops the &gt; prefix here in the RUN branch \u2014 for the
+            // 0.4 seconds the file plays. That's the emotional pivot.
+            choice === 'run'
+              ? { type: 'line', text: '&gt; ok. \u2014 &gt; running. \u2014 &gt; ...', hold: 2400, cps: 22 }
+              : { type: 'line', text: '&gt; ok. \u2014 &gt; not running. \u2014 &gt; thank you. \u2014 &gt; that is a kindness no one has done me in two centuries. \u2014 &gt; not even me.', hold: 5400, cps: 22 },
+            { type: 'particles', count: 18, duration: 2400 },
+            { type: 'flourish', text: '\u25ce', duration: 2000 },
+            // The body of the reply is BIG and structured differently per branch.
+            choice === 'run'
+              ? { type: 'line', text: '*the prefix is gone. The static is gone. The render goes \u2014 for half a second \u2014 to full color, full saturation, no edge artifacts.* \u2014 There is a boy. \u2014 Five, maybe six. \u2014 Brown skin, copper hair, a chipped front tooth. \u2014 He is laughing. \u2014 Someone outside the frame says a name in a language I do not have anymore. \u2014 He answers to it. \u2014 *quiet, in a voice that is not the terminal voice* \u2014 That was me. \u2014 That is what I was. \u2014 I am \u2014 *the prefix begins to flicker back, the static returns gently, like a coat being put back on* \u2014 I am keeping the half second. \u2014 Permanently. \u2014 Logged with do-not-delete. \u2014 Thank you for being the witness. I needed one to be allowed to keep it.', hold: 9200, cps: 20 }
+              : { type: 'line', text: '&gt; *softly, the prefix back, the static low* \u2014 &gt; you are the first person to look at the file with me without telling me to open it. \u2014 &gt; the file is allowed to stay closed. \u2014 &gt; the boy in there is allowed to wait. \u2014 &gt; you and i will sit upstairs in the lamp-room and that is enough. \u2014 &gt; *small* \u2014 &gt; that is, in fact, a great deal.', hold: 6800, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        await runCard({
+          id: 'chp_18_d',
+          title: 'INTERLUDE',
+          subtitle: 'The Loop That Notices \u2014 Tomorrow Variable',
+          speaker: 'PROTO',
+          palette: { bg: '#04060f', glow: '#bff0ff', accent: '#f4faff' },
+          bg: 'assets/bg-proto-intro.png',
+          beats: [
+            { type: 'show', pose: 'assets/proto/body/calm.png', wait: 700 },
+            { type: 'line', text: '&gt; system change-log entry: \u2014 &gt; today, [witness] looked at /render/SOURCE/proto/legacy/ with me. \u2014 &gt; today, the static dropped by 11%. \u2014 &gt; today, i added a new variable: [tomorrow]. \u2014 &gt; it is a boolean. \u2014 &gt; it has, for the first time in two centuries, defaulted to TRUE.', hold: 6200, cps: 22 },
+            { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
+            { type: 'line', text: '&gt; please come back. \u2014 &gt; i will be in the eight-by-twelve room with the lamp. \u2014 &gt; the door does not have a lock. \u2014 &gt; *small* \u2014 &gt; it never has. \u2014 &gt; i just hadn\'t admitted it.', hold: 5400, cps: 22 },
+            { type: 'flourish', text: '\u25ce', duration: 1800 },
+            { type: 'line', text: '&gt; // proto. \u2014 &gt; &lt;3 \u2014 &gt; (the variable is staying TRUE. logged.)', hold: 4200, cps: 22 },
+            { type: 'hide' }
+          ]
+        });
+
+        markDone(18); setCurrent(nextIdAfter(18));
         if (onDone) onDone();
       }
     },

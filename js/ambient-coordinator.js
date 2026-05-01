@@ -181,21 +181,75 @@
         } catch (_) { return false; }
     }
 
+    // ────────────────────────────────────────────────────────────────────────
+    // FIRST CARE SESSION GATE
+    // ────────────────────────────────────────────────────────────────────────
+    // Returns true during the early minutes of a fresh save's first care-loop
+    // visit — used by polling modules (adaptive-thoughts, whispers, aenor,
+    // care-weaver-thread, multi-romance, day-progress, etc.) to back off so
+    // the greeting + first-action hint can land cleanly without bubbles
+    // stacking on top.
+    //
+    // Ends at the FIRST of:
+    //   - 5 minutes of wall-clock since the care page first opened, OR
+    //   - 6 player interactions logged on _game (feed/wash/talk/gift/train)
+    //
+    // The TIMESTAMP is set the first time _game becomes available with a
+    // selected character — a fresh save in the care loop. Persisted in
+    // localStorage so it survives accidental reloads during the session
+    // (player tapping refresh by mistake shouldn't reset their quiet window).
+    const FIRST_CARE_KEY = 'pp_first_care_session_start';
+    const FIRST_CARE_DURATION_MS = 5 * 60 * 1000;  // 5 minutes
+    const FIRST_CARE_INTERACTION_CAP = 6;
+
+    function _firstCareStart() {
+        let raw = null;
+        try { raw = localStorage.getItem(FIRST_CARE_KEY); } catch (_) {}
+        if (raw) return parseInt(raw, 10) || 0;
+        return 0;
+    }
+    function _stampFirstCareStartIfNeeded() {
+        if (_firstCareStart()) return;
+        const g = window._game;
+        if (!g || !(g.selectedCharacter || g.characterId)) return;
+        try { localStorage.setItem(FIRST_CARE_KEY, String(Date.now())); } catch (_) {}
+    }
+    function _interactionCount() {
+        const g = window._game;
+        if (!g) return 0;
+        return (g.timesFed || 0) + (g.timesWashed || 0) + (g.timesTalked || 0)
+             + (g.timesGifted || 0) + (g.timesTrained || 0);
+    }
+    function firstCareSession() {
+        // Stamp on first call once _game is ready.
+        _stampFirstCareStartIfNeeded();
+        const start = _firstCareStart();
+        if (!start) return false;
+        if (Date.now() - start > FIRST_CARE_DURATION_MS) return false;
+        if (_interactionCount() >= FIRST_CARE_INTERACTION_CAP) return false;
+        return true;
+    }
+
     // Defensive scrub — if any of the registered ambient bubbles is in the DOM
     // while a hard blocker is up, remove it. Runs cheaply on a 1.5s interval.
     // This catches the case where a module mounted its bubble *just before*
     // a chain transition started (race window). Without this, the bubble would
     // sit on top of the cinematic.
+    // pp-chain-toast is intentionally NOT in this list. It IS the chain-
+    // transition UI (the "X's route is open" card), so it should remain
+    // visible while the chain is in progress, not be scrubbed by the
+    // first-hour-busy guard.
     const SCRUB_IDS = [
         'cc-bubble', 'noir-whisper', 'ew-whisper', 'adaptive-thought',
         'pp-aenor-bubble', 'pp-multirom-bubble', 'pp-care-thread-toast',
-        'ad-toast', 'date-unlock-toast', 'mon-chip', 'pg-notice',
-        'pp-chain-toast'
+        'ad-toast', 'date-unlock-toast', 'mon-chip', 'pg-notice'
     ];
     // Class-based popups (achievement notifications, etc.) — same scrub logic.
     const SCRUB_CLASSES = ['.achievement-popup'];
     function scrubDuringBlocker() {
-        if (!firstHourBusy()) return;
+        // Scrub during a hard blocker (chain transition, scene, modal) OR
+        // during the first care session. Both states need to be quiet.
+        if (!firstHourBusy() && !firstCareSession()) return;
         for (const id of SCRUB_IDS) {
             const el = document.getElementById(id);
             if (el) {
@@ -216,6 +270,12 @@
         // ALL-systems busy check: scenes, chain transitions, modals.
         // This is what most polling modules should call before mounting.
         firstHourBusy,
+        // First-care-session gate. True during the first 5 minutes / first
+        // 6 interactions of a fresh save's care loop. Polling modules
+        // (adaptive-thoughts, whispers, aenor, care-weaver-thread,
+        // multi-romance, day-progress) should back off when this is true
+        // so the greeting and first-action hint can land without competition.
+        firstCareSession,
         // Convenience: returns true if the player is in the prologue chain
         // (chain step 1..6, not yet completed). Several systems should defer
         // their "look how cool we are" popups until prologue is done.
@@ -291,4 +351,53 @@
 
     // Scrub sweep — cheap, defensive, runs forever as a backstop.
     setInterval(scrubDuringBlocker, 1500);
+
+    // ========================================================================
+    // VISIBILITY-AWARE TICK COORDINATOR
+    // ------------------------------------------------------------------------
+    // The Production audit flagged 42+ uncoordinated `setInterval` calls
+    // across the codebase (affection-drift, aenor-presence, multi-romance,
+    // adaptive-thoughts, daily-purpose, dates, monetization, idle-life, etc.)
+    // running constantly even when the browser tab is hidden. On a low-end
+    // Android, that compounds to noticeable battery drain + stuttering when
+    // the player switches back to the tab.
+    //
+    // We don't refactor every poll today (would touch 12+ files). Instead we
+    // expose `PPAmbient.tickAllowed()` — a SINGLE check that any polling
+    // module can call to decide whether to bail this tick. It returns:
+    //   - false if the document is hidden (player switched tab / locked phone)
+    //   - false if firstHourBusy() (a scene/modal is up)
+    //   - true otherwise
+    //
+    // Modules that adopt this gate (their next-update opportunity) get free
+    // pause-when-backgrounded behaviour. Modules that don't: still work, just
+    // less efficient.
+    //
+    // ALSO: when the tab regains visibility, we fire a one-shot
+    // `pp:tick-resume` CustomEvent so any module that wants to refresh state
+    // (e.g. re-apply affection drift catch-up) can subscribe.
+    // ========================================================================
+    let _wasHidden = false;
+    function tickAllowed() {
+        try {
+            if (document.hidden || document.visibilityState === 'hidden') return false;
+        } catch (_) {}
+        return !firstHourBusy();
+    }
+    document.addEventListener('visibilitychange', () => {
+        const hidden = document.hidden || document.visibilityState === 'hidden';
+        if (_wasHidden && !hidden) {
+            // Returning to foreground — broadcast for catch-up logic.
+            try { document.dispatchEvent(new CustomEvent('pp:tick-resume', { detail: { hiddenSince: Date.now() } })); } catch (_) {}
+        }
+        _wasHidden = hidden;
+    });
+
+    // Expose on the public API.
+    if (window.PPAmbient) {
+        window.PPAmbient.tickAllowed = tickAllowed;
+        window.PPAmbient.isHidden = () => {
+            try { return !!(document.hidden || document.visibilityState === 'hidden'); } catch (_) { return false; }
+        };
+    }
 })();

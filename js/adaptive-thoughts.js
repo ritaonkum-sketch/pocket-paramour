@@ -368,6 +368,18 @@
     const g = window._game;
     if (!g) return;
     if (!isGameIdle(g)) { hideBubble(); return; }
+    // First-care-session quiet window: greeting + first-action hint own
+    // the screen for the first 5min / 6 interactions. Don't compete.
+    if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) {
+      hideBubble(); return;
+    }
+    if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
+      hideBubble(); return;
+    }
+    // Don't talk over an active typewriter line.
+    if (g.typewriter && typeof g.typewriter.busy === 'function' && g.typewriter.busy()) {
+      hideBubble(); return;
+    }
 
     const charId = g.characterId || g.selectedCharacter;
     if (!charId || !PACKS[charId]) return;

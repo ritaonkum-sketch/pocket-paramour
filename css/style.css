@@ -1,11 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 
+/* ════════════════════════════════════════════════════════════════════════
+   Z-INDEX LAYER SCALE
+   ────────────────────────────────────────────────────────────────────────
+   The Production audit flagged 60+ hand-placed z-index literals scattered
+   across this file. They worked but had no documented stacking model — any
+   two new overlays placed in the same band could collide. These CSS
+   variables make the stack explicit. Existing literals are kept (we don't
+   want to refactor 60 selectors today) but new code SHOULD reference the
+   variable instead of hard-coding a number.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+    --z-base:       1;     /* normal page flow                          */
+    --z-game:      10;     /* in-game character + stats area           */
+    --z-topbar:    50;     /* top status header / day strip             */
+    --z-banner:    80;     /* daily-purpose banner, idle hints          */
+    --z-care:    8400;     /* care-progress chip                        */
+    --z-bubble:  9000;     /* ambient bubbles (whispers, thoughts)      */
+    --z-toast:   9500;     /* toasts (chain unlock, drift, achievement) */
+    --z-onboarding: 9700;  /* onboarding tour overlay                   */
+    --z-modal:   9750;     /* small modals (lock popup, ready modal)    */
+    --z-cinematic: 9999;   /* cinematic overlay, world intro            */
+    --z-chapter:  10750;   /* chapter list page                         */
+    --z-scene:   11000;    /* mscard scenes (bridges, chapters)         */
+    --z-toggle:  11500;    /* main-story toggle confirm                 */
+    --z-dev:    99990;     /* dev panel fab                             */
+    --z-confirm: 99999;    /* generic confirm modal                     */
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+}
+
+/* iOS Safari kills the 300ms click-delay only when the element advertises
+   that it can be tapped without zoom. Apply `manipulation` globally to
+   every button and tappable card class. The Production-audit flagged this
+   because action-buttons + select-cards + chapter-cards + letter buttons
+   all suffered the delay on iOS. */
+button,
+.select-card,
+.chp-card .chp-play,
+.gallery-card,
+.gallery-tab,
+.letter-btn,
+.choice-btn,
+.action-btn,
+.settings-toggle-btn,
+.settings-switch-btn,
+.settings-danger-btn {
+    touch-action: manipulation;
 }
 
 /* ===== LOADING SCREEN ===== */
@@ -169,12 +216,17 @@
     position: relative;
     z-index: 2;
     animation: fadeInUp 1s ease;
+    /* iOS Safari URL-bar collapses 100vh → ~85vh on first scroll.
+       Use 100dvh (dynamic viewport height) so the title fills the
+       visible area regardless of browser-chrome state. 100vh is
+       kept as a fallback for browsers that don't support dvh yet. */
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 12vh 20px 8vh;
+    padding: 12vh 20px calc(8vh + env(safe-area-inset-bottom));
 }
 
 /* Title character removed — placeholder for future animation */
@@ -466,21 +518,23 @@
 #fading-meter {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 16px 2px;
-    margin: 0;
-    opacity: 0.85;
-    background: linear-gradient(180deg, rgba(20,10,30,0.55), rgba(20,10,30,0.4));
-    border-radius: 12px 12px 0 0;
+    gap: 8px;
+    padding: 7px 16px 5px;
     margin: 0 6px;
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(20,10,30,0.78), rgba(20,10,30,0.62));
+    border: 1px solid rgba(220, 200, 255, 0.10);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
 }
 #fading-label {
     font-family: 'Quicksand', sans-serif;
     font-size: 10px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 1px;
+    font-weight: 700;
+    color: rgba(255, 235, 180, 0.78);  /* warmer gold instead of bare 50% white — reads against the dark bar */
+    letter-spacing: 1.4px;
     white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
 }
 #fading-bar-bg {
     flex: 1;
@@ -716,8 +770,140 @@ html {
     height: 100%;
 }
 
+/* ────────────────────────────────────────────────────────────────────────
+   CARE-PAGE FLOATING UI SUPPRESSION DURING OVERLAYS
+   ────────────────────────────────────────────────────────────────────────
+   The care page has four position:fixed elements that float above the
+   game container:
+     #pp-care-progress  ("Care for Alistair to meet Elian / Affection X/25")
+     #dp-banner         ("TODAY · …" daily-purpose chip)
+     #pp-letters-btn    (floating Letters icon, top-right)
+     #chp-orb           (Chapters menu orb)
+   All four are direct children of <body> with high z-index. Because
+   position:fixed escapes container stacking contexts, they were
+   bleeding through onto every overlay the player navigated to —
+   Gallery, Letters, Settings, Chapters, Scenes. They belong to the
+   care page only; on any other screen they should disappear.
+   The :has() pseudo-class is supported by all modern browsers (Chrome
+   105+, Safari 15.4+, Firefox 121+); since this PWA targets mobile-web
+   2024+, that's safe to rely on. */
+body:has(#gallery-overlay:not(.hidden)) #pp-care-progress,
+body:has(#gallery-overlay:not(.hidden)) #dp-banner,
+body:has(#gallery-overlay:not(.hidden)) #pp-letters-btn,
+body:has(#gallery-overlay:not(.hidden)) #chp-orb,
+body:has(#letter-overlay:not(.hidden)) #pp-care-progress,
+body:has(#letter-overlay:not(.hidden)) #dp-banner,
+body:has(#letter-overlay:not(.hidden)) #pp-letters-btn,
+body:has(#letter-overlay:not(.hidden)) #chp-orb,
+body:has(#settings-overlay:not(.hidden)) #pp-care-progress,
+body:has(#settings-overlay:not(.hidden)) #dp-banner,
+body:has(#settings-overlay:not(.hidden)) #pp-letters-btn,
+body:has(#settings-overlay:not(.hidden)) #chp-orb,
+body:has(#cinematic-overlay.visible) #pp-care-progress,
+body:has(#cinematic-overlay.visible) #dp-banner,
+body:has(#cinematic-overlay.visible) #pp-letters-btn,
+body:has(#cinematic-overlay.visible) #chp-orb,
+body:has(#story-overlay:not(.hidden)) #pp-care-progress,
+body:has(#story-overlay:not(.hidden)) #dp-banner,
+body:has(#story-overlay:not(.hidden)) #pp-letters-btn,
+body:has(#story-overlay:not(.hidden)) #chp-orb,
+body:has(#event-overlay:not(.hidden)) #pp-care-progress,
+body:has(#event-overlay:not(.hidden)) #dp-banner,
+body:has(#event-overlay:not(.hidden)) #pp-letters-btn,
+body:has(#event-overlay:not(.hidden)) #chp-orb,
+body:has(#dress-panel:not(.hidden)) #pp-care-progress,
+body:has(#dress-panel:not(.hidden)) #dp-banner,
+body:has(#dress-panel:not(.hidden)) #pp-letters-btn,
+body:has(#dress-panel:not(.hidden)) #chp-orb,
+body:has(#gift-panel:not(.hidden)) #pp-care-progress,
+body:has(#gift-panel:not(.hidden)) #dp-banner,
+body:has(#gift-panel:not(.hidden)) #pp-letters-btn,
+body:has(#gift-panel:not(.hidden)) #chp-orb,
+body:has(#training-panel:not(.hidden)) #pp-care-progress,
+body:has(#training-panel:not(.hidden)) #dp-banner,
+body:has(#training-panel:not(.hidden)) #pp-letters-btn,
+body:has(#training-panel:not(.hidden)) #chp-orb,
+/* For these three dynamic containers, just having the element in DOM
+   isn't enough — they're left mounted (empty) after a scene plays. Only
+   suppress when they actually contain content (an open chapter list or
+   active scene card). */
+body:has(#chp-page:not(:empty)) #pp-care-progress,
+body:has(#chp-page:not(:empty)) #dp-banner,
+body:has(#chp-page:not(:empty)) #pp-letters-btn,
+body:has(#chp-page:not(:empty)) #chp-orb,
+body:has(#mscard-root:not(:empty)) #pp-care-progress,
+body:has(#mscard-root:not(:empty)) #dp-banner,
+body:has(#mscard-root:not(:empty)) #pp-letters-btn,
+body:has(#mscard-root:not(:empty)) #chp-orb,
+body:has(#ms-encounter-root:not(:empty)) #pp-care-progress,
+body:has(#ms-encounter-root:not(:empty)) #dp-banner,
+body:has(#ms-encounter-root:not(:empty)) #pp-letters-btn,
+body:has(#ms-encounter-root:not(:empty)) #chp-orb,
+body:has(#pp-ready-overlay.show) #pp-care-progress,
+body:has(#pp-ready-overlay.show) #dp-banner,
+body:has(#pp-ready-overlay.show) #pp-letters-btn,
+body:has(#pp-ready-overlay.show) #chp-orb,
+body:has(#pp-chain-toast.show) #pp-care-progress,
+body:has(#pp-chain-toast.show) #dp-banner,
+body:has(#pp-chain-toast.show) #pp-letters-btn,
+body:has(#pp-chain-toast.show) #chp-orb,
+/* Per-character intro scenes (intro.js — IntroScene). The intro
+   overlay has its own Skip button + tap-to-continue; the floating
+   Letters icon and chapters orb don't belong on top of a cinematic
+   first-impression scene. They reappear the moment the intro fades
+   out into the care loop. */
+body:has(#intro-overlay.visible) #pp-care-progress,
+body:has(#intro-overlay.visible) #dp-banner,
+body:has(#intro-overlay.visible) #pp-letters-btn,
+body:has(#intro-overlay.visible) #chp-orb,
+body.pp-chain-in-progress #pp-care-progress,
+body.pp-chain-in-progress #dp-banner,
+body.pp-chain-in-progress #pp-letters-btn,
+body.pp-chain-in-progress #chp-orb {
+    display: none !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   GLOBAL SCROLLBAR HIDE
+   ────────────────────────────────────────────────────────────────────────
+   This is a mobile-first Otome game; chunky desktop scrollbars on the
+   side of overlays (gallery, letters, chapter list, settings) and the
+   page itself break the immersive feel that competing titles
+   (Love & Deepspace, Mystic Messenger, Tears of Themis) achieve by
+   hiding scrollbars entirely. Scroll still works on touch and wheel —
+   only the visual chrome is suppressed. */
+html, body, #game-container, #gallery-overlay, #letter-overlay,
+#settings-overlay, #story-overlay, #chp-page,
+.letter-body, .chp-card-list, .gallery-card-list {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* old IE / Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#game-container::-webkit-scrollbar,
+#gallery-overlay::-webkit-scrollbar,
+#letter-overlay::-webkit-scrollbar,
+#settings-overlay::-webkit-scrollbar,
+#story-overlay::-webkit-scrollbar,
+#chp-page::-webkit-scrollbar,
+.letter-body::-webkit-scrollbar,
+.chp-card-list::-webkit-scrollbar,
+.gallery-card-list::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
 body {
-    background: linear-gradient(180deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+    /* Dark-fantasy backdrop. Was a candy-pink gradient; replaced because
+       every transition between scenes (chain steps, modal close → next
+       screen open, post-bridge handoffs) briefly exposed the body bg
+       and the pink flash broke the dark-fantasy tone. The active
+       screens (#title-screen, #world-intro, #loading-screen,
+       #select-screen, #game-container) all set their own backgrounds,
+       so this is only visible during the in-between moments — where
+       a navy gradient continues the cinematic feel from MSCard scenes. */
+    background: linear-gradient(180deg, #06080f 0%, #0a0c1a 50%, #06080f 100%);
     font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -742,6 +928,14 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    /* iPhone X+ notch / home-indicator awareness. The action row at the
+       bottom needs ~16px+ extra padding so the home-bar doesn't cover the
+       Feed button; the topbar needs notch-room. Production audit flagged
+       that no element used safe-area-inset env(). */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 #game-container.hidden {
@@ -899,7 +1093,21 @@ body {
     font-size: 11px;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    display: inline-flex;
+    gap: 3px;
+    align-items: baseline;
+    justify-content: center;
+}
+.stat-value {
+    /* Raw stat numbers (Hunger 99, Clean 67, Bond 78) hidden per design
+       call. Otome players read stats through the bar fill, not through
+       a number — the number reads as "spreadsheet game" while the bar
+       reads as emotional state. L&DS / Tears of Themis / Mystic Messenger
+       all hide raw stat numbers for the same reason. The span is left in
+       the DOM (so ui.js's text updates don't break) but visually
+       suppressed. */
+    display: none;
 }
 
 /* Pulse animation for low stats */
@@ -1322,18 +1530,25 @@ body {
     transition: opacity 0.2s ease;
 }
 
-/* Personality badge */
+/* Personality badge.
+   POSITION FIX: was anchored top-right (`right: 10px`) which collided with
+   the hamburger menu after safe-area padding pushed it down. The badge
+   ended up at y≈64 sitting directly under the ≡ button — visually crowded
+   even though there was no actual z-overlap. Re-anchored to top-LEFT,
+   tucked just under the "ACQUAINTED → TRUSTED" relationship-status line
+   where it naturally reads as supplementary context, not a second
+   floating control. */
 #personality-badge {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #880e4f;
-    z-index: 3;
+    /* Personality label (Shy / Clingy / Tsundere) hidden per Otome design
+       call. The personality system still runs internally — it drives
+       which dialogue pool the character pulls from, his MSCard scene
+       tone, and pose selection — but the label itself broke immersion
+       and primed a min-max mindset ("how do I flip him to tsundere?").
+       Industry-standard Otome (L&DS / Mystic Messenger / Tears of Themis)
+       never shows personality state explicitly; the writing carries
+       the change. The element is left in the DOM for ui.js's text
+       updates to keep working without errors. */
+    display: none !important;
 }
 
 #personality-badge.hidden { display: none; }
@@ -1361,11 +1576,15 @@ body {
     display: flex;
     align-items: flex-end;
     gap: 8px;
-    /* Float above stats bar, near the character's feet */
+    /* Float just above the fading-meter / stats bar so the bubble doesn't
+       cut across the character's lower body. Was bottom:215px which left a
+       large gap below the bubble; lowered to 188px per playtest feedback so
+       the bubble sits closer to the action area while still leaving the
+       character's feet readable. */
     position: absolute;
     left: 10px;
     right: 10px;
-    bottom: 215px;
+    bottom: 188px;
     z-index: 35;
     pointer-events: auto;
 }
@@ -1388,7 +1607,12 @@ body {
 #dialogue-box {
     margin: 0;
     flex: 1;
-    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,187,208,0.15));
+    /* Visual audit fix: was a stark white-on-pink gradient that jumped off
+       the moody pixel-art backgrounds. New treatment uses a soft cream-paper
+       feel with a translucent backdrop so the dialogue still reads but the
+       atmosphere isn't broken. Keeps the per-character tinted speaker color
+       below for personality. */
+    background: linear-gradient(180deg, rgba(252,246,232,0.94), rgba(248,232,212,0.90));
     border-radius: 16px;
     padding: 10px 14px;
     min-height: 50px;
@@ -1398,10 +1622,11 @@ body {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.6);
     cursor: pointer;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(120, 90, 60, 0.18);
+    backdrop-filter: blur(4px);
     transition: transform 0.2s ease;
     overflow: hidden;
 }
@@ -1465,6 +1690,13 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,1);
     position: relative;
     overflow: hidden;
+    /* iOS Safari adds a 300ms delay to click on elements that aren't
+       marked as touch-optimized. Production audit flagged this for action
+       buttons. `manipulation` removes the delay AND disables double-tap
+       zoom — both desirable for a Tamagotchi care loop where players
+       tap rapidly. */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .action-btn::before {
@@ -2210,7 +2442,14 @@ body {
     flex-direction: column;
     overflow-y: auto;
     animation: fadeIn 0.3s ease;
+    /* Hide the chunky scrollbar — same treatment as letter-body. The
+       gallery still scrolls on touch / wheel; the scrollbar visual
+       just doesn't render, which fits the dark-fantasy Otome aesthetic
+       (L&DS / Mystic Messenger / Tears of Themis all hide scrollbars). */
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* old IE / Edge */
 }
+#gallery-overlay::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
 #gallery-overlay.hidden {
     display: none;
@@ -2247,11 +2486,49 @@ body {
     padding: 4px 8px;
 }
 
-/* Per-character tab strip — sits above the grid, horizontally scrollable. */
+/* Cards / Stories mode toggle — sits above the per-character tabs.
+   Two pill buttons; warm-gold gradient for the active mode (matches
+   the chain-toast and ready-modal aesthetic so the gallery feels
+   native to the rest of the game). */
+#gallery-mode-strip {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 10px 14px 4px;
+    justify-content: center;
+}
+.gallery-mode-btn {
+    flex: 0 0 auto;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,206,107,0.32);
+    color: rgba(255,255,255,0.72);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    border-radius: 999px;
+    padding: 7px 18px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.12s;
+}
+.gallery-mode-btn:hover { background: rgba(255,255,255,0.10); color: #fff; }
+.gallery-mode-btn:active { transform: scale(0.97); }
+.gallery-mode-btn.active {
+    background: linear-gradient(180deg, #ffce6b, #d4a04a);
+    border-color: #ffce6b;
+    color: #1a1208;
+}
+
+/* Per-character tab strip — sits above the grid, horizontally scrollable.
+   flex-shrink: 0 is critical because #gallery-overlay is a flex column
+   with overflow-y:auto. Without it the tab strip collapses to ~14px
+   (just its padding), squashing the buttons and making labels invisible. */
 #gallery-tabs {
     display: flex;
+    flex-shrink: 0;
     gap: 6px;
-    padding: 10px 14px 4px;
+    padding: 10px 14px 8px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -2272,16 +2549,22 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
     transition: background 0.18s, border-color 0.18s, color 0.18s;
 }
 .gallery-tab:hover {
     background: rgba(255,255,255,0.08);
     color: #fff;
 }
+/* Active tab: was a pink gradient (#f6a5c0 → #e879a2) that conflicted
+   with the dark-fantasy palette we standardised on for chain UI / event
+   modal / ready card. Repaletted to the same warm-gold palette as
+   #pp-chain-toast and #pp-ready-card so the Gallery feels native to the
+   game's story aesthetic. */
 .gallery-tab.active {
-    background: linear-gradient(180deg, rgba(246,165,192,0.92), rgba(232,121,162,0.92));
-    border-color: rgba(255,255,255,0.4);
-    color: #22112a;
+    background: linear-gradient(180deg, #ffce6b, #d4a04a);
+    border-color: #ffce6b;
+    color: #1a1208;
 }
 .gallery-tab .gtl { letter-spacing: 0.5px; }
 .gallery-tab .gtc {
@@ -2292,7 +2575,12 @@ body {
     border-radius: 8px;
     background: rgba(0,0,0,0.18);
 }
-.gallery-tab.active .gtc { background: rgba(34,17,42,0.18); opacity: 0.9; }
+.gallery-tab.active .gtc { background: rgba(26,18,8,0.30); opacity: 0.9; color: #1a1208; }
+
+/* Same flex-shrink protection for header + grid, so neither gets collapsed
+   by the flex column. The grid is the scrollable region. */
+#gallery-header { flex-shrink: 0; }
+#gallery-grid   { flex-shrink: 1; }
 
 #gallery-grid {
     display: grid;
@@ -2375,6 +2663,102 @@ body {
     font-size: 10px;
     color: rgba(255,255,255,0.4);
     margin-top: 2px;
+}
+
+/* ── Stories tab: per-entry card variant ──────────────────────────
+   Same card chrome as the Cards tab so the Stories grid feels
+   continuous, but with a subtitle (the scene's tagline), an explicit
+   Replay button on unlocked entries, and a "watched" pill for
+   non-replayable entries (turning points, etc.). */
+.story-card .gallery-card-img-wrap {
+    aspect-ratio: 1 / 1.1;
+}
+.story-card-subtitle {
+    font-size: 10.5px;
+    color: rgba(255,244,222,0.78);
+    line-height: 1.35;
+    margin-top: 2px;
+    font-style: italic;
+    /* Keep subtitle to 2 lines max so cards stay aligned in the grid. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.story-card-condition {
+    font-size: 10px;
+    color: #ffce6b;
+    margin-top: 4px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.82;
+}
+.story-replay-btn {
+    margin-top: 8px;
+    width: 100%;
+    background: linear-gradient(180deg, #ffce6b, #d4a04a);
+    color: #1a1208;
+    border: 1px solid #ffce6b;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.18s;
+}
+.story-replay-btn:hover {
+    box-shadow: 0 0 14px rgba(255, 206, 107, 0.45);
+}
+.story-replay-btn:active { transform: scale(0.96); }
+.story-watched-pill {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffce6b;
+    background: rgba(255, 206, 107, 0.12);
+    border: 1px solid rgba(255, 206, 107, 0.35);
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+
+/* Section header for the Stories grid. Spans the full grid width
+   (grid-column: 1 / -1) so the per-category title sits ABOVE the
+   2-column row of story cards. Warm-gold underline + count pill
+   on the right keeps it visually consistent with the rest of the
+   game's dark-fantasy + warm-gold palette. */
+.story-section-header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(255, 206, 107, 0.28);
+}
+.story-section-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #ffce6b;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+.story-section-count {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: rgba(255, 244, 222, 0.7);
+    background: rgba(255, 206, 107, 0.10);
+    border: 1px solid rgba(255, 206, 107, 0.28);
+    border-radius: 999px;
+    padding: 2px 10px;
+    letter-spacing: 0.4px;
 }
 
 /* Rarity colors */
@@ -2721,15 +3105,22 @@ body {
 }
 
 #event-content {
-    background: linear-gradient(135deg, #fff 0%, #fce4ec 100%);
-    border-radius: 24px;
-    padding: 28px 24px;
+    /* Repaletted: was a white→pink gradient ("candy event modal") that
+       didn't fit the dark-fantasy story tone. Now matches the chain-toast
+       and ready-modal aesthetic — navy backdrop, warm gold border, gold
+       inner glow. Per-character border colors below override accent. */
+    background: linear-gradient(180deg, #0e1224 0%, #06080f 100%);
+    border-radius: 14px;
+    padding: 26px 24px 22px;
     text-align: center;
     max-width: 340px;
     width: 90%;
-    box-shadow: 0 8px 40px rgba(233, 30, 99, 0.25);
+    box-shadow:
+      0 18px 60px rgba(0, 0, 0, 0.78),
+      0 0 38px #ffce6b inset,
+      0 0 0 1px rgba(255, 255, 255, 0.04);
     animation: eventSlideIn 0.5s ease;
-    border: 2px solid rgba(233, 30, 99, 0.2);
+    border: 1px solid #ffce6b;
 }
 /* Character-themed event borders */
 .character-alistair #event-content { border-color: rgba(180, 130, 40, 0.3); box-shadow: 0 8px 40px rgba(180, 130, 40, 0.2); }
@@ -2759,17 +3150,20 @@ body {
 
 #event-title {
     font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 700;
-    color: #4a0e2e;
+    color: #ffce6b;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
     margin-bottom: 12px;
 }
 
 #event-description {
     font-family: 'Quicksand', sans-serif;
     font-size: 14px;
-    color: #555;
-    line-height: 1.6;
+    color: #e8dec4;
+    line-height: 1.55;
+    font-style: italic;
     margin-bottom: 20px;
 }
 
@@ -2780,23 +3174,27 @@ body {
 }
 
 .event-choice-btn {
-    background: linear-gradient(135deg, #f8bbd0 0%, #f48fb1 100%);
-    color: #4a0e2e;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 16px;
+    /* Repaletted to match ready-modal "stay" button: dark navy with
+       warm-gold border, hover/primary state with gold gradient. */
+    background: rgba(20, 24, 40, 0.78);
+    color: #e8dec4;
+    border: 1px solid rgba(255, 206, 107, 0.4);
+    padding: 12px 16px;
+    border-radius: 10px;
     font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
+    letter-spacing: 0.5px;
 }
 
 .event-choice-btn:hover {
-    background: linear-gradient(135deg, #f48fb1 0%, #e91e63 100%);
-    color: white;
-    transform: translateX(4px);
+    background: linear-gradient(180deg, #ffce6b, #d4a04a);
+    color: #1a1208;
+    border-color: #ffce6b;
+    transform: translateX(2px);
 }
 
 .event-choice-btn:active {
@@ -2807,22 +3205,16 @@ body {
 
 /* ===== NOTIFICATIONS ===== */
 .notification {
-    position: absolute;
-    bottom: 16px;
-    left: 100px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,187,208,0.3));
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #e91e63;
-    animation: notifSlide 1.5s ease forwards;
-    pointer-events: none;
-    z-index: 50;
-    border: 1px solid rgba(233, 30, 99, 0.2);
-    box-shadow: 0 4px 16px rgba(233, 30, 99, 0.15);
-    white-space: nowrap;
+    /* "+Feed" / "+Wash" / "+Talk" / "+Gift" pink bubble HIDDEN per design
+       call. It sat at the character's left foot (bottom:16px left:100px)
+       behind the dialogue speech bubble — and was redundant with the
+       dialogue line + stat-bar fill animation that already convey what
+       the action did. The element is still created and removed by
+       ui.js's showNotification() so the floating-hearts side-effect
+       (Talk / Gift hearts) keeps working — only the visible bubble is
+       suppressed. Was a leftover from the early prototype before the
+       dialogue + bar systems were added. */
+    display: none !important;
 }
 
 @keyframes notifSlide {
@@ -4892,7 +5284,14 @@ body {
     max-width: 560px;
     width: 100%;
     max-height: 92vh;
-    overflow-y: auto;
+    /* FIX: was `overflow-y: auto`, which clipped the wax-seal that sits at
+       `top: -18px` (the seal is intentionally meant to straddle the top
+       edge like a stamp pressed onto paper). Result: only the bottom half
+       of the seal showed and it looked like a render bug.
+       Solution: keep overflow visible on the paper itself so the seal can
+       protrude; if the body content needs to scroll, that's the job of the
+       letter-body's max-height + its own overflow (it already has one). */
+    overflow: visible;
     background:
         linear-gradient(180deg, #f7ecd1 0%, #ead8ad 100%);
     color: #2b1a08;
@@ -4906,6 +5305,31 @@ body {
     font-family: 'Georgia', 'Times New Roman', serif;
     transform: translateY(20px) rotate(-0.3deg);
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Long letters still need to scroll; do it on the body container so the
+   paper edge can stay decoration-friendly.
+   The default browser scrollbar (Windows-style chunky white track) breaks
+   the parchment aesthetic — owner-flagged. We hide the scrollbar entirely
+   on every platform but keep the scrolling functionality (drag, touch,
+   wheel, keyboard arrows still work). The letter still feels like a single
+   piece of paper, not a web page. */
+.letter-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE / old Edge */
+    -ms-overflow-style: none;
+    /* Light fade at top + bottom of the scroll area to imply more content
+       exists above/below — replaces the visual cue the scrollbar provided. */
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+}
+/* Webkit (Chrome, Safari, mobile browsers) */
+.letter-body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
 }
 #letter-overlay.visible .letter-paper {
     transform: translateY(0) rotate(-0.3deg);
@@ -5071,6 +5495,126 @@ body {
 .letter-reply-warm    { border-left: 3px solid #ec88a8; }
 .letter-reply-steady  { border-left: 3px solid #c8a050; }
 .letter-reply-playful { border-left: 3px solid #88c8ec; }
+
+/* ─── L&DS-style reply UI polish ──────────────────────────────────────
+   Reply choice buttons get a tone icon on the left + multi-line text.
+   After the player picks one, we fade the others and highlight the
+   chosen — exactly the locked-in feel of L&DS. */
+.letter-reply-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    line-height: 1.45;
+}
+.letter-reply-btn .reply-icon {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 13px;
+    margin-top: 1px;
+    background: rgba(247, 236, 209, 0.10);
+    color: #f7ecd1;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.letter-reply-btn .reply-text {
+    flex: 1 1 auto;
+    text-align: left;
+}
+.letter-reply-warm    .reply-icon { color: #ffb8d0; }
+.letter-reply-steady  .reply-icon { color: #f0d088; }
+.letter-reply-playful .reply-icon { color: #b8d8f0; }
+
+/* CHOSEN state — kept after the player picks. */
+.letter-reply-btn.letter-reply-chosen {
+    background: linear-gradient(180deg, rgba(247,236,209,0.18), rgba(247,236,209,0.10));
+    border-color: rgba(247,236,209,0.55);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(247,236,209,0.15);
+    opacity: 1 !important;
+    transform: translateY(-1px);
+}
+.letter-reply-btn.letter-reply-chosen .reply-icon {
+    transform: scale(1.18);
+    background: rgba(247, 236, 209, 0.22);
+}
+/* FADED state — for the un-chosen options. */
+.letter-reply-btn.letter-reply-faded {
+    opacity: 0.32 !important;
+    filter: grayscale(0.4);
+}
+
+/* "YOU WROTE" pill — appears in the body after the player picks a reply,
+   styled like a sent-message bubble in a thread. */
+.letter-you-wrote {
+    margin: 18px 0 10px auto;
+    max-width: 78%;
+    padding: 10px 14px;
+    background: linear-gradient(180deg, #6a3812, #4a2208);
+    color: #f7ecd1;
+    border: 1px solid rgba(247,236,209,0.20);
+    border-radius: 14px 14px 4px 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.30);
+    text-align: left;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    line-height: 1.45;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.letter-you-wrote.shown {
+    opacity: 1;
+    transform: translateY(0);
+}
+.letter-you-wrote-label {
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    color: rgba(247,236,209,0.55);
+    margin-bottom: 4px;
+    font-style: normal;
+    font-weight: 700;
+}
+.letter-you-wrote-text {
+    font-size: 14.5px;
+}
+
+/* "THEY REPLIED" — header that introduces the followup paragraphs. */
+.letter-followup-head {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(120, 70, 20, 0.28);
+    text-align: left;
+}
+.letter-followup-label {
+    font-size: 9.5px;
+    letter-spacing: 2px;
+    color: rgba(80, 40, 10, 0.55);
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.letter-followup-title {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #2b1a08;
+    margin-bottom: 8px;
+}
+.letter-paragraph-followup {
+    /* Slightly lighter ink so the followup reads as "later, written
+       calmly" vs the body's main letter. */
+    color: #4a2e10;
+}
+.letter-followup-signature {
+    margin-top: 14px;
+    text-align: right;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    color: #5a3210;
+}
 
 /* ══════════════════════════════════════════════════════════════
    TIER 1 LAYOUT OVERHAUL
@@ -5320,7 +5864,9 @@ body {
     width: 8px;
     height: 8px;
 }
-/* Hint text stacked directly under the dots, inside the same box */
+/* Hint text stacked directly under the dots, inside the same box.
+   FIX: Was nowrap + ellipsis, which clipped lines like "He's watching for
+   any sign you'll lea..." on narrow phone widths. Now allows up to 2 lines. */
 #topbar-day-dots-wrap .day-hint {
     font-family: 'Quicksand', sans-serif;
     font-size: 9.5px;
@@ -5329,12 +5875,16 @@ body {
     color: rgba(255, 255, 255, 0.7);
     text-shadow: 0 1px 3px rgba(0,0,0,0.5);
     transition: opacity 0.4s ease;
-    line-height: 1.2;
-    max-width: 220px;
+    line-height: 1.25;
+    max-width: 200px;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    /* Cap at 2 lines so a long mood-hint never pushes the layout. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .day-dots {
@@ -5439,44 +5989,11 @@ body {
    FIRST-SESSION HINT TOOLTIP
    Gentle floating tooltip that points to the Talk button.
    ══════════════════════════════════════════════════════════════ */
-.pp-first-hint {
-    position: absolute;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.85);
-    color: rgba(255, 220, 235, 0.95);
-    font-family: 'Quicksand', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    line-height: 1.45;
-    text-align: center;
-    padding: 10px 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 150, 200, 0.35);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 20px rgba(233, 30, 99, 0.25);
-    transform: translate(-50%, 8px);
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-    max-width: 200px;
-}
-.pp-first-hint.show {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-/* Little arrow pointing down */
-.pp-first-hint::after {
-    content: '';
-    position: absolute;
-    bottom: -7px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 7px solid rgba(0, 0, 0, 0.85);
-}
+/* .pp-first-hint rules REMOVED. The first-action hint tooltip
+   ("Try talking to him. He's been alone a long time.") was disabled
+   in first-session.js per user feedback — the pulsing Talk button +
+   dialogue line are sufficient cue for new players, and an explicit
+   tutorial tooltip didn't fit the polished Otome aesthetic. */
 
 /* ══════════════════════════════════════════════════════════════
    IDLE LIFE — Floating thoughts

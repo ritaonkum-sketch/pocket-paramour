@@ -172,21 +172,21 @@
                 <div class="stat-bar-bg">
                     <div class="stat-bar-fill" id="hunger-bar"></div>
                 </div>
-                <span class="stat-label">Hunger</span>
+                <span class="stat-label"><span class="stat-name">Hunger</span><span class="stat-value" id="hunger-value"></span></span>
             </div>
             <div class="stat">
                 <span class="stat-icon">&#x1F4A7;</span>
                 <div class="stat-bar-bg">
                     <div class="stat-bar-fill" id="clean-bar"></div>
                 </div>
-                <span class="stat-label">Clean</span>
+                <span class="stat-label"><span class="stat-name">Clean</span><span class="stat-value" id="clean-value"></span></span>
             </div>
             <div class="stat">
                 <span class="stat-icon">&#x2764;&#xFE0F;</span>
                 <div class="stat-bar-bg">
                     <div class="stat-bar-fill" id="bond-bar"></div>
                 </div>
-                <span class="stat-label">Bond</span>
+                <span class="stat-label"><span class="stat-name">Bond</span><span class="stat-value" id="bond-value"></span></span>
             </div>
         </div>
 
@@ -569,109 +569,112 @@
 
     <!-- Storage guard runs FIRST — repairs partial/corrupt saves before any
          other module tries to read localStorage. -->
-    <script src="js/storage-guard.js"></script>
+    <script defer src="js/storage-guard.js"></script>
 
     <!-- Live tuning + analytics + bandit must load before game.js -->
-    <script src="js/remote-config.js"></script>
-    <script src="js/analytics.js"></script>
-    <script src="js/bandit.js"></script>
-    <script src="js/achievements.js"></script>
-    <script src="js/events.js"></script>
-    <script src="js/dialogue.js"></script>
-    <script src="js/character.js"></script>
-    <script src="js/character-lyra.js"></script>
-    <script src="js/character-caspian.js"></script>
-    <script src="js/character-elian.js"></script>
-    <script src="js/character-lucien.js"></script>
-    <script src="js/character-proto.js"></script>
-    <script src="js/character-noir.js"></script>
-    <script src="js/puzzles.js"></script>
-    <script src="js/sounds.js"></script>
-    <script src="js/bgm.js"></script>
-    <script src="js/payments.js"></script>
-    <script src="js/daily-rewards.js"></script>
-    <script src="js/gallery.js"></script>
-    <script src="js/intro.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/letter.js"></script>
-    <script src="js/letters-archive.js"></script>
-    <script src="js/ui-feel.js"></script>
-    <script src="js/day-progress.js"></script>
-    <script src="js/action-feedback.js"></script>
-    <script src="js/first-session.js"></script>
-    <script src="js/idle-life.js"></script>
-    <script src="js/greetings.js"></script>
-    <script src="js/touch.js"></script>
-    <script src="js/talk-choices.js"></script>
-    <script src="js/surprises.js"></script>
-    <script src="js/dates.js"></script>
-    <script src="js/crossovers.js"></script>
-    <script src="js/button-locks.js"></script>
+    <script defer src="js/remote-config.js"></script>
+    <script defer src="js/analytics.js"></script>
+    <script defer src="js/bandit.js"></script>
+    <script defer src="js/achievements.js"></script>
+    <script defer src="js/events.js"></script>
+    <script defer src="js/dialogue.js"></script>
+    <script defer src="js/character.js"></script>
+    <script defer src="js/character-lyra.js"></script>
+    <script defer src="js/character-caspian.js"></script>
+    <script defer src="js/character-elian.js"></script>
+    <script defer src="js/character-lucien.js"></script>
+    <script defer src="js/character-proto.js"></script>
+    <script defer src="js/character-noir.js"></script>
+    <script defer src="js/puzzles.js"></script>
+    <script defer src="js/sounds.js"></script>
+    <script defer src="js/bgm.js"></script>
+    <script defer src="js/payments.js"></script>
+    <script defer src="js/daily-rewards.js"></script>
+    <script defer src="js/stories.js"></script>
+    <script defer src="js/gallery.js"></script>
+    <script defer src="js/intro.js"></script>
+    <script defer src="js/game.js"></script>
+    <script defer src="js/ui.js"></script>
+    <script defer src="js/letter.js"></script>
+    <script defer src="js/letters-archive.js"></script>
+    <script defer src="js/ui-feel.js"></script>
+    <script defer src="js/day-progress.js"></script>
+    <script defer src="js/action-feedback.js"></script>
+    <script defer src="js/first-session.js"></script>
+    <script defer src="js/idle-life.js"></script>
+    <script defer src="js/greetings.js"></script>
+    <script defer src="js/touch.js"></script>
+    <script defer src="js/talk-choices.js"></script>
+    <script defer src="js/surprises.js"></script>
+    <script defer src="js/dates.js"></script>
+    <script defer src="js/crossovers.js"></script>
+    <script defer src="js/button-locks.js"></script>
     <!-- Opt-in main story route (feature-flagged; no-op unless pp_main_story_enabled=1) -->
     <!-- The 7 legacy encounter-<char>.js files were removed — bridges in the prologue chain are the meet-cutes now. -->
-    <script src="js/encounter-elian-rescue.js"></script>
-    <script src="js/crossover-lyra-lucien.js"></script>
-    <script src="js/crossover-noir-elian.js"></script>
-    <script src="js/crossover-noir-lyra.js"></script>
-    <script src="js/crossover-caspian-noir.js"></script>
-    <script src="js/crossover-proto-noir.js"></script>
-    <script src="js/crossover-elian-lyra.js"></script>
-    <script src="js/crossover-lucien-aenor.js"></script>
-    <script src="js/crossover-weavers-court.js"></script>
-    <script src="js/crossover-alistair-caspian.js"></script>
-    <script src="js/crossover-alistair-lucien.js"></script>
-    <script src="js/crossover-caspian-lucien.js"></script>
-    <script src="js/main-story.js"></script>
-    <script src="js/daily-purpose.js"></script>
-    <script src="js/premium-card.js"></script>
-    <script src="js/cards-library.js"></script>
-    <script src="js/adaptive-thoughts.js"></script>
-    <script src="js/endings.js"></script>
-    <script src="js/monetization.js"></script>
-    <script src="js/memory-gallery.js"></script>
-    <script src="js/sound-design.js"></script>
-    <script src="js/revenuecat-bridge.js"></script>
-    <script src="js/main-story-toggle.js"></script>
-    <script src="js/main-story-integration.js"></script>
-    <script src="js/chapters.js"></script>
-    <script src="js/noir-whispers.js"></script>
-    <script src="js/affection-scenes.js"></script>
-    <script src="js/production-polish.js"></script>
-    <script src="js/cross-char.js"></script>
-    <script src="js/epilogues.js"></script>
-    <script src="js/turning-points.js"></script>
-    <script src="js/early-whispers.js"></script>
-    <script src="js/affection-drift.js"></script>
+    <script defer src="js/encounter-elian-rescue.js"></script>
+    <script defer src="js/crossover-lyra-lucien.js"></script>
+    <script defer src="js/crossover-noir-elian.js"></script>
+    <script defer src="js/crossover-noir-lyra.js"></script>
+    <script defer src="js/crossover-caspian-noir.js"></script>
+    <script defer src="js/crossover-proto-noir.js"></script>
+    <script defer src="js/crossover-elian-lyra.js"></script>
+    <script defer src="js/crossover-lucien-aenor.js"></script>
+    <script defer src="js/crossover-weavers-court.js"></script>
+    <script defer src="js/crossover-alistair-caspian.js"></script>
+    <script defer src="js/crossover-alistair-lucien.js"></script>
+    <script defer src="js/crossover-caspian-lucien.js"></script>
+    <script defer src="js/main-story.js"></script>
+    <script defer src="js/daily-purpose.js"></script>
+    <script defer src="js/premium-card.js"></script>
+    <script defer src="js/cards-library.js"></script>
+    <script defer src="js/adaptive-thoughts.js"></script>
+    <script defer src="js/endings.js"></script>
+    <script defer src="js/monetization.js"></script>
+    <!-- memory-gallery.js removed — duplicated the in-game gallery's
+         Memories tab (see gallery.js + stories.js). -->
+    <script defer src="js/sound-design.js"></script>
+    <script defer src="js/revenuecat-bridge.js"></script>
+    <script defer src="js/main-story-toggle.js"></script>
+    <script defer src="js/main-story-integration.js"></script>
+    <script defer src="js/chapters.js"></script>
+    <script defer src="js/noir-whispers.js"></script>
+    <script defer src="js/affection-scenes.js"></script>
+    <script defer src="js/production-polish.js"></script>
+    <script defer src="js/cross-char.js"></script>
+    <script defer src="js/epilogues.js"></script>
+    <script defer src="js/turning-points.js"></script>
+    <script defer src="js/alistair-arc.js"></script>
+    <script defer src="js/early-whispers.js"></script>
+    <script defer src="js/affection-drift.js"></script>
 
     <!-- Ship-readiness guards: one source of truth for ambient text overlap,
          and a production gate on the mock payment stub. Load last so they
          observe/wrap everything above them. -->
-    <script src="js/ambient-coordinator.js"></script>
-    <script src="js/payments-guard.js"></script>
+    <script defer src="js/ambient-coordinator.js"></script>
+    <script defer src="js/payments-guard.js"></script>
 
     <!-- Onboarding + ambient world layers (run alongside daily play) -->
-    <script src="js/onboarding-flow.js"></script>
-    <script src="js/aenor-presence.js"></script>
-    <script src="js/care-weaver-thread.js"></script>
-    <script src="js/multi-romance.js"></script>
+    <script defer src="js/onboarding-flow.js"></script>
+    <script defer src="js/aenor-presence.js"></script>
+    <script defer src="js/care-weaver-thread.js"></script>
+    <script defer src="js/multi-romance.js"></script>
 
     <!-- Threaded prologue chain — connects all 7 meet-cutes into one journey -->
-    <script src="js/prologue-chain.js"></script>
-    <script src="js/world-arrival.js"></script>
-    <script src="js/bridge-alistair.js"></script>
-    <script src="js/bridge-elian.js"></script>
-    <script src="js/bridge-lyra.js"></script>
-    <script src="js/bridge-caspian.js"></script>
-    <script src="js/bridge-lucien.js"></script>
-    <script src="js/bridge-noir.js"></script>
-    <script src="js/bridge-proto.js"></script>
+    <script defer src="js/prologue-chain.js"></script>
+    <script defer src="js/world-arrival.js"></script>
+    <script defer src="js/bridge-alistair.js"></script>
+    <script defer src="js/bridge-elian.js"></script>
+    <script defer src="js/bridge-lyra.js"></script>
+    <script defer src="js/bridge-caspian.js"></script>
+    <script defer src="js/bridge-lucien.js"></script>
+    <script defer src="js/bridge-noir.js"></script>
+    <script defer src="js/bridge-proto.js"></script>
 
     <!-- Dev panel. Hidden from normal players. Activated by ?dev=1 URL
          param, pp_dev_panel=1 localStorage flag, or a triple-tap on the
          top-right corner. REMOVE or gate this script tag before shipping
          to production if you do not want testers to find it. -->
-    <script src="js/dev-panel.js"></script>
+    <script defer src="js/dev-panel.js"></script>
     <script>
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {

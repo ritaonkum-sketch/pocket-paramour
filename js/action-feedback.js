@@ -120,10 +120,12 @@
                     }
                     const delta = deltas[chosen];
                     if (delta < 0.5) return; // Nothing meaningful happened.
-                    const meta = BTN_STATS[btnId];
-                    // If the stat that moved doesn't match what we expected,
-                    // still use this button's color theme — feels unified.
-                    spawnFloatingStat(delta, labelForStat(chosen), meta.color);
+                    // Floating "+N Stat" text DISABLED per design call —
+                    // it was redundant with the stat-bar fill animation +
+                    // the character's dialogue reaction line. Two systems
+                    // showing the same data felt cluttered. Bar flash and
+                    // character pulse remain (those are subtle and helpful).
+                    // spawnFloatingStat(delta, labelForStat(chosen), BTN_STATS[btnId].color);
                     flashStatBar(chosen);
                 }, 180);
             }, true); // capture phase so we run before existing handlers

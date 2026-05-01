@@ -542,6 +542,7 @@
 
     _playing = true;
     markEpilogueSeen(next.c);
+    try { localStorage.setItem('pp_epi_key_' + next.c, next.key); } catch (_) {}
 
     // Build the ending with champion-extra-beat if applicable
     const rendered = Object.assign({}, ending, { beats: beatsForEnding(next.c, ending) });

@@ -430,10 +430,14 @@
     if (_showing) return;
     // QUIET FIRST HOUR: umbrella gate.
     if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
+    if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) return;
     if (sceneActive()) return;
     if (ambientBusy()) return;
     if (inCooldown()) return;
     if (sessionFired()) return; // at most once per session — these are big lines
+    // Don't talk over an active typewriter line.
+    const g0 = window._game;
+    if (g0 && g0.typewriter && typeof g0.typewriter.busy === 'function' && g0.typewriter.busy()) return;
 
     const self = currentChar();
     if (!self || !LINES[self]) return;

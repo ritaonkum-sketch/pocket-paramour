@@ -159,6 +159,19 @@ class TypewriterEffect {
         }
         if (this.onComplete) this.onComplete();
     }
+
+    // True while the typewriter is actively typing OR while a finished line
+    // is still on screen waiting for the player to dismiss it. Other systems
+    // (greetings, adaptive-thoughts, whispers, etc.) check this before
+    // calling .show() so they don't talk over an active line. Without this
+    // gate, the first-care-page experience devolves into bubbles overwriting
+    // each other before the player can read any of them.
+    busy() {
+        if (this.isTyping) return true;
+        // Finished but still visible — content present, not yet tap-dismissed.
+        if (this.element && this.element.textContent && this.element.textContent.length > 0) return true;
+        return false;
+    }
 }
 
 class DialogueSystem {

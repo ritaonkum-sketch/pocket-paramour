@@ -660,4 +660,34 @@
     }
   }, 1000);
 
+  /* ================================================================
+     PUBLIC API — exposed for the Memories archive (stories.js).
+     replay(id) re-fires a surprise scene without touching cooldowns.
+     Used from the Memories tab so the player can re-watch any
+     earned surprise.
+     ================================================================ */
+  window.PPSurprises = {
+    replay: function (surpriseId) {
+      var g = window._game;
+      if (!g || typeof g._playScene !== 'function') return false;
+      var s = null;
+      for (var i = 0; i < SURPRISES.length; i++) {
+        if (SURPRISES[i].id === surpriseId) { s = SURPRISES[i]; break; }
+      }
+      if (!s) return false;
+      g._playScene(s.beats, function () {
+        applyEffects(s.effects);
+        if (!g.choiceMemory) g.choiceMemory = {};
+        g.choiceMemory[s.memoryKey] = true;
+        try { g.save(); } catch (e) {}
+      });
+      return true;
+    },
+    list: function () {
+      return SURPRISES.map(function (s) {
+        return { id: s.id, character: s.character, memoryKey: s.memoryKey };
+      });
+    }
+  };
+
 })();

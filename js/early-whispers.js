@@ -180,6 +180,13 @@
         if (!playerStarted()) return;
         if (sceneActive())    return;
         if (showing)          return;
+        // First-care-session quiet window — let the greeting + first-action
+        // hint own the screen before atmospheric whispers start layering in.
+        if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) return;
+        if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) return;
+        // Don't talk over an active typewriter line.
+        const g = window._game;
+        if (g && g.typewriter && typeof g.typewriter.busy === 'function' && g.typewriter.busy()) return;
 
         const last = parseInt(localStorage.getItem(STORAGE_LAST) || '0', 10);
         const now  = Date.now();

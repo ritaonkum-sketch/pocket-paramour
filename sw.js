@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v241';
+const CACHE_NAME = 'pocket-love-v310';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -32,6 +32,7 @@ const CORE_ASSETS = [
     '/js/bgm.js',
     '/js/payments.js',
     '/js/daily-rewards.js',
+    '/js/stories.js',
     '/js/gallery.js',
     '/js/intro.js',
     '/js/game.js',
@@ -75,7 +76,6 @@ const CORE_ASSETS = [
     '/js/adaptive-thoughts.js',
     '/js/endings.js',
     '/js/monetization.js',
-    '/js/memory-gallery.js',
     '/js/sound-design.js',
     '/js/revenuecat-bridge.js',
     '/js/main-story-toggle.js',
@@ -87,6 +87,7 @@ const CORE_ASSETS = [
     '/js/cross-char.js',
     '/js/epilogues.js',
     '/js/turning-points.js',
+    '/js/alistair-arc.js',
     '/js/early-whispers.js',
     '/js/affection-drift.js',
 
@@ -114,11 +115,62 @@ const CORE_ASSETS = [
 // It is NOT in CORE_ASSETS — the SW should never serve a stale config from cache.
 const NETWORK_FIRST_PATHS = ['/config.json'];
 
-// Install — pre-cache core files
+// -----------------------------------------------------------------------------
+// BOOT_ASSETS — minimal set of images + audio pre-cached on install so a
+// first-cold-launch player on weak/no signal still gets:
+//   - the title-screen world background
+//   - all 7 character select-portrait silhouettes (so the grid is not empty)
+//   - the 5 mood BGM tracks (calm, night, romantic, tense, corrupted) — small
+//     enough to ship in cache, eliminates the "2-minute silence" gap
+//   - the most-used UI SFX (chime, blip, fanfare, achievement, gift-chime,
+//     pop, swoosh, card-flip) so action feedback is never silent
+//
+// These are added to the install cacheAddAll AFTER CORE_ASSETS resolves; if any
+// fail (slow network) we still have CORE_ASSETS cached and the missing items
+// fall through to the fetch handler's network-first → cache fallback.
+// -----------------------------------------------------------------------------
+const BOOT_ASSETS = [
+    '/assets/bg-world.png',
+    '/assets/alistair/select-portrait.png',
+    '/assets/elian/select-portrait.png',
+    '/assets/lyra/select-portrait.png',
+    '/assets/caspian/select-portrait.png',
+    '/assets/lucien/select-portrait.png',
+    '/assets/noir/select-portrait.png',
+    '/assets/proto/select-portrait.png',
+    // BGM
+    '/assets/audio/bgm-calm.mp3',
+    '/assets/audio/bgm-night.mp3',
+    '/assets/audio/bgm-romantic.mp3',
+    '/assets/audio/bgm-tense.mp3',
+    '/assets/audio/bgm-corrupted.mp3',
+    // Core SFX
+    '/assets/audio/chime.mp3',
+    '/assets/audio/blip.mp3',
+    '/assets/audio/fanfare.mp3',
+    '/assets/audio/achievement.mp3',
+    '/assets/audio/gift-chime.mp3',
+    '/assets/audio/card-flip.mp3',
+    '/assets/audio/card-sparkle.mp3',
+    '/assets/audio/clash.mp3'
+];
+
+// Install — pre-cache core files, then boot assets (best-effort).
 self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS))
-    );
+    event.waitUntil((async () => {
+        const cache = await caches.open(CACHE_NAME);
+        // CORE_ASSETS is required — fail install if any of these don't fetch.
+        await cache.addAll(CORE_ASSETS);
+        // BOOT_ASSETS is best-effort. We use individual put() instead of
+        // addAll() so a single 404/network-blip on (say) bgm-tense.mp3
+        // doesn't fail the entire SW install.
+        await Promise.all(BOOT_ASSETS.map(async (path) => {
+            try {
+                const resp = await fetch(path, { cache: 'reload' });
+                if (resp && resp.ok) await cache.put(path, resp);
+            } catch (_) { /* swallow — fetch handler will retry on demand */ }
+        }));
+    })());
     self.skipWaiting();
 });
 

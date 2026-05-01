@@ -533,14 +533,43 @@ class GallerySystem {
     }
 
     // Check if any new cards should unlock
+    // ── Derive which character a card belongs to ──────────────────
+    // GALLERY_CARDS holds every character's cards in one flat list.
+    // Most cards encode the character in their id ("caspian-first",
+    // "elian-trust", etc.) or in the image path ("assets/lyra/body/...").
+    // Alistair's older cards use neither — they have IDs like "first-meeting"
+    // and paths like "assets/gallery/card-knight.png" — so they fall
+    // through to the Alistair default. The newer "alistair-peak-*" cards
+    // are caught by the id prefix check.
+    cardCharacter(card) {
+        if (!card) return null;
+        const id = card.id || '';
+        const img = card.image || '';
+        const charPrefixes = ['alistair', 'lyra', 'lucien', 'caspian', 'elian', 'noir', 'proto'];
+        for (const c of charPrefixes) {
+            if (id.indexOf(c + '-') === 0) return c;
+            if (img.indexOf('assets/' + c + '/') !== -1) return c;
+        }
+        // Legacy Alistair cards (image path "assets/gallery/card-*.png",
+        // id without character prefix). Default unattributed cards to him.
+        return 'alistair';
+    }
+
     checkUnlocks() {
         const g = this.game;
         const total = (g.timesFed || 0) + (g.timesWashed || 0) + (g.timesTalked || 0) +
                       (g.timesTrained || 0) + (g.timesGifted || 0);
+        const activeChar = (g.selectedCharacter || g.characterId || 'alistair');
         let newUnlock = false;
 
         GALLERY_CARDS.forEach(card => {
             if (this.unlockedCards.has(card.id)) return;
+            // Only unlock cards that belong to the character the player is
+            // currently caring for. Without this filter, every "auto" type
+            // card unlocks for every character on first load (the player
+            // ends up with Caspian's "Royal Welcome" and Elian's "Shared
+            // Fire" while playing Alistair's route).
+            if (this.cardCharacter(card) !== activeChar) return;
 
             let shouldUnlock = false;
             const u = card.unlock;
@@ -792,16 +821,59 @@ class GallerySystem {
         if (!this._activeTab) {
             this._activeTab = this.game.selectedCharacter || 'all';
         }
+        if (!this._mode) this._mode = 'cards';
+        this.renderModeToggle();
         this.renderTabs();
-        this.renderCards();
+        this.renderActive();
         overlay.classList.remove('hidden');
         this.newCards.clear(); // Mark all as seen
     }
 
+    // ── Cards / Stories mode toggle ──────────────────────────────
+    // Lives just under the header. Two pills; warm-gold for active.
+    // The Stories mode shows the PPStories archive with locked
+    // silhouettes + replay buttons; Cards mode is the existing grid.
+    renderModeToggle() {
+        let strip = document.getElementById('gallery-mode-strip');
+        if (!strip) {
+            const header = document.getElementById('gallery-header');
+            const tabs   = document.getElementById('gallery-tabs');
+            if (!header || !tabs) return;
+            strip = document.createElement('div');
+            strip.id = 'gallery-mode-strip';
+            tabs.parentNode.insertBefore(strip, tabs);
+        }
+        const mode = this._mode || 'cards';
+        strip.innerHTML = ''
+            + '<button class="gallery-mode-btn' + (mode === 'cards' ? ' active' : '') + '" data-mode="cards">CARDS</button>'
+            + '<button class="gallery-mode-btn' + (mode === 'stories' ? ' active' : '') + '" data-mode="stories">MEMORIES</button>';
+        Array.from(strip.querySelectorAll('.gallery-mode-btn')).forEach(btn => {
+            btn.addEventListener('click', () => {
+                this._mode = btn.getAttribute('data-mode');
+                this.renderModeToggle();
+                this.renderTabs();
+                this.renderActive();
+            });
+        });
+    }
+
+    // Renders the right grid for the current mode.
+    renderActive() {
+        if (this._mode === 'stories') this.renderStories();
+        else this.renderCards();
+    }
+
     // Per-character tab strip — owner request: per-character pages + See All.
+    // Uses cardCharacter() (the same helper checkUnlocks uses) so the
+    // legacy Alistair cards (image path "assets/gallery/card-*.png", no
+    // character prefix in the id — e.g. "first-meeting", "loyal-knight",
+    // "silver-bulwark") are correctly attributed to Alistair instead of
+    // falling through to "uncategorised". Without this, those 10 cards
+    // were counted in the All total (75) but not in any per-char tab,
+    // and the seed-unlocked "first-meeting" card never showed up under
+    // Alistair's tab.
     cardsForChar(charId) {
-        const prefixes = [charId, charId.substring(0, 3), charId.substring(0, 4)];
-        return GALLERY_CARDS.filter(c => prefixes.some(p => c.id.startsWith(p)));
+        return GALLERY_CARDS.filter(c => this.cardCharacter(c) === charId);
     }
 
     renderTabs() {
@@ -818,16 +890,29 @@ class GallerySystem {
             { id: 'proto',    label: 'Proto' }
         ];
         tabs.innerHTML = '';
+        const mode = this._mode || 'cards';
         CHARS.forEach(c => {
             const btn = document.createElement('button');
             btn.className = 'gallery-tab' + (this._activeTab === c.id ? ' active' : '');
-            const cards = c.id === 'all' ? GALLERY_CARDS : this.cardsForChar(c.id);
-            const unlocked = cards.filter(card => this.unlockedCards.has(card.id)).length;
-            btn.innerHTML = '<span class="gtl">' + c.label + '</span><span class="gtc">' + unlocked + '/' + cards.length + '</span>';
+            // Tab counter reflects the active mode — Stories counter when
+            // in Stories mode, Cards counter when in Cards mode.
+            let counterText;
+            if (mode === 'stories') {
+                // PPStories.counts('all') returns deduplicated counts
+                // (a crossover that appears under two characters is
+                // only counted once in the All total).
+                const cnt = (window.PPStories && window.PPStories.counts) ? window.PPStories.counts(c.id) : { seen: 0, total: 0 };
+                counterText = cnt.seen + '/' + cnt.total;
+            } else {
+                const cards = c.id === 'all' ? GALLERY_CARDS : this.cardsForChar(c.id);
+                const unlocked = cards.filter(card => this.unlockedCards.has(card.id)).length;
+                counterText = unlocked + '/' + cards.length;
+            }
+            btn.innerHTML = '<span class="gtl">' + c.label + '</span><span class="gtc">' + counterText + '</span>';
             btn.addEventListener('click', () => {
                 this._activeTab = c.id;
                 this.renderTabs();
-                this.renderCards();
+                this.renderActive();
             });
             tabs.appendChild(btn);
         });
@@ -836,6 +921,132 @@ class GallerySystem {
     close() {
         const overlay = document.getElementById('gallery-overlay');
         if (overlay) overlay.classList.add('hidden');
+    }
+
+    // ── Stories grid ────────────────────────────────────────────
+    // Renders the Story Archive entries for the active character tab.
+    // Locked entries show a silhouette + lockHint. Unlocked entries
+    // show the title, subtitle, and a Replay button (when the entry
+    // defines a replay() callback).
+    renderStories() {
+        const grid = document.getElementById('gallery-grid');
+        if (!grid) return;
+
+        const tab = this._activeTab || 'all';
+        // PPStories.list('all') returns the deduped union of every
+        // character's catalogue + every crossover (so a crossover
+        // appears once even though it lives under two characters).
+        const entries = (window.PPStories && window.PPStories.list)
+            ? window.PPStories.list(tab)
+            : [];
+
+        // Counter: seen / total for the active scope (also deduped).
+        const counter = document.getElementById('gallery-counter');
+        if (counter) {
+            const c = (window.PPStories && window.PPStories.counts) ? window.PPStories.counts(tab) : { seen: 0, total: 0 };
+            const label = (tab === 'all') ? 'Memories' : (tab.charAt(0).toUpperCase() + tab.slice(1) + ' · Memories');
+            counter.textContent = label + ': ' + c.seen + ' / ' + c.total;
+        }
+
+        grid.innerHTML = '';
+
+        if (!entries.length) {
+            const empty = document.createElement('div');
+            empty.style.cssText = 'grid-column:1/-1;text-align:center;color:rgba(255,255,255,0.5);padding:32px 16px;font-style:italic;';
+            empty.textContent = 'Story archive coming soon for this character.';
+            grid.appendChild(empty);
+            return;
+        }
+
+        // Section labels per category. Order matters — this is also the
+        // order of headers in the rendered grid. Memories is curated to
+        // multi-beat cinematic scenes only.
+        const CATEGORY_ORDER = ['beginning', 'affection', 'arc', 'shared', 'card', 'date', 'surprise', 'crossover', 'ending', 'epilogue'];
+        const CATEGORY_LABELS = {
+            beginning: 'Beginnings',
+            affection: 'Affection Scenes',
+            arc:       'Decisions & Devotion',
+            shared:    'Shared Moments',
+            card:      'Memory Cards',
+            date:      'Date Outings',
+            surprise:  'Idle Surprises',
+            crossover: 'Crossovers & Encounters',
+            ending:    'Endings',
+            epilogue:  'Route Endings'
+        };
+        // Bucket entries by category, preserving authoring order within each.
+        const buckets = {};
+        entries.forEach(e => {
+            const cat = e.category || 'other';
+            (buckets[cat] = buckets[cat] || []).push(e);
+        });
+        const renderOrder = CATEGORY_ORDER.filter(c => buckets[c] && buckets[c].length)
+            .concat(Object.keys(buckets).filter(c => CATEGORY_ORDER.indexOf(c) === -1));
+
+        // Render each category as a header strip + the entries that
+        // belong to it. The header is a full-width grid row; the
+        // entries remain in the existing 2-column grid below.
+        renderOrder.forEach(cat => {
+            const list = buckets[cat];
+            const seenInCat = list.filter(e => { try { return e.isUnlocked(); } catch (_) { return false; } }).length;
+            const header = document.createElement('div');
+            header.className = 'story-section-header';
+            header.innerHTML = ''
+                + '<span class="story-section-label">' + (CATEGORY_LABELS[cat] || cat.toUpperCase()) + '</span>'
+                + '<span class="story-section-count">' + seenInCat + ' / ' + list.length + '</span>';
+            grid.appendChild(header);
+            list.forEach(entry => this._renderStoryCard(entry, grid));
+        });
+    }
+
+    // Renders a single story-archive entry into the grid. Extracted so the
+    // section-grouped Stories renderer can reuse the same card layout for
+    // every category without forking the logic.
+    _renderStoryCard(entry, grid) {
+        let isUnlocked = false;
+        try { isUnlocked = !!entry.isUnlocked(); } catch (_) {}
+        const cardEl = document.createElement('div');
+        const rarity = entry.rarity || 'common';
+        cardEl.className = 'gallery-card story-card rarity-' + rarity + ' ' + (isUnlocked ? 'unlocked' : 'locked');
+
+        if (isUnlocked) {
+            const replayBtn = entry.replay
+                ? '<button class="story-replay-btn" type="button">▶ Replay</button>'
+                : '<div class="story-watched-pill">✓ Watched</div>';
+            cardEl.innerHTML = ''
+                + '<div class="gallery-card-img-wrap">'
+                +   '<img src="' + (entry.thumbnail || '') + '" alt="' + entry.title + '" class="gallery-card-img">'
+                + '</div>'
+                + '<div class="gallery-card-info">'
+                +   '<div class="gallery-card-title">' + entry.title + '</div>'
+                +   '<div class="story-card-subtitle">' + (entry.subtitle || '') + '</div>'
+                +   replayBtn
+                + '</div>';
+            if (entry.replay) {
+                const btn = cardEl.querySelector('.story-replay-btn');
+                if (btn) {
+                    btn.addEventListener('click', (ev) => {
+                        ev.stopPropagation();
+                        // Close the gallery overlay so the replayed
+                        // scene has the screen to itself.
+                        this.close();
+                        setTimeout(() => {
+                            try { entry.replay(); } catch (e) { console.error('[stories] replay failed:', e); }
+                        }, 300);
+                    });
+                }
+            }
+        } else {
+            cardEl.innerHTML = ''
+                + '<div class="gallery-card-img-wrap locked-wrap">'
+                +   '<div class="gallery-card-lock">🔒</div>'
+                + '</div>'
+                + '<div class="gallery-card-info">'
+                +   '<div class="gallery-card-title">???</div>'
+                +   '<div class="story-card-condition">' + (entry.lockHint || 'Locked') + '</div>'
+                + '</div>';
+        }
+        grid.appendChild(cardEl);
     }
 
     renderCards() {
