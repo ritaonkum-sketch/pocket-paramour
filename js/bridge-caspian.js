@@ -81,11 +81,20 @@
     const stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')
       ? window.PPChain.step() : 0;
     if (window.PPChain && typeof window.PPChain.advance === 'function') {
-      window.PPChain.advance(4);
-      if (stepBefore < 4 && typeof window.PPChain.fireChapterFor === 'function') {
-        window.PPChain.fireChapterFor(4);
-      } else if (window.PPChain.setChainInProgress) {
-        window.PPChain.setChainInProgress(false);
+      // Wait for the route-open toast to be tapped before firing the next
+      // chapter — otherwise the chapter buries it. (Same fix as bridge-alistair.)
+      const advanced = window.PPChain.advance(4);
+      const fireChapter = () => {
+        if (stepBefore < 4 && typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(4);
+        } else if (window.PPChain.setChainInProgress) {
+          window.PPChain.setChainInProgress(false);
+        }
+      };
+      if (advanced && typeof advanced.then === 'function') {
+        advanced.then(fireChapter, fireChapter);
+      } else {
+        fireChapter();
       }
     }
   }

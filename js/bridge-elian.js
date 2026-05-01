@@ -82,11 +82,22 @@
     const stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')
       ? window.PPChain.step() : 0;
     if (window.PPChain && typeof window.PPChain.advance === 'function') {
-      window.PPChain.advance(2);
-      if (stepBefore < 2 && typeof window.PPChain.fireChapterFor === 'function') {
-        window.PPChain.fireChapterFor(2);
-      } else if (window.PPChain.setChainInProgress) {
-        window.PPChain.setChainInProgress(false);
+      // advance() returns a Promise that resolves AFTER the route-open
+      // toast has been tapped by the player. Chapter must wait — otherwise
+      // the chapter card buries the route announcement before the player
+      // can read it. (Same fix as bridge-alistair.js.)
+      const advanced = window.PPChain.advance(2);
+      const fireChapter = () => {
+        if (stepBefore < 2 && typeof window.PPChain.fireChapterFor === 'function') {
+          window.PPChain.fireChapterFor(2);
+        } else if (window.PPChain.setChainInProgress) {
+          window.PPChain.setChainInProgress(false);
+        }
+      };
+      if (advanced && typeof advanced.then === 'function') {
+        advanced.then(fireChapter, fireChapter);
+      } else {
+        fireChapter();
       }
     }
   }
