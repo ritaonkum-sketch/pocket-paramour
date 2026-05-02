@@ -2445,21 +2445,37 @@ class PocketLoveGame {
             );
         });
 
-        // Reset ALL characters
+        // Reset EVERYTHING — true full game reset.
+        // Previously this only wiped a handful of keys (per-char saves +
+        // intros + world_intro_seen), missing ~150 other pp_* keys (chain
+        // step, chapter flags, met flags, affection tier flags, card-seen,
+        // ending/epilogue flags, crossovers, turning points, etc). Result:
+        // "Reset" left the game in a half-cleared state and the player
+        // would re-enter the chain partway through. Now we sweep every
+        // key with our prefixes — same wipe pattern as a fresh install.
         const resetAllBtn = document.getElementById('settings-reset-all');
         if (resetAllBtn) resetAllBtn.addEventListener('click', () => {
             this._ppConfirm(
-                'Reset EVERYTHING?',
-                'All characters, saves, and unlocks will be erased. This cannot be undone.',
+                'Reset entire game?',
+                'All characters, progress, scenes, unlocks, and settings will be erased. The game will restart from the very beginning. This cannot be undone.',
                 () => {
-                    ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
-                        localStorage.removeItem('pocketLoveSave_' + c);
-                        localStorage.removeItem('pocketlove_gallery_' + c);
-                        localStorage.removeItem('pp_intro_' + c);
-                    });
-                    localStorage.removeItem('pocketLoveMeta');
-                    localStorage.removeItem('pp_world_intro_seen');
-                    localStorage.removeItem('pp_player_name');
+                    try {
+                        const keysToWipe = [];
+                        for (let i = 0; i < localStorage.length; i++) {
+                            const k = localStorage.key(i);
+                            if (!k) continue;
+                            // Sweep every key that belongs to the game.
+                            if (k.startsWith('pp_') ||
+                                k.startsWith('pocketLove') ||
+                                k.startsWith('pocketlove') ||
+                                k.startsWith('pl_')) {
+                                keysToWipe.push(k);
+                            }
+                        }
+                        keysToWipe.forEach(k => { try { localStorage.removeItem(k); } catch (_) {} });
+                        // Belt-and-braces: wipe sessionStorage and any in-memory game state too.
+                        try { sessionStorage.clear(); } catch (_) {}
+                    } catch (e) { console.error('[reset-all]', e); }
                     window.location.reload();
                 },
                 { danger: true }
