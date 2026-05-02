@@ -1923,11 +1923,14 @@ class PocketLoveGame {
 
         this.clean = Math.min(100, this.clean + 25);
         this.bond = Math.max(0, this.bond - 3);
-        // Wash is affection-neutral: bond drops a little (a wash is a small
-        // chore, not a romantic moment) but romance score does NOT drop.
-        // Previously this was -1 affection, which actively penalised the
-        // player for using one of the 3 starting care actions — and made
-        // it harder to reach the affection 25 gate. UX bug, fixed.
+        this.affection = Math.min(100, this.affection + 2);
+        // Wash gives +2 affection, same as Feed. The 3 starting care actions
+        // (Feed/Wash/Talk) all reward affection so the player can actually
+        // make progress toward the 25 affection gate that unlocks the next
+        // character. Bond still drops a little (a wash is a small chore, not
+        // a romantic moment), so the action keeps its texture — just doesn't
+        // feel like a dead-end tap. (Previously: -1, then 0; both blocked
+        // the player from feeling progress on every third tap of the cycle.)
 
         this.timesWashed++;
         this.dayInteractions++;
