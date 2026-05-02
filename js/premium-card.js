@@ -329,9 +329,31 @@
               n.charWrap.style.minHeight = '';
               if (n.glow) n.glow.style.opacity = '0';
             }
+            // Cinematic full-bleed dialogue (no bubble, centered text)
+            // is opt-in via card.cinematic = true. Only the world
+            // prologue chapter ('A Kingdom Fades') uses it. Bridges,
+            // Arrival, and other narration beats keep the standard
+            // bubble look they always had.
+            if (card.cinematic) {
+              n.dialogue.style.background = 'transparent';
+              n.dialogue.style.backdropFilter = 'none';
+              n.dialogue.style.boxShadow = 'none';
+              n.dialogue.style.padding = '0 8%';
+              n.dialogue.style.borderRadius = '0';
+              n.dialogue.style.fontSize = '20px';
+              n.dialogue.style.lineHeight = '1.5';
+              n.dialogue.style.textAlign = 'center';
+              n.dialogue.style.left = '0';
+              n.dialogue.style.right = '0';
+              n.dialogue.style.top = '50%';
+              n.dialogue.style.bottom = 'auto';
+              n.dialogue.style.transform = 'translateY(-50%)';
+            }
             await waitS(beat.wait || 600);
             n.dialogue.style.opacity = '1';
-            n.dialogue.style.transform = 'translateY(0)';
+            if (!card.cinematic) {
+              n.dialogue.style.transform = 'translateY(0)';
+            }
             break;
           }
           case 'pose': {

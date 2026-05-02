@@ -90,6 +90,10 @@
           title: 'PROLOGUE',
           subtitle: 'A Kingdom Fades',
           speaker: '',
+          // cinematic: true switches MSCard's dialogue from the bottom
+          // bubble to a full-bleed centered narration style. World
+          // prologue only — the bridges and Arrival keep their bubbles.
+          cinematic: true,
           palette: { bg: '#080516', glow: '#7a6ab8', accent: '#f0e6ff' },
           bg: 'assets/bg-world.png',
           beats: [
