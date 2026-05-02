@@ -10769,6 +10769,28 @@ let selectedCharacter = 'alistair';
                         gameContainer.classList.remove('hidden');
                         loadingScreen.classList.add('hidden');
 
+                        // Clean up any leftover overlays from the previous
+                        // character. Owner reported Alistair's milestone
+                        // "I trust you" story-overlay STILL VISIBLE on top
+                        // of Elian's intro — the overlay normally waits
+                        // for a tap to dismiss, so if the player switched
+                        // mid-scene it lingered. Force-close all char-
+                        // specific overlays before the new char's UI mounts.
+                        try {
+                            ['story-overlay', 'cinematic-overlay', 'mscard-root',
+                             'event-overlay', 'gift-panel', 'training-panel',
+                             'dress-panel', 'date-overlay', 'pp-care-thread-toast',
+                             'cc-bubble', 'noir-whisper', 'ew-whisper',
+                             'adaptive-thought', 'pp-aenor-bubble',
+                             'pp-multirom-bubble'].forEach(function(id) {
+                                var el = document.getElementById(id);
+                                if (!el) return;
+                                el.classList.remove('visible');
+                                el.classList.add('hidden');
+                                if (id === 'mscard-root') { try { el.remove(); } catch(_){} }
+                            });
+                        } catch (e) {}
+
                         // Play first-time intro scene if applicable
                         if (typeof IntroScene !== 'undefined' && IntroScene.shouldPlay(selectedCharacter)) {
                             // Pause the tick loop during intro
