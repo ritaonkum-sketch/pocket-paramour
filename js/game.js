@@ -2667,8 +2667,17 @@ class PocketLoveGame {
             // every time those 5 hit affection level 1.
             const event = CHARACTER.milestoneEvents?.[storyInfo.key];
             if (event) {
+                // Capture the character name AT QUEUE TIME so we can
+                // re-check at fire time. Without this, the player could
+                // switch character during the 1500ms delay and the queued
+                // milestone dialogue (e.g. Alistair's firstTrust) would
+                // render on the new character's care screen — owner saw
+                // Alistair's 'I trust you' bubble fire on Elian's route.
+                const queuedFor = CHARACTER.name;
                 setTimeout(() => {
-                    this.ui.showStoryScene(event.dialogue, event.emotion || storyInfo.emotion);
+                    if (CHARACTER && CHARACTER.name === queuedFor) {
+                        this.ui.showStoryScene(event.dialogue, event.emotion || storyInfo.emotion);
+                    }
                 }, 1500);
             }
         } else {
@@ -2719,8 +2728,15 @@ class PocketLoveGame {
         const key = 'pp_siren_stage_' + newStage + '_' + (this.selectedCharacter || 'lyra');
         if (!localStorage.getItem(key) && CHARACTER.sirenStageLines && CHARACTER.sirenStageLines[newStage]) {
             localStorage.setItem(key, '1');
+            // Capture the Lyra-only sirenStageLines text + char at queue time
+            // so a mid-flight character switch doesn't dump Lyra's siren
+            // dialogue onto another character's care screen.
+            const queuedFor = CHARACTER.name;
+            const txt = CHARACTER.sirenStageLines[newStage];
             setTimeout(() => {
-                this.typewriter.show(CHARACTER.sirenStageLines[newStage]);
+                if (CHARACTER && CHARACTER.name === queuedFor) {
+                    this.typewriter.show(txt);
+                }
             }, 1200);
         }
 
@@ -2731,25 +2747,38 @@ class PocketLoveGame {
     _checkLucienArc(newStage, oldStage) {
         if (!CHARACTER.lucienArc) return;
         const saveKey = id => 'pp_lucien_' + id + '_' + (this.selectedCharacter || 'lyra');
+        // Race-condition guard: capture char + dialogue at queue time so a
+        // mid-flight character switch doesn't render Lyra's Lucien-arc
+        // dialogue on someone else's care screen. Same fix pattern as the
+        // milestone race above.
+        const queuedFor = CHARACTER.name;
+        const safeShow = (text, emotion) => {
+            if (CHARACTER && CHARACTER.name === queuedFor) {
+                this.ui.showStoryScene(text, emotion);
+            }
+        };
 
         // Hint: first time reaching affection stage
         if (newStage === 'affection' && !localStorage.getItem(saveKey('hint'))) {
             localStorage.setItem(saveKey('hint'), '1');
-            setTimeout(() => this.ui.showStoryScene(CHARACTER.lucienArc.hint.text, 'shy'), 3000);
+            const txt = CHARACTER.lucienArc.hint.text;
+            setTimeout(() => safeShow(txt, 'shy'), 3000);
             return;
         }
 
         // Pain: first time reaching unstable
         if (newStage === 'unstable' && !localStorage.getItem(saveKey('pain'))) {
             localStorage.setItem(saveKey('pain'), '1');
-            setTimeout(() => this.ui.showStoryScene(CHARACTER.lucienArc.pain.text, 'sad'), 3000);
+            const txt = CHARACTER.lucienArc.pain.text;
+            setTimeout(() => safeShow(txt, 'sad'), 3000);
             return;
         }
 
         // Full reveal: monster stage
         if (newStage === 'monster' && !localStorage.getItem(saveKey('reveal'))) {
             localStorage.setItem(saveKey('reveal'), '1');
-            setTimeout(() => this.ui.showStoryScene(CHARACTER.lucienArc.reveal.text, 'angry'), 3000);
+            const txt = CHARACTER.lucienArc.reveal.text;
+            setTimeout(() => safeShow(txt, 'angry'), 3000);
         }
     }
 
