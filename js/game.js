@@ -7497,20 +7497,20 @@ class PocketLoveGame {
         if (this.characterLeft) return;
         const sl = this.sceneLibrary;
 
-        // Scene 1 — Day 1, ≥2 interactions: The Oath
-        if (this.storyDay === 1 && this.dayInteractions >= 2 && !sl.alistair_scene1.triggered) {
+        // Scene 1 — Day 1, ≥4 interactions: The Oath
+        // Pushed from ≥2 to ≥4 so the player has had a real care cycle (Feed,
+        // Wash, Talk + one more) before Alistair drops his guard. At ≥2 the
+        // scene fired within the first minute, before the player had earned
+        // the vulnerability.
+        if (this.storyDay === 1 && this.dayInteractions >= 4 && !sl.alistair_scene1.triggered) {
             sl.alistair_scene1.triggered = true;
+            this._alistairScene1PlayedAt = Date.now();
+            this.save();
             setTimeout(() => this._playAlistairScene1_Oath(), 800);
             return;
         }
-        // Scene 2 — Day 1, bond ≥40: Cracks in the Armor
-        if (this.storyDay === 1 && this.bond >= 40 &&
-            !sl.alistair_scene2.triggered && sl.alistair_scene1.triggered) {
-            sl.alistair_scene2.triggered = true;
-            setTimeout(() => this._playAlistairScene2_Cracks(), 1200);
-            return;
-        }
         // Scene 3 — Day 2 first session: Morning Watch
+        // Moved up the order so it can fire before Scene 2 (Cracks).
         if (this.storyDay >= 2 && !sl.alistair_scene3.triggered) {
             sl.alistair_scene3.triggered = true;
             this._alistairScene3PlayedAt = Date.now();
@@ -7518,11 +7518,26 @@ class PocketLoveGame {
             setTimeout(() => this._playAlistairScene3_MorningWatch(), 3000);
             return;
         }
-        // Scene 4 — Day 2, bond ≥50: The Confession Attempt
-        // Pacing buffer: require 90s since Scene 3 so player can breathe
+        // Scene 2 — Day 2, bond ≥50: Cracks in the Armor
+        // Moved from Day 1 → Day 2. Previously fired the moment Scene 1
+        // ended (bond starts at 50 ≥ 40), so the player got Oath AND Cracks
+        // in one minute — both heavy vulnerability beats stacked. Now Day 2's
+        // arc is Morning Watch → Cracks → Confession, with 90s buffers
+        // between each so the player can breathe.
         if (this.storyDay >= 2 && this.bond >= 50 &&
-            !sl.alistair_scene4.triggered && sl.alistair_scene3.triggered) {
+            !sl.alistair_scene2.triggered && sl.alistair_scene3.triggered) {
             if (this._alistairScene3PlayedAt && Date.now() - this._alistairScene3PlayedAt < 90000) return;
+            sl.alistair_scene2.triggered = true;
+            this._alistairScene2PlayedAt = Date.now();
+            this.save();
+            setTimeout(() => this._playAlistairScene2_Cracks(), 1200);
+            return;
+        }
+        // Scene 4 — Day 2, bond ≥50, after Cracks: The Confession Attempt
+        // Pacing buffer: require 90s since Scene 2 so player can breathe
+        if (this.storyDay >= 2 && this.bond >= 50 &&
+            !sl.alistair_scene4.triggered && sl.alistair_scene2.triggered) {
+            if (this._alistairScene2PlayedAt && Date.now() - this._alistairScene2PlayedAt < 90000) return;
             sl.alistair_scene4.triggered = true;
             setTimeout(() => this._playAlistairScene4_Confession(), 1500);
             return;
