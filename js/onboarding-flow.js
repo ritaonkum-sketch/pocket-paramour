@@ -139,10 +139,11 @@
     },
     {
       eyebrow: '\u2014 BEGIN \u2014',
-      title: 'Choose anyone. They have all been waiting.',
+      title: 'Start with Alistair.',
       body: [
-        'You can come back to the others later.',
-        'No wrong answer here. Only thread.'
+        'He is the first thread in your weave \u2014 the only one open to you right now.',
+        'Care for him daily (feed, wash, talk) until your bond grows. Each bond you build unlocks the next character.',
+        'The story unfolds one heart at a time. Take it slow.'
       ]
     }
   ];
@@ -238,10 +239,17 @@
     card.appendChild(b);
 
     const actions = document.createElement('div'); actions.className = 'pp-on-actions';
-    const skip = document.createElement('button'); skip.className = 'pp-on-skip';
-    skip.textContent = 'Skip the tour';
-    skip.addEventListener('click', complete);
-    actions.appendChild(skip);
+    // Card 1 has no previous, so it shows "Skip the tour" instead.
+    // Cards 2..N show "Previous" so the player can re-read an earlier card.
+    const left = document.createElement('button'); left.className = 'pp-on-skip';
+    if (idx === 0) {
+      left.textContent = 'Skip the tour';
+      left.addEventListener('click', complete);
+    } else {
+      left.textContent = 'Previous';
+      left.addEventListener('click', () => { _idx--; renderCard(_idx); });
+    }
+    actions.appendChild(left);
 
     const next = document.createElement('button'); next.className = 'pp-on-next';
     next.textContent = idx === CARDS.length - 1 ? 'Begin' : 'Continue';
