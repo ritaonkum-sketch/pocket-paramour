@@ -7517,6 +7517,14 @@ class PocketLoveGame {
         if (this.sceneActive) return;
         if (this.characterLeft) return;
         const sl = this.sceneLibrary;
+        // Race-condition guard: every scene below uses setTimeout (800ms-3000ms)
+        // to defer the actual play. If the player switches character (e.g.
+        // taps Elian) during that window, the queued Alistair scene fires
+        // on the wrong character. We capture this helper and re-check
+        // CHARACTER.name at fire time inside each setTimeout.
+        const playIfStillAlistair = (fn) => {
+            if (CHARACTER && CHARACTER.name === 'Alistair') fn();
+        };
 
         // Scene 1 — Day 1, ≥6 interactions AND bond ≥55: The Oath
         // Was ≥4 interactions only — still felt too early. Now requires both
@@ -7528,7 +7536,7 @@ class PocketLoveGame {
             sl.alistair_scene1.triggered = true;
             this._alistairScene1PlayedAt = Date.now();
             this.save();
-            setTimeout(() => this._playAlistairScene1_Oath(), 800);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairScene1_Oath()), 800);
             return;
         }
         // Scene 3 — Day 2 first session: Morning Watch
@@ -7537,7 +7545,7 @@ class PocketLoveGame {
             sl.alistair_scene3.triggered = true;
             this._alistairScene3PlayedAt = Date.now();
             this.save();
-            setTimeout(() => this._playAlistairScene3_MorningWatch(), 3000);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairScene3_MorningWatch()), 3000);
             return;
         }
         // Scene 2 — Day 2, bond ≥50: Cracks in the Armor
@@ -7552,7 +7560,7 @@ class PocketLoveGame {
             sl.alistair_scene2.triggered = true;
             this._alistairScene2PlayedAt = Date.now();
             this.save();
-            setTimeout(() => this._playAlistairScene2_Cracks(), 1200);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairScene2_Cracks()), 1200);
             return;
         }
         // Scene 4 — Day 2, bond ≥50, after Cracks: The Confession Attempt
@@ -7561,14 +7569,14 @@ class PocketLoveGame {
             !sl.alistair_scene4.triggered && sl.alistair_scene2.triggered) {
             if (this._alistairScene2PlayedAt && Date.now() - this._alistairScene2PlayedAt < 90000) return;
             sl.alistair_scene4.triggered = true;
-            setTimeout(() => this._playAlistairScene4_Confession(), 1500);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairScene4_Confession()), 1500);
             return;
         }
         // Scene 5 — Day 3, ≥3 interactions: The Line (fires regardless of scene4)
         if (this.storyDay >= 3 && this.dayInteractions >= 3 &&
             !sl.alistair_scene5.triggered) {
             sl.alistair_scene5.triggered = true;
-            setTimeout(() => this._playAlistairScene5_TheLine(), 1000);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairScene5_TheLine()), 1000);
             return;
         }
         // Bridging scene — Day 4/5 quiet moment on the wall at night
@@ -7578,7 +7586,7 @@ class PocketLoveGame {
             this.dayInteractions >= 2 &&
             !this._alistairBridgeScenePlayed) {
             this._alistairBridgeScenePlayed = true;
-            setTimeout(() => this._playAlistairBridgingScene(), 1500);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairBridgingScene()), 1500);
             return;
         }
     }
@@ -7590,12 +7598,19 @@ class PocketLoveGame {
     _checkAlistairEndings() {
         if (this.sceneActive) return;
         if (this.characterLeft) return;
+        // Same race-condition guard as _checkAlistairStoryProgression: every
+        // ending below uses setTimeout to defer play, but the player can
+        // switch character during that window and the queued Alistair scene
+        // would fire on the wrong character.
+        const playIfStillAlistair = (fn) => {
+            if (CHARACTER && CHARACTER.name === 'Alistair') fn();
+        };
 
         // ── Corruption scene — fires once at corruption ≥ 65 ────────────
         if (!this.cinematicFlags.alistairCorruptionScenePlayed &&
             this.corruption >= 65 && Math.random() > 0.998) {
             this.cinematicFlags.alistairCorruptionScenePlayed = true;
-            setTimeout(() => this._playAlistairCorruptionScene(), 1500);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairCorruptionScene()), 1500);
             return;
         }
 
@@ -7606,7 +7621,7 @@ class PocketLoveGame {
             this.bond >= 75 &&
             this.dutyTension >= 40) {
             this.cinematicFlags.alistairPeakPlayed = true;
-            setTimeout(() => this._playAlistairPeakScene(), 2000);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairPeakScene()), 2000);
             return;
         }
 
@@ -7621,7 +7636,7 @@ class PocketLoveGame {
             if (!this.cinematicFlags.alistairDutyEndingPlayed &&
                 this.alistairPeakChoice === 'duty') {
                 this.cinematicFlags.alistairDutyEndingPlayed = true;
-                setTimeout(() => this._playAlistairDutyEnding(), 2000);
+                setTimeout(() => playIfStillAlistair(() => this._playAlistairDutyEnding()), 2000);
                 return;
             }
 
@@ -7630,7 +7645,7 @@ class PocketLoveGame {
                 this.alistairPeakChoice === 'stay' &&
                 this.affectionLevel >= 3) {
                 this.cinematicFlags.alistairConflictedEndingPlayed = true;
-                setTimeout(() => this._playAlistairConflictedEnding(), 2000);
+                setTimeout(() => playIfStillAlistair(() => this._playAlistairConflictedEnding()), 2000);
                 return;
             }
 
@@ -7638,7 +7653,7 @@ class PocketLoveGame {
             if (!this.cinematicFlags.alistairReflectEndingPlayed &&
                 this.alistairPeakChoice === 'reflect') {
                 this.cinematicFlags.alistairReflectEndingPlayed = true;
-                setTimeout(() => this._playAlistairReflectEnding(), 2000);
+                setTimeout(() => playIfStillAlistair(() => this._playAlistairReflectEnding()), 2000);
                 return;
             }
 
@@ -7650,7 +7665,7 @@ class PocketLoveGame {
                 this.affectionLevel >= 4 &&
                 this.endingPlayed !== 'true_bond') {
                 this.cinematicFlags.alistairTrueBondPlayed = true;
-                setTimeout(() => this._playAlistairTrueBondEnding(), 2000);
+                setTimeout(() => playIfStillAlistair(() => this._playAlistairTrueBondEnding()), 2000);
                 return;
             }
         }
@@ -7659,7 +7674,7 @@ class PocketLoveGame {
         if (!this.cinematicFlags.alistairNeglectPlayed &&
             this.corruption >= 80 && Math.random() > 0.998) {
             this.cinematicFlags.alistairNeglectPlayed = true;
-            setTimeout(() => this._playAlistairNeglectEnding(), 2000);
+            setTimeout(() => playIfStillAlistair(() => this._playAlistairNeglectEnding()), 2000);
         }
     }
 
