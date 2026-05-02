@@ -193,6 +193,37 @@
         filter:none;
       }
 
+      /* Next-up character glow — applied to the card whose chain step is
+         the player's next required tap. Same warm-gold palette as the
+         route-open toast so it reads as "this conversation continues
+         here." Pulses subtly so it draws the eye without being annoying.
+         Cleared automatically once the player taps in (refreshGrid
+         re-applies based on current step). */
+      .select-card.pp-chain-next {
+        position:relative;
+        animation: pp-chain-next-pulse 2.4s ease-in-out infinite;
+      }
+      .select-card.pp-chain-next::after {
+        content:'';
+        position:absolute; inset:-4px;
+        border-radius:18px;
+        pointer-events:none;
+        z-index:1;
+        background: radial-gradient(ellipse at center, rgba(255,206,107,0.0) 55%, rgba(255,206,107,0.18) 100%);
+        animation: pp-chain-next-halo 2.4s ease-in-out infinite;
+      }
+      @keyframes pp-chain-next-pulse {
+        /* Always-visible base glow (never goes to 0) so the player can spot
+           the next-up character at a glance; pulses brighter every 2.4s for
+           the eye-catching beat. */
+        0%, 100% { box-shadow: 0 0 0 2px rgba(255,206,107,0.45), 0 0 18px 2px rgba(255,206,107,0.30); }
+        50%      { box-shadow: 0 0 0 3px rgba(255,206,107,0.85), 0 0 32px 6px rgba(255,206,107,0.55); }
+      }
+      @keyframes pp-chain-next-halo {
+        0%, 100% { opacity:0.55; }
+        50%      { opacity:1.0; }
+      }
+
       /* Lock-explanation popup — shown when a locked card is tapped. */
       #pp-chain-lock-overlay {
         position:fixed; inset:0; z-index:9800;
@@ -475,6 +506,10 @@
 
   function refreshGrid() {
     injectStyles();
+    // Whose card is the next chain step? After step 7 (chain complete),
+    // null = no glow on anyone.
+    const s = step();
+    const nextChar = (s >= 0 && s < 7) ? ORDER[s] : null;
     document.querySelectorAll('.select-card[data-character]').forEach(card => {
       const char = card.getAttribute('data-character');
       if (!char) return;
@@ -482,6 +517,14 @@
         card.classList.add('pp-chain-locked');
       } else {
         card.classList.remove('pp-chain-locked');
+      }
+      // Pulsing gold glow on the next-up character so the player knows
+      // who to tap to continue the chain. Auto-advances when chain step
+      // moves forward — refreshGrid() runs on every advance().
+      if (char === nextChar && !isLocked(char)) {
+        card.classList.add('pp-chain-next');
+      } else {
+        card.classList.remove('pp-chain-next');
       }
       // Always drop the legacy text-overlay attribute — replaced by popup.
       card.removeAttribute('data-pp-lock-text');
