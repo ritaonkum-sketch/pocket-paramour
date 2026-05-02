@@ -1050,14 +1050,16 @@
           if (window.MSChapters && typeof window.MSChapters.play === 'function') {
             window.MSChapters.play(id, function chainChapterDone() {
               setChainInProgress(false);
-              // Set tap-hint target to the next-up char in the chain.
-              // After Chapter 2 (Elian) ends, chain step is 2 → next is
-              // ORDER[2] = Lyra → Lyra's portrait glows so player knows
-              // where to go. Cleared on the next select-card tap.
+              // Set tap-hint target to the character whose chapter just
+              // played — the player needs to tap THAT card to enter
+              // their care route. e.g. after Chapter 2 (Elian's chapter)
+              // ends, glow Elian — not Lyra. Lyra's glow comes later
+              // when the "Lyra is ready to meet" modal fires after the
+              // player has cared for Elian to threshold.
               try {
-                const nextS = step();
-                const nextChar = (nextS >= 0 && nextS < 7) ? ORDER[nextS] : null;
-                if (nextChar) lsSet('pp_tap_hint_target', nextChar);
+                const justPlayed = step() - 1;  // chapter N corresponds to ORDER[N-1]
+                const justPlayedChar = (justPlayed >= 0 && justPlayed < ORDER.length) ? ORDER[justPlayed] : null;
+                if (justPlayedChar) lsSet('pp_tap_hint_target', justPlayedChar);
               } catch (_) {}
               setTimeout(refreshGrid, 200);
             });
