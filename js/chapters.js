@@ -2009,6 +2009,23 @@
     requestAnimationFrame(() => root.classList.add('visible'));
     // Hide the orb while page is open
     const orb = document.getElementById(ORB_ID); if (orb) orb.classList.remove('visible');
+
+    // Auto-scroll the next-up chapter into view so the player doesn't
+    // have to scroll a long list to find what to play. Done in a frame
+    // after mount + visible class so the page has time to lay out.
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const currentRow = root.querySelector('.chp-card.current');
+        if (currentRow && typeof currentRow.scrollIntoView === 'function') {
+          try {
+            currentRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } catch (_) {
+            // Older browsers — fallback to no-options form
+            currentRow.scrollIntoView();
+          }
+        }
+      }, 220);
+    });
   }
 
   function closePage(opts) {
