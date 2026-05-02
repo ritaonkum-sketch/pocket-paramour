@@ -3877,6 +3877,12 @@ body {
     opacity: 0;
     transition: opacity 0.6s ease;
     cursor: pointer;
+    /* Solid fallback so the care UI underneath is fully covered.
+       Only Alistair / Lyra / Lucien have a bg image via #intro-bg
+       (knight / siren / mage). Elian / Caspian / Noir / Proto have
+       no bg image — without this fallback the overlay was transparent
+       and the player saw the care screen bleeding through. */
+    background: #06030f;
 }
 
 #intro-overlay.visible {
