@@ -1705,6 +1705,13 @@
     // the player. Owner-reported visual bug. The fix is to remove the
     // chapter list synchronously here so there is zero overlap.
     closePage({ instant: true });
+    // Detect bridges by id prefix. Bridges play out of chp-page taps too
+    // (player advancing the story by tapping 'Begin' on the next bridge),
+    // and after the bridge ends the bridge's own finish() fires the
+    // route-open toast. Reopening chp-page underneath the toast clutters
+    // the screen — owner reported the Elian toast appearing over chp-page.
+    // For bridges, never reopen chp-page; the toast handles the next step.
+    const isBridge = typeof id === 'string' && id.indexOf('b_') === 0;
     try {
       ch.play(() => {
         if (typeof onDone === 'function') {
@@ -1712,10 +1719,17 @@
           // happens after the chapter — typically: clear chain-in-progress
           // and let the player land on the select grid.
           try { onDone(); } catch (_) {}
-        } else {
+        } else if (!isBridge) {
           // Manual-replay path from the chapter menu — restore the menu.
+          // Bridges skip this so the route-open toast lands on a clean
+          // background.
           refreshOrb();
           openPageSoftly();
+        } else {
+          // Bridge tapped from chp-page — show the orb (so the player can
+          // re-open the chapter list manually if they want), but don't
+          // pop chp-page back over the toast.
+          refreshOrb();
         }
       });
     } catch (_) {}
