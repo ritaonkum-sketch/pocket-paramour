@@ -1068,7 +1068,7 @@ class PocketLoveGame {
             if (this.lucienActive && this.lucienInfluence >= 50 &&
                 this.sceneLibrary?.lucien_competition && !this.sceneLibrary.lucien_competition.triggered && !this.sceneActive) {
                 this.sceneLibrary.lucien_competition.triggered = true;
-                setTimeout(() => this._playLucienCompetitionEvent(), 2000);
+                setTimeout(() => { if (CHARACTER && CHARACTER.name === 'Lyra') this._playLucienCompetitionEvent(); }, 2000);
             }
         }
 
@@ -2828,13 +2828,13 @@ class PocketLoveGame {
                     this.ui.flashEmotion("sad", 4000);
                 }, 1200);
             } else if (newStage === 2 && !this.cinematicFlags.stage2Played) {
-                // Stage 2 — cinematic scene
+                // Stage 2 — cinematic scene (Lyra-only)
                 this.cinematicFlags.stage2Played = true;
-                setTimeout(() => this._playStage2Scene(), 1500);
+                setTimeout(() => { if (CHARACTER && CHARACTER.name === 'Lyra') this._playStage2Scene(); }, 1500);
             } else if (newStage === 3 && !this.cinematicFlags.stage3Played) {
-                // Stage 3 — cinematic confrontation
+                // Stage 3 — cinematic confrontation (Lyra-only)
                 this.cinematicFlags.stage3Played = true;
-                setTimeout(() => this._playStage3Scene(), 1500);
+                setTimeout(() => { if (CHARACTER && CHARACTER.name === 'Lyra') this._playStage3Scene(); }, 1500);
             }
         }
     }
@@ -2843,13 +2843,19 @@ class PocketLoveGame {
 
     _checkLyraEndings() {
         if (this.sceneActive) return;
+        // Race-condition guard: every Lyra-arc ending below uses setTimeout
+        // to defer play. If player switches char during the delay, the
+        // queued Lyra ending would render on the wrong character.
+        const playIfLyra = (fn) => () => {
+            if (CHARACTER && CHARACTER.name === 'Lyra') fn();
+        };
 
         // ── POST-CORRUPTED-ENDING branch ────────────────────────────────
         if (this.cinematicFlags.corruptedEndingPlayed && this.endingPlayed === 'corrupted') {
             // Redemption breakthrough
             if (!this.cinematicFlags.redemptionBreakthroughPlayed && this.redemption >= 30 && this.cinematicFlags.redemptionUnlocked) {
                 this.cinematicFlags.redemptionBreakthroughPlayed = true;
-                setTimeout(() => this._playRedemptionBreakthrough(), 1500);
+                setTimeout(playIfLyra(() => this._playRedemptionBreakthrough()), 1500);
                 return;
             }
             // True Bond ending: after breakthrough + sustained care
@@ -2858,7 +2864,7 @@ class PocketLoveGame {
                 this.bond >= 70 && this.tension < 30 && this.redemption >= 50) {
                 this.cinematicFlags.trueBondPlayed = true;
                 this.endingPlayed = 'bond';
-                setTimeout(() => this._playTrueBondEnding(), 2000);
+                setTimeout(playIfLyra(() => this._playTrueBondEnding()), 2000);
             }
             return;
         }
@@ -2869,7 +2875,7 @@ class PocketLoveGame {
             Math.random() > 0.998) {
             this.cinematicFlags.lostEndingPlayed = true;
             this.endingPlayed = 'lost';
-            setTimeout(() => this._playLostEnding(), 1500);
+            setTimeout(playIfLyra(() => this._playLostEnding()), 1500);
             return;
         }
 
@@ -2879,7 +2885,7 @@ class PocketLoveGame {
             Math.random() > 0.998) {
             this.cinematicFlags.corruptedEndingPlayed = true;
             this.endingPlayed = 'corrupted';
-            setTimeout(() => this._playCorruptedEnding(), 2000);
+            setTimeout(playIfLyra(() => this._playCorruptedEnding()), 2000);
             return;
         }
 
@@ -2888,7 +2894,7 @@ class PocketLoveGame {
             this.corruption >= 60 && this.tensionStage >= 2 &&
             Math.random() > 0.997) {
             this.cinematicFlags.lucienPlayed = true;
-            setTimeout(() => this._playLucienScene(), 1000);
+            setTimeout(() => { if (CHARACTER && CHARACTER.name === 'Lyra') this._playLucienScene(); }, 1000);
         }
     }
 
@@ -4561,13 +4567,20 @@ class PocketLoveGame {
     _checkStoryProgression() {
         if (this.sceneActive) return;
         const sl = this.sceneLibrary;
+        // Race-condition guard: every Lyra-arc scene below uses setTimeout
+        // (600ms-4000ms) to defer play. If the player switches to a
+        // different character during that window, the queued Lyra scene
+        // would render on the wrong character's care screen.
+        const playIfStill = (charName, fn) => () => {
+            if (CHARACTER && CHARACTER.name === charName) fn();
+        };
 
         // ── Day 1 — Entry beat ────────────────────────────────────────────
         // Fires 4 s after first ever interaction. Warm, low stakes, no drama.
         // Purpose: establish tone and make the player feel noticed immediately.
         if (this.storyDay === 1 && this.dayInteractions >= 1 && !sl.scene1_entry.triggered) {
             sl.scene1_entry.triggered = true;
-            setTimeout(() => this._playScene1_Entry(), 4000);
+            setTimeout(playIfStill('Lyra', () => this._playScene1_Entry()), 4000);
             return;
         }
 
@@ -4576,7 +4589,7 @@ class PocketLoveGame {
         // Subtle "I notice you" — micro-dissonance intro at very low frequency.
         if (this.storyDay >= 2 && !sl.scene2_awareness.triggered && !sl.scene3_soften.triggered) {
             sl.scene2_awareness.triggered = true;
-            setTimeout(() => this._playScene2_Awareness(), 2000);
+            setTimeout(playIfStill('Lyra', () => this._playScene2_Awareness()), 2000);
             return;
         }
 
@@ -4587,33 +4600,33 @@ class PocketLoveGame {
             !sl.scene2_reaction.triggered && sl.scene1_entry.played) {
             sl.scene2_reaction.triggered = true;
             const branch = this.lyraMemory.playerWasKind ? 'gentle' : 'careless';
-            setTimeout(() => this._playScene2_Reaction(branch), 600);
+            setTimeout(playIfStill('Lyra', () => this._playScene2_Reaction(branch)), 600);
             return;
         }
         // Scene 3 — Day 2 first session (fires 3s after login)
         if (this.storyDay >= 2 && !sl.scene3_soften.triggered) {
             sl.scene3_soften.triggered = true;
-            setTimeout(() => this._playScene3_Soften(), 3000);
+            setTimeout(playIfStill('Lyra', () => this._playScene3_Soften()), 3000);
             return;
         }
         // Scene 4+5 — Day 2, bond ≥ 40
         if (this.storyDay >= 2 && this.bond >= 40 &&
             !sl.scene4_vulnerability.triggered && sl.scene3_soften.triggered) {
             sl.scene4_vulnerability.triggered = true;
-            setTimeout(() => this._playScene4_Vulnerability(), 1200);
+            setTimeout(playIfStill('Lyra', () => this._playScene4_Vulnerability()), 1200);
             return;
         }
         // Scene 6 — Day 3 opening
         if (this.storyDay >= 3 && !sl.scene6_dependency.triggered) {
             sl.scene6_dependency.triggered = true;
-            setTimeout(() => this._playScene6_Dependency(), 3000);
+            setTimeout(playIfStill('Lyra', () => this._playScene6_Dependency()), 3000);
             return;
         }
         // Scene 7 — Day 3 jealousy ≥ 20
         if (this.storyDay >= 3 && this.jealousy >= 20 &&
             !sl.scene7_conflict.triggered && sl.scene6_dependency.triggered) {
             sl.scene7_conflict.triggered = true;
-            setTimeout(() => this._playScene7_Conflict(), 800);
+            setTimeout(playIfStill('Lyra', () => this._playScene7_Conflict()), 800);
             return;
         }
         // Scene 8 — Climax: either after conflict OR after 4 day-3 interactions
@@ -4621,7 +4634,7 @@ class PocketLoveGame {
             sl.scene6_dependency.triggered &&
             (sl.scene7_conflict.triggered || this.dayInteractions >= 4)) {
             sl.scene8_climax.triggered = true;
-            setTimeout(() => this._playScene8_Climax(), 1000);
+            setTimeout(playIfStill('Lyra', () => this._playScene8_Climax()), 1000);
             return;
         }
 
@@ -4633,7 +4646,7 @@ class PocketLoveGame {
             sl.scene8_climax.triggered &&
             !this.cinematicFlags.peakScenePlayed) {
             this.cinematicFlags.peakScenePlayed = true;
-            setTimeout(() => this._playPeakScene(), 3000);
+            setTimeout(playIfStill('Lyra', () => this._playPeakScene()), 3000);
             return;
         }
 
@@ -4646,7 +4659,7 @@ class PocketLoveGame {
             this.lucienInfluence >= 25 &&
             this.choiceMemory.confessedBack) {
             this.cinematicFlags.lucienConfrontationPlayed = true;
-            setTimeout(() => this._playLucienConfrontation(), 2500);
+            setTimeout(playIfStill('Lyra', () => this._playLucienConfrontation()), 2500);
             return;
         }
 
@@ -4659,7 +4672,7 @@ class PocketLoveGame {
             this.lucienActive &&
             this.storyDay >= 7) {
             this.cinematicFlags.lucienColdResolutionPlayed = true;
-            setTimeout(() => this._playLucienColdResolution(), 2500);
+            setTimeout(playIfStill('Lyra', () => this._playLucienColdResolution()), 2500);
             return;
         }
 
@@ -4670,7 +4683,7 @@ class PocketLoveGame {
             this.choiceMemory.hesitatedConfession &&
             this.storyDay >= 7) {
             this.cinematicFlags.hesitateFollowUpPlayed = true;
-            setTimeout(() => this._playHesitateFollowUp(), 3000);
+            setTimeout(playIfStill('Lyra', () => this._playHesitateFollowUp()), 3000);
             return;
         }
 
@@ -4682,7 +4695,7 @@ class PocketLoveGame {
             this.storyDay >= 7 &&
             this.bond >= 40) {
             this.cinematicFlags.fractureRecoveryPlayed = true;
-            setTimeout(() => this._playFractureRecovery(), 3500);
+            setTimeout(playIfStill('Lyra', () => this._playFractureRecovery()), 3500);
             return;
         }
 
@@ -4697,7 +4710,7 @@ class PocketLoveGame {
             lucienResolved &&
             this.storyDay >= 8) {
             this.cinematicFlags.closingScenePlayed = true;
-            setTimeout(() => this._playLyraClosingScene(), 4000);
+            setTimeout(playIfStill('Lyra', () => this._playLyraClosingScene()), 4000);
             return;
         }
 
@@ -4709,22 +4722,22 @@ class PocketLoveGame {
 
             if (loopPhase === 0 && !sl.scene_day4.triggered) {
                 sl.scene_day4.triggered = true;
-                setTimeout(() => this._playScene_Day4(), 3000);
+                setTimeout(playIfStill('Lyra', () => this._playScene_Day4()), 3000);
                 return;
             }
             if (loopPhase === 1 && !sl.scene_day5.triggered) {
                 sl.scene_day5.triggered = true;
-                setTimeout(() => this._playScene_Day5(), 2000);
+                setTimeout(playIfStill('Lyra', () => this._playScene_Day5()), 2000);
                 return;
             }
             if (loopPhase === 2 && !sl.scene_day6_jealousy.triggered) {
                 sl.scene_day6_jealousy.triggered = true;
-                setTimeout(() => this._playScene_Day6_JealousySpike(), 2500);
+                setTimeout(playIfStill('Lyra', () => this._playScene_Day6_JealousySpike()), 2500);
                 return;
             }
             if (loopPhase === 3 && !sl.scene_day7_loop.triggered) {
                 sl.scene_day7_loop.triggered = true;
-                setTimeout(() => this._playScene_Day7_Loop(), 2000);
+                setTimeout(playIfStill('Lyra', () => this._playScene_Day7_Loop()), 2000);
             }
         }
     }
@@ -5938,7 +5951,7 @@ class PocketLoveGame {
                   }
                   this.save();
                   // Fire the correct ending after a breath
-                  setTimeout(() => this._playDay3Ending(), 1200);
+                  setTimeout(() => { if (CHARACTER && CHARACTER.name === 'Lyra') this._playDay3Ending(); }, 1200);
               }
             },
             { type: 'clear' },
@@ -6145,6 +6158,15 @@ class PocketLoveGame {
         const hour = new Date().getHours();
         const isNight = hour >= 21 || hour < 6;
 
+        // Race-condition guard for char-specific scene triggers below.
+        // Each scene path uses setTimeout (1500ms) to defer the play. If
+        // the player switches character during that window, the queued
+        // scene fires on the wrong character. playIfStill captures the
+        // expected char name and re-checks before invoking the play fn.
+        const playIfStill = (charName, fn) => () => {
+            if (CHARACTER && CHARACTER.name === charName) fn();
+        };
+
         // Jealousy — high obsession + recent neglect (rare chance each tick)
         if (!sl.jealousy.triggered &&
             this.emotion.obsession > 70 &&
@@ -6187,7 +6209,7 @@ class PocketLoveGame {
             (this._microLog || []).slice(-10).filter(Boolean).length >= 2 &&
             Math.random() > 0.9997) {
             sl.tension_confession.triggered = true;
-            setTimeout(() => this._playTensionConfession(), 1500);
+            setTimeout(playIfStill('Lyra', () => this._playTensionConfession()), 1500);
             return;
         }
 
@@ -6201,7 +6223,7 @@ class PocketLoveGame {
             (this._microLog || []).slice(-10).filter(Boolean).length >= 3 &&
             Math.random() > 0.9997) {
             sl.emotional_drift.lastTriggered = Date.now();
-            setTimeout(() => this._playEmotionalDrift(), 1500);
+            setTimeout(playIfStill('Lyra', () => this._playEmotionalDrift()), 1500);
             return;
         }
 
@@ -6215,7 +6237,7 @@ class PocketLoveGame {
             Math.random() > 0.9997) {
             sl.first_rupture.triggered = true;
             if (typeof Analytics !== 'undefined') Analytics.emit('scene_triggered', { scene: 'first_rupture', storyDay: this.storyDay });
-            setTimeout(() => this._playFirstRupture(), 1500);
+            setTimeout(playIfStill('Lyra', () => this._playFirstRupture()), 1500);
             return;
         }
 
@@ -6233,7 +6255,7 @@ class PocketLoveGame {
                 );
                 if (ok && Math.random() > 0.9993) {
                     endScene.triggered = true;
-                    setTimeout(() => this._playPathEnding(this.personalityPath), 2000);
+                    setTimeout(playIfStill('Lyra', () => this._playPathEnding(this.personalityPath)), 2000);
                     return;
                 }
             }
@@ -6249,7 +6271,7 @@ class PocketLoveGame {
             Math.random() > 0.9996) {
             this.whaleArcActive = true;
             this.whaleArcStage  = 1;
-            setTimeout(() => this._playWhaleArcEntry(), 2000);
+            setTimeout(playIfStill('Lyra', () => this._playWhaleArcEntry()), 2000);
             return;
         }
 
@@ -6258,23 +6280,23 @@ class PocketLoveGame {
         // Each stage has a random chance per tick once its prerequisites are met.
         if (this.whaleArcActive && !this.sceneActive) {
             if (this.whaleArcStage === 1 && Math.random() > 0.9995) {
-                setTimeout(() => this._playWhaleStage1(), 1500);
+                setTimeout(playIfStill('Lyra', () => this._playWhaleStage1()), 1500);
                 return;
             }
             if (this.whaleArcStage === 2 && Math.random() > 0.9995) {
-                setTimeout(() => this._playWhaleStage2(), 1500);
+                setTimeout(playIfStill('Lyra', () => this._playWhaleStage2()), 1500);
                 return;
             }
             if (this.whaleArcStage === 3 &&
                 this.emotion.fear > 35 &&
                 Math.random() > 0.9995) {
-                setTimeout(() => this._playWhaleStage3(), 1500);
+                setTimeout(playIfStill('Lyra', () => this._playWhaleStage3()), 1500);
                 return;
             }
             if (this.whaleArcStage === 4 &&
                 this.emotion.obsession > 80 &&
                 Math.random() > 0.9995) {
-                setTimeout(() => this._playWhaleStage4(), 1500);
+                setTimeout(playIfStill('Lyra', () => this._playWhaleStage4()), 1500);
                 return;
             }
         }
@@ -6283,19 +6305,19 @@ class PocketLoveGame {
         if (CHARACTER.name === 'Elian') {
             if (!sl.elian_assessment.triggered && this.storyDay >= 2 && this.timesTalked >= 3 && Math.random() > 0.997) {
                 sl.elian_assessment.triggered = true;
-                setTimeout(() => this._playElianAssessment(), 1500); return;
+                setTimeout(playIfStill('Elian', () => this._playElianAssessment()), 1500); return;
             }
             if (!sl.elian_test.triggered && sl.elian_assessment.triggered && this.storyDay >= 4 && this.emotion.trust > 30 && Math.random() > 0.997) {
                 sl.elian_test.triggered = true;
-                setTimeout(() => this._playElianTest(), 1500); return;
+                setTimeout(playIfStill('Elian', () => this._playElianTest()), 1500); return;
             }
             if (!sl.elian_bond.triggered && sl.elian_test.triggered && this.storyDay >= 5 && this.affectionLevel >= 2 && Math.random() > 0.997) {
                 sl.elian_bond.triggered = true;
-                setTimeout(() => this._playElianBond(), 1500); return;
+                setTimeout(playIfStill('Elian', () => this._playElianBond()), 1500); return;
             }
             if (!sl.elian_peak.triggered && sl.elian_bond.triggered && this.storyDay >= 7 && Math.random() > 0.998) {
                 sl.elian_peak.triggered = true;
-                setTimeout(() => this._playElianPeak(), 1500); return;
+                setTimeout(playIfStill('Elian', () => this._playElianPeak()), 1500); return;
             }
         }
 
@@ -6303,19 +6325,19 @@ class PocketLoveGame {
         if (CHARACTER.name === 'Proto') {
             if (!sl.proto_detection.triggered && this.storyDay >= 1 && this.timesTalked >= 2 && Math.random() > 0.997) {
                 sl.proto_detection.triggered = true;
-                setTimeout(() => this._playProtoDetection(), 1500); return;
+                setTimeout(playIfStill('Proto', () => this._playProtoDetection()), 1500); return;
             }
             if (!sl.proto_awareness.triggered && sl.proto_detection.triggered && this.storyDay >= 3 && this.emotion.trust > 25 && Math.random() > 0.997) {
                 sl.proto_awareness.triggered = true;
-                setTimeout(() => this._playProtoAwareness(), 1500); return;
+                setTimeout(playIfStill('Proto', () => this._playProtoAwareness()), 1500); return;
             }
             if (!sl.proto_breaking.triggered && sl.proto_awareness.triggered && this.storyDay >= 5 && this.affectionLevel >= 2 && Math.random() > 0.997) {
                 sl.proto_breaking.triggered = true;
-                setTimeout(() => this._playProtoBreaking(), 1500); return;
+                setTimeout(playIfStill('Proto', () => this._playProtoBreaking()), 1500); return;
             }
             if (!sl.proto_peak.triggered && sl.proto_breaking.triggered && this.storyDay >= 7 && Math.random() > 0.998) {
                 sl.proto_peak.triggered = true;
-                setTimeout(() => this._playProtoPeak(), 1500); return;
+                setTimeout(playIfStill('Proto', () => this._playProtoPeak()), 1500); return;
             }
         }
 
@@ -6323,19 +6345,19 @@ class PocketLoveGame {
         if (CHARACTER.name === 'Noir') {
             if (!sl.noir_temptation.triggered && this.storyDay >= 1 && this.timesTalked >= 2 && Math.random() > 0.997) {
                 sl.noir_temptation.triggered = true;
-                setTimeout(() => this._playNoirTemptation(), 1500); return;
+                setTimeout(playIfStill('Noir', () => this._playNoirTemptation()), 1500); return;
             }
             if (!sl.noir_corruption.triggered && sl.noir_temptation.triggered && this.storyDay >= 3 && this.corruption >= 15 && Math.random() > 0.997) {
                 sl.noir_corruption.triggered = true;
-                setTimeout(() => this._playNoirCorruption(), 1500); return;
+                setTimeout(playIfStill('Noir', () => this._playNoirCorruption()), 1500); return;
             }
             if (!sl.noir_consuming.triggered && sl.noir_corruption.triggered && this.storyDay >= 5 && this.affectionLevel >= 2 && Math.random() > 0.997) {
                 sl.noir_consuming.triggered = true;
-                setTimeout(() => this._playNoirConsuming(), 1500); return;
+                setTimeout(playIfStill('Noir', () => this._playNoirConsuming()), 1500); return;
             }
             if (!sl.noir_peak.triggered && sl.noir_consuming.triggered && this.storyDay >= 7 && Math.random() > 0.998) {
                 sl.noir_peak.triggered = true;
-                setTimeout(() => this._playNoirPeak(), 1500); return;
+                setTimeout(playIfStill('Noir', () => this._playNoirPeak()), 1500); return;
             }
         }
 
@@ -6345,7 +6367,7 @@ class PocketLoveGame {
                 this.storyDay >= 2 && this.affectionLevel >= 1 &&
                 Math.random() > 0.997) {
                 sl.caspian_warmth.triggered = true;
-                setTimeout(() => this._playCaspianWarmth(), 1500);
+                setTimeout(playIfStill('Caspian', () => this._playCaspianWarmth()), 1500);
                 return;
             }
             if (!sl.caspian_dependency.triggered &&
@@ -6353,7 +6375,7 @@ class PocketLoveGame {
                 this.storyDay >= 4 && this.comfortLevel >= 30 &&
                 Math.random() > 0.997) {
                 sl.caspian_dependency.triggered = true;
-                setTimeout(() => this._playCaspianDependency(), 1500);
+                setTimeout(playIfStill('Caspian', () => this._playCaspianDependency()), 1500);
                 return;
             }
             if (!sl.caspian_choice.triggered &&
@@ -6361,7 +6383,7 @@ class PocketLoveGame {
                 this.storyDay >= 7 &&
                 Math.random() > 0.998) {
                 sl.caspian_choice.triggered = true;
-                setTimeout(() => this._playCaspianChoice(), 1500);
+                setTimeout(playIfStill('Caspian', () => this._playCaspianChoice()), 1500);
                 return;
             }
         }
@@ -6373,7 +6395,7 @@ class PocketLoveGame {
                 this.storyDay >= 1 && this.timesTalked >= 3 &&
                 Math.random() > 0.997) {
                 sl.lucien_observation.triggered = true;
-                setTimeout(() => this._playLucienObservation(), 1500);
+                setTimeout(playIfStill('Lucien', () => this._playLucienObservation()), 1500);
                 return;
             }
 
@@ -6383,7 +6405,7 @@ class PocketLoveGame {
                 this.storyDay >= 3 && this.affectionLevel >= 1 &&
                 Math.random() > 0.997) {
                 sl.lucien_margin_notes.triggered = true;
-                setTimeout(() => this._playLucienMarginNotes(), 1500);
+                setTimeout(playIfStill('Lucien', () => this._playLucienMarginNotes()), 1500);
                 return;
             }
 
@@ -6393,7 +6415,7 @@ class PocketLoveGame {
                 this.storyDay >= 4 && this.emotion.trust > 35 &&
                 Math.random() > 0.998) {
                 sl.lucien_sister.triggered = true;
-                setTimeout(() => this._playLucienSister(), 1500);
+                setTimeout(playIfStill('Lucien', () => this._playLucienSister()), 1500);
                 return;
             }
 
@@ -6404,7 +6426,7 @@ class PocketLoveGame {
                 this.researchNotes >= 3 &&
                 Math.random() > 0.997) {
                 sl.lucien_fascination.triggered = true;
-                setTimeout(() => this._playLucienFascination(), 1500);
+                setTimeout(playIfStill('Lucien', () => this._playLucienFascination()), 1500);
                 return;
             }
 
@@ -6415,7 +6437,7 @@ class PocketLoveGame {
                 this.emotion.trust > 50 &&
                 Math.random() > 0.997) {
                 sl.lucien_confession.triggered = true;
-                setTimeout(() => this._playLucienConfession(), 1500);
+                setTimeout(playIfStill('Lucien', () => this._playLucienConfession()), 1500);
                 return;
             }
 
@@ -6425,7 +6447,7 @@ class PocketLoveGame {
                 this.storyDay >= 7 &&
                 Math.random() > 0.998) {
                 sl.lucien_peak.triggered = true;
-                setTimeout(() => this._playLucienPeak(), 1500);
+                setTimeout(playIfStill('Lucien', () => this._playLucienPeak()), 1500);
                 return;
             }
         }
