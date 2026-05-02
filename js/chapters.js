@@ -1786,7 +1786,15 @@
         background: rgba(255,255,255,0.08); color: #f4e6ff; border: 0; border-radius: 20px;
         padding: 6px 12px; font-size: 13px; cursor: pointer;
       }
-      #${PAGE_ID} .chp-list { flex: 1; overflow-y: auto; padding: 8px 14px 30px; }
+      #${PAGE_ID} .chp-list {
+        flex: 1; overflow-y: auto; padding: 8px 14px 30px;
+        /* Hide the browser scrollbar — owner request, looks ugly against
+           the dark Otome aesthetic. Scrolling still works (touch + wheel),
+           the bar is just invisible. */
+        scrollbar-width: none;        /* Firefox */
+        -ms-overflow-style: none;     /* IE/legacy Edge */
+      }
+      #${PAGE_ID} .chp-list::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
       #${PAGE_ID} .chp-card {
         display: flex; gap: 14px; padding: 14px 14px; border-radius: 16px;
         background: rgba(255,255,255,0.04); margin-bottom: 10px; align-items: center;
