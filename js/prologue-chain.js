@@ -403,7 +403,13 @@
           0 0 38px var(--pp-toast-glow) inset,
           0 0 0 1px rgba(255,255,255,0.04);
         opacity:0; pointer-events:none;
-        z-index:9700;
+        /* z-index 10800 puts the route-open toast ABOVE chp-page (10750)
+           so that if the player triggered the bridge from the main-story
+           page (which stays mounted underneath the bridge cinematic),
+           the toast doesn't get buried by chp-page when it appears.
+           Stays BELOW mscard-root (11000) so playing scenes still take
+           precedence. Matches pp-ready-overlay which had the same bug. */
+        z-index:10800;
         cursor:pointer; user-select:none;
         transition:opacity 520ms ease, transform 520ms ease;
         font-family: inherit;

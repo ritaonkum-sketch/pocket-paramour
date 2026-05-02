@@ -7513,12 +7513,13 @@ class PocketLoveGame {
         if (this.characterLeft) return;
         const sl = this.sceneLibrary;
 
-        // Scene 1 — Day 1, ≥4 interactions: The Oath
-        // Pushed from ≥2 to ≥4 so the player has had a real care cycle (Feed,
-        // Wash, Talk + one more) before Alistair drops his guard. At ≥2 the
-        // scene fired within the first minute, before the player had earned
-        // the vulnerability.
-        if (this.storyDay === 1 && this.dayInteractions >= 4 && !sl.alistair_scene1.triggered) {
+        // Scene 1 — Day 1, ≥6 interactions AND bond ≥55: The Oath
+        // Was ≥4 interactions only — still felt too early. Now requires both
+        // a substantial care session (6 actions) AND meaningful bond growth
+        // (bond starts at 50; ≥55 means the player has actually moved the
+        // needle). Fires later in Day 1 so Alistair's vulnerability has been
+        // properly earned.
+        if (this.storyDay === 1 && this.dayInteractions >= 6 && this.bond >= 55 && !sl.alistair_scene1.triggered) {
             sl.alistair_scene1.triggered = true;
             this._alistairScene1PlayedAt = Date.now();
             this.save();
