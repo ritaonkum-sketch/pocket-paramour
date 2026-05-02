@@ -193,6 +193,35 @@
         filter:none;
       }
 
+      /* Tap-here hint — a soft warm-gold pulsing ring AROUND ONLY the
+         circular portrait (not the whole card). Appears at specific
+         narrative moments to direct the player: right after the
+         onboarding tour ("tap Alistair") and right after each chapter
+         ends ("now tap the next character"). Cleared the moment the
+         player taps any select-card. Intentionally narrow scope —
+         not always-on like the previous attempt. */
+      .select-card.pp-tap-hint .select-card-img-wrap {
+        position:relative;
+        animation: pp-tap-hint-bob 1.6s ease-in-out infinite;
+      }
+      .select-card.pp-tap-hint .select-card-img-wrap::after {
+        content:'';
+        position:absolute; inset:-7px;
+        border-radius:50%;
+        border:2px solid rgba(255,206,107,0.85);
+        box-shadow: 0 0 18px 3px rgba(255,206,107,0.55), inset 0 0 12px rgba(255,206,107,0.25);
+        pointer-events:none;
+        animation: pp-tap-hint-ring 1.6s ease-in-out infinite;
+      }
+      @keyframes pp-tap-hint-bob {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-2px); }
+      }
+      @keyframes pp-tap-hint-ring {
+        0%, 100% { transform: scale(1.0); opacity: 0.85; }
+        50%      { transform: scale(1.06); opacity: 1.0; }
+      }
+
       /* Lock-explanation popup — shown when a locked card is tapped. */
       #pp-chain-lock-overlay {
         position:fixed; inset:0; z-index:9800;
@@ -475,6 +504,14 @@
 
   function refreshGrid() {
     injectStyles();
+    // Tap-hint: the specific character to highlight is stored by name in
+    // pp_tap_hint_target. Set by:
+    //  - onboarding completion → 'alistair' (player hasn't entered care yet)
+    //  - chapter N completion → ORDER[step()] (the next-up char in the chain)
+    // Cleared by any select-card tap. Stored as a name (not just on/off) so
+    // we don't have to guess which char to glow — the trigger explicitly
+    // names them. Avoids the bug where chain step pointed at a locked char.
+    const tapHintTarget = lsGet('pp_tap_hint_target') || '';
     document.querySelectorAll('.select-card[data-character]').forEach(card => {
       const char = card.getAttribute('data-character');
       if (!char) return;
@@ -486,11 +523,28 @@
       // Defensive: clear any stale pp-chain-next class from prior versions
       // (rolled back per owner — visual didn't work, broke story flow).
       card.classList.remove('pp-chain-next');
+      // Tap-hint ring around the portrait — only on the named target char.
+      if (tapHintTarget && char === tapHintTarget && !isLocked(char)) {
+        card.classList.add('pp-tap-hint');
+      } else {
+        card.classList.remove('pp-tap-hint');
+      }
       // Always drop the legacy text-overlay attribute — replaced by popup.
       card.removeAttribute('data-pp-lock-text');
     });
     refreshCareProgress();
   }
+
+  // Clear the tap-hint target the moment the player taps any character card.
+  // Capture phase so we don't compete with other handlers.
+  document.addEventListener('click', function (e) {
+    const card = e.target && e.target.closest && e.target.closest('.select-card[data-character]');
+    if (!card) return;
+    if (lsGet('pp_tap_hint_target')) {
+      try { lsSet('pp_tap_hint_target', ''); } catch (_) {}
+      setTimeout(refreshGrid, 50);
+    }
+  }, true);
 
   // ---------------------------------------------------------------------------
   // Care progress chip — visible during care, shows the player how close
@@ -996,6 +1050,16 @@
           if (window.MSChapters && typeof window.MSChapters.play === 'function') {
             window.MSChapters.play(id, function chainChapterDone() {
               setChainInProgress(false);
+              // Set tap-hint target to the next-up char in the chain.
+              // After Chapter 2 (Elian) ends, chain step is 2 → next is
+              // ORDER[2] = Lyra → Lyra's portrait glows so player knows
+              // where to go. Cleared on the next select-card tap.
+              try {
+                const nextS = step();
+                const nextChar = (nextS >= 0 && nextS < 7) ? ORDER[nextS] : null;
+                if (nextChar) lsSet('pp_tap_hint_target', nextChar);
+              } catch (_) {}
+              setTimeout(refreshGrid, 200);
             });
           } else {
             setChainInProgress(false);

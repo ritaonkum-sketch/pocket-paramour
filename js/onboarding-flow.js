@@ -287,6 +287,14 @@
 
   function complete() {
     lsSet(FLAG_DONE, '1');
+    // Tap-hint: name the specific character to highlight (Alistair —
+    // player needs to tap his card to enter care). prologue-chain.js's
+    // refreshGrid reads pp_tap_hint_target and applies .pp-tap-hint
+    // to that character's card. Cleared on any select-card tap.
+    try { localStorage.setItem('pp_tap_hint_target', 'alistair'); } catch (_) {}
+    if (window.PPChain && typeof window.PPChain.refreshGrid === 'function') {
+      try { window.PPChain.refreshGrid(); } catch (_) {}
+    }
     if (_root) {
       _root.classList.remove('show');
       setTimeout(() => { try { _root.remove(); } catch (_) {} _root = null; }, 600);
