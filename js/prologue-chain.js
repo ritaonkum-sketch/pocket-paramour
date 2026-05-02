@@ -193,33 +193,37 @@
         filter:none;
       }
 
-      /* Tap-here hint — a soft warm-gold pulsing ring AROUND ONLY the
-         circular portrait (not the whole card). Appears at specific
-         narrative moments to direct the player: right after the
-         onboarding tour ("tap Alistair") and right after each chapter
-         ends ("now tap the next character"). Cleared the moment the
-         player taps any select-card. Intentionally narrow scope —
-         not always-on like the previous attempt. */
+      /* Tap-here hint — a soft warm-gold pulsing glow AROUND ONLY the
+         circular portrait. Appears at specific narrative moments and
+         clears when the player taps any select-card.
+         Implemented with box-shadow on the wrap (NOT a pseudo-element
+         with inset:-7px — that gets clipped by the wrap's
+         overflow:hidden, making the ring invisible). box-shadow draws
+         outside the element's visible bounds even with overflow:hidden,
+         so the gold ring renders correctly. */
       .select-card.pp-tap-hint .select-card-img-wrap {
-        position:relative;
+        animation: pp-tap-hint-glow 1.6s ease-in-out infinite;
+      }
+      .select-card.pp-tap-hint {
         animation: pp-tap-hint-bob 1.6s ease-in-out infinite;
       }
-      .select-card.pp-tap-hint .select-card-img-wrap::after {
-        content:'';
-        position:absolute; inset:-7px;
-        border-radius:50%;
-        border:2px solid rgba(255,206,107,0.85);
-        box-shadow: 0 0 18px 3px rgba(255,206,107,0.55), inset 0 0 12px rgba(255,206,107,0.25);
-        pointer-events:none;
-        animation: pp-tap-hint-ring 1.6s ease-in-out infinite;
+      @keyframes pp-tap-hint-glow {
+        0%, 100% {
+          box-shadow:
+            0 0 0 3px rgba(255,206,107,0.85),
+            0 0 18px 4px rgba(255,206,107,0.55),
+            0 4px 15px rgba(0,0,0,0.3);
+        }
+        50% {
+          box-shadow:
+            0 0 0 4px rgba(255,206,107,1.0),
+            0 0 28px 8px rgba(255,206,107,0.75),
+            0 4px 15px rgba(0,0,0,0.3);
+        }
       }
       @keyframes pp-tap-hint-bob {
         0%, 100% { transform: translateY(0); }
-        50%      { transform: translateY(-2px); }
-      }
-      @keyframes pp-tap-hint-ring {
-        0%, 100% { transform: scale(1.0); opacity: 0.85; }
-        50%      { transform: scale(1.06); opacity: 1.0; }
+        50%      { transform: translateY(-3px); }
       }
 
       /* Lock-explanation popup — shown when a locked card is tapped. */
