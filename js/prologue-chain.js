@@ -314,9 +314,13 @@
         color: #ffce6b;
       }
 
-      /* "Ready to move on" modal — replaces the easy-to-miss toast. */
+      /* "Ready to move on" modal — replaces the easy-to-miss toast.
+         z-index 10800 puts it ABOVE chp-page (10750) so the chapter list
+         can't bury it. Stays BELOW mscard-root (11000) so a playing scene
+         still takes precedence (and refreshUnlockReadyToast already gates
+         against mscard-root being open before mounting). */
       #pp-ready-overlay {
-        position: fixed; inset: 0; z-index: 9750;
+        position: fixed; inset: 0; z-index: 10800;
         background: rgba(8,5,18,0.82);
         backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
         display: flex; align-items: center; justify-content: center;
