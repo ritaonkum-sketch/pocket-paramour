@@ -79,7 +79,9 @@
 
   function finish() {
     _playing = false;
-    try { localStorage.setItem('pp_intro_noir', '1'); } catch (_) {}
+    // NOTE: do NOT set pp_intro_noir — intro.js owns that flag. Setting
+    // it from the bridge suppresses Noir's name-prompt intro on first
+    // tap into care. (Same fix as bridge-alistair.js.)
     try { localStorage.setItem('pp_chapter_done_b_noir', '1'); } catch (_) {}
     try { localStorage.setItem('pp_bridge_noir_just_finished', String(Date.now())); } catch (_) {}
 

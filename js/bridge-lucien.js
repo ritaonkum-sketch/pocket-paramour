@@ -73,7 +73,9 @@
 
   function finish() {
     _playing = false;
-    try { localStorage.setItem('pp_intro_lucien', '1'); } catch (_) {}
+    // NOTE: do NOT set pp_intro_lucien — intro.js owns that flag.
+    // Setting it from the bridge suppresses Lucien's name-prompt intro
+    // on first tap into care. (Same fix as bridge-alistair.js.)
     try { localStorage.setItem('pp_chapter_done_b_lucien', '1'); } catch (_) {}
 
     const stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')

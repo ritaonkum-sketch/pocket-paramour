@@ -72,7 +72,9 @@
 
   function finish() {
     _playing = false;
-    try { localStorage.setItem('pp_intro_proto', '1'); } catch (_) {}
+    // NOTE: do NOT set pp_intro_proto — intro.js owns that flag. Setting
+    // it from the bridge suppresses Proto's name-prompt intro on first
+    // tap into care. (Same fix as bridge-alistair.js.)
     try { localStorage.setItem('pp_chapter_done_b_proto', '1'); } catch (_) {}
     try { localStorage.setItem('pp_chain_complete', '1'); } catch (_) {}
 

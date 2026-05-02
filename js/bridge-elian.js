@@ -75,7 +75,11 @@
 
   function finish() {
     _playing = false;
-    try { localStorage.setItem('pp_intro_elian', '1'); } catch (_) {}
+    // NOTE: do NOT set pp_intro_elian here — intro.js owns that flag and
+    // setting it from the bridge would suppress Elian's name-prompt intro
+    // when the player first taps into his care route. Same fix as
+    // bridge-alistair.js. Intro flag is set by intro.js _finish() after
+    // the player completes the name input.
     try { localStorage.setItem('pp_chapter_done_b_elian', '1'); } catch (_) {}
     try { localStorage.setItem('pp_bridge_elian_gave_map', '1'); } catch (_) {}
 

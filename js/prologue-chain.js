@@ -634,7 +634,10 @@
     // meet Y" doesn't fit in a single-line strip; the arrow + next-char
     // name is enough context, and the strip's placement implies care
     // progress by its location.
-    el.querySelector('.pp-cp-title').textContent = '→ ' + cap(nextChar);
+    // Clearer wording: "<currentChar> → <nextChar>" so the player sees
+    // who they're caring for AND who unlocks next. Previously just
+    // "→ <nextChar>" which read like the next char was the active one.
+    el.querySelector('.pp-cp-title').textContent = cap(gateChar) + '  →  ' + cap(nextChar);
     el.querySelector('.pp-cp-aff').innerHTML = '<b>' + Math.min(aff, 25) + '/25</b>';
     el.querySelector('.pp-cp-fill').style.width = pct + '%';
     el.querySelector('.pp-cp-cycle').textContent = cycleStr + ' (' + cycleDone + '/3)';

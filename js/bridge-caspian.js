@@ -75,7 +75,9 @@
 
   function finish() {
     _playing = false;
-    try { localStorage.setItem('pp_intro_caspian', '1'); } catch (_) {}
+    // NOTE: do NOT set pp_intro_caspian — intro.js owns that flag.
+    // Setting it from the bridge suppresses Caspian's name-prompt intro
+    // on first tap into care. (Same fix as bridge-alistair.js.)
     try { localStorage.setItem('pp_chapter_done_b_caspian', '1'); } catch (_) {}
 
     const stepBefore = (window.PPChain && typeof window.PPChain.step === 'function')
