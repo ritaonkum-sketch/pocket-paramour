@@ -280,6 +280,12 @@
     _root.appendChild(card);
     document.body.appendChild(_root);
 
+    // Hide the Main Story orb (the floating ✦ Main 4/26 chip) while the
+    // tour is up — the player should focus on the tour, not on whether
+    // to tap the orb. Restored in complete().
+    const orb = document.getElementById('chp-orb');
+    if (orb) orb.style.display = 'none';
+
     requestAnimationFrame(() => _root.classList.add('show'));
     _idx = 0;
     renderCard(0);
@@ -287,6 +293,9 @@
 
   function complete() {
     lsSet(FLAG_DONE, '1');
+    // Restore the Main Story orb that was hidden when the tour opened.
+    const orb = document.getElementById('chp-orb');
+    if (orb) orb.style.display = '';
     // Tap-hint: name the specific character to highlight (Alistair —
     // player needs to tap his card to enter care). prologue-chain.js's
     // refreshGrid reads pp_tap_hint_target and applies .pp-tap-hint
