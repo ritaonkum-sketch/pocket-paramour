@@ -53,22 +53,27 @@
   function shouldFire() {
     if (lsGet(FLAG_DONE) === '1') return false;
     if (lsGet(FLAG_DEV) === '1') return false;
-    // CRITICAL: this card is "BEFORE YOU PICK" — it must never appear after
-    // the player has already started the prologue. If they have advanced the
-    // chain at all (step >= 1) OR completed any chapter, the moment for this
-    // tour has passed and showing it now feels like an interruption.
-    // Auto-mark complete and bail.
+    // TIMING: fires after Bridge Alistair + Chapter 1 are done, when the
+    // player first lands back on the select grid. The auto-chain pushes
+    // straight from world intro → Arrival → Bridge Alistair → Chapter 1
+    // without ever pausing on the blank select grid — so the old "step
+    // must be 0" gate meant onboarding never fired in normal play. The
+    // new gate allows step 1 (Alistair done) but bails at step 2+ (player
+    // has met a second character — onboarding moment has passed).
     try {
       const step = parseInt(lsGet('pp_chain_step') || '0', 10);
-      if (step >= 1) { lsSet(FLAG_DONE, '1'); return false; }
+      if (step >= 2) { lsSet(FLAG_DONE, '1'); return false; }
     } catch (_) {}
     try {
-      // Any chapter done (1..8) means the player is past onboarding territory.
-      for (let i = 1; i <= 8; i++) {
+      // Chapter 2+ done means the player has met a second character —
+      // past onboarding territory.
+      for (let i = 2; i <= 8; i++) {
         if (lsGet('pp_chapter_done_' + i) === '1') { lsSet(FLAG_DONE, '1'); return false; }
       }
-      // Any bridge done means same.
-      const bridges = ['alistair','elian','lyra','caspian','lucien','noir','proto'];
+      // Any bridge OTHER than Alistair done means same. Bridge Alistair
+      // happens automatically right after Arrival, so it being done is
+      // expected by the time we want to fire onboarding.
+      const bridges = ['elian','lyra','caspian','lucien','noir','proto'];
       for (const b of bridges) {
         if (lsGet('pp_chapter_done_b_' + b) === '1') { lsSet(FLAG_DONE, '1'); return false; }
       }
