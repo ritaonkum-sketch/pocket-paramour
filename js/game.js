@@ -2660,7 +2660,12 @@ class PocketLoveGame {
                 const ch = this.selectedCharacter || 'alistair';
                 localStorage.setItem('pp_storymilestone_' + ch + '_' + storyInfo.key, '1');
             } catch (_) {}
-            const event = CHARACTER.milestoneEvents[storyInfo.key];
+            // CHARACTER.milestoneEvents is only defined on Alistair + Lyra
+            // (the original 2 characters). Caspian/Lucien/Elian/Noir/Proto
+            // don't have it — without the optional chain we'd crash with
+            // 'Cannot read properties of undefined (reading "firstTrust")'
+            // every time those 5 hit affection level 1.
+            const event = CHARACTER.milestoneEvents?.[storyInfo.key];
             if (event) {
                 setTimeout(() => {
                     this.ui.showStoryScene(event.dialogue, event.emotion || storyInfo.emotion);
