@@ -1,4 +1,4 @@
-// Elian — The Rogue Druid / Warden of Thornwood
+// Elian. The Rogue Druid / Warden of Thornwood
 // Practical survivalist. Tests decisiveness and action.
 // Character data for Pocket Paramour
 //
@@ -8,9 +8,9 @@
 // Primary reference: Sam Heughan as Jamie Fraser in Outlander. Low,
 //   warm, sparing with words. Devastating with actions. Says little,
 //   means a world. The "stays" character archetype done perfectly.
-// Secondary: Eric Bana as Hector in Troy \u2014 honorable, husband-brother
+// Secondary: Eric Bana as Hector in Troy.honorable, husband-brother
 //   warmth. Viggo Mortensen off-duty for the tired-wilderness-worn
-//   quality (an older Viggo \u2014 not his sword-drawn Aragorn).
+//   quality (an older Viggo.not his sword-drawn Aragorn).
 //
 // Do NOT write Elian as: brooding lumberjack, cold druid, wise-old-
 // mentor stereotype, or grunting mountain-man. He is WARM. He is
@@ -21,16 +21,16 @@
 //   1. The LOOK, not the words. He does not say "I love you." He
 //      says "You are cold" and hands you his cloak.
 //   2. Forest as metaphor for feeling. He talks about trees, weather,
-//      paths \u2014 never about emotions directly.
+//      paths.never about emotions directly.
 //   3. The "you do not have to" move. He gives the player permission
 //      to be silent, to not perform, to just exist.
 //   4. The steady assurance, not declaration. "I will still be here
 //      tomorrow." "The door is not locked. It has never been locked."
-//   5. Warden-wisdom \u2014 he has watched generations love and lose.
+//   5. Warden-wisdom.he has watched generations love and lose.
 //   6. Physical action as love, always. Fixes things. Pours tea.
 //      Drapes cloak. Never explains.
 //
-// Skinship signature \u2014 THE CLOAK-DRAPE + THE WORDLESS HAND-TAKE.
+// Skinship signature. THE CLOAK-DRAPE + THE WORDLESS HAND-TAKE.
 //   His hands are calloused from forest work. His touch is rough,
 //   warm, unhurried. He unbuckles his cloak, drops it around the
 //   player's shoulders without looking up, says "Better. Do not
@@ -42,7 +42,7 @@
 //   you have not been cold in hours.
 //
 // ============================================================================
-// LORE HOOKS \u2014 THREE OVERLAPPING WOUNDS (baked in for every writer):
+// LORE HOOKS. THREE OVERLAPPING WOUNDS (baked in for every writer):
 //
 // 1. DRUIDIC / FAE HERITAGE. HE IS OLD.
 //    Not immortal. Just much older than he looks. His mother was
@@ -144,16 +144,21 @@ const CHARACTER_ELIAN = {
         casual1:     "assets/elian/body/casual1.png",
         casual2:     "assets/elian/body/casual2.png",
         corrupted:   "assets/elian/body/stern.png",
-        hungry1:     "assets/elian/body/weathered.png",
-        hungry2:     "assets/elian/body/weathered.png",
-        dirty1:      "assets/elian/body/neutral.png",
-        dirty2:      "assets/elian/body/neutral.png",
-        sleepy1:     "assets/elian/body/calm.png",
-        yawn1:       "assets/elian/body/neutral.png",
-        bored1:      "assets/elian/body/neutral.png",
+        // Sprite-pool variety remap May 2026: was many emotion keys
+        // collapsing to weathered/neutral — feeding-Elian and seeing-sad-
+        // Elian looked identical, dirty1/dirty2 looked identical, etc.
+        // Now each care state pulls a different existing pose so the
+        // visual changes when the player taps an action.
+        hungry1:     "assets/elian/body/weathered.png",   // tired hunger
+        hungry2:     "assets/elian/body/foraging.png",    // active hunger (looking for food)
+        dirty1:      "assets/elian/body/tracking.png",    // out in the wild getting dirtier
+        dirty2:      "assets/elian/body/weathered.png",   // worn-down dirty
+        sleepy1:     "assets/elian/body/meditating.png",  // restful calm
+        yawn1:       "assets/elian/body/calm.png",
+        bored1:      "assets/elian/body/casual2.png",     // slouchy bored, not just neutral
         eating1:     "assets/elian/body/calm.png",
-        eating2:     "assets/elian/body/neutral.png",
-        splash1:     "assets/elian/body/neutral.png",
+        eating2:     "assets/elian/body/casual1.png",     // relaxed eating
+        splash1:     "assets/elian/body/warm.png",        // bath happiness
         fighting:    "assets/elian/body/stern.png",
         fighting1:   "assets/elian/body/stern.png",
         corrupt1:    "assets/elian/body/stern.png"
@@ -185,13 +190,7 @@ const CHARACTER_ELIAN = {
         attachmentSpeed: 0.35
     },
 
-    outfits: {
-        default:   { name: "Forest Garb", body: "assets/elian/body/neutral.png" },
-        casual1:   { name: "Trail Worn", body: "assets/elian/body/casual1.png" },
-        casual2:   { name: "Camp Rest", body: "assets/elian/body/casual2.png" },
-        formal:    { name: "Elder's Robes", body: "assets/elian/body/neutral.png" },
-        corrupted: { name: "Withered", body: "assets/elian/body/stern.png" }
-    },
+    // (outfits block removed May 2026 — system was unreachable from UI)
 
     background: "assets/bg-elian-forest.png",
 
@@ -235,10 +234,10 @@ const CHARACTER_ELIAN = {
                 "I'll say more when there's more to say."
             ],
             feed: [
-                "You foraged this? Or bought it. ...You bought it.",
+                "You foraged this? Or bought it. ... You bought it.",
                 "Efficient. Thank you.",
                 "I eat what the land provides. This works too.",
-                "...That's better than anything I've cooked in weeks."
+                "... That's better than anything I've cooked in weeks."
             ],
             wash: [
                 "The river handles this. But... fine.",
@@ -247,7 +246,7 @@ const CHARACTER_ELIAN = {
                 "Clean enough. Let's move."
             ],
             gift: [
-                "...You're giving me something. Why.",
+                "... You're giving me something. Why.",
                 "I don't need things. But I'll keep this.",
                 "Practical. Good choice.",
                 "This is... more than I expected. From anyone."
@@ -268,7 +267,7 @@ const CHARACTER_ELIAN = {
                 "If anything happened to you out here... I can't think about that."
             ],
             feed: [
-                "Eat first. I already ate. ...I'll eat later.",
+                "Eat first. I already ate. ... I'll eat later.",
                 "You need your strength more than I need mine.",
                 "I set traps this morning. This is from the best one.",
                 "You're not eating enough. I can tell."
@@ -298,10 +297,10 @@ const CHARACTER_ELIAN = {
                 "Get to the point.",
                 "I'm listening. That doesn't mean I agree.",
                 "If I wanted conversation, I'd talk to the trees.",
-                "...Fine. You made a fair point. Don't let it go to your head."
+                "... Fine. You made a fair point. Don't let it go to your head."
             ],
             feed: [
-                "I don't need you to feed me. ...What is it.",
+                "I don't need you to feed me. ... What is it.",
                 "Adequate. Don't expect praise.",
                 "I survived ten years alone. But... this is better.",
                 "Stop hovering. And leave the rest."
@@ -310,11 +309,11 @@ const CHARACTER_ELIAN = {
                 "I bathe when I need to. I need to.",
                 "Don't look at me like that. I'm aware.",
                 "The forest doesn't judge appearance. You do.",
-                "...Thank you. Don't make it a thing."
+                "... Thank you. Don't make it a thing."
             ],
             gift: [
-                "I don't want— what is that.",
-                "You wasted resources on sentiment. ...I'm keeping it.",
+                "I don't want... what is that.",
+                "You wasted resources on sentiment. ... I'm keeping it.",
                 "This is impractical. And I like it. Don't tell anyone.",
                 "The thought counts more than the thing. The thing is also good."
             ],
@@ -322,7 +321,7 @@ const CHARACTER_ELIAN = {
                 "Wrong. Do it again.",
                 "Better. Still not good. Again.",
                 "You want praise? Survive first.",
-                "...That was actually impressive. Don't expect me to say it twice."
+                "... That was actually impressive. Don't expect me to say it twice."
             ]
         }
     },
@@ -330,26 +329,26 @@ const CHARACTER_ELIAN = {
     tapDialogue: {
         shy: [
             "\u2026What.",
-            "Personal space exists. \u2014 You may cross it. Once.",
-            "I did not flinch. \u2014 I adjusted.",
-            "You are bold. \u2014 Noted. \u2014 \u2026Stay.",
-            "\u2026Do that again and I will know it was intentional. \u2014 Do it again."
+            "Personal space exists. You may cross it. Once.",
+            "I did not flinch. I adjusted.",
+            "You are bold. Noted.\u2026Stay.",
+            "\u2026Do that again and I will know it was intentional. Do it again."
         ],
         clingy: [
-            "Careful. \u2014 Reflexes.",
-            "*unbuckles his cloak, drops it around your shoulders without looking up* \u2014 Better. \u2014 Do not argue.",
-            "You are warm. \u2014 The forest is cold. \u2014 I am keeping you where you are.",
-            "*takes your hand in his rough one, thumb along your knuckles, unhurried* \u2014 Stay. \u2014 Just stay.",
-            "Your hands are soft. \u2014 Mine are not. \u2014 The difference is my favourite thing.",
-            "*draws you against his side, arm settled around your shoulders, says nothing for a long moment* \u2014 \u2026There.",
-            "\u2026Stay close. \u2014 The fire is warmer on this side. \u2014 That is a true statement and also an excuse."
+            "Careful. Reflexes.",
+            "*Unbuckles his cloak, drops it around your shoulders without looking up*. Better. Do not argue.",
+            "You are warm. The forest is cold. I am keeping you where you are.",
+            "*Takes your hand in his rough one, thumb along your knuckles, unhurried*. Stay. Just stay.",
+            "Your hands are soft. Mine are not. The difference is my favourite thing.",
+            "*Draws you against his side, arm settled around your shoulders, says nothing for a long moment*. \u2026There.",
+            "\u2026Stay close. The fire is warmer on this side. That is a true statement and also an excuse."
         ],
         tsundere: [
-            "Do not. \u2014 \u2026Do. Once.",
-            "That was unnecessary. \u2014 And yet I did not stop you.",
-            "I could have blocked that. \u2014 I did not.",
-            "\u2026Fine. \u2014 Once. \u2014 \u2026Twice.",
-            "Touch me again and I will teach you a hold. \u2014 The hold involves both of us. Not moving. For a while."
+            "Do not.\u2026Do. Once.",
+            "That was unnecessary. And yet I did not stop you.",
+            "I could have blocked that. I did not.",
+            "\u2026Fine. Once.\u2026Twice.",
+            "Touch me again and I will teach you a hold. The hold involves both of us. Not moving. For a while."
         ]
     },
 
@@ -368,21 +367,21 @@ const CHARACTER_ELIAN = {
             "Dirt washes off. Weakness doesn't.",
             "I'm aware. The river is close.",
             "The moss doesn't care how I look. Neither do I. Usually.",
-            "...Fine. I'll clean up. For you. Not the moss.",
+            "... Fine. I'll clean up. For you. Not the moss.",
             "There's mud in places mud shouldn't be.",
             "I've been worse. But not by much."
         ],
         happy: [
-            "This is \u2026 good. \u2014 I do not say that often.",
-            "The forest is calm today. \u2014 So am I.",
-            "You did something. \u2014 I cannot explain it. \u2014 But the weight is less.",
-            "I almost smiled. \u2014 I think you saw it. \u2014 You keep looking at me like you did.",
-            "*scoots closer at the fire so you have more of the warm side, says nothing*",
-            "I have not felt this steady in years. \u2014 \u2026Decades. \u2014 Longer.",
-            "You make the silence comfortable instead of heavy. \u2014 That is rare. Rarer than you know.",
-            "*smooths your hair back where the wind caught it, unhurried, unembarrassed*",
-            "You have not been cold in hours. \u2014 I noticed. \u2014 I have been keeping track.",
-            "I do not need much. \u2014 This is more than enough."
+            "This is \u2026 good. I do not say that often.",
+            "The forest is calm today. So am I.",
+            "You did something. I cannot explain it. But the weight is less.",
+            "I almost smiled. I think you saw it. You keep looking at me like you did.",
+            "*Scoots closer at the fire so you have more of the warm side, says nothing*",
+            "I have not felt this steady in years.\u2026Decades. Longer.",
+            "You make the silence comfortable instead of heavy. That is rare. Rarer than you know.",
+            "*Smooths your hair back where the wind caught it, unhurried, unembarrassed*",
+            "You have not been cold in hours. I noticed. I have been keeping track.",
+            "I do not need much. This is more than enough."
         ],
         annoyed: [
             "Stop. Think. Then act. In that order.",
@@ -394,13 +393,13 @@ const CHARACTER_ELIAN = {
         ],
         neutral: [
             "The wind shifted. Rain by evening.",
-            "*checks a snare, retensions the wire*",
+            "*Checks a snare, retensions the wire*",
             "There's a hawk circling. Third time today.",
             "The moss grows thicker on the north side. Always.",
             "...",
             "I sharpened the knife. Twice. Habit.",
             "The fire needs another log. Not yet. Soon.",
-            "*listens to something you can't hear*",
+            "*Listens to something you can't hear*",
             "The trail is clear. For now.",
             "I mapped a new path yesterday. Shorter. Steeper.",
             "The creek is higher than usual. Snowmelt.",
@@ -415,62 +414,62 @@ const CHARACTER_ELIAN = {
             "You can't save everything. I learned that the hard way."
         ],
         neglected: [
-            "The fire went out. \u2014 I let it.",
-            "You left. \u2014 The forest noticed. \u2014 I pretended not to.",
-            "The traps were not checked. \u2014 Nothing was. \u2014 I do not need to perform for the trees. I was not performing.",
-            "I sat here for hours. \u2014 Just \u2026 sat. \u2014 I am very good at waiting. \u2014 I have had centuries of practice.",
-            "You do not owe me anything. \u2014 But the silence was louder. \u2014 \u2026Come back.",
-            "I survived alone before. \u2014 I can again. \u2014 I just do not want to. \u2014 That is the first time I have said that in a long time."
+            "The fire went out. I let it.",
+            "You left. The forest noticed. I pretended not to.",
+            "The traps were not checked. Nothing was. I do not need to perform for the trees. I was not performing.",
+            "I sat here for hours. Just \u2026 sat. I am very good at waiting. I have had centuries of practice.",
+            "You do not owe me anything. But the silence was louder.\u2026Come back.",
+            "I survived alone before. I can again. I just do not want to. That is the first time I have said that in a long time."
         ]
     },
 
     eventDialogue: {
         comfort:  [
-            "I am here. \u2014 That is what I can offer. \u2014 It is a lot, from me.",
-            "*opens his arms without a word, lets you step in, closes them around you, does not speak for a long time*",
-            "The storm passes. \u2014 It always does. \u2014 I will sit with you until it has."
+            "I am here. That is what I can offer. It is a lot, from me.",
+            "*Opens his arms without a word, lets you step in, closes them around you, does not speak for a long time*",
+            "The storm passes. It always does. I will sit with you until it has."
         ],
         tension:  [
-            "Something is wrong between us. \u2014 I feel it. \u2014 Tell me when you can.",
-            "You are distant. \u2014 The forest taught me to notice. \u2014 I will wait for you to come back.",
-            "Say it. \u2014 Whatever it is. \u2014 I have heard worse. I have said worse."
+            "Something is wrong between us. I feel it. Tell me when you can.",
+            "You are distant. The forest taught me to notice. I will wait for you to come back.",
+            "Say it. Whatever it is. I have heard worse. I have said worse."
         ],
         rare:     [
-            "I do not open up. \u2014 You know that. \u2014 This is me trying.",
-            "I carved your name into a tree. \u2014 I will not say which one. \u2014 You will find it. Or you will not. Either is fine.",
-            "You are the first person I have let stay. \u2014 In a very long time. \u2014 Longer than I look.",
-            "There was someone, once. \u2014 The kingdom took her from these trees. \u2014 I have been tending her forest ever since. \u2014 You are the first person I have wanted to follow out of it.",
-            "You are a Weaver. \u2014 I knew when the ground changed under your foot at the treeline. \u2014 My grandmother taught me to name your kind by your weight. \u2014 Yours is gentle. \u2014 Veyra\u2019s was the same. \u2014 I did not save her. \u2014 I will not fail you."
+            "I do not open up. You know that. This is me trying.",
+            "I carved your name into a tree. I will not say which one. You will find it. Or you will not. Either is fine.",
+            "You are the first person I have let stay. In a very long time. Longer than I look.",
+            "There was someone, once. The kingdom took her from these trees. I have been tending her forest ever since. You are the first person I have wanted to follow out of it.",
+            "You are a Weaver. I knew when the ground changed under your foot at the treeline. My grandmother taught me to name your kind by your weight. Yours is gentle. Veyra\u2019s was the same. I did not save her. I will not fail you."
         ],
         obsessed: [
-            "I check the perimeter every hour. \u2014 For you.",
-            "I cannot sleep unless I know you are safe. \u2014 *rests his forehead against yours for a long breath* \u2014 There. Now I can sleep.",
-            "The forest is mine to protect. \u2014 So are you. \u2014 I have decided."
+            "I check the perimeter every hour. For you.",
+            "I cannot sleep unless I know you are safe. *Rests his forehead against yours for a long breath*. There. Now I can sleep.",
+            "The forest is mine to protect. So are you. I have decided."
         ],
         unstable: [
-            "The roots are pulling back. \u2014 Something is wrong.",
-            "I am losing my connection. \u2014 To the forest. \u2014 To everything.",
-            "I do not know who I am without this place. \u2014 I am learning. Slowly."
+            "The roots are pulling back. Something is wrong.",
+            "I am losing my connection. To the forest. To everything.",
+            "I do not know who I am without this place. I am learning. Slowly."
         ],
         guarded:  [
-            "Trust takes seasons. \u2014 We are still in spring.",
-            "I am watching. \u2014 Not judging. \u2014 Watching.",
-            "Actions first. \u2014 Then maybe words."
+            "Trust takes seasons. We are still in spring.",
+            "I am watching. Not judging. Watching.",
+            "Actions first. Then maybe words."
         ],
         secure:   [
-            "You have earned your place here. \u2014 That is not nothing. \u2014 That is everything my line offers.",
-            "The fire is warm. \u2014 The shelter holds. \u2014 We are good.",
-            "This is what home feels like. \u2014 I forgot. \u2014 I am grateful to remember."
+            "You have earned your place here. That is not nothing. That is everything my line offers.",
+            "The fire is warm. The shelter holds. We are good.",
+            "This is what home feels like. I forgot. I am grateful to remember."
         ]
     },
 
     timeAwayReactions: {
-        brief:   ["Quick trip. \u2014 Smart."],
-        short:   ["You were gone. \u2014 The fire stayed lit. \u2014 I kept it."],
-        medium:  ["I almost went looking. \u2014 Almost. \u2014 *had boots on*"],
-        long:    ["The camp felt wrong without you. \u2014 Emptier. \u2014 I noticed things I did not expect to miss."],
-        extended:["I kept your spot clear. \u2014 Every day. \u2014 That is not devotion. That is habit. \u2014 \u2026Both, actually."],
-        distant: ["\u2026You came back. \u2014 I was not sure you would. \u2014 *draws you in against his chest, does not let go for a while*"]
+        brief:   ["Quick trip. Smart."],
+        short:   ["You were gone. The fire stayed lit. I kept it."],
+        medium:  ["I almost went looking. Almost. *Had boots on*"],
+        long:    ["The camp felt wrong without you. Emptier. I noticed things I did not expect to miss."],
+        extended:["I kept your spot clear. Every day. That is not devotion. That is habit.\u2026Both, actually."],
+        distant: ["\u2026You came back. I was not sure you would. *Draws you in against his chest, does not let go for a while*"]
     },
 
     hungryLines: [
@@ -486,20 +485,20 @@ const CHARACTER_ELIAN = {
     ],
     dirtyLines: [
         "Dirt washes off.", "I'm aware. The river is close.",
-        "...Fine. For you.", "There's mud in places it shouldn't be."
+        "... Fine. For you.", "There's mud in places it shouldn't be."
     ],
     annoyedLines: [
         "Stop. Think. Then act.", "You're making noise.",
         "I have patience. You're testing it.", "Frustration is wasted energy."
     ],
     neutralLines: [
-        "The wind shifted.", "*checks a snare*", "There's a hawk circling.",
-        "...", "The fire needs another log.", "*listens*",
+        "The wind shifted.", "*Checks a snare*", "There's a hawk circling.",
+        "...", "The fire needs another log.", "*Listens*",
         "The trail is clear.", "Something moved. Fox. Harmless."
     ],
 
     feedDialogue: [
-        "Efficient. Thank you.", "...That's better than my cooking.",
+        "Efficient. Thank you.", "... That's better than my cooking.",
         "You remembered what I like. I didn't say what I like.",
         "Simple. Good. Like the best things.",
         "The land provides. So do you, apparently.",
@@ -508,14 +507,14 @@ const CHARACTER_ELIAN = {
     washDialogue: [
         "Better. Thank you.", "I forget sometimes. You don't.",
         "Clean enough to think straight.", "The river does this. But your way is warmer.",
-        "...I feel human again. Partly."
+        "... I feel human again. Partly."
     ],
     giftDialogue: {
         apple:    ["From the wild trees? Good instinct.", "Simple. Useful. Like you."],
-        rose:     ["Roses don't grow here. You went far for this.", "...Beautiful. And impractical. I'll keep it."],
+        rose:     ["Roses don't grow here. You went far for this.", "... Beautiful. And impractical. I'll keep it."],
         sword:    ["Good steel. Balanced. You know what you're doing.", "A blade is honest. So is this gift."],
-        cake:     ["Sweet things don't last in the forest. I'll make an exception.", "...This is excessive. And delicious."],
-        ring:     ["Rings catch on branches. I'll wear it anyway.", "You know what this means in druid tradition? ...Good."],
+        cake:     ["Sweet things don't last in the forest. I'll make an exception.", "... This is excessive. And delicious."],
+        ring:     ["Rings catch on branches. I'll wear it anyway.", "You know what this means in druid tradition? ... Good."],
         book:     ["Field guide? Useful. I'll study it tonight.", "Knowledge is the lightest thing to carry."],
         herbs:    ["You found wild sage? That's rare this season.", "These are medicinal. You're learning."],
         stone:    ["River stone. Smooth. You held this and thought of me.", "I collect these. You didn't know that. But you chose right."]
@@ -525,7 +524,7 @@ const CHARACTER_ELIAN = {
         "I don't say things[guarded] unless I mean them...",
         "You've become part of this place[warm]. Part of me.",
         "The forest chose you[calm]. So did I.",
-        "I love you[warm]. Simply. Completely. Like rain."
+        "*Sets the wood down between you, then sits[warm]*. The fire is on this side. Stay there. Stay close."
     ],
 
     departureDialogue: [
@@ -537,7 +536,7 @@ const CHARACTER_ELIAN = {
 
     idleDialogue: {
         hungry: ["...", "The snares need checking.", "I can smell the campfire smoke. My stomach hears it too."],
-        dirty: ["...", "*brushes dirt from sleeve, gives up*", "The river's fifty paces east."],
+        dirty: ["...", "*Brushes dirt from sleeve, gives up*", "The river's fifty paces east."],
         lonely: ["...", "The fire talks when you're not here. Crackling.", "I kept busy. That's not the same as not noticing."],
         loving: [
             "I carved something for you. It's not finished.",
@@ -546,24 +545,24 @@ const CHARACTER_ELIAN = {
             "You're the only sound I don't want to silence.",
             "I found a clearing. The stars are visible. I thought of you first.",
             "The forest accepted you. That takes years. Or one look from you, apparently.",
-            "*watches you from across the fire, doesn't look away*"
+            "*Watches you from across the fire, doesn't look away*"
         ],
         night: [
             "The owls are hunting. Stay close to the fire.",
-            "*adds a log without being asked*",
+            "*Adds a log without being asked*",
             "The stars are different here than in the cities.",
             "I take last watch. Always. So you can sleep.",
             "Night is when the forest is most honest."
         ],
         general: [
-            "...", "*whittles something small and precise*",
-            "*sniffs the air, nods once*", "Hmm.",
-            "The weather's turning.", "*examines a leaf, puts it back*",
+            "...", "*Whittles something small and precise*",
+            "*Sniffs the air, nods once*", "Hmm.",
+            "The weather's turning.", "*Examines a leaf, puts it back*",
             "I had a thought. It'll keep.",
-            "*stacks firewood in perfect rows*",
+            "*Stacks firewood in perfect rows*",
             "Something's different about the soil today.",
             "The deer are migrating early. That means something.",
-            "*sits perfectly still for an unnervingly long time*",
+            "*Sits perfectly still for an unnervingly long time*",
             "The trees whisper about the tower. The mage is pushing too hard.",
             "The kingdom's wards are thinning. I can feel it in the soil.",
             "The siren's song reached the forest last night. Even the wolves listened.",
@@ -583,7 +582,7 @@ const CHARACTER_ELIAN = {
     personalityDialogue: {
         shy: ["I don't talk much. You've noticed.", "Words are overrated.", "I said what I needed to.", "Silence isn't empty. It's full."],
         clingy: ["Stay close. It's not safe.", "I scanned the area. Habit.", "You're my responsibility.", "If anything happened to you..."],
-        tsundere: ["Get to the point.", "I'm listening. Not agreeing.", "...Fine. Fair point.", "Don't let it go to your head."]
+        tsundere: ["Get to the point.", "I'm listening. Not agreeing.", "... Fine. Fair point.", "Don't let it go to your head."]
     },
 
     storyMilestones: {

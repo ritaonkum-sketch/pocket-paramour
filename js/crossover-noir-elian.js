@@ -1,6 +1,6 @@
-/* crossover-noir-elian.js — "The Two Who Loved Her"
+/* crossover-noir-elian.js."The Two Who Loved Her"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossNoirElian.
+ * Registers window. MSCrossNoirElian.
  *
  * WHAT THIS SCENE DOES:
  *   Six hundred years ago, both of these men loved Veyra. One was a young
@@ -15,7 +15,7 @@
  *
  *   This is NOT reconciliation in the forgiveness sense. Neither man
  *   owes the other anything. Both loved her; both lost her. What happens
- *   here is closer to \u2014 mutual recognition. They can now exist in the
+ *   here is closer to.mutual recognition. They can now exist in the
  *   same kingdom without the stone weight of unfinished history.
  *
  *   The player bears witness. No choice. This scene belongs to them.
@@ -32,11 +32,11 @@
  *   - pp_cross_noir_elian_seen = '1'
  *
  * VOICE DIRECTION:
- *   Noir \u2014 Cavill-Geralt, stripped of seduction. This is Corvin in full
+ *   Noir.Cavill-Geralt, stripped of seduction. This is Corvin in full
  *   plain dignity. The dreamy-seductive voice would be an insult at this
  *   grave. Short, plain, heavy.
- *   Elian \u2014 Jamie Fraser at his deepest. Six centuries of grief held in
- *   measured words. He speaks first \u2014 he has been waiting longest.
+ *   Elian.Jamie Fraser at his deepest. Six centuries of grief held in
+ *   measured words. He speaks first.he has been waiting longest.
  *   Both men use each other's OLD names. Noir calls Elian by his rank
  *   from before ("Warden"). Elian uses Noir's real name ("Corvin").
  *   That is its own declaration of respect.
@@ -71,8 +71,9 @@
     if (text) e.textContent = text;
     return e;
   }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -116,7 +117,7 @@
     bgImg.src = BG_SRC;
     root.appendChild(bg);
 
-    // The rowan \u2014 a small tree-glow between them where the grave stone lies
+    // The rowan.a small tree-glow between them where the grave stone lies
     const rowan = el('div', [
       'position:absolute', 'left:50%', 'top:45%', 'transform:translate(-50%,-50%)',
       'width:30vmin', 'height:2px', 'border-radius:2px', 'pointer-events:none',
@@ -182,7 +183,8 @@
   }
 
   function say(n, name, text, cps) {
-    n.speaker.textContent = name;
+    if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); }
+    else { n.speaker.textContent = name; }
     return type(n.line, text, cps || 22);
   }
 
@@ -212,11 +214,11 @@
 
     try {
       // ---- BEAT 1: narration. The grave. The rowan. ----------------
-      n.speaker.textContent = '\u2014 UNDER THE ROWAN, DEEP THORNWOOD, WHERE THE STONE LIES \u2014';
-      await type(n.line, 'Elian is here. \u2014 He has been here for six hundred years. \u2014 The stone under the rowan has no carving. \u2014 That may change tonight. \u2014 That is not what has changed tonight.', 22);
+      n.speaker.textContent = 'UNDER THE ROWAN, DEEP THORNWOOD, WHERE THE STONE LIES';
+      await type(n.line, 'Elian is here. He has been here for six hundred years. The stone under the rowan has no carving. That may change tonight. That is not what has changed tonight.', 22);
       await wait(2800);
 
-      await type(n.line, 'Something is walking into the Thornwood from the south. \u2014 It has not walked these trees since the last kingdom ended. \u2014 Elian hears the footfall before he sees the man. \u2014 He does not move. \u2014 He waits.', 22);
+      await type(n.line, 'Something is walking into the Thornwood from the south. It has not walked these trees since the last kingdom ended. Elian hears the footfall before he sees the man. He does not move. He waits.', 22);
       await wait(2800);
 
       // ---- BEAT 2: Noir arrives ------------------------------------
@@ -232,44 +234,44 @@
       await wait(1800);
 
       // ---- BEAT 4: Noir uses Elian's old rank ----------------------
-      await say(n, 'NOIR', 'Warden. \u2014 \u2026You have gone grey at the temples. \u2014 Good. \u2014 The rest of you looks the same.', 22);
+      await say(n, 'NOIR', 'Warden.\u2026You have gone grey at the temples. Good. The rest of you looks the same.', 22);
       await wait(3000);
 
       // ---- BEAT 5: Elian, dry, holding centuries in a grunt -------
       n.elian.img.src = ELIAN_ALT;
-      await say(n, 'ELIAN', 'You were younger when I saw you last. \u2014 You are younger now. \u2014 Six hundred years under stone. \u2014 It did not suit you.', 22);
+      await say(n, 'ELIAN', 'You were younger when I saw you last. You are younger now. Six hundred years under stone. It did not suit you.', 22);
       await wait(3000);
 
-      await say(n, 'NOIR', '\u2026No. \u2014 It did not.', 22);
+      await say(n, 'NOIR', '\u2026No. It did not.', 22);
       await wait(2200);
 
       // ---- BEAT 6: Elian names the reason they are here ------------
-      await say(n, 'ELIAN', 'She is under this rowan. \u2014 I have been tending the soil. \u2014 I did not bury her deep. \u2014 I could not bear to.', 22);
+      await say(n, 'ELIAN', 'She is under this rowan. I have been tending the soil. I did not bury her deep. I could not bear to.', 22);
       await wait(3000);
 
       n.noir.img.src = NOIR_ALT;
-      await say(n, 'NOIR', '\u2026Thank you. \u2014 For tending her. \u2014 I was \u2026 not where I should have been.', 22);
+      await say(n, 'NOIR', '\u2026Thank you. For tending her. I was \u2026 not where I should have been.', 22);
       await wait(2800);
 
       // ---- BEAT 7: Elian, with the dry warmth of a man who has had time
       //      to forgive very slowly ------------------------------------
-      await say(n, 'ELIAN', 'You were under my grandmother\u2019s stone. \u2014 You were where the kingdom put you. \u2014 She would not blame you. \u2014 I have had six hundred years to work out who to blame. \u2014 It is not you.', 22);
+      await say(n, 'ELIAN', 'You were under my grandmother\u2019s stone. You were where the kingdom put you. She would not blame you. I have had six hundred years to work out who to blame. It is not you.', 22);
       await wait(3600);
 
-      await say(n, 'NOIR', '*closes his eyes, a long breath* \u2014 That is \u2026 more kindness than I expected. \u2014 I will accept it. \u2014 I have not been offered kindness by one of you in some time.', 22);
+      await say(n, 'NOIR', '*Closes his eyes, a long breath*. That is \u2026 more kindness than I expected. I will accept it. I have not been offered kindness by one of you in some time.', 22);
       await wait(3200);
 
-      // ---- BEAT 8: the memory move \u2014 they remember her differently -
-      await say(n, 'ELIAN', 'She liked the east path at dusk. \u2014 She would not eat the red berries. She said they were for the foxes.', 22);
+      // ---- BEAT 8: the memory move.they remember her differently -
+      await say(n, 'ELIAN', 'She liked the east path at dusk. She would not eat the red berries. She said they were for the foxes.', 22);
       await wait(2600);
 
-      await say(n, 'NOIR', 'She hated carnations. \u2014 I never understood why. \u2014 I brought them to her once. \u2014 She laughed for ten minutes. \u2014 I stopped bringing them.', 22);
+      await say(n, 'NOIR', 'She hated carnations. I never understood why. I brought them to her once. She laughed for the length of a bell. I stopped bringing them.', 22);
       await wait(3000);
 
       await say(n, 'ELIAN', '\u2026That is the same laugh I remember.', 20);
       await wait(2200);
 
-      await say(n, 'NOIR', 'It is the same woman. \u2014 We both knew the same woman. \u2014 There is a strange comfort in that.', 22);
+      await say(n, 'NOIR', 'It is the same woman. We both knew the same woman. There is a strange comfort in that.', 22);
       await wait(2800);
 
       // ---- BEAT 9: the quiet laugh. Neither smiles widely. Something
@@ -280,22 +282,22 @@
       await wait(3200);
 
       // ---- BEAT 10: the future move ------------------------------
-      await say(n, 'ELIAN', 'The Weaver is with me now. \u2014 The new one. \u2014 I will not lose this one. \u2014 I need you to know that.', 22);
+      await say(n, 'ELIAN', 'The Weaver is with me now. The new one. I will not lose this one. I need you to know that.', 22);
       await wait(2800);
 
-      await say(n, 'NOIR', 'Good. \u2014 I also will not lose this one. \u2014 That may be complicated between us one day. \u2014 Tonight it is not. \u2014 Tonight we are men who loved the same woman, and we can stand under her rowan. \u2014 That is enough.', 22);
+      await say(n, 'NOIR', 'Good. I also will not lose this one. That may be complicated between us one day. Tonight it is not. Tonight we are men who loved the same woman, and we can stand under her rowan. That is enough.', 22);
       await wait(3600);
 
       // ---- BEAT 11: the acknowledgment of the player as witness ---
-      await say(n, 'ELIAN', '*looks at you, briefly* \u2014 You brought us here. \u2014 Thank you. \u2014 Neither of us could have done this alone. \u2014 You carry that name differently than she did. \u2014 But you carry it.', 22);
+      await say(n, 'ELIAN', '*Looks at you, briefly*. You brought us here. Thank you. Neither of us could have done this alone. You carry that name differently than she did. But you carry it.', 22);
       await wait(3200);
 
-      await say(n, 'NOIR', '*a small bow, gracious, ancient* \u2014 Weaver. \u2014 Thank you for the hour. \u2014 And for the forgiveness neither of us could ask for.', 22);
+      await say(n, 'NOIR', '*A small bow, gracious, ancient*. Weaver. Thank you for the hour. And for the forgiveness neither of us could ask for.', 22);
       await wait(3000);
 
       // ---- Closing -----------------------------------------------
       n.speaker.textContent = '';
-      await type(n.line, 'Elian does not walk with Noir back to the south. \u2014 Noir does not stay. \u2014 One stays with the rowan. \u2014 One walks into the dark again, quieter than he arrived. \u2014 The forest exhales.', 22);
+      await type(n.line, 'Elian does not walk with Noir back to the south. Noir does not stay. One stays with the rowan. One walks into the dark again, quieter than he arrived. The forest exhales.', 22);
       await wait(3200);
 
       n.rowan.style.opacity = '0';
@@ -330,7 +332,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -367,7 +369,7 @@
     boot();
   }
 
-  window.MSCrossNoirElian = {
+  window. MSCrossNoirElian = {
     play,
     force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); } catch (_) {} },

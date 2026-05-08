@@ -185,7 +185,7 @@
   //
   // When main-story is on and the Prologue hasn\u2019t been played yet, the
   // player\u2019s first tap on START should open the Main Story page instead of
-  // the game\u2019s world-intro. The Prologue *is* the world intro \u2014 playing
+  // the game\u2019s world-intro. The Prologue *Is* the world intro \u2014 playing
   // both would duplicate narration.
   function installStartRedirect() {
     // Register on window at CAPTURE phase so we fire BEFORE any element-level

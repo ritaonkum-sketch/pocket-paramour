@@ -85,7 +85,7 @@
     alistair: {
       caspian: [
         'Alistair sets the cloak on your chair without comment. "His Highness asked after you this morning. I told him the truth. You slept well."',
-        'Alistair: "If you go to court tonight — wear the silver pin. He notices the silver pin." A small, fond pause. "I notice him noticing."'
+        'Alistair: "If you go to court tonight, wear the silver pin. He notices the silver pin." A small, fond pause. "I notice him noticing."'
       ],
       elian: [
         'Alistair, very quietly: "The woodsman keeps a path open from the south gate to your window. I checked. It is well-cleared." A pause. "Good."',
@@ -319,7 +319,7 @@
       '#mg-overlay','#mon-bundle-back','#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible','#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)','#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)','#story-overlay:not(.hidden)',
+      ,'#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)','#main-story-page:not(.hidden)',
       '#pp-onboarding-overlay'
     ].join(','));

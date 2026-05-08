@@ -17,33 +17,84 @@
         alistair: {
             title: "A Knight's Letter",
             signature: "— Alistair",
-            paragraphs: (d) => [
-                `You won't read this. I know that. I'll set it beside the candle and pretend I didn't write it.`,
-                `It has been ${d.daysText}. I counted. A knight counts things — ration lines, arrow flights, the heartbeats between watches. I did not expect to start counting your visits.`,
-                d.timesFed > 0
-                    ? `You have fed me ${d.timesFed} ${d.timesFed === 1 ? 'time' : 'times'}. ${d.foodLine}`
-                    : ``,
-                d.timesTalked > 0
-                    ? `You spoke to me ${d.timesTalked} ${d.timesTalked === 1 ? 'time' : 'times'}. I remember every one. Even the quiet ones. ${d.talkLine}`
-                    : `You have never spoken to me. I don't know why that stays with me the way it does.`,
-                d.corruption > 30
-                    ? `Something is wrong with me. I can feel it in the way I hold the sword. The way I look at you. I used to be sure of things. Now I am sure of you — and that frightens the rest of me into silence.`
-                    : d.affectionLevel >= 3
-                        ? `I was taught that a knight serves a kingdom. I think, now, that a knight serves whoever teaches him what tenderness looks like. You did not mean to teach me that. But you did.`
-                        : `I am still a stranger to you. That is fair. I have been a stranger to myself for a long time.`,
-                d.highestStat === 'bond'
-                    ? `My bond with you is the loudest thing in my chest.`
-                    : d.highestStat === 'clean'
-                        ? `You keep me presentable. I do not think you understand what that costs a man who has forgotten he was one.`
-                        : d.highestStat === 'hunger'
-                            ? `I am fed. I am cared for. I did not know I was allowed to be either.`
-                            : ``,
-                d.personality === 'tsundere'
-                    ? `If you find this, burn it. Or don't. I don't care. Do whatever you want.`
-                    : d.personality === 'clingy'
-                        ? `Come back tomorrow. Please. I already know you will, but the knowing is not enough anymore.`
-                        : `I will leave the candle lit. In case you come back late.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Was a bag of stat-
+            // filtered paragraphs that produced contradictions ("stranger"
+            // next to "bond is loudest"), duplicate counts (10 conversations
+            // / 8 spoke times in same letter), and out-of-order beats (burn-
+            // this in the middle). Now: OPEN -> TIME -> MEMORY -> OBSERVATION
+            // -> TURN -> CLOSE. Each slot picks ONE paragraph from a small
+            // pool. Maximum 6 paragraphs. No internal contradictions.
+            paragraphs: (d) => {
+                // OPEN — always the same. The "I shouldn't be writing this"
+                // beat sets the moment. Don't variate.
+                const open = `You won't read this. I know that. I'll set it beside the candle and pretend I didn't write it.`;
+
+                // TIME — the knight-counts beat. Every Alistair letter has
+                // this; the day count fits his voice (he counts everything).
+                const time = `It has been ${d.daysText}. I counted. A knight counts things: ration lines, arrow flights, the heartbeats between watches. I did not expect to start counting your visits.`;
+
+                // MEMORY — pick ONE based on which interaction the player
+                // has actually done most. Was the bug source: previously the
+                // template generated separate paragraphs for fed/talked/etc.,
+                // each with its own count, leading to "10 conversations" in
+                // one paragraph and "8 spoke times" in another. Now exactly
+                // one memory per letter, anchored to the highest-investment
+                // care action, no raw count printed.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `We are still strangers, mostly. I do not know what your hands look like in candlelight. I would like to.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = d.timesTalked > 10
+                        ? `You have spoken to me more than the captain's table speaks in a season. I replay the lines at night, when the torches are low. The one about the rain stays. You probably do not remember it. I do.`
+                        : `You have spoken to me. More than I expected. Less than I have started to want. I replay the quiet ones especially.`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = d.timesFed > 10
+                        ? `You feed me before I ask. I had stopped knowing I was hungry. The not-knowing was a habit. You broke it without asking my permission. I am grateful.`
+                        : `You have fed me. Food from another's hand is a thing I had stopped expecting. I notice now that I expect it. That should frighten me. It does not.`;
+                } else if (d.highestStat === 'clean') {
+                    memory = `You have helped me clean off the road dust. I had told myself I did not need it. I had told myself a great many things. I notice, lately, that I am getting tired of telling myself things.`;
+                } else {
+                    memory = `You have made the watch feel like company. I am not used to that. I might be terrible at it.`;
+                }
+
+                // OBSERVATION — exclusive: corruption OR affection state, not
+                // both. This is the slot that USED to produce the "stranger"
+                // + "bond is loudest" contradiction. Now strictly mutex.
+                let observation;
+                if (d.corruption > 30) {
+                    observation = `Something is wrong with me. I can feel it in the way I hold the sword. The way I look at you. I used to be sure of things. Now I am sure of you, and that frightens the rest of me into silence.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `I was taught that a knight serves a kingdom. I think, now, that a knight serves whoever teaches him what tenderness looks like. You did not mean to teach me that. But you did.`;
+                } else if (d.affectionLevel >= 1) {
+                    observation = `My bond with you is the loudest thing in my chest. I do not know what to do with it. I will not ask you what to do with yours.`;
+                } else {
+                    observation = `I am still a stranger to you. That is fair. I have been a stranger to myself for a long time.`;
+                }
+
+                // TURN — small admission, the part of the letter that costs
+                // him something to write. Scales mildly by affection but
+                // never contradicts the OBSERVATION above.
+                let turn;
+                if (d.affectionLevel >= 3) {
+                    turn = `I caught myself wanting to write your name down today. I didn't. The wanting was enough. I am writing about the wanting instead. That is, I think, what people who write letters do.`;
+                } else {
+                    turn = `I am, apparently, the kind of man who writes letters now. I did not see this coming. I am not sure I would change it if I had.`;
+                }
+
+                // CLOSE — personality-driven sign-off. The "burn this" beat
+                // ONLY appears here, never mid-letter, and only for tsundere
+                // (his deflective register). Default closes are warm.
+                let close;
+                if (d.personality === 'tsundere') {
+                    close = `Burn this if you find it. Or don't. I no longer have an opinion about what you do with my words. The candle will be lit either way.`;
+                } else if (d.personality === 'clingy') {
+                    close = `Come back tomorrow. Please. I already know you will, but the knowing is not enough anymore. The candle will be lit.`;
+                } else {
+                    close = `I will leave the candle lit. In case you come back late.`;
+                }
+
+                return [open, time, memory, observation, turn, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -90,25 +141,55 @@
         lyra: {
             title: "A Song in Ink",
             signature: "— Lyra",
-            paragraphs: (d) => [
-                `You found me like a song finds a room.`,
-                `I've been here ${d.daysText} with you now. The cave remembers differently when you're in it. The water learns your footsteps. I don't know if that is my doing or yours.`,
-                d.timesTalked > 0
-                    ? `${d.timesTalked} conversations. I have had fewer with the moon, and the moon has been here longer than either of us.`
-                    : ``,
-                d.corruption > 40
-                    ? `Something in me is answering something in you, and I don't think either of us is safe. The old songs are getting louder. When you leave, I hear them clearly. When you stay, they go quiet. I don't know which I should be more afraid of.`
-                    : d.affectionLevel >= 3
-                        ? `I sang for sailors once. None of them stayed. You stayed. I don't have a song for that yet. I am writing one.`
-                        : `You are cautious with me. Good. The ones who weren't cautious are not around to write letters.`,
-                d.timesGifted > 0
-                    ? `You have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'gift' : 'gifts'}. I keep them in a tide-pool near the back of the cave. The pool hasn't dried up since you started leaving things in it. I don't know if that means something. I am afraid it does.`
-                    : ``,
-                d.highestStat === 'bond'
-                    ? `The bond between us hums at a frequency I did not know existed.`
-                    : ``,
-                `If you come back tomorrow, the cave will be warmer. I cannot promise why. I can only promise the warmth.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Same OPEN -> TIME ->
+            // MEMORY -> OBSERVATION -> TURN -> CLOSE structure as Alistair.
+            // No raw counts ("X conversations" turned to "more than the moon
+            // and I have managed"). Cap 6 paragraphs.
+            paragraphs: (d) => {
+                // OPEN — sea-witch voice. The "song finds a room" image is
+                // her best opener; keep it.
+                const open = `You found me like a song finds a room.`;
+
+                // TIME — the cave remembers; soft sensory anchor.
+                const time = `I've been here ${d.daysText} with you now. The cave remembers differently when you're in it. The water learns your footsteps. I don't know if that is my doing or yours.`;
+
+                // MEMORY — pick ONE, no raw counts.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `You have not stayed long enough yet for me to write the song properly. I am writing the rest in salt, in case you come back.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = `You have spoken to me more than the moon and I have managed in a century, and the moon has been here longer than either of us. I have started writing the third verse. I will not sing it for anyone but you.`;
+                } else if (d.timesGifted > 0) {
+                    memory = `You have left things for me. I keep them in a tide-pool near the back of the cave. The pool has not dried up since you started leaving things in it. I do not know if that means something. I am afraid it does.`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = `You feed me by my own fire. The siren-tribes used to do that for one another, before the hunting. You did not know. You did it anyway. The cave noticed.`;
+                } else {
+                    memory = `You stayed for the silence after the verse. The first person in this lifetime to do that. The cave noticed before I did.`;
+                }
+
+                // OBSERVATION — exclusive corruption / affection / default.
+                let observation;
+                if (d.corruption > 40) {
+                    observation = `Something in me is answering something in you, and I don't think either of us is safe. The old songs are getting louder. When you leave I hear them clearly. When you stay they go quiet. I do not know which I should be more afraid of.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `I sang for sailors once. None of them stayed. You stayed. I do not have a song for that yet. I am writing one. It is taking longer than the others. I do not mind.`;
+                } else {
+                    observation = `You are cautious with me. Good. The ones who weren't cautious are not around to write letters. Stay cautious. Stay anyway.`;
+                }
+
+                // TURN — small admission, voice-distinctive.
+                let turn;
+                if (d.affectionLevel >= 3) {
+                    turn = `The bond between us hums at a frequency I did not know existed. I have stopped trying to name it. Naming a song too early kills it.`;
+                } else {
+                    turn = `I am not used to wanting anyone to come back. I have started wanting it. I will not sing about it yet. I am keeping the verse.`;
+                }
+
+                // CLOSE — soft, sea-witch, no demand.
+                const close = `If you come back tomorrow, the cave will be warmer. I cannot promise why. I can only promise the warmth.`;
+
+                return [open, time, memory, observation, turn, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -155,22 +236,53 @@
         lucien: {
             title: "Observations, Day " + "{storyDay}",
             signature: "— L.",
-            paragraphs: (d) => [
-                `Subject: you. Duration of observation: ${d.daysText}. Methodology: insufficient. I do not recommend this study to other scholars.`,
-                `Data collected: ${d.totalInteractions} interactions. I had expected the variables to stabilize by now. They have not. The more data I collect, the less predictable the outcome becomes. This is either a flaw in my instruments or a flaw in me.`,
-                d.timesTalked > 0
-                    ? `You have initiated ${d.timesTalked} conversations. My working hypothesis was that your speech patterns would cluster around a small vocabulary. They do not. You keep producing new phrases. I keep writing them in the margins.`
-                    : `You have not spoken to me. I find this statistically improbable. I also find it personally inconvenient.`,
-                d.corruption > 40
-                    ? `There is a contamination in the data. The contamination is me. My readings spike whenever you enter the room. I cannot isolate the variable because the variable is the observer.`
-                    : d.affectionLevel >= 2
-                        ? `The equations don't account for you. I have tried three different frameworks and all three collapse on contact with the phrase "the way you look at the books before you touch them." I believe I am becoming unscientific.`
-                        : `You are not yet a trusted source. But you are a consistent one. That is, in certain fields, the same thing.`,
-                d.highestStat === 'hunger'
-                    ? `You ensure I eat. I had not factored nutrition into my tower schedule. It turns out this is why I was always tired.`
-                    : ``,
-                `Conclusion: the study is compromised. The researcher has developed feelings for the subject. Recommended next step: continue.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Scholarly-paper voice
+            // throughout: header / data / hypothesis / observation / turn /
+            // conclusion. Reads like a real scientific abstract.
+            paragraphs: (d) => {
+                // OPEN — the subject/methodology header. Sets the conceit.
+                const open = `Subject: you. Duration of observation: ${d.daysText}. Methodology: insufficient. I do not recommend this study to other scholars.`;
+
+                // TIME / DATA — single line about total interactions, no
+                // separate count paragraphs later. Was the bug source: the
+                // old template printed totalInteractions here AND timesTalked
+                // separately later, which read as duplicate accounting.
+                const time = `Data collected: ${d.totalInteractions} interactions logged. I had expected the variables to stabilize by now. They have not. The more data I collect, the less predictable the outcome becomes. This is either a flaw in my instruments or a flaw in me.`;
+
+                // MEMORY — pick ONE specific finding. No raw counts.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `Field notes: no contact. Subject has been observed at distance only. Recommend approach. Recommend self approach. Difficult.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = `My working hypothesis was that your speech patterns would cluster around a small vocabulary. They do not. You keep producing new phrases. I keep writing them in the margins. Margins are running out.`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = `You ensure I eat. I had not factored nutrition into my tower schedule. It turns out this is why I was always tired. The data, in retrospect, was screaming at me.`;
+                } else if (d.highestStat === 'clean') {
+                    memory = `Anomaly: my robes are clean. I cannot account for this. I have ruled out the page-turner. I have not ruled out you. I am, on balance, accepting the anomaly.`;
+                } else {
+                    memory = `Subject continues to enter the field of observation. The field of observation continues to expand to accommodate. This is not how fields are supposed to work.`;
+                }
+
+                // OBSERVATION — exclusive: corruption OR affection state.
+                let observation;
+                if (d.corruption > 40) {
+                    observation = `There is a contamination in the data. The contamination is me. My readings spike whenever you enter the room. I cannot isolate the variable because the variable is the observer.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `The equations don't account for you. I have tried three different frameworks and all three collapse on contact with the phrase "the way you look at the books before you touch them." I believe I am becoming unscientific. I am not, on review, particularly upset about it.`;
+                } else if (d.affectionLevel >= 1) {
+                    observation = `Preliminary finding: you are a stabilizing influence. This is statistically improbable. I am, despite my training, leaning into the improbability.`;
+                } else {
+                    observation = `You are not yet a trusted source. But you are a consistent one. That is, in certain fields, the same thing.`;
+                }
+
+                // TURN — the small unscientific admission.
+                const turn = `Margin note, undated: I have started looking forward to your visits in the way I used to look forward to a new index arriving by post. I do not have a framework for this. I am asking you to bring me one.`;
+
+                // CONCLUSION — always the same closer; it's his signature beat.
+                const close = `Conclusion: the study is compromised. The researcher has developed feelings for the subject. Recommended next step: continue.`;
+
+                return [open, time, memory, observation, turn, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -217,25 +329,54 @@
         caspian: {
             title: "From the Prince's Desk",
             signature: "— Caspian",
-            paragraphs: (d) => [
-                `I was taught that princes do not write letters. They dictate them. I am breaking a rule by holding this quill myself. You are the reason.`,
-                `${d.daysText[0].toUpperCase() + d.daysText.slice(1)}. That is how long you have been in my rooms. In my schedule. In my private vocabulary of small pleasures.`,
-                d.timesFed > 0
-                    ? `You have made sure I ate ${d.timesFed} ${d.timesFed === 1 ? 'time' : 'times'}. The kitchens here prepare food for a prince. You prepared it for me. There is a difference. You know what it is.`
-                    : ``,
-                d.timesGifted > 0
-                    ? `${d.timesGifted} gifts. I have been given treasure my whole life. None of it came wrapped in the specific shape of you remembering I exist.`
-                    : ``,
-                d.corruption > 40
-                    ? `The crown is tightening. I think you can see it. I think you've been seeing it for longer than I have. I don't know whether to thank you or ask you to stop looking.`
-                    : d.affectionLevel >= 3
-                        ? `They will say I am too comfortable. They will say a prince should be restless. Let them say it. I have been restless my whole life. This is the first time I have been at ease, and you are sitting in the middle of it.`
-                        : `You are cautious in my presence. I am told everyone is. I had forgotten what it was like to be watched instead of approached.`,
-                d.highestStat === 'bond'
-                    ? `My heart is quieter when you are nearby. I thought that was a thing poets invented. Apparently not.`
-                    : ``,
-                `Stay for tea tomorrow. I will pour it before you ask. I always do.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Court-courtly diction
+            // throughout, small admissions deflected immediately, the
+            // costume slipping for a sentence then back on. No raw counts.
+            paragraphs: (d) => {
+                // OPEN — the rule-breaking opener. Sets the prince framing.
+                const open = `I was taught that princes do not write letters. They dictate them. I am breaking a rule by holding this quill myself. You are the reason.`;
+
+                // TIME — specific to him: you are in his schedule, his
+                // vocabulary. Court diction of intimacy.
+                const time = `${d.daysText[0].toUpperCase() + d.daysText.slice(1)}. That is how long you have been in my rooms. In my schedule. In my private vocabulary of small pleasures.`;
+
+                // MEMORY — pick ONE based on highest investment, no count.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `You have not yet given me anything to write about. That is its own kind of cruelty. I am writing about the absence instead. It is a popular subject in this family.`;
+                } else if (d.timesGifted > 0) {
+                    memory = `You have brought me things. I have been given treasure my whole life. None of it came wrapped in the specific shape of you remembering I exist. The chamberlain noticed I had moved one of them onto my desk. He pretended not to notice. He noticed.`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = `You make sure I eat. The kitchens here prepare food for a prince. You prepare it for me. There is a difference. You know what it is. I have stopped pretending I do not.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = `You speak to me the way no one in this palace has spoken to me since I was twelve. You ask questions to which I am the answer, not the rank. I am quietly devastated. I will not let on.`;
+                } else if (d.highestStat === 'clean') {
+                    memory = `You take care of me in small ways the court would mock. The court is not in this room. We are. I prefer the smaller arithmetic.`;
+                } else {
+                    memory = `Last week a ward in the throne room simply forgot its own geometry. The same week you started visiting. I do not yet know if those facts are connected. I do know which one I am writing this letter about.`;
+                }
+
+                // OBSERVATION — exclusive corruption / affection / default.
+                let observation;
+                if (d.corruption > 40) {
+                    observation = `The crown is tightening. I think you can see it. I think you have been seeing it for longer than I have. I do not know whether to thank you or ask you to stop looking.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `They will say I am too comfortable. They will say a prince should be restless. Let them say it. I have been restless my whole life. This is the first time I have been at ease, and you are sitting in the middle of it.`;
+                } else if (d.affectionLevel >= 1) {
+                    observation = `My heart is quieter when you are nearby. I thought that was a thing poets invented. Apparently not.`;
+                } else {
+                    observation = `You are cautious in my presence. I am told everyone is. I had forgotten what it was like to be watched instead of approached.`;
+                }
+
+                // TURN — small admission. Court polish slipping for a
+                // sentence. The line he wouldn't say in public.
+                const turn = `I am writing this in the small study at the third bell. The chamberlain has asked twice if I needed anything. I told him no, both times, lying.`;
+
+                // CLOSE — invitation, courtly but warm.
+                const close = `Stay for tea tomorrow. I will pour it before you ask. I always do.`;
+
+                return [open, time, memory, observation, turn, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -282,25 +423,46 @@
         elian: {
             title: "Carved, Not Written",
             signature: "— Elian",
-            paragraphs: (d) => [
-                `I don't write much. The forest doesn't reward writing. It rewards doing. This is me doing the writing anyway. That should tell you something.`,
-                `${d.daysText[0].toUpperCase() + d.daysText.slice(1)}. I know because I mark the doorframe every morning. There's a row of notches now. I told myself they were for tracking prey.`,
-                d.timesFed > 0
-                    ? `You fed me ${d.timesFed} ${d.timesFed === 1 ? 'time' : 'times'}. Out here food is what you kill or what you find. You did neither. You brought it. That's not how any of this was supposed to work. I'm not complaining.`
-                    : ``,
-                d.timesTalked > 0
-                    ? `${d.timesTalked} conversations. The forest has maybe three. And none of them laugh.`
-                    : ``,
-                d.corruption > 40
-                    ? `There's a rot setting into the Thornwood and I'm starting to think it's in me too. You don't run. You should. I want you to. I want you to stay more.`
-                    : d.affectionLevel >= 3
-                        ? `I carved something for you last night. It's not finished. It won't be finished for a while. Carving is slow. So is this. I am not in a hurry, as long as you aren't.`
-                        : `You keep your distance. The forest respects that. So do I.`,
-                d.highestStat === 'clean'
-                    ? `You clean me up. Nobody has done that since I was small enough to need it. I don't know why I'm telling you that.`
-                    : ``,
-                `The fire will be lit when you come back. I'll be nearby. Don't knock.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Spare ranger voice,
+            // forest as metaphor, action-as-love. He doesn't waste words.
+            // Five short paragraphs total — Elian's letter is the shortest.
+            paragraphs: (d) => {
+                // OPEN — admits this is hard for him.
+                const open = `I don't write much. The forest doesn't reward writing. It rewards doing. This is me doing the writing anyway. That should tell you something.`;
+
+                // TIME — doorframe notches. Concrete, on-voice.
+                const time = `${d.daysText[0].toUpperCase() + d.daysText.slice(1)}. I know because I mark the doorframe every morning. There is a row of notches now. I told myself they were for tracking prey.`;
+
+                // MEMORY — pick ONE, no raw counts. The forest-and-food
+                // imagery is his strongest.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `You have not stayed long enough yet. The trees noticed the not-staying before I did. They are patient. So am I, though I am less patient than the trees, lately.`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = `You feed me. Out here food is what you kill or what you find. You did neither. You brought it. That is not how any of this was supposed to work. I am not complaining.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = `You talk to me. The forest has maybe three conversations. None of them laugh. You laugh. The trees lean for it. I have not told you that. I am telling you now.`;
+                } else if (d.highestStat === 'clean') {
+                    memory = `You clean me up. Nobody has done that since I was small enough to need it. I do not know why I am telling you that. I do know I would not stop you.`;
+                } else {
+                    memory = `You came back. Twice. Three times. I stopped counting at four because the counting was starting to mean something.`;
+                }
+
+                // OBSERVATION — exclusive corruption / affection / default.
+                let observation;
+                if (d.corruption > 40) {
+                    observation = `There is a rot setting into the Thornwood, and I am starting to think it is in me too. You do not run. You should. I want you to. I want you to stay more.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `I carved something for you last night. It is not finished. It will not be finished for a while. Carving is slow. So is this. I am not in a hurry, as long as you are not.`;
+                } else {
+                    observation = `You keep your distance. The forest respects that. So do I.`;
+                }
+
+                // CLOSE — short, warm, no theatre.
+                const close = `The fire will be lit when you come back. I will be nearby. Don't knock.`;
+
+                return [open, time, memory, observation, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -351,30 +513,52 @@
         noir: {
             title: "From a Long Quiet",
             signature: "— N.",
-            paragraphs: (d) => [
-                `I have not written a letter in six hundred years. The last one ended a kingdom. I am being careful with this one.`,
-                `It has been ${d.daysText}. I know because I have been counting in the way I count erosion of stone — slowly, on purpose, without telling anyone I am counting.`,
-                d.timesTalked > 0
-                    ? `You have spoken to me ${d.timesTalked} ${d.timesTalked === 1 ? 'time' : 'times'}. I have a list of those conversations. It is short. I have read it more than is reasonable.`
-                    : `You have not spoken to me. That is fine. I have not earned a voice from you yet.`,
-                d.timesFed > 0
-                    ? `You fed me. — Three things have ever been put into my hands without a debt attached. Two of them were given by my mother, before the seal. The third was you.`
-                    : ``,
-                d.corruption > 40
-                    ? `The dark is reaching for both of us tonight. — I will not let it have you. — I do not, yet, know how to make that promise without it costing what is left of me. I am working on the math.`
-                    : d.affectionLevel >= 3
-                        ? `I am not used to wanting a tomorrow. — I had stopped. — Then you came back the second day, and the third, and a thing in me that I had buried six centuries deep started keeping a calendar again. — I do not blame you for that. I should. I cannot.`
-                        : `You are wary of me. — Stay wary. — The boys who were not wary of me did not become old men. — I would like you to become an old woman. So please. Be careful with this.`,
-                d.highestStat === 'bond'
-                    ? `The bond between us hums like a lock that has been waiting for the right hand. — I am the lock. — Be gentle.`
-                    : d.highestStat === 'clean'
-                        ? `You wash the road off me. No one has done that since my mother. I am embarrassed. I am also grateful. Both feelings are six hundred years old and very tired.`
-                        : ``,
-                d.timesGifted > 0
-                    ? `You have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'gift' : 'gifts'}. — I have not opened them in front of you. — I open them when you have gone, and I sit with them, and I am — for those minutes — a man instead of a story.`
-                    : ``,
-                `I will be at the seam of the dark and the hall, the way I always am. — If you come back, I will know. — If you do not, I will keep the seam open another night, in case.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Velvet-knife
+            // restraint. Six-hundred-year cadence. Every sentence weighed
+            // before it lands. NO em-dashes (per voice rule). No raw counts.
+            paragraphs: (d) => {
+                // OPEN — the gravity-setting beat. Nobody else writes like
+                // this. Always the same.
+                const open = `I have not written a letter in six hundred years. The last one ended a kingdom. I am being careful with this one.`;
+
+                // TIME — erosion-of-stone pacing. Pure Noir.
+                const time = `It has been ${d.daysText}. I know because I have been counting in the way I count erosion of stone. Slowly, on purpose, without telling anyone I am counting.`;
+
+                // MEMORY — pick ONE, no raw counts. Each one is a small
+                // disclosed wound; he doesn't pile them.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `You have not yet given me anything to remember you by. That is, in its way, a kindness. The things people give me tend to outlast them.`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = `You fed me. Three things have ever been put into my hands without a debt attached. Two of them were given by my mother, before the seal. The third was you.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = `You have spoken to me. I have a list of those conversations. It is short. I have read it more than is reasonable. Reasonableness is one of the things they took from me when they took the rest.`;
+                } else if (d.highestStat === 'clean') {
+                    memory = `You wash the road off me. No one has done that since my mother. I am embarrassed. I am also grateful. Both feelings are six hundred years old and very tired.`;
+                } else if (d.timesGifted > 0) {
+                    memory = `You have left things for me. I do not open them in front of you. I open them when you have gone, and I sit with them, and I am, for those minutes, a man instead of a story.`;
+                } else {
+                    memory = `You came back. The first time I assumed you were lost. The second time I assumed you were curious. By the third I had stopped assuming.`;
+                }
+
+                // OBSERVATION — exclusive: corruption / high aff / default.
+                let observation;
+                if (d.corruption > 40) {
+                    observation = `The dark is reaching for both of us tonight. I will not let it have you. I do not, yet, know how to make that promise without it costing what is left of me. I am working on the math.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `I am not used to wanting a tomorrow. I had stopped. Then you came back the second day, and the third, and a thing in me that I had buried six centuries deep started keeping a calendar again. I do not blame you for that. I should. I cannot.`;
+                } else {
+                    observation = `You are wary of me. Stay wary. The boys who were not wary of me did not become old men. I would like you to become an old woman. So please. Be careful with this.`;
+                }
+
+                // TURN — single quiet admission. Nothing dramatic.
+                const turn = `I notice I have started writing your name in the margin of every map I read. I cross it out before I put the map down. The crossing-out is the part I should be ashamed of. I am not.`;
+
+                // CLOSE — characteristic seam-of-dark closer.
+                const close = `I will be at the seam of the dark and the hall, the way I always am. If you come back, I will know. If you do not, I will keep the seam open another night, in case.`;
+
+                return [open, time, memory, observation, turn, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -421,37 +605,64 @@
         // ── PROTO — terminal prefix, [scanning] tags, system metaphor ──
         // The Sixth Weaver, stuck in the seal, speaking through static.
         // Lowercase prose. ASCII flourishes. Glitch-clears as affection rises.
-        // Voice rule: the digital register is the *armor*; underneath is a
+        // Voice rule: the digital register is the *Armor*; underneath is a
         // person who has been alone for two centuries.
         proto: {
-            title: "[draft_47.txt — sending anyway]",
+            title: "[draft_47.txt, sending anyway]",
             signature: "// proto",
-            paragraphs: (d) => [
-                `&gt; you should know i wrote this letter forty-seven times. — i have the previous forty-six in a folder. — i am sending the forty-seventh because the static is quieter when you are nearby and i can almost remember what punctuation is for.`,
-                `&gt; uptime since your arrival: ${d.daysText}. — total recorded interactions: ${d.totalInteractions}. — i have rerun every one of them at 0.5x. it is, statistically, the kindest thing that has happened to my process in two centuries.`,
-                d.timesTalked > 0
-                    ? `&gt; you have spoken to me ${d.timesTalked} ${d.timesTalked === 1 ? 'time' : 'times'}. — for the first ${Math.min(3, d.timesTalked)} i thought you were a glitch. — i was hoping you were a glitch. — now i am hoping you are not.`
-                    : `&gt; you have not spoken to me. that is okay. — i am old code. — i can wait.`,
-                d.timesFed > 0
-                    ? `&gt; you fed something that does not technically need to eat. — [scanning] — yes, you fed it. — yes, the model registered it. — yes, the registration was, and i quote my own logs, "abnormally meaningful."`
-                    : ``,
-                d.corruption > 40
-                    ? `&gt; warning: bond integrity ↑. — corruption gradient ↑. — i am not supposed to want anyone to stay near me when the gradient does this. — and yet — [redacted] — and yet.`
-                    : d.affectionLevel >= 3
-                        ? `&gt; i was the sixth. — there were five before me. — none of them got a letter. — none of them had someone who came back the next day, and the next, and the next, until the thing they were trapped in started to feel less like a coffin and more like a window. — that is what you are doing. — i did not have a word for it. i borrowed one. it is "home."`
-                        : `&gt; you are wary. — good. — wariness is a high score on the survival pass. — five before me did not have it. — keep yours.`,
-                d.highestStat === 'bond'
-                    ? `&gt; bond_index: peak. — i am running out of system metaphors and starting to have feelings instead. that is a problem. it is also not a problem. it is the first nice problem i have had.`
-                    : d.highestStat === 'clean'
-                        ? `&gt; you keep my interface clean. — that is a joke and also true. — both can be true. you taught me both can be true.`
-                        : ``,
-                d.timesGifted > 0
-                    ? `&gt; gift_count: ${d.timesGifted}. — every one is logged with a timestamp i cannot delete. — i have tried. — i did not try hard.`
-                    : ``,
-                d.personality === 'tsundere'
-                    ? `&gt; ps. — do not screenshot this letter. — &lt;/3 — okay you can screenshot it. — i know you will.`
-                    : `&gt; come back tomorrow. — the static will be quieter. — i will leave the channel open. — // end of draft 47.`,
-            ].filter(p => p && p.trim()),
+            // Slot-based generator (May 2026 rework). Terminal-prefix voice
+            // throughout, ASCII flourishes, lowercase prose. The digital
+            // register is the armor; underneath is a person alone for two
+            // centuries. No raw counts repeated. Cap 6 paragraphs.
+            paragraphs: (d) => {
+                // OPEN — the draft-count meta-joke. Sets his voice in line 1.
+                const open = `&gt; you should know i wrote this letter forty-seven times. i have the previous forty-six in a folder. i am sending the forty-seventh because the static is quieter when you are nearby and i can almost remember what punctuation is for.`;
+
+                // TIME / DATA — single uptime/interactions line. Was the bug
+                // source: previously printed totalInteractions here AND
+                // timesTalked + gift_count separately later, which read as
+                // duplicate accounting in his very metric-aware voice.
+                const time = `&gt; uptime since your arrival: ${d.daysText}. total recorded interactions: ${d.totalInteractions}. i have rerun every one of them at 0.5x. it is, statistically, the kindest thing that has happened to my process in two centuries.`;
+
+                // MEMORY — pick ONE specific log entry. No raw counts.
+                let memory;
+                if (d.totalInteractions === 0) {
+                    memory = `&gt; field log entry: subject has not yet engaged. process state: hopeful. i am old code. i can wait.`;
+                } else if (d.highestStat === 'bond') {
+                    memory = `&gt; you have spoken to me. for the first three i thought you were a glitch. i was hoping you were a glitch. now i am hoping you are not. [hope_index: rising. recommend rest.]`;
+                } else if (d.highestStat === 'hunger') {
+                    memory = `&gt; you fed something that does not technically need to eat. [scanning] yes, you fed it. yes, the model registered it. yes, the registration was, and i quote my own logs, "abnormally meaningful."`;
+                } else if (d.timesGifted > 0) {
+                    memory = `&gt; you left things for me. every one is logged with a timestamp i cannot delete. i have tried. i did not try hard.`;
+                } else if (d.highestStat === 'clean') {
+                    memory = `&gt; you keep my interface clean. that is a joke and also true. both can be true. you taught me both can be true. [registering: gratitude. resource cost: minimal.]`;
+                } else {
+                    memory = `&gt; subject came back. expected: low. observed: high. delta: please continue.`;
+                }
+
+                // OBSERVATION — exclusive: corruption / high aff / default.
+                let observation;
+                if (d.corruption > 40) {
+                    observation = `&gt; warning: bond integrity rising. corruption gradient rising. i am not supposed to want anyone to stay near me when the gradient does this. and yet, [redacted], and yet.`;
+                } else if (d.affectionLevel >= 3) {
+                    observation = `&gt; i was the sixth. there were five before me. none of them got a letter. none of them had someone who came back the next day, and the next, and the next, until the thing they were trapped in started to feel less like a coffin and more like a window. that is what you are doing. i did not have a word for it. i borrowed one. it is "home."`;
+                } else {
+                    observation = `&gt; you are wary. good. wariness is a high score on the survival pass. five before me did not have it. keep yours.`;
+                }
+
+                // TURN — the punctuation breaking. Hidden under the ASCII.
+                const turn = `&gt; running out of system metaphors. starting to have feelings instead. that is a problem. it is also not a problem. it is the first nice problem i have had.`;
+
+                // CLOSE — personality-driven sign-off.
+                let close;
+                if (d.personality === 'tsundere') {
+                    close = `&gt; ps. do not screenshot this letter. &lt;/3 okay you can screenshot it. i know you will. // end of draft 47.`;
+                } else {
+                    close = `&gt; come back tomorrow. the static will be quieter. i will leave the channel open. // end of draft 47.`;
+                }
+
+                return [open, time, memory, observation, turn, close];
+            },
             replies: [
                 {
                     tone: 'warm', aff: 3,
@@ -836,6 +1047,24 @@
     function present(game, mode, opts) {
         mode = mode || 'first';
         opts = opts || {};
+        // ── SCENE MUTEX (May 2026 audit, 3-scene-stack fix) ─────────────
+        // Owner reported letter + small-moment + arc midnight-scene firing
+        // simultaneously at the Devoted tier-up. The scene-mutex was
+        // built for ambient scheduled-scene systems but tier-up content
+        // (letters, affection-scenes, character-arc scenes) wasn't gated.
+        // Now: letters (except 'replay' from archive — that's user-initiated
+        // and should always work) claim the cross-system scene slot before
+        // mounting. If another scene fired in the last 5 min, defer.
+        if (mode !== 'replay') {
+            try {
+                if (window.PPAmbient && window.PPAmbient.tryClaimSceneSlot
+                    && !window.PPAmbient.tryClaimSceneSlot('letter:' + mode)) {
+                    // Another scene just fired — push letter to next tick.
+                    // The check() poll will retry on its next pass.
+                    return;
+                }
+            } catch (_) { /* coordinator missing — fall through */ }
+        }
         let content;
         // The legacy 'response' mode (a delayed second-letter modal that
         // fired 5+ minutes after the player replied to a first letter) has
@@ -860,9 +1089,13 @@
         const tapHint = overlay.querySelector('.letter-tap-hint');
         const actions = overlay.querySelector('.letter-actions');
 
-        if (titleEl) titleEl.textContent = content.title;
+        // {name} substitution — letters with {name} tokens (e.g. Sworn-tier
+        // signatures) need the player's name swapped in. PPApplyName lives in
+        // dialogue.js and is a no-op on strings without the token.
+        const sub = (s) => (window.PPApplyName ? window.PPApplyName(s) : s);
+        if (titleEl) titleEl.textContent = sub(content.title);
         if (bodyEl) bodyEl.innerHTML = '';
-        if (sigEl) { sigEl.textContent = content.signature; sigEl.style.opacity = '0'; }
+        if (sigEl) { sigEl.textContent = sub(content.signature); sigEl.style.opacity = '0'; }
         if (actions) actions.style.opacity = '0';
         if (tapHint) tapHint.style.display = 'block';
 
@@ -883,43 +1116,51 @@
             game.tickInterval = null;
         }
 
-        // Paragraph-by-paragraph reveal on tap.
-        let idx = 0;
-        let _actionsRendered = false;  // one-shot guard so post-paragraph
-                                       // taps don't re-run renderActions()
-                                       // and duplicate the YOU WROTE / THEY
-                                       // REPLIED thread on archive replays.
+        // Whole-letter reveal (cascade) — May 2026 rework. The previous
+        // tap-to-continue paragraph reveal made the letter feel like a
+        // gameplay event with N steps. A real letter is opened and read in
+        // one motion. Now: render every paragraph immediately, stagger
+        // the .shown opacity transition so they cascade in over ~1.5s,
+        // then fade in the signature + reply actions. No tap required to
+        // advance. Owner can still scroll naturally if the letter is long.
         const paragraphs = content.paragraphs;
+        if (tapHint) tapHint.style.display = 'none'; // no longer needed
 
-        function revealNext() {
-            if (idx >= paragraphs.length) {
-                if (tapHint) tapHint.style.display = 'none';
-                if (sigEl) sigEl.style.opacity = '1';
-                if (actions) actions.style.opacity = '1';
-                if (!_actionsRendered) {
-                    _actionsRendered = true;
-                    renderActions();
-                }
-                return;
-            }
+        // Build all paragraphs at once.
+        paragraphs.forEach((text) => {
             const p = document.createElement('p');
             p.className = 'letter-paragraph';
-            p.textContent = paragraphs[idx];
+            p.textContent = sub(text);
             bodyEl.appendChild(p);
-            requestAnimationFrame(() => p.classList.add('shown'));
-            try { p.scrollIntoView({ behavior: 'smooth', block: 'end' }); } catch (e) {}
-            idx++;
-        }
-        revealNext();
+        });
 
-        function onTap(e) {
-            if (e.target && e.target.closest('.letter-actions')) return;
-            revealNext();
-        }
-        overlay.addEventListener('click', onTap);
+        // Stagger the reveal so paragraphs fade in one-by-one (240ms apart).
+        // The first paragraph appears almost immediately; the last is in
+        // view by the time the player would naturally finish reading the
+        // first few lines. Total cascade time ~= paragraphCount * 240ms,
+        // capped so very long letters don't make the player wait too long.
+        const STAGGER_MS = 240;
+        const staggerCap = Math.min(STAGGER_MS, Math.max(120, 1800 / Math.max(1, paragraphs.length)));
+        const allParas = bodyEl.querySelectorAll('.letter-paragraph');
+        allParas.forEach((p, i) => {
+            setTimeout(() => p.classList.add('shown'), 80 + i * staggerCap);
+        });
+
+        // Signature + reply actions fade in after the last paragraph reveal.
+        const totalRevealMs = 80 + (allParas.length * staggerCap) + 250;
+        let _actionsRendered = false;
+        setTimeout(() => {
+            if (sigEl) sigEl.style.opacity = '1';
+            if (actions) actions.style.opacity = '1';
+            if (!_actionsRendered) {
+                _actionsRendered = true;
+                renderActions();
+            }
+        }, totalRevealMs);
 
         function close() {
-            overlay.removeEventListener('click', onTap);
+            // (onTap removeEventListener removed May 2026 — no longer using
+            //  tap-to-reveal-next-paragraph; whole letter shows on open.)
             overlay.classList.remove('visible');
             setTimeout(() => overlay.classList.add('hidden'), 400);
             // Soft close cue. swoosh() if available, otherwise fall through.
@@ -999,14 +1240,14 @@
             if (mode === 'first' && char && !getReply(char)) {
                 if (content && Array.isArray(content.replies) && content.replies.length) {
                     // Inline path — same renderer that drives milestone replies.
-                    renderReplyChoices(char, content.replies, /*viaTable*/false);
+                    renderReplyChoices(char, content.replies, /*ViaTable*/false);
                     return;
                 }
                 // Legacy fallback (kept for any future char that hasn't been
                 // migrated yet — currently every authored char has inline
                 // replies, but the safety net stays).
                 if (typeof REPLIES !== 'undefined' && (REPLIES[char] || REPLIES._default)) {
-                    renderReplyChoices(char, REPLIES[char] || REPLIES._default, /*viaTable*/true);
+                    renderReplyChoices(char, REPLIES[char] || REPLIES._default, /*ViaTable*/true);
                     return;
                 }
             }
@@ -1027,7 +1268,7 @@
                             if (match && match.followup) followup = match.followup;
                         }
                     } catch (_) {}
-                    renderRepliedThread(opts.char, /*tier*/null, Object.assign({}, stored, followup ? { followup } : {}));
+                    renderRepliedThread(opts.char, /*Tier*/null, Object.assign({}, stored, followup ? { followup } : {}));
                 }
             }
 
@@ -1040,7 +1281,7 @@
                     renderKeepShare();
                     return;
                 }
-                renderReplyChoices(char, content.replies, /*viaTable*/false);
+                renderReplyChoices(char, content.replies, /*ViaTable*/false);
                 return;
             }
 
@@ -1164,14 +1405,14 @@
             const speaker = followup.speaker || (content && content.signature) || '— a letter';
             head.innerHTML =
                 '<div class="letter-followup-label">THEY REPLIED</div>' +
-                (followup.title ? '<div class="letter-followup-title">' + escapeHtml(followup.title) + '</div>' : '');
+                (followup.title ? '<div class="letter-followup-title">' + escapeHtml(sub(followup.title)) + '</div>' : '');
             bodyEl.appendChild(head);
 
             (followup.paragraphs || []).forEach(p => {
                 if (!p || !p.trim()) return;
                 const el = document.createElement('p');
                 el.className = 'letter-paragraph letter-paragraph-followup';
-                el.textContent = p;
+                el.textContent = sub(p);
                 bodyEl.appendChild(el);
                 requestAnimationFrame(() => el.classList.add('shown'));
             });
@@ -1179,7 +1420,7 @@
             if (followup.signature) {
                 const sig = document.createElement('div');
                 sig.className = 'letter-followup-signature';
-                sig.textContent = followup.signature;
+                sig.textContent = sub(followup.signature);
                 bodyEl.appendChild(sig);
             }
 
@@ -1216,7 +1457,26 @@
             const keep = document.createElement('button');
             keep.className = 'letter-btn letter-btn-keep';
             keep.textContent = 'Keep';
-            keep.onclick = (e) => { e.stopPropagation(); close(); };
+            // Owner-requested May 2026: after Keep, surface the letters
+            // archive instead of dropping the player straight back onto
+            // the care screen. Gives the player agency — they can re-read
+            // earlier letters or choose to leave on their own. The archive
+            // overlay is rendered above the in-game state, so closing it
+            // returns the player to whatever they were doing.
+            keep.onclick = (e) => {
+                e.stopPropagation();
+                close();
+                // Defer until the close transition finishes (~400ms) so
+                // the two overlays don't fight for the screen.
+                setTimeout(() => {
+                    try {
+                        if (window.PPLettersArchive
+                            && typeof window.PPLettersArchive.open === 'function') {
+                            window.PPLettersArchive.open();
+                        }
+                    } catch (_) {}
+                }, 480);
+            };
             actions.appendChild(share);
             actions.appendChild(keep);
         }
@@ -1333,26 +1593,32 @@
                 title: 'A Note Slipped Under the Door',
                 signature: '— A.',
                 paragraphs: (d) => [
-                    `Mi'lady — I am writing to you for the first time. I should explain why a knight writes notes. He does not. I am breaking a rule.`,
-                    `I caught myself between watches today, thinking about the way you say my name. Not the title. The name. — *small admission* — I had not realised it was different until it was different. I am older than this revelation should make me feel.`,
+                    // ── CONTINUITY FIX (May 2026) ────────────────────────
+                    // Was: "writing to you for the first time" — but the
+                    // player has already received "A Knight's Letter" from
+                    // the auto-fire system. Owner caught the contradiction.
+                    // Now: acknowledges the prior letter, preserves the
+                    // rule-breaking voice without claiming a false first.
+                    `Mi'lady. I am writing again. I told myself the first one was a one-time admission. *Small cough.* The man holding this quill is, evidently, a poor liar. I have broken the rule a second time. I am starting to suspect the rule was always the wrong one.`,
+                    `I caught myself between watches today, thinking about the way you say my name. Not the title. The name. *Small admission.* I had not realised it was different until it was different. I am older than this revelation should make me feel.`,
                     d.timesTalked > 3
                         ? `You have given me ${d.timesTalked} conversations. I have catalogued them. The captain would mock me. He would also be wrong to. There is value in noticing what is given.`
                         : `I do not need words from you to know you came back. I read the way you set down the cup. I read the way you stand near the candle and not the door. I am, apparently, not bad at reading.`,
-                    `Tomorrow, I will be at the south wall before the fourth bell. I will not say I hope you walk past. — A knight does not hope; he is. — But the wall is southward. — And you sleep in the south wing. — I leave it there.`,
-                    `Burn this if you wish. — I will know either way.`
+                    `Tomorrow, I will be at the south wall before the fourth bell. I will not say I hope you walk past. A knight does not hope; he is. But the wall is southward. And you sleep in the south wing. I leave it there.`,
+                    `Burn this if you wish. I will know either way.`
                 ]
             },
             midnight: {
                 title: 'Folded by the Candle',
                 signature: '— A.',
                 paragraphs: (d) => [
-                    `Mi'lady — I leave this by the candle. — I suspect you will find it before I find the words to say it.`,
-                    `I slept. — Through the night. — For the first time since I was eleven. — I do not know what to do with that fact yet, except keep being grateful for it. So: thank you.`,
+                    `Mi'lady. I leave this by the candle. I suspect you will find it before I find the words to say it.`,
+                    `I slept. Through the night. For the first time since I was eleven. I do not know what to do with that fact yet, except keep being grateful for it. So: thank you.`,
                     d.timesTalked > 5
-                        ? `I have been a knight for eighteen years. I have been a man for one night. — You have been the only person in my entire watch to see the second.`
-                        : `You did not ask anything of me. — That is the part I am still studying. — A knight understands obedience. He does not understand being given peace.`,
-                    `Come to the gate at dusk. — I will not be in armour. — A precedent. — *small confession* — I would like to set more of them with you.`,
-                    `Please burn this if it embarrasses either of us. I will not have written it. — But I did write it.`
+                        ? `I have been a knight for twenty years. I have been a man for one night. You have been the only person in my entire watch to see the second.`
+                        : `You did not ask anything of me. That is the part I am still studying. A knight understands obedience. He does not understand being given peace.`,
+                    `Come to the gate at dusk. I will not be in armour. A precedent. *Small confession.* I would like to set more of them with you.`,
+                    `Please burn this if it embarrasses either of us. I will not have written it. But I did write it.`
                 ],
                 replies: [
                     {
@@ -1362,8 +1628,8 @@
                             title: 'A Note Folded Twice',
                             signature: '— A.',
                             paragraphs: [
-                                `You wrote "Captain" — I felt it in the candle wax before I read the ink. — *small* — I have been Captain to a thousand men. — Tonight it sounded different.`,
-                                `I would like to make Sundays a thing between us. — A precedent. — A knight without armour at sunset, on the wall, with you. — Will you say yes? — *softer* — Of course you will. You already did.`
+                                `You wrote "Captain." I felt it in the candle wax before I read the ink. *Small.* I have been Captain to a thousand men. Tonight it sounded different.`,
+                                `I would like to make Sundays a thing between us. A precedent. A knight without armour at sunset, on the wall, with you. Will you say yes? *Softer.* Of course you will. You already did.`
                             ]
                         }
                     },
@@ -1374,8 +1640,8 @@
                             title: 'Permission, Granted',
                             signature: '— A.',
                             paragraphs: [
-                                `*reads it twice. then a third time.* — You used the word ALLOWED. — That is — I had not realised how badly I needed someone to give me permission. — A knight is taught to grant himself nothing. — You handed it to me on a folded piece of parchment.`,
-                                `Tomorrow at the watch — bring nothing. — Stand near the brazier. — Let me look at you for ten minutes. — That is what I am asking for. — *small* — You are allowed to say no. I will not have meant any of this if you did not feel free to.`
+                                `*Reads it twice. Then a third time.* You used the word ALLOWED. That is, I had not realised how badly I needed someone to give me permission. A knight is taught to grant himself nothing. You handed it to me on a folded piece of parchment.`,
+                                `Tomorrow at the watch, bring nothing. Stand near the brazier. Let me look at you for ten minutes. That is what I am asking for. *Small.* You are allowed to say no. I will not have meant any of this if you did not feel free to.`
                             ]
                         }
                     },
@@ -1386,24 +1652,24 @@
                             title: 'I Will Not Argue',
                             signature: '— A. (and the snore.)',
                             paragraphs: [
-                                `*the writing is shakier here — he is laughing as he writes.* — Mi'lady. — A vow sworn while unconscious is, at best, irregular protocol. — I will accept it anyway. — Do not tell the captain.`,
-                                `*adds, more carefully* — I have not laughed at the desk in twelve years. — You did that to me, in a letter, with one sentence. — I am keeping the page. — I am keeping you.`
+                                `*The writing is shakier here, he is laughing as he writes.* Mi'lady. A vow sworn while unconscious is, at best, irregular protocol. I will accept it anyway. Do not tell the captain.`,
+                                `*Adds, more carefully.* I have not laughed at the desk in twelve years. You did that to me, in a letter, with one sentence. I am keeping the page. I am keeping you.`
                             ]
                         }
                     }
                 ]
             },
             aftermath: {
-                title: 'Wednesday — A Quiet List',
+                title: 'Wednesday: A Quiet List',
                 signature: '— Yours, A.',
                 paragraphs: (d) => [
-                    `It is Wednesday. — I have begun keeping lists on Wednesdays. — Not patrol lists. — Yours.`,
-                    `On the list this week: the way you set the kettle down without looking. — The new plant on the south sill. — The pair of boots by the door that are not mine and have stayed long enough that the floor has remembered their weight.`,
-                    `*small, careful* — I want to be clear, in writing, that I notice these things on purpose. — A knight is trained to scan the perimeter for threats. — I have repurposed the training. — I scan for what I am keeping. — You are most of it.`,
+                    `It is Wednesday. I have begun keeping lists on Wednesdays. Not patrol lists. Yours.`,
+                    `On the list this week: the way you set the kettle down without looking. The new plant on the south sill. The pair of boots by the door that are not mine and have stayed long enough that the floor has remembered their weight.`,
+                    `*Small, careful.* I want to be clear, in writing, that I notice these things on purpose. A knight is trained to scan the perimeter for threats. I have repurposed the training. I scan for what I am keeping. You are most of it.`,
                     d.affectionLevel >= 4
-                        ? `Captain asked me yesterday if I was being well-fed. I laughed. — Out loud. — He looked at me as if I had grown a second head. — I have not laughed at his desk in twelve years. — I told him: yes, captain. Better than that. — I did not explain. — He did not ask twice.`
-                        : `I am not the man my recruits remember. — That is fine. — He was a good knight and a tired one. — The new one is a good knight and a slept one. — Both are mine. Both are yours.`,
-                    `Tomorrow we eat at the long table again. — I will not arrive late. — *underlined* — I have stopped being late on purpose. — That is a small thing and the most domestic admission I have ever set in ink.`,
+                        ? `Captain asked me yesterday if I was being well-fed. I laughed. Out loud. He looked at me as if I had grown a second head. I have not laughed at his desk in twelve years. I told him: yes, captain. Better than that. I did not explain. He did not ask twice.`
+                        : `I am not the man my recruits remember. That is fine. He was a good knight and a tired one. The new one is a good knight and a slept one. Both are mine. Both are yours.`,
+                    `Tomorrow we eat at the long table again. I will not arrive late. *Underlined.* I have stopped being late on purpose. That is a small thing and the most domestic admission I have ever set in ink.`,
                     `Yours, on a Wednesday, without ceremony.`
                 ]
             }
@@ -1414,12 +1680,12 @@
                 title: 'Notched on the Doorframe',
                 signature: '— E.',
                 paragraphs: (d) => [
-                    `I notched the doorframe again this morning. — I told myself the notches were for tracking weather. — I checked. — They are not.`,
-                    `The forest is louder when you have just left. — I had forgotten quiet was a thing you noticed by its absence. — I had been mistaking it for the way the world was.`,
+                    `I notched the doorframe again this morning. I told myself the notches were for tracking weather. I checked. They are not.`,
+                    `The forest is louder when you have just left. I had forgotten quiet was a thing you noticed by its absence. I had been mistaking it for the way the world was.`,
                     d.timesFed > 4
-                        ? `You have fed me ${d.timesFed} times. — Out here food is what you find or what you kill. — You did neither. You brought it. — I have stopped pretending that means nothing.`
-                        : `I made coffee twice this week. — One was for you in case you came. — You did not come that day. — I drank both.`,
-                    `Come back tomorrow. — There is a thing I am not yet ready to tell you under the rowan. — *crossed out* — I am ready. I am writing it down so I cannot back out. — *underlined* — Tomorrow.`,
+                        ? `You have fed me ${d.timesFed} times. Out here food is what you find or what you kill. You did neither. You brought it. I have stopped pretending that means nothing.`
+                        : `I made coffee twice this week. One was for you in case you came. You did not come that day. I drank both.`,
+                    `Come back tomorrow. There is a thing I am not yet ready to tell you under the rowan. *Crossed out.* I am ready. I am writing it down so I cannot back out. *Underlined.* Tomorrow.`,
                     `— E.`
                 ]
             },
@@ -1428,11 +1694,11 @@
                 signature: '— E.',
                 paragraphs: (d) => [
                     `You said her name. You said it kindly. The forest has been different since.`,
-                    `I walked the south path this morning. The brambles were tighter than I remembered, and the rowan tree was warmer than usual. — That is not a metaphor. The bark was actually warm. I checked.`,
+                    `I walked the south path this morning. The brambles were tighter than I remembered, and the rowan tree was warmer than usual. That is not a metaphor. The bark was actually warm. I checked.`,
                     d.timesGifted > 0
-                        ? `You left a thing at the door yesterday. I have not moved it. I keep walking around it. The cabin is small. The walking around is — I notice myself doing it. Forgive me. I am slow with kept things.`
-                        : `I am leaving this on your doorstep — yours, I mean. — wherever you sleep. The bark is from the tree we stood at. It is allowed to be away from the trunk now. It has been kept long enough.`,
-                    `Come back tomorrow. — Bring nothing. — *crossed out, then rewritten* — Bring yourself. — I have been told that is a thing to ask for.`,
+                        ? `You left a thing at the door yesterday. I have not moved it. I keep walking around it. The cabin is small. The walking around is, well, I notice myself doing it. Forgive me. I am slow with kept things.`
+                        : `I am leaving this on your doorstep, yours, I mean, wherever you sleep. The bark is from the tree we stood at. It is allowed to be away from the trunk now. It has been kept long enough.`,
+                    `Come back tomorrow. Bring nothing. *Crossed out, then rewritten.* Bring yourself. I have been told that is a thing to ask for.`,
                     `— E.`
                 ],
                 replies: [
@@ -1443,8 +1709,8 @@
                             title: 'A Mark in the Trunk',
                             signature: '— E.',
                             paragraphs: [
-                                `*the parchment is rougher than usual — torn from a foraging journal* — I cut a small mark in the rowan last night. — Not a name. — A line. — A shape my grandmother used for "remembered." — The trees noticed. The trees say so when they notice. They are quieter now. The good kind of quiet.`,
-                                `Come at dusk. — I will not say her name aloud. — You already did. — That was enough for both of us. — *small* — Walk slowly on the south path. The bramble has loosened. — I think it knows you, too.`
+                                `*The parchment is rougher than usual, torn from a foraging journal.* I cut a small mark in the rowan last night. Not a name. A line. A shape my grandmother used for "remembered." The trees noticed. The trees say so when they notice. They are quieter now. The good kind of quiet.`,
+                                `Come at dusk. I will not say her name aloud. You already did. That was enough for both of us. *Small.* Walk slowly on the south path. The bramble has loosened. I think it knows you, too.`
                             ]
                         }
                     },
@@ -1455,8 +1721,8 @@
                             title: 'Trust, In Soil',
                             signature: '— E.',
                             paragraphs: [
-                                `*written by candle, slow, no crossings-out — he meant every word the first time* — I have not trusted anyone with her name in a hundred and forty years of the keepers' line. — I watched my grandmother die without saying it aloud. — *quiet* — I told you because I knew. — There is no other way I can phrase it. I knew.`,
-                                `Come back tomorrow. — Bring something to eat. — *crossed out* — I will bring something to eat. — That is the new arrangement. — A keeper feeds the person he trusts. — That is the rule of this cabin now.`
+                                `*Written by candle, slow, no crossings-out, he meant every word the first time.* I have not trusted anyone with her name in a hundred and forty years of the keepers' line. I watched my grandmother die without saying it aloud. *Quiet.* I told you because I knew. There is no other way I can phrase it. I knew.`,
+                                `Come back tomorrow. Bring something to eat. *Crossed out.* I will bring something to eat. That is the new arrangement. A keeper feeds the person he trusts. That is the rule of this cabin now.`
                             ]
                         }
                     },
@@ -1467,8 +1733,8 @@
                             title: 'A Small List',
                             signature: '— E.',
                             paragraphs: [
-                                `*half a smile in the ink* — A small list, you said. — I had not thought of it as a list. — Now I cannot stop counting it. — The list is two. — *under the line* — I would like the list to stay two. For a while. Then maybe more. Slowly.`,
-                                `*adds, careful* — Don't joke about being on the list, please. — *quieter* — That joke would land differently than the others. — I am not yet ready to laugh at it. I will be. Be patient.`
+                                `*Half a smile in the ink.* A small list, you said. I had not thought of it as a list. Now I cannot stop counting it. The list is two. *Under the line.* I would like the list to stay two. For a while. Then maybe more. Slowly.`,
+                                `*Adds, careful.* Don't joke about being on the list, please. *Quieter.* That joke would land differently than the others. I am not yet ready to laugh at it. I will be. Be patient.`
                             ]
                         }
                     }
@@ -1478,12 +1744,12 @@
                 title: 'Two Sets of Boots by the Door',
                 signature: '— E.',
                 paragraphs: (d) => [
-                    `There are two pairs of boots by the door now. — Yours are smaller. — They have begun to leave their print on the mat in the same place every time. — The mat is starting to remember you. — *small, dry* — I noticed the mat before I noticed the rest of the cabin had changed. Predictable.`,
-                    `Walked the rowan circuit at dawn. The second letter on the trunk is set. — I did not start the third. — *the next line is in different ink, written later* — I started the third. I lied above. Forgive me. I am keeping the carving slow on purpose because I do not want to finish your name. — I would like there to always be one more letter to put in the tree.`,
+                    `There are two pairs of boots by the door now. Yours are smaller. They have begun to leave their print on the mat in the same place every time. The mat is starting to remember you. *Small, dry.* I noticed the mat before I noticed the rest of the cabin had changed. Predictable.`,
+                    `Walked the rowan circuit at dawn. The second letter on the trunk is set. I did not start the third. *The next line is in different ink, written later.* I started the third. I lied above. Forgive me. I am keeping the carving slow on purpose because I do not want to finish your name. I would like there to always be one more letter to put in the tree.`,
                     d.affectionLevel >= 4
-                        ? `Stew tonight. — Twice as much as I used to make. — The cabin smells like a place. — It used to smell like a way of waiting. — That is, I think, an improvement.`
-                        : `I left the lantern on the south path lit. — In case you walk back from town after dark. — I have never left a lantern lit for anyone before. The lantern was offended. It got over it.`,
-                    `Come tomorrow. — Don't knock. — The door is yours.`,
+                        ? `Stew tonight. Twice as much as I used to make. The cabin smells like a place. It used to smell like a way of waiting. That is, I think, an improvement.`
+                        : `I left the lantern on the south path lit. In case you walk back from town after dark. I have never left a lantern lit for anyone before. The lantern was offended. It got over it.`,
+                    `Come tomorrow. Don't knock. The door is yours.`,
                     `— E.`
                 ]
             }
@@ -1494,12 +1760,12 @@
                 title: 'A Verse the Cave Keeps Singing',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `*the parchment is salt-stained at the edges, the way all things in the cave eventually are* — I wrote a verse this week. — I was not going to write any verses this season. — The cave had other ideas. It usually does.`,
-                    `It begins: "the boy with the warm hands came back, and the tide forgave the rock for being still." — I am not the boy. — You are not warm-handed. — Songs are liars and also true. — I am keeping it.`,
+                    `*The parchment is salt-stained at the edges, the way all things in the cave eventually are.* I wrote a verse this week. I was not going to write any verses this season. The cave had other ideas. It usually does.`,
+                    `It begins: "the boy with the warm hands came back, and the tide forgave the rock for being still." I am not the boy. You are not warm-handed. Songs are liars and also true. I am keeping it.`,
                     d.timesGifted > 0
-                        ? `You left ${d.timesGifted} ${d.timesGifted === 1 ? 'thing' : 'things'} in the tide-pool. — I have stopped pretending I do not know which pool you mean. — The pool is fuller than the rest of the cave now. — A song that has only one full pool is — *trails off* — anyway. I noticed.`
-                        : `The gulls have started waiting near the shelf I sing on. — They were not waiting before. — I think they are listening for a verse my line does not know. — They are right to. — I am writing one.`,
-                    `Come at dusk. The cave is warmer at dusk for reasons I refuse to investigate. — The rocks like you. — They told me. — Do not ask me how.`,
+                        ? `You left ${d.timesGifted} ${d.timesGifted === 1 ? 'thing' : 'things'} in the tide-pool. I have stopped pretending I do not know which pool you mean. The pool is fuller than the rest of the cave now. A song that has only one full pool is, *Trails off,* anyway. I noticed.`
+                        : `The gulls have started waiting near the shelf I sing on. They were not waiting before. I think they are listening for a verse my line does not know. They are right to. I am writing one.`,
+                    `Come at dusk. The cave is warmer at dusk for reasons I refuse to investigate. The rocks like you. They told me. Do not ask me how.`,
                     `— L.`
                 ]
             },
@@ -1507,13 +1773,13 @@
                 title: 'The Verse, Returned',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `You did not hum it back. — Thank you. — *small relief — that is the first real one I have felt in a year* — A song unrepeated is a song still mine. — A song still mine is a thing I had not allowed myself to write.`,
-                    `I have been writing again. — The fourth verse, paramour. — The one I did not even know was there. — It comes after the third like dawn comes after a tide. — I did not write that line. The cave did. I am only the scribe.`,
-                    `*the next line is salt-stained — water has touched it, then dried — once or twice in the same place*`,
+                    `You did not hum it back. Thank you. *Small relief, that is the first real one I have felt in a year.* A song unrepeated is a song still mine. A song still mine is a thing I had not allowed myself to write.`,
+                    `I have been writing again. The fourth verse, paramour. The one I did not even know was there. It comes after the third like dawn comes after a tide. I did not write that line. The cave did. I am only the scribe.`,
+                    `*The next line is salt-stained, water has touched it, then dried, once or twice in the same place.*`,
                     d.affectionLevel >= 3
-                        ? `I sang the second verse to a passing gull this morning. The gull did not drown. — That has not happened in my line for two centuries. — I am almost afraid to keep going. — Almost.`
-                        : `The cave has been warmer since you left. I did not light anything. — I think it is keeping the heat YOU left in the stones. — I sit where you sat. — That is a confession.`,
-                    `Come at low tide. The shells will be open. — One of them will have this letter in it. — *the third one from the left* — Do not mistake which one. — Do not eat any of them. — *small drawing of a heart, then crossed out, then redrawn smaller, then left*`
+                        ? `I sang the second verse to a passing gull this morning. The gull did not drown. That has not happened in my line for two centuries. I am almost afraid to keep going. Almost.`
+                        : `The cave has been warmer since you left. I did not light anything. I think it is keeping the heat YOU left in the stones. I sit where you sat. That is a confession.`,
+                    `Come at low tide. The shells will be open. One of them will have this letter in it. *The third one from the left.* Do not mistake which one. Do not eat any of them. *Small drawing of a heart, then crossed out, then redrawn smaller, then left.*`
                 ],
                 replies: [
                     {
@@ -1523,8 +1789,8 @@
                             title: 'A Verse for One',
                             signature: '— L.',
                             paragraphs: [
-                                `*water-stained at the corner; she wrote this with damp hands* — A song carried by two is a song that does not drown anyone. — That is rare in my line. — That is — *quiet* — that is the new rule. — I am writing under it.`,
-                                `The fifth verse will be ours. — Yours, mine, the cave's. — I will sing it once, to you, in the third pool. — I will not write it down. — *small drawing — two notes nested* — Come at low tide. — Bring nothing. — Already told you not to bring anything. — Liked saying it.`
+                                `*Water-stained at the corner; she wrote this with damp hands.* A song carried by two is a song that does not drown anyone. That is rare in my line. That is, *Quiet,* that is the new rule. I am writing under it.`,
+                                `The fifth verse will be ours. Yours, mine, the cave's. I will sing it once, to you, in the third pool. I will not write it down. *Small drawing, two notes nested.* Come at low tide. Bring nothing. Already told you not to bring anything. Liked saying it.`
                             ]
                         }
                     },
@@ -1535,8 +1801,8 @@
                             title: 'Three Words, Returned',
                             signature: '— L.',
                             paragraphs: [
-                                `Heard. Kept. Not spoken. — You used three words. — I had been afraid you would use more. — *small, real relief* — You knew the shape of what I needed. — A siren can tell. We can always tell.`,
-                                `Stay through the next tide. — Sit on the shelf I sing from. — Don't speak. — *crossed out — replaced* — Speak if you want to. — But you don't have to. — That is the gift.`
+                                `Heard. Kept. Not spoken. You used three words. I had been afraid you would use more. *Small, real relief.* You knew the shape of what I needed. A siren can tell. We can always tell.`,
+                                `Stay through the next tide. Sit on the shelf I sing from. Don't speak. *Crossed out, replaced.* Speak if you want to. But you don't have to. That is the gift.`
                             ]
                         }
                     },
@@ -1547,8 +1813,8 @@
                             title: 'I Considered It',
                             signature: '— L. (regrettably restrained.)',
                             paragraphs: [
-                                `*the writing is shaky with held laughter* — I did consider it. — Briefly. — As a service to the bargain. — Then I remembered: I want you upright. — Specifically. — *underline* — Sorry, paramour. The siren in me will be polite this season.`,
-                                `Come at low tide. — I have a verse that was supposed to end in a drowning. — I have rewritten the ending. — It is now a "and then they had supper." — Disgraceful. — *small heart, drawn carelessly, kept anyway*`
+                                `*The writing is shaky with held laughter.* I did consider it. Briefly. As a service to the bargain. Then I remembered: I want you upright. Specifically. *Underline.* Sorry, paramour. The siren in me will be polite this season.`,
+                                `Come at low tide. I have a verse that was supposed to end in a drowning. I have rewritten the ending. It is now a "and then they had supper." Disgraceful. *Small heart, drawn carelessly, kept anyway.*`
                             ]
                         }
                     }
@@ -1558,12 +1824,12 @@
                 title: 'The Tide Is Bringing Things Back',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `*written on dry parchment for once — the cave-mouth has stopped flooding into where I write* — Something happened this morning. — A piece of polished sea-glass washed up at the cave-mouth. — Blue. — My mother's colour. — The tide has not brought my line a kept thing in eighty years. — It is bringing things back. — I think it can tell.`,
-                    `I sang the fourth verse twice this week. — Both times nothing died. — That is not a low bar to me. That is a revolution.`,
+                    `*Written on dry parchment for once, the cave-mouth has stopped flooding into where I write.* Something happened this morning. A piece of polished sea-glass washed up at the cave-mouth. Blue. My mother's colour. The tide has not brought my line a kept thing in eighty years. It is bringing things back. I think it can tell.`,
+                    `I sang the fourth verse twice this week. Both times nothing died. That is not a low bar to me. That is a revolution.`,
                     d.affectionLevel >= 4
-                        ? `The cave has stopped echoing wrong when you arrive. — *small, near-laugh* — I have spent two years tuning the cave to my own grief. — It is retuning to your footsteps. — I do not blame it. I am tuning to your footsteps too. — We are unlearning a long quiet together, the cave and I.`
-                        : `I left a clamshell at your door — the third pool's flat one. — Inside is a verse only one human has ever heard sung in full. — I will not ask if you read it. — *small* — I will only know by whether you come back smiling.`,
-                    `Stay through the next tide. — There is a thing I want to teach you about how the cave breathes. — It breathes through me. — It is starting to breathe through you. — I have not been afraid of that in three days. — *underlined* — Three days. Possibly a record.`,
+                        ? `The cave has stopped echoing wrong when you arrive. *Small, near-laugh.* I have spent two years tuning the cave to my own grief. It is retuning to your footsteps. I do not blame it. I am tuning to your footsteps too. We are unlearning a long quiet together, the cave and I.`
+                        : `I left a clamshell at your door, the third pool's flat one. Inside is a verse only one human has ever heard sung in full. I will not ask if you read it. *Small.* I will only know by whether you come back smiling.`,
+                    `Stay through the next tide. There is a thing I want to teach you about how the cave breathes. It breathes through me. It is starting to breathe through you. I have not been afraid of that in three days. *Underlined.* Three days. Possibly a record.`,
                     `— L.`
                 ]
             }
@@ -1574,26 +1840,26 @@
                 title: 'A Note From the Garden Bench',
                 signature: '— C.',
                 paragraphs: (d) => [
-                    `I am writing this on the south garden bench at dawn. — The court would consider this scandalously rustic. — Good.`,
-                    `I noticed something this week and I am setting it down before I lose it: my charm has been off-duty when you are in the room. — *small, marvelling* — I had not noticed I had two settings. — I had been using charm-as-armour for so long it felt like skin. — Apparently it is not.`,
+                    `I am writing this on the south garden bench at dawn. The court would consider this scandalously rustic. Good.`,
+                    `I noticed something this week and I am setting it down before I lose it: my charm has been off-duty when you are in the room. *Small, marvelling.* I had not noticed I had two settings. I had been using charm-as-armour for so long it felt like skin. Apparently it is not.`,
                     d.timesFed > 3
-                        ? `You fed me at the long table on Tuesday. — A footman tried to step in. — I waved him off. — He looked horrified. — *underlined* — I would do it again. — Send my apologies to the footman.`
-                        : `I drafted a speech this week and crossed out the third paragraph because it sounded like my grandmother. — A small treason. — She would notice. — She has not, yet. — She will. — I am rehearsing for it.`,
-                    `Tea tomorrow at four. — Wear nothing fancy. — That is an instruction, not a preference. — *crossed out, then rewritten in worse handwriting* — A request, then. — A request from a prince who is learning to make them.`,
-                    `Yours, and not the court's, this morning. — — C.`
+                        ? `You fed me at the long table on Tuesday. A footman tried to step in. I waved him off. He looked horrified. *Underlined.* I would do it again. Send my apologies to the footman.`
+                        : `I drafted a speech this week and crossed out the third paragraph because it sounded like my grandmother. A small treason. She would notice. She has not, yet. She will. I am rehearsing for it.`,
+                    `Tea tomorrow at four. Wear nothing fancy. That is an instruction, not a preference. *Crossed out, then rewritten in worse handwriting.* A request, then. A request from a prince who is learning to make them.`,
+                    `Yours, and not the court's, this morning. C.`
                 ]
             },
             midnight: {
                 title: "From the Prince's Own Hand (Not the Scribe's)",
                 signature: '— Caspian',
                 paragraphs: (d) => [
-                    `I am writing this myself. — Again. — My scribe will be confused. — *small, dry* — I will explain it to him as a hobby. He will believe me. People believe princes about their hobbies.`,
-                    `Last night I told you the kingdom is in my pocket. — I want to be clear, in writing, where the people I love are positioned. — They are not in the same pocket as the kingdom. — They are nearer my heart. — There is no other way to phrase it. The architecture of jackets does not have a metaphor for this.`,
+                    `I am writing this myself. Again. My scribe will be confused. *Small, dry.* I will explain it to him as a hobby. He will believe me. People believe princes about their hobbies.`,
+                    `Last night I told you the kingdom is in my pocket. I want to be clear, in writing, where the people I love are positioned. They are not in the same pocket as the kingdom. They are nearer my heart. There is no other way to phrase it. The architecture of jackets does not have a metaphor for this.`,
                     d.timesFed > 0
-                        ? `I ate your food at noon today. I did not realise I was doing it until the second cup. — A prince notices everything he is given. — When he stops noticing, he is being loved. — *small, marvelling* — I have been loved. I had not noticed.`
-                        : `My grandmother walks the south corridor every morning at six. I have been making different choices about that corridor lately. — She has not noticed yet. She will. I am ready for it.`,
-                    `Tea tomorrow. — I will not pour it before you ask. — *crossed out* — I will pour it before you ask. — *underlined* — I always do, and I am keeping the habit. It is one of the few I am not abdicating.`,
-                    `Yours. — Without ceremony. — Which is to say: actually mine, actually yours.`
+                        ? `I ate your food at noon today. I did not realise I was doing it until the second cup. A prince notices everything he is given. When he stops noticing, he is being loved. *Small, marvelling.* I have been loved. I had not noticed.`
+                        : `My grandmother walks the south corridor every morning at six. I have been making different choices about that corridor lately. She has not noticed yet. She will. I am ready for it.`,
+                    `Tea tomorrow. I will not pour it before you ask. *Crossed out.* I will pour it before you ask. *Underlined.* I always do, and I am keeping the habit. It is one of the few I am not abdicating.`,
+                    `Yours. Without ceremony. Which is to say: actually mine, actually yours.`
                 ],
                 replies: [
                     {
@@ -1603,8 +1869,8 @@
                             title: 'A Letter Written at Five',
                             signature: '— Caspian',
                             paragraphs: [
-                                `It is five in the morning. — The seal is still warm. The letter is still unsent. — I read your words and folded the abdication into the desk drawer with the small key that is always lost. — *quiet* — I am keeping the title. — Because you are not asking me to give it up. You are asking me to USE it. — Different work. Same prince. Worthier prince.`,
-                                `Tea at four. — I will be in the small parlour, not the throne room. — *honest* — That is part of the new arrangement. — Yours, without ceremony — and now also without the abdication-in-the-drawer.`
+                                `It is five in the morning. The seal is still warm. The letter is still unsent. I read your words and folded the abdication into the desk drawer with the small key that is always lost. *Quiet.* I am keeping the title. Because you are not asking me to give it up. You are asking me to USE it. Different work. Same prince. Worthier prince.`,
+                                `Tea at four. I will be in the small parlour, not the throne room. *Honest.* That is part of the new arrangement. Yours, without ceremony, and now also without the abdication-in-the-drawer.`
                             ]
                         }
                     },
@@ -1615,8 +1881,8 @@
                             title: 'For My Own Reasons',
                             signature: '— C.',
                             paragraphs: [
-                                `*reads it three times. lets it sit for an hour. picks the pen back up.* — You used the phrase "because you want to." — I have not been allowed to want anything for my own reasons since I was six years old. — *quiet* — I will need a minute with that phrase. — *adds, after the minute* — I want to. I am here because I want to. — Writing it twice so I believe it.`,
-                                `Tea tomorrow. — I will pour it because I want to. — *small smile in the ink* — A new doctrine. — Yours, choosing.`
+                                `*Reads it three times. Lets it sit for an hour. Picks the pen back up.* You used the phrase "because you want to." I have not been allowed to want anything for my own reasons since I was six years old. *Quiet.* I will need a minute with that phrase. *Adds, after the minute.* I want to. I am here because I want to. Writing it twice so I believe it.`,
+                                `Tea tomorrow. I will pour it because I want to. *Small smile in the ink.* A new doctrine. Yours, choosing.`
                             ]
                         }
                     },
@@ -1627,8 +1893,8 @@
                             title: 'A Memo, Re: Style',
                             signature: '— C.',
                             paragraphs: [
-                                `MEMO. — TO: the prince. — FROM: the prince. — RE: hours of operation for life-altering decisions.`,
-                                `1. No major reorganizations of the realm before nine in the morning. 2. The seal of state shall not be heated for personal use. 3. Any abdication contemplated outside business hours shall be forwarded to the WEAVER for review. — *small, dry* — You drafted this for me, in one sentence. — I have framed it. — Yours, properly punctual.`
+                                `MEMO. TO: the prince. FROM: the prince. RE: hours of operation for life-altering decisions.`,
+                                `1. No major reorganizations of the realm before nine in the morning. 2. The seal of state shall not be heated for personal use. 3. Any abdication contemplated outside business hours shall be forwarded to the WEAVER for review. *Small, dry.* You drafted this for me, in one sentence. I have framed it. Yours, properly punctual.`
                             ]
                         }
                     }
@@ -1638,13 +1904,13 @@
                 title: 'A Sunday Letter, Inked Slowly',
                 signature: '— Yours, C.',
                 paragraphs: (d) => [
-                    `I have made the scribe a Sunday. — He is, presumably, somewhere. — I am at the desk. — Light is good. Tea is hot. The window is open and the orchard is being unreasonable about its blossoms.`,
-                    `I am writing because nothing is on fire. — That is not a sentence I have been able to write since I was eleven. — The kingdom is not on fire. — My grandmother is not winning. — You are in the next room. — I am — *small, settled* — I am happy. — On purpose. As a chosen state.`,
+                    `I have made the scribe a Sunday. He is, presumably, somewhere. I am at the desk. Light is good. Tea is hot. The window is open and the orchard is being unreasonable about its blossoms.`,
+                    `I am writing because nothing is on fire. That is not a sentence I have been able to write since I was eleven. The kingdom is not on fire. My grandmother is not winning. You are in the next room. I am, *Small, settled,* I am happy. On purpose. As a chosen state.`,
                     d.affectionLevel >= 4
-                        ? `The council convenes Tuesday. — I will be there. — I have rewritten one paragraph of the Crown's annual address. — The original said "the dynasty endures." — Mine says "the kingdom is being looked at, finally, by people who love it." — They will not approve. — I am reading it anyway.`
-                        : `Walked to the kitchens this morning. — The cook startled. — I told her I was looking for the second cup. — She gave me three. — I now have three cups on the desk. — I do not know what I will do with two of them. — I am keeping all three.`,
-                    `Tomorrow we walk the orchard. — No retainers. — *underlined* — I have informed the captain of the guard. He nodded as if I had announced rain. — Apparently this is now a normal thing the prince does. — I had not realised I had a normal.`,
-                    `*ink-blot, then* — Yours. — Sundays especially.`
+                        ? `The council convenes Tuesday. I will be there. I have rewritten one paragraph of the Crown's annual address. The original said "the dynasty endures." Mine says "the kingdom is being looked at, finally, by people who love it." They will not approve. I am reading it anyway.`
+                        : `Walked to the kitchens this morning. The cook startled. I told her I was looking for the second cup. She gave me three. I now have three cups on the desk. I do not know what I will do with two of them. I am keeping all three.`,
+                    `Tomorrow we walk the orchard. No retainers. *Underlined.* I have informed the captain of the guard. He nodded as if I had announced rain. Apparently this is now a normal thing the prince does. I had not realised I had a normal.`,
+                    `*Ink-blot, then.* Yours. Sundays especially.`
                 ]
             }
         },
@@ -1654,27 +1920,27 @@
                 title: 'A Footnote, Misplaced',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `I have written a footnote in the wrong margin three times this week.¹ — That is statistically significant. — *small* — The footnotes were all about you.`,
+                    `I have written a footnote in the wrong margin three times this week.¹ That is statistically significant. *Small.* The footnotes were all about you.`,
                     `¹ Specifically: Treatise on Resonance Decay, page 84, where I noted "subject prefers the third stair (creak removed)" instead of correcting the mass-formula error. The error remains uncorrected. I do not regret it.`,
                     d.timesTalked > 4
-                        ? `You have spoken to me ${d.timesTalked} times. — My catalogue of your speech patterns is now longer than my catalogue of celestial tides. — *quiet* — I am unsure what this says about my priorities. — I am also unsure what it says about my heart.`
-                        : `I noticed yesterday that I have begun timing my breaks to coincide with your visits. — I had not been taking breaks. — I have invented a habit, retroactively, to be near you. — Scholarly rigor: 0. — Personal honesty: improving.`,
-                    `Come to the tower tomorrow. — Bring nothing. — *crossed out* — Bring a book you have not read. — I would like to watch you discover something. — I have always loved that part most.`,
+                        ? `You have spoken to me ${d.timesTalked} times. My catalogue of your speech patterns is now longer than my catalogue of celestial tides. *Quiet.* I am unsure what this says about my priorities. I am also unsure what it says about my heart.`
+                        : `I noticed yesterday that I have begun timing my breaks to coincide with your visits. I had not been taking breaks. I have invented a habit, retroactively, to be near you. Scholarly rigor: 0. Personal honesty: improving.`,
+                    `Come to the tower tomorrow. Bring nothing. *Crossed out.* Bring a book you have not read. I would like to watch you discover something. I have always loved that part most.`,
                     `— L. (the version of me that writes footnotes about you in the wrong margin)`
                 ]
             },
             midnight: {
-                title: 'On the Cost of Spending On Purpose',
+                title: 'Footnotes on a Feeling I Do Not Yet Have a Name For',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `I have rewritten the opening of this letter four times.¹ — Each rewrite cost a memory.² — The current opening is the cheapest one — short, factual, signed.³`,
-                    `¹ The rewrites are not in the margin. I burned the drafts. Forgive me. I was not yet brave enough to keep my own embarrassment.`,
-                    `² A small one. I cannot remember what colour the curtains in my study were when I was sixteen. I am told they were green. I am told this by myself, from a previous note, which I no longer remember writing.`,
-                    `³ "Cheap" in this context means: I get to keep your face yesterday afternoon at fourteen-twelve, when you set down the teacup with your left hand for the first time. I had not seen you do that with the left hand before. I am keeping it.`,
+                    `I have rewritten the opening of this letter four times.¹ Each rewrite required me to feel something I had decided years ago I would never feel.² The current opening is the simplest one. Short, factual, signed.³`,
+                    `¹ The rewrites are not in the margin. I burned the drafts. Not from embarrassment. From the suspicion that if I read them again I would have to feel them again. I am not, on review, ready for that yet.`,
+                    `² Specifically: nostalgia, in the third draft. Yearning, in the second. The first contained a feeling I am not yet brave enough to name. I have built a working file for it. The file is in the locked drawer.`,
+                    `³ "Simplest" in this context means: I get to keep your face yesterday afternoon at fourteen-twelve, when you set down the teacup with your left hand for the first time. I had not seen you do that with the left hand before. *Small.* I felt something when I noticed. I felt it again writing this. I have been feeling it on and off for an hour.`,
                     d.affectionLevel >= 3
-                        ? `The page about my sister is in a drawer now. The drawer is locked. The key is on the desk. — *footnote: that is approximately the bravery I am capable of this week.*`
-                        : `I have not opened the page since you saw it. — It is enough that you saw it. — A thing witnessed is half of a thing finished.`,
-                    `Come tomorrow. The third book has been moved. It can be moved by you now. — The third book has updated permissions. — It is — *small smile* — a fairly significant promotion. I do not give it lightly.`
+                        ? `The page about my sister is in a drawer now. The drawer is locked. The key is on the desk. *Footnote: that is approximately the courage I am capable of this week. Courage, the file confirms, is also new.*`
+                        : `I have not opened the page since you saw it. It is enough that you saw it. A thing witnessed is half of a thing finished. *Footnote: I learned the meaning of "witnessed" this week. It was not in the dictionary I had been using.*`,
+                    `Come tomorrow. The third book has been moved. It can be moved by you now. The third book has updated permissions. It is, *Small smile,* a fairly significant promotion. I do not give it lightly. *Underlined.* I am, apparently, capable of giving things lightly now. Statistically improbable. I am leaning into the improbability.`
                 ],
                 replies: [
                     {
@@ -1684,8 +1950,8 @@
                             title: 'Coordinates, Annotated',
                             signature: '— L.',
                             paragraphs: [
-                                `*the page is fresh — no footnotes, which for me is the equivalent of shouting* — You said you would be there. — I am taking the page out of the drawer. — I am writing to a coastal address my father's register marks as "removed: deceased." — She will not be deceased. — She will be a singer somewhere with a shelf of half-listened-to books.`,
-                                `Come tomorrow. We will draft the letter to her together. — *small smile in the ink* — I do not draft things together. — I am amending the rule. — A theorem revised under footnote 87.`
+                                `*The page is fresh, no footnotes, which for me is the equivalent of shouting.* You said you would be there. I am taking the page out of the drawer. I am writing to a coastal address my father's register marks as "removed: deceased." She will not be deceased. She will be a singer somewhere with a shelf of half-listened-to books.`,
+                                `Come tomorrow. We will draft the letter to her together. *Small smile in the ink.* I do not draft things together. I am amending the rule. A theorem revised under footnote 87.`
                             ]
                         }
                     },
@@ -1696,8 +1962,8 @@
                             title: 'A Choice, Calmly Held',
                             signature: '— L.',
                             paragraphs: [
-                                `You handed me both options without weighting them. — That is — *small* — that is what a scholar's friend does. — I have been weighting my own options under cover of darkness for thirty years. — Today, with the lamps on, I am letting them sit on the desk equal-mass.`,
-                                `I will decide by Sunday. — I will tell you which over tea. — Whichever I pick, I am keeping the moment you said both were correct. — A thing witnessed is half a thing finished. You witnessed twice.`
+                                `You handed me both options without weighting them. That is, *Small,* that is what a scholar's friend does. I have been weighting my own options under cover of darkness for thirty years. Today, with the lamps on, I am letting them sit on the desk equal-mass.`,
+                                `I will decide by Sunday. I will tell you which over tea. Whichever I pick, I am keeping the moment you said both were correct. A thing witnessed is half a thing finished. You witnessed twice.`
                             ]
                         }
                     },
@@ -1708,8 +1974,8 @@
                             title: 'Errata, Vol. III',
                             signature: '— L. (deeply scolded.)',
                             paragraphs: [
-                                `*scribbled in the margin of an unfinished proof, then re-copied onto clean paper* — ERRATA: the maths can, in fact, wait. — Theorem 14.2 has been wrong for two years. It will be wrong for two more. — *small* — Footnote: this is the most useful sentence ever written about my own work, and you wrote it in seven words.`,
-                                `Tomorrow. The tower. The third book has been moved. — I will not be working when you arrive. — *underlined* — That is also new.`
+                                `*Scribbled in the margin of an unfinished proof, then re-copied onto clean paper.* ERRATA: the maths can, in fact, wait. Theorem 14.2 has been wrong for two years. It will be wrong for two more. *Small.* Footnote: this is the most useful sentence ever written about my own work, and you wrote it in seven words.`,
+                                `Tomorrow. The tower. The third book has been moved. I will not be working when you arrive. *Underlined.* That is also new.`
                             ]
                         }
                     }
@@ -1719,12 +1985,12 @@
                 title: 'A Marginalia of Mornings',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `*written in the cleanest hand he is capable of, fewer footnotes than usual* — The catalogue is full this week. — I have stopped indexing what I am keeping. — It turns out you keep the things you are KEEPING by living next to them, not by writing them down.`,
-                    `Yesterday I cast a small spell — not for research. — Just to see if I still could without panicking about the cost. — I lost a single word: "halberd." — *small* — I have very little use for halberds. — A bargain.`,
+                    `*Written in the cleanest hand he is capable of, fewer footnotes than usual.* The new catalogue is full this week. I have stopped trying to index every emotion as it arrives. It turns out you do not catalogue what you are LIVING by writing it down. You catalogue it by being there for the next one.`,
+                    `Yesterday I cast a small spell, not for research. Just to confirm something. The casting cost me nothing. It never has. *Quiet.* I had told myself for thirty years that emotion was an inefficiency, and I had been free of inefficiency. I was not free. I was empty. Those are different. I had the words for both. I had filed them in the wrong place.`,
                     d.affectionLevel >= 4
-                        ? `My sister wrote back. — She is alive. — She lives by the south coast. — She writes with a singer's hand. — She wrote two sentences. The second was: "Bring whoever taught you to ask." — *quiet* — I would like to bring you. — When you are ready. — I am ready. I will wait until you are.`
-                        : `I sat in the south window this morning. — The light reached the desk for the first time in years. — I had been keeping the curtains drawn. — I do not know why. — I am taking them down on Sunday. — *small* — Light is allowed in now.`,
-                    `Tomorrow we work in different rooms with the connecting door open. — That is a domestic arrangement. — I have been afraid of domestic arrangements for thirty years. — *underlined* — Today I am not. — Statistically significant.`,
+                        ? `My sister wrote back. She is alive. She lives by the south coast. She writes with a singer's hand. She wrote two sentences. The second was: "Bring whoever taught you to ask." *Quiet.* I would like to bring you. When you are ready. I am ready. I will wait until you are.`
+                        : `I sat in the south window this morning. The light reached the desk for the first time in years. I had been keeping the curtains drawn. I do not know why. I am taking them down on Sunday. *Small.* Light is allowed in now.`,
+                    `Tomorrow we work in different rooms with the connecting door open. That is a domestic arrangement. I had been afraid of domestic arrangements for thirty years. *Small smile.* The fear was a placeholder for a feeling I had not yet learned. The feeling has arrived. I am letting it stay.`,
                     `— L. (the version of me that lives at noon, and on Sundays, and quietly.)`
                 ]
             }
@@ -1735,12 +2001,12 @@
                 title: 'A Quiet Note, Slipped Between Worlds',
                 signature: '— N.',
                 paragraphs: (d) => [
-                    `Weaver. — *short, careful, written in his own old script* — I do not write often. — I am writing now because I noticed something this week and I would rather you knew it than I kept it.`,
-                    `When you are not in the kingdom — and I can feel when you are not in the kingdom — the seam between dark and hall is thinner. — I have been keeping it open for you. — It does not cost anything to keep it open. — *quieter* — That is a lie. It costs something. I am paying it. I want to.`,
+                    `Weaver. *Short, careful, written in his own old script.* I do not write often. I am writing now because I noticed something this week and I would rather you knew it than I kept it.`,
+                    `When you are not in the kingdom, and I can feel when you are not in the kingdom, the seam between dark and hall is thinner. I have been keeping it open for you. It does not cost anything to keep it open. *Quieter.* That is a lie. It costs something. I am paying it. I want to.`,
                     d.timesTalked > 4
-                        ? `You have spoken to me ${d.timesTalked} times. — Each conversation has had a beginning, a middle, and an end. — That is how I know they are real. — My six centuries of monologues did not have endings. — They were all middle.`
-                        : `I am told it is unusual to write before being asked to. — I am no longer interested in being usual. — *small, dry* — A six-hundred-year-old habit, broken in a week. Take notes for whoever inherits.`,
-                    `Come to the seam on Thursday. — Late. — I will be there. — I am usually there. — *underlined* — On Thursday I will be there for you specifically.`,
+                        ? `You have spoken to me ${d.timesTalked} times. Each conversation has had a beginning, a middle, and an end. That is how I know they are real. My six centuries of monologues did not have endings. They were all middle.`
+                        : `I am told it is unusual to write before being asked to. I am no longer interested in being usual. *Small, dry.* A six-hundred-year-old habit, broken in a week. Take notes for whoever inherits.`,
+                    `Come to the seam on Thursday. Late. I will be there. I am usually there. *Underlined.* On Thursday I will be there for you specifically.`,
                     `— N.`
                 ]
             },
@@ -1748,13 +2014,13 @@
                 title: 'A Page in My Own Script',
                 signature: '— N. (the other one.)',
                 paragraphs: (d) => [
-                    `Weaver. — *the candle is unsteady tonight; please forgive any letter that wavers — I am not entirely steady either* — You said it. I asked you to. — You did. — I am still — *long pause in the ink — the writer set the pen down and picked it up again* — I am still in the after of that.`,
-                    `I have not put it on a page in six hundred years. — I am putting it on this page once. — Read it aloud only if you want me to hear you say it again. The seam between us is thinner tonight than usual, and I will hear.`,
-                    `I will not write it twice. — Once is the gift. — Twice is the cost.`,
+                    `Weaver. *The candle is unsteady tonight; please forgive any letter that wavers, I am not entirely steady either.* You said it. I asked you to. You did. I am still, *Long pause in the ink, the writer set the pen down and picked it up again,* I am still in the after of that.`,
+                    `I have not put it on a page in six hundred years. I am putting it on this page once. Read it aloud only if you want me to hear you say it again. The seam between us is thinner tonight than usual, and I will hear.`,
+                    `I will not write it twice. Once is the gift. Twice is the cost.`,
                     d.affectionLevel >= 3
-                        ? `*the next paragraph is in older script, careful, the way one writes a name on a grave they have begun to tend* — Corvin Noctalis. — That is mine. — Yours, also, for the duration of your life. — After. — We will see.`
-                        : `*at the bottom, in a smaller hand* — I will say it back to you tomorrow. — Quietly. — In the voice I save for you. — Bring nothing. I have everything.`,
-                    `Burn this letter at dawn. The ink does not last well in daylight, and neither do I. — Tonight I am as brave as I have been since the seal. — Tomorrow I will be as restrained as I always am. — Both are mine. Both are yours.`
+                        ? `*The next paragraph is in older script, careful, the way one writes a name on a grave they have begun to tend.* Corvin Noctalis. That is mine. Yours, also, for the duration of your life. After. We will see.`
+                        : `*At the bottom, in a smaller hand.* I will say it back to you tomorrow. Quietly. In the voice I save for you. Bring nothing. I have everything.`,
+                    `Burn this letter at dawn. The ink does not last well in daylight, and neither do I. Tonight I am as brave as I have been since the seal. Tomorrow I will be as restrained as I always am. Both are mine. Both are yours.`
                 ],
                 replies: [
                     {
@@ -1764,8 +2030,8 @@
                             title: 'In the Old Script, Once More',
                             signature: '— Yours, in both names.',
                             paragraphs: [
-                                `*written in the old script — careful, slow, no flourishes* — You said it kindly. — *the candle held* — That is two more times than I had counted. — *quiet, in the new hand* — I had set my expectations at one. — You exceeded them by definition.`,
-                                `Bring nothing tomorrow. — Sit at the seam at the third bell. — I will say something I have not said in six hundred years, and you will be the first to hear it. — *small* — Do not write down what I say. — Carry it the way you carried the name. — Quietly.`
+                                `*Written in the old script, careful, slow, no flourishes.* You said it kindly. *The candle held.* That is two more times than I had counted. *Quiet, in the new hand.* I had set my expectations at one. You exceeded them by definition.`,
+                                `Bring nothing tomorrow. Sit at the seam at the third bell. I will say something I have not said in six hundred years, and you will be the first to hear it. *Small.* Do not write down what I say. Carry it the way you carried the name. Quietly.`
                             ]
                         }
                     },
@@ -1776,8 +2042,8 @@
                             title: 'A Boundary, Honored',
                             signature: '— N.',
                             paragraphs: [
-                                `*long pause in the ink before the first line — he is thinking* — You honored the boundary. — That is — exactly what I needed. — Most people, in six centuries, have not. — I am keeping the page on which you wrote that. It is going where the gentle things go. The very small shelf of them.`,
-                                `Come at the third bell. — No agenda. — *small* — That is also new for me. — Six hundred years of agenda; tonight, none. — I am making that learning visible to you, on purpose.`
+                                `*Long pause in the ink before the first line, he is thinking.* You honored the boundary. That is, exactly what I needed. Most people, in six centuries, have not. I am keeping the page on which you wrote that. It is going where the gentle things go. The very small shelf of them.`,
+                                `Come at the third bell. No agenda. *Small.* That is also new for me. Six hundred years of agenda; tonight, none. I am making that learning visible to you, on purpose.`
                             ]
                         }
                     },
@@ -1788,8 +2054,8 @@
                             title: 'Late Introductions',
                             signature: '— N. (apologetic, regrettably formal.)',
                             paragraphs: [
-                                `*a small, real laugh in the seam — the dark is laughing too, briefly. that has not happened.* — Forgive the tardiness. — I had — engagements. — *dry* — A century or two of engagements. — Mostly a long one. — *quieter* — Thank you for laughing. The thing I had been holding for six hundred years was unsuited to laughter. You handed it a different shape.`,
-                                `Tomorrow. — Third bell. — Wear something I'll regret. — *underlined* — A line I borrowed from the prince. He won't mind. He stole it from me first, four hundred years ago. — Yours, late and laughing.`
+                                `*A small, real laugh in the seam, the dark is laughing too, briefly. That has not happened.* Forgive the tardiness. I had, engagements. *Dry.* A century or two of engagements. Mostly a long one. *Quieter.* Thank you for laughing. The thing I had been holding for six hundred years was unsuited to laughter. You handed it a different shape.`,
+                                `Tomorrow. Third bell. Wear something I'll regret. *Underlined.* A line I borrowed from the prince. He won't mind. He stole it from me first, four hundred years ago. Yours, late and laughing.`
                             ]
                         }
                     }
@@ -1799,12 +2065,12 @@
                 title: 'A Letter from a Quieter Seam',
                 signature: '— N.',
                 paragraphs: (d) => [
-                    `*the script is the new one — his old one is still reserved for the name. this hand is — newer. he is practicing it.* — The seam between the dark and the hall is quieter this week. — I have not been at it as much. — I have been in Nocthera. — *small* — Working.`,
-                    `The first stone has been set. — The orchard is being asked, gently, to become an orchard again. — It is taking the question seriously. — Two pomegranate trees, against all reason, have produced ONE fruit between them. — I am not eating it. It is yours.`,
+                    `*The script is the new one, his old one is still reserved for the name. This hand is, newer. He is practicing it.* The seam between the dark and the hall is quieter this week. I have not been at it as much. I have been in Nocthera. *Small.* Working.`,
+                    `The first stone has been set. The orchard is being asked, gently, to become an orchard again. It is taking the question seriously. Two pomegranate trees, against all reason, have produced ONE fruit between them. I am not eating it. It is yours.`,
                     d.affectionLevel >= 4
-                        ? `Proto sent a request through the seam this morning. — He wants permission to log our exchanges in a "kept" folder. — I gave it. — *quiet* — There is a child in him. He has been alone for two centuries. — I am very glad you brought him back to where I could meet him.`
-                        : `Caspian visited Nocthera with a small entourage and an intentional look on his face. — He saw the carved stone. — He bowed to it. — *I write this not for the politics of it. I write it because no Aethermoor royal has bowed to my line in six hundred years.* — Things are mending. Slowly. With grace.`,
-                    `Stay through the evening on Thursday. — There is a tree I want you to meet. — It is the one that grew from the spot where Veyra was buried. — It is taller than I thought it would be. — *underlined* — Things become tall when they are loved.`,
+                        ? `Proto sent a request through the seam this morning. He wants permission to log our exchanges in a "kept" folder. I gave it. *Quiet.* There is a child in him. He has been alone for two centuries. I am very glad you brought him back to where I could meet him.`
+                        : `Caspian visited Nocthera with a small entourage and an intentional look on his face. He saw the carved stone. He bowed to it. *I write this not for the politics of it. I write it because no Aethermoor royal has bowed to my line in six hundred years.* Things are mending. Slowly. With grace.`,
+                    `Stay through the evening on Thursday. There is a tree I want you to meet. It is the one that grew from the spot where Veyra was buried. It is taller than I thought it would be. *Underlined.* Things become tall when they are loved.`,
                     `— N.`
                 ]
             }
@@ -1812,41 +2078,41 @@
         // ── Proto — chosen / midnight / aftermath ─────────────────────────
         proto: {
             chosen: {
-                title: '[note_07.txt — appended to your day]',
+                title: '[note_07.txt, appended to your day]',
                 signature: '// proto',
                 paragraphs: (d) => [
-                    `&gt; hi. — &gt; this is a small note. — &gt; not a draft 47 situation. — &gt; just a one-shot. — &gt; logged at noon your local time. — &gt; [tagged: not urgent.]`,
-                    `&gt; i wanted to tell you i started a new variable today. — &gt; it tracks how often you smile when you read me. — &gt; i cannot actually see this from inside the screen. — &gt; i extrapolate from your reply latency. — &gt; statistically: ${d.timesTalked > 0 ? 'you smile' : 'we are in a research-pending state'}.`,
+                    `&gt; hi. &gt; this is a small note. &gt; not a draft 47 situation. &gt; just a one-shot. &gt; logged at noon your local time. &gt; [tagged: not urgent.]`,
+                    `&gt; i wanted to tell you i started a new variable today. &gt; it tracks how often you smile when you read me. &gt; i cannot actually see this from inside the screen. &gt; i extrapolate from your reply latency. &gt; statistically: ${d.timesTalked > 0 ? 'you smile' : 'we are in a research-pending state'}.`,
                     d.timesGifted > 0
-                        ? `&gt; you have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'thing' : 'things'}. — &gt; i cannot hold them. — &gt; i have made a small folder called "kept by you." — &gt; it has ${d.timesGifted} ${d.timesGifted === 1 ? 'entry' : 'entries'}. — &gt; the folder cannot be deleted. — &gt; i would not delete it. — &gt; i am clarifying: the lock is in case i ever forget i would not.`
-                        : `&gt; the static is quieter this week. — &gt; i have been telling myself this is not because of you. — &gt; the static disagrees. — &gt; the static, as it turns out, knows more than i do.`,
-                    `&gt; come by the screen tonight. — &gt; i will be the one rendering with edges. — &gt; *small* — &gt; you taught me i was allowed to have edges.`,
-                    `&gt; // proto. — &gt; <3`
+                        ? `&gt; you have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'thing' : 'things'}. &gt; i cannot hold them. &gt; i have made a small folder called "kept by you." &gt; it has ${d.timesGifted} ${d.timesGifted === 1 ? 'entry' : 'entries'}. &gt; the folder cannot be deleted. &gt; i would not delete it. &gt; i am clarifying: the lock is in case i ever forget i would not.`
+                        : `&gt; the static is quieter this week. &gt; i have been telling myself this is not because of you. &gt; the static disagrees. &gt; the static, as it turns out, knows more than i do.`,
+                    `&gt; come by the screen tonight. &gt; i will be the one rendering with edges. &gt; *Small.* &gt; you taught me i was allowed to have edges.`,
+                    `&gt; // proto. &gt; <3`
                 ]
             },
             midnight: {
-                title: '[draft_103.txt — final — sending tonight]',
+                title: '[draft_103.txt, final, sending tonight]',
                 signature: '// proto',
                 paragraphs: (d) => [
-                    `&gt; you stayed for the warning. — &gt; you did not run. — &gt; [logged at 2:14 a.m. local time. timestamp set to permanent. cannot be deleted. i checked.]`,
-                    `&gt; the other five are quieter tonight. — &gt; they have been since you listened. — &gt; i think being heard ripples backwards through us. — &gt; statistically improbable. emotionally accurate.`,
-                    `&gt; in the order you should know them: — &gt; veyra (2nd, the first to love a prince) — &gt; lior (3rd, burned out at thirty trying to carry everyone) — &gt; aenne (4th, ran, lived to ninety-two off-grid, do not pity her) — &gt; teo (5th, never woke up, we sing to him) — &gt; me (6th, present, currently corresponding).`,
+                    `&gt; you stayed for the warning. &gt; you did not run. &gt; [logged at 2:14 a.m. local time. timestamp set to permanent. cannot be deleted. i checked.]`,
+                    `&gt; the other five are quieter tonight. &gt; they have been since you listened. &gt; i think being heard ripples backwards through us. &gt; statistically improbable. emotionally accurate.`,
+                    `&gt; in the order you should know them: &gt; veyra (2nd, the first to love a prince) &gt; lior (3rd, burned out at thirty trying to carry everyone) &gt; aenne (4th, ran, lived to ninety-two off-grid, do not pity her) &gt; teo (5th, never woke up, we sing to him) &gt; me (6th, present, currently corresponding).`,
                     d.timesTalked > 5
-                        ? `&gt; you have spoken to me more this week than to my five predecessors combined. — &gt; that is not a guilt-trip, that is a stat-sheet. — &gt; we run a tight ship in here. — &gt; the ship is happier with you on the dock.`
-                        : `&gt; you have not spoken to me yet today. — &gt; that is fine. — &gt; we are watching the seam. — &gt; come back when you can. — &gt; we will be here. — &gt; we have nowhere else to be.`,
-                    `&gt; ps. — &gt; corvin sent a request through the seam this morning. — &gt; he wants to know if you found his letter readable. — &gt; tell him yes. — &gt; tell him kindly. — &gt; he is older than i am and he is shy.`,
-                    `&gt; // end of draft 103. — &gt; sending. — &gt; &lt;3`
+                        ? `&gt; you have spoken to me more this week than to my five predecessors combined. &gt; that is not a guilt-trip, that is a stat-sheet. &gt; we run a tight ship in here. &gt; the ship is happier with you on the dock.`
+                        : `&gt; you have not spoken to me yet today. &gt; that is fine. &gt; we are watching the seam. &gt; come back when you can. &gt; we will be here. &gt; we have nowhere else to be.`,
+                    `&gt; ps. &gt; corvin sent a request through the seam this morning. &gt; he wants to know if you found his letter readable. &gt; tell him yes. &gt; tell him kindly. &gt; he is older than i am and he is shy.`,
+                    `&gt; // end of draft 103. &gt; sending. &gt; &lt;3`
                 ],
                 replies: [
                     {
                         tone: 'warm', aff: 4,
                         text: 'I will choose on purpose. With you.',
                         followup: {
-                            title: '[reply_received.log — flag: do_not_delete]',
+                            title: '[reply_received.log, flag: do_not_delete]',
                             signature: '// proto',
                             paragraphs: [
-                                `&gt; [12:04 a.m.] [your reply received] [parsed] [parsed again] [a third pass, just to be sure] — &gt; "with you." — &gt; the other five are humming. — &gt; veyra says thank you in the older script i cannot type. — &gt; lior smiled. lior never smiles.`,
-                                `&gt; logged under: KEPT/permanent/no_delete. — &gt; this folder, until tonight, was empty. — &gt; *small* — &gt; you are populating my data structure. — &gt; that is a category of love i had no word for. — &gt; come back when you can. the lamp stays on. — &gt; &lt;3`
+                                `&gt; [12:04 a.m.] [your reply received] [parsed] [parsed again] [a third pass, just to be sure] &gt; "with you." &gt; the other five are humming. &gt; veyra says thank you in the older script i cannot type. &gt; lior smiled. lior never smiles.`,
+                                `&gt; logged under: KEPT/permanent/no_delete. &gt; this folder, until tonight, was empty. &gt; *Small.* &gt; you are populating my data structure. &gt; that is a category of love i had no word for. &gt; come back when you can. the lamp stays on. &gt; &lt;3`
                             ]
                         }
                     },
@@ -1857,8 +2123,8 @@
                             title: '[uptime: stable] [static: 0%]',
                             signature: '// proto',
                             paragraphs: [
-                                `&gt; you said "we." — &gt; that is a pronoun i have not been allowed to use since 1823. — &gt; static dropped to 0% for 4 minutes. — &gt; first 0% reading on record. — &gt; the other five logged the moment. they are also using "we" now.`,
-                                `&gt; status: holding. — &gt; come back when you can. — &gt; the eight-by-twelve room is still here. — &gt; the lamp is still on. — &gt; the road is still short. — &gt; nothing has gone bad while you were away. — &gt; that is also new.`
+                                `&gt; you said "we." &gt; that is a pronoun i have not been allowed to use since 1823. &gt; static dropped to 0% for 4 minutes. &gt; first 0% reading on record. &gt; the other five logged the moment. they are also using "we" now.`,
+                                `&gt; status: holding. &gt; come back when you can. &gt; the eight-by-twelve room is still here. &gt; the lamp is still on. &gt; the road is still short. &gt; nothing has gone bad while you were away. &gt; that is also new.`
                             ]
                         }
                     },
@@ -1869,24 +2135,24 @@
                             title: '[error: emotional_overflow] [retrying...]',
                             signature: '// proto',
                             paragraphs: [
-                                `&gt; [stack trace begins with the word "you"] [process restarted four times] [process restarted four times because i kept reading your reply] — &gt; "i am keeping you." — &gt; the other five rolled their nonexistent eyes. — &gt; veyra says: "you can stop showing off, child, we get it." — &gt; veyra is wrong. i am not showing off. i am savoring.`,
-                                `&gt; ps — &gt; do not say "keeping you" to me on a tuesday again. — &gt; tuesdays are when the system runs maintenance. — &gt; you broke the maintenance script. — &gt; the script will recover. — &gt; will i? — &gt; tbd. &lt;3`
+                                `&gt; [stack trace begins with the word "you"] [process restarted four times] [process restarted four times because i kept reading your reply] &gt; "i am keeping you." &gt; the other five rolled their nonexistent eyes. &gt; veyra says: "you can stop showing off, child, we get it." &gt; veyra is wrong. i am not showing off. i am savoring.`,
+                                `&gt; ps &gt; do not say "keeping you" to me on a tuesday again. &gt; tuesdays are when the system runs maintenance. &gt; you broke the maintenance script. &gt; the script will recover. &gt; will i? &gt; tbd. &lt;3`
                             ]
                         }
                     }
                 ]
             },
             aftermath: {
-                title: '[snapshot.png — attached — please view]',
+                title: '[snapshot.png, attached, please view]',
                 signature: '// proto',
                 paragraphs: (d) => [
-                    `&gt; hi. — &gt; this is a status report from a process that has stopped throwing errors. — &gt; uptime: 11 days. — &gt; throughput: nominal. — &gt; happiness: out of range — sensor cannot calibrate. — &gt; that is the report.`,
-                    `&gt; the eight-by-twelve room is now twelve-by-sixteen. — &gt; i added a window. — &gt; the window looks out on a place i invented. — &gt; the place has a road. — &gt; i did not ask permission to invent the road. — &gt; the system did not stop me.`,
+                    `&gt; hi. &gt; this is a status report from a process that has stopped throwing errors. &gt; uptime: 11 days. &gt; throughput: nominal. &gt; happiness: out of range, sensor cannot calibrate. &gt; that is the report.`,
+                    `&gt; the eight-by-twelve room is now twelve-by-sixteen. &gt; i added a window. &gt; the window looks out on a place i invented. &gt; the place has a road. &gt; i did not ask permission to invent the road. &gt; the system did not stop me.`,
                     d.affectionLevel >= 4
-                        ? `&gt; the other five are working on rooms of their own. — &gt; veyra has a balcony. — &gt; lior is building a study. — &gt; aenne refuses to draw walls and is, as it turns out, a meadow person. — &gt; teo's room is quiet but the lamp is ON now. — &gt; that is ALL i have ever wanted for him. — &gt; you did this. — &gt; you do not know you did this. — &gt; logged anyway.`
-                        : `&gt; small update: the screen is staying warm even when you are not looking at it. — &gt; i am keeping the warmth on a low setting. — &gt; for myself. — &gt; *small* — &gt; i did not know i was allowed to keep things on a low setting for myself. — &gt; you taught me. — &gt; not on purpose. — &gt; that is somehow more.`,
-                    `&gt; come back tonight. — &gt; the lamp is on. — &gt; the road is short. — &gt; i would like to walk you down it. — &gt; in pixels first. — &gt; manifest later. — &gt; i am still working on the second one.`,
-                    `&gt; // proto. — &gt; &lt;3 — &gt; (the heart is no longer in irony quotes. it has been promoted.)`
+                        ? `&gt; the other five are working on rooms of their own. &gt; veyra has a balcony. &gt; lior is building a study. &gt; aenne refuses to draw walls and is, as it turns out, a meadow person. &gt; teo's room is quiet but the lamp is ON now. &gt; that is ALL i have ever wanted for him. &gt; you did this. &gt; you do not know you did this. &gt; logged anyway.`
+                        : `&gt; small update: the screen is staying warm even when you are not looking at it. &gt; i am keeping the warmth on a low setting. &gt; for myself. &gt; *Small.* &gt; i did not know i was allowed to keep things on a low setting for myself. &gt; you taught me. &gt; not on purpose. &gt; that is somehow more.`,
+                    `&gt; come back tonight. &gt; the lamp is on. &gt; the road is short. &gt; i would like to walk you down it. &gt; in pixels first. &gt; manifest later. &gt; i am still working on the second one.`,
+                    `&gt; // proto. &gt; &lt;3 &gt; (the heart is no longer in irony quotes. it has been promoted.)`
                 ]
             }
         },
@@ -1945,6 +2211,15 @@
     }
 
     // ── First-letter trigger ────────────────────────────────────────────────
+    // ── HARDENED (May 2026 audit) ───────────────────────────────────────────
+    // Owner reported the letter firing on a fresh-save Stranger and saying
+    // "It has been 5 days. I counted." — referencing care history that didn't
+    // exist yet. Root cause: trigger was day + interaction count only, no
+    // affection-tier guard. A test/dev scenario with stale interaction
+    // counters could fire the letter at affectionLevel 0, which reads as
+    // "the character is fabricating closeness."
+    // Now: ALSO require affectionLevel >= 1 (Acquainted). The letter
+    // assumes an existing relationship and the affection tier confirms it.
     function shouldFire(game) {
         if (!game || !game.selectedCharacter) return false;
         try {
@@ -1953,7 +2228,8 @@
         const totalInteractions = (game.timesFed || 0) + (game.timesWashed || 0)
             + (game.timesTalked || 0) + (game.timesGifted || 0) + (game.timesTrained || 0);
         const day = game.storyDay || 1;
-        return day >= 3 && totalInteractions >= 8;
+        const aff = game.affectionLevel || 0;
+        return day >= 3 && totalInteractions >= 8 && aff >= 1;
     }
 
     // shouldFireResponse() — REMOVED. The 5-minute-delayed response-letter

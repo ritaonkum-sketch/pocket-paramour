@@ -1,9 +1,9 @@
-/* encounter-elian-rescue.js — "The Thornwood Attack"
+/* encounter-elian-rescue.js."The Thornwood Attack"
  * --------------------------------------------------------------------------
- * Registers window.MSEncounterElianRescue.
+ * Registers window. MSEncounterElianRescue.
  *
  * WHAT THIS SCENE DOES (and why it exists):
- *   Elian's route has been contemplative \u2014 walks, tea, silence. Beautiful,
+ *   Elian's route has been contemplative.walks, tea, silence. Beautiful,
  *   but missing the physical-danger / rescue-fantasy beat that Otome routes
  *   need. This scene delivers that, AND it is the dramatic moment where the
  *   player's identity as a WEAVER is named out loud for the first time.
@@ -30,7 +30,7 @@
  *   - pp_weaver_revealed = '1'              (gates future Weaver-aware lines)
  *
  * VOICE DIRECTION (this scene, specifically):
- *   Elian is in action mode here \u2014 which is rare. His usual Heughan/Fraser
+ *   Elian is in action mode here.which is rare. His usual Heughan/Fraser
  *   low-warm cadence gets sharper. Shorter sentences. The kindness stays,
  *   but under pressure. When he names the Weaver word out loud, let the
  *   line BREATHE. That is the moment that changes the whole game.
@@ -69,7 +69,7 @@
     if (text) e.textContent = text;
     return e;
   }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
     return new Promise((resolve) => {
       elRef.innerHTML = '';
@@ -116,7 +116,7 @@
     ].join(';'));
     root.id = 'ms-encounter-root';
 
-    // Background — forest, with a wrongness layer that pulses red-black during attack
+    // Background.forest, with a wrongness layer that pulses red-black during attack
     const bg = el('div', [
       'position:absolute', 'inset:0',
       'background:radial-gradient(ellipse at center, #1a2a1f 0%, #05080a 80%)',
@@ -129,7 +129,7 @@
     bgImg.src = BG_SRC;
     root.appendChild(bg);
 
-    // The corruption-pulse overlay (red-black) — toggled during attack beats
+    // The corruption-pulse overlay (red-black).toggled during attack beats
     if (!document.getElementById('ms-keyframes-elian-rescue')) {
       const kf = document.createElement('style');
       kf.id = 'ms-keyframes-elian-rescue';
@@ -271,35 +271,35 @@
 
     try {
       // -----------------------------------------------------------------
-      // BEAT 1 — the wrong-forest
+      // BEAT 1.the wrong-forest
       // Player alone. The trees behave wrong. Narration, no speaker.
       // -----------------------------------------------------------------
-      n.speaker.textContent = '\u2014 THORNWOOD, DEEP NORTH \u2014';
-      await type(n.line, 'The path you were on is gone. \u2014 The trees have moved. \u2014 A stag stood still too long. \u2014 The undergrowth is too quiet. \u2014 Something is watching.', 24);
+      n.speaker.textContent = 'THORNWOOD, DEEP NORTH';
+      await type(n.line, 'The path you were on is gone. The trees have moved. A stag stood still too long. The undergrowth is too quiet. Something is watching.', 24);
       await wait(2200);
 
       // -----------------------------------------------------------------
-      // BEAT 2 — the corruption arrives
+      // BEAT 2.the corruption arrives
       // Red-black pulse washes over the scene. Something emerges.
       // -----------------------------------------------------------------
       n.corruption.style.animation = 'elianCorruption 2.4s ease-in-out infinite';
       n.corruption.style.opacity = '1';
       await wait(600);
-      await type(n.line, 'It comes out of the undergrowth. \u2014 A wolf. \u2014 Or it was, once. \u2014 Its eyes are wrong. Its fur is blackened. \u2014 It does not growl. \u2014 It looks at you with something almost like grief.', 24);
+      await type(n.line, 'It comes out of the undergrowth. A wolf. Or it was, once. Its eyes are wrong. Its fur is blackened. It does not growl. It looks at you with something almost like grief.', 24);
       await wait(2600);
 
       // -----------------------------------------------------------------
-      // BEAT 3 — the Weaver-flare (involuntary)
+      // BEAT 3.the Weaver-flare (involuntary)
       // Gold light pulses from the player. The creature recognizes it and lunges.
       // -----------------------------------------------------------------
       n.flare.style.animation = 'elianFlare 1.6s ease-out';
       n.flare.style.opacity = '1';
       setTimeout(() => { n.flare.style.opacity = '0'; n.flare.style.animation = ''; }, 1400);
-      await type(n.line, 'Something gold threads out from you. \u2014 Involuntary. \u2014 A flare you did not ask for. \u2014 The creature sees it. \u2014 It lunges.', 22);
+      await type(n.line, 'Something gold threads out from you. Involuntary. A flare you did not ask for. The creature sees it. It lunges.', 22);
       await wait(2000);
 
       // -----------------------------------------------------------------
-      // BEAT 4 — Elian arrives
+      // BEAT 4.Elian arrives
       // -----------------------------------------------------------------
       n.speaker.textContent = 'ELIAN';
       n.charImg.src = BODY_GUARDED;
@@ -307,47 +307,47 @@
       n.charWrap.style.transform = 'translateY(0) scale(1)';
       n.charWrap.style.animation = 'none';
       await wait(300);
-      await type(n.line, '\u2014 Get DOWN.', 30);
+      await type(n.line, 'Get DOWN.', 30);
       await wait(900);
 
-      // Creature dispatched — a blade-stroke, then silence
+      // Creature dispatched.a blade-stroke, then silence
       n.corruption.style.animation = 'none';
       n.corruption.style.transition = 'opacity 900ms ease';
       n.corruption.style.opacity = '0';
       await wait(700);
 
       // -----------------------------------------------------------------
-      // BEAT 5 — the blessing (he is KIND to forest animals, even this one)
+      // BEAT 5.the blessing (he is KIND to forest animals, even this one)
       // -----------------------------------------------------------------
       n.charImg.src = BODY_FORAGING;
       await wait(300);
-      await type(n.line, '*kneels beside the fallen creature, says a few words in an older language, smooths its fur with a rough warm hand* \u2014 You were a deer once. \u2014 Before something ate you from the inside. \u2014 Rest now. \u2014 The trees remember you as you were.', 22);
+      await type(n.line, '*Kneels beside the fallen creature, says a few words in an older language, smooths its fur with a rough warm hand*. You were a deer once. Before something ate you from the inside. Rest now. The trees remember you as you were.', 22);
       await wait(3200);
 
       // -----------------------------------------------------------------
-      // BEAT 6 — he turns to the player, checks for wounds, recognizes what she is
+      // BEAT 6.he turns to the player, checks for wounds, recognizes what she is
       // -----------------------------------------------------------------
       n.charImg.src = BODY_CALM;
       await wait(300);
-      await type(n.line, '*rises, crosses to you, rough hands cupping your face, turning it side to side, checking for wounds \u2014 then stills* \u2014 \u2026You are unhurt. \u2014 Good. \u2014 Hold still a moment. \u2014 I need to look at you. Properly. \u2014 I should have looked sooner.', 22);
+      await type(n.line, '*Rises, crosses to you, rough hands cupping your face, turning it side to side, checking for wounds. Then stills*. \u2026You are unhurt. Good. Hold still a moment. I need to look at you. Properly. I should have looked sooner.', 22);
       await wait(2800);
 
-      // The big beat — he NAMES it.
-      await type(n.line, 'You are a Weaver. \u2014 I knew when the ground changed under your foot at the treeline. \u2014 I did not want to be right.', 20);
+      // The big beat.he NAMES it.
+      await type(n.line, 'You are a Weaver. I knew when the ground changed under your foot at the treeline. I did not want to be right.', 20);
       await wait(2400);
 
-      await type(n.line, 'I have only known one other. \u2014 Her name was Veyra. \u2014 The same thing came for her. \u2014 I was young. \u2014 I was too new to the Warden\u2019s post. \u2014 I did not save her. \u2014 I have been walking her forest alone ever since.', 20);
+      await type(n.line, 'I have only known one other. Her name was Veyra. The same thing came for her. I was young. I was too new to the Warden\u2019s post. I did not save her. I have been walking her forest alone ever since.', 20);
       await wait(3400);
 
-      await type(n.line, 'I will not fail again. \u2014 *presses his forehead to yours, one hand at the back of your head, rough and warm and steady* \u2014 You hear me. \u2014 Not this time.', 22);
+      await type(n.line, 'I will not fail again. *Presses his forehead to yours, one hand at the back of your head, rough and warm and steady*. You hear me. Not this time.', 22);
       await wait(3000);
 
       // -----------------------------------------------------------------
-      // BEAT 7 — the choice
+      // BEAT 7.the choice
       // -----------------------------------------------------------------
       n.hint.textContent = 'choose on purpose';
       n.hint.style.opacity = '0.75';
-      await type(n.line, 'The forest is no longer safe for you. \u2014 Not while it smells you. \u2014 You have two options, mi\u2019lady Weaver. \u2014 Choose carefully.', 22);
+      await type(n.line, 'The forest is no longer safe for you. Not while it smells you. You have two options, mi\u2019lady Weaver. Choose carefully.', 22);
       await wait(1200);
       n.hint.style.opacity = '0';
 
@@ -362,21 +362,21 @@
       n.dialogue.style.transform = 'translateY(0)';
 
       if (pick.id === 'stay') {
-        await type(n.line, '*something settles in his face. A weight finally set down.* \u2014 Then stay. \u2014 Under my roof. Under my watch. \u2014 You do not leave the Thornwood without me. \u2014 That is my only rule.', 24);
+        await type(n.line, '*Something settles in his face. A weight finally set down.*. Then stay. Under my roof. Under my watch. You do not leave the Thornwood without me. That is my only rule.', 24);
         await wait(3000);
-        await type(n.line, '*unbuckles his cloak, drapes it around your shoulders, keeps his hand at the nape of your neck after* \u2014 You smell like gold and rain. \u2014 That is how I will know it is you, every time you walk the path home.', 22);
+        await type(n.line, '*Unbuckles his cloak, drapes it around your shoulders, keeps his hand at the nape of your neck after*. You smell like gold and rain. That is how I will know it is you, every time you walk the path home.', 22);
         await wait(3200);
       } else {
-        await type(n.line, '*closes his eyes briefly, opens them* \u2014 Then I walk you to the border. \u2014 Tonight. \u2014 I do not want to. \u2014 I will.', 24);
+        await type(n.line, '*Closes his eyes briefly, opens them*. Then I walk you to the border. Tonight. I do not want to. I will.', 24);
         await wait(2800);
-        await type(n.line, '*cloak draped around your shoulders without looking up* \u2014 Take this. \u2014 Keep it. \u2014 When you need me, wear it. I will know. \u2014 The forest will tell me which direction.', 22);
+        await type(n.line, '*Cloak draped around your shoulders without looking up*. Take this. Keep it. When you need me, wear it. I will know. The forest will tell me which direction.', 22);
         await wait(3200);
       }
 
       // -----------------------------------------------------------------
-      // Final vow \u2014 regardless of choice
+      // Final vow.regardless of choice
       // -----------------------------------------------------------------
-      await type(n.line, 'It will come for you again. \u2014 I know its smell now. \u2014 I will be between it and you every time. \u2014 This is my post. \u2014 Do not argue.', 22);
+      await type(n.line, 'It will come for you again. I know its smell now. I will be between it and you every time. This is my post. Do not argue.', 22);
       await wait(3200);
 
       // Fade out
@@ -411,7 +411,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -450,7 +450,7 @@
   }
 
   // Debug handle
-  window.MSEncounterElianRescue = {
+  window. MSEncounterElianRescue = {
     play,
     force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); localStorage.removeItem(FLAG_CHOICE); } catch (_) {} },

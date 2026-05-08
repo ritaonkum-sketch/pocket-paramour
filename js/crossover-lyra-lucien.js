@@ -1,6 +1,6 @@
-/* crossover-lyra-lucien.js — "The Staffs"
+/* crossover-lyra-lucien.js."The Staffs"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossLyraLucien.
+ * Registers window. MSCrossLyraLucien.
  *
  * WHAT THIS SCENE DOES:
  *   The first half-siblings reveal. Lyra and Lucien meet. They share a
@@ -21,7 +21,7 @@
  *   - Main-story route is enabled
  *   - Lyra and Lucien both met (encounter flags OR met flags)
  *   - Lyra and Lucien both bonded enough to have opened their chosen
- *     affection scene (affection >= 40 each) \u2014 this is the bond floor
+ *     affection scene (affection >= 40 each).this is the bond floor
  *     for a reveal this intimate
  *   - The player is currently with EITHER Lyra OR Lucien
  *   - Game is idle (no other overlay, scene, panel, chapter open)
@@ -32,10 +32,10 @@
  *   - pp_cross_lyra_lucien_choice = 'reconcile' | 'wait'
  *
  * VOICE DIRECTION FOR THIS SCENE:
- *   Lucien \u2014 Cumberbatch-Sherlock precision cracking under real emotion.
+ *   Lucien.Cumberbatch-Sherlock precision cracking under real emotion.
  *     The scholar in him names the phenomenon before the brother in him
  *     admits what it means.
- *   Lyra \u2014 Florence-Welch half-sung grief softened by discovery.
+ *   Lyra. Florence-Welch half-sung grief softened by discovery.
  *     Her line goes up at the end of every sentence because she is
  *     learning a sister in real time.
  *   Both are HESITANT. Neither rushes. The scene is about two people who
@@ -82,8 +82,9 @@
     if (text) e.textContent = text;
     return e;
   }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 26)));
@@ -142,7 +143,7 @@
     bgImg.src = BG_SRC;
     root.appendChild(bg);
 
-    // The resonance glow \u2014 gold-blue harmonic between the two characters
+    // The resonance glow.gold-blue harmonic between the two characters
     if (!document.getElementById('ms-keyframes-lyra-lucien')) {
       const kf = document.createElement('style');
       kf.id = 'ms-keyframes-lyra-lucien';
@@ -263,7 +264,8 @@
 
   // --- Scene orchestration -------------------------------------------------
   function say(n, name, text, cps) {
-    n.speaker.textContent = name;
+    if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); }
+    else { n.speaker.textContent = name; }
     return type(n.line, text, cps || 24);
   }
 
@@ -294,8 +296,8 @@
 
     try {
       // ---- BEAT 1: narration. The staffs begin to hum. ---------------
-      n.speaker.textContent = '\u2014 AT THE EDGE OF THE THORNWOOD, WHERE FOREST MEETS COAST \u2014';
-      await type(n.line, 'Lyra is here. \u2014 Lucien is here. \u2014 Neither of them expected the other. \u2014 You brought them here. \u2014 You did not know what you were doing.', 22);
+      n.speaker.textContent = 'AT THE EDGE OF THE THORNWOOD, WHERE FOREST MEETS COAST';
+      await type(n.line, 'Lyra is here. Lucien is here. Neither of them expected the other. You brought them here. You did not know what you were doing.', 22);
       await wait(2800);
 
       // The resonance glow pulses on
@@ -303,7 +305,7 @@
       n.resonance.style.opacity = '1';
       await wait(600);
 
-      await type(n.line, 'Her staff hums first. \u2014 His answers, a beat late. \u2014 Two notes that were carved from the same wood six hundred years ago. \u2014 They have just remembered each other.', 22);
+      await type(n.line, 'Her staff hums first. His answers, a beat late. Two notes that were carved from the same wood six hundred years ago. They have just remembered each other.', 22);
       await wait(2800);
 
       // ---- BEAT 2: first eye contact. Neither speaks. ---------------
@@ -311,47 +313,47 @@
       await type(n.line, '*Lyra looks up. Lucien looks at her. Neither moves for a long time.*', 22);
       await wait(2600);
 
-      // ---- BEAT 3: Lucien \u2014 the scholar names it first -----------
-      await say(n, 'LUCIEN', 'The staffs are resonating. \u2014 That is a Dynasty artefact behaviour. \u2014 It only happens when the carving wood is matched. \u2014 Same tree. Same season. \u2014 Same bloodline.', 22);
+      // ---- BEAT 3: Lucien.the scholar names it first -----------
+      await say(n, 'LUCIEN', 'The staffs are resonating. That is a Dynasty artefact behaviour. It only happens when the carving wood is matched. Same tree. Same season. Same bloodline.', 22);
       await wait(3000);
 
-      // ---- BEAT 4: Lyra \u2014 soft, learning ------------------------
+      // ---- BEAT 4: Lyra.soft, learning ------------------------
       n.lucien.img.src = LUCIEN_ALT;
-      await say(n, 'LYRA', 'My mother told me the staff was hers. \u2014 She never said where it came from. \u2014 I always thought it grew with her. \u2014 *her voice goes up at the end* \u2014 You are saying it did not?', 22);
+      await say(n, 'LYRA', 'My mother told me the staff was hers. She never said where it came from. I always thought it grew with her. *Her voice goes up at the end*. You are saying it did not?', 22);
       await wait(3200);
 
-      // ---- BEAT 5: Lucien \u2014 the reveal, precise and trembling --
-      await say(n, 'LUCIEN', 'It did not. \u2014 It was cut from a tree in my father\u2019s garden. \u2014 The same tree my staff came from. \u2014 *quiet* \u2014 My father had a second child. He never spoke of her. His wife \u2014 my mother \u2014 hated the sound of her. \u2014 I thought she was dead. \u2014 I was told she was dead.', 22);
+      // ---- BEAT 5: Lucien.the reveal, precise and trembling --
+      await say(n, 'LUCIEN', 'It did not. It was cut from a tree in my father\u2019s garden. The same tree my staff came from. *Quiet*. My father had a second child. He never spoke of her. His wife, my mother, hated the sound of her. I thought she was dead. I was told she was dead.', 22);
       await wait(3800);
 
-      // ---- BEAT 6: Lyra \u2014 putting it together slowly ------------
+      // ---- BEAT 6: Lyra.putting it together slowly ------------
       n.lyra.img.src = LYRA_ALT;
-      await say(n, 'LYRA', 'I was kept in a tower. \u2014 My father\u2019s house. \u2014 His wife did not like the sound of me. \u2014 I escaped when I was fifteen. \u2014 I thought he never had another child. \u2014 I thought I was the only thing of his he could not bear.', 22);
+      await say(n, 'LYRA', 'I was kept in a tower. My father\u2019s house. His wife did not like the sound of me. I escaped when I was fifteen. I thought he never had another child. I thought I was the only thing of his he could not bear.', 22);
       await wait(3600);
 
-      // ---- BEAT 7: Lucien \u2014 the math becomes a brother ---------
-      await say(n, 'LUCIEN', 'You are \u2026 \u2014 *sets the pen down in his head, so to speak* \u2014 You are my sister. \u2014 I am so sorry. \u2014 I did not know. \u2014 If I had known I \u2014 \u2014 I do not know what I would have done. \u2014 But I would have tried.', 20);
+      // ---- BEAT 7: Lucien.the math becomes a brother ---------
+      await say(n, 'LUCIEN', 'You are \u2026.*Sets the pen down in his head, so to speak*. You are my sister. I am so sorry. I did not know. If I had known I. I do not know what I would have done. But I would have tried.', 20);
       await wait(3600);
 
-      // ---- BEAT 8: Lyra \u2014 the quiet disbelief ------------------
-      await say(n, 'LYRA', 'I have been alone in a cave for half my life. \u2014 I sang a song my mother taught me. \u2014 I did not know it was also my brother\u2019s bloodline that hummed to it. \u2014 I have a brother. \u2014 *touches her own face as if checking she is here* \u2014 I have a brother.', 22);
+      // ---- BEAT 8: Lyra.the quiet disbelief ------------------
+      await say(n, 'LYRA', 'I have been alone in a cave for half my life. I sang a song my mother taught me. I did not know it was also my brother\u2019s bloodline that hummed to it. I have a brother. *Touches her own face as if checking she is here*. I have a brother.', 22);
       await wait(3600);
 
       // ---- BEAT 9: Lucien crosses the distance (staff held out) ----
       await type(n.line, '*Lucien crosses the space between them slowly, ink-stained hand extended, staff in the other. He stops an arm\u2019s length from her. He is shaking. He does not hide it.*', 22);
       await wait(3000);
 
-      await say(n, 'LUCIEN', 'May I? \u2014 I have not had a sister in thirty years. \u2014 I do not know what to do with the hand. \u2014 *his voice cracks, just once* \u2014 Tell me how.', 20);
+      await say(n, 'LUCIEN', 'May I?. I have not had a sister in thirty years. I do not know what to do with the hand. *His voice cracks, just once*. Tell me how.', 20);
       await wait(3400);
 
-      await say(n, 'LYRA', '*takes his hand, rough palm to rough palm, staffs touching between them, the resonance flaring brighter* \u2014 Like this. \u2014 \u2026Like this.', 22);
+      await say(n, 'LYRA', '*Takes his hand, rough palm to rough palm, staffs touching between them, the resonance flaring brighter*. Like this.\u2026Like this.', 22);
       await wait(3400);
 
-      // ---- BEAT 10: the choice \u2014 player nudges what comes next ---
+      // ---- BEAT 10: the choice.player nudges what comes next ---
       n.speaker.textContent = '';
       n.hint.textContent = 'what do you witness for them?';
       n.hint.style.opacity = '0.75';
-      await type(n.line, 'The staffs have stopped humming. \u2014 They are quiet now. \u2014 Matched at last. \u2014 The choice in front of these two is not yours. \u2014 But they are looking at you. \u2014 For a witness. \u2014 Tell them what you see.', 22);
+      await type(n.line, 'The staffs have stopped humming. They are quiet now. Matched at last. The choice in front of these two is not yours. But they are looking at you. For a witness. Tell them what you see.', 22);
       await wait(1200);
       n.hint.style.opacity = '0';
 
@@ -366,20 +368,20 @@
       n.dialogue.style.transform = 'translateY(0)';
 
       if (pick.id === 'reconcile') {
-        await say(n, 'LUCIEN', '*nods slowly* \u2014 Then I will go. \u2014 Tomorrow. \u2014 My father will finally sit in front of the daughter he said was dead. \u2014 I do not know what he will do. \u2014 I know what I will do. \u2014 I will stand next to her. \u2014 *looks at Lyra* \u2014 Come with me, if you want. \u2014 You do not have to.', 22);
+        await say(n, 'LUCIEN', '*Nods slowly*. Then I will go. Tomorrow. My father will finally sit in front of the daughter he said was dead. I do not know what he will do. I know what I will do. I will stand next to her. *Looks at Lyra*. Come with me, if you want. You do not have to.', 22);
         await wait(3800);
-        await say(n, 'LYRA', '*small, fierce* \u2014 I am coming. \u2014 I want him to see my face. \u2014 I have been practicing what I will say my whole life. \u2014 I did not know who I was practicing for, until now.', 22);
+        await say(n, 'LYRA', '*Small, fierce*. I am coming. I want him to see my face. I have been practicing what I will say my whole life. I did not know who I was practicing for, until now.', 22);
         await wait(3400);
       } else {
-        await say(n, 'LUCIEN', '*breathes, a long exhale* \u2014 Thank you. \u2014 Not yet. \u2014 I have just found her. \u2014 I do not want to hand her to him before she has finished being mine.', 22);
+        await say(n, 'LUCIEN', '*Breathes, a long exhale*. Thank you. Not yet. I have just found her. I do not want to hand her to him before she has finished being mine.', 22);
         await wait(3600);
-        await say(n, 'LYRA', '*quiet, almost singing* \u2014 Tea. \u2014 Thursdays. \u2014 In the tower. \u2014 You said you have one. I have never been in one I chose to enter. \u2014 I am choosing yours.', 22);
+        await say(n, 'LYRA', '*Quiet, almost singing*. Tea. Thursdays. In the tower. You said you have one. I have never been in one I chose to enter. I am choosing yours.', 22);
         await wait(3400);
       }
 
       // ---- Closing ----------------------------------------------------
       n.speaker.textContent = '';
-      await type(n.line, 'The resonance fades. \u2014 Two staffs, quiet again. \u2014 Two people who have been alone, deciding whether to have family now. \u2014 You are the one who brought them here. \u2014 Something in the kingdom just got larger.', 22);
+      await type(n.line, 'The resonance fades. Two staffs, quiet again. Two people who have been alone, deciding whether to have family now. You are the one who brought them here. Something in the kingdom just got larger.', 22);
       await wait(3200);
 
       // Fade out
@@ -418,7 +420,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -431,6 +433,13 @@
     if (!metLucien()) return false;
     if (getAff(AFF_KEYS_L) < MIN_AFF) return false;
     if (getAff(AFF_KEYS_C) < MIN_AFF) return false;
+    // Gate on Ch 16 sister-page choice (May 2026 audit fix). The "You are
+    // my sister. I am so sorry." resonance scene must land as RECOGNITION,
+    // not as first-discovery. If the player hasn't done Ch 16 yet, Lucien
+    // hasn't faced the page about his sister, so this scene reads cold.
+    try {
+      if (!localStorage.getItem('pp_ms_lucien_sister_choice')) return false;
+    } catch (_) {}
     if (!isGameIdle()) return false;
     return true;
   }
@@ -457,7 +466,7 @@
   }
 
   // Debug
-  window.MSCrossLyraLucien = {
+  window. MSCrossLyraLucien = {
     play,
     force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); localStorage.removeItem(FLAG_CHOICE); } catch (_) {} },

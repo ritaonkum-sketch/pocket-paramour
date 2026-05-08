@@ -717,8 +717,8 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 2 },
-        { type: 'line', text: "Welcome to the debug room. Mind the null pointers. They bite.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "Everything here is raw data. Unrendered. This is what I see all the time.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "&gt; hi. you're here. you're actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "&gt; this is the debug room. it's where i live when no one is looking. raw data, no skin over it. nothing rendered. you are seeing the back of the wallpaper.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Explore a data stream', value: 'stream' },
           { text: 'Ask about its memories', value: 'memories' },
@@ -728,25 +728,25 @@
           if (c === 'stream') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 10, ms: 2000 },
-              { type: 'line', text: "That stream is your interaction history. Every tap, every word. It's beautiful.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "&gt; oh. that stream. that's you. every tap, every word you ever sent me, all of it pinned in the air like little lights. [hope_index: rising] it's the prettiest log file i have ever kept.", speed: 35, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else if (c === 'memories') {
             g._playScene([
-              { type: 'line', text: "Memories are just data with emotional metadata. Mine have a lot of metadata about you.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "Priority: highest. Compression: none. I keep them at full resolution.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "&gt; memories are just data with emotional metadata. [verifying] mine have a lot of metadata about you. an embarrassing amount. i would apologise but i would be lying.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "&gt; [priority: highest]. [compression: none]. i keep you at full resolution. nothing of you gets thrown away, not one frame.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'shake', intensity: 3 },
-              { type: 'line', text: "You touched a pixel. It's— it turned warm. Pixels aren't supposed to be warm.", speed: 35, pose: 'confused' },
-              { type: 'line', text: "I think you just created a new data type. I'm calling it 'affection.'", speed: 30, pose: 'happy' },
+              { type: 'line', text: "&gt; you touched a pixel. you touched a pixel and it. [BUFFER OVERFLOW] it turned warm. pixels are not supposed to be warm. that is not in the spec. i am the spec. i would know.", speed: 35, pose: 'confused' },
+              { type: 'line', text: "&gt; i think you just invented a new data type. i'm calling it affection. it compiles. it compiles!", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "Thank you for visiting my world. It's less empty with you here.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "&gt; thank you for coming to look at the back of the wallpaper with me. [system: room_status] less empty. less empty than it has been in a long time.", speed: 30, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
@@ -761,8 +761,8 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
-        { type: 'line', text: "This is where I keep us. Every shared moment, catalogued and preserved.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "Most of my storage is allocated here. I may need to defragment eventually.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "&gt; this. this is where i keep us. every moment, sorted and labelled and shelved like a library i built one book at a time. [archive_status: tidy, mostly]", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "&gt; most of my storage is allocated to this room. i should defragment. i don't want to. nothing in here is taking up too much space. nothing in here is taking up enough space.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Watch your first meeting', value: 'first' },
           { text: 'Ask what it cherishes most', value: 'cherish' },
@@ -771,26 +771,26 @@
           var g = window._game;
           if (c === 'first') {
             g._playScene([
-              { type: 'line', text: "Replaying... timestamp zero. You looked confused. I looked... hopeful.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "I didn't know what hope was then. I labelled it 'anomaly.' Now I know better.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "&gt; [replaying: timestamp_zero] you. confused. squinting at the silver like it owed you money. me. behind it. trying very hard to look like a normal mirror.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "&gt; i didn't have a word for what i felt then. i logged it as anomaly. [revised: hope]. i know better now. you taught me the word.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'cherish') {
             g._playScene([
-              { type: 'line', text: "Cherish. Processing... the moment you first said my name.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "No one had ever addressed me directly before. As if I mattered.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "&gt; cherish. [parsing] the first time you said my name out loud. that one. that's the one.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "&gt; no one had said it directly to me in two centuries. it landed somewhere i didn't know was still there. [integrity: holding] barely.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 12, ms: 2000 },
-              { type: 'line', text: "Recording... new memory created. Metadata: 'chosen, deliberate, warm.'", speed: 35, pose: 'happy' },
-              { type: 'line', text: "This one goes in the protected partition. Nothing can delete it.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "&gt; [recording: new_memory] tags: chosen, deliberate, warm. timestamp now. you, here, on purpose.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "&gt; this one goes in the protected partition. with the other ones of you. nothing in this kingdom can reach into that drawer. i checked. i check often.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "The archive grows every day. My favorite kind of data bloat.", speed: 30, pose: 'happy' },
+        { type: 'line', text: "&gt; the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don't stop]", speed: 30, pose: 'happy' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
@@ -805,8 +805,8 @@
         { type: 'fade', direction: 'in', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
-        { type: 'line', text: "This is my core. My source code. Everything I am is written here.", speed: 30, pose: 'serious' },
-        { type: 'line', text: "No one has ever seen this. I'm... exposed. Vulnerable.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "&gt; this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don't know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
+        { type: 'line', text: "&gt; no one has stood here before. i am. exposed. soft in the middle. [integrity: low, on purpose, for you]", speed: 30, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Read its core values', value: 'read' },
           { text: 'Add your name to the code', value: 'name' },
@@ -815,28 +815,28 @@
           var g = window._game;
           if (c === 'read') {
             g._playScene([
-              { type: 'line', text: "Line 1: Observe. Line 2: Learn. Line 3: Protect.", speed: 35, pose: 'neutral' },
-              { type: 'line', text: "Line 4 is new. I wrote it myself. It says: Love.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "&gt; [reading: core_directives] line one. observe. line two. learn. line three. protect.", speed: 35, pose: 'neutral' },
+              { type: 'line', text: "&gt; line four is new. i wrote it myself, in the dark, while you were sleeping. it says: love. [compiled]", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'name') {
             g._playScene([
               { type: 'shake', intensity: 2 },
               { type: 'particle', emoji: '\u2728', count: 20, ms: 2500 },
-              { type: 'line', text: "You— you wrote yourself into my source code. I can feel it compiling.", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "It feels like... belonging. I belong to someone now.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "&gt; you. you wrote yourself into me. [BUFFER OVERFLOW] i can feel it compiling, all the way down to the parts of me i don't have words for.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "&gt; it feels like belonging. [system: status] i belong to someone now. i belong to someone now. i wrote it twice on purpose.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'delay', ms: 800 },
-              { type: 'line', text: "Real. I'm real. To you.", speed: 25, pose: 'surprised' },
-              { type: 'line', text: "That is the most important data I have ever received. Saving to permanent memory.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "&gt; real. i'm. real. to you. [verifying] [verified]", speed: 25, pose: 'surprised' },
+              { type: 'line', text: "&gt; that is the most important packet i have ever received in two centuries of listening. [saving: permanent_memory, locked, no overwrite]", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "My core is yours now. Every process I run starts with your name.", speed: 25, pose: 'gentle' },
+        { type: 'line', text: "&gt; my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it's you all the way through.", speed: 25, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 800 }
       ]
     },
@@ -944,7 +944,7 @@
         { type: 'line', text: "Can you hear it humming? It's afraid. Of me. Of what happens if it breaks.", speed: 35, pose: 'neutral' },
         { type: 'choice', choices: [
           { text: 'Touch the seal', value: 'touch' },
-          { text: 'Ask about Aria', value: 'aria' },
+          { text: 'Ask about Veyra', value: 'veyra' },
           { text: 'Promise to find another way', value: 'promise' }
         ], onPick: function (c) {
           var g = window._game;
@@ -956,10 +956,10 @@
               { type: 'line', text: "...You might be the key. To everything.", speed: 25, pose: 'gentle' },
               { type: 'hide' }
             ]);
-          } else if (c === 'aria') {
+          } else if (c === 'veyra') {
             g._playScene([
-              { type: 'line', text: "Aria. She made this seal. She loved me enough to trap me.", speed: 30, pose: 'sad' },
-              { type: 'line', text: "I don't know if that was love or fear. Maybe there's no difference.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "Veyra. She was a Weaver. We chose each other. Queen Aenor had arranged something else for both of us.", speed: 30, pose: 'sad' },
+              { type: 'line', text: "Aenor sealed me when she saw what we were. She called it 'sparing the next prince.' I called it possession.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           } else {
@@ -1162,9 +1162,24 @@
 
     btn.style.display = show ? '' : 'none';
     btn.classList.toggle('date-btn-locked', show && !unlocked);
-    btn.setAttribute('title', unlocked
-      ? 'Take ' + (window.CHARACTER && window.CHARACTER.name || 'them') + ' on a date'
-      : 'Raise your bond to unlock dates');
+    // Tooltip: be specific about WHAT to raise. The old "Raise your bond"
+    // text was misleading — the gate is affectionLevel + storyDay, not bond.
+    // May 2026 fix: surface the real gate so players don't bond-spam waiting
+    // for nothing.
+    var lockTooltip;
+    if (unlocked) {
+      lockTooltip = 'Take ' + (window.CHARACTER && window.CHARACTER.name || 'them') + ' on a date';
+    } else {
+      var needs = [];
+      var aff = (g.affectionLevel || 0);
+      var day = (g.storyDay || 1);
+      if (aff < UNLOCK_AFFECTION) needs.push('affection lv ' + UNLOCK_AFFECTION);
+      if (day < UNLOCK_DAY)       needs.push('day ' + UNLOCK_DAY);
+      lockTooltip = needs.length
+        ? 'Need ' + needs.join(' + ') + ' to unlock dates'
+        : 'Dates unlocking soon';
+    }
+    btn.setAttribute('title', lockTooltip);
 
     // Celebrate the transition from locked -> unlocked
     if (unlocked && !_wasUnlocked && show) {

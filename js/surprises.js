@@ -634,6 +634,17 @@
     var surprise = pickSurprise();
     if (!surprise) return;
 
+    // ── CROSS-SYSTEM SCENE MUTEX (May 2026 audit, Phase 2) ─────────────
+    // Surprises can collide with small-moments / scheduled-moments / fight-
+    // makeup / events when their independent cooldowns happen to expire in
+    // the same poll window. Defer if any other scheduled-scene system
+    // fired in the last 5 min. Cooldown stamp is NOT set here so the next
+    // tick can retry without burning the surprise's 8-hour window.
+    if (window.PPAmbient && window.PPAmbient.tryClaimSceneSlot
+        && !window.PPAmbient.tryClaimSceneSlot('surprise:' + surprise.character)) {
+      return;
+    }
+
     hasFiredThisSession = true;
     localStorage.setItem('pp_last_surprise_time', String(Date.now()));
 

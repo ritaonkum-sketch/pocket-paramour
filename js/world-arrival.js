@@ -66,17 +66,22 @@
       }
 
       // Line content
+      // Slowed cps in May 2026 (was 30/28/26) — owner reported the typing
+      // wasn't perceptible during long narration blocks at the old speed.
+      // 22 cps (~45ms/char) is the otome standard (Mystic Messenger,
+      // Tears of Themis use 40-60ms). Player now sees individual letters
+      // appear, not text wiping in.
       let speaker = '';
-      let hold = 1100;
-      let cps  = 30;
+      let hold = 1300;
+      let cps  = 22;
       if (b.kind === 'line') {
         speaker = b.speaker || '';
-        hold = 1400;
-        cps = 28;
+        hold = 1500;
+        cps = 22;
       } else if (b.kind === 'tutorial') {
         speaker = '';
-        hold = 1900;
-        cps = 26;
+        hold = 2100;
+        cps = 20;
       }
       out.push({ type: 'line', speaker: speaker, text: b.text, hold: hold, cps: cps });
     }
@@ -96,9 +101,15 @@
     { kind: 'narration', text: 'You do not remember falling. You do not remember choosing this place. You do not remember the place before this place.' },
     { kind: 'narration', text: 'There is a torn page in your hand. The seal on it is unfamiliar. Two crossed branches and a moon. Your fingers know the shape. You do not know why.' },
     { kind: 'narration', text: 'Somewhere through the trees, far off, a horn sounds twice. Patrol. The kind of horn that means a kingdom is awake and watching.' },
+    // (Slow-burn pilot — first beat of the torn-page arc. She hides it from
+    //  a kingdom she has not yet seen. Tactile, brief, no dialogue. The page
+    //  now lives in her sleeve lining; subsequent chapters touch this pocket
+    //  without speaking until the symbol surfaces again — Ch9 royal library
+    //  dead-end → Ch14 Aenor-door sighting → Ch14 Lucien catches her.)
+    { kind: 'narration', text: 'You fold the page once, twice, until it is the size of your thumb. The lining of your sleeve has a small tear. Not made for hiding, but yours now. You slide the page inside. You do not know what the symbol means yet. You only know you would rather be the one to find out.' },
     { kind: 'narration', text: 'You try to stand. The world tilts. The moss tilts with you. You go down again, slowly, the way a candle goes out.' },
-    { kind: 'narration', text: 'Hooves. Slow ones. A man’s footsteps. A voice — calm, exact, low — saying a word you do not catch.' },
-    { kind: 'line', speaker: 'A MAN’S VOICE', text: '— alright. You are alright. Do not move. I have you.' }
+    { kind: 'narration', text: 'Hooves. Slow ones. A man’s footsteps. A voice, calm, exact, low, saying a word you do not catch.' },
+    { kind: 'line', speaker: 'A MAN’S VOICE', text: '...alright. You are alright. Do not move. I have you.' }
   ];
 
   let _playing = false;
@@ -120,7 +131,7 @@
       _resolveDone = resolve;
       const card = {
         id: 'b_arrival',
-        title: 'ARRIVAL',
+        title: 'Chapter 1',
         subtitle: 'Face Down in Moss',
         speaker: '',
         palette: { bg: '#06030f', glow: '#3a4860', accent: '#d8cfe6' },

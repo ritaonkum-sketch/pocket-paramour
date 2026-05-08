@@ -45,26 +45,25 @@
     const s = document.createElement('style');
     s.id = 'pp-letters-styles';
     s.textContent = `
-      /* Floating button — sits just under the hamburger (#topbar-menu-btn).
-         Top offset accounts for the topbar height (~46px). */
+      /* Letters button — lives inside the topbar collapsible group.
+         The .topbar-collapsible class drives the show/hide animation
+         from the central topbar collapse system (ui-feel.js). Size
+         matches the other 30px buttons. Owner asked May 2026 to drop
+         the brown box background — icon-only now, like the trophy /
+         gallery / settings buttons next to it. */
       #pp-letters-btn {
-        position: fixed;
-        top: 56px; right: 12px;
-        width: 32px; height: 32px;
-        border-radius: 10px;
-        background: linear-gradient(180deg, #3a2a1a 0%, #261810 100%);
-        border: 1px solid rgba(220,180,120,0.45);
-        color: #f0d8a0;
+        position: relative;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        color: inherit;
         font-size: 16px;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; z-index: 8500;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.45),
-                    0 0 0 0 rgba(240,200,140,0);
-        transition: transform 0.18s ease, box-shadow 0.5s ease;
+        cursor: pointer;
+        transition: transform 0.18s ease;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
       }
-      #pp-letters-btn:active { transform: scale(0.96); }
+      #pp-letters-btn:active { transform: scale(0.92); }
       /* Pulse animation when there's something needing attention. */
       #pp-letters-btn.pp-letters-pulse {
         animation: pp-letters-pulse 1.8s ease-in-out infinite;
@@ -231,12 +230,26 @@
   function ensureButton() {
     if (_btn) return _btn;
     injectStyles();
-    _btn = document.createElement('div');
+    _btn = document.createElement('button');
     _btn.id = 'pp-letters-btn';
     _btn.title = 'Letters';
+    _btn.className = 'topbar-collapsible'; // joins the topbar's collapse system
     _btn.innerHTML = '\u{1F4DC}<span class="pp-letters-dot hidden">!</span>';
     _btn.addEventListener('click', openArchive);
-    document.body.appendChild(_btn);
+    // ── HOME-SCREEN MINIMALISM (May 2026) ───────────────────────────────
+    // Was: floating fixed-position icon at top-right that overlapped the
+    // character. Now: lives inside the topbar's collapsible group with
+    // the other secondary buttons (trophy/gallery/music/companions/
+    // settings), so the character has the screen and the button is
+    // discoverable via the ☰ menu — same pattern as Love and Deepspace.
+    const display = document.getElementById('affection-display');
+    const menuBtn = document.getElementById('topbar-menu-btn');
+    if (display && menuBtn) {
+      display.insertBefore(_btn, menuBtn);
+    } else {
+      // Fallback: keep the legacy floating placement if topbar isn't there yet.
+      document.body.appendChild(_btn);
+    }
     return _btn;
   }
 
@@ -281,7 +294,7 @@
       'mscard-root', 'ms-encounter-root', 'chp-page', 'tp-root',
       'mg-overlay', 'mon-bundle-back', 'settings-overlay',
       'letter-overlay', 'pp-letters-overlay', 'cinematic-overlay',
-      'event-overlay', 'gift-panel', 'training-panel', 'dress-panel',
+      'event-overlay', 'gift-panel', 'training-panel',
       'story-overlay', 'main-story-page', 'pp-onboarding-overlay',
       'pp-skip-overlay', 'mst-confirm-overlay'
     ];
@@ -458,8 +471,15 @@
   // Boot — gentle polling only. The previous MutationObserver watched the
   // entire body subtree for every class/style change, which fired hundreds
   // of times per second during MSCard scenes (typewriter chars, particles,
-  // pose swaps, etc.) and froze the game. A 900ms poll is plenty
-  // responsive for show/hide transitions while costing almost nothing.
+  // pose swaps, etc.) and froze the game.
+  //
+  // We then ran a 900ms poll as a fallback. That was responsive but cost
+  // ~67 ticks/min on mobile. May 2026 pass: slowed to 3000ms AND gated on
+  // PPAmbient.tickAllowed() so the poll skips entirely when the tab is
+  // hidden or a scene/modal is active. The click + visibilitychange
+  // listeners still give near-instant response when the player interacts —
+  // the interval is just a safety net for state changes that aren't tap-
+  // driven, so 3s is plenty.
   // ---------------------------------------------------------------------------
   let _refreshScheduled = false;
   function refreshDebounced() {
@@ -468,9 +488,19 @@
     setTimeout(() => { _refreshScheduled = false; refresh(); }, 80);
   }
 
+  function quietTick() {
+    // Bail if the ambient coordinator says now isn't a good time
+    // (tab hidden, or a scene is up — archive can't be visible then anyway).
+    try {
+      if (window.PPAmbient && typeof window.PPAmbient.tickAllowed === 'function'
+          && !window.PPAmbient.tickAllowed()) return;
+    } catch (_) { /* coordinator missing — fall through and refresh */ }
+    refresh();
+  }
+
   function boot() {
     refresh();
-    setInterval(refresh, 900);
+    setInterval(quietTick, 3000);
     // Light listeners: refresh when the player taps anywhere (cheap, gives
     // us a near-immediate response when they navigate via taps), and when
     // the page becomes visible.

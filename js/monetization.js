@@ -330,7 +330,7 @@
   function endingsTick() {
     if (!isEnabled()) return;
     const now = getSeenEndings();
-    // Detect a *new* ending seen since last poll (and not this module's own prompt)
+    // Detect a *New* ending seen since last poll (and not this module's own prompt)
     for (const c of Object.keys(now)) {
       if (!_lastEndingsSeen[c] && now[c] === '1') {
         // Slight delay so the ending card's own fade-out finishes first

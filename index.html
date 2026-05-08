@@ -205,6 +205,7 @@
             <button id="trophy-btn" class="topbar-collapsible" title="Achievements">🏆</button>
             <button id="gallery-btn" class="topbar-collapsible" title="Gallery">🃏</button>
             <button id="music-btn" class="topbar-collapsible" title="Toggle Music">🎵</button>
+            <button id="companions-btn" class="topbar-collapsible" title="Choose Your Companion">💞</button>
             <button id="settings-btn" class="topbar-collapsible" title="Settings">⚙️</button>
             <button id="topbar-menu-btn" title="Menu" aria-label="Menu">&#9776;</button>
         </div>
@@ -233,7 +234,7 @@
                 <span class="face-portrait-caption">mood</span>
             </div>
             <div id="personality-badge" class="hidden"></div>
-            <div id="outfit-label" class="hidden"></div>
+            <!-- (outfit-label removed May 2026 — outfit system removed) -->
             <!-- ZZZ overlay — shown during midnight sleep (12am–5am) -->
             <div id="zzz-overlay">
                 <span class="zzz z1">z</span>
@@ -257,7 +258,7 @@
             </div>
             <div id="dialogue-box">
                 <div id="dialogue-speaker"></div>
-                <div id="dialogue-text">Take care of me...</div>
+                <div id="dialogue-text">…</div>
                 <div id="dialogue-tap-hint" class="hidden">tap to continue</div>
             </div>
         </div>
@@ -286,14 +287,9 @@
             </button>
         </div>
 
-        <!-- DRESS PANEL (slides up) -->
-        <div id="dress-panel" class="hidden">
-            <div id="dress-panel-header">
-                <span>Outfits</span>
-                <button id="dress-close">&#x2715;</button>
-            </div>
-            <div id="dress-grid"></div>
-        </div>
+        <!-- (DRESS PANEL removed May 2026 — outfit system was unreachable
+             from UI and removed entirely. The character's pose changes via
+             beat/dialogue context handle wardrobe narratively.) -->
 
         <!-- GIFT PANEL (slides up) -->
         <div id="gift-panel" class="hidden">
@@ -571,6 +567,12 @@
          other module tries to read localStorage. -->
     <script defer src="js/storage-guard.js"></script>
 
+    <!-- Overlay coordination helper — provides PPOverlay.show/hide so any
+         overlay can opt into the topbar-bleed-through fix without editing
+         a long :has() list in style.css. Loaded early so it's available
+         to all subsequent overlay modules. -->
+    <script defer src="js/pp-overlay.js"></script>
+
     <!-- Live tuning + analytics + bandit must load before game.js -->
     <script defer src="js/remote-config.js"></script>
     <script defer src="js/analytics.js"></script>
@@ -628,6 +630,9 @@
     <script defer src="js/premium-card.js"></script>
     <script defer src="js/cards-library.js"></script>
     <script defer src="js/adaptive-thoughts.js"></script>
+    <script defer src="js/small-moments.js"></script>
+    <script defer src="js/scheduled-moments.js"></script>
+    <script defer src="js/fight-makeup.js"></script>
     <script defer src="js/endings.js"></script>
     <script defer src="js/monetization.js"></script>
     <!-- memory-gallery.js removed — duplicated the in-game gallery's
@@ -662,19 +667,14 @@
     <!-- Threaded prologue chain — connects all 7 meet-cutes into one journey -->
     <script defer src="js/prologue-chain.js"></script>
     <script defer src="js/world-arrival.js"></script>
-    <script defer src="js/bridge-alistair.js"></script>
-    <script defer src="js/bridge-elian.js"></script>
-    <script defer src="js/bridge-lyra.js"></script>
-    <script defer src="js/bridge-caspian.js"></script>
-    <script defer src="js/bridge-lucien.js"></script>
-    <script defer src="js/bridge-noir.js"></script>
-    <script defer src="js/bridge-proto.js"></script>
+    <!-- bridge-*.js files merged into chapters.js (May 2026, owner request).
+         Their window.PPBridge<Name> globals are now registered from inside
+         chapters.js as appended IIFEs at the bottom of that file. -->
 
-    <!-- Dev panel. Hidden from normal players. Activated by ?dev=1 URL
-         param, pp_dev_panel=1 localStorage flag, or a triple-tap on the
-         top-right corner. REMOVE or gate this script tag before shipping
-         to production if you do not want testers to find it. -->
-    <script defer src="js/dev-panel.js"></script>
+    <!-- TODAY hub — Love-and-Deepspace-style daily lobby panel on select
+         screen. Shows urgent character, waiting letters, daily reward. -->
+    <script defer src="js/today-hub.js"></script>
+
     <script>
         // Register service worker for PWA
         if ('serviceWorker' in navigator) {

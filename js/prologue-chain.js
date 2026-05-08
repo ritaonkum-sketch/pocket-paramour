@@ -85,17 +85,36 @@
         return Math.max(0, Math.min(100, g.affection));
       }
     } catch (_) {}
-    // FALLBACK 1: explicit pp_affection_<char> key (used by chain code)
-    const v = lsGet('pp_affection_' + char);
-    if (v != null) return parseInt(v, 10) || 0;
-    // FALLBACK 2: legacy <char>_affection key
-    const v2 = lsGet(char + '_affection');
-    if (v2 != null) return parseInt(v2, 10) || 0;
-    // FALLBACK 3: parse the JSON save blob if game.js wrote one
+    // FALLBACK 1: parse the actual game.js JSON save blob (camelCase key
+    // — this is the authoritative store).
+    // (Promoted ahead of pp_affection_<char> May 2026 — owner found Ch5
+    //  blocked despite Alistair's affection being 44. Root cause: the
+    //  chain-code's standalone key got stale at 10 while the save blob
+    //  was current at 44, so the gate read the wrong source. Also fixed
+    //  the typo: the previous fallback 3 looked for
+    //  pocket_love_save_<char> (snake_case) which never matches the
+    //  actual key name pocketLoveSave_<char>.)
     try {
-      const blob = lsGet('pocket_love_save_' + char);
+      const blob = lsGet('pocketLoveSave_' + char);
       if (blob) {
         const o = JSON.parse(blob);
+        if (o && typeof o.affection === 'number') {
+          return Math.max(0, Math.min(100, o.affection));
+        }
+      }
+    } catch (_) {}
+    // FALLBACK 2: explicit pp_affection_<char> key (used by chain code).
+    // Kept for new characters where no save blob exists yet.
+    const v = lsGet('pp_affection_' + char);
+    if (v != null) return parseInt(v, 10) || 0;
+    // FALLBACK 3: legacy <char>_affection key.
+    const v2 = lsGet(char + '_affection');
+    if (v2 != null) return parseInt(v2, 10) || 0;
+    // FALLBACK 4: legacy snake_case save blob (kept for any ancient saves).
+    try {
+      const blob2 = lsGet('pocket_love_save_' + char);
+      if (blob2) {
+        const o = JSON.parse(blob2);
         if (o && typeof o.affection === 'number') return o.affection;
       }
     } catch (_) {}
@@ -844,10 +863,30 @@
     if (!prevChar || !nextChar) return;
     if (!careReadyFor(prevChar)) return;
     // Don't compete with any active chain transition or open scene/overlay.
+    // (Defers to PPAmbient.firstHourBusy() May 2026 — owner reported the
+    //  popup firing on top of the chapter-list page (#chp-page). The local
+    //  selector list here was missing chp-page, gallery, settings,
+    //  achievements, card-reveal, game-over, etc. Using the centralized
+    //  HARD_BLOCKERS list from ambient-coordinator avoids drift.
+    //  HARD_BLOCKERS now also includes #title-screen and #select-screen
+    //  so this popup can't fire pre-game.)
     if (document.body.classList.contains('pp-chain-in-progress')) return;
+    if (window.PPAmbient && typeof window.PPAmbient.firstHourBusy === 'function'
+        && window.PPAmbient.firstHourBusy()) return;
+    // Defensive fallback — if PPAmbient isn't loaded for some reason, keep
+    // explicit checks so the popup never fires off the care loop.
     if (document.querySelector('#mscard-root')) return;
     if (document.querySelector('#ms-encounter-root')) return;
+    if (document.querySelector('#chp-page')) return;
     if (document.querySelector('#letter-overlay:not(.hidden)')) return;
+    // Belt-and-suspenders: only fire while the actual care-loop screen is
+    // visible. Catches title-screen, select-screen, and any other pre-care
+    // state without needing each one explicitly.
+    const gc = document.getElementById('game-container');
+    if (!gc || gc.classList.contains('hidden')) return;
+    try {
+      if (getComputedStyle(gc).display === 'none') return;
+    } catch (_) {}
     _lastReadyModalStep = s;
     // Show the prominent modal (with auto-route button) instead of a toast.
     showReadyModal(prevChar, nextChar);
@@ -1086,9 +1125,13 @@
         localStorage.removeItem(SKIPPED_KEY);
         ORDER.forEach(c => localStorage.removeItem('pp_chain_' + c + '_cycle'));
       } catch (_) {}
-      _readyToastShown = false;
+      // Was: _readyToastShown / _arrivalRetries — both undeclared (former
+      // was renamed to _lastReadyModalStep, latter never existed). In strict
+      // mode this threw ReferenceError before the rest of reset() could run,
+      // leaving _arrivalAttempted permanently true so the second arrival
+      // could never play. Bug spotted May 2026.
+      _lastReadyModalStep = -1;
       _arrivalAttempted = false;
-      _arrivalRetries = 0;
       refreshGrid();
     }
   };

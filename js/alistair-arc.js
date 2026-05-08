@@ -99,16 +99,16 @@
     bg: BG_HALL,
     beats: [
       { type: 'show', pose: 'assets/alistair/body/soft-sad.png', wait: 900 },
-      { type: 'line', text: 'I am sorry, mi’lady. — I should have come yesterday. — I told you I would. — I did not.', hold: 3200, cps: 24 },
-      { type: 'line', text: '*there is dried blood on the linen at his side, badly bandaged, the work of someone in a hurry on horseback* — The campaign held. — The line held. — …The promise to you did not.', hold: 4200, cps: 24 },
+      { type: 'line', text: 'I am sorry, mi’lady. I should have come yesterday. I told you I would. I did not.', hold: 3200, cps: 24 },
+      { type: 'line', text: '*There is dried blood on the linen at his side, badly bandaged, the work of someone in a hurry on horseback*. The campaign held. The line held. …The promise to you did not.', hold: 4200, cps: 24 },
       { type: 'pose', src: 'assets/alistair/body/thinking2.png', animate: 'swap' },
-      { type: 'line', text: 'I rode for two days without sleeping. — The whole way I rehearsed what I would say when I walked through that door. — None of it was good enough. — None of it is good enough.', hold: 4800, cps: 24 },
-      { type: 'line', text: 'I have kept oaths to kings I never met. — I have kept oaths to captains who are buried now. — The first oath I made in my own voice — the one to be there — I broke. — You waited. — *quiet* — I know you waited.', hold: 5400, cps: 22 },
+      { type: 'line', text: 'I rode for two days without sleeping. The whole way I rehearsed what I would say when I walked through that door. None of it was good enough. None of it is good enough.', hold: 4800, cps: 24 },
+      { type: 'line', text: 'I have kept oaths to kings I never met. I have kept oaths to captains who are buried now. The first oath I made in my own voice, the one to be there, I broke. You waited. *Quiet*. I know you waited.', hold: 5400, cps: 22 },
       { type: 'flourish', text: '✦', duration: 1600 },
       { type: 'pose', src: 'assets/alistair/body/shy3.png', animate: 'swap' },
-      { type: 'line', text: '*lowers himself onto one knee — the wounded side wincing as he does, but he does not stop, does not let you stop him* — I have knelt for kings. — I have knelt for captains. — I am kneeling for you. — Not because you are above me. — Because I owe you something I cannot pay standing up.', hold: 6200, cps: 22 },
-      { type: 'line', text: 'I have said “I would die for you” a hundred times in my life. — To kings. To captains. To strangers in burning villages. — *quieter* — I always meant it the easy way. — The kind a soldier says without thinking. — …I am saying it now and it is not easy. — I would die for you, mi’lady. — The way I never meant before.', hold: 6800, cps: 20 },
-      { type: 'line', text: 'Forgive me. — Or do not. — *head still bowed, voice steady* — Either way I will be here tomorrow. — I will be on time. — I will be on time for the rest of my life. — That is the oath I am taking now. — Out loud. — So you have heard it.', hold: 6000, cps: 22 },
+      { type: 'line', text: '*Lowers himself onto one knee, the wounded side wincing as he does, but he does not stop, does not let you stop him*. I have knelt for kings. I have knelt for captains. I am kneeling for you. Not because you are above me. Because I owe you something I cannot pay standing up.', hold: 6200, cps: 22 },
+      { type: 'line', text: 'I have said “I would die for you” a hundred times in my life. To kings. To captains. To strangers in burning villages. *Quieter*. I always meant it the easy way. The kind a soldier says without thinking. …I am saying it now and it is not easy. I would die for you, mi’lady. The way I never meant before.', hold: 6800, cps: 20 },
+      { type: 'line', text: 'Forgive me. Or do not. *Head still bowed, voice steady*. Either way I will be here tomorrow. I will be on time. I will be on time for the rest of my life. That is the oath I am taking now. Out loud. So you have heard it.', hold: 6000, cps: 22 },
       { type: 'hide' }
     ]
   };
@@ -125,16 +125,16 @@
     bg: BG_HALL,
     beats: [
       { type: 'show', pose: 'assets/alistair/body/soft-sad.png', wait: 900 },
-      { type: 'line', text: 'I am not a knight as of this morning, mi’lady. — I am Alistair. — *quiet* — Just that. Just the name.', hold: 4000, cps: 24 },
+      { type: 'line', text: 'I am not a knight as of this morning, mi’lady. I am Alistair. *Quiet*. Just that. Just the name.', hold: 4000, cps: 24 },
       { type: 'pose', src: 'assets/alistair/body/thinking2.png', animate: 'swap' },
-      { type: 'line', text: 'They called the council at first light. — I stood through it without my sword — they took it before I entered. — The captain who trained me read the charges. — He did not look at me when he did. — I do not blame him.', hold: 5800, cps: 22 },
-      { type: 'line', text: 'Deserter. — That is the word now. — *small, controlled* — Twenty years of service unwritten in the time it takes to read a charge sheet. — I have been a knight longer than I have been a man. — I do not know what I am tonight.', hold: 6000, cps: 22 },
-      { type: 'line', text: 'I stayed because you asked. — I would do it again. — *firmer* — I want that on record. — I am not standing here regretting it. — But I am standing here, mi’lady, and — I am not who I was when you asked.', hold: 5800, cps: 22 },
+      { type: 'line', text: 'They called the council at first light. I stood through it without my sword. They took it before I entered. The captain who trained me read the charges. He did not look at me when he did. I do not blame him.', hold: 5800, cps: 22 },
+      { type: 'line', text: 'Deserter. That is the word now. *Small, controlled*. Twenty years of service unwritten in the time it takes to read a charge sheet. I have been a knight longer than I have been a man. I do not know what I am tonight.', hold: 6000, cps: 22 },
+      { type: 'line', text: 'I stayed because you asked. I would do it again. *Firmer*. I want that on record. I am not standing here regretting it. But I am standing here, mi’lady, and I am not who I was when you asked.', hold: 5800, cps: 22 },
       { type: 'flourish', text: '✦', duration: 1600 },
       { type: 'pose', src: 'assets/alistair/body/shy3.png', animate: 'swap' },
-      { type: 'line', text: '*lowers himself onto one knee in front of you — awkwardly, the way a man kneels who has only ever knelt to crowns and is making the gesture mean something different* — I knelt to a king at fifteen. — I knelt to a captain at twenty. — I am kneeling now without a title to offer you. — Just the man. — He is all you get. — He is yours, if you still want him.', hold: 7000, cps: 20 },
-      { type: 'line', text: 'I have said “I would die for you” a hundred times. — To kings. To captains. To strangers I owed a debt to. — I always meant it the easy way. — *quieter* — I am saying it now and it is not the easy way. — I would die for you, mi’lady. — I have already died for the man I used to be. — I would do that one again, too. — Without flinching.', hold: 7400, cps: 20 },
-      { type: 'line', text: 'Forgive me for arriving smaller than I left. — *head bowed* — I will be here tomorrow. — Without the armour. — Without the rank. — …Hopefully that is still enough.', hold: 6000, cps: 22 },
+      { type: 'line', text: '*Lowers himself onto one knee in front of you, awkwardly, the way a man kneels who has only ever knelt to crowns and is making the gesture mean something different*. I knelt to a king at fifteen. I knelt to a captain at twenty. I am kneeling now without a title to offer you. Just the man. He is all you get. He is yours, if you still want him.', hold: 7000, cps: 20 },
+      { type: 'line', text: 'I have said “I would die for you” a hundred times. To kings. To captains. To strangers I owed a debt to. I always meant it the easy way. *Quieter*. I am saying it now and it is not the easy way. I would die for you, mi’lady. I have already died for the man I used to be. I would do that one again, too. Without flinching.', hold: 7400, cps: 20 },
+      { type: 'line', text: 'Forgive me for arriving smaller than I left. *Head bowed*. I will be here tomorrow. Without the armour. Without the rank. …Hopefully that is still enough.', hold: 6000, cps: 22 },
       { type: 'hide' }
     ]
   };
@@ -142,7 +142,7 @@
   // ---- THE TENDING — convergent for both branches ----
   // The first earned contact. She removes the gauntlet. He does not stop
   // her. He admits the line was routine for twenty years and is not
-  // routine now. The kiss-the-wrist beat is *response* to her choosing
+  // routine now. The kiss-the-wrist beat is *Response* to her choosing
   // him stripped down — not a knight performing chivalry.
   const TENDING = {
     title: 'THE TENDING',
@@ -152,21 +152,21 @@
     bg: BG_ROOM,
     beats: [
       { type: 'show', pose: 'assets/alistair/body/casual.png', wait: 900 },
-      { type: 'line', text: '*sitting on the edge of the cot, gauntlet still on his right hand because he did not have the courage to take it off this morning* — I did not know if you would come. — I would not have blamed you.', hold: 4200, cps: 24 },
-      { type: 'line', text: '*sees the cup of water in your hand and stills for a moment — the same hand-rolled tin cup he used to bring you in the maid’s chamber, the day he found you* — …I gave you water in a maid’s chamber once. — You were unconscious for most of it. — I am awake for this one, mi’lady. — That is the difference. — That is the only difference that matters.', hold: 6400, cps: 22 },
-      { type: 'line', text: '*as you reach for the gauntlet he goes very still — not stopping you, not helping you either, just waiting like a man who has never been allowed to receive anything* — You can. — If you want to. — I will not move.', hold: 5400, cps: 22 },
+      { type: 'line', text: '*Sitting on the edge of the cot, gauntlet still on his right hand because he did not have the courage to take it off this morning*. I did not know if you would come. I would not have blamed you.', hold: 4200, cps: 24 },
+      { type: 'line', text: '*Sees the cup of water in your hand and stills for a moment, the same hand-rolled tin cup he used to bring you in the maid’s chamber, the day he found you*. …I gave you water in a maid’s chamber once. You were unconscious for most of it. I am awake for this one, mi’lady. That is the difference. That is the only difference that matters.', hold: 6400, cps: 22 },
+      { type: 'line', text: '*As you reach for the gauntlet he goes very still, not stopping you, not helping you either, just waiting like a man who has never been allowed to receive anything*. You can. If you want to. I will not move.', hold: 5400, cps: 22 },
       { type: 'pose', src: 'assets/alistair/body/softshy-love3.png', animate: 'swap' },
-      { type: 'line', text: '*the buckle gives, the leather folds back, the bare hand emerges — scarred, blunt-fingered, the hand of a man who has held a hilt for two decades and almost nothing else* — Careful with it. — *quietly* — It is not a hand that has been held before.', hold: 6200, cps: 20 },
+      { type: 'line', text: '*The buckle gives, the leather folds back, the bare hand emerges, scarred, blunt-fingered, the hand of a man who has held a hilt for two decades and almost nothing else*. Careful with it. *Quietly*. It is not a hand that has been held before.', hold: 6200, cps: 20 },
       { type: 'particles', count: 14, duration: 1800 },
-      { type: 'line', text: '*you take it. you turn it palm-up. the calluses are a map. he watches you read it and does not breathe for a full second* — …I am going to say something I have said before, mi’lady. — Please listen anyway.', hold: 5800, cps: 22 },
+      { type: 'line', text: '*You take it. You turn it palm-up. The calluses are a map. He watches you read it and does not breathe for a full second*. …I am going to say something I have said before, mi’lady. Please listen anyway.', hold: 5800, cps: 22 },
       { type: 'flourish', text: '✦', duration: 1800 },
-      { type: 'line', text: 'I would die for you. — *small, careful, like he is laying down a sword* — I have said that line my whole life. — To kings I did not love. — To captains I did not love. — To strangers I owed coin to. — It was a knight’s phrase. It cost me nothing to say.', hold: 6400, cps: 20 },
-      { type: 'line', text: '*lifts your hand to his lips, presses his mouth to the inside of your wrist — not theatrical, just held there, a long quiet moment* — …It costs me everything tonight. — That is the difference. — I wanted you to hear me say it the way it is supposed to sound.', hold: 6800, cps: 20 },
+      { type: 'line', text: 'I would die for you. *Small, careful, like he is laying down a sword*. I have said that line my whole life. To kings I did not love. To captains I did not love. To strangers I owed coin to. It was a knight’s phrase. It cost me nothing to say.', hold: 6400, cps: 20 },
+      { type: 'line', text: '*Lifts your hand to his lips, presses his mouth to the inside of your wrist, not theatrical, just held there, a long quiet moment*. …It costs me everything tonight. That is the difference. I wanted you to hear me say it the way it is supposed to sound.', hold: 6800, cps: 20 },
       { type: 'pose', src: 'assets/alistair/body/smile1.png', animate: 'swap' },
-      { type: 'line', text: '*does not let go of your hand. keeps it between both of his, like a thing he is finally allowed to be careless with* — I will not break another promise to you. — I cannot promise to be a knight anymore. — I can promise to be on time. — *softly* — That is a smaller oath. — …I will keep it better.', hold: 7000, cps: 20 },
-      { type: 'line', text: '*looks at you for a long moment, the careful look from the maid’s chamber returned but warmer now* — I told you once I would not ask you what you are. — I am still not asking. — *quieter* — But I have stopped wondering. — I know what you are to me. — That is the only answer I needed.', hold: 6800, cps: 20 },
+      { type: 'line', text: '*Does not let go of your hand. Keeps it between both of his, like a thing he is finally allowed to be careless with*. I will not break another promise to you. I cannot promise to be a knight anymore. I can promise to be on time. *Softly*. That is a smaller oath. …I will keep it better.', hold: 7000, cps: 20 },
+      { type: 'line', text: '*Looks at you for a long moment, the careful look from the maid’s chamber returned but warmer now*. I told you once I would not ask you what you are. I am still not asking. *Quieter*. But I have stopped wondering. I know what you are to me. That is the only answer I needed.', hold: 6800, cps: 20 },
       { type: 'particles', count: 18, duration: 2000 },
-      { type: 'line', text: 'Stay until I fall asleep. — *almost a whisper* — I have never asked anyone that. — I am asking you. — Out loud. — So you have heard it.', hold: 5400, cps: 22 },
+      { type: 'line', text: 'Stay until I fall asleep. *Almost a whisper*. I have never asked anyone that. I am asking you. Out loud. So you have heard it.', hold: 5400, cps: 22 },
       { type: 'hide' }
     ]
   };
@@ -185,13 +185,24 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)'
+      '#story-overlay:not(.hidden)'
     ].join(','));
     return !block;
   }
 
   function play(scene, doneKey) {
     if (!window.MSCard || typeof window.MSCard.show !== 'function') return;
+    // ── SCENE MUTEX (May 2026 audit, 3-scene-stack fix) ───────────────
+    // Owner reported alistair-arc midnight scene firing right after the
+    // letter and the affection-scene at Devoted tier-up. Claim the
+    // cross-system slot before mounting. If denied, do NOT mark seen
+    // so the next tick can retry.
+    try {
+      if (window.PPAmbient && window.PPAmbient.tryClaimSceneSlot
+          && !window.PPAmbient.tryClaimSceneSlot('alistair-arc:' + doneKey)) {
+        return;
+      }
+    } catch (_) { /* coordinator missing — proceed */ }
     _playing = true;
     markSeen(doneKey);
     window.MSCard.show(scene, () => { _playing = false; });

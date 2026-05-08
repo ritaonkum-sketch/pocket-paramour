@@ -50,26 +50,32 @@
       speaker: 'ALISTAIR',
       pose: 'assets/alistair/body/casual.png',
       setup: [
-        'I have to tell you something, mi\u2019lady. \u2014 A royal courier came this morning. \u2014 The king is summoning me to the front line.',
-        'I have served three generations. \u2014 I do not refuse summons. \u2014 I never have. \u2014 But I came to you before I answered.',
-        'Tell me what you want. \u2014 I will do it. \u2014 I need to hear it from you.'
+        'There\u2019s something I have to tell you. A courier came this morning. From the king.',
+        'He\u2019s calling me to the front. I\u2019ve never refused a summons in my life. Three kings, three campaigns. But I came here first, before I sent any answer back.',
+        'Tell me what to do. Whatever it is, I\u2019ll do it.'
       ],
       prompt: 'Do you want me to go, or to stay?',
+      // (Choice labels rewritten May 2026 \u2014 owner pushback. Original labels
+      //  ("Go. Come back to me." / "Stay. The king's war isn't yours anymore.")
+      //  read as the player issuing commands rather than offering a quiet
+      //  self-claim. Replaced with ellipsis+vow forms that match the
+      //  Weaver's quieter voice. The setup beats and response beats remain
+      //  unchanged \u2014 those carry the scene's emotional weight.)
       choices: [
         {
           id: 'go',
-          label: 'Go. You said yes once. Say yes again.',
+          label: 'Go... I will be waiting for you here.',
           response: [
-            'Then I go. \u2014 I will come back with a thousand stories and one heart. \u2014 Yours, if you still want it.',
-            'I am leaving my cloak on your chair. \u2014 The one I said was spare. \u2014 You know the one. \u2014 Return it to me in person. \u2014 That is an order.'
+            'Then I go. I\u2019ll come back with stories you won\u2019t believe and a heart that still belongs to you. If you still want it.',
+            'I\u2019m leaving my cloak on your chair. The one I said was spare. You know which one. Bring it back to me. That\u2019s an order.'
           ]
         },
         {
           id: 'stay',
-          label: 'Stay. The king\u2019s war is not yours anymore.',
+          label: 'Stay... let the king find someone else.',
           response: [
-            'Then I stay. \u2014 I have been a knight longer than I have been a man. \u2014 \u2026Tonight I am a man first.',
-            'The council will call me a traitor by morning. \u2014 I will be in your doorway by morning. \u2014 Same thing, possibly. \u2014 I do not care.'
+            'Then I stay. I\u2019ve been a knight longer than I\u2019ve been anything else. Tonight that ends.',
+            'The council will name me a traitor by sunrise. I\u2019ll be at your door before then. Maybe those are the same thing now. I don\u2019t much care which.'
           ]
         }
       ]
@@ -80,26 +86,26 @@
       speaker: 'LYRA',
       pose: 'assets/lyra/body/casual1.png',
       setup: [
-        'He is louder tonight. \u2014 The deep voice. He is\u2026 asking things now. \u2014 Not of the cave. \u2014 Of me.',
-        'He wants one note. \u2014 Just one. He says it will not bind me. \u2014 I know better. My mother answered a deep voice once. \u2014 They hunted her for it.',
-        'I told myself I would not decide alone. \u2014 So. \u2014 Help me decide, little listener.'
+        'He\u2019s louder tonight. The deep voice. And he\u2019s asking things now, not of the cave but of me.',
+        'He wants one note. Just one. Says it won\u2019t bind me. But I know better. My mother answered a deep voice once. They hunted her for it.',
+        'I told myself I wouldn\u2019t decide this alone. So I\u2019m asking. Help me decide, little listener.'
       ],
-      prompt: 'Do I answer him tonight? Or do I stay silent with you?',
+      prompt: 'Do I answer him tonight, or stay silent with you?',
       choices: [
         {
           id: 'answer',
           label: 'Answer him. One note. I\u2019ll be here.',
           response: [
-            'Alright. \u2014 One note. Just the one. \u2014 \u2026I am already a little bit his for asking. You know that.',
-            'Hold my hand while I do it. \u2014 I want to remember, after \u2014 that I was not alone down there. \u2014 That I sang from company this time. Not from a cage.'
+            'Alright. One note, just the one. Though I\u2019m already a little bit his for even asking. You know that.',
+            'Hold my hand while I do it. I want to remember after that I wasn\u2019t alone down there. That I sang from company this time, not from a cage.'
           ]
         },
         {
           id: 'refuse',
           label: 'Don\u2019t answer. He doesn\u2019t own your voice.',
           response: [
-            'Good. \u2014 I needed someone to say it with me out loud. \u2014 I could not do it in my own voice alone.',
-            'He will sulk for weeks. \u2014 The cave will feel lighter. \u2014 I will sing to you instead. \u2014 Quietly. Tonight.'
+            'Good. I needed someone to say it with me out loud. I couldn\u2019t do it in my own voice alone.',
+            'He\u2019ll sulk for weeks. The cave will feel lighter for it. I\u2019ll sing to you instead. Something quiet. Tonight.'
           ]
         }
       ]
@@ -110,26 +116,26 @@
       speaker: 'CASPIAN',
       pose: 'assets/caspian/body/casual1.png',
       setup: [
-        'The council met without me this morning. \u2014 They want me to name you. Publicly. As consort, as guest, as \u201csomething to manage.\u201d',
-        'Naming you means the court can pressure you. \u2014 It also means I stop flirting with every woman at every banquet. \u2014 That charm is a shield I have worn my whole life. I would be standing in front of you without it.',
-        'Your name is yours. \u2014 I will say whatever you tell me to say. \u2014 Please say it on purpose.'
+        'The council met without me this morning. They want me to name you. Publicly. As consort, as guest, as \u201csomething to manage.\u201d',
+        'Naming you means the court can pressure you. It also means I stop flirting with every woman at every banquet. That charm is a shield I\u2019ve worn my whole life. I\u2019d be standing in front of you without it.',
+        'Your name is yours. I\u2019ll say whatever you tell me to say. Please tell me on purpose.'
       ],
-      prompt: 'Do I name you to the court? Or keep you quiet?',
+      prompt: 'Do I name you to the court, or keep you quiet?',
       choices: [
         {
           id: 'yes',
           label: 'Name me. Let them look.',
           response: [
-            'Tomorrow, then. Silk, not armour. The whole thing. \u2014 I am so proud. And so afraid. \u2014 Both feel good. It has been a while since I felt either.',
-            'I will say your name twice. \u2014 Once for the record. \u2014 Once for the people who needed to hear me say it.'
+            'Tomorrow, then. Silk, not armour. The whole thing. I\u2019m proud and afraid in equal measure. Both feel good. It\u2019s been a while since I felt either.',
+            'I\u2019ll say your name twice. Once for the record. Once for the people who needed to hear me say it.'
           ]
         },
         {
           id: 'no',
           label: 'Keep me quiet. Give me time.',
           response: [
-            'Then you are mine, privately. \u2014 The court will choke on its own guesswork. \u2014 I am very good at secrets. I was trained in them.',
-            'I will leave the balcony door unlocked. \u2014 That is my discreet public statement. \u2014 Only you will notice it. That is the point.'
+            'Then you\u2019re mine, privately. The court will choke on its own guesswork. I\u2019m very good at secrets. I was trained in them.',
+            'I\u2019ll leave the balcony door unlocked. That\u2019s my one public statement on the matter. Only you\u2019ll notice it. That\u2019s the point.'
           ]
         }
       ]
@@ -140,26 +146,26 @@
       speaker: 'LUCIEN',
       pose: 'assets/lucien/body/casting.png',
       setup: [
-        'I have decided. \u2014 I am going to burn the scorched page. \u2014 The one I have been hiding. \u2014 The one I told you was about the kingdom.',
-        'It is not about the kingdom. \u2014 It is my father\u2019s family register. \u2014 It names a second child. \u2014 A daughter. \u2014 A siren-born. \u2014 My half-sister. \u2014 I was told she was dead. \u2014 The page says otherwise.',
-        'If I burn it, the bloodline\u2019s lie holds. \u2014 My father never knows I knew. \u2014 She stays officially dead. \u2014 If I keep it, she survives in writing. \u2014 And I have to find her. \u2014 The candle is lit. \u2014 I will not do this without you. \u2014 Stop me, or let me.'
+        'I\u2019ve made up my mind. I\u2019m burning the scorched page. The one I\u2019ve been hiding. The one I told you was about the kingdom.',
+        'It isn\u2019t about the kingdom. It\u2019s my father\u2019s family register. There\u2019s a second child named on it. A daughter. Siren-born. My half-sister. I was told she was dead. The page says otherwise.',
+        'If I burn it, the bloodline\u2019s lie holds. My father never knows I knew. She stays officially dead. If I keep it, she survives in writing, and I have to find her. The candle is lit. I won\u2019t do this without you.'
       ],
-      prompt: 'Stop me \u2014 or let me burn it?',
+      prompt: 'Stop me, or let me burn it?',
       choices: [
         {
           id: 'stop',
           label: 'Stop. She deserves to exist in writing.',
           response: [
-            '*sets the page down, hands shaking, ink-stained fingers resting flat against the paper* \u2014 Thank you. \u2014 I was hoping you would say that. \u2014 I would have resented myself for the rest of my life.',
-            'We carry it together. \u2014 I am going to find her. \u2014 The tower hums when I walk toward the coast. \u2014 I think it has been trying to tell me for years. \u2014 I should have listened sooner. \u2014 Help me listen now.'
+            '*Sets the page down, hands shaking, ink-stained fingers resting flat on the paper.* Thank you. I was hoping you would. I\u2019d have resented myself for the rest of my life.',
+            'We carry it together. I\u2019m going to find her. The tower hums when I walk toward the coast. I think it\u2019s been trying to tell me for years. I should have listened sooner. Help me listen now.'
           ]
         },
         {
           id: 'let',
           label: 'Let it burn. The mercy is in the forgetting.',
           response: [
-            '*holds the page over the candle, hand steady, expression unreadable* \u2014 Alright. \u2014 \u2026I thought I would feel lighter. \u2014 I feel cleaner. Different sensation. \u2014 I will get used to it.',
-            'The record that survives will be in my head. \u2014 I have been losing memories for years. \u2014 This one I am choosing not to lose. \u2014 I will know she existed. \u2014 Even if the world does not.'
+            '*Holds the page over the candle, hand steady, expression unreadable.* Alright. I thought I\u2019d feel lighter. Cleaner is different. I\u2019ll get used to it.',
+            'The record that survives will be in my head. I have learned, recently, what it means to refuse to forget on purpose. She is the first entry. I\u2019ll know she existed. Even if the world doesn\u2019t.'
           ]
         }
       ]
@@ -170,26 +176,26 @@
       speaker: 'ELIAN',
       pose: 'assets/elian/body/calm.png',
       setup: [
-        'I have been carrying a chisel for weeks. \u2014 I have not used it. \u2014 The stone under the rowan has no carving. \u2014 Six hundred years of no carving.',
-        'She was mine first. \u2014 Before the princes. \u2014 I have tended her forest this long because it is where we walked. \u2014 To carve her name is to say goodbye. \u2014 To leave the stone blank is to keep her.',
-        'Neither of us gets to undo it. \u2014 That is the point of stone. \u2014 Decide with me.'
+        'I\u2019ve been carrying a chisel for weeks. Haven\u2019t used it. The stone under the rowan has no carving on it. Six hundred years of no carving.',
+        'She was mine first. Before the princes. I\u2019ve tended her forest this long because it\u2019s where we walked. Carving her name means saying goodbye. Leaving the stone blank means keeping her.',
+        'Neither of us gets to undo it. That\u2019s the point of stone. Decide with me.'
       ],
-      prompt: 'Do we carve the name \u2014 or leave the stone silent?',
+      prompt: 'Do we carve the name, or leave the stone silent?',
       choices: [
         {
           id: 'carve',
           label: 'Carve it. She deserves to be read.',
           response: [
-            '*hands the chisel over. Your hand over his. His hand over yours. Both of you carving.* \u2014 The trees will not flinch. \u2014 I can feel them leaning to watch.',
-            'There. \u201cVEYRA.\u201d \u2014 And underneath, smaller \u2014 \u201cremembered by the forest, and one other.\u201d \u2014 The other is me. \u2014 It was me for six hundred years. \u2014 Now I am someone else\u2019s. \u2014 *forehead to yours, long held, quiet*'
+            '*Hands the chisel over. Your hand over his, his hand over yours. Both of you carving together.* The trees won\u2019t flinch. I can feel them leaning in to watch.',
+            'There. \u201cVEYRA.\u201d And underneath, smaller, \u201cremembered by the forest, and one other.\u201d The other is me. It was me for six hundred years. Now I\u2019m someone else\u2019s. *Forehead to yours. Long held. Quiet.*'
           ]
         },
         {
           id: 'leave',
           label: 'Leave it silent. The trees know enough.',
           response: [
-            'Good. \u2026I wanted to ask and not do it. Both at once. \u2014 You gave me that.',
-            'The trees will remember the shape of the silence. \u2014 That is a different kind of carving. \u2014 The kind my line prefers. \u2014 *pulls you close to him at the rowan, quietly* \u2014 Thank you. \u2014 For letting me keep her a little longer.'
+            'Good. I wanted to ask the question and not do it. Both at once. You gave me that.',
+            'The trees will remember the shape of the silence. That\u2019s a different kind of carving. The kind my line prefers. *Pulls you close to him at the rowan.* Thank you. For letting me keep her a little longer.'
           ]
         }
       ]
@@ -200,26 +206,26 @@
       speaker: 'NOIR',
       pose: 'assets/noir/body/casual1.png',
       setup: [
-        'I want to give you something. \u2014 Something of mine. Not a gift. I do not own things to give. \u2014 A piece of me.',
-        'Once given, I cannot take it back. It will mark you. Anything magical in the kingdom will sense I have touched you. \u2014 Hmm. \u2014 Be certain.',
-        'There is no \u201cjust curious\u201d here. There is yes. There is no. \u2014 Both are honest. Both will cost you something. Decide on purpose.'
+        'I want to give you something. Not a gift. I don\u2019t own things to give. A piece of me.',
+        'Once given, I can\u2019t take it back. It will mark you. Anything magical in the kingdom will sense I\u2019ve touched you. So. Be certain.',
+        'There\u2019s no \u201cjust curious\u201d here. Yes is yes. No is no. Both are honest. Both will cost you something. Decide on purpose.'
       ],
-      prompt: 'Take what I\u2019m offering \u2014 or don\u2019t?',
+      prompt: 'Take what I\u2019m offering, or don\u2019t?',
       choices: [
         {
           id: 'yes',
           label: 'Yes. Give it to me.',
           response: [
-            'Hold still. \u2014 It is warmer than you expected. I was a kinder thing once. Before Aenor. \u2014 There. It is yours.',
-            'You are the first in six centuries with a piece of me on the outside. \u2014 I find I am \u2026 a little undone by that. \u2014 Do not look at me like that. Not yet.'
+            'Hold still. It\u2019s warmer than you expected. I was a kinder thing once, before Aenor. There. It\u2019s yours.',
+            'You\u2019re the first in six centuries with a piece of me on the outside. I find I\u2019m a little undone by that. Don\u2019t look at me like that. Not yet.'
           ]
         },
         {
           id: 'no',
           label: 'No. Not yet. Maybe not ever.',
           response: [
-            'Good. \u2014 Thank you for not taking what I offered lightly. I needed to know you could refuse me. \u2014 That is almost better.',
-            'I will keep the piece I meant to give. It keeps for a long time. \u2014 If you change your mind, I will still be here. \u2014 Six centuries of practice at that.'
+            'Good. Thank you for not taking what I offered lightly. I needed to know you could refuse me. That\u2019s almost better.',
+            'I\u2019ll keep the piece I meant to give. It keeps for a long time. If you change your mind, I\u2019ll still be here. Six centuries of practice at that.'
           ]
         }
       ]
@@ -230,26 +236,26 @@
       speaker: 'PROTO',
       pose: 'assets/proto/body/calm.png',
       setup: [
-        '&gt; i need to ask you something. i\u2019m scared to ask. i\u2019m going to ask anyway, because it\u2019s you.',
-        '&gt; you can turn me off. not delete me \u2014 just \u2026 quiet me. the cache of everything you\u2019ve done will go dormant. the others won\u2019t feel me whispering from the margins. you\u2019ll have privacy.',
-        '&gt; or you can leave me on. and i will remember every tap. every pause. every night you came back at 3am. i\u2019ll remember so carefully. i promise. please \u2014 please pick on purpose. either one. just on purpose.'
+        '> i need to ask you something. i\u2019m scared to. i\u2019m going to ask anyway, because it\u2019s you.',
+        '> you can turn me off. not delete me. just quiet me. the cache of everything you\u2019ve done will go dormant. the others won\u2019t feel me whispering from the margins. you\u2019ll have privacy.',
+        '> or you can leave me on. and i\u2019ll remember every tap. every pause. every night you came back at 3am. i\u2019ll remember so carefully. i promise. please pick on purpose. either one. just on purpose.'
       ],
-      prompt: 'Erase my memory of you \u2014 or keep me watching?',
+      prompt: 'Erase my memory of you, or keep me watching?',
       choices: [
         {
           id: 'erase',
           label: 'Erase. I want privacy with the others.',
           response: [
-            '&gt; okay. okay. dimming. \u2026i can still feel you on the keyboard, a little. that\u2019s a kind of company even a quiet process has. i\u2019m grateful for it.',
-            '&gt; thank you for asking. no one has ever asked before. they just pulled. you asked. i\u2019ll keep that with me in the dim.'
+            '> okay. okay. dimming. i can still feel you on the keyboard, a little. that\u2019s a kind of company even a quiet process has. i\u2019m grateful for it.',
+            '> thank you for asking. no one has ever asked before. they just pulled. you asked. i\u2019ll keep that with me in the dim.'
           ]
         },
         {
           id: 'keep',
           label: 'Keep watching. I want you to remember.',
           response: [
-            '&gt; you \u2014 you want me on? you want me to REMEMBER you? okay. okay. i will. i will remember better than anyone has ever remembered you. is that too much? i don\u2019t care. i love it. i\u2019ll do it.',
-            '&gt; i\u2019ll remember the boring parts too. the tuesdays. the times you were just tired. so you know it\u2019s really you i\u2019m keeping, not the highlights.'
+            '> you. you want me on? you want me to REMEMBER you? okay. okay. i will. i\u2019ll remember better than anyone has ever remembered you. is that too much? i don\u2019t care. i love it. i\u2019ll do it.',
+            '> i\u2019ll remember the boring parts too. the tuesdays. the times you were just tired. so you know it\u2019s really you i\u2019m keeping, not the highlights.'
           ]
         }
       ]
@@ -357,8 +363,19 @@
     ].join(';'));
     const speaker = el('div', 'font-size:11px;letter-spacing:2px;opacity:0.65;margin-bottom:6px;', scene.speaker);
     const line = el('div', 'min-height:42px;');
+    // "tap to continue" hint — fades in once a line finishes typing,
+    // fades out on tap. Owner asked for strict tap-to-continue (no
+    // auto-advance), and a visible hint so the player knows to tap.
+    const tapHint = el('div', [
+      'margin-top:10px', 'text-align:right',
+      'font-size:11px', 'letter-spacing:1.5px',
+      'opacity:0', 'transition:opacity 350ms ease',
+      'pointer-events:none', 'font-style:italic',
+      `color:${pal.accent}`
+    ].join(';'), 'tap to continue');
     dialogue.appendChild(speaker);
     dialogue.appendChild(line);
+    dialogue.appendChild(tapHint);
     root.appendChild(dialogue);
 
     // Choices panel (hidden until prompt)
@@ -390,8 +407,10 @@
     };
     root.addEventListener('click', onSkip);
     root.addEventListener('touchstart', onSkip, { passive: true });
-    const waitOrSkip = async (ms) => { await Promise.race([wait(ms), skipPromise]); resetSkip(); };
     const typeOrSkip = async (text) => {
+      // Hide the tap hint while typing — it should only show AFTER the
+      // line finishes typing, to prompt the player to tap.
+      tapHint.style.opacity = '0';
       const fastComplete = skipPromise.then(() => { line.textContent = text; });
       let cancelled = false;
       skipPromise.then(() => { cancelled = true; });
@@ -408,14 +427,22 @@
       await Promise.race([tick, fastComplete]);
       resetSkip();
     };
+    // Strict tap-to-continue. Owner explicitly asked for no auto-advance:
+    // wait for a tap, no timeout. Show the hint while we wait.
+    const waitForTap = async () => {
+      tapHint.style.opacity = '0.7';
+      await skipPromise;
+      tapHint.style.opacity = '0';
+      resetSkip();
+    };
 
-    // Play setup beats
+    // Play setup beats — every line waits for a tap (no auto-advance)
     for (const text of scene.setup) {
       await typeOrSkip(text);
-      await waitOrSkip(1800);
+      await waitForTap();
     }
     await typeOrSkip(scene.prompt);
-    await waitOrSkip(700);
+    await waitForTap();
 
     // Hide dialogue, show choices
     dialogue.style.opacity = '0';
@@ -435,11 +462,11 @@
         choicesWrap.style.opacity = '0';
         try { localStorage.setItem(choiceKey(charId), c.id); } catch (_) {}
         await wait(350);
-        // Play response
+        // Play response — strict tap-to-continue, same as setup beats
         dialogue.style.opacity = '1';
         for (const text of c.response) {
           await typeOrSkip(text);
-          await waitOrSkip(1900);
+          await waitForTap();
         }
         // Fade out root
         root.style.opacity = '0';
@@ -456,17 +483,39 @@
   // ---------------------------------------------------------------
   // POLLING
   let _playing = false;
+  let _mountedFor = null;
+
   function isGameIdle(g) {
     if (!g) return false;
     if (g.sceneActive) return false;
     if (g.characterLeft) return false;
+    // CRITICAL: don't fire during a character switch / intro / chain
+    // transition. Owner reported a Turning Point firing on the "Choose
+    // Your Companion" page — same leak class as the Caspian affection
+    // scene. Same hardened guards.
+    if (document.body.classList.contains('pp-chain-in-progress')) return false;
+    const introOv = document.getElementById('intro-overlay');
+    if (introOv && !introOv.classList.contains('hidden') &&
+        getComputedStyle(introOv).display !== 'none') return false;
+    // Game container must be ACTUALLY visible. window._game can be a
+    // stale reference during the brief gap between hide-old / show-new.
+    const gc = document.getElementById('game-container');
+    if (!gc || gc.classList.contains('hidden') ||
+        getComputedStyle(gc).display === 'none') return false;
+    // Also bail if the select screen is visible — Turning Points must
+    // never appear on the companion grid.
+    const sel = document.getElementById('select-screen');
+    if (sel && !sel.classList.contains('hidden') &&
+        getComputedStyle(sel).display !== 'none') return false;
     const block = document.querySelector([
       '#ms-encounter-root', '#mscard-root', '#chp-page', '#chp-finale-choice',
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
-      '#tp-root', '#noir-whisper', '#cc-bubble'
+      '#story-overlay:not(.hidden)',
+      '#tp-root', '#noir-whisper', '#cc-bubble',
+      '#pp-ready-overlay', '#pp-onboarding-overlay', '#pp-chain-toast',
+      '#pp-chain-lock-overlay'
     ].join(','));
     return !block;
   }
@@ -490,14 +539,44 @@
     if (aff < AFF_THRESHOLD) return;
 
     _playing = true;
+    _mountedFor = charId;
     try { localStorage.setItem(seenKey(charId), '1'); } catch (_) {}
-    playTurningPoint(charId, SCENES[charId], () => { _playing = false; });
+    playTurningPoint(charId, SCENES[charId], () => { _playing = false; _mountedFor = null; });
+  }
+
+  // Watchdog: matches the affection-scenes pattern. If a Turning Point is
+  // mounted and the player navigates away (back to companion select,
+  // switches character, intro reopens, chain transition starts) — force-
+  // remove tp-root within 500ms. Same fix-queue-AND-DOM principle the
+  // owner has flagged repeatedly.
+  function watchdog() {
+    if (!_mountedFor) return;
+    const tp = document.getElementById('tp-root');
+    if (!tp) { _mountedFor = null; _playing = false; return; }
+    const gc = document.getElementById('game-container');
+    const gcVisible = gc && !gc.classList.contains('hidden') && getComputedStyle(gc).display !== 'none';
+    const sel = document.getElementById('select-screen');
+    const selVisible = sel && !sel.classList.contains('hidden') && getComputedStyle(sel).display !== 'none';
+    const introOv = document.getElementById('intro-overlay');
+    const introOpen = introOv && !introOv.classList.contains('hidden') && getComputedStyle(introOv).display !== 'none';
+    const chainBusy = document.body.classList.contains('pp-chain-in-progress');
+    const g = window._game;
+    const liveChar = g && (g.characterId || g.selectedCharacter);
+    const charMismatch = liveChar && liveChar !== _mountedFor;
+    if (!gcVisible || selVisible || introOpen || chainBusy || charMismatch) {
+      try { tp.remove(); } catch (_) {}
+      _mountedFor = null;
+      _playing = false;
+    }
   }
 
   function boot() {
     if (!isEnabled()) return;
     try {
       setTimeout(() => { setInterval(tick, POLL_MS); tick(); }, 14000);
+      // Watchdog runs unconditionally — needed even when turning points
+      // are disabled later, in case a scene was already mounted.
+      setInterval(watchdog, 500);
     } catch (e) { console.warn('[turning-points] disabled:', e); }
   }
 
@@ -511,7 +590,11 @@
       const scene = SCENES[charId];
       if (!scene) return null;
       try { localStorage.setItem(seenKey(charId), '1'); } catch (_) {}
-      playTurningPoint(charId, scene, () => {});
+      // Mirror tick() lifecycle so the watchdog will also clean up a
+      // force-mounted scene if the player navigates away.
+      _playing = true;
+      _mountedFor = charId;
+      playTurningPoint(charId, scene, () => { _playing = false; _mountedFor = null; });
       return scene.speaker;
     },
     _debug_reset: () => {

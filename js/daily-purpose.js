@@ -133,14 +133,43 @@
   ];
 
   function isEnabled() {
-    try { return localStorage.getItem(FLAG_KEY) === '1'; } catch (e) { return false; }
+    // Enabled as soon as the player is actually in a care loop with a
+    // chosen character. Originally gated behind pp_main_story_enabled
+    // (only set after completing the Alistair bridge), which meant new
+    // players never saw the daily-quest banner. Audit flagged this as
+    // the single biggest unrealized loop hook in the game. Now fires
+    // for any player with an active character — including pre-bridge
+    // players doing their first care cycle.
+    try {
+      if (localStorage.getItem(FLAG_KEY) === '1') return true;
+      const g = window._game;
+      return !!(g && (g.selectedCharacter || g.characterId));
+    } catch (e) { return false; }
   }
 
   // questFor(day, charId?) returns a quest object with the right LABEL for
   // this character. The detect/baseline closures come from the shared BASE
   // table (game-state checks are universal); only the label string changes.
-  function questFor(day, charId) {
-    const i = Math.max(1, Math.min(BASE.length, day|0)) - 1;
+  // ── TIER-AWARE BANNER (May 2026 audit) ──────────────────────────────
+  // Owner reported the banner stuck at "A small gift. A knight does not
+  // expect." across Trusted, Devoted, AND Sworn — all the same line.
+  // Root cause: BASE / LABELS only have 7 entries (one per day in the
+  // 7-day intro arc). Day 7 clamped to index 6 forever. Past Day 7, the
+  // player sees the same banner regardless of tier or progression.
+  // Now: rotate the banner past Day 7 using (day + tier) so each new day
+  // shows a different banner, and each tier-up shifts the rotation. The
+  // 7 labels cycle in a way that reflects current relationship state.
+  function questFor(day, charId, tierLevel) {
+    let i;
+    if ((day | 0) <= BASE.length) {
+      // Days 1-7: use day index directly (existing behaviour).
+      i = Math.max(1, Math.min(BASE.length, day|0)) - 1;
+    } else {
+      // Day 8+: rotate by (day + tier) so banner changes each day AND
+      // each tier-up. Different tiers see different rotations.
+      const t = (typeof tierLevel === 'number') ? tierLevel : 0;
+      i = ((day - 1 + t) % BASE.length + BASE.length) % BASE.length;
+    }
     const base = BASE[i];
     const labels = (charId && LABELS[charId]) || FALLBACK;
     return Object.assign({}, base, { label: labels[i] || FALLBACK[i] });
@@ -251,7 +280,7 @@
     const day = g.storyDay | 0;
     if (day < 1) { hideBanner(); return; }
 
-    const quest = questFor(day, charId);
+    const quest = questFor(day, charId, g.affectionLevel || 0);
     if (!quest) { hideBanner(); return; }
 
     // Day or character changed — refresh banner & baseline if needed
@@ -290,11 +319,14 @@
 
   // ---------------------------------------------------------------
   function boot() {
-    if (!isEnabled()) return;
+    // Always start the polling tick. tick() itself checks isEnabled() at
+    // fire time, so we want it alive from page load even if a character
+    // hasn't been selected yet — once the player picks a character,
+    // isEnabled() will start returning true and the banner will appear.
+    // (Old behaviour: bailed at boot if isEnabled was false, which meant
+    // the system never woke up for new players.)
     try {
-      // Periodic tick — 1s is plenty; negligible cost.
       setInterval(tick, POLL_MS);
-      // Also run once soon after load so the banner appears as fast as possible.
       setTimeout(tick, 400);
     } catch (e) {
       console.warn('[daily-purpose] disabled due to error:', e);
@@ -312,7 +344,7 @@
     isEnabled,
     currentQuest: () => {
       const g = window._game; if (!g) return null;
-      return questFor(g.storyDay | 0, g.characterId || g.selectedCharacter);
+      return questFor(g.storyDay | 0, g.characterId || g.selectedCharacter, g.affectionLevel || 0);
     },
     _debug_reset: () => {
       try {

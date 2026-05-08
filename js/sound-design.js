@@ -8,7 +8,7 @@
  *    that is safe \u2014 the _playFile calls will be no-ops.
  *
  * WHAT IT DOES:
- *  - MutationObserver on document.body watches for the *appearance* of key
+ *  - MutationObserver on document.body watches for the *Appearance* of key
  *    overlay containers and plays a matching sound the moment they arrive:
  *      #ms-encounter-root  -> chime    (meet-cute reveal)
  *      #mscard-root        -> chime    (memory / ending card reveal)

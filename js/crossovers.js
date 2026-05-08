@@ -179,8 +179,8 @@
             ]);
           } else if (c === 'back') {
             g._playScene([
-              { type: 'line', text: "You're right. I know you're right. ...Give me five more minutes?", speed: 35, pose: 'sad', speaker: 'Caspian' },
-              { type: 'line', text: "Five minutes. Then I'm escorting you back personally.", speed: 30, pose: 'gentle', speaker: 'Alistair' },
+              { type: 'line', text: "You're right. I know you're right. ...One more bell, then.", speed: 35, pose: 'sad', speaker: 'Caspian' },
+              { type: 'line', text: "One bell. Then I'm escorting you back personally.", speed: 30, pose: 'gentle', speaker: 'Alistair' },
               { type: 'hide' }
             ]);
           } else {

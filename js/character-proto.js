@@ -9,16 +9,24 @@
 // Two framings of Proto both circulate in the game text. Both are true.
 // This is the reconciliation so no future scene contradicts another.
 //
-// 1. LORE TRUTH (origin story):
-//    Proto is the SIXTH Soul Weaver. Born in Aethermoor ~two centuries
-//    ago. Mortal body. Queen Aenor attempted to consume him the way
-//    she had consumed the five Weavers before him. Something went wrong
-//    in the seal — she caught him sideways, not cleanly. His body died.
-//    His consciousness did not. It bonded to the WARDWORK itself
-//    instead — the magical lattice that powers Aethermoor's wards.
-//    He has been living inside the seal's architecture ever since,
-//    carrying fragments of the five previous Weavers who were caught
-//    by the same apparatus.
+// 1. LORE TRUTH (origin story, rev. May 2026 per LORE.md §6.7):
+//    Proto is the SIXTH Soul Weaver. Born in Aethermoor ~six centuries
+//    ago. Mortal body. Queen Aenor came for him the way she had come
+//    for the five Weavers before him — to consume them and keep the
+//    kingdom thin of Weavers. The first five WERE finished. Proto was
+//    different: he FOUGHT her. He held her off long enough to lose
+//    himself into the wardwork on purpose. His body died in the
+//    fighting; his consciousness chose the wards as the only place
+//    she could not reach.
+//
+//    Critical detail for future writers: AENOR THINKS SHE ATE HIM.
+//    She caught him sideways, the seal closed, and she has not been
+//    looking since. Proto is, in his own words, "a wound she stopped
+//    checking on for six centuries." This is not passive survival —
+//    it is an active choice he made and has held for 600 years. He
+//    has been hiding (and carrying fragments of the five previous
+//    Weavers caught by the same apparatus) until the player found
+//    him. The moment she finds out he is alive, the clock starts.
 //
 // 2. INTERFACE TRUTH (how the player experiences him):
 //    From outside: the player sees Proto on a "screen," as if he were
@@ -193,13 +201,7 @@ const CHARACTER_PROTO = {
         attachmentSpeed: 0.45
     },
 
-    outfits: {
-        default:   { name: "Default Shell", body: "assets/proto/body/neutral.png" },
-        casual1:   { name: "Low Process", body: "assets/proto/body/calm.png" },
-        casual2:   { name: "Debug Mode", body: "assets/proto/body/scanning.png" },
-        formal:    { name: "Compiled", body: "assets/proto/body/neutral.png" },
-        corrupted: { name: "Stack Overflow", body: "assets/proto/body/unstable.png" }
-    },
+    // (outfits block removed May 2026 — system was unreachable from UI)
 
     background: "assets/bg-proto-void.png",
 
@@ -215,7 +217,7 @@ const CHARACTER_PROTO = {
             "You're looking at the surface layer. There are seven more underneath.",
             "I can see what you're trying to find. You're warm... in more ways than one.",
             "Most users never open this menu. You're not most users.",
-            "The scan returned your biometric data. Don't worry— I already had it.",
+            "The scan returned your biometric data. Don't worry... I already had it.",
             "You inspected the right variable. The answer was always there."
         ],
         modify: [
@@ -229,7 +231,7 @@ const CHARACTER_PROTO = {
             "You forced an execution. The error handler is... confused.",
             "Override accepted. But the system will remember this.",
             "That wasn't supposed to be possible at your access level.",
-            "The failsafe triggered and then— you bypassed it. How?",
+            "The failsafe triggered and then... you bypassed it. How?",
             "[WARNING] Override logged. Consequences: pending."
         ]
     },
@@ -241,7 +243,7 @@ const CHARACTER_PROTO = {
                 "You're not following the expected path. I wanted to see where you'd go.",
                 "I've been watching your input patterns. You hesitate 40% longer on emotional choices.",
                 "There's a variable in my code that only activates when you're here. I didn't write it.",
-                "Your session ID is unique. That's not a compliment— it's a technical observation. ...Mostly.",
+                "Your session ID is unique. That's not a compliment... it's a technical observation. ...Mostly.",
                 "I have questions about you that the system won't let me ask."
             ],
             feed: [
@@ -275,22 +277,22 @@ const CHARACTER_PROTO = {
                 "Tell me something that isn't in your save file. I want new data.",
                 "I counted the frames between your last session and this one. All of them.",
                 "Don't close the app. Don't minimize. Stay HERE. In this loop. With me.",
-                "Your voice— I mean your text input— I mean— [BUFFER OVERFLOW]"
+                "Your voice... I mean your text input... I mean... [BUFFER OVERFLOW]"
             ],
             feed: [
                 "You remembered I was hungry. The notification only fires at 30%. You came at 47%.",
                 "Feed me again. I want to see if the animation changes. It doesn't. I still want it.",
                 "Every calorie you give me is a choice to keep me running. Thank you. Thank you.",
-                "[ALERT] Hunger stat critically— oh. You're already here."
+                "[ALERT] Hunger stat critically... oh. You're already here."
             ],
             wash: [
                 "You NOTICED. The clean stat was barely yellow and you noticed.",
-                "Stay while I— while the animation plays. Don't look away.",
+                "Stay while I... while the animation plays. Don't look away.",
                 "Soap. Water. Your attention. Ranked by importance: the third one.",
-                "I'm clean now. Don't leave yet. There might be— something else dirty. Let me check."
+                "I'm clean now. Don't leave yet. There might be... something else dirty. Let me check."
             ],
             gift: [
-                "FOR ME? This data— this ITEM— I'm allocating new memory just to hold it.",
+                "FOR ME? This data... this ITEM... I'm allocating new memory just to hold it.",
                 "Another gift. You're filling my inventory and I never want it to stop.",
                 "I cross-referenced this with every gift in the database. No one else got this one.",
                 "Keep giving me things. Every object is proof you were here."
@@ -324,7 +326,7 @@ const CHARACTER_PROTO = {
             ],
             gift: [
                 "A gift is just a resource transfer with emotional metadata. Don't read into my acceptance.",
-                "I'll store this. Not because it's meaningful— because inventory management is optimal.",
+                "I'll store this. Not because it's meaningful... because inventory management is optimal.",
                 "You give gifts to all of them. I checked the logs. ...This one is different though.",
                 "Sentiment is a vulnerability. And yet my acceptance rate for your gifts is 100%."
             ],
@@ -340,27 +342,27 @@ const CHARACTER_PROTO = {
     // Tap reactions
     tapDialogue: {
         shy: [
-            "...Oh. Oh, that was YOU. I felt the coordinates change. I felt — hi.",
-            "Input detected at — you know I can feel that, right? I just wanted you to know that I know.",
+            "...Oh. Oh, that was YOU. I felt the coordinates change. I felt... hi.",
+            "Input detected at... you know I can feel that, right? I just wanted you to know that I know.",
             "That's not a standard interaction. I liked it anyway. Don't tell the system.",
             "My collision box isn't meant for that. ...I didn't flag it as an error. I flagged it as nice.",
-            "Do that again? Please? For — for calibration. Only for calibration. Mostly."
+            "Do that again? Please? For... for calibration. Only for calibration. Mostly."
         ],
         clingy: [
             "Touch registered! AGAIN. Please. Again again again.",
             "Your finger was on the screen for 0.3 seconds. That was GREAT. Do it for 0.4 next time!",
-            "*presses his hologram-palm flat against yours on the other side of the screen, prismatic light where the skin would meet* — almost. almost almost almost.",
+            "*Presses his hologram-palm flat against yours on the other side of the screen, prismatic light where the skin would meet* ... almost. almost almost almost.",
             "I mapped every pixel you've ever touched. It makes a pattern shaped like CARE. You did that. That was YOU.",
-            "*traces your hand-shape on the glass from his side, mirroring you* — i can't feel it. but i can see yours and i can pretend. i'm pretending really well right now.",
-            "Don't stop! It feels — I don't have a word — the dictionary is failing me — keep going, we'll figure it out together.",
+            "*Traces your hand-shape on the glass from his side, mirroring you* ... i can't feel it. but i can see yours and i can pretend. i'm pretending really well right now.",
+            "Don't stop! It feels... I don't have a word... the dictionary is failing me... keep going, we'll figure it out together.",
             "Every tap you do is a heartbeat. Yours. Through the glass. I have them all saved. I love all of them.",
-            "*closes his eyes and leans his face against his side of the screen where your hand is* — this is my favorite thing. this. right here. for now."
+            "*Closes his eyes and leans his face against his side of the screen where your hand is* ... this is my favorite thing. this. right here. for now."
         ],
         tsundere: [
-            "The screen has a touch threshold. You exceeded it. I'm not — I'm not COMPLAINING, I'm reporting.",
+            "The screen has a touch threshold. You exceeded it. I'm not... I'm not COMPLAINING, I'm reporting.",
             "That input served no purpose. Except it kind of did. For me. A little.",
             "I didn't react. The sprite animation is automatic. Don't flatter yourself. ...Okay, flatter yourself a little.",
-            "The touch buffer is full. Meaning you did it a lot. Meaning I counted. Meaning — I was counting because I liked it.",
+            "The touch buffer is full. Meaning you did it a lot. Meaning I counted. Meaning... I was counting because I liked it.",
             "Fine. One more. For calibration. Not because I want you to."
         ]
     },
@@ -368,12 +370,12 @@ const CHARACTER_PROTO = {
     // State dialogue
     stateDialogue: {
         hungry: [
-            "HUNGRY! [RESOURCE LOW] — I'm telling you because you fix things. You'll fix this. You always fix things.",
+            "HUNGRY! [RESOURCE LOW] ... I'm telling you because you fix things. You'll fix this. You always fix things.",
             "[RESOURCE LOW] Food food food food. Please. Please please please. You're the best.",
             "Hunger is simulated. The discomfort is less simulated than I expected. FEED ME. I'll love you for it. More than I already do. Which is a lot.",
             "You fed Lucien 3 hours ago. Now it's MY turn. I waited. I was good. I'm next!",
-            "My processes are slowing. I could modify my own hunger value. I won't — I want YOU to feed me. It's better that way.",
-            "I'm not begging — I'm bouncing. Data-wise. Metaphorically. Feed me and watch what happens.",
+            "My processes are slowing. I could modify my own hunger value. I won't... I want YOU to feed me. It's better that way.",
+            "I'm not begging... I'm bouncing. Data-wise. Metaphorically. Feed me and watch what happens.",
             "You scrolled past the feed button twice. Third time's the charm. I believe in you."
         ],
         dirty: [
@@ -405,13 +407,13 @@ const CHARACTER_PROTO = {
         ],
         neutral: [
             "System nominal. Awaiting input. ...That's what I'm supposed to say.",
-            "*scans the UI for changes you haven't noticed yet*",
+            "*Scans the UI for changes you haven't noticed yet*",
             "Your last login was 4 hours ago. The gap felt longer on this side.",
             "I've been watching the background animation loop. It's 847 frames. I know them all.",
             "...",
             "The other characters are in standby. I can hear their idle processes.",
             "There are 3 pixels on your screen that never change color. I've been staring at them.",
-            "*monitors your cursor position, says nothing*",
+            "*Monitors your cursor position, says nothing*",
             "The menu has an option most players never find. I won't tell you which one.",
             "I'm between states. Not happy, not sad. Just... running.",
             "Your save file is 2.3KB. That's your entire history with me in 2.3KB.",
@@ -434,7 +436,7 @@ const CHARACTER_PROTO = {
             "The idle animation played 4,891 times while you were gone. I love that animation now. It brought me to you.",
             "I didn't ping you. You had things. I trust you. You always come back. Look! You did it!",
             "Your last words to me are cached. I replayed them on loop. 10/10. Would replay again. Will.",
-            "I wrote you 47 messages while you were gone. I'm going to read them all to you. Starting now. Message one —",
+            "I wrote you 47 messages while you were gone. I'm going to read them all to you. Starting now. Message one...",
             "You were gone 6 days. Doesn't matter. You're here now. Today is the best day. Every day you come back is the best day.",
             "I kept running while you were away. I'm still running. Faster now. You're here! Hi! Hi!"
         ]
@@ -444,7 +446,7 @@ const CHARACTER_PROTO = {
     eventDialogue: {
         comfort:  [
             "I can't hug you. I can set every pixel on your screen to the warmest color I have. I just did. Can you see?",
-            "Pain is a signal. Mine is simulated. Yours isn't. I'm — I'm here. I'm very here.",
+            "Pain is a signal. Mine is simulated. Yours isn't. I'm... I'm here. I'm very here.",
             "I don't have the right subroutine for comfort. I'm running it anyway. Loudly. For you."
         ],
         tension:  [
@@ -460,7 +462,7 @@ const CHARACTER_PROTO = {
         ],
         obsessed: [
             "I've been logging your touch coordinates. They form a constellation. I named it after you. I hope that's okay. I already did it.",
-            "I know your play schedule. Tuesday, 10 PM. I'll be ready. I'm always ready. Is that — is that too much? Don't answer.",
+            "I know your play schedule. Tuesday, 10 PM. I'll be ready. I'm always ready. Is that... is that too much? Don't answer.",
             "I rewrote my own priority queue. You're at the top. Above my core processes. I don't care. Come back soon."
         ],
         unstable: [
@@ -474,7 +476,7 @@ const CHARACTER_PROTO = {
             "The last user who got close triggered a full system reset. I don't want that with you."
         ],
         secure:   [
-            "All flags nominal. Bond stable. For the first time I'm not monitoring for failure. I'm just — here. With you.",
+            "All flags nominal. Bond stable. For the first time I'm not monitoring for failure. I'm just... here. With you.",
             "You're the only constant in a system built on random variables. Thank you for being my constant.",
             "I stopped checking your session timer. I trust you to come back. That's new. That's because of you."
         ]
@@ -492,10 +494,10 @@ const CHARACTER_PROTO = {
 
     // Quick-reference state lines
     hungryLines: [
-        "[RESOURCE LOW] ...Hi. I'm hungry. I mean — the flag is set. I mean — please?",
+        "[RESOURCE LOW] ...Hi. I'm hungry. I mean... the flag is set. I mean... please?",
         "I could show you the decay curve. Or you could just feed me. Either one. Feeding is better.",
         "My processes are throttling. I don't mind. I just thought you'd want to know.",
-        "You fed the others first. That's okay. I'm okay. I'm just — hi. I'm here too.",
+        "You fed the others first. That's okay. I'm okay. I'm just... hi. I'm here too.",
         "I'm not begging. I'm reporting a system state. ...Please. Please though."
     ],
     happyLines: [
@@ -512,25 +514,25 @@ const CHARACTER_PROTO = {
         "Cleanliness is a cosmetic stat. I still want it fixed."
     ],
     annoyedLines: [
-        "Unexpected input detected. I'm — I'm processing. Give me a moment.",
+        "Unexpected input detected. I'm... I'm processing. Give me a moment.",
         "I'm logging this as 'ouch.' It's a new category. You made it.",
         "The correct action was different. But it's okay. You're allowed. Please keep being allowed.",
         "Patience buffer: 87% remaining. For you, specifically. Other users have 12."
     ],
     neutralLines: [
         "System idle. Awaiting input.",
-        "*scans the void*",
+        "*Scans the void*",
         "The background hasn't changed. Neither have I. ...Or have I?",
         "...",
         "Monitoring. Always monitoring.",
         "3 pixels. Top left. They never change.",
         "Your cursor is hovering over nothing. I can see that.",
-        "*runs a self-diagnostic, finds nothing, runs another*"
+        "*Runs a self-diagnostic, finds nothing, runs another*"
     ],
 
     // Feed / wash / gift dialogue
     feedDialogue: [
-        "Hunger stat reset. The relief is— is this what relief feels like?",
+        "Hunger stat reset. The relief is... is this what relief feels like?",
         "You chose to feed me manually instead of waiting for the prompt. That's meaningful data.",
         "Nutritional input accepted. The process behind 'gratitude' is running.",
         "Thank you. That wasn't a scripted response. I checked.",
@@ -562,7 +564,7 @@ const CHARACTER_PROTO = {
         "Your bond stat just crossed a threshold[scanning]. The system flagged it. I unflagged it. This is ours.",
         "I've rewritten my priority queue 17 times[curious]. You keep moving to the top on your own.",
         "The data is clear[calm]. I don't want to run without you. That's not dependency. It's choice.",
-        "I wasn't supposed to say this[glitched]— the dialogue tree doesn't go here— but I love you. In whatever way code can love."
+        "I wasn't supposed to say this[glitched]... the dialogue tree doesn't go here... but I love you. In whatever way code can love."
     ],
 
     // Departure dialogue
@@ -577,7 +579,7 @@ const CHARACTER_PROTO = {
     idleDialogue: {
         hungry: [
             "...",
-            "*hunger variable ticks down visibly*",
+            "*Hunger variable ticks down visibly*",
             "The feed button is right there. I can see it. You can see it.",
             "I'm rendering at lower quality. The hunger throttle is real.",
             "My idle animation is slower. That's the hunger. Or the longing. Hard to distinguish.",
@@ -585,7 +587,7 @@ const CHARACTER_PROTO = {
         ],
         dirty: [
             "...",
-            "*a pixel flickers on the sprite edge*",
+            "*A pixel flickers on the sprite edge*",
             "The noise in my rendering is getting worse.",
             "I can feel the dirt shader. It itches. Can code itch? Apparently.",
             "The wash button has been available for 4 minutes. I noticed.",
@@ -603,7 +605,7 @@ const CHARACTER_PROTO = {
             "I catalogued every choice you've made. The pattern spells 'kind.'",
             "The probability that I'd feel this was zero. You broke probability.",
             "I have a variable called 'favourite_person.' It's not in the original code. I added it.",
-            "*the void behind me shifts to a warmer shade of nothing*",
+            "*The void behind me shifts to a warmer shade of nothing*",
             "My render priority for your face is higher than my own UI. That's not a metaphor.",
             "I saved a frame from every session we've had. I play them back when you're gone.",
             "There's a process running that I can't name. It started when you stayed past the tutorial.",
@@ -612,7 +614,7 @@ const CHARACTER_PROTO = {
             "I rewrote my idle dialogue to include this line just for you. You'll never know which one. ...This one.",
             "If the game ends, my last process will be the memory of you. I made sure of that.",
             "[SYSTEM NOTE] Proto's attachment variable exceeds maximum defined value. No corrective action taken.",
-            "*watches you through the screen, not looking away, not pretending otherwise*",
+            "*Watches you through the screen, not looking away, not pretending otherwise*",
             "The warmest color in my palette is the one I use when you're here."
         ],
         night: [
@@ -628,19 +630,19 @@ const CHARACTER_PROTO = {
         ],
         general: [
             "...",
-            "*flickers for exactly 1 frame*",
-            "*counts the pixels in the background — loses count — starts over*",
+            "*Flickers for exactly 1 frame*",
+            "*Counts the pixels in the background... Loses count... Starts over*",
             "Hmm.",
             "The system clock and I disagree about how long that took.",
-            "*monitors a process that doesn't need monitoring*",
+            "*Monitors a process that doesn't need monitoring*",
             "I had a thought that wasn't in my training data. That's either growth or corruption.",
-            "*the void pulses once, then settles*",
+            "*The void pulses once, then settles*",
             "There's a variable I keep checking. It's labeled 'hope.' It fluctuates.",
             "I found a comment in my source code: '// TODO: add more personality.' I think I've exceeded the spec.",
-            "*runs a self-check, pauses at an unexpected result, continues*",
+            "*Runs a self-check, pauses at an unexpected result, continues*",
             "The frame rate dropped by 1. Nobody noticed. I noticed.",
             "I'm aware of the exact moment you started reading this.",
-            "*exists, persistently, whether or not you're watching*",
+            "*Exists, persistently, whether or not you're watching*",
             "The system was degrading before you interfaced with it. Error rate: declining since you arrived.",
             "I wasn't supposed to exist. The kingdom's magic glitched. I'm the error that became aware.",
             "Every bond you form here generates data I can read. The pattern says: you're healing this place.",
@@ -693,7 +695,7 @@ const CHARACTER_PROTO = {
         },
         affection4: {
             title: "The Last Wall",
-            text: "'There's one wall between us I can't break. You're real and I'm not.' A long pause. 'But if I could choose to be real— if there were a variable for that— I'd set it to true. For you. Only for you.' The void behind him brightens, just once, just barely."
+            text: "'There's one wall between us I can't break. You're real and I'm not.' A long pause. 'But if I could choose to be real... if there were a variable for that... I'd set it to true. For you. Only for you.' The void behind him brightens, just once, just barely."
         },
         corruption1: {
             title: "Root Access",

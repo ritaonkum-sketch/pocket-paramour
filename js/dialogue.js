@@ -3,12 +3,184 @@
 // ── Player name token replacement ────────────────────────────
 // Replaces {name} in any dialogue string with the stored player name.
 // Falls back gracefully if no name has been set yet.
+//
+// Hoisted onto window as PPApplyName so letter.js, premium-card.js, and
+// other renderers can substitute {name} the same way the typewriter does.
+// Without this, {name} echoes added to letter bodies / MSCard beats would
+// render as the literal token "{name}" instead of the player's name.
 function applyPlayerName(text) {
     if (!text) return text;
     const name = localStorage.getItem('pp_player_name');
     if (!name) return text;
     return text.replace(/\{name\}/g, name);
 }
+try { window.PPApplyName = applyPlayerName; } catch (_) {}
+
+// ── Stage-direction-aware typewriter (May 2026 owner feedback) ───────
+// Many scene renderers across the codebase have their own local
+// type(elRef, text, cps) function that does plain textContent +=. They
+// all suffer from the same problem: *Asterisk-wrapped* narration renders
+// identical to spoken dialogue, making scenes feel monologue-y and
+// confusing players about who is talking. This shared helper parses
+// asterisks → segments, builds <em class="pp-stage"> for narration and
+// plain <span> for spoken dialogue, then types char-by-char. Asterisks
+// are stripped — only the styling carries the cue.
+//
+// All 11 crossover-*.js files delegate to this. MSCard (premium-card.js)
+// and small-moments.js have their own inline parsers using the same
+// algorithm and the same .pp-sm-stage / .mscard-stage class semantics.
+//
+// Returns a Promise that resolves when typing completes. Honors {name}
+// substitution. Lazy-injects .pp-stage CSS once per page load.
+function ppTypeStage(target, text, cps) {
+    return new Promise((resolve) => {
+        // Lazy CSS injection — runs once per page load.
+        if (!document.getElementById('pp-stage-css')) {
+            const sty = document.createElement('style');
+            sty.id = 'pp-stage-css';
+            sty.textContent = '.pp-stage { font-style: italic; opacity: 0.62; }';
+            document.head.appendChild(sty);
+        }
+        const txt = (text && window.PPApplyName) ? window.PPApplyName(text) : (text || '');
+        // Parse asterisks → italic / regular segments.
+        const segments = [];
+        let buf = '';
+        let inItalic = false;
+        for (let k = 0; k < txt.length; k++) {
+            if (txt[k] === '*') {
+                if (buf) segments.push({ italic: inItalic, text: buf });
+                buf = '';
+                inItalic = !inItalic;
+            } else {
+                buf += txt[k];
+            }
+        }
+        if (buf) segments.push({ italic: inItalic, text: buf });
+        // Unbalanced trailing asterisk — fall back to plain so the rest of
+        // the line does not silently italicise to end-of-string.
+        if (inItalic && segments.length > 0) {
+            segments[segments.length - 1].italic = false;
+        }
+        // Build the DOM.
+        target.innerHTML = '';
+        const spans = segments.map(seg => {
+            const node = document.createElement(seg.italic ? 'em' : 'span');
+            if (seg.italic) node.className = 'pp-stage';
+            target.appendChild(node);
+            return node;
+        });
+        const totalLen = segments.reduce((sum, s) => sum + s.text.length, 0);
+        if (totalLen === 0) { resolve(); return; }
+        const speed = Math.max(14, Math.round(1000 / (cps || 22)));
+        let i = 0;
+        const step = () => {
+            if (i < totalLen) {
+                let remaining = i;
+                for (let s = 0; s < segments.length; s++) {
+                    if (remaining < segments[s].text.length) {
+                        spans[s].textContent = segments[s].text.substring(0, remaining + 1);
+                        break;
+                    }
+                    remaining -= segments[s].text.length;
+                }
+                i++;
+                setTimeout(step, speed);
+            } else {
+                resolve();
+            }
+        };
+        step();
+    });
+}
+try { window.PPTypeStage = ppTypeStage; } catch (_) {}
+
+// ── Bubble + speaker styling helper (May 2026 owner feedback) ────────
+// Companion to PPTypeStage. Many scene renderers (MSCard / crossover-*.js)
+// have their own dialogue panel + speaker label + line element. Each
+// suffered the same problem: narration and spoken dialogue rendered in
+// the same opaque bubble with the same dim speaker label, so the player
+// could not tell at a glance whether someone was talking or whether the
+// scene was describing action.
+//
+// This helper applies a consistent two-mode treatment:
+//   - NARRATION (no speaker) → bubble drops to ~30% opacity (background
+//     scene reads through), no speaker label, italic line text
+//   - DIALOGUE (speaker present) → opaque bubble, speaker label in a
+//     character-specific hue with a colored underline, plain line text
+//
+// Speaker name is mapped to a hue via a small lookup so each character
+// gets their canonical colour without the renderer having to pass a
+// palette. Falls back to a neutral violet for unmapped speakers.
+const PP_SPEAKER_HUE = {
+    you:       '#ffb6c1',  // player — soft pink (Otome convention). Distinct from Caspian's mauve and Veyra's rose. Tunable.
+    alistair:  '#ffce6b',  captain:   '#ffce6b',  knight:    '#ffce6b',  // pre-introduction speaker label for Alistair; player sees armor, not yet a name
+    lyra:      '#7fd3e3',
+    caspian:   '#e7a3d0',  prince:    '#e7a3d0',
+    lucien:    '#a98ad8',  scholar:   '#a98ad8',
+    elian:     '#a9d4a1',  woodsman:  '#a9d4a1',
+    noir:      '#c46aff',  corvin:    '#c46aff',
+    proto:     '#7adcc6',  voice:     '#7adcc6',
+    aenor:     '#dc3a4a',  queen:     '#dc3a4a',
+    veyra:     '#d8a1c4'
+};
+function ppSpeakerHue(name) {
+    if (!name) return null;
+    const key = String(name).toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
+    return PP_SPEAKER_HUE[key] || '#a98ad8';
+}
+function ppApplyBubbleStyle(n, speakerName) {
+    if (!n || !n.dialogue || !n.speaker || !n.line) return;
+    // Ensure smooth bg/shadow transitions — some renderers don't include
+    // them in their initial inline CSS. Sticky via dataset flag so we only
+    // append the transition once per element.
+    if (!n.dialogue.dataset.ppBubbleReady) {
+        const cur = n.dialogue.style.transition || '';
+        if (cur.indexOf('background-color') === -1) {
+            n.dialogue.style.transition = (cur ? cur + ', ' : '') + 'background-color 380ms ease, box-shadow 380ms ease';
+        }
+        n.dialogue.dataset.ppBubbleReady = '1';
+    }
+    if (!speakerName) {
+        // NARRATION
+        n.speaker.style.opacity = '0';
+        n.speaker.style.height = '0';
+        n.speaker.style.marginBottom = '0';
+        n.speaker.style.overflow = 'hidden';
+        n.speaker.style.borderBottom = '';
+        n.speaker.style.paddingBottom = '';
+        n.speaker.style.display = '';
+        n.line.style.fontStyle = 'italic';
+        n.line.style.opacity = '0.92';
+        n.dialogue.style.background = 'rgba(10,6,22,0.32)';
+        n.dialogue.style.boxShadow = '0 4px 14px rgba(0,0,0,0.25)';
+        // Reset bubble alignment when going to narration.
+        n.dialogue.style.textAlign = 'left';
+        n.line.style.textAlign = 'left';
+    } else {
+        // DIALOGUE
+        const color = ppSpeakerHue(speakerName);
+        n.speaker.textContent = speakerName;
+        n.speaker.style.opacity = '1';
+        n.speaker.style.height = '';
+        n.speaker.style.marginBottom = '8px';
+        n.speaker.style.overflow = '';
+        n.speaker.style.color = color;
+        n.speaker.style.borderBottom = '2px solid ' + color;
+        n.speaker.style.paddingBottom = '4px';
+        n.speaker.style.display = 'inline-block';
+        n.line.style.fontStyle = 'normal';
+        n.line.style.opacity = '1';
+        n.dialogue.style.background = 'rgba(10,6,22,0.88)';
+        n.dialogue.style.boxShadow = '0 6px 28px rgba(0,0,0,0.55)';
+        // Player speaker label aligns RIGHT (visual signal that the player is
+        // speaking, not a character). All other speakers stay left-aligned.
+        // n.line is block-level so the line text below stays left.
+        const isPlayer = String(speakerName).toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '') === 'you';
+        n.dialogue.style.textAlign = isPlayer ? 'right' : 'left';
+        n.line.style.textAlign = 'left';
+    }
+}
+try { window.PPApplyBubbleStyle = ppApplyBubbleStyle; } catch (_) {}
 
 class TypewriterEffect {
     constructor(element) {
@@ -19,6 +191,17 @@ class TypewriterEffect {
         this.timer = null;
         this.speed = 35; // ms per character
         this.onComplete = null;
+        // Generation counter (May 2026 fix for the "Souuuusss tttthee"
+        // interleave bug owner caught on Lucien's care screen). When show()
+        // is called again before the previous _type() chain finishes, a
+        // queued setTimeout callback may have already been scheduled. It
+        // fires AFTER currentIndex has been reset and fullText replaced —
+        // so the stale chain appends characters from the NEW string into
+        // the element, racing the new chain. Result: every char rendered
+        // twice. Now each show() bumps _gen, every _type() captures it at
+        // call time, and stale callbacks bail when the captured gen no
+        // longer matches.
+        this._gen = 0;
 
         // ── Mid-line emotion shift system ────────────────────────────────
         // onEmotionTrigger: fn(emotion) — wired in game.init() to ui._flashFaceOnly
@@ -42,9 +225,23 @@ class TypewriterEffect {
     }
 
     show(text, callback) {
+        // ── HARDENED RACE GUARD (May 2026 audit) ──────────────────────────
+        // Owner reported interleaved char-by-char output ("Tohue' vceo dfee
+        // dm emaen...") when actions stack two show() calls in quick
+        // succession. Original gen-counter fix handled most cases but missed
+        // the window where skip() doesn't fully clean the element before
+        // show() restarts. We now ATOMICALLY: bump gen first (kills any
+        // pending _type in flight), clear timer, clear element. Stale
+        // chains see new gen on their next callback and bail.
+        this._gen++;            // KILL all pending callbacks first
+        if (this.timer) { clearTimeout(this.timer); this.timer = null; }
         if (this.isTyping) {
+            // Skip displays the full prior text briefly, then we clear
+            // below — net effect: brief flash of completed prior line.
             this.skip();
         }
+        // Force-clear element so no leftover characters remain to interleave.
+        if (this.element) this.element.textContent = '';
 
         // ── Parse inline [emotion] shift markers ─────────────────────────
         // Format: "Some text[shy] continues here" → shifts face at that position.
@@ -96,6 +293,10 @@ class TypewriterEffect {
         this.isTyping = true;
         this.onComplete = callback || null;
         this.element.textContent = "";
+        // Bump generation — any pending _type() callback from a previous
+        // show() will see a stale gen and bail out (see _type below).
+        this._gen++;
+        const myGen = this._gen;
         // Hide tap hint when new dialogue starts
         const _hint = document.getElementById('dialogue-tap-hint');
         if (_hint) _hint.classList.add('hidden');
@@ -107,13 +308,19 @@ class TypewriterEffect {
                                  this.fullText.startsWith("I…")  ||
                                  this.fullText.startsWith("I...");
         if (opensWithSilence) {
-            setTimeout(() => this._type(), 260 + Math.random() * 200);
+            setTimeout(() => this._type(myGen), 260 + Math.random() * 200);
         } else {
-            this._type();
+            this._type(myGen);
         }
     }
 
-    _type() {
+    _type(gen) {
+        // Stale-chain guard: if show() was called again after this callback
+        // was queued, gen will no longer match and we silently exit. Without
+        // this, two _type() chains race the same element and produce
+        // "Souuuusss tttthee" interleave (May 2026 fix).
+        if (gen !== undefined && gen !== this._gen) return;
+
         // ── Check for emotion shift triggers at this character position ───
         if (this.onEmotionTrigger && this._emotionTriggers.length) {
             for (const t of this._emotionTriggers) {
@@ -128,7 +335,7 @@ class TypewriterEffect {
         if (this.currentIndex < this.fullText.length) {
             this.element.textContent += this.fullText[this.currentIndex];
             this.currentIndex++;
-            this.timer = setTimeout(() => this._type(), this.speed);
+            this.timer = setTimeout(() => this._type(gen), this.speed);
         } else {
             this.isTyping = false;
             // Show "tap to continue" hint when typing finishes
@@ -145,6 +352,11 @@ class TypewriterEffect {
     skip() {
         if (!this.isTyping) return;
         clearTimeout(this.timer);
+        // Bump gen so any pending _type() callback already in the macro-task
+        // queue sees a stale gen and bails. Without this, even after the
+        // explicit clearTimeout, a callback that was scheduled microseconds
+        // before skip() runs would still fire and append a stray character.
+        this._gen++;
         this.element.textContent = this.fullText;
         this.isTyping = false;
         // Fire any remaining unfired triggers when player skips

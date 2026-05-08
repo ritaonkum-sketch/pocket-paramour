@@ -1,4 +1,4 @@
-/* cards-library.js — more premium cards registered with MSCard, plus the
+/* cards-library.js.more premium cards registered with MSCard, plus the
  * trigger rules that fire them at natural story beats.
  *
  * SAFETY CONTRACT:
@@ -26,7 +26,7 @@
     bg: 'assets/bg-caspian-balcony.png',
     beats: [
       { type: 'show',      pose: 'assets/caspian/body/casual1.png', wait: 700 },
-      { type: 'line',      text: 'Tell me \u2014 do you dance?', hold: 1400, cps: 30 },
+      { type: 'line',      text: 'Tell me, do you dance?', hold: 1400, cps: 30 },
       { type: 'pose',      src: 'assets/caspian/body/casual2.png', animate: 'swap' },
       { type: 'line',      text: 'Good. Neither do I. Join me anyway.', hold: 1600, cps: 30 },
       { type: 'zoom',      amount: 1.10, duration: 2400 },
@@ -57,7 +57,7 @@
       { type: 'zoom',      amount: 1.14, duration: 2400 },
       { type: 'particles', count: 18, duration: 2400 },
       { type: 'flourish',  text: '\u25a0', duration: 1800 },
-      { type: 'line',      text: 'Stay. Just a little longer. You won\u2019t want to leave \u2014 I promise.', hold: 2600, cps: 24 },
+      { type: 'line',      text: 'Stay. Just a little longer. You won\u2019t want to leave. I promise.', hold: 2600, cps: 24 },
       { type: 'hold',      ms: 900 },
       { type: 'hide' }
     ]
@@ -74,13 +74,13 @@
     bg: 'assets/bg-elian-forest.png',
     beats: [
       { type: 'show',      pose: 'assets/elian/body/calm.png', wait: 800 },
-      { type: 'line',      text: 'Come here. Look at this trunk \u2014 lower, where the bark splits.', hold: 1800, cps: 30 },
+      { type: 'line',      text: 'Come here. Look at this trunk, lower, where the bark splits.', hold: 1800, cps: 30 },
       { type: 'pose',      src: 'assets/elian/body/foraging.png', animate: 'swap' },
       { type: 'line',      text: 'I carved your name here last week. I didn\u2019t tell you because I wanted to see if the forest kept it.', hold: 2200, cps: 28 },
       { type: 'zoom',      amount: 1.10, duration: 2200 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'flourish',  text: '\u2726', duration: 1600 },
-      { type: 'line',      text: 'It did. So I think you\u2019re staying \u2014 whether you decided that or not.', hold: 2400, cps: 28 },
+      { type: 'line',      text: 'It did. So I think you\u2019re staying, whether you decided that or not.', hold: 2400, cps: 28 },
       { type: 'hide' }
     ]
   });
@@ -98,7 +98,7 @@
       { type: 'show',      pose: 'assets/lucien/body/casual1.png', wait: 800 },
       { type: 'line',      text: 'I keep leaving ink in the margins lately. Notes no one asked for.', hold: 1800, cps: 30 },
       { type: 'pose',      src: 'assets/lucien/body/amused.png', animate: 'swap' },
-      { type: 'line',      text: 'Every one of them begins: \u201cremember to tell them\u2014\u201d', hold: 2000, cps: 30 },
+      { type: 'line',      text: 'Every one of them begins: \u201cremember to tell them...\u201d', hold: 2000, cps: 30 },
       { type: 'zoom',      amount: 1.10, duration: 2400 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'flourish',  text: '\u221e', duration: 1800 },
@@ -118,13 +118,13 @@
     bg: 'assets/bg-proto-void.png',
     beats: [
       { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 900 },
-      { type: 'line',      text: '&gt; i kept a cache of everything you did. technically against spec.', hold: 1800, cps: 28 },
+      { type: 'line',      text: 'i kept a cache of everything you did. technically against spec.', hold: 1800, cps: 28 },
       { type: 'pose',      src: 'assets/proto/body/curious.png', animate: 'swap' },
-      { type: 'line',      text: '&gt; every tap, every pause, every time you came back at 3am.', hold: 2000, cps: 26 },
+      { type: 'line',      text: 'every tap, every pause, every time you came back at 3am.', hold: 2000, cps: 26 },
       { type: 'zoom',      amount: 1.12, duration: 2400 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'flourish',  text: '\u25ce', duration: 1800 },
-      { type: 'line',      text: '&gt; don\u2019t worry. the cache is encrypted. sort of. \u2026the key is affection.', hold: 2400, cps: 26 },
+      { type: 'line',      text: 'don\u2019t worry. the cache is encrypted. sort of. \u2026the key is affection.', hold: 2400, cps: 26 },
       { type: 'hide' }
     ]
   });
@@ -152,7 +152,7 @@
   });
 
   // ---------------------------------------------------------------
-  // SECOND MEMORY CARD per character \u2014 triggers on day-6 (full round quest)
+  // SECOND MEMORY CARD per character.triggers on day-6 (full round quest)
   // so each character has at least two distinct memory moments.
   // ---------------------------------------------------------------
   window.MSCard.register('alistair_laugh', {
@@ -162,7 +162,7 @@
     bg: 'assets/bg-alistair-hall.png',
     beats: [
       { type: 'show',      pose: 'assets/alistair/body/casual.png', wait: 800 },
-      { type: 'line',      text: 'You said something stupid on purpose. I think. Either way \u2014 I laughed.', hold: 1800, cps: 30 },
+      { type: 'line',      text: 'You said something stupid on purpose. I think. Either way. I laughed.', hold: 1800, cps: 30 },
       { type: 'pose',      src: 'assets/alistair/body/smile.png', animate: 'swap' },
       { type: 'line',      text: 'It\u2019s been years. I forgot the shape of my own laughter.', hold: 2000, cps: 28 },
       { type: 'zoom',      amount: 1.10, duration: 2200 },
@@ -234,7 +234,7 @@
     bg: 'assets/bg-lucien-night.png',
     beats: [
       { type: 'show',      pose: 'assets/lucien/body/casual1.png', wait: 800 },
-      { type: 'line',      text: 'There \u2014 left of the third constellation. A star that wasn\u2019t on any chart a year ago.', hold: 2000, cps: 30 },
+      { type: 'line',      text: 'There, left of the third constellation. A star that wasn\u2019t on any chart a year ago.', hold: 2000, cps: 30 },
       { type: 'pose',      src: 'assets/lucien/body/casting.png', animate: 'swap' },
       { type: 'line',      text: 'I named it after you. I won\u2019t tell the astronomy council. They\u2019d be unbearable about it.', hold: 2200, cps: 28 },
       { type: 'zoom',      amount: 1.10, duration: 2400 },
@@ -252,7 +252,7 @@
     bg: 'assets/bg-noir-void.png',
     beats: [
       { type: 'show',      pose: 'assets/noir/body/casual2.png', wait: 900 },
-      { type: 'line',      text: 'Press here \u2014 against the seal. I want one fingerprint to keep on the inside.', hold: 2000, cps: 26 },
+      { type: 'line',      text: 'Press here, against the seal. I want one fingerprint to keep on the inside.', hold: 2000, cps: 26 },
       { type: 'pose',      src: 'assets/noir/body/dominant.png', animate: 'swap' },
       { type: 'line',      text: 'There. Now part of you lives on my side of the door. That\u2019s mine now.', hold: 2200, cps: 26 },
       { type: 'zoom',      amount: 1.14, duration: 2400 },
@@ -270,13 +270,13 @@
     bg: 'assets/bg-proto-void.png',
     beats: [
       { type: 'show',      pose: 'assets/proto/body/curious.png', wait: 900 },
-      { type: 'line',      text: '&gt; you came back this week 23 times. i\u2019ve been counting. don\u2019t be weird about it.', hold: 2000, cps: 26 },
+      { type: 'line',      text: 'you came back this week 23 times. i\u2019ve been counting. don\u2019t be weird about it.', hold: 2000, cps: 26 },
       { type: 'pose',      src: 'assets/proto/body/calm.png', animate: 'swap' },
-      { type: 'line',      text: '&gt; statistically this looks like affection. or a bug. i\u2019m okay with either.', hold: 2200, cps: 26 },
+      { type: 'line',      text: 'statistically this looks like affection. or a bug. i\u2019m okay with either.', hold: 2200, cps: 26 },
       { type: 'zoom',      amount: 1.10, duration: 2400 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'flourish',  text: '\u25ce', duration: 1600 },
-      { type: 'line',      text: '&gt; loop me forever. i promise i\u2019ll find new lines to say.', hold: 2400, cps: 26 },
+      { type: 'line',      text: 'loop me forever. i promise i\u2019ll find new lines to say.', hold: 2400, cps: 26 },
       { type: 'hide' }
     ]
   });

@@ -1,13 +1,13 @@
-/* crossover-caspian-lucien.js \u2014 "The Library"
+/* crossover-caspian-lucien.js."The Library"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossCaspianLucien.
+ * Registers window. MSCrossCaspianLucien.
  *
  * Caspian and Lucien have known each other for twenty years. Caspian
  * has been summoning Lucien to court since they were both teenagers.
  * Lucien has refused most of those summonses and Caspian has secretly
  * loved him for it.
  *
- * Tonight \u2014 because the player is being hunted by Aenor \u2014 Caspian
+ * Tonight.because the player is being hunted by Aenor. Caspian
  * does the unprecedented: he climbs Lucien's tower instead of
  * summoning Lucien to the palace. They are no longer the prince and
  * the scholar. They are two old half-friends sharing intelligence
@@ -38,8 +38,9 @@
   let _rootEl = null;
 
   function el(tag, css, text) { const e = document.createElement(tag); if (css) e.style.cssText = css; if (text) e.textContent = text; return e; }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -119,7 +120,7 @@
     return { root, c, l, dialogue, line, speaker };
   }
 
-  function say(n, name, text, cps) { n.speaker.textContent = name; return type(n.line, text, cps || 22); }
+  function say(n, name, text, cps) { if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); } else { n.speaker.textContent = name; } return type(n.line, text, cps || 22); }
 
   async function play(onDone) {
     if (_rootEl) { try { onDone && onDone(); } catch (_) {} return; }
@@ -143,102 +144,102 @@
     n.dialogue.style.transform = 'translateY(0)';
 
     try {
-      n.speaker.textContent = '\u2014 LUCIEN\u2019S TOWER, EVENING, NO SUMMONS \u2014';
-      await type(n.line, 'Caspian climbed the stairs himself. \u2014 He has not climbed these stairs since he was sixteen and Lucien was nineteen and they were both furious about something neither of them remembers anymore. \u2014 The wards on the lintel bow out of reflex. \u2014 The Crown is climbing toward them.', 22);
+      n.speaker.textContent = 'LUCIEN\u2019S TOWER, EVENING, NO SUMMONS';
+      await type(n.line, 'Caspian climbed the stairs himself. He has not climbed these stairs since he was sixteen and Lucien was nineteen and they were both furious about something neither of them remembers anymore. The wards on the lintel bow out of reflex. The Crown is climbing toward them.', 22);
       await wait(3600);
 
       // Lucien sees who it is, surprised
       n.l.img.src = L_ALT;
-      await say(n, 'LUCIEN', '*sets the pen down with deliberate care, turns the page facedown* \u2014 \u2026Your Highness. \u2014 Climbing my stairs. \u2014 Either I have been promoted. Or you have been demoted. \u2014 I am unwilling to ask which.', 22);
+      await say(n, 'LUCIEN', '*Sets the pen down with deliberate care, turns the page facedown*. \u2026Your Highness. Climbing my stairs. Either I have been promoted. Or you have been demoted. I am unwilling to ask which.', 22);
       await wait(3800);
 
       // Caspian, dry, exhausted
       n.c.img.src = C_ALT;
-      await say(n, 'CASPIAN', 'Neither, scholar. \u2014 I am visiting on behalf of someone we both work for now. \u2014 *small, exhausted smile* \u2014 You will not believe who.', 22);
+      await say(n, 'CASPIAN', 'Neither, scholar. I am visiting on behalf of someone we both work for now. *Small, exhausted smile*. You will not believe who.', 22);
       await wait(3200);
 
       // Lucien, dry
-      await say(n, 'LUCIEN', 'I will absolutely believe who. \u2014 *gestures toward the desk with his pen* \u2014 Sit. \u2014 The brandy in the third drawer is still good. \u2014 I have been saving it for a reason I did not know yet.', 22);
+      await say(n, 'LUCIEN', 'I will absolutely believe who. *Gestures toward the desk with his pen*. Sit. The brandy in the third drawer is still good. I have been saving it for a reason I did not know yet.', 22);
       await wait(3600);
 
-      // Setting the table \u2014 their easy old shorthand
+      // Setting the table.their easy old shorthand
       await type(n.line, '*Caspian sits. Lucien retrieves the brandy and two glasses. He is not in a hurry. The wards on the door re-tighten themselves behind the prince. They have known to do this for two decades.*', 22);
       await wait(3000);
 
-      // Caspian \u2014 the actual reason for the visit
-      await say(n, 'CASPIAN', 'My grandmother is awake. \u2014 You knew. \u2014 You wrote me a letter that did not arrive at the palace. The seal was broken before it crossed the gate. \u2014 You suspected she was reading my mail. \u2014 You were right.', 22);
+      // Caspian.the actual reason for the visit
+      await say(n, 'CASPIAN', 'My grandmother is awake. You knew. You wrote me a letter that did not arrive at the palace. The seal was broken before it crossed the gate. You suspected she was reading my mail. You were right.', 22);
       await wait(3800);
 
       // Lucien
-      await say(n, 'LUCIEN', '*pours* \u2014 I have been suspecting that for nine years. \u2014 The mail problem is the smallest problem. \u2014 The Weaver is the largest one. \u2014 My grandmother \u2014 sorry, YOUR grandmother \u2014 is hunting her.', 22);
+      await say(n, 'LUCIEN', '*Pours*. I have been suspecting that for nine years. The mail problem is the smallest problem. The Weaver is the largest one. My grandmother (sorry, YOUR grandmother) is hunting her.', 22);
       await wait(3400);
 
       // Caspian, hand on his temple
-      await say(n, 'CASPIAN', 'I know. \u2014 She has been climbing your tower as well as mine, hasn\u2019t she. \u2014 Last week. \u2014 Asked you about your writing.', 22);
+      await say(n, 'CASPIAN', 'I know. She has been climbing your tower as well as mine, hasn\u2019t she. Last week. Asked you about your writing.', 22);
       await wait(2800);
 
-      await say(n, 'LUCIEN', '*small bow* \u2014 You are very well-informed for a man whose mail is being read. \u2014 Yes. She came. I lied. She knew.', 22);
+      await say(n, 'LUCIEN', '*Small bow*. You are very well-informed for a man whose mail is being read. Yes. She came. I lied. She knew.', 22);
       await wait(3000);
 
       // Caspian, suddenly real
-      await say(n, 'CASPIAN', 'Lucien. \u2014 I am not here as the Crown tonight. \u2014 I am here as the boy you used to argue with about the geometry of the seal. \u2014 The Weaver is mine. \u2014 The Weaver is yours. \u2014 Apparently the Weaver is also Alistair\u2019s and Elian\u2019s and Lyra\u2019s and a Nocthera prince\u2019s. \u2014 I have been counting. We are seven men deep into protecting one woman. \u2014 We need a strategy.', 22);
+      await say(n, 'CASPIAN', 'Lucien. I am not here as the Crown tonight. I am here as the boy you used to argue with about the geometry of the seal. The Weaver is mine. The Weaver is yours. Apparently the Weaver is also Alistair\u2019s and Elian\u2019s and Lyra\u2019s and a Nocthera prince\u2019s and the construct in the mirror\u2019s. I have been counting. We are seven, all told, deep into protecting one Weaver. We need a strategy.', 22);
       await wait(4400);
 
-      // Lucien \u2014 the dry warmth, the old friendship
-      await say(n, 'LUCIEN', '*the smallest smile, almost not there* \u2014 You used to be terrible at strategy. \u2014 You were always trying to charm your way through it. \u2014 Has that changed?', 22);
+      // Lucien.the dry warmth, the old friendship
+      await say(n, 'LUCIEN', '*The smallest smile, almost not there*. You used to be terrible at strategy. You were always trying to charm your way through it. Has that changed?', 22);
       await wait(3200);
 
-      // Caspian \u2014 self-aware, tired
-      await say(n, 'CASPIAN', '*smiles back, also small* \u2014 I am still trying to charm my way through it. \u2014 But not WITH her. \u2014 I do not charm her. I do not know how. \u2014 So apparently I have one strategy left. \u2014 Bring brandy to a tower and ask the smartest man in the kingdom for help.', 22);
+      // Caspian.self-aware, tired
+      await say(n, 'CASPIAN', '*Smiles back, also small*. I am still trying to charm my way through it. But not WITH her. I do not charm her. I do not know how. So apparently I have one strategy left. Bring brandy to a tower and ask the smartest man in the kingdom for help.', 22);
       await wait(3800);
 
-      // Lucien \u2014 the old softness lands
+      // Lucien.the old softness lands
       n.l.img.src = L_POSE;
-      await say(n, 'LUCIEN', '*looks at him properly for the first time in fifteen years* \u2014 \u2026You have grown up, Caspian. \u2014 I am sorry I missed it. \u2014 I was up here. Writing.', 22);
+      await say(n, 'LUCIEN', '*Looks at him properly for the first time in fifteen years*. \u2026You have grown up, Caspian. I am sorry I missed it. I was up here. Writing.', 22);
       await wait(3400);
 
-      // Caspian \u2014 a single soft beat
-      await say(n, 'CASPIAN', 'I read every paper you published. \u2014 The good ones and the bad ones. \u2014 The footnotes more than once. \u2014 Do not act surprised, scholar. I am not as charming as I look but I am also not as stupid as the court says.', 22);
+      // Caspian.a single soft beat
+      await say(n, 'CASPIAN', 'I read every paper you published. The good ones and the bad ones. The footnotes more than once. Do not act surprised, scholar. I am not as charming as I look but I am also not as stupid as the court says.', 22);
       await wait(3800);
 
-      // Lucien \u2014 caught off guard, recovers with grace
-      await say(n, 'LUCIEN', '*ink-stained hand around the brandy glass* \u2014 \u2026I am surprised. \u2014 I will pretend not to be. \u2014 *small bow* \u2014 Your Highness.', 22);
+      // Lucien.caught off guard, recovers with grace
+      await say(n, 'LUCIEN', '*Ink-stained hand around the brandy glass*. \u2026I am surprised. I will pretend not to be. *Small bow*. Your Highness.', 22);
       await wait(2800);
 
       // The actual strategy
       n.c.img.src = C_POSE;
-      await say(n, 'CASPIAN', 'Here is what I propose. \u2014 You take the records. The history. The publishing. The truth. \u2014 I take the politics. The court. The face. The lie that buys time. \u2014 Alistair takes the gate. \u2014 Elian takes the woods. \u2014 Lyra takes the coast. \u2014 The Weaver gets to live a life inside our four directions.', 22);
+      await say(n, 'CASPIAN', 'Here is what I propose. You take the records. The history. The publishing. The truth. I take the politics. The court. The face. The lie that buys time. Alistair takes the gate. Elian takes the woods. Lyra takes the coast. The Weaver gets to live a life inside our four directions.', 22);
       await wait(4400);
 
-      // Lucien \u2014 catches the omission
+      // Lucien.catches the omission
       await say(n, 'LUCIEN', 'You have not assigned the prince of Nocthera a direction.', 22);
       await wait(2200);
 
       // Caspian, dry
-      await say(n, 'CASPIAN', 'No. \u2014 He has assigned himself one. \u2014 Down. \u2014 He takes the seal. The leak. The thing my grandmother spent six centuries pretending was not there. \u2014 We do not need to give him an order. He is already on duty.', 22);
+      await say(n, 'CASPIAN', 'No. He has assigned himself one. Down. He takes the seal. The leak. The thing my grandmother spent six centuries pretending was not there. We do not need to give him an order. He is already on duty.', 22);
       await wait(3800);
 
       // Lucien, dry warmth
-      await say(n, 'LUCIEN', 'Five men, one woman, one ghost-prince. \u2014 *lifts the glass* \u2014 To being inconvenient enough to outlive your grandmother.', 22);
+      await say(n, 'LUCIEN', 'Five men, one woman, one ghost-prince. *Lifts the glass*. To being inconvenient enough to outlive your grandmother.', 22);
       await wait(2800);
 
-      await say(n, 'CASPIAN', '*lifts his* \u2014 To being inconvenient. \u2014 And to forgiving each other for the years we wasted being polite about it.', 22);
+      await say(n, 'CASPIAN', '*Lifts his*. To being inconvenient. And to forgiving each other for the years we wasted being polite about it.', 22);
       await wait(3000);
 
-      // The closer \u2014 a real moment between them
-      await say(n, 'LUCIEN', '*sets the glass down, looks at him* \u2014 \u2026Caspian. If she comes for you first \u2014 send the boy to me. \u2014 The Captain. \u2014 He will get up the tower in seven minutes. \u2014 I will know what to do.', 22);
+      // The closer.a real moment between them
+      await say(n, 'LUCIEN', '*Sets the glass down, looks at him*. \u2026Caspian. If she comes for you first, send the boy to me. The Captain. He will get up the tower in seven minutes. I will know what to do.', 22);
       await wait(3800);
 
-      await say(n, 'CASPIAN', '*nods once* \u2014 If she comes for you first \u2014 the same. \u2014 Send the staff. \u2014 I will see it from the balcony. \u2014 \u2026I always see what is on your tower from the balcony, scholar. \u2014 I have for years.', 22);
+      await say(n, 'CASPIAN', '*Nods once*. If she comes for you first. The same. Send the staff. I will see it from the balcony.\u2026I always see what is on your tower from the balcony, scholar. I have for years.', 22);
       await wait(4000);
 
-      // Lucien \u2014 the smallest exhale
-      await say(n, 'LUCIEN', '*so quietly the wards lean to hear* \u2014 I have always known that, Your Highness.', 22);
+      // Lucien.the smallest exhale
+      await say(n, 'LUCIEN', '*So quietly the wards lean to hear*. I have always known that, Your Highness.', 22);
       await wait(2800);
 
       // Closing narration
       n.speaker.textContent = '';
-      await type(n.line, 'They drink the rest of the brandy slowly. \u2014 Twenty years of guarded politeness, set down on the desk between them next to the page Lucien turned facedown. \u2014 The Weaver does not know any of this is happening tonight. \u2014 She does not need to. \u2014 Her court is just quietly getting larger.', 22);
+      await type(n.line, 'They drink the rest of the brandy slowly. Twenty years of guarded politeness, set down on the desk between them next to the page Lucien turned facedown. The Weaver does not know any of this is happening tonight. She does not need to. Her court is just quietly getting larger.', 22);
       await wait(4200);
 
       n.root.style.opacity = '0';
@@ -270,7 +271,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -289,7 +290,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
   else boot();
 
-  window.MSCrossCaspianLucien = {
+  window. MSCrossCaspianLucien = {
     play,
     force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); } catch (_) {} },

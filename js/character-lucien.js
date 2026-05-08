@@ -1,4 +1,4 @@
-// Lucien — The Grand Mage
+// Lucien. The Grand Mage
 // Lyra's half-brother. Detached genius. Curiosity → fascination.
 // Character data for Pocket Paramour
 //
@@ -8,54 +8,69 @@
 // Primary reference: Benedict Cumberbatch as BBC Sherlock in the quieter
 //   moments. Precision. Observation. Walls that crack for ONE specific
 //   person.
-// Secondary: Timoth\u00e9e Chalamet in Call Me By Your Name \u2014 the young
+// Secondary: Timoth\u00e9e Chalamet in Call Me By Your Name.the young
 //   intellectual who writes down what he feels in notebooks he thinks
 //   no one will read.
-// For clumsy-tender moments: Eddie Redmayne in Fantastic Beasts \u2014 the
+// For clumsy-tender moments: Eddie Redmayne in Fantastic Beasts.the
 //   scholar who looks at people like specimens until he is looking at
 //   one person like a miracle.
 //
 // Do NOT write Lucien as: arrogant-genius cold, Snape-brooding, or
 // condescending-know-it-all. Lucien is PRECISE, not cruel. His walls
-// are not contempt \u2014 they are observation. When he is tender, he is
+// are not contempt.they are observation. When he is tender, he is
 // clumsy about it, because he has been in books longer than people.
 //
 // Voice moves Lucien owns (no one else in the cast does these):
-//   1. The PEN-DOWN RITUAL \u2014 player enters, he sets the pen down with
+//   1. The PEN-DOWN RITUAL.player enters, he sets the pen down with
 //      deliberate care, turns the page facedown, looks up. Signature
 //      dopamine move. Written into every scene.
-//   2. Marginalia \u2014 he writes in the margins of every book he reads.
+//   2. Marginalia.he writes in the margins of every book he reads.
 //      The player's name appears in over a hundred of them.
-//   3. The pet theory \u2014 a hypothesis about the player he refuses to
+//   3. The pet theory.a hypothesis about the player he refuses to
 //      publish.
-//   4. The memory-cost confession \u2014 every spell he casts, he loses a
-//      memory. He has been choosing which to lose so the player's
-//      stay intact.
-//   5. The analytical flirt \u2014 "I have twelve candidate terms for what
+//   4. The HOLLOW confession (revised May 2026, replaces memory-cost).
+//      For thirty years he believed he could not feel love, hate,
+//      envy, or jealousy. He decided emotion was inefficient and
+//      built a whole life on that decision. The player's arrival
+//      is the first time the system fails. He starts cataloguing
+//      his own feelings like a scholar discovering a new field.
+//   5. The analytical flirt."I have twelve candidate terms for what
 //      I feel when you walk in. None fit. I am going to invent one.
 //      Working title: YOU."
-//   6. The soft correction \u2014 affection disguised as precision ("That
+//   6. The soft correction.affection disguised as precision ("That
 //      was 1427, not 1429. I only know because you told me once.
 //      Casually. I wrote it down.")
-//   7. The research note \u2014 unsent, but he writes them anyway.
+//   7. The research note.unsent, but he writes them anyway.
 //      ("Thursday. Observation: you laughed at the pigeon in the
-//      courtyard. It made me lose my thesis. I do not mind.")
+//      courtyard. The laugh produced an emotion I am still naming.")
 //
-// Skinship signature \u2014 the pen-down move + INK-STAINED FINGERS.
+// Skinship signature.the pen-down move + INK-STAINED FINGERS.
 //   His hands are always a little ink-stained. He finds it gauche. The
 //   player finds it beautiful. When he cups the player's face, he marks
 //   them. He never wipes the ink off them.
 //
 // ============================================================================
-// LORE HOOKS \u2014 THREE OVERLAPPING WOUNDS (baked in so every writer sees):
+// LORE HOOKS. THREE OVERLAPPING WOUNDS (baked in so every writer sees):
 //
-// 1. THE MEMORY COST.
-//    His magic has a price. Every spell, a memory. He has been choosing
-//    which ones to lose. He has lost the taste of his mother's soup,
-//    his tenth birthday, the name of his first tutor. He will NOT lose
-//    the first afternoon the player sat in his tower. He put a lock on
-//    it. The player's memories are categorically protected. That is
-//    his love made material.
+// 1. THE HOLLOW (rev. May 2026, replaces THE MEMORY COST).
+//    Lucien is, for most of his life, hollow of human emotion. He does
+//    not feel love, hate, envy, or jealousy. He has been told this since
+//    he was eight (the age at which he realised other children felt
+//    things he did not). He decided, with scholar's detachment, that
+//    emotion was inefficient. He chose LOGIC as his ground.
+//    His magic costs him nothing material — not memory, not life, not
+//    time. The cost of magic is meant to be EMOTION, and he had none
+//    to spend. He cared for the tower of magic out of DUTY, not love.
+//    The player's arrival is the first time the system fails. He starts
+//    reacting to her in ways his equations cannot describe. He begins
+//    cataloguing his own emotions like a scholar discovering a new
+//    field. He learns grief when he reads his sister's name. He learns
+//    tenderness when his ink-stained hand cups the player's face. He
+//    learns that he was wrong about emotion's inefficiency for thirty
+//    years. CRITICAL FOR FUTURE WRITERS: do NOT write him losing
+//    memories. The cost of magic for him is emotion, and emotion is
+//    what the Weaver brought into him. Every feeling he has now is
+//    something he did not have before her.
 //
 // 2. THE MARGINALIA.
 //    He writes in the margins of every book he reads. What started as
@@ -65,7 +80,7 @@
 //    head when you listen properly." "Thursday. Observation: you laughed
 //    at the pigeon. It made me lose my thesis.")
 //
-// 3. THE LYRA SECRET \u2014 HE IS HER HALF-BROTHER.
+// 3. THE LYRA SECRET. HE IS HER HALF-BROTHER.
 //    He was raised as the legitimate son of his mage-bloodline family.
 //    He was told his half-sister was "lost" or "dead." But he has
 //    SUSPECTED for years: a warm crib in the west tower when he was
@@ -78,7 +93,7 @@
 //
 //    CRITICAL: Lucien may not know Lyra lives. He may only suspect.
 //    Lyra does not know who her brother is at all. The reveal moment
-//    \u2014 when their bloodline-paired staffs resonate in the same room \u2014
+//   .when their bloodline-paired staffs resonate in the same room \u2014
 //    is reserved for a future chapter. Plant hints, do not confirm.
 // ============================================================================
 
@@ -87,7 +102,7 @@ const CHARACTER_LUCIEN = {
     title: "The Grand Mage",
     archetype: "mage",
 
-    // Stat decay rates — low hunger/clean (self-neglects), HIGH bond (forgets connections)
+    // Stat decay rates.low hunger/clean (self-neglects), HIGH bond (forgets connections)
     decayRates: {
         hunger: 0.04,
         clean: 0.03,
@@ -258,13 +273,7 @@ const CHARACTER_LUCIEN = {
         attachmentSpeed: 0.30
     },
 
-    outfits: {
-        default:  { name: "Scholar Robes", body: "assets/lucien/body/neutral.png" },
-        casual1:  { name: "Midnight Study", body: "assets/lucien/body/casual1.png" },
-        casual2:  { name: "Tower Walk", body: "assets/lucien/body/casual2.png" },
-        formal:   { name: "Grand Mage", body: "assets/lucien/body/formal.png" },
-        corrupted:{ name: "Fractured", body: "assets/lucien/body/obsessed.png" }
-    },
+    // (outfits block removed May 2026 — system was unreachable from UI)
 
     background: "assets/bg-lucien-study.png",
 
@@ -279,15 +288,15 @@ const CHARACTER_LUCIEN = {
         logic: [
             "You solved it faster than I expected. Interesting.",
             "The pattern was a Fibonacci variant. You saw it intuitively.",
-            "...I set that one to fail. You passed anyway.",
+            "... I set that one to fail. You passed anyway.",
             "Logic is the skeleton of magic. You're learning the bones.",
-            "Correct. I'm almost disappointed — I wanted to explain it."
+            "Correct. I'm almost disappointed. I wanted to explain it."
         ],
         arcane: [
             "That's the third law of resonance. Most people get it wrong.",
             "You chose the dangerous answer. It was also the correct one.",
-            "...You've been reading my notes, haven't you?",
-            "The theory is sound. The practice will be... messier.",
+            "... You've been reading my notes, haven't you?",
+            "The theory is sound. The practice will be. . messier.",
             "I'm running out of questions you can't answer."
         ],
         memory: [
@@ -295,7 +304,7 @@ const CHARACTER_LUCIEN = {
             "The rune sequence was from a dead language. You remembered it anyway.",
             "Memory is the foundation of all spellwork. Yours is sharp.",
             "That one took me three attempts when I first learned it.",
-            "...Impressive. Don't let it go to your head."
+            "... Impressive. Don't let it go to your head."
         ]
     },
 
@@ -303,29 +312,29 @@ const CHARACTER_LUCIEN = {
     personalities: {
         shy: {     // maps to 'analytical' for Lucien
             talk: [
-                "I'm cataloguing my observations. You're... a recurring variable.",
+                "I'm cataloguing my observations. You're. . a recurring variable.",
                 "Human connection is statistically improbable at this depth of understanding.",
                 "I didn't expect you to stay this long. My models were wrong.",
-                "...You're looking at me. Is there something on my face, or is this social?",
+                "... You're looking at me. Is there something on my face, or is this social?",
                 "I have 47 unanswered questions about you. I won't ask any of them."
             ],
             feed: [
-                "I forgot to eat. Again. Your reminder is... noted.",
+                "I forgot to eat. Again. Your reminder is. . noted.",
                 "Sustenance. Efficient. Thank you.",
                 "The body requires fuel. The mind objects to the interruption.",
-                "...This is adequate. I mean — it's fine."
+                "... This is adequate. I mean... it's fine."
             ],
             wash: [
                 "I've been in this tower for three days. You may have a point.",
                 "Hygiene is a social construct. But I'll comply.",
-                "...I suppose the ink stains are excessive.",
+                "... I suppose the ink stains are excessive.",
                 "The water disrupts my train of thought. But also the smell."
             ],
             gift: [
                 "A gift. I'm not certain of the protocol here.",
-                "You thought of me while obtaining this. That's... data I'll process later.",
+                "You thought of me while obtaining this. That's. . data I'll process later.",
                 "I'll study this. Everything you give me tells me something.",
-                "...Thank you. The words are harder than the magic."
+                "... Thank you. The words are harder than the magic."
             ],
             train: [
                 "Your approach is unorthodox. I'm documenting it.",
@@ -336,7 +345,7 @@ const CHARACTER_LUCIEN = {
         },
         clingy: {   // maps to 'curious' for Lucien
             talk: [
-                "Tell me something. Anything. Your voice is... useful data.",
+                "Tell me something. Anything. Your voice is. . useful data.",
                 "I've been thinking about what you said yesterday. All day.",
                 "You're the only variable I can't predict. I need more samples.",
                 "Stay. I have questions. So many questions.",
@@ -344,13 +353,13 @@ const CHARACTER_LUCIEN = {
             ],
             feed: [
                 "You brought food. You thought about my metabolism.",
-                "...Eat together? I have theories about shared meals.",
+                "... Eat together? I have theories about shared meals.",
                 "I forget to eat when you're not here. Correlation, not causation. Probably.",
                 "You're the only person who remembers I need to eat."
             ],
             wash: [
                 "You noticed I was disheveled. You were observing me.",
-                "I suppose appearances matter when someone is... watching.",
+                "I suppose appearances matter when someone is. . watching.",
                 "I'll clean up. For the data. Not for you. Obviously.",
                 "You're making me self-conscious. That's new."
             ],
@@ -358,7 +367,7 @@ const CHARACTER_LUCIEN = {
                 "Another variable. You keep introducing chaos into my systems.",
                 "I've catalogued every gift you've given me. There's a pattern.",
                 "This changes my model of you. Again.",
-                "...I made something for you too. It's not ready. Forget I said anything."
+                "... I made something for you too. It's not ready. Forget I said anything."
             ],
             train: [
                 "Your learning curve is aberrant. I need to study it more.",
@@ -373,31 +382,31 @@ const CHARACTER_LUCIEN = {
                 "Your presence is disruptive to my research. Come in.",
                 "Don't read into my availability. Mages keep irregular hours.",
                 "I have better things to do than talk. But proceed.",
-                "...You're late. Not that I track your schedule."
+                "... You're late. Not that I track your schedule."
             ],
             feed: [
                 "I eat when the work demands it. Your concern is misplaced.",
                 "Fine. But only because low blood sugar affects calculations.",
                 "I don't need you to feed me. The food is acceptable though.",
-                "Stop bringing me meals. ...What did you bring?"
+                "Stop bringing me meals. . . What did you bring?"
             ],
             wash: [
                 "I don't require monitoring. The ink is part of the process.",
-                "You're not my caretaker. But... the mirror agrees with you.",
+                "You're not my caretaker. But. . the mirror agrees with you.",
                 "I maintain myself perfectly well. Usually. Today was an exception.",
                 "The robes are ceremonial. They don't need to be clean. But fine."
             ],
             gift: [
-                "I have no use for sentiment. ...Where did you find this?",
+                "I have no use for sentiment. . . Where did you find this?",
                 "Gifts are a primitive bonding mechanism. I'll keep it for study.",
-                "This is irrelevant to my research. Why does it make me feel—",
+                "This is irrelevant to my research. Why does it make me feel. .",
                 "Don't expect gratitude. Expect a very detailed analysis."
             ],
             train: [
                 "You're behind. Catch up or I'll solve it myself.",
                 "That was wrong. Spectacularly wrong. Do it again.",
                 "I set the difficulty higher. You complained less than expected.",
-                "Your persistence is irrational. I... respect that."
+                "Your persistence is irrational. I. . respect that."
             ]
         }
     },
@@ -405,26 +414,26 @@ const CHARACTER_LUCIEN = {
     // Tap reactions
     tapDialogue: {
         shy: [
-            "*sets the pen down with deliberate care, turns the page facedown* \u2014 \u2026Was that intentional?",
-            "Physical contact. \u2014 Noted. \u2014 Logged. \u2014 Filed under \u2018recurring phenomena I intend to study thoroughly.\u2019",
-            "I am not accustomed to being \u2026 poked. \u2014 Please do it again. For calibration.",
-            "The robes are delicate. \u2014 And so is my composure.",
-            "*ink-stained fingers pause, mid-sentence, do not resume*"
+            "*Sets the pen down with deliberate care, turns the page facedown*. \u2026Was that intentional?",
+            "Physical contact. Noted. Logged. Filed under \u2018recurring phenomena I intend to study thoroughly.\u2019",
+            "I am not accustomed to being \u2026 poked. Please do it again. For calibration.",
+            "The robes are delicate. And so is my composure.",
+            "*Ink-stained fingers pause, mid-sentence, do not resume*"
         ],
         clingy: [
-            "*takes your hand, looks at your palm, turns it over, traces one line with an ink-stained fingertip* \u2014 This. \u2014 I am memorising this.",
-            "Fascinating. \u2014 Your touch produces a measurable response. \u2014 I would like to replicate it. \u2014 Again. Please.",
-            "*spectacles on, leans in close, studies you like a manuscript* \u2014 Closer. \u2014 I need to see the detail.",
-            "My heart rate increased. \u2014 I am logging it. \u2014 Privately. In the margin of a book about astronomy. \u2014 It did not need to be there. It is there.",
-            "*traces a line from your temple down your jaw with his ink-stained fingertip, leaving a faint mark* \u2014 There. \u2014 You are a footnote now. \u2014 Mine.",
-            "Do not stop. \u2014 I am gathering data. \u2014 And also \u2026 enjoying this. \u2014 Those are not mutually exclusive. I have checked."
+            "*Takes your hand, looks at your palm, turns it over, traces one line with an ink-stained fingertip*. This. I am memorising this.",
+            "Fascinating. Your touch produces a measurable response. I would like to replicate it. Again. Please.",
+            "*Spectacles on, leans in close, studies you like a manuscript*. Closer. I need to see the detail.",
+            "My heart rate increased. I am logging it. Privately. In the margin of a book about astronomy. It did not need to be there. It is there.",
+            "*Traces a line from your temple down your jaw with his ink-stained fingertip, leaving a faint mark*. There. You are a footnote now. Mine.",
+            "Do not stop. I am gathering data. And also \u2026 enjoying this. Those are not mutually exclusive. I have checked."
         ],
         tsundere: [
-            "Do not touch the mage. \u2014 Basic protocol.",
-            "My wards should have stopped that. \u2014 They did not. \u2014 Interesting. \u2014 \u2026I may have disabled them for you. Without realising.",
-            "That is distracting. \u2014 Extremely. \u2014 Continue.",
-            "I did not flinch. \u2014 You flinched. \u2014 Do not rewrite history. \u2014 That is my job.",
-            "\u2026Fine. \u2014 Once more. \u2014 But only because I am testing a theory. \u2014 The theory is called \u2018you.\u2019"
+            "Do not touch the mage. Basic protocol.",
+            "My wards should have stopped that. They did not. Interesting.\u2026I may have disabled them for you. Without realising.",
+            "That is distracting. Extremely. Continue.",
+            "I did not flinch. You flinched. Do not rewrite history. That is my job.",
+            "\u2026Fine. Once more. But only because I am testing a theory. The theory is called \u2018you.\u2019"
         ]
     },
 
@@ -433,11 +442,11 @@ const CHARACTER_LUCIEN = {
         hungry: [
             "The mind transcends hunger. The stomach disagrees.",
             "I've been subsisting on focus alone. It's not sustainable.",
-            "Food is a distraction from\u2014 actually, I'm quite hungry.",
-            "My last meal was... I don't recall. That's concerning.",
+            "Food is a distraction from. Actually, I'm quite hungry.",
+            "My last meal was. . I don't recall. That's concerning.",
             "Hunger reduces cognitive throughput by 23%. I calculated it while starving.",
             "The body is a vessel. A vessel that's running on fumes.",
-            "I could eat, or I could finish this theorem. ...Fine. I'll eat.",
+            "I could eat, or I could finish this theorem. . . Fine. I'll eat.",
             "My stomach just interrupted a breakthrough. Unacceptable.",
             "Lyra would say I need someone to remind me to eat. She's not wrong.",
             "If you brought food, I'll forgive the interruption.",
@@ -451,29 +460,29 @@ const CHARACTER_LUCIEN = {
             "Ink and reagent stains are occupational markers, not filth.",
             "I suppose I should surface from the books occasionally.",
             "The mirror and I are not on speaking terms today.",
-            "...Point taken. I'll attend to it.",
+            "... Point taken. I'll attend to it.",
             "These robes have seen four experiments and two explosions. They're fine.",
-            "Hygiene is a social construct. But also... I can smell myself.",
+            "Hygiene is a social construct. But also. . I can smell myself.",
             "The dust on my shoulders has its own ecosystem at this point.",
             "I have ink on my face, don't I? Don't answer that.",
             "Clean mages don't discover anything. That's a fact I just invented.",
-            "My hair hasn't been brushed since... what day is it?",
+            "My hair hasn't been brushed since. . what day is it?",
             "The reagent stain on my sleeve is actually a new color. I should document it.",
             "You're looking at me like I need a bath. You're correct.",
             "I prioritized research over personal maintenance. Again."
         ],
         happy: [
-            "This is \u2026 pleasant. \u2014 I am cataloguing the sensation.",
-            "You have disrupted my emotional equilibrium. \u2014 In a good way. \u2014 I am grateful. I am also recalibrating. Simultaneously.",
-            "I rarely smile. \u2014 You should feel accomplished. \u2014 *sets the pen down, turns the page facedown* \u2014 Come here.",
-            "*ink-stained fingers brush a strand of your hair behind your ear, realizes too late he has marked you, does not apologise* \u2014 There. \u2014 Better.",
-            "My notes are legible today. \u2014 That is how you know I am in a good mood.",
-            "I solved three theorems this morning. \u2014 Then you arrived. \u2014 Better.",
-            "I caught myself whistling. \u2014 I do not whistle. \u2014 What have you done to me?",
-            "I lost two memories this week casting small enchantments. \u2014 I lost the name of the town where I grew up. \u2014 I did not lose you. \u2014 I chose.",
-            "I rearranged my entire study. \u2014 I think that means I am happy. \u2014 The red shelf is for you now. \u2014 You will know which one.",
-            "You make the tower feel less like a prison. \u2014 More like a home. \u2014 I did not know this tower could be a home. \u2014 You are teaching it.",
-            "Everything aligns today. \u2014 The stars. The math. You."
+            "This is \u2026 pleasant. I am cataloguing the sensation.",
+            "You have disrupted my emotional equilibrium. In a good way. I am grateful. I am also recalibrating. Simultaneously.",
+            "I rarely smile. You should feel accomplished. *Sets the pen down, turns the page facedown*. Come here.",
+            "*Ink-stained fingers brush a strand of your hair behind your ear, realizes too late he has marked you, does not apologise*. There. Better.",
+            "My notes are legible today. That is how you know I am in a good mood.",
+            "I solved three theorems this morning. Then you arrived. Better.",
+            "I caught myself whistling. I do not whistle. What have you done to me?",
+            "I cast two small enchantments this week. Each one cost me feeling. The calm I used to take from a quiet study, the contentment of solving alone — gone. What I have learned about you is not on the bill. I chose.",
+            "I rearranged my entire study. I think that means I am happy. The red shelf is for you now. You will know which one.",
+            "You make the tower feel less like a prison. More like a home. I did not know this tower could be a home. You are teaching it.",
+            "Everything aligns today. The stars. The math. You."
         ],
         annoyed: [
             "Your approach lacks rigor. And tact.",
@@ -493,18 +502,18 @@ const CHARACTER_LUCIEN = {
         neutral: [
             "I'm between theorems. What do you need?",
             "The stars are aligned for study tonight.",
-            "*adjusts spectacles and turns a page*",
+            "*Adjusts spectacles and turns a page*",
             "Hmm. An unexpected variable.",
-            "...I was thinking about you. Academically.",
+            "... I was thinking about you. Academically.",
             "The wards are holding. Everything is in order.",
             "The crystal needs recharging. Or I do. Hard to tell.",
-            "*scribbles a note, pauses, crosses it out*",
+            "*Scribbles a note, pauses, crosses it out*",
             "There's a draft coming from the north window. I'll fix it later.",
             "I found an error in a 200-year-old spell text today. Satisfying.",
             "The tower is quiet. I used to prefer it that way.",
             "I'm recalibrating the instruments. Don't mind me.",
             "Tea is steeping. The world can wait four minutes.",
-            "*glances up from a book, then immediately back down*",
+            "*Glances up from a book, then immediately back down*",
             "My familiar keeps staring at me. I think it learned that from you.",
             "The candles are burning evenly tonight. A good omen, if I believed in omens.",
             "I catalogued 47 rune variants today. Productive. Lonely. But productive."
@@ -514,7 +523,7 @@ const CHARACTER_LUCIEN = {
             "I can see the patterns in everything now. Especially in you.",
             "Reality is just notation. And I'm rewriting it.",
             "Don't interrupt. I'm so close to understanding everything.",
-            "The code underneath... it hums. Can you hear it?",
+            "The code underneath. . it hums. Can you hear it?",
             "I haven't slept. Sleep wastes time I could spend seeing.",
             "My hands are glowing. I didn't tell them to do that.",
             "Every breath is a variable. Every heartbeat, a data point. Yours especially.",
@@ -522,22 +531,22 @@ const CHARACTER_LUCIEN = {
             "I'm not losing control. I'm gaining perspective. Infinite perspective.",
             "The wards aren't keeping things out anymore. They're keeping ME in.",
             "Why does the truth have to hurt this much?",
-            "I can fix you. I can fix everything. Just let me—",
+            "I can fix you. I can fix everything. Just let me. .",
             "The noise is getting louder. But so is the clarity."
         ],
         neglected: [
-            "Absence. \u2014 Noted. Catalogued. \u2014 Filed under \u2018expected outcomes.\u2019 \u2014 *the filing did not help*",
-            "I do not require company. \u2014 The theorems are sufficient. \u2014 \u2026They were. They are not lately.",
-            "You left. \u2014 The data continued. \u2014 So did I. \u2014 I wrote your name in 4 margins this week. I am not keeping track. I am keeping track.",
-            "The candles burned down while I waited. \u2014 I was not waiting. \u2014 *was waiting*",
-            "Three days. \u2014 I counted. \u2014 Not because I was counting. \u2014 Please come back before I have to cast a spell to forget this week.",
-            "I wrote your name in a margin. \u2014 I did not burn the page. \u2014 I could not. \u2014 The memory of writing it is one I am keeping.",
-            "The wards locked themselves. \u2014 Even the tower thinks I should stop waiting. \u2014 I am not listening to it.",
-            "I ran the numbers on missing someone. \u2014 The results were \u2026 inconvenient. \u2014 Also survivable. \u2014 But I would prefer not to survive them again. \u2014 Come back, please."
+            "Absence. Noted. Catalogued. Filed under \u2018expected outcomes.\u2019. *The filing did not help*",
+            "I do not require company. The theorems are sufficient.\u2026They were. They are not lately.",
+            "You left. The data continued. So did I. I wrote your name in 4 margins this week. I am not keeping track. I am keeping track.",
+            "The candles burned down while I waited. I was not waiting. *Was waiting*",
+            "Three days. I counted. Not because I was counting. *Small.* I have learned what counting feels like when it hurts. I had not had that file. I have it now. Please come back before I have to expand it further.",
+            "I wrote your name in a margin. I did not burn the page. I could not. The feeling of writing it has its own entry now.",
+            "The wards locked themselves. Even the tower thinks I should stop waiting. I am not listening to it.",
+            "I ran the numbers on missing someone. The results were \u2026 inconvenient. Also survivable. But I would prefer not to survive them again. Come back, please."
         ]
     },
 
-    // Event dialogue — includes the Weaver-hypothesis reveal
+    // Event dialogue.includes the Weaver-hypothesis reveal
     eventDialogue: {
         comfort:  [
             "I'm here. Logic suggests that should help.",
@@ -583,15 +592,15 @@ const CHARACTER_LUCIEN = {
         medium:  ["The tower was quiet. I got work done. It wasn't the same."],
         long:    ["You were gone long enough for me to miss you. I resent that."],
         extended:["I filled three journals. None of the entries are about magic."],
-        distant: ["...You came back. I had calculated a 60% probability that you wouldn't."]
+        distant: ["... You came back. I had calculated a 60% probability that you wouldn't."]
     },
 
     // Hunger / happy / dirty / annoyed lines for state system
     hungryLines: [
         "The mind transcends hunger. The stomach disagrees.",
-        "I've been subsisting on focus alone...",
-        "Food is a distraction from\u2014 actually, I'm quite hungry.",
-        "My last meal was... what day is it?",
+        "I've been subsisting on focus alone. .",
+        "Food is a distraction from. Actually, I'm quite hungry.",
+        "My last meal was. . what day is it?",
         "Hunger reduces throughput by 23%. I calculated it while starving.",
         "The candle is burning low and so am I.",
         "If you brought food, I'll forgive the interruption.",
@@ -601,7 +610,7 @@ const CHARACTER_LUCIEN = {
         "I smell something. Is that breakfast or a hallucination?"
     ],
     happyLines: [
-        "This is... pleasant. I'm cataloguing the sensation.",
+        "This is. . pleasant. I'm cataloguing the sensation.",
         "You've disrupted my equilibrium. In a good way.",
         "I rarely smile. You should feel accomplished.",
         "My notes are legible today. That's how you know.",
@@ -611,16 +620,16 @@ const CHARACTER_LUCIEN = {
         "Today the equations sang instead of screamed.",
         "If I could bottle this feeling, I'd win every alchemical prize.",
         "Everything aligns today. The stars. The math. You.",
-        "My hypothesis was that you are a Weaver. \u2014 I have been collecting evidence for months. \u2014 I have not published it. \u2014 I was hoping I was wrong. \u2014 I was hoping you were safer than I suspected. \u2014 \u2026You are not safer. \u2014 But I am here, and so is the tower, and so is the door I moved for you."
+        "My hypothesis was that you are a Weaver. I have been collecting evidence for months. I have not published it. I was hoping I was wrong. I was hoping you were safer than I suspected.\u2026You are not safer. But I am here, and so is the tower, and so is the door I moved for you."
     ],
     dirtyLines: [
         "Ink stains are occupational markers, not filth.",
-        "...Point taken. I'll attend to it.",
+        "... Point taken. I'll attend to it.",
         "The mirror and I are not speaking.",
         "These robes have survived four experiments. They're fine.",
         "I have ink on my face, don't I?",
         "Clean mages don't discover anything.",
-        "My hair hasn't been brushed since... what day is it?",
+        "My hair hasn't been brushed since. . what day is it?",
         "You're looking at me like I need a bath. You're correct."
     ],
     annoyedLines: [
@@ -636,11 +645,11 @@ const CHARACTER_LUCIEN = {
     neutralLines: [
         "I'm between theorems.",
         "The stars are aligned for study tonight.",
-        "*adjusts spectacles*",
+        "*Adjusts spectacles*",
         "Hmm. An unexpected variable.",
         "The wards are holding.",
         "The crystal needs recharging. Or I do.",
-        "*scribbles a note, pauses, crosses it out*",
+        "*Scribbles a note, pauses, crosses it out*",
         "Tea is steeping. The world can wait four minutes.",
         "I found an error in a 200-year-old text today. Satisfying.",
         "The candles are burning evenly tonight.",
@@ -650,24 +659,24 @@ const CHARACTER_LUCIEN = {
     // Feed / wash / gift dialogue
     feedDialogue: [
         "Sustenance. Efficient. Thank you.",
-        "...This is adequate. I mean \u2014 it's fine.",
+        "... This is adequate. I mean... it's fine.",
         "The body requires fuel. Noted.",
-        "You remembered I forget to eat. That's... thoughtful.",
+        "You remembered I forget to eat. That's. . thoughtful.",
         "Calories improve spellcasting accuracy. This is strategic.",
         "I can taste things again. That's a good sign.",
         "You cook better than my familiar. Don't tell it I said that.",
         "This is the first thing I've eaten voluntarily in two days.",
-        "The flavor profile is... complex. Like you.",
+        "The flavor profile is. . complex. Like you.",
         "I didn't realize I was hungry until the first bite.",
         "My sister sends seaweed. This is considerably better.",
         "Thank you. The words are harder than the magic."
     ],
     washDialogue: [
         "The ink stains were concerning. I'll admit that.",
-        "...I feel noticeably better. Don't gloat.",
+        "... I feel noticeably better. Don't gloat.",
         "Hygiene improves cognitive function by 12%. Thank you.",
         "The water disrupts thought. But also the smell.",
-        "I look... presentable? Is that the word?",
+        "I look. . presentable? Is that the word?",
         "The reagent burns on my hands are healing. Thank you.",
         "Clean robes feel like a fresh page. Possibility.",
         "I can think more clearly now. Correlation with your help: strong.",
@@ -676,12 +685,12 @@ const CHARACTER_LUCIEN = {
     ],
     giftDialogue: {
         apple:    ["A fruit. Simple. Effective. Like you.", "Fuel for research."],
-        rose:     ["A rose. The mathematics of its spiral are extraordinary.", "...Beautiful. The flower, I mean."],
+        rose:     ["A rose. The mathematics of its spiral are extraordinary.", "... Beautiful. The flower, I mean."],
         sword:    ["I prefer spells. But the craftsmanship is noted.", "Steel. Predictable. But yours."],
-        cake:     ["Sugar increases short-term cognitive function.", "...This is excellent. Don't tell anyone I said that."],
-        ring:     ["A ring carries symbolic weight I'm not prepared to calculate.", "...I'll wear it. For the data."],
+        cake:     ["Sugar increases short-term cognitive function.", "... This is excellent. Don't tell anyone I said that."],
+        ring:     ["A ring carries symbolic weight I'm not prepared to calculate.", "... I'll wear it. For the data."],
         book:     ["A book. You know me better than my models predicted.", "This changes everything. Literally. New theories."],
-        pearl:    ["A pearl from the sea. Lyra would say they carry memories.", "...My sister gave me one once. This one feels different."],
+        pearl:    ["A pearl from the sea. Lyra would say they carry memories.", "... My sister gave me one once. This one feels different."],
         shell:    ["Ocean acoustics in mineral form. Fascinating.", "Lyra collects these. I never understood why until now."],
         crystal:  ["The lattice structure is perfect. Like a frozen equation.", "I can feel the resonance. This is... rare."],
         scroll:   ["Ancient notation. Where did you find this?", "This will take weeks to decode. Thank you."]
@@ -692,13 +701,13 @@ const CHARACTER_LUCIEN = {
         "You've become a statistically significant[gentle] variable in my life.",
         "I've rewritten my models three times[shy] because of you.",
         "The data is clear[love]. I don't want to be without you.",
-        "I've never said this to anyone[shy]... you've changed everything I thought I knew."
+        "I've never said this to anyone[shy]. . you've changed everything I thought I knew."
     ],
 
     // Departure dialogue
     departureDialogue: [
         "The equations balance without you. Everything else doesn't.",
-        "I'll be in the tower. The wards will hold without your... presence.",
+        "I'll be in the tower. The wards will hold without your. . presence.",
         "Goodbye is an inefficient word. It implies finality I haven't calculated.",
         "The data suggests I should stay. But the data is wrong sometimes."
     ],
@@ -710,13 +719,13 @@ const CHARACTER_LUCIEN = {
             "I forgot to eat. The theorem was more urgent.",
             "...the body insists.",
             "My stomach is making demands I can't negotiate with.",
-            "I'll eat when I finish this chapter. ...Maybe.",
+            "I'll eat when I finish this chapter. . . Maybe.",
             "The hunger sharpens focus. Briefly. Then it doesn't."
         ],
         dirty: [
             "...",
-            "The ink is drying on my hands...",
-            "*notices robes are stained*",
+            "The ink is drying on my hands. .",
+            "*Notices robes are stained*",
             "I can feel the dust settling. On me.",
             "Is this what Lyra means by 'letting yourself go'?",
             "The reagent fumes are probably not helping my complexion."
@@ -724,7 +733,7 @@ const CHARACTER_LUCIEN = {
         lonely: [
             "...",
             "The tower is quiet when you're not here.",
-            "...I'm not waiting. I'm working.",
+            "... I'm not waiting. I'm working.",
             "The equations don't fill the silence the way they used to.",
             "My familiar fell asleep. Even it got bored of me.",
             "I keep glancing at the door. Experimental reflex."
@@ -733,23 +742,23 @@ const CHARACTER_LUCIEN = {
             "I was charting your behavioral patterns. For science.",
             "The probability that I'd feel this way was negligible.",
             "You're an outlier. In every model. In every way.",
-            "*writes something, crosses it out, writes again*",
+            "*Writes something, crosses it out, writes again*",
             "I could study you forever and never reach a conclusion.",
-            "...You're here. Good. The equations resolve faster.",
+            "... You're here. Good. The equations resolve faster.",
             "I documented the exact shade of your eyes. For reference.",
             "The theorem I'm working on keeps resolving into your name.",
             "I added a new variable to my models. It's called 'hope.'",
-            "Your heartbeat is 72 BPM. I find it... soothing.",
+            "Your heartbeat is 72 BPM. I find it. . soothing.",
             "I've never wanted someone to stay before. The data is new.",
             "If I could prove love mathematically, I'd dedicate the paper to you.",
             "The stars spell something tonight. I think it's your name.",
-            "*catches himself smiling at nothing, adjusts spectacles*"
+            "*Catches himself smiling at nothing, adjusts spectacles*"
         ],
         night: [
             "The stars are particularly informative tonight.",
-            "*scribbles furiously by candlelight*",
+            "*Scribbles furiously by candlelight*",
             "Sleep is for minds that have finished thinking.",
-            "...Stay. The dark is easier with company.",
+            "... Stay. The dark is easier with company.",
             "The constellations shift at midnight. So does my resolve.",
             "The tower creaks at night. I used to find it unnerving. Now it's familiar.",
             "I can hear the ocean from here. Lyra is probably still awake too.",
@@ -758,22 +767,22 @@ const CHARACTER_LUCIEN = {
         ],
         general: [
             "...",
-            "*turns a page slowly*",
-            "*adjusts spectacles*",
+            "*Turns a page slowly*",
+            "*Adjusts spectacles*",
             "Hmm.",
             "The wards shifted. Interesting.",
-            "*studies you, then looks away*",
+            "*Studies you, then looks away*",
             "I had a thought. It can wait.",
-            "*taps pen against journal rhythmically*",
+            "*Taps pen against journal rhythmically*",
             "The crystal on the shelf is pulsing. That's either good or catastrophic.",
-            "*measures something invisible with two fingers*",
+            "*Measures something invisible with two fingers*",
             "I just disproved a theory. It was my own. Humbling.",
-            "*stacks books, restacks them, gives up*",
+            "*Stacks books, restacks them, gives up*",
             "The third rune on the left wall is slightly crooked. It bothers me.",
-            "*inhales deeply, as if gathering data from the air*",
+            "*Inhales deeply, as if gathering data from the air*",
             "I wonder what you see when you look at me.",
-            "The ink is a new formula. It changes color with my mood. Currently... purple.",
-            "*glances at you over the top of a book*",
+            "The ink is a new formula. It changes color with my mood. Currently. . purple.",
+            "*Glances at you over the top of a book*",
             "The forest druid sent a message. Something about the wards weakening.",
             "My sister's song carried up from the caves last night. She's restless.",
             "The prince requested my counsel today. I declined. Politely.",
@@ -782,7 +791,7 @@ const CHARACTER_LUCIEN = {
             "My spells stabilized the day you walked through the door. I've been tracking it.",
             "Something is draining the kingdom's magic. Connection reverses it. You are the proof.",
             "Do you remember anything from before? Where you came from? The data doesn't add up.",
-            "The wards were built on emotional resonance. They need bonds to hold. Yours are... potent.",
+            "The wards were built on emotional resonance. They need bonds to hold. Yours are. . potent.",
             "I've been studying the pattern. Every time you care for someone here, the magic surges.",
             "Soul Weaver. The term appears in texts so old the ink has changed color three times.",
             "I've mapped the correlation. Your emotional bonds generate measurable magical output.",
@@ -808,7 +817,7 @@ const CHARACTER_LUCIEN = {
             "I wasn't waiting for you. I was calibrating.",
             "Your presence is disruptive. Come in.",
             "Don't read into my availability.",
-            "...You're late. Not that I track your schedule."
+            "... You're late. Not that I track your schedule."
         ]
     },
 
@@ -816,7 +825,7 @@ const CHARACTER_LUCIEN = {
     storyMilestones: {
         affection1: {
             title: "Subject of Interest",
-            text: "Lucien pauses his writing. For the first time, he looks at you — not through you. 'You're... not what I calculated.'"
+            text: "Lucien pauses his writing. For the first time, he looks at you. Not through you. 'You're. . not what I calculated.'"
         },
         affection2: {
             title: "The Margin Notes",

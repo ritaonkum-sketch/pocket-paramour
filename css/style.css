@@ -787,6 +787,14 @@ html {
    The :has() pseudo-class is supported by all modern browsers (Chrome
    105+, Safari 15.4+, Firefox 121+); since this PWA targets mobile-web
    2024+, that's safe to rely on. */
+/* SHIP-WIDE FALLBACK (May 2026): single class hook so ANY new overlay
+   that calls PPOverlay.show() also hides these floating chips. The
+   long enumeration below is preserved for legacy overlays that haven't
+   been migrated to the helper. */
+body.pp-overlay-active #pp-care-progress,
+body.pp-overlay-active #dp-banner,
+body.pp-overlay-active #pp-letters-btn,
+body.pp-overlay-active #chp-orb,
 body:has(#gallery-overlay:not(.hidden)) #pp-care-progress,
 body:has(#gallery-overlay:not(.hidden)) #dp-banner,
 body:has(#gallery-overlay:not(.hidden)) #pp-letters-btn,
@@ -811,10 +819,7 @@ body:has(#event-overlay:not(.hidden)) #pp-care-progress,
 body:has(#event-overlay:not(.hidden)) #dp-banner,
 body:has(#event-overlay:not(.hidden)) #pp-letters-btn,
 body:has(#event-overlay:not(.hidden)) #chp-orb,
-body:has(#dress-panel:not(.hidden)) #pp-care-progress,
-body:has(#dress-panel:not(.hidden)) #dp-banner,
-body:has(#dress-panel:not(.hidden)) #pp-letters-btn,
-body:has(#dress-panel:not(.hidden)) #chp-orb,
+/* (dress-panel hide-rule branches removed May 2026 — outfit system removed) */
 body:has(#gift-panel:not(.hidden)) #pp-care-progress,
 body:has(#gift-panel:not(.hidden)) #dp-banner,
 body:has(#gift-panel:not(.hidden)) #pp-letters-btn,
@@ -860,6 +865,71 @@ body.pp-chain-in-progress #pp-care-progress,
 body.pp-chain-in-progress #dp-banner,
 body.pp-chain-in-progress #pp-letters-btn,
 body.pp-chain-in-progress #chp-orb {
+    display: none !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   TOPBAR (#affection-display) — hide entirely during story-blocking scenes.
+   Originally pierced through scenes (z:11500) so the 💞 escape button was
+   reachable. Owner reported the topbar visually overlaying the intro
+   cinematic — that was correct technically but jarring UX. This rule hides
+   the whole topbar during full-screen story moments. The topbar reappears
+   the instant the overlay clears. The 💞 escape is still reachable from
+   ambient scenes (Small Moments, fight-makeup, scheduled-moments, letters,
+   gift/training/dress panels) which DON'T trigger this hide rule.
+
+   May 2026 update: extended the hide list to cover EVERY full-screen
+   overlay, not just story-blocking ones. Owner reported the topbar
+   ("STRANGER → ACQUAINTED / DAY 1") leaking through the Memories archive
+   (gallery-overlay) — same bug class as the original chapter-scene leak,
+   different overlay. Now covers gallery, letter, settings, event, gift,
+   training, dress, dating, turning-point, and tap-puzzle overlays so
+   future overlays don't surface this regression. */
+/* OVERLAY STANDARDIZATION (May 2026): the explicit selector list below
+   was the bug-fix-by-enumeration approach — every new overlay required
+   adding its id here or the topbar would bleed through. The new pattern
+   adds a single class hook (body.pp-overlay-active) so future overlays
+   just call PPOverlay.show(el) / PPOverlay.hide(el) and inherit the
+   topbar-hide behavior automatically. The legacy enumeration is kept
+   so existing overlays don't regress; new overlays should use the
+   helper. See js/pp-overlay.js. */
+body.pp-overlay-active #affection-display,
+body:has(#intro-overlay.visible) #affection-display,
+body:has(#mscard-root:not(:empty)) #affection-display,
+body:has(#ms-encounter-root:not(:empty)) #affection-display,
+body:has(#chp-page:not(:empty)) #affection-display,
+body:has(#story-overlay:not(.hidden)) #affection-display,
+body:has(#cinematic-overlay.visible) #affection-display,
+body:has(#pp-ready-overlay.show) #affection-display,
+body:has(#pp-chain-toast.show) #affection-display,
+body:has(#gallery-overlay:not(.hidden)) #affection-display,
+body:has(#letter-overlay:not(.hidden)) #affection-display,
+body:has(#settings-overlay:not(.hidden)) #affection-display,
+body:has(#event-overlay:not(.hidden)) #affection-display,
+body:has(#gift-panel:not(.hidden)) #affection-display,
+body:has(#training-panel:not(.hidden)) #affection-display,
+body:has(#date-overlay:not(.hidden)) #affection-display,
+body:has(#tp-root:not(:empty)) #affection-display,
+body.pp-chain-in-progress #affection-display {
+    display: none !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   SELECT-SCREEN BLEED-THROUGH FIX. Owner reported small character portraits
+   from the select grid (e.g. Lucien's pixel face) "popping up" during
+   chapter playback. Root cause: select-screen (z:9500) stays display:flex
+   under mscard-root (z:11000), and the small portraits leak through
+   transparent areas of the chapter card. Hiding select-screen entirely
+   while any full-screen story overlay is mounted prevents the leak. */
+body.pp-overlay-active #select-screen,
+body:has(#mscard-root:not(:empty)) #select-screen,
+body:has(#ms-encounter-root:not(:empty)) #select-screen,
+body:has(#chp-page:not(:empty)) #select-screen,
+body:has(#tp-root:not(:empty)) #select-screen,
+body:has(#cinematic-overlay.visible) #select-screen,
+body:has(#story-overlay:not(.hidden)) #select-screen,
+body:has(#intro-overlay.visible) #select-screen,
+body.pp-chain-in-progress #select-screen {
     display: none !important;
 }
 
@@ -1001,8 +1071,7 @@ body {
 
     #stats-bar { padding: 5px 10px; }
 
-    /* Panels — limit height on short phones */
-    #dress-panel,
+    /* Panels — limit height on short phones (dress-panel removed May 2026) */
     #gift-panel,
     #training-panel {
         max-height: 52vh;
@@ -1553,22 +1622,7 @@ body {
 
 #personality-badge.hidden { display: none; }
 
-/* Outfit label */
-#outfit-label {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2px 10px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 600;
-    color: #4a148c;
-    z-index: 3;
-}
-
-#outfit-label.hidden { display: none; }
+/* (#outfit-label rule removed May 2026 — outfit system removed) */
 
 /* ===== DIALOGUE BOX ===== */
 /* ═══ DIALOGUE ROW — face + speech bubble side by side ═══════════ */
@@ -1997,7 +2051,10 @@ body {
 .focus-breathe { animation: focusBreathe 1.4s ease-in-out infinite; }
 .focus-aura    { animation: focusAura    1.4s ease-in-out infinite; }
 
-#dress-panel, #gift-panel {
+/* (Slide-up panel styles, May 2026: was #dress-panel + #gift-panel
+   shared block; dress-panel removed with the outfit system, gift-panel
+   selectors retained.) */
+#gift-panel {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     background: rgba(255, 255, 255, 0.95);
@@ -2012,17 +2069,17 @@ body {
     visibility: hidden;
 }
 
-#dress-panel.visible, #gift-panel.visible {
+#gift-panel.visible {
     transform: translateY(0);
     pointer-events: auto;
     visibility: visible;
 }
 
-#dress-panel.hidden, #gift-panel.hidden {
+#gift-panel.hidden {
     display: none;
 }
 
-#dress-panel-header, #gift-panel-header {
+#gift-panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2032,7 +2089,7 @@ body {
     color: #4a0e2e;
 }
 
-#dress-close, #gift-close {
+#gift-close {
     background: none;
     border: none;
     font-size: 20px;
@@ -2041,13 +2098,13 @@ body {
     padding: 4px 8px;
 }
 
-#dress-grid, #gift-grid {
+#gift-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
-.dress-item, .gift-item {
+.gift-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2060,24 +2117,18 @@ body {
     transition: all 0.15s;
 }
 
-.dress-item:active, .gift-item:active {
+.gift-item:active {
     transform: scale(0.95);
 }
 
-.dress-item.active {
-    border-color: #e91e63;
-    background: rgba(233, 30, 99, 0.15);
-}
-
-.dress-item.locked, .gift-item.locked {
+.gift-item.locked {
     opacity: 0.4;
     pointer-events: none;
 }
 
-.dress-icon, .gift-icon { font-size: 32px; }
-.dress-name, .gift-name { font-size: 11px; font-weight: 600; color: #4a0e2e; }
+.gift-icon { font-size: 32px; }
+.gift-name { font-size: 11px; font-weight: 600; color: #4a0e2e; }
 .gift-effect { font-size: 9px; color: #880e4f; }
-.dress-req { font-size: 9px; color: #999; }
 
 /* ===== STORY SCENE ===== */
 #story-overlay {
@@ -2257,6 +2308,21 @@ body {
     transition: transform 0.2s;
 }
 #settings-btn:hover { transform: scale(1.2); }
+
+/* Companions (💞) — same flat icon style as trophy/gallery/settings.
+   Without this reset, the browser default button background (gray pill +
+   black outset border) shows through. Owner caught the white square. */
+#companions-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+#companions-btn:hover { transform: scale(1.2); }
+#companions-btn:active { transform: scale(0.9); }
 
 /* ===== SETTINGS OVERLAY ===== */
 #settings-overlay {
@@ -2977,7 +3043,11 @@ body {
     transition: transform 0.3s ease, opacity 0.3s;
     transform: translateY(100%);
     opacity: 0;
+    /* Hide scrollbar (Firefox + WebKit). Owner asked — visually noisy. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+#achievement-panel::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 #achievement-panel.visible {
     transform: translateY(0);
@@ -4221,6 +4291,40 @@ body {
     box-shadow: none !important;
 }
 
+/* "Just unlocked" celebration — fires once after Noir/Proto bridge.
+   Pulsing gold ring + small badge in the top-right of the card. The badge
+   self-removes on first tap (or after 8s) via JS. Uses box-shadow (not
+   ::after inset) because the card's img-wrap clips overflow — same trick
+   as the tap-hint glow. */
+.select-card-just-unlocked .select-card-img-wrap {
+    animation: ppNewlyOpenPulse 1.6s ease-in-out infinite;
+}
+@keyframes ppNewlyOpenPulse {
+    0%, 100% { box-shadow: 0 0 14px 2px rgba(255, 210, 120, 0.45); }
+    50%      { box-shadow: 0 0 26px 6px rgba(255, 210, 120, 0.85); }
+}
+.select-card-new-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 5;
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f6c66a, #c98a2e);
+    color: #1a0e02;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.45), 0 0 10px rgba(255, 210, 120, 0.55);
+    pointer-events: none;
+    animation: ppNewlyOpenBadgeIn 0.5s ease-out both;
+}
+@keyframes ppNewlyOpenBadgeIn {
+    0%   { transform: translateY(-6px) scale(0.8); opacity: 0; }
+    100% { transform: translateY(0)    scale(1);   opacity: 1; }
+}
+
 /* Mage tint: cool purple glow from below */
 .intro-bg-mage ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
@@ -5243,9 +5347,8 @@ body {
     transition: box-shadow 0.3s ease, filter 0.3s ease, width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Panel spring transitions ─────────────────────────────────── */
+/* ── Panel spring transitions (dress-panel removed May 2026) ─── */
 #training-panel,
-#dress-panel,
 #gift-panel,
 #achievement-panel {
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.3s;
@@ -5659,6 +5762,13 @@ body {
     gap: 6px;
     background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.05));
     backdrop-filter: blur(6px);
+    /* CRITICAL: must stay above ALL scene overlays (mscard z:11000,
+       tp-root z:10800, letter-overlay z:9000+, etc.) so the player can
+       always reach the topbar buttons — especially 💞 to escape mid-scene.
+       Owner reported "all topbar buttons not working" — root cause was
+       a lingering tp-root z:10800 burying the topbar (z:2). */
+    position: relative;
+    z-index: 11500 !important;
 }
 #affection-display.topbar-collapsed .topbar-collapsible {
     display: none !important;
@@ -5751,6 +5861,62 @@ body {
     font-size: 10px;
     letter-spacing: 0.4px;
     opacity: 0.85;
+}
+
+/* ── Kingdom Fading meter: hidden when not narratively relevant ──────
+   Set by ui.js updateFadingMeter() — visible only if main story is
+   enabled, Kingdom health < 30, or player has 3+ character saves.
+   For a single-character care player, this row never renders. */
+#fading-meter {
+    transition:
+        opacity 0.45s ease,
+        max-height 0.5s cubic-bezier(0.4, 0.0, 0.2, 1),
+        padding 0.4s ease,
+        margin 0.4s ease,
+        transform 0.4s ease;
+    max-height: 40px;
+    overflow: hidden;
+}
+#fading-meter.kingdom-hidden {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    transform: translateY(-4px);
+    pointer-events: none;
+}
+
+/* ── Stats compact: visually smaller when all stats healthy (>75) ─────
+   Set by ui.js updateStats() with hysteresis (compact >75, full <60).
+   The bar stays VISIBLE always (owner feedback May 2026: "where is it
+   all the bar?"). When healthy it just shrinks: thinner bars, smaller
+   icons, less padding — keeps the at-a-glance status without dominating
+   the screen. When any stat drops below 60 it returns to its full
+   treatment so attention-needed reads loud. */
+#game-container > #stats-bar {
+    transition:
+        padding 0.35s ease,
+        gap 0.35s ease;
+}
+#game-container > #stats-bar.stats-compact {
+    padding-top: 2px !important;
+    padding-bottom: 4px !important;
+    gap: 8px !important;
+}
+#game-container > #stats-bar.stats-compact .stat-bar-bg {
+    height: 5px !important;
+    transition: height 0.35s ease;
+}
+#game-container > #stats-bar.stats-compact .stat-icon {
+    font-size: 13px !important;
+    transition: font-size 0.35s ease;
+}
+#game-container > #stats-bar.stats-compact .stat-label {
+    font-size: 8px !important;
+    opacity: 0.55 !important;
+    transition: font-size 0.35s ease, opacity 0.35s ease;
 }
 
 /* ── Action buttons: the urgent-need pulse ───────────────────── */

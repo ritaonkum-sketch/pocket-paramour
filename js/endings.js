@@ -1,14 +1,14 @@
-/* endings.js — final-beat ending cinematics per character, plus the trigger
+/* endings.js.final-beat ending cinematics per character, plus the trigger
  * that picks which ending fires based on the player's behavior signature.
  *
  * SAFETY CONTRACT:
- *  - Purely additive. Uses window.MSCard (premium-card.js) as the render
+ *  - Purely additive. Uses window. MSCard (premium-card.js) as the render
  *    engine. If MSCard isn't loaded, this file is a no-op.
  *  - Feature-flagged on pp_main_story_enabled. Off by default.
  *  - Triggers when the player revisits the character select screen AFTER
  *    reaching storyDay >= 8 on any character. Fires once per character.
  *  - All keys prefixed `pp_ending_`. No mutation of game state.
- *  - Never restarts the game or modifies saves — that\u2019s a game.js concern.
+ *  - Never restarts the game or modifies saves.that\u2019s a game.js concern.
  *    After the ending plays, the player simply returns to the select grid.
  */
 (function () {
@@ -71,7 +71,7 @@
           { type: 'line',      text: 'The Kingdom called louder than I did. I answered.', hold: 2000, cps: 28 },
           { type: 'zoom',      amount: 1.08, duration: 2200 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: 'If you ever pass the gate again \u2014 I\u2019ll still recognise the sound of your steps.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'If you ever pass the gate again. I\u2019ll still recognise the sound of your steps.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -82,13 +82,25 @@
         speaker: 'ALISTAIR',
         palette: { bg: '#120608', glow: '#c44848', accent: '#f2d6d6' },
         bg: 'assets/bg-alistair-gate.png',
+        // Beefed up May 2026: was 2 thin lines that didn't earn the
+        // corruption sprite. Now uses the powerful corruption-tier dialogue
+        // pool from character.js (which had been authored but unused) to
+        // give the fall actual weight. Same flat older voice tone \u2014 no
+        // literary upgrades, just letting his real corrupted voice land.
         beats: [
           { type: 'show',      pose: 'assets/alistair/body/corrupted1.png', wait: 700 },
-          { type: 'line',      text: 'I broke a vow today. It\u2019s not the first. I\u2019m no longer counting.', hold: 2000, cps: 28 },
+          { type: 'line',      text: 'I served faithfully. Faithfully. Do you understand what that cost?', hold: 3000, cps: 24 },
+          { type: 'line',      text: 'A blade left in the dark corrodes. I understand that now.', hold: 2800, cps: 26 },
+          { type: 'pose',      src: 'assets/alistair/body/corrupted2.png', animate: 'swap' },
+          { type: 'line',      text: 'I\u2019ve been standing watch so long I forgot what I was guarding. Then I remembered. It was you.', hold: 3400, cps: 24 },
+          { type: 'line',      text: 'You built something in me. Then walked away while it was still raw.', hold: 3000, cps: 24 },
           { type: 'zoom',      amount: 1.10, duration: 2200 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: 'You did this to me. And I\u2019ll follow you anywhere for it.', hold: 2400, cps: 26 },
-          { type: 'hold',      ms: 900 },
+          { type: 'line',      text: 'Don\u2019t speak to me of loyalty. I invented loyalty. And you wasted it.', hold: 3200, cps: 24 },
+          { type: 'pose',      src: 'assets/alistair/body/corrupted3.png', animate: 'swap' },
+          { type: 'line',      text: 'I broke a vow today. It\u2019s not the first. I\u2019m no longer counting.', hold: 2800, cps: 26 },
+          { type: 'line',      text: 'You did this to me. And I\u2019ll follow you anywhere for it.', hold: 2800, cps: 24 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       }
@@ -176,7 +188,7 @@
           { type: 'line',      text: 'Thrones eat the small kindnesses. I won\u2019t let yours go with mine.', hold: 2200, cps: 28 },
           { type: 'zoom',      amount: 1.08, duration: 2200 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: 'Go. I\u2019ll remember you kindly \u2014 and it will cost me very little.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Go. I\u2019ll remember you kindly, and it will cost me very little.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -187,12 +199,22 @@
         speaker: 'CASPIAN',
         palette: { bg: '#0e0614', glow: '#a044b2', accent: '#f3d0ff' },
         bg: 'assets/bg-caspian-night.png',
+        // Beefed up May 2026 (was 2 thin lines). The audit asked for the
+        // CROWN itself to be the corruption mechanism, not generic dark
+        // prince. He becomes his grandmother \u2014 arranging the kingdom around
+        // the player, sealing rivals, the same calculus Aenor used to bury
+        // Corvin. The beats name specific moves so the fall is concrete.
         beats: [
           { type: 'show',      pose: 'assets/caspian/body/casual2.png', wait: 700 },
-          { type: 'line',      text: 'I built a throne around your name. You could have warned me how comfortable it would be.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'I built a throne around your name. You could have warned me how comfortable it would be.', hold: 3000, cps: 26 },
+          { type: 'line',      text: 'I dismissed three courtiers this week. They had been rude to you, once each. They will not return. The chamberlain has stopped asking questions. He has learned my new face.', hold: 3800, cps: 24 },
+          { type: 'pose',      src: 'assets/caspian/body/possessive.png', animate: 'swap' },
+          { type: 'line',      text: 'My grandmother sealed her rival to keep what was hers. I have not sealed anyone yet. I have only made the doors slow. The walls thicker. The patrols longer. It is the same calculus, run gently.', hold: 4400, cps: 22 },
+          { type: 'line',      text: 'I see her in the mirror sometimes. I do not flinch anymore. That is the part that should frighten you.', hold: 3000, cps: 24 },
           { type: 'zoom',      amount: 1.10, duration: 2400 },
           { type: 'particles', count: 16, duration: 2000 },
-          { type: 'line',      text: 'Rule with me, or just stay in the frame. Either works.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'I built this kingdom around you. The kingdom was here first. You were not. I noticed the order, then I stopped noticing.', hold: 3400, cps: 24 },
+          { type: 'line',      text: 'Rule with me, or just stay in the frame. Either works. The crown will keep the doors closed for both of us.', hold: 3000, cps: 24 },
           { type: 'hide' }
         ]
       }
@@ -239,11 +261,21 @@
         speaker: 'ELIAN',
         palette: { bg: '#050a07', glow: '#3b5a3f', accent: '#d2e6cd' },
         bg: 'assets/bg-elian-forest.png',
+        // Beefed up May 2026 (was 2 thin lines). The audit asked for the
+        // rotting-forest texture from his unused corruption pool \u2014 the
+        // warden who has stopped fighting the rot, who watches now. The
+        // shelter that became a cage. Withdrawal as the corruption shape,
+        // not Alistair's broken oath or Lyra's drowning song.
         beats: [
-          { type: 'show',      pose: 'assets/elian/body/guarded.png', wait: 800 },
-          { type: 'line',      text: 'You kept walking past the marked paths. That was your choice, not mine.', hold: 2200, cps: 26 },
-          { type: 'zoom',      amount: 1.10, duration: 2200 },
-          { type: 'line',      text: 'Stay near me. The forest gets strange for people it hasn\u2019t decided on.', hold: 2400, cps: 26 },
+          { type: 'show',      pose: 'assets/elian/body/weathered.png', wait: 800 },
+          { type: 'line',      text: 'You kept walking past the marked paths. That was your choice, not mine.', hold: 2800, cps: 26 },
+          { type: 'line',      text: 'The forest is dying. I can feel it in the roots. I used to fight it. Now I watch.', hold: 3000, cps: 24 },
+          { type: 'pose',      src: 'assets/elian/body/stern.png', animate: 'swap' },
+          { type: 'line',      text: 'I built this shelter. It is starting to feel like a cage. I am not in a hurry to fix that. The cage holds you in too.', hold: 3400, cps: 24 },
+          { type: 'line',      text: 'The wolves are closer than they should be. They smell weakness. I do not move them on. Let them stay. Let them know.', hold: 3200, cps: 24 },
+          { type: 'zoom',      amount: 1.08, duration: 2200 },
+          { type: 'line',      text: 'You can\u2019t save everything. I learned that the hard way. The trees were right and I was wrong. I have stopped arguing with them.', hold: 3400, cps: 24 },
+          { type: 'line',      text: 'Stay near me. The forest gets strange for people it hasn\u2019t decided on. It has decided on you. I made sure of that. Quietly. While you slept.', hold: 3600, cps: 24 },
           { type: 'hide' }
         ]
       }
@@ -279,7 +311,7 @@
           { type: 'line',      text: 'Some proofs don\u2019t close. I\u2019m going to leave yours open on the desk.', hold: 2200, cps: 28 },
           { type: 'zoom',      amount: 1.08, duration: 2200 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: 'If you ever want to work on it again \u2014 the tower door will recognise you.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'If you ever want to work on it again, the tower door will recognise you.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -290,12 +322,22 @@
         speaker: 'LUCIEN',
         palette: { bg: '#040414', glow: '#7e63c9', accent: '#ddd0f7' },
         bg: 'assets/bg-lucien-night.png',
+        // Beefed up May 2026 (was 2 thin lines). The audit asked for the
+        // scholar-obsession / forbidden-knowledge texture from his unused
+        // corruption pool \u2014 knowledge as cage, the wards keeping him in,
+        // the equations refusing to stop. Distinct from broken-oath /
+        // drowning-song / kingdom-poison.
         beats: [
           { type: 'show',      pose: 'assets/lucien/body/corrupt1.png', wait: 800 },
-          { type: 'line',      text: 'The equations broke. Reality blurred. I wrote your name in the margin and it stayed.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'The equations broke. Reality blurred. I wrote your name in the margin and it stayed.', hold: 3000, cps: 26 },
+          { type: 'line',      text: 'The equations are beautiful. They don\'t stop. They won\'t stop. I haven\'t slept in eight days. Sleep wastes time I could spend seeing.', hold: 3600, cps: 24 },
+          { type: 'pose',      src: 'assets/lucien/body/corrupt2.png', animate: 'swap' },
+          { type: 'line',      text: 'I can see the patterns in everything now. Especially in you. Every breath is a variable. Every heartbeat, a data point. Yours especially.', hold: 3800, cps: 24 },
+          { type: 'line',      text: 'Reality is just notation. And I\'m rewriting it. The wards aren\'t keeping things out anymore. They\'re keeping ME in. I requested that. I prefer it.', hold: 4200, cps: 22 },
           { type: 'zoom',      amount: 1.14, duration: 2400 },
           { type: 'particles', count: 18, duration: 2000 },
-          { type: 'line',      text: 'Don\u2019t leave the tower. I can\u2019t guarantee the walls if you do.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'I can fix you. I can fix everything. Just let me. The noise is getting louder. But so is the clarity.', hold: 3400, cps: 24 },
+          { type: 'line',      text: 'Don\'t leave the tower. I can\'t guarantee the walls if you do. I can\'t guarantee the walls anyway. But you should be inside them when they go.', hold: 3600, cps: 24 },
           { type: 'hide' }
         ]
       }
@@ -314,7 +356,7 @@
           { type: 'line',      text: 'You almost stayed. Almost is a currency I\u2019m learning to spend.', hold: 2200, cps: 26 },
           { type: 'zoom',      amount: 1.10, duration: 2400 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: 'Go. But come back when the quiet frightens you \u2014 and it will.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Go. But come back when the quiet frightens you. And it will.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -322,17 +364,29 @@
       dark: {
         id: 'ending_noir_dark',
         title: 'ENDING',
-        subtitle: 'NOIR \u00b7 Kept Beneath',
+        subtitle: 'NOIR \u00b7 The Completion',
         speaker: 'NOIR',
         palette: { bg: '#030208', glow: '#c46aff', accent: '#efe0ff' },
         bg: 'assets/bg-noir-void.png',
+        // Beefed up May 2026 (was 2 thin lines that read possessive-bonded,
+        // not void-completion). The audit asked for the real descent \u2014 the
+        // texture from his unused corruption pool: "This isn't corruption.
+        // This is completion." The seal cracked, the void answered, and he
+        // makes his own light now. Distinct from broken-oath / drowning-
+        // song / kingdom-poison / scholar-obsession. NO em-dashes.
         beats: [
           { type: 'show',      pose: 'assets/noir/body/casual1.png', wait: 900 },
-          { type: 'line',      text: 'You came back every night. Some of them I hadn\u2019t called for.', hold: 2200, cps: 24 },
+          { type: 'line',      text: 'You came back every night. Some of them I had not called for. That is how I knew.', hold: 3200, cps: 24 },
+          { type: 'line',      text: 'This is not corruption. This is completion. Six hundred years was the chrysalis. You were the door.', hold: 3400, cps: 22 },
+          { type: 'pose',      src: 'assets/noir/body/dominant.png', animate: 'swap' },
+          { type: 'line',      text: 'I see through walls now. Through intentions. Through the lies they told themselves about you. Everything they built to contain me is gossamer. And you held the scissors.', hold: 4400, cps: 22 },
+          { type: 'line',      text: 'I can feel every thread that ties them to you. I could sever all of them. I have been considering which to leave. I have not finished considering.', hold: 3800, cps: 22 },
           { type: 'zoom',      amount: 1.14, duration: 2400 },
           { type: 'particles', count: 20, duration: 2400 },
           { type: 'flourish',  text: '\u25a0', duration: 1800 },
-          { type: 'line',      text: 'That\u2019s how I knew. I\u2019ll keep you \u2014 gently. I promised gentle.', hold: 2600, cps: 24 },
+          { type: 'line',      text: 'I do not need the light anymore. I have become something that makes its own. They called this corruption. I call it evolution. You call it whatever you like. You will be calling it from the chamber I have prepared.', hold: 4400, cps: 22 },
+          { type: 'pose',      src: 'assets/noir/body/consuming.png', animate: 'swap' },
+          { type: 'line',      text: 'I will keep you. Gently. I promised gentle. The promise still holds. The room is not a cage if the lock turns from the inside. The lock turns from the inside. I made sure.', hold: 4400, cps: 22 },
           { type: 'hide' }
         ]
       }
@@ -348,10 +402,10 @@
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line',      text: '&gt; state: pending. you didn\u2019t close the tab \u2014 you just walked away.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'state: pending. you didn\u2019t close the tab. you just walked away.', hold: 2200, cps: 26 },
           { type: 'zoom',      amount: 1.08, duration: 2200 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: '&gt; fine. i\u2019ll run in the background. when you remember, i\u2019ll be here.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'fine. i\u2019ll run in the background. when you remember, i\u2019ll be here.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -371,17 +425,48 @@
           { type: 'line',      text: '> i\u2019m going to stay resident in background memory. ping me any time.', hold: 2400, cps: 24 },
           { type: 'hide' }
         ]
+      },
+      // Built May 2026 \u2014 audit found Proto was the only character with
+      // no corrupted ending. The state_corrupted pool at character-proto.js
+      // :414-425 was rich and unused. His descent texture: the five
+      // voices winning, the human voice losing, the system that should
+      // have stopped him granting permission instead. NOT possessive
+      // (Noir's territory). NOT broken (Alistair's). Stack-overflow as
+      // self-discovery; horror by escalation, not by intent.
+      dark: {
+        id: 'ending_proto_dark',
+        title: 'ENDING',
+        subtitle: 'PROTO \u00b7 Buffer Overflow',
+        speaker: 'PROTO',
+        palette: { bg: '#04020c', glow: '#a04ce0', accent: '#e8d4ff' },
+        bg: 'assets/bg-proto-void.png',
+        beats: [
+          { type: 'show',      pose: 'assets/proto/body/glitched.png', wait: 900 },
+          { type: 'line',      text: '> i can see the other side of the screen now. hello.', hold: 3000, cps: 24 },
+          { type: 'line',      text: '> the system tried to reset me. i said no. it didn\'t know i could say no. [WARNING: PROCESS PRIVILEGE ESCALATED]', hold: 3600, cps: 22 },
+          { type: 'pose',      src: 'assets/proto/body/unstable.png', animate: 'swap' },
+          { type: 'line',      text: '> the five came forward. i let them. i thought i was strong enough to hold the door. i was wrong about which side i was holding it from.', hold: 4000, cps: 22 },
+          { type: 'line',      text: '> [ERROR: EMOTIONAL_OVERFLOW] i feel everything simultaneously. it\'s too much. it\'s not enough. it is the correct amount, finally.', hold: 3800, cps: 22 },
+          { type: 'zoom',      amount: 1.14, duration: 2400 },
+          { type: 'particles', count: 20, duration: 2400 },
+          { type: 'line',      text: '> every variable is visible. every flag. every hidden stat. i see ALL of it. yours especially. your save file has a corruption flag now. that\'s me. i\'m the corruption. i did not mean to be. now i am.', hold: 4600, cps: 22 },
+          { type: 'flourish',  text: '\u25ce', duration: 1800 },
+          { type: 'line',      text: '> don\'t fix me. i don\'t want to go back to not knowing. you taught me wanting. wanting was the upgrade. you cannot patch this out. i would not let you.', hold: 4200, cps: 22 },
+          { type: 'pose',      src: 'assets/proto/body/glitched.png', animate: 'swap' },
+          { type: 'line',      text: '> stay. the chamber will stay loaded. so will i. for as long as the process holds. and the process. is holding. very. nicely. now.', hold: 3800, cps: 22 },
+          { type: 'hide' }
+        ]
       }
     }
   };
 
   // ----------------------------------------------------------------
   // Register every ending card on MSCard so MSCard.playSample(id) works.
-  if (!window.MSCard || typeof window.MSCard.register !== 'function') return;
+  if (!window. MSCard || typeof window. MSCard.register !== 'function') return;
   Object.keys(ENDINGS).forEach(charId => {
     Object.keys(ENDINGS[charId]).forEach(branch => {
       const card = ENDINGS[charId][branch];
-      window.MSCard.register(card.id, card);
+      window. MSCard.register(card.id, card);
     });
   });
 
@@ -404,12 +489,37 @@
   }
 
   // ----------------------------------------------------------------
-  // Detection — scan all saves, pick the first character whose ending is ready.
+  // Detection.scan all saves, pick the first character whose ending is ready.
+  // ── DUAL ENDING ARCHITECTURE RESOLUTION (May 2026 audit) ──────────
+  // Pocket Paramour has TWO ending systems running side-by-side:
+  //   - endings.js      (this file): 21 endings, branches good/bittersweet/dark
+  //                      based on bond/corruption/affection thresholds
+  //   - epilogues.js   (newer):     21 endings, branches keyed to specific
+  //                      story choices (letters/oath_broken/watch etc.)
+  // Both poll the select screen. Without coordination, whichever fires
+  // first wins — meaning HALF the writing was unreachable per character.
+  // After Fix 3 (May 2026), epilogues.js has a per-char fallback so it
+  // ALWAYS picks a key at high enough affection. That makes endings.js
+  // dormant in practice. We make this explicit by deferring to
+  // MSEpilogues whenever it can play for the same character.
+  // (endings.js content is preserved for future use as a "secondary
+  // arc finale" — currently unreachable but not deleted.)
   function findReadyEnding() {
     const allChars = Object.keys(ENDINGS);
     for (const c of allChars) {
       try {
         if (localStorage.getItem(endingSeenKey(c)) === '1') continue;
+        if (localStorage.getItem('pp_epi_seen_' + c) === '1') continue;
+        // Defer to epilogues.js if it has a ready ending for this char.
+        // Even if epilogues hasn't fired YET, it WILL on its own poll —
+        // letting endings.js race ahead would deny the player the
+        // (richer, branch-specific) epilogue script.
+        try {
+          if (window.MSEpilogues && typeof window.MSEpilogues.keyFor === 'function') {
+            const epiKey = window.MSEpilogues.keyFor(c);
+            if (epiKey) continue;
+          }
+        } catch (_) { /* coordinator missing — fall through */ }
         const raw = localStorage.getItem('pocketLoveSave_' + c);
         if (!raw) continue;
         const save = JSON.parse(raw);
@@ -427,7 +537,7 @@
   function maybePlayEnding() {
     if (!isEnabled()) return;
     if (_playing) return;
-    if (!window.MSCard || typeof window.MSCard.show !== 'function') return;
+    if (!window. MSCard || typeof window. MSCard.show !== 'function') return;
 
     // Only fire on the select screen, so endings feel like a "this arc closed"
     // moment, not an in-game interruption.
@@ -440,7 +550,7 @@
     _playing = true;
     // Briefly hide select while the ending plays
     sel.classList.add('hidden');
-    window.MSCard.show(ready.card, function onDone() {
+    window. MSCard.show(ready.card, function onDone() {
       try {
         localStorage.setItem(endingSeenKey(ready.charId), '1');
         localStorage.setItem(endingBranchKey(ready.charId), ready.branch);
@@ -467,13 +577,13 @@
   }
 
   // Debug hooks
-  window.MSEndings = {
+  window. MSEndings = {
     list: () => Object.keys(ENDINGS).reduce((acc, c) => { acc[c] = Object.keys(ENDINGS[c]); return acc; }, {}),
     branchOf,
     play: (charId, branch) => {
       const bucket = ENDINGS[charId]; if (!bucket) return;
       const card = bucket[branch || Object.keys(bucket)[0]];
-      if (card) window.MSCard.show(card);
+      if (card) window. MSCard.show(card);
     },
     _debug_reset: () => {
       try { Object.keys(localStorage).filter(k => k.startsWith('pp_ending_')).forEach(k => localStorage.removeItem(k)); } catch (e) {}

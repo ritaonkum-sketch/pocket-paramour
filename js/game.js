@@ -127,7 +127,7 @@ class PocketLoveGame {
         this.characterLeft = false;
         this.isGameOver = false;
         this.revivedOnce = false;
-        this.currentOutfit = "knight";
+        // (currentOutfit removed May 2026 — outfit system was unreachable from UI)
         this.timeOfDay = "day";
 
         // Milestones
@@ -373,10 +373,7 @@ class PocketLoveGame {
         this.gallery = new GallerySystem(this);
 
         this.load();
-        // Ensure default outfit is correct for character if no save exists
-        if (!localStorage.getItem('pocketLoveSave_' + (this.selectedCharacter || 'alistair'))) {
-            this.currentOutfit = this.selectedCharacter === 'lyra' ? 'default' : 'knight';
-        }
+        // (currentOutfit reset removed May 2026 — outfit system removed)
         this.ui.updateAll();
 
         // ── Analytics: session start ───────────────────────────────────────
@@ -472,7 +469,7 @@ class PocketLoveGame {
             '#event-overlay:not(.hidden)',
             '#gift-panel:not(.hidden)',
             '#training-panel:not(.hidden)',
-            '#dress-panel:not(.hidden)',
+            ,
             '#story-overlay:not(.hidden)',
             '#main-story-page:not(.hidden)',
             '#settings-overlay:not(.hidden)',
@@ -493,7 +490,11 @@ class PocketLoveGame {
             }
             return false;
         }
-        setInterval(() => {
+        // Watchdog handle is captured on `this` so _switchToSelect can clear
+        // it. Without this, every character switch stacks another live
+        // watchdog (each one references the OLD game instance), and after
+        // a few switches the page is running 5+ watchdogs in parallel.
+        this._watchdogInterval = setInterval(() => {
             if (this.tickInterval || this.characterLeft) return;
             if (anySceneIsActuallyVisible()) return; // pause is intentional
             // Silent recovery. We used to console.warn here but it produced
@@ -505,8 +506,8 @@ class PocketLoveGame {
             this.tickInterval = setInterval(() => this.tick(), 100);
         }, 30000);
 
-        // Auto-save every 30 seconds
-        setInterval(() => this.save(), 30000);
+        // Auto-save every 30 seconds. Same handle-capture pattern.
+        this._autoSaveInterval = setInterval(() => this.save(), 30000);
 
         // Last Line on tab hide + session_end analytics (all characters)
         document.addEventListener('visibilitychange', () => {
@@ -963,8 +964,23 @@ class PocketLoveGame {
         }
 
         // Comfort recovery — if player is actively present, fear slowly eases
+        // ── CHARACTER-VOICED COMFORT (May 2026 audit) ────────────────────
+        // Was: hardcoded "It's okay... you're here now." regardless of who.
+        // Owner reported the line breaking voice on Alistair — knight register
+        // doesn't say "It's okay" like that. Now per-character.
         if (timeSinceInteraction < 30000 && this.emotion.fear > 40 && Math.random() < 0.004) {
-            this.typewriter.show("It's okay... you're here now.");
+            const charName = (CHARACTER && CHARACTER.name) || '';
+            const COMFORT = {
+                Alistair: "...The watch is steady. You came back. That is enough.",
+                Lyra:     "...The cave just stopped echoing. That is your doing.",
+                Caspian:  "...The court is quieter when you are in the room. I had not noticed before.",
+                Lucien:   "...Equilibrium restored. I noticed the moment you walked in.",
+                Elian:    "...The forest exhaled. So did I.",
+                Noir:     "Hmm. The dark is warmer when you are in it.",
+                Proto:    "> fear.flag cleared. you came back. ...thank you."
+            };
+            const line = COMFORT[charName] || "...You're here. That helps.";
+            this.typewriter.show(line);
             this.emotion.fear -= 5;
         }
 
@@ -1092,7 +1108,17 @@ class PocketLoveGame {
         }
 
         // Check break condition
-        if (!this.characterLeft && this.hunger <= 0 && this.clean <= 0 && this.bond <= 0) {
+        // ── NEGLECT THRESHOLD (May 2026 audit) ───────────────────────────
+        // Was: all 3 stats ≤ 0 → character leaves regardless of tier.
+        // Owner reported: "I left..." overlay fires for fresh-save Stranger
+        // players who happen to load with low stats. They've barely met the
+        // character — a "they left because of you" message reads as a
+        // tutorial failure, not a narrative loss.
+        // Now: leaves only fire from Acquainted tier upward (level ≥ 1).
+        // At Stranger tier the player gets a soft warning instead — see
+        // the "...I can't go on like this..." line below.
+        if (!this.characterLeft && this.affectionLevel >= 1
+            && this.hunger <= 0 && this.clean <= 0 && this.bond <= 0) {
             this.characterLeft = true;
             const msg = CHARACTER.departureDialogue[
                 Math.floor(Math.random() * CHARACTER.departureDialogue.length)
@@ -1843,7 +1869,7 @@ class PocketLoveGame {
     // Called from ui.js on every interaction (hasMicro = true/false).
     // When micro-dissonance has fired 3+ times in the last 10 interactions
     // AND the cooldown has passed, returns a subtle verbal echo line.
-    // The character doesn't explain what's wrong — she just *notices*.
+    // The character doesn't explain what's wrong — she just *Notices*.
     _checkPatternEcho(hasMicro) {
         if (!this._microLog) this._microLog = [];
         this._microLog.push(!!hasMicro);
@@ -2410,22 +2436,20 @@ class PocketLoveGame {
             this._ppConfirm(
                 'Switch character?',
                 'Your progress with ' + CHARACTER.name + ' will be saved.',
-                () => {
-                    this.save();
-                    // Stop game tick
-                    if (this.tickInterval) clearInterval(this.tickInterval);
-                    // Hide game, show select screen
-                    overlay.classList.add('hidden');
-                    document.getElementById('game-container').classList.add('hidden');
-                    if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
-                    document.getElementById('select-screen').classList.remove('hidden');
-                    // Reset scene state
-                    this.sceneActive = false;
-                    // Close any open panels/overlays
-                    document.querySelectorAll('.visible').forEach(el => {
-                        if (el.id !== 'select-screen') el.classList.remove('visible');
-                    });
-                }
+                () => this._switchToSelect(overlay)
+            );
+        });
+
+        // Companions topbar button (💞) — one-tap shortcut to character
+        // select from anywhere in care. Owner asked for quicker access than
+        // settings → switch-character (3 taps). Same confirm + cleanup
+        // path so progress is never lost by accident.
+        const companionsBtn = document.getElementById('companions-btn');
+        if (companionsBtn) companionsBtn.addEventListener('click', () => {
+            this._ppConfirm(
+                'Choose another companion?',
+                'Your progress with ' + CHARACTER.name + ' will be saved.',
+                () => this._switchToSelect(overlay)
             );
         });
 
@@ -2556,6 +2580,47 @@ class PocketLoveGame {
         document.body.appendChild(modal);
     }
 
+    // Shared switch-to-select handler. Called by both the settings menu's
+    // "Switch Character" button AND the topbar 💞 companions shortcut. Pass
+    // the settings overlay ref so we can hide it if it was open; harmless
+    // when it wasn't.
+    _switchToSelect(settingsOverlay) {
+        this.save();
+        if (this.tickInterval) clearInterval(this.tickInterval);
+        // Clear watchdog + auto-save handles too. Without this, every
+        // character switch stacks live intervals from old game instances.
+        if (this._watchdogInterval) { clearInterval(this._watchdogInterval); this._watchdogInterval = null; }
+        if (this._autoSaveInterval) { clearInterval(this._autoSaveInterval); this._autoSaveInterval = null; }
+        if (settingsOverlay) settingsOverlay.classList.add('hidden');
+        document.getElementById('game-container').classList.add('hidden');
+        if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
+        document.getElementById('select-screen').classList.remove('hidden');
+        this.sceneActive = false;
+        document.querySelectorAll('.visible').forEach(el => {
+            if (el.id !== 'select-screen') el.classList.remove('visible');
+        });
+        // Force-remove ambient/scene roots that don't use the `.visible`
+        // class (mscard-root uses display:flex). Same list as the prior
+        // inline cleanup — kept in one place so both entry points behave
+        // identically.
+        ['mscard-root', 'ms-encounter-root', 'cinematic-overlay',
+         'story-overlay', 'event-overlay', 'gift-panel',
+         'training-panel', 'dress-panel', 'date-overlay',
+         'tp-root',
+         'pp-care-thread-toast', 'cc-bubble', 'noir-whisper',
+         'ew-whisper', 'adaptive-thought', 'pp-aenor-bubble',
+         'pp-multirom-bubble', 'pp-chain-toast'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (id === 'mscard-root' || id === 'ms-encounter-root' || id === 'tp-root') {
+                try { el.remove(); } catch (_) {}
+            } else {
+                el.classList.remove('visible');
+                el.classList.add('hidden');
+            }
+        });
+    }
+
     openSettings() {
         const overlay = document.getElementById('settings-overlay');
         if (!overlay) return;
@@ -2651,15 +2716,11 @@ class PocketLoveGame {
         const storyInfo = storyMilestones[this.affectionLevel];
         if (storyInfo && !this.storyMilestonesShown.includes(storyInfo.key)) {
             this.storyMilestonesShown.push(storyInfo.key);
-            // Persistent per-character flag for the Stories archive.
-            // Keys: pp_storymilestone_<char>_<key> = '1'
-            // Used by stories.js to surface affection-tier scene cards
-            // (The Oath Softens / Behind the Armor / Knight Kneels /
-            // Sword and Heart) as archive entries.
-            try {
-                const ch = this.selectedCharacter || 'alistair';
-                localStorage.setItem('pp_storymilestone_' + ch + '_' + storyInfo.key, '1');
-            } catch (_) {}
+            // (Removed orphan 'pp_storymilestone_<char>_<key>' write
+            //  May 2026 — comment claimed stories.js read it for archive
+            //  surfacing, but no reader was ever added. The in-save
+            //  storyMilestonesShown array still tracks via game save.
+            //  Removing prevents per-character flag bloat in localStorage.)
             // CHARACTER.milestoneEvents is only defined on Alistair + Lyra
             // (the original 2 characters). Caspian/Lucien/Elian/Noir/Proto
             // don't have it — without the optional chain we'd crash with
@@ -7624,8 +7685,16 @@ class PocketLoveGame {
             return;
         }
         // Scene 5 — Day 3, ≥3 interactions: The Line (fires regardless of scene4)
+        // GATED May 2026: turning-points.js asks the SAME go/stay choice
+        // (pp_tp_alistair_choice) at higher affection. If the player has
+        // already answered there, skip Scene 5 so the same question doesn't
+        // get asked twice with conflicting state. The older Scene 5 voice
+        // is preserved for fresh saves where the turning point hasn't fired
+        // yet — owner explicitly wanted the old writing kept.
+        let _tpAlistairAnswered = false;
+        try { _tpAlistairAnswered = !!localStorage.getItem('pp_tp_alistair_choice'); } catch (_) {}
         if (this.storyDay >= 3 && this.dayInteractions >= 3 &&
-            !sl.alistair_scene5.triggered) {
+            !sl.alistair_scene5.triggered && !_tpAlistairAnswered) {
             sl.alistair_scene5.triggered = true;
             setTimeout(() => playIfStillAlistair(() => this._playAlistairScene5_TheLine()), 1000);
             return;
@@ -7926,6 +7995,10 @@ class PocketLoveGame {
             { type: 'choice',
               choices: ["Go. I'll be here when you return.", "Stay. Appeal it."],
               onPick: (i) => {
+                  // Write the same flag turning-points.js uses so the two
+                  // systems stay in sync. If Scene 5 fires first, the
+                  // turning-point go/stay scene won't re-ask the question.
+                  try { localStorage.setItem('pp_tp_alistair_choice', i === 0 ? 'go' : 'stay'); } catch (_) {}
                   if (i === 0) {
                       this.emotion.trust += 8;
                       this.bond = Math.max(0, this.bond - 5);
@@ -9996,7 +10069,8 @@ class PocketLoveGame {
             revivedOnce: this.revivedOnce,
             triggeredMilestones: this.triggeredMilestones,
             storyMilestonesShown: this.storyMilestonesShown,
-            currentOutfit: this.currentOutfit,
+            // (currentOutfit removed from save shape May 2026 — old saves
+            //  with this field still load fine; load() just ignores it.)
             events: this.eventSystem.getSaveData(),
             achievements: this.achievementSystem.getSaveData(),
             // Emotional engine
@@ -10110,10 +10184,18 @@ class PocketLoveGame {
             this.irritationScore = data.irritationScore ?? 0;
             this.personality = data.personality ?? "shy";
             this.characterLeft = data.characterLeft ?? false;
+            // ── STALE characterLeft RECOVERY (May 2026 audit) ─────────────
+            // If a previous session set characterLeft=true but the save's
+            // stats have been restored (test sessions, dev panel, manual
+            // recovery), clear the flag so the player isn't greeted with
+            // a "they left" overlay on top of a healthy save.
+            if (this.characterLeft && (data.hunger > 5 || data.clean > 5 || data.bond > 5)) {
+                this.characterLeft = false;
+            }
             this.revivedOnce = data.revivedOnce ?? false;
             this.triggeredMilestones = data.triggeredMilestones ?? [];
             this.storyMilestonesShown = data.storyMilestonesShown ?? [];
-            this.currentOutfit = data.currentOutfit ?? (this.selectedCharacter === 'lyra' ? 'default' : 'knight');
+            // (currentOutfit load removed May 2026 — outfit system removed)
             this.lastInteractionTime = data.lastSaveTime ?? Date.now();
             this.prevSessionTime     = data.lastSaveTime ?? null; // Feature 13: last seen
 
@@ -10493,7 +10575,7 @@ let selectedCharacter = 'alistair';
             var worldBeats = [
                 "The Kingdom of Aethermoor is dying.",
                 "Its magic was sustained by bonds\nbetween its people.\nThose bonds are breaking.",
-                "The last Soul Weaver \u2014 the one who\nkept the connections alive \u2014 is gone.",
+                "The last Soul Weaver, \u201cTHE ONE WHO\nKEPT THE CONNECTIONS ALIVE,\u201d is gone.",
                 "In desperation, the kingdom\u2019s magic\nreached across worlds\nand found you.",
                 "You arrived through the portal\nwith no memory.\nOnly an instinct to connect.",
                 "Where you walk, the magic returns.\nWhere you care, the Fading retreats.",
@@ -10594,16 +10676,74 @@ let selectedCharacter = 'alistair';
         });
     }
     // Reveal Proto / Noir select-screen cards if their unlock conditions are met.
-    // Proto: player has switched characters 3+ times.
-    // Noir:  any ending seen OR any character save has corruption > 50.
+    // Two unlock paths:
+    //   1. Main-story bridge reached:  pp_select_unlock_<char> = '1'
+    //      (set by bridge-noir.js / bridge-proto.js when the bridge closes)
+    //   2. Skip-main-story fallback:
+    //        Proto: player has switched characters 3+ times.
+    //        Noir:  any ending seen OR any character save has corruption > 50.
+    //
+    // After unlocking, if pp_select_just_unlocked === <char> we apply a
+    // one-shot `select-card-just-unlocked` ceremony class (glow + badge),
+    // then clear the flag so the celebration only plays once.
     // Safe to call multiple times — each unlock is a one-shot DOM mutation.
     function refreshUnlockedCards() {
         try {
             var meta = {};
             try { meta = JSON.parse(localStorage.getItem('pocketLoveMeta')) || {}; } catch(e) {}
 
+            // Retroactive backfill: any player who finished Noir/Proto's
+            // bridge BEFORE the unlock-flag code was added still has
+            // pp_chapter_done_b_<char> set but no pp_select_unlock_<char>.
+            // Mirror the flag once so their next visit honors the bridge
+            // promise without having to replay it.
+            try {
+                if (localStorage.getItem('pp_chapter_done_b_noir') === '1' &&
+                    localStorage.getItem('pp_select_unlock_noir') !== '1') {
+                    localStorage.setItem('pp_select_unlock_noir', '1');
+                    if (!localStorage.getItem('pp_select_just_unlocked')) {
+                        localStorage.setItem('pp_select_just_unlocked', 'noir');
+                    }
+                }
+                if (localStorage.getItem('pp_chapter_done_b_proto') === '1' &&
+                    localStorage.getItem('pp_select_unlock_proto') !== '1') {
+                    localStorage.setItem('pp_select_unlock_proto', '1');
+                    if (!localStorage.getItem('pp_select_just_unlocked')) {
+                        localStorage.setItem('pp_select_just_unlocked', 'proto');
+                    }
+                }
+            } catch(e) {}
+
+            var justUnlocked = '';
+            try { justUnlocked = localStorage.getItem('pp_select_just_unlocked') || ''; } catch(e) {}
+
+            function applyCeremony(card, charName) {
+                if (!card || justUnlocked !== charName) return;
+                card.classList.add('select-card-just-unlocked');
+                // Inject a one-shot badge element (idempotent — only add once).
+                if (!card.querySelector('.select-card-new-badge')) {
+                    var badge = document.createElement('div');
+                    badge.className = 'select-card-new-badge';
+                    badge.textContent = 'NEWLY OPEN';
+                    card.appendChild(badge);
+                }
+                // Auto-dismiss the celebration on first interaction or after 8s
+                var dismiss = function() {
+                    card.classList.remove('select-card-just-unlocked');
+                    var b = card.querySelector('.select-card-new-badge');
+                    if (b) b.remove();
+                    card.removeEventListener('click', dismiss);
+                };
+                card.addEventListener('click', dismiss, { once: true });
+                setTimeout(dismiss, 8000);
+                // Consume the flag — celebration plays exactly once.
+                try { localStorage.removeItem('pp_select_just_unlocked'); } catch(e) {}
+            }
+
             // Proto
-            if ((meta.characterSwitchCount || 0) >= 3) {
+            var protoBridgeUnlocked = false;
+            try { protoBridgeUnlocked = localStorage.getItem('pp_select_unlock_proto') === '1'; } catch(e) {}
+            if (protoBridgeUnlocked || (meta.characterSwitchCount || 0) >= 3) {
                 var protoCard = document.getElementById('proto-card');
                 if (protoCard && protoCard.classList.contains('select-card-locked')) {
                     protoCard.classList.remove('select-card-locked');
@@ -10612,9 +10752,12 @@ let selectedCharacter = 'alistair';
                     var protoImg = protoCard.querySelector('.select-card-img');
                     if (protoImg) protoImg.alt = 'Proto';
                 }
+                applyCeremony(protoCard, 'proto');
             }
 
             // Noir
+            var noirBridgeUnlocked = false;
+            try { noirBridgeUnlocked = localStorage.getItem('pp_select_unlock_noir') === '1'; } catch(e) {}
             var hasEnding = meta.endingsSeen && Object.keys(meta.endingsSeen).length > 0;
             var highCorruption = false;
             ['alistair','lyra','lucien','caspian','elian'].forEach(function(cid) {
@@ -10626,7 +10769,7 @@ let selectedCharacter = 'alistair';
                     }
                 } catch(e) {}
             });
-            if (hasEnding || highCorruption) {
+            if (noirBridgeUnlocked || hasEnding || highCorruption) {
                 var noirCard = document.getElementById('noir-card');
                 if (noirCard && noirCard.classList.contains('select-card-locked')) {
                     noirCard.classList.remove('select-card-locked');
@@ -10635,6 +10778,7 @@ let selectedCharacter = 'alistair';
                     var noirImg = noirCard.querySelector('.select-card-img');
                     if (noirImg) noirImg.alt = 'Noir';
                 }
+                applyCeremony(noirCard, 'noir');
             }
         } catch(e) {}
     }

@@ -64,7 +64,7 @@
     },
     caspian: {
       feed:  ['The honey jar in the kitchen refilled by half a finger\u2019s width.', 'A council document signed itself \u201capproved\u201d in a margin where Caspian had not signed.', 'A draft died at the threshold of his rooms.'],
-      clean: ['The crown on its stand caught a different light.', 'His bath water held its temperature ten minutes longer than physics allows.'],
+      clean: ['The crown on its stand caught a different light.', 'His bath water held its temperature longer than the cold had any right to permit.'],
       talk:  ['A ward on the east wing brightened. The east wing is where the Dowager sleeps. Interesting.', 'The court\u2019s ambient noise quieted by one degree, just for him.', 'A footman misplaced a tray and a candle relit on its own.'],
       train: ['His ceremonial sabre balanced flat on his fingertip when he wasn\u2019t looking.', 'A horse in the royal stables lay down to nap, profoundly content.'],
       gift:  ['Two cups of tea on the side table. He had only poured one.', 'A garden rose nodded toward the balcony where you stood.']
@@ -73,7 +73,7 @@
       feed:  ['An equation he was stuck on solved itself in a margin he did not write.', 'A book on the third shelf righted itself.', 'The ink in his pen warmed.'],
       clean: ['A footnote rewrote itself in his hand.', 'His robes smelled of lavender. He does not own lavender.'],
       talk:  ['A page in a book he never opened bookmarked itself with your initial.', 'The wards on the door bowed. He noticed. He did not move.', 'Three margins in three different volumes acquired a small heart in the same handwriting. Not his.'],
-      train: ['A spell took less memory than usual to cast. He mistrusts this. He is keeping notes.', 'A staff in the corner tapped the floor once. Three minutes later, the staff somewhere east of here tapped back.'],
+      train: ['A spell cost him feeling for the first time in years. He has just enough now to be billed. He is keeping notes.', 'A staff in the corner tapped the floor once. Three minutes later, the staff somewhere east of here tapped back.'],
       gift:  ['The candle in his study burned slower for an hour.', 'A theorem he has been stalking for a year solved itself overnight.']
     },
     noir: {

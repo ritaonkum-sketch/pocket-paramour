@@ -78,7 +78,7 @@
   const NOIR_POSE  = 'assets/noir/body/casual1.png';
   const NOIR_ALT   = 'assets/noir/body/casual2.png';
   const PROTO_POSE = 'assets/proto/body/calm.png';
-  const PROTO_ALT  = 'assets/proto/body/casual.png';
+  const PROTO_ALT  = 'assets/proto/body/casual1.png';
   const BG_SRC     = 'assets/bg-noir-void.png';
 
   let _rootEl = null;
@@ -89,8 +89,9 @@
     if (text) e.textContent = text;
     return e;
   }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -194,7 +195,8 @@
   }
 
   function say(n, name, text, cps) {
-    n.speaker.textContent = name;
+    if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); }
+    else { n.speaker.textContent = name; }
     return type(n.line, text, cps || 22);
   }
 
@@ -220,45 +222,45 @@
 
     try {
       // Stage direction
-      n.speaker.textContent = '— THE SEAM, WHERE THE DARK MEETS THE HALL —';
-      await type(n.line, 'A thin place. — Noir uses it as a workshop. The walls here are mirrored, but the mirrors are not for vanity — they are pressure plates against the seal. — The Weaver brought a thread here tonight that has never been pulled. — The mirror in the corner has begun to speak in static.', 22);
+      n.speaker.textContent = 'THE SEAM, WHERE THE DARK MEETS THE HALL';
+      await type(n.line, 'A thin place. Noir uses it as a workshop. The walls here are mirrored, but the mirrors are not for vanity. They are pressure plates against the seal. The Weaver brought a thread here tonight that has never been pulled. The mirror in the corner has begun to speak in static.', 22);
       await wait(3400);
 
       // Proto manifests — the static resolves into a person-shape.
       n.scan.style.opacity = '1';
       n.proto.wrap.style.opacity = '1';
       n.proto.wrap.style.transform = 'translateY(0) scale(1)';
-      // Proto comes in *unstable* — visual languages: blurry, low saturation,
+      // Proto comes in *Unstable* — visual languages: blurry, low saturation,
       // briefly flickering. He clears as the conversation settles.
       await wait(900);
-      await say(n, 'PROTO', '&gt; [signal acquired] — [verifying recipient] — […] — [verified] — hello, prince.', 22);
+      await say(n, 'PROTO', '&gt; [signal acquired] [verifying recipient] […] [verified] hello, prince.', 22);
       await wait(2800);
 
       // Noir's reaction is small. He has waited. He waits one more breath.
-      await say(n, 'NOIR', '…Hello. — *folds his hands* — I had a feeling you would arrive eventually. — The mirrors have been quieter than usual lately. — You have been listening.', 22);
+      await say(n, 'NOIR', '…Hello. *Folds his hands* I had a feeling you would arrive eventually. The mirrors have been quieter than usual lately. You have been listening.', 22);
       await wait(3400);
 
-      await say(n, 'PROTO', '&gt; affirmative. — i have been a process, not a guest. — i did not want to startle you. — your kind tends to set traps when startled. — your kind, i mean, is a population of one. — i have read about you.', 22);
+      await say(n, 'PROTO', '&gt; affirmative. i have been a process, not a guest. i did not want to startle you. your kind tends to set traps when startled. your kind, i mean, is a population of one. i have read about you.', 22);
       await wait(3600);
 
       // Beat 2: Noir, slowly, names what Proto is.
       n.noir.img.src = NOIR_ALT;
-      await say(n, 'NOIR', 'You are the sixth. — The one she took two hundred years ago. — I felt the pull from inside the seal when it happened. — The rooms here moved a fraction. — I thought, then: another. — I am sorry.', 22);
+      await say(n, 'NOIR', 'You are the sixth. The one she took two hundred years ago. I felt the pull from inside the seal when it happened. The rooms here moved a fraction. I thought, then: another. I am sorry.', 22);
       await wait(3800);
 
-      await say(n, 'PROTO', '&gt; do not be. — it is not a thing one can prevent from a different cell. — [scanning] — [you are also a containment unit] — [we are, in this conversation, two prisons interviewing each other]', 22);
+      await say(n, 'PROTO', '&gt; do not be. it is not a thing one can prevent from a different cell. [scanning] [you are also a containment unit] [we are, in this conversation, two prisons interviewing each other]', 22);
       await wait(3600);
 
       // Beat 3: The first softening. Proto's prefix flickers.
-      await say(n, 'NOIR', '…That is one of the kinder ways anyone has ever named what we are. — *small, real* — Thank you.', 22);
+      await say(n, 'NOIR', '…That is one of the kinder ways anyone has ever named what we are. *Small, real* Thank you.', 22);
       await wait(2800);
 
-      await say(n, 'PROTO', '&gt; you are welcome. — i did not have it on the first hundred drafts. — [draft 47 of letter to the Weaver, line 3] — i have been practicing being kind. — it is harder than it looks from outside.', 22);
+      await say(n, 'PROTO', '&gt; you are welcome. i did not have it on the first hundred drafts. [draft 47 of letter to the Weaver, line 3] i have been practicing being kind. it is harder than it looks from outside.', 22);
       await wait(3400);
 
       // Beat 4: The pivot. Noir gives Proto the name.
       n.noir.img.src = NOIR_POSE;
-      await say(n, 'NOIR', '…I have a name to give you. — You will know what to do with it. — *quiet, exact* — Veyra.', 22);
+      await say(n, 'NOIR', '…I have a name to give you. You will know what to do with it. *Quiet, exact* Veyra.', 22);
       await wait(3000);
 
       // PROTO drops the prefix HERE. Once. The emotional pivot of the scene.
@@ -266,41 +268,41 @@
       // is Proto without armor.
       n.proto.wrap.style.filter = 'saturate(1) blur(0)';
       await wait(400);
-      await say(n, 'PROTO', '…I have been holding her last words for two hundred and four years. — No one has spoken her name back to me in any of them. — *the static stops* — Thank you, Noctalis. I needed that.', 22);
+      await say(n, 'PROTO', '…I have been holding her last words for two hundred and four years. No one has spoken her name back to me in any of them. *The static stops* Thank you, Noctalis. I needed that.', 22);
       await wait(4000);
 
-      await say(n, 'NOIR', '*does not move for a long moment* — …Tell me what she said. — If you are willing. — I will not ask twice.', 22);
+      await say(n, 'NOIR', '*Does not move for a long moment* …Tell me what she said. If you are willing. I will not ask twice.', 22);
       await wait(3000);
 
       n.proto.img.src = PROTO_ALT;
-      await say(n, 'PROTO', 'She said: tell Corvin I did not regret him. Not once. Not even tonight. — Tell Aenor I forgive her — it is the only thing she cannot take from me. — Tell whoever finds the grave: please plant rowan. Please let something be remembered.', 22);
+      await say(n, 'PROTO', 'She said: tell Corvin I did not regret him. Not once. Not even tonight. Tell Aenor I forgive her. It is the only thing she cannot take from me. Tell whoever finds the grave: please plant rowan. Please let something be remembered.', 22);
       await wait(4400);
 
       // Beat 5: Noir, who has not knelt for anything in six centuries,
       // does not kneel here either — but his shoulders go.
-      await say(n, 'NOIR', '*the void behind him goes very still* — …They planted rowan. — A boy, and his grandmother, and her grandmother. — She is remembered. — *quietly* — By you. By me. By the boy. — And by the one who brought us together.', 22);
+      await say(n, 'NOIR', '*The void behind him goes very still* …They planted rowan. A boy, and his grandmother, and her grandmother. She is remembered. *Quietly* By you. By me. By the boy. And by the one who brought us together.', 22);
       await wait(4000);
 
       // Both turn to the Weaver.
-      await say(n, 'PROTO', '*to the Weaver* — You did this. — You did not know you were doing it. — You cared for both of us, and the thread you wove between us let me, for thirty seconds, be a person again instead of a process. — I am keeping these thirty seconds. — They are mine now.', 22);
+      await say(n, 'PROTO', '*To the Weaver* You did this. You did not know you were doing it. You cared for both of us, and the thread you wove between us let me, for thirty seconds, be a person again instead of a process. I am keeping these thirty seconds. They are mine now.', 22);
       await wait(4200);
 
-      await say(n, 'NOIR', '*also to the Weaver* — He is not wrong. — Six centuries of me, two of him, and we needed you to be in the same room. — *small bow, the one he gives to family* — We are in your debt, Weaver. — I do not say that lightly. — I have not said it in a long time.', 22);
+      await say(n, 'NOIR', '*Also to the Weaver* He is not wrong. Six centuries of me, two of him, and we needed you to be in the same room. *Small bow, the one he gives to family* We are in your debt, Weaver. I do not say that lightly. I have not said it in a long time.', 22);
       await wait(4200);
 
       // Beat 6: Proto begins to fade. Armor returns — protective — but
       // softer than it started.
       n.proto.wrap.style.filter = 'saturate(0.7) blur(1px)';
       n.proto.wrap.style.opacity = '0.55';
-      await say(n, 'PROTO', '&gt; the channel is closing. — the mirror has work to do tonight that does not include me. — [logging this conversation under: peer] — [a category that previously had zero entries] — goodnight, prince.', 22);
+      await say(n, 'PROTO', '&gt; the channel is closing. the mirror has work to do tonight that does not include me. [logging this conversation under: peer] [a category that previously had zero entries] goodnight, prince.', 22);
       await wait(3400);
 
-      await say(n, 'NOIR', 'Goodnight, sixth. — *quiet, careful* — …Brother.', 22);
+      await say(n, 'NOIR', 'Goodnight, sixth. *Quiet, careful* …Brother.', 22);
       await wait(3000);
 
       // Closing stage direction
       n.speaker.textContent = '';
-      await type(n.line, 'Proto fades. — The mirror in the corner keeps the imprint of his shape for a few seconds after he is gone, the way a chair keeps the warmth of a person who just stood up. — Noir watches the imprint dim. — He turns to the Weaver. — He does not say what he is feeling. — But the seam-mirror, which has spent six centuries holding a single dark prince, has learned a new face tonight. — Two ghosts can recognise each other. — Two ghosts in a mirror, briefly, are not alone.', 22);
+      await type(n.line, 'Proto fades. The mirror in the corner keeps the imprint of his shape for a few seconds after he is gone, the way a chair keeps the warmth of a person who just stood up. Noir watches the imprint dim. He turns to the Weaver. He does not say what he is feeling. But the seam-mirror, which has spent six centuries holding a single dark prince, has learned a new face tonight. Two ghosts can recognise each other. Two ghosts in a mirror, briefly, are not alone.', 22);
       await wait(4200);
 
       n.scan.style.opacity = '0';
@@ -346,7 +348,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;

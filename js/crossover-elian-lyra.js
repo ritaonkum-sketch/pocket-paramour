@@ -1,10 +1,10 @@
-/* crossover-elian-lyra.js — "The Debt"
+/* crossover-elian-lyra.js."The Debt"
  * --------------------------------------------------------------------------
  * Registers window.MSCrossElianLyra.
  *
  * Elian hid some of Lyra's mother's people in the Thornwood during Aenor's
  * purge. He could not save them all. For a hundred and fifty years he has
- * tended their markers at the south edge \u2014 simple stones, no names,
+ * tended their markers at the south edge.simple stones, no names,
  * because he did not know them. Lyra is the last daughter of the women he
  * could not hide. Tonight he brings her to the stones. She names them.
  *
@@ -39,8 +39,9 @@
   let _rootEl = null;
 
   function el(tag, css, text) { const e = document.createElement(tag); if (css) e.style.cssText = css; if (text) e.textContent = text; return e; }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -73,7 +74,7 @@
     bgImg.src = BG_SRC;
     root.appendChild(bg);
 
-    // The marker stones \u2014 a soft row of faint points at the base of the scene
+    // The marker stones.a soft row of faint points at the base of the scene
     const stones = el('div', [
       'position:absolute', 'left:50%', 'top:55%', 'transform:translate(-50%,-50%)',
       'width:40vmin', 'height:12vmin', 'pointer-events:none',
@@ -130,7 +131,7 @@
     return { root, elian, lyra, dialogue, line, speaker, stones };
   }
 
-  function say(n, name, text, cps) { n.speaker.textContent = name; return type(n.line, text, cps || 22); }
+  function say(n, name, text, cps) { if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); } else { n.speaker.textContent = name; } return type(n.line, text, cps || 22); }
 
   async function play(onDone) {
     if (_rootEl) { try { onDone && onDone(); } catch (_) {} return; }
@@ -154,22 +155,22 @@
     n.dialogue.style.transform = 'translateY(0)';
 
     try {
-      n.speaker.textContent = '\u2014 THORNWOOD, SOUTH EDGE, WHERE FOREST MEETS THE OLD RUINED TOWN \u2014';
-      await type(n.line, 'Elian has brought Lyra here. \u2014 He has been silent the whole walk. \u2014 She did not ask where. \u2014 She followed. \u2014 Now he has stopped. \u2014 There are stones at her feet. \u2014 Simple markers. \u2014 No names.', 22);
+      n.speaker.textContent = 'THORNWOOD, SOUTH EDGE, WHERE FOREST MEETS THE OLD RUINED TOWN';
+      await type(n.line, 'Elian has brought Lyra here. He has been silent the whole walk. She did not ask where. She followed. Now he has stopped. There are stones at her feet. Simple markers. No names.', 22);
       await wait(3000);
 
-      await say(n, 'LYRA', '*looks down, staff tightening in her hand* \u2014 These are \u2026 these are graves.', 22);
+      await say(n, 'LYRA', '*Looks down, staff tightening in her hand*. These are \u2026 these are graves.', 22);
       await wait(2400);
 
-      await say(n, 'ELIAN', 'Yes. \u2014 Some of them.', 22);
+      await say(n, 'ELIAN', 'Yes. Some of them.', 22);
       await wait(2000);
 
       // BEAT: the confession
       n.elian.img.src = ELIAN_ALT;
-      await say(n, 'ELIAN', 'A hundred and fifty years ago, during the hunting \u2014 some of your mother\u2019s kind fled here. \u2014 I was young. \u2014 The Warden before me had just died. \u2014 I hid as many as I could. \u2014 I could not hide all of them.', 22);
+      await say(n, 'ELIAN', 'A hundred and fifty years ago, during the hunting, some of your mother\u2019s kind fled here. I was young. The Warden before me had just died. I hid as many as I could. I could not hide all of them.', 22);
       await wait(3800);
 
-      await say(n, 'ELIAN', 'These are the ones I could not save. \u2014 I have tended the stones since. \u2014 I did not know their names. \u2014 I have been waiting for someone who would know them. \u2014 \u2026You know them. Do you not.', 22);
+      await say(n, 'ELIAN', 'These are the ones I could not save. I have tended the stones since. I did not know their names. I have been waiting for someone who would know them.\u2026You know them. Do you not.', 22);
       await wait(3600);
 
       // BEAT: Lyra, processing
@@ -177,38 +178,38 @@
       await type(n.line, '*She does not speak for a long time. The forest does not speak either. Elian does not look at her. He gives her the space to feel it without an audience.*', 22);
       await wait(3200);
 
-      await say(n, 'LYRA', '*small, steady* \u2014 I know their names. \u2014 My mother taught me. \u2014 Every one. \u2014 She made me memorise them so someone would remember. \u2014 She did not tell me someone else was already remembering them. \u2014 Just nameless.', 22);
+      await say(n, 'LYRA', '*Small, steady*. I know their names. My mother taught me. Every one. She made me memorise them so someone would remember. She did not tell me someone else was already remembering them. Just nameless.', 22);
       await wait(3800);
 
       // BEAT: Elian holds out a stone
-      await say(n, 'ELIAN', '*bends, picks up a small flat river-stone from the pile at his feet, offers it to her on an open palm* \u2014 Take it. \u2014 Tell me. \u2014 I have been listening for them for a hundred and fifty years. \u2014 Let me finally hear.', 22);
+      await say(n, 'ELIAN', '*Bends, picks up a small flat river-stone from the pile at his feet, offers it to her on an open palm*. Take it. Tell me. I have been listening for them for a hundred and fifty years. Let me finally hear.', 22);
       await wait(3800);
 
       // BEAT: Lyra kneels. She sings the name-song.
-      await type(n.line, '*Lyra takes the stone. Kneels at the first marker. Begins to sing, softly \u2014 not a melody, a naming. The names of her mother\u2019s people, one to each stone. The forest listens. Elian listens. The player listens. Some of the names are long. Some are a single syllable. Each is a person.*', 22);
+      await type(n.line, '*Lyra takes the stone. Kneels at the first marker. Begins to sing, softly, not a melody, a naming. The names of her mother\u2019s people, one to each stone. The forest listens. Elian listens. The player listens. Some of the names are long. Some are a single syllable. Each is a person.*', 22);
       await wait(4400);
 
       // BEAT: Elian stays standing behind her. Does not intrude.
-      await type(n.line, '*When she is done, the names are in the air and in the stones and in him. He does not speak. He stands behind her with a hand at the back of her head, not holding, just \u2014 present.*', 22);
+      await type(n.line, '*When she is done, the names are in the air and in the stones and in him. He does not speak. He stands behind her with a hand at the back of her head, not holding, just... present.*', 22);
       await wait(3400);
 
       // BEAT: Lyra, not forgiveness but acknowledgement
-      await say(n, 'LYRA', '*rises, still facing the stones* \u2014 I do not forgive you. \u2014 I do not have to. \u2014 You do not need it. \u2014 *turns, looks at him* \u2014 You kept them. \u2014 For a hundred and fifty years you kept them. \u2014 That is more than I could have done. \u2014 Thank you.', 22);
+      await say(n, 'LYRA', '*Rises, still facing the stones*. I do not forgive you. I do not have to. You do not need it. *Turns, looks at him*. You kept them. For a hundred and fifty years you kept them. That is more than I could have done. Thank you.', 22);
       await wait(4200);
 
-      await say(n, 'ELIAN', '*low, even* \u2014 Thank YOU. \u2014 They have been asking for a daughter for a long time. \u2014 They got one.', 22);
+      await say(n, 'ELIAN', '*Low, even*. Thank YOU. They have been asking for a daughter for a long time. They got one.', 22);
       await wait(3000);
 
       // BEAT: the small promise
-      await say(n, 'LYRA', 'Will you carve the names now? \u2014 I will tell you which goes where. \u2014 I do not want them nameless anymore.', 22);
+      await say(n, 'LYRA', 'Will you carve the names now?. I will tell you which goes where. I do not want them nameless anymore.', 22);
       await wait(3000);
 
-      await say(n, 'ELIAN', 'Yes. \u2014 Tomorrow. \u2014 *unbuckles his cloak, drapes it around her without looking up* \u2014 Tonight you rest. \u2014 The names will still be there in the morning. \u2014 I will be there in the morning. \u2014 That is what this post is for.', 22);
+      await say(n, 'ELIAN', 'Yes. Tomorrow. *Unbuckles his cloak, drapes it around her without looking up*. Tonight you rest. The names will still be there in the morning. I will be there in the morning. That is what this post is for.', 22);
       await wait(3600);
 
       // Closing
       n.speaker.textContent = '';
-      await type(n.line, 'You stand behind them both. \u2014 The Weaver. \u2014 The one whose bonds light wards. \u2014 Something in the south edge of the forest just got heavier and lighter at the same time. \u2014 A debt acknowledged is not a debt paid. \u2014 But it is no longer a debt hidden.', 22);
+      await type(n.line, 'You stand behind them both. The Weaver. The one whose bonds light wards. Something in the south edge of the forest just got heavier and lighter at the same time. A debt acknowledged is not a debt paid. But it is no longer a debt hidden.', 22);
       await wait(3600);
 
       n.root.style.opacity = '0';
@@ -239,7 +240,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;

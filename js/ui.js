@@ -18,7 +18,7 @@ class GameUI {
         this.container = document.getElementById('game-container');
         this.timeOverlay = document.getElementById('time-overlay');
         this.timeDisplay = document.getElementById('time-display');
-        this.outfitLabel = document.getElementById('outfit-label');
+        // (outfitLabel removed May 2026 — outfit system removed)
 
         // Story scene refs
         this.storyOverlay = document.getElementById('story-overlay');
@@ -26,7 +26,7 @@ class GameUI {
         this.storyDialogue = document.getElementById('story-dialogue');
 
         // Panels
-        this.dressPanel = document.getElementById('dress-panel');
+        // (dressPanel removed May 2026 — outfit system removed)
         this.giftPanel = document.getElementById('gift-panel');
 
         // Wire up buttons — each gets haptic + particle feedback
@@ -74,7 +74,7 @@ class GameUI {
         document.getElementById('revival-btn').addEventListener('click', () => this.game.revive());
 
         // Close panels
-        document.getElementById('dress-close').addEventListener('click', () => this.closeDressPanel());
+        // (dress-close listener removed May 2026 — outfit system removed)
         document.getElementById('gift-close').addEventListener('click', () => this.closeGiftPanel());
         document.getElementById('achievement-close').addEventListener('click', () => this.closeAchievementPanel());
 
@@ -85,7 +85,7 @@ class GameUI {
         document.getElementById('story-continue').addEventListener('click', () => this.closeStoryScene());
 
         // Init subsystems
-        this.initDressPanel();
+        // (initDressPanel removed May 2026 — outfit system removed)
         this.initGiftPanel();
         this.startIdleAnimations();
         this.startDayNightCycle();
@@ -227,7 +227,7 @@ class GameUI {
                     "You smell like steel and leather. You were with him.",
                     "There's dust on you. Castle dust. Not cave dust.",
                     "Your heartbeat is different today. Steadier. Like someone who's been near armor.",
-                    "...I'm not jealous. Sirens don't get jealous. We get *territorial.*",
+                    "...I'm not jealous. Sirens don't get jealous. We get *Territorial.*",
                     "He can protect you with a sword. I can protect you with a song. Choose."
                 ],
                 lucien: [
@@ -839,104 +839,13 @@ class GameUI {
         }, delay);
     }
 
-    // ===== DRESS/OUTFIT SYSTEM =====
 
-    initDressPanel() {
-        // Build outfits from CHARACTER data — works for all 7 characters
-        // Fallback for Alistair who doesn't have outfits in CHARACTER object
-        const defaultOutfits = {
-            default: { name: 'Default', body: CHARACTER.bodySprites?.neutral || '' },
-            casual1: { name: 'Casual', body: CHARACTER.bodySprites?.casual1 || '' },
-            casual2: { name: 'Alternate', body: CHARACTER.bodySprites?.casual2 || '' }
-        };
-        const charOutfits = CHARACTER.outfits || defaultOutfits;
-        const outfitKeys = Object.keys(charOutfits);
-        const icons = ['\uD83D\uDC55', '\uD83E\uDDE5', '\uD83D\uDC57', '\uD83D\uDC51', '\uD83D\uDC80'];
-        const outfits = outfitKeys.map(function(key, i) {
-            var o = charOutfits[key];
-            var req = 0;
-            if (key === 'casual1') req = 1;
-            else if (key === 'casual2') req = 2;
-            else if (key === 'formal' || key === 'queen' || key === 'shirtless') req = 3;
-            else if (key === 'corrupted' || key === 'power') req = -1;
-            var desc = req === -1 ? 'Corruption 50+' : req === 0 ? 'Default' : 'Affection Lv.' + req;
-            return { id: key, name: o.name || key, icon: icons[i % icons.length], req: req, desc: desc, bodySprite: key };
-        });
 
-        const grid = document.getElementById('dress-grid');
-        grid.innerHTML = '';
-
-        outfits.forEach(outfit => {
-            const item = document.createElement('div');
-            item.className = 'dress-item';
-            item.dataset.id = outfit.id;
-            item.innerHTML = `
-                <span class="dress-icon">${outfit.icon}</span>
-                <span class="dress-name">${outfit.name}</span>
-                <span class="dress-req">${outfit.desc}</span>
-            `;
-            item.addEventListener('click', () => this.selectOutfit(outfit));
-            grid.appendChild(item);
-        });
-
-        this.outfits = outfits;
-    }
-
-    selectOutfit(outfit) {
-        const g = this.game;
-
-        // Check unlock conditions
-        const corruptionOutfitId = g.selectedCharacter === 'lyra' ? 'power' : 'corrupted';
-        if (outfit.id === corruptionOutfitId && g.corruption < 50) return;
-        if (outfit.id === 'training' && g.timesTrained < 10) return;
-        if (outfit.req > 0 && g.affectionLevel < outfit.req) return;
-
-        g.currentOutfit = outfit.id;
-        g.currentOutfitBody = outfit.bodySprite || 'neutral';
-        sounds.chime();
-
-        // Update active state
-        document.querySelectorAll('.dress-item').forEach(el => el.classList.remove('active'));
-        document.querySelector(`.dress-item[data-id="${outfit.id}"]`).classList.add('active');
-
-        // Change body sprite to outfit — Lyra uses bodyPoses, Alistair uses bodySprites
-        const spriteMap = CHARACTER.bodyPoses || CHARACTER.bodySprites || {};
-        const bodySrc = spriteMap[outfit.bodySprite || 'neutral'];
-        if (bodySrc) {
-            const bodyImg = document.getElementById('character-body-img');
-            if (bodyImg) bodyImg.src = bodySrc;
-        }
-
-        // Show outfit label
-        this.outfitLabel.textContent = outfit.name;
-        this.outfitLabel.classList.remove('hidden');
-
-        this.game.save();
-        this.closeDressPanel();
-    }
-
-    updateDressPanel() {
-        const g = this.game;
-        document.querySelectorAll('.dress-item').forEach(el => {
-            const id = el.dataset.id;
-            const outfit = this.outfits.find(o => o.id === id);
-            if (!outfit) return;
-
-            let locked = false;
-            const corruptOutfitId = g.selectedCharacter === 'lyra' ? 'power' : 'corrupted';
-            if (outfit.id === corruptOutfitId && g.corruption < 50) locked = true;
-            if (outfit.id === 'training' && g.timesTrained < 10) locked = true;
-            if (outfit.req > 0 && g.affectionLevel < outfit.req) locked = true;
-
-            el.classList.toggle('locked', locked);
-            el.classList.toggle('active', g.currentOutfit === id);
-        });
-    }
 
     // Close all slide-up panels to prevent stacking.
     // Pass an optional panel name to exclude from closing (the one about to open).
     closeAllPanels(except) {
-        if (except !== 'dress')       this.closeDressPanel();
+        // (dress branch removed May 2026 — outfit system removed)
         if (except !== 'gift')        this.closeGiftPanel();
         if (except !== 'achievement') this.closeAchievementPanel();
         if (except !== 'training')    this.closeTrainingPanel();
@@ -950,23 +859,6 @@ class GameUI {
         this._trainingCloseTimer = setTimeout(() => panel.classList.add('hidden'), 320);
     }
 
-    toggleDressPanel() {
-        if (this.dressPanel.classList.contains('visible')) {
-            this.closeDressPanel();
-        } else {
-            this.closeAllPanels('dress');
-            this.updateDressPanel();
-            clearTimeout(this._dressCloseTimer);
-            this.dressPanel.classList.remove('hidden');
-            requestAnimationFrame(() => this.dressPanel.classList.add('visible'));
-        }
-    }
-
-    closeDressPanel() {
-        this.dressPanel.classList.remove('visible');
-        clearTimeout(this._dressCloseTimer);
-        this._dressCloseTimer = setTimeout(() => this.dressPanel.classList.add('hidden'), 300);
-    }
 
     // ===== ACHIEVEMENT PANEL =====
 
@@ -1309,6 +1201,37 @@ class GameUI {
         this.cleanBar.classList.toggle('critical', g.clean < 20);
         this.bondBar.classList.toggle('critical', g.bond < 20);
 
+        // ── TIER-LABEL REFRESH (May 2026 audit) ──────────────────────────
+        // Owner reported topbar still said "STRANGER → ACQUAINTED" even
+        // after affectionLevel had progressed to 2. updateAffection() was
+        // only called from updateAll() on certain events, so programmatic
+        // state changes (dev panel, save load mid-progress) didn't refresh
+        // the tier label until the next player action triggered updateAll.
+        // Now: call updateAffection on every stats tick. Cheap.
+        try { this.updateAffection(); } catch (_) {}
+
+        // ── HOME-SCREEN MINIMALISM (May 2026, revised) ───────────────────
+        // EARLIER ATTEMPT: hid the entire stats bar when all stats > 75 to
+        // give the character more screen space (L&D pattern). Owner pushed
+        // back: "where is it all the bar?" — they need to SEE stats at a
+        // glance, even when high. So instead of hiding, we just keep the
+        // bar visually compact (CSS handles the visual minimisation). The
+        // bar stays visible as decoration when healthy, expands to its
+        // full visual treatment when something is below 60.
+        //
+        // Hysteresis: compact above 75, expanded below 60. Prevents flicker.
+        if (!this._statsBar) this._statsBar = document.getElementById('stats-bar');
+        if (this._statsBar) {
+            const minStat = Math.min(g.hunger, g.clean, g.bond);
+            const wasCompact = this._statsBar.classList.contains('stats-compact');
+            let nextCompact = wasCompact;
+            if (!wasCompact && minStat > 75) nextCompact = true;
+            else if (wasCompact && minStat < 60) nextCompact = false;
+            if (nextCompact !== wasCompact) {
+                this._statsBar.classList.toggle('stats-compact', nextCompact);
+            }
+        }
+
         // Mood vignette
         const anyLow = g.hunger < 20 || g.clean < 20 || g.bond < 15;
         const inLove = g.affectionLevel >= 3 && g.bond > 70;
@@ -1529,7 +1452,7 @@ class GameUI {
         if (zzz) zzz.classList.add('visible');
         // Show cave text
         if (this.game && this.game.typewriter) {
-            this.game.typewriter.show("*curls up in the cave… sleeping*");
+            this.game.typewriter.show("*Curls up in the cave… sleeping*");
         }
         // Tap to peek handler
         this._sleepTapHandler = () => this._midnightPeek();
@@ -1547,7 +1470,7 @@ class GameUI {
             this._sleepTapHandler = null;
         }
         if (this.game && this.game.typewriter) {
-            this.game.typewriter.show("*yawns and stretches… good morning*");
+            this.game.typewriter.show("*Yawns and stretches… good morning*");
         }
         this.updateEmotion();
     }
@@ -1800,12 +1723,39 @@ class GameUI {
         var fragments = this.game?.fragmentsUnlocked || 0;
         health = Math.min(100, health + fragments * 8);
         fill.style.width = health + '%';
+
+        // ── HOME-SCREEN MINIMALISM (May 2026) ─────────────────────────────
+        // The Kingdom meter is a story-scale indicator. For players who
+        // haven't engaged the main story OR haven't played multiple
+        // characters, it's chrome they don't understand and never act on.
+        // Hide it on the care screen unless EITHER:
+        //   (a) main story route is enabled (player opted in), OR
+        //   (b) Kingdom is in genuine danger (health < 30 — narrative cue), OR
+        //   (c) player has 3+ character saves (a multi-romance player)
+        // Otherwise it disappears, ceding the screen to the character.
+        if (!this._fadingMeter) this._fadingMeter = document.getElementById('fading-meter');
+        if (this._fadingMeter) {
+            const mainStoryOn = (function () {
+                try { return localStorage.getItem('pp_main_story_enabled') === '1'; }
+                catch (_) { return false; }
+            })();
+            const inDanger = health < 30;
+            const multiPlayer = count >= 3;
+            const shouldShow = mainStoryOn || inDanger || multiPlayer;
+            this._fadingMeter.classList.toggle('kingdom-hidden', !shouldShow);
+        }
     }
 
     updateCorruption() {
         const g = this.game;
 
-        if (g.corruption > 5) {
+        // ── HOME-SCREEN MINIMALISM (May 2026) ─────────────────────────────
+        // Old threshold of 5% surfaced the corruption bar almost immediately
+        // for any player who took even one neglectful action. The bar then
+        // sat on screen as chrome the player couldn't interpret. Bumped to
+        // 25% — the meter only appears when corruption is actually a
+        // narrative concern, not from incidental drift.
+        if (g.corruption > 25) {
             this.corruptionIndicator.classList.remove('hidden');
             this.corruptionBar.style.width = g.corruption + '%';
         } else {

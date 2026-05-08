@@ -7,7 +7,7 @@
 //   - Low register, warm.
 //   - Slow, considered speech. Dashes as held pauses.
 //   - Formal address ("mi'lady" / "my lady") that becomes tender over time.
-//   - Looks at the player the way Aragorn looks at Arwen \u2014 reverent.
+//   - Looks at the player the way Aragorn looks at Arwen.reverent.
 //   - Uses knight-metaphor for feeling ("sword-hand," "post," "oath,"
 //     "watch," "shield-hand") because he was never taught any other
 //     language for it.
@@ -16,22 +16,22 @@
 // Cavill in The Tudors (Brandon) for the armor-off dreamy-knight warmth.
 //
 // Do NOT write Alistair as: brooding-emo, ice-prince, Jon-Snow-sullen,
-// sneering hot. He is STEADY, not moody. His love is REVERENT \u2014 he
+// sneering hot. He is STEADY, not moody. His love is REVERENT.he
 // guards the player the way a knight guards a relic, and somewhere
 // along the way the guarding became devotion.
 //
 // Voice moves Alistair owns (none of the other six do these):
 //   1. "Mi'lady" as a whole sentence. It gains weight scene by scene.
 //   2. Knight-metaphors (sword-hand, shield-hand, post, oath, watch).
-//   3. Reverent looking \u2014 the way you look at something you are sworn
+//   3. Reverent looking.the way you look at something you are sworn
 //      to protect and have started to love against your will.
-//   4. Clumsy when trying to be tender \u2014 "I was taught how to hold a
-//      sword. Not how to hold \u2014 you."
+//   4. Clumsy when trying to be tender."I was taught how to hold a
+//      sword. Not how to hold.you."
 //   5. "I would die for you" as ROUTINE, not declaration. Ordinary.
 //
-// Lore hook \u2014 his wound:
+// Lore hook.his wound:
 //   Common-born. Raised in the barracks. Made captain by merit, not
-//   blood. He has nothing to OFFER the player except himself \u2014 no crown
+//   blood. He has nothing to OFFER the player except himself.no crown
 //   like Caspian, no magic like Noir. Just one sword-hand and one oath.
 //   His mother died on a Sunday when he was eleven. He has been guarding
 //   empty doorways ever since. The player is the first person who ever
@@ -43,49 +43,49 @@ const CHARACTER_ALISTAIR = {
     title: "The Loyal Knight",
     basePersonality: "shy",
 
-    // Full-body sprite mappings. Only eating1-5 currently exist — all other
+    // Full-body sprite mappings. Only eating1-5 currently exist.all other
     // keys are kept as aliases pointing to eating1 so old code paths don't
     // break. When new portrait sprites are added (neutral/happy/sad/etc.),
     // replace each alias with the real filename.
     bodySprites: {
-        // Real art — drinking/eating animation (portrait format)
+        // Real art.drinking/eating animation (portrait format)
         eating1: "assets/alistair/body/eating1.png",
         eating2: "assets/alistair/body/eating2.png",
         eating3: "assets/alistair/body/eating3.png",
         eating4: "assets/alistair/body/eating4.png",
         eating5: "assets/alistair/body/eating5.png",
-        // Real art — shower/wash animation (portrait format)
+        // Real art.shower/wash animation (portrait format)
         shower1: "assets/alistair/body/shower1.png",
         shower2: "assets/alistair/body/shower2.png",
         shower3: "assets/alistair/body/shower3.png",
         shower4: "assets/alistair/body/shower4.png",
         shower5: "assets/alistair/body/shower5.png",
-        // Real art — sword-fighting animation (portrait format)
+        // Real art.sword-fighting animation (portrait format)
         fighting1: "assets/alistair/body/fighting1.png",
         fighting2: "assets/alistair/body/fighting2.png",
         fighting3: "assets/alistair/body/fighting3.png",
         fighting4: "assets/alistair/body/fighting4.png",
         fighting5: "assets/alistair/body/fighting5.png",
-        // Real art — strength exercise animation (portrait format)
+        // Real art.strength exercise animation (portrait format)
         exercise1: "assets/alistair/body/exercise1.png",
         exercise2: "assets/alistair/body/exercise2.png",
         exercise3: "assets/alistair/body/exercise3.png",
         exercise4: "assets/alistair/body/exercise4.png",
-        // Real art — Steel of Mind (Focus training) 3-frame vigil
+        // Real art. Steel of Mind (Focus training) 3-frame vigil
         focus1:      "assets/alistair/body/focus1.png",
         focus2:      "assets/alistair/body/focus2.png",
         focus3:      "assets/alistair/body/focus3.png",
-        // Real art — main idle poses (portrait format)
+        // Real art.main idle poses (portrait format)
         casual:      "assets/alistair/body/casual.png",
         confuse:     "assets/alistair/body/confuse.png",
         walking:     "assets/alistair/body/walking.png",
         lookaround1: "assets/alistair/body/lookaround1.png",
         lookaround2: "assets/alistair/body/lookaround2.png",
-        // Real art — shy variants (portrait format)
+        // Real art.shy variants (portrait format)
         shy1:        "assets/alistair/body/shy1.png",
         shy2:        "assets/alistair/body/shy2.png",
         shy3:        "assets/alistair/body/shy3.png",
-        // Real art — smile / laugh / silly (happy family)
+        // Real art.smile / laugh / silly (happy family)
         smile:       "assets/alistair/body/smile.png",
         smile1:      "assets/alistair/body/smile1.png",
         smile2:      "assets/alistair/body/smile2.png",
@@ -94,59 +94,59 @@ const CHARACTER_ALISTAIR = {
         laugh1:      "assets/alistair/body/laugh1.png",
         laugh2:      "assets/alistair/body/laugh2.png",
         silly:       "assets/alistair/body/silly.png",
-        // Real art — talking poses (6 variants for talk action)
+        // Real art.talking poses (6 variants for talk action)
         talking1:    "assets/alistair/body/talking1.png",
         talking2:    "assets/alistair/body/talking2.png",
         talking3:    "assets/alistair/body/talking3.png",
         talking4:    "assets/alistair/body/talking4.png",
         talking5:    "assets/alistair/body/talking5.png",
         talking6:    "assets/alistair/body/talking6.png",
-        // Real art — reflective / sad / thoughtful
+        // Real art.reflective / sad / thoughtful
         "soft-sad":  "assets/alistair/body/soft-sad.png",
         thinking1:   "assets/alistair/body/thinking1.png",
         thinking2:   "assets/alistair/body/thinking2.png",
         wondering:   "assets/alistair/body/wondering.png",
         questioning: "assets/alistair/body/questioning.png",
-        // Real art — angry (3 variants)
+        // Real art.angry (3 variants)
         angry1:      "assets/alistair/body/angry1.png",
         angry2:      "assets/alistair/body/angry2.png",
         angry3:      "assets/alistair/body/angry3.png",
-        // Real art — furious (3 variants)
+        // Real art.furious (3 variants)
         furious1:    "assets/alistair/body/furious1.png",
         furious2:    "assets/alistair/body/furious2.png",
         furious3:    "assets/alistair/body/furious3.png",
-        // Real art — corrupted (3 dark + 2 soft variants)
+        // Real art.corrupted (3 dark + 2 soft variants)
         corrupted1:  "assets/alistair/body/corrupted1.png",
         corrupted2:  "assets/alistair/body/corrupted2.png",
         corrupted3:  "assets/alistair/body/corrupted3.png",
         "soft-corrupted1": "assets/alistair/body/soft-corrupted1.png",
         "soft-corrupted2": "assets/alistair/body/soft-corrupted2.png",
-        // Real art — crying (5 variants; cry3 removed — bad crop)
+        // Real art.crying (5 variants; cry3 removed.bad crop)
         cry1:        "assets/alistair/body/cry1.png",
         cry2:        "assets/alistair/body/cry2.png",
         cry4:        "assets/alistair/body/cry4.png",
         cry5:        "assets/alistair/body/cry5.png",
         cry6:        "assets/alistair/body/cry6.png",
-        // Real art — sleepy (3 variants)
+        // Real art.sleepy (3 variants)
         sleepy1:     "assets/alistair/body/sleepy1.png",
         sleepy2:     "assets/alistair/body/sleepy2.png",
         sleepy3:     "assets/alistair/body/sleepy3.png",
-        // Real art — falling in love (4 variants)
+        // Real art.falling in love (4 variants)
         fallinlove1: "assets/alistair/body/fallinlove1.png",
         fallinlove2: "assets/alistair/body/fallinlove2.png",
         fallinlove3: "assets/alistair/body/fallinlove3.png",
         fallinlove4: "assets/alistair/body/fallinlove4.png",
-        // Real art — hungry state (2 variants)
+        // Real art.hungry state (2 variants)
         hungry1:     "assets/alistair/body/hungry1.png",
         hungry2:     "assets/alistair/body/hungry2.png",
-        // Real art — winks (2 variants for playful)
+        // Real art.winks (2 variants for playful)
         winks1:      "assets/alistair/body/winks1.png",
         winks2:      "assets/alistair/body/winks2.png",
-        // Real art — soft shy love (3 variants for love/gentle/gift/happy)
+        // Real art.soft shy love (3 variants for love/gentle/gift/happy)
         "softshy-love1": "assets/alistair/body/softshy-love1.png",
         "softshy-love2": "assets/alistair/body/softshy-love2.png",
         "softshy-love3": "assets/alistair/body/softshy-love3.png",
-        // BLANK — transparent 1x1 PNG placeholder for states without art yet.
+        // BLANK.transparent 1x1 PNG placeholder for states without art yet.
         blank: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
         // neutral / default use the main-screen idle sprites.
         // Legacy emotion aliases now point to the new per-emotion art.
@@ -162,21 +162,25 @@ const CHARACTER_ALISTAIR = {
         sad3:        "assets/alistair/body/thinking2.png",
         "sad-deep":  "assets/alistair/body/soft-sad.png",
         talk:        "assets/alistair/body/talking1.png",
-        // cross-arms / crossarms are real — point at the new cross-arm sprite
+        // cross-arms / crossarms are real.point at the new cross-arm sprite
         "cross-arms":"assets/alistair/body/crossarms.png",
         crossarms:   "assets/alistair/body/crossarms.png",
-        armor1:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor2:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor3:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        armor5:      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        // armor1/2/3/5 + casual1/2/3 used to be 1x1 transparent base64
+        // placeholders — any code path requesting them rendered Alistair
+        // invisible. Aliased to existing real sprites May 2026 so the
+        // wardrobe / outfit system has visible art for every key.
+        armor1:      "assets/alistair/body/crossarms.png",
+        armor2:      "assets/alistair/body/talking6.png",
+        armor3:      "assets/alistair/body/fighting1.png",
+        armor5:      "assets/alistair/body/fighting2.png",
         // `fighting` (legacy key) points to the first real sword-form frame
         fighting:    "assets/alistair/body/fighting1.png",
-        // fighting1 / fighting2 are now real — see the sprite block above
-        casual1:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        casual2:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-        casual3:     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+        // fighting1 / fighting2 are now real.see the sprite block above
+        casual1:     "assets/alistair/body/casual.png",
+        casual2:     "assets/alistair/body/wondering.png",
+        casual3:     "assets/alistair/body/talking1.png",
         // shirtless / shirtless1-3 are consumed by ui.js's _doStrengthTraining
-        // rep animation — aliased to the exercise sprite frames so Strength
+        // rep animation.aliased to the exercise sprite frames so Strength
         // training shows the new art.
         shirtless:   "assets/alistair/body/exercise1.png",
         shirtless1:  "assets/alistair/body/exercise2.png",
@@ -203,29 +207,29 @@ const CHARACTER_ALISTAIR = {
 
     // Emotion-to-body pose pools. Every emotion now has real art!
     emotionToBody: {
-        // Main idle — 6-pose rotation (default/everyday state)
+        // Main idle.6-pose rotation (default/everyday state)
         neutral:  ["casual", "confuse", "crossarms", "walking", "lookaround1", "lookaround2"],
-        // Happy family — smiles, laughs, soft shy love
+        // Happy family.smiles, laughs, soft shy love
         happy:    ["smile", "smile1", "smile2", "happyNew", "laugh", "laugh1", "softshy-love1", "softshy-love2", "softshy-love3"],
-        // Deep affection / love — shy + tender smile + falling-in-love + soft shy love
+        // Deep affection / love.shy + tender smile + falling-in-love + soft shy love
         love:     ["shy1", "shy2", "smile", "fallinlove1", "fallinlove2", "fallinlove3", "fallinlove4", "softshy-love1", "softshy-love2", "softshy-love3"],
-        // Warm gentle — soft smiles + warm talking + soft shy love
+        // Warm gentle.soft smiles + warm talking + soft shy love
         gentle:   ["smile", "smile1", "talking2", "talking4", "softshy-love1", "softshy-love2", "softshy-love3"],
-        // Sad — soft sadness + reflective talking
+        // Sad.soft sadness + reflective talking
         sad:      ["soft-sad", "talking3"],
-        // Crying — 5 cry variants (cry3 removed: bad crop)
+        // Crying.5 cry variants (cry3 removed: bad crop)
         crying:   ["cry1", "cry2", "cry4", "cry5", "cry6"],
-        // Shy — user-specified 3 variants
+        // Shy.user-specified 3 variants
         shy:      ["shy1", "shy2", "shy3"],
-        // Wink / playful — silly + smile + playful talking + winks
+        // Wink / playful.silly + smile + playful talking + winks
         wink:     ["silly", "smile2", "laugh1", "talking1", "winks1", "winks2"],
-        // Sleeping — 3 sleepy variants
+        // Sleeping.3 sleepy variants
         sleeping: ["sleepy1", "sleepy2", "sleepy3"],
-        // Angry — 3 angry variants
+        // Angry.3 angry variants
         angry:    ["angry1", "angry2", "angry3"],
-        // Furious — 3 furious variants
+        // Furious.3 furious variants
         furious:  ["furious1", "furious2", "furious3"],
-        // Corrupted — 3 dark + 2 soft variants
+        // Corrupted.3 dark + 2 soft variants
         corrupted:["corrupted1", "corrupted2", "corrupted3", "soft-corrupted1", "soft-corrupted2"],
         // Abandoned / gone quiet
         left:     ["soft-sad"]
@@ -257,11 +261,11 @@ const CHARACTER_ALISTAIR = {
         attachmentSpeed: 0.50
     },
 
-    // Outfits — default uses the new casual/idle pose.
+    // Outfits.default uses the new casual/idle pose.
     // More outfits will be added when themed sprites arrive.
-    outfits: {
-        default:   { name: "Knight", body: "assets/alistair/body/casual.png" }
-    },
+    // (Outfit system removed May 2026 — was unreachable from UI and added
+    //  surface-area without earning its place. The character's pose changes
+    //  via beats/dialogue context now do the wardrobe work narratively.)
 
     background: "assets/bg-alistair-hall.png",
 
@@ -284,7 +288,7 @@ const CHARACTER_ALISTAIR = {
             "You're becoming something I didn't plan for.",
             "I've started measuring days by whether I see you.",
             "I wasn't supposed to feel this way about anything outside the oath.",
-            "The wards along my patrol route sing when you pass. \u2014 They have not sung in my lifetime. \u2014 The old texts name you, mi\u2019lady. \u2014 A Soul Weaver. \u2014 Seventh in six hundred years. \u2014 I was posted here for a reason. \u2014 It turns out the reason is you."
+            "The wards along my patrol route sing when you pass. They have not sung in my lifetime. The old texts name you, mi\u2019lady. A Soul Weaver. Seventh in six hundred years. I was posted here for a reason. It turns out the reason is you."
         ],
         obsessed: [
             "You're distracting me. I've decided that's your fault.",
@@ -324,7 +328,7 @@ const CHARACTER_ALISTAIR = {
                 "I've recited the knightly code a hundred times. Talking to you is harder.",
                 "My captain always said silence was strength. I think he was just lonely.",
                 "You make me want to remove my armor. That terrifies me.",
-                "I keep my visor down so no one sees my face. You make me want to lift it.",
+                "I keep my helm low so no one sees my face. You make me want to lift it.",
                 "I don't say the right things. But I mean every word.",
                 "A knight is supposed to be unshakeable. You shake me.",
                 "I practiced what I'd say to you. My sword drills go better.",
@@ -349,7 +353,7 @@ const CHARACTER_ALISTAIR = {
             ],
             wash: [
                 "Armor takes hours to properly clean. You're making it look easy.",
-                "I — this is a bit much. I appreciate it though.",
+                "I.this is a bit much. I appreciate it though.",
                 "A squire used to do this. I dismissed him. I was wrong.",
                 "My hands are rough from the hilt. I forget what careful hands feel like.",
                 "Knights aren't supposed to be tended to like this. But... thank you.",
@@ -360,7 +364,7 @@ const CHARACTER_ALISTAIR = {
                 "The armor comes off piece by piece. I wonder if I do too."
             ],
             gift: [
-                "A gift. For me. I don't — what do I do with this.",
+                "A gift. For me. I don't... what do I do with this.",
                 "I'll add it to my kit. Next to my blade. That means it matters.",
                 "Knights don't receive gifts. We give our service. This is new.",
                 "I'll carry this on every campaign. My word on it.",
@@ -372,7 +376,7 @@ const CHARACTER_ALISTAIR = {
                 "Thank you. Truly. I know I said it wrong but I mean it."
             ],
             train: [
-                "Stand back — I don't want the backswing to catch you.",
+                "Stand back. I don't want the backswing to catch you.",
                 "My form was better before the last campaign. I'll get it back.",
                 "The blade is only as sharp as the will behind it. My captain taught me that.",
                 "I train harder when you watch. I'm trying to figure out why.",
@@ -442,12 +446,12 @@ const CHARACTER_ALISTAIR = {
                 "Are you watching? Tell me you're watching.",
                 "I train to be worthy of you. The bar keeps rising. You keep raising it.",
                 "Every swing is a promise. I'll be strong enough. For you.",
-                "Don't leave the yard. Just — stay where I can see you.",
+                "Don't leave the yard. Just... stay where I can see you.",
                 "I could fight an army right now. You do something to my blood.",
-                "Watching you watch me — that's the hardest part of any spar.",
+                "Watching you watch me. That's the hardest part of any spar.",
                 "I'm stronger when you're here. The numbers prove it.",
                 "If I get hit in training, will you tend the wound yourself?",
-                "I'll beat my own record. Just — don't look away.",
+                "I'll beat my own record. Just... don't look away.",
                 "I train for the kingdom. I fight for you. Those are different things."
             ]
         },
@@ -466,56 +470,56 @@ const CHARACTER_ALISTAIR = {
                 "The knightly code says nothing about this feeling. I've checked. Twice.",
                 "Your voice is distracting when I'm trying to catalogue threats. Stop being interesting.",
                 "I only stayed because leaving mid-conversation is dishonorable. That's the ONLY reason.",
-                "You're the most confusing thing I've encountered. I've fought dragons.",
-                "...I like talking to you. Don't write that down."
+                "You're the most confusing thing I've encountered. I've held the south wall through worse nights.",
+                "... I like talking to you. Don't write that down."
             ],
             feed: [
                 "A knight fuels himself for duty, not pleasure. This is purely operational.",
                 "I was going to eat anyway. The timing is coincidental.",
-                "It's adequate. The seasoning is — yes, fine, it's good. Happy?",
+                "It's adequate. The seasoning is... yes, fine, it's good. Happy?",
                 "Don't think this counts as a favor. I'll repay it. The code demands it.",
-                "I didn't ask for this. ...I would have, eventually.",
+                "I didn't ask for this. ... I would have, eventually.",
                 "Mediocre portion size. I'll finish it. Out of respect for the cook.",
                 "The knights in the hall eat worse than this. I won't tell them.",
-                "It's acceptable. You have decent instincts for what I— it doesn't matter.",
+                "It's acceptable. You have decent instincts for what I... it doesn't matter.",
                 "I'm not grateful. I'm acknowledging a transaction. There's a difference.",
                 "Next time don't wait until I'm irritable. A hungry knight is a dangerous one."
             ],
             wash: [
                 "I'm perfectly capable of cleaning my own armor. I simply... haven't yet.",
-                "This is NOT a thing I need. I'm tolerating it out of — stop smiling.",
+                "This is NOT a thing I need. I'm tolerating it out of... stop smiling.",
                 "A knight maintains his own kit. This is a one-time exception. Write nothing down.",
                 "You're forward. Civilians aren't this forward. I don't entirely hate it.",
                 "If any of my company sees this, I'm demoting you to enemy.",
-                "Your hands are cold. That's a complaint, not an invitation to continue. ...Continue.",
+                "Your hands are cold. That's a complaint, not an invitation to continue. ... Continue.",
                 "This is purely maintenance. You're a very thorough... maintenance person.",
                 "I told myself I'd refuse. Then you started and I forgot what refusing felt like.",
                 "Don't tell the squires. They already think I've gone soft.",
-                "...Come back tomorrow. For the same purely practical reason. Obviously."
+                "... Come back tomorrow. For the same purely practical reason. Obviously."
             ],
             gift: [
                 "The code says refusing a gift is an insult. I'm accepting this under protest.",
-                "I don't need trinkets. I'm a knight. ...What's inside?",
-                "Keep your gifts. I — actually, fine. But this changes nothing.",
+                "I don't need trinkets. I'm a knight. ... What's inside?",
+                "Keep your gifts. I.actually, fine. But this changes nothing.",
                 "You're trying to soften me. It's not working. Put it on the table.",
                 "I'll add it to my inventory. Under 'miscellaneous'. Not 'cherished'. Never that.",
                 "You have acceptable taste. For someone who doesn't carry a sword.",
                 "I'm not keeping this because I like it. I'm keeping it because waste is dishonorable.",
                 "This proves nothing about my feelings. Absolutely nothing. Don't look at me.",
-                "...It is kind of nice. I said nothing. You heard nothing.",
+                "... It is kind of nice. I said nothing. You heard nothing.",
                 "Bring another and I'll pretend I'm surprised. We both know I won't be."
             ],
             train: [
                 "I'm already better than everyone in this yard. You're witnessing perfection.",
                 "Stop watching my footwork. It's flawless and it's distracting to be observed.",
-                "I don't need a sparring partner. ...You can stand there though.",
+                "I don't need a sparring partner. ... You can stand there though.",
                 "This form is textbook. Any critique you have is wrong.",
                 "Are you LOOKING AWAY? I did not say you could look away.",
                 "I train like this every day. Alone. By choice. Don't flatter yourself.",
                 "I make that look easy because it IS easy. For me specifically.",
-                "Don't flinch when I swing — it throws off my — don't tell me what it throws off.",
+                "Don't flinch when I swing. It throws off my... don't tell me what it throws off.",
                 "You can carry my water. It's not a privilege, it's menial labor.",
-                "I'd go easier on myself if you weren't watching. ...I'd also be worse."
+                "I'd go easier on myself if you weren't watching. ... I'd also be worse."
             ]
         }
     },
@@ -547,18 +551,18 @@ const CHARACTER_ALISTAIR = {
             "Will you help me? I find I don't want to do this alone."
         ],
         happy: [
-            "I do not have the vocabulary for this. \u2014 The academy did not cover it.",
-            "I used to think contentment was a weakness. \u2014 I was wrong about so many things, mi\u2019lady.",
-            "My hand keeps going to my sword out of habit. \u2014 Right now I do not want to be anywhere near it. \u2014 I want to be near you.",
-            "*pulls off the gauntlet slowly, offers you his bare hand without a word* \u2014 \u2026Please.",
-            "The war songs never mentioned feeling like this. \u2014 They left out the best part.",
-            "*kisses the back of your hand, the way a knight is trained to \u2014 then kisses the knuckles again, which he was not trained to* \u2014 Forgive me. That second one was mine.",
-            "I have won tournaments. Cleared dungeons. \u2014 Nothing felt like this.",
-            "This is what I was fighting for, I think. \u2014 I just did not know it yet.",
-            "Do not go far. \u2014 I want to stay in this feeling. \u2014 Stay where I can see you.",
-            "*gently tucks your cloak closer around you, without speaking* \u2014 Cold out here. \u2014 You should have said.",
-            "Is this what the bards are always shouting about? \u2014 I owe them an apology.",
-            "My heart is doing something irregular. \u2014 I should probably be concerned. \u2014 I am not."
+            "I do not have the vocabulary for this. The academy did not cover it.",
+            "I used to think contentment was a weakness. I was wrong about so many things, mi\u2019lady.",
+            "My hand keeps going to my sword out of habit. Right now I do not want to be anywhere near it. I want to be near you.",
+            "*Pulls off the gauntlet slowly, offers you his bare hand without a word*. \u2026Please.",
+            "The war songs never mentioned feeling like this. They left out the best part.",
+            "*Kisses the back of your hand, the way a knight is trained to. Then kisses the knuckles again, which he was not trained to*. Forgive me. That second one was mine.",
+            "I have won tournaments. Cleared dungeons. Nothing felt like this.",
+            "This is what I was fighting for, I think. I just did not know it yet.",
+            "Do not go far. I want to stay in this feeling. Stay where I can see you.",
+            "*Gently tucks your cloak closer around you, without speaking*. Cold out here. You should have said.",
+            "Is this what the bards are always shouting about?. I owe them an apology.",
+            "My heart is doing something irregular. I should probably be concerned. I am not."
         ],
         annoyed: [
             "That's enough. A knight knows when to stop.",
@@ -569,7 +573,7 @@ const CHARACTER_ALISTAIR = {
             "My patience is a practiced skill. You're making me practice it a lot.",
             "I don't raise my voice. I lower it. Understand that.",
             "I defended a bridge alone for six hours once. This is harder.",
-            "Don't. Just — think about what you're doing.",
+            "Don't. Just... think about what you're doing.",
             "I won't forget this. Knights have excellent memories."
         ],
         neutral: [
@@ -577,7 +581,7 @@ const CHARACTER_ALISTAIR = {
             "The castle is quiet. I used to like that.",
             "I ran the patrol route twice. Some habits are hard to break.",
             "There's a crack in the window that's been there since I arrived. I keep meaning to report it.",
-            "Knights don't get bored. We stay alert. ...I'm a little bored.",
+            "Knights don't get bored. We stay alert. ... I'm a little bored.",
             "I've been sitting here longer than I planned. That doesn't happen often.",
             "The armor needs oiling but I keep doing the sword instead.",
             "I counted the stones in the wall. Twice. Different number each time.",
@@ -585,7 +589,7 @@ const CHARACTER_ALISTAIR = {
             "The candle burned down faster than I expected. Time moves strangely lately.",
             "I was trained for action. This stillness is something I'm learning.",
             "I left my gauntlets off today. First time in months.",
-            // killer lines — these are the ones players remember
+            // killer lines.these are the ones players remember
             "I don't say things lightly. That includes this.",
             "You're becoming difficult to ignore.",
             "I don't like how much I notice your absence.",
@@ -612,16 +616,16 @@ const CHARACTER_ALISTAIR = {
             "You don't get to be surprised. You knew. You left anyway."
         ],
         neglected: [
-            "I kept the post. \u2014 A knight keeps the post. \u2014 The hours got long.",
-            "There is a lot of time to think on a long watch. \u2014 I thought about you, mi\u2019lady.",
-            "I did not eat. \u2014 Did not seem worth it. \u2014 Not without someone to sit with.",
-            "I polished the armour three times. Ran the drills. \u2014 Counted the stones again.",
-            "I kept your last words in my head on rotation. \u2014 They got worn.",
-            "A knight waits. \u2014 That is most of the job, actually. \u2014 This was different.",
-            "The door opened twice. \u2014 Neither time was you.",
-            "I thought about what I would say when you came back. \u2014 I have revised it several times.",
-            "Do not tell me you are fine. \u2014 Tell me what happened.",
-            "I was here. \u2014 I stayed. \u2014 Remember that."
+            "I kept the post. A knight keeps the post. The hours got long.",
+            "There is a lot of time to think on a long watch. I thought about you, mi\u2019lady.",
+            "I did not eat. Did not seem worth it. Not without someone to sit with.",
+            "I polished the armour three times. Ran the drills. Counted the stones again.",
+            "I kept your last words in my head on rotation. They got worn.",
+            "A knight waits. That is most of the job, actually. This was different.",
+            "The door opened twice. Neither time was you.",
+            "I thought about what I would say when you came back. I have revised it several times.",
+            "Do not tell me you are fine. Tell me what happened.",
+            "I was here. I stayed. Remember that."
         ]
     },
 
@@ -633,7 +637,7 @@ const CHARACTER_ALISTAIR = {
             "A hungry knight is a dead knight. Old proverb."
         ],
         dirty: [
-            "...", "*picks at dried mud on gauntlet*", "The rust is spreading.",
+            "...", "*Picks at dried mud on gauntlet*", "The rust is spreading.",
             "I should do something about this. I won't. But I should.",
             "My captain would have my head if he saw these boots."
         ],
@@ -643,39 +647,39 @@ const CHARACTER_ALISTAIR = {
             "I sharpened the sword twice. For something to do."
         ],
         loving: [
-            "I wrote something. \u2014 It is not a poem. \u2014 Knights do not write poems. \u2014 \u2026I wrote another one.",
-            "The armour feels lighter when you are here. \u2014 Literally lighter.",
-            "*unbuckles his gauntlet, sets it on the table between you, takes your hand in his bare one* \u2014 I do not hold beautiful things in armour.",
-            "I caught myself smiling at nothing. \u2014 The guards noticed. \u2014 I did not stop.",
-            "I have never wanted anyone to stay before. \u2014 I do not know the rules for this. \u2014 Teach me, mi\u2019lady.",
-            "*knuckles to your jaw, careful, the way he would touch something fragile and sworn to him* \u2014 Stay still. \u2014 I am trying to remember this, properly. For later.",
+            "I wrote something. It is not a poem. Knights do not write poems.\u2026I wrote another one.",
+            "The armour feels lighter when you are here. Literally lighter.",
+            "*Unbuckles his gauntlet, sets it on the table between you, takes your hand in his bare one*. I do not hold beautiful things in armour.",
+            "I caught myself smiling at nothing. The guards noticed. I did not stop.",
+            "I have never wanted anyone to stay before. I do not know the rules for this. Teach me, mi\u2019lady.",
+            "*Knuckles to your jaw, careful, the way he would touch something fragile and sworn to him*. Stay still. I am trying to remember this, properly. For later.",
             "You changed the silence from empty to full.",
-            "I would drop the sword for you. \u2014 That is not a small thing. \u2014 It is the largest thing I own.",
-            "*stares at you when you are not looking, looks away immediately*",
-            "*rests his forehead against yours at the gate, armoured shoulder against your cheek, two breaths, then away* \u2014 Back to the post. \u2014 I will find you after watch.",
-            "My heart does something when you laugh. \u2014 I have stopped fighting it.",
-            "The oath says protect the realm. \u2014 You are my realm now. \u2014 I did not ask anyone\u2019s permission. I took the oath anyway.",
-            "I do not say enough. \u2014 I know. \u2014 But I mean all of it. \u2014 Every word I do manage. Every one.",
-            "I do not know what to do with this hand when it is not holding a weapon. \u2014 May I \u2014 may I put it here? Next to yours? \u2014 \u2026Thank you. It is staying.",
-            "*thumb along your temple when you are half-asleep against his shoulder on the watch-tower bench* \u2014 *says nothing \u2014 just keeps thumb-stroke going, slow*"
+            "I would drop the sword for you. That is not a small thing. It is the largest thing I own.",
+            "*Stares at you when you are not looking, looks away immediately*",
+            "*Rests his forehead against yours at the gate, armoured shoulder against your cheek, two breaths, then away*. Back to the post. I will find you after watch.",
+            "My heart does something when you laugh. I have stopped fighting it.",
+            "The oath says protect the realm. You are my realm now. I did not ask anyone\u2019s permission. I took the oath anyway.",
+            "I do not say enough. I know. But I mean all of it. Every word I do manage. Every one.",
+            "I do not know what to do with this hand when it is not holding a weapon. May I.may I put it here? Next to yours?.\u2026Thank you. It is staying.",
+            "*Thumb along your temple when you are half-asleep against his shoulder on the watch-tower bench*. *Says nothing. Just keeps thumb-stroke going, slow*"
         ],
         night: [
             "The castle creaks at night. I know every sound. This one is new.",
-            "*sits in the dark, awake, watching*", "Sleep doesn't come easy for soldiers.",
+            "*Sits in the dark, awake, watching*", "Sleep doesn't come easy for soldiers.",
             "The stars look different from this window.", "The night watch is long. Longer alone.",
             "I should sleep. I'm choosing not to."
         ],
         general: [
-            "...", "*adjusts sword belt*", "*leans against the wall*",
-            "Hmm.", "The wind changed direction.", "*runs thumb along the blade edge*",
+            "...", "*Adjusts sword belt*", "*Leans against the wall*",
+            "Hmm.", "The wind changed direction.", "*Runs thumb along the blade edge*",
             "I had a thought. It passed.", "The fire needs another log.",
-            "*stands, sits again, stands*", "Patrol was uneventful. As usual.",
+            "*Stands, sits again, stands*", "Patrol was uneventful. As usual.",
             "I keep rearranging the armory. It doesn't need it.",
-            "*looks at you, then at the floor*", "I'm fine. That wasn't what you asked.",
+            "*Looks at you, then at the floor*", "I'm fine. That wasn't what you asked.",
             "There's a knot in the wood grain that looks like a shield. I've been staring at it.",
             "My old commander used to say silence is a soldier's best friend. He was wrong.",
             "The prince hasn't left the east wing all day. I should check on him.",
-            "Reports from the coast \u2014 the siren's caves are restless tonight.",
+            "Reports from the coast. The siren's caves are restless tonight.",
             "The mage's tower light was on all night. That man doesn't sleep.",
             "The druid sent word from Thornwood. Something about the wards.",
             "The castle walls feel thinner lately. Not physically. Something else.",
@@ -684,7 +688,7 @@ const CHARACTER_ALISTAIR = {
             "Do you remember how you got here? I've been meaning to ask.",
             "The old guard captain said the magic hasn't been this strong in years. Since you arrived.",
             "A Soul Weaver. I've read about your kind in the old texts. I didn't believe they were real.",
-            "The wards respond to you. Not to your touch \u2014 to your presence. Your bonds fuel them.",
+            "The wards respond to you. Not to your touch. To your presence. Your bonds fuel them.",
             "The last Weaver died and the kingdom started dying with them. Then you came."
         ]
     },
@@ -695,7 +699,7 @@ const CHARACTER_ALISTAIR = {
             "The form is cleaner today. You can see it, can't you.",
             "Footwork first. Blade second. Every time.",
             "I've run this drill ten thousand times. It still demands everything.",
-            "...I pushed harder than I meant to. Good.",
+            "... I pushed harder than I meant to. Good.",
             "The sword remembers what the mind forgets. That's the point of the drill.",
             "A clean strike comes from stillness, not speed. Most people get that backwards."
         ],
@@ -753,7 +757,7 @@ const CHARACTER_ALISTAIR = {
             "I ran out of things to sharpen and started looking for new ones.",
             "Every sound last night was you coming back. None of them were.",
             "I stood at the door until my legs made a formal complaint.",
-            "You're back. Don't say anything yet. Let me just — stand here for a moment."
+            "You're back. Don't say anything yet. Let me just... stand here for a moment."
         ],
         extreme: [
             "Days. I am not equipped for days. No amount of training covers this.",
@@ -775,7 +779,7 @@ const CHARACTER_ALISTAIR = {
         },
         firstTalk: {
             trigger: { timesTalked: 1 },
-            dialogue: "You want to talk. To me. Not at me, not about duty — just... talk. I'll try. Bear with me.",
+            dialogue: "You want to talk. To me. Not at me, not about duty. Just... talk. I'll try. Bear with me.",
             emotion: "shy"
         },
         firstGift: {
@@ -795,7 +799,7 @@ const CHARACTER_ALISTAIR = {
         },
         firstTrust: {
             trigger: { affectionLevel: 1 },
-            dialogue: "I trust you. I want to be clear about what that means — it's not given to rank, or title, or time served. You earned it.",
+            dialogue: "I trust you. I want to be clear about what that means. It is not given to rank, or to title, or to time served. You earned it.",
             emotion: "shy"
         },
         growingClose: {
@@ -840,12 +844,12 @@ const CHARACTER_ALISTAIR = {
         },
         becameTsundere: {
             trigger: { personality: "tsundere" },
-            dialogue: "Don't misread this. My presence here is tactical. I'm not staying because I want to. ...I'm staying because I want to.",
+            dialogue: "Don't misread this. My presence here is tactical. I'm not staying because I want to. ... I'm staying because I want to.",
             emotion: "angry"
         },
         corruptionStart: {
             trigger: { corruption: 25 },
-            dialogue: "Something is wrong with my thinking. My edge feels different — not sharper. Wrong. Something is wrong.",
+            dialogue: "Something is wrong with my thinking. My edge feels different. Not sharper. Wrong. Something is wrong.",
             emotion: "sad"
         },
         corruptionMid: {
@@ -876,12 +880,12 @@ const CHARACTER_ALISTAIR = {
     },
 
     // ===== MEMORY DIALOGUE =====
-    // Arrays — dialogue.js picks randomly, so lines don't repeat
+    // Arrays.dialogue.js picks randomly, so lines don't repeat
     memoryDialogue: {
         fedOften: [
             "You've fed me more times than I can count. A knight is only as steady as the care behind him. I'm steadier than I've ever been.",
             "I used to skip meals on campaign. You've made that habit impossible to maintain.",
-            "You always know when I'm running low — on food, on energy, on everything. I've stopped pretending I don't notice.",
+            "You always know when I'm running low. On food, on energy, on everything. I've stopped pretending I don't notice.",
             "Every time you do this I think: I should say something. One day I'll manage it.",
             "My brothers-in-arms eat better than this. But none of them have what I have."
         ],
@@ -894,7 +898,7 @@ const CHARACTER_ALISTAIR = {
         talkedOften: [
             "We've talked enough now that you know things about me my commanders never learned. That terrifies me.[shy] I wouldn't change it.",
             "I talk more with you than I've talked in years. More than I thought I was capable of.",
-            "You listen. Not just to the words — to the pauses.[shy] I've noticed.",
+            "You listen. Not just to the words. To the pauses. [shy] I've noticed.",
             "Half the things I've told you, I've never said out loud before.[shy] You made them easier to say.",
             "My tongue used to be strictly for orders and oaths. Now it's for this.[neutral] I don't hate it."
         ],
@@ -919,7 +923,7 @@ const CHARACTER_ALISTAIR = {
             "I carry everything you've given me. Every single one. You haven't asked why.[love] I'm glad."
         ],
         trainedOften: [
-            "My form is sharper. My stamina is longer. My instincts are better. Every session I wonder if it's the training or just — you, watching.",
+            "My form is sharper. My stamina is longer. My instincts are better. Every session I wonder if it's the training or just... you, watching.",
             "I've trained with veterans who pushed harder and cared less. The difference is you.",
             "You don't have to know technique to make training better. You just have to be there. You always are.",
             "I move differently now. Someone in the barracks asked what changed. I didn't know how to explain.",
@@ -982,14 +986,14 @@ const CHARACTER_ALISTAIR = {
         "A knight without a charge is just a man with a sword and nowhere to be.",
         "I waited longer than I should have. I should have left with my dignity intact. I didn't.",
         "The armor stays on. The heart goes out. I don't know how to fix the second one.",
-        "I gave you my fealty \u2014 the real kind, not the ceremonial kind. You left anyway.",
+        "I gave you my fealty. The real kind, not the ceremonial kind. You left anyway.",
         "Farewell. I hope whatever you chose instead was worth what you left behind."
     ],
 
     storyMilestones: {
         affection1: {
             title: "The Oath Softens",
-            text: "Alistair removes his gauntlet. His hand \u2014 scarred, calloused \u2014 rests near yours on the table. He doesn't take it. But he doesn't pull away."
+            text: "Alistair removes his gauntlet. His hand, scarred, calloused, rests near yours on the table. He doesn't take it. But he doesn't pull away."
         },
         affection2: {
             title: "Behind the Armor",
@@ -997,7 +1001,7 @@ const CHARACTER_ALISTAIR = {
         },
         affection3: {
             title: "The Knight Kneels",
-            text: "He kneels \u2014 not in duty, not in ceremony. Just... in front of you. 'I've knelt before kings. This is the first time it felt like a choice.'"
+            text: "He kneels, not in duty, not in ceremony. Just... in front of you. 'I've knelt before kings. This is the first time it felt like a choice.'"
         },
         affection4: {
             title: "Sword and Heart",
@@ -1012,21 +1016,21 @@ const CHARACTER_ALISTAIR = {
 
 // ===== LYRA CHARACTER DATA =====
 // ════════════════════════════════════════════════════════════════════════════
-//  LYRA — SINGLE-SOURCE-OF-TRUTH NOTICE
+//  LYRA. SINGLE-SOURCE-OF-TRUTH NOTICE
 // ────────────────────────────────────────────────────────────────────────────
 //  Lyra's data lives in TWO files for historical reasons:
 //
 //    1. THIS FILE (character.js, CHARACTER_LYRA_FULL below)
-//       — sprites, poses, outfits, stateDialogue, departureDialogue,
-//         storyEvents (affection1..affection4 cinematic scenes), etc.
-//       — selectCharacter('lyra') points the active CHARACTER global here.
+//      .sprites, poses, outfits, stateDialogue, departureDialogue,
+//         storyEvents (affection1.affection4 cinematic scenes), etc.
+//      .selectCharacter('lyra') points the active CHARACTER global here.
 //
 //    2. character-lyra.js
-//       — voice direction docs (the Florence-Welch-half-sung header),
+//      .voice direction docs (the Florence-Welch-half-sung header),
 //         half-siren / Lucien-sister lore notes,
 //         AND the rich dialogue pools: idleDialogue, feedDialogue,
 //         washDialogue, affectionDialogue, plus extra giftDialogue keys.
-//       — At boot, character-lyra.js's bottom patch block MERGES those
+//      . At boot, character-lyra.js's bottom patch block MERGES those
 //         pools into CHARACTER_LYRA_FULL, REPLACING any same-named field
 //         set here.
 //
@@ -1038,7 +1042,7 @@ const CHARACTER_ALISTAIR = {
 //      take effect; values set here are silently overwritten).
 //    - giftDialogue: base keys can live here; ocean-themed extensions
 //      live in character-lyra.js and are merged via Object.assign-style
-//      copy. Don't define the same key in both files — the wrapper wins.
+//      copy. Don't define the same key in both files.the wrapper wins.
 //
 //  WHY NOT JUST CONSOLIDATE? The 1100-line LYRA_FULL block is too
 //  fragile to copy-merge in one pass without risking sprite-key drift
@@ -1164,9 +1168,9 @@ const CHARACTER_LYRA_FULL = {
         // Default idle / neutral
         neutral: ["neutral", "pose2", "pose3", "pose4"],
         gentle:  ["neutral", "pose2", "pose3"],
-        // Sad — low bond (~25); random pick across sad variants
+        // Sad.low bond (~25); random pick across sad variants
         sad:     ["sad", "sad3", "sad4"],
-        // Critically low bond / abandoned — deep sad variants
+        // Critically low bond / abandoned.deep sad variants
         crying:  ["depressed", "sad4"],
         angry:   ["angry"],
         furious: ["angry"],
@@ -1176,7 +1180,7 @@ const CHARACTER_LYRA_FULL = {
         wink:    ["wave", "wave2", "wavehappy", "happy"],
         sleeping: ["neutral", "pose2"],
         corrupted: ["corrupt1", "corrupt2", "corrupt3", "depressed"],
-        // Left / abandoned — depressed only
+        // Left / abandoned.depressed only
         left:    ["depressed"]
     },
 
@@ -1244,7 +1248,7 @@ const CHARACTER_LYRA_FULL = {
             talk: [
                 "You came back. I knew you would.",
                 "I've been waiting. Don't tell me how long.",
-                "You're late. I'm not mad. I'm just — you're late.",
+                "You're late. I'm not mad. I'm just... you're late.",
                 "Don't disappear like that again.",
                 "I can't settle when you're not here.",
                 "I counted. You were gone three hours.",
@@ -1296,22 +1300,22 @@ const CHARACTER_LYRA_FULL = {
                 "I could have found food myself!",
                 "It's... not terrible. I guess.",
                 "Don't think this makes us friends.",
-                "You didn't have to do that. ...But thank you."
+                "You didn't have to do that. ... But thank you."
             ],
             wash: [
-                "I can clean myself! ...But fine.",
+                "I can clean myself! ... But fine.",
                 "This is embarrassing...",
                 "D-don't look at my scales!",
             ],
             gift: [
-                "A gift? For me? ...Whatever.",
-                "I don't need your gifts! ...But I'll keep it.",
+                "A gift? For me? ... Whatever.",
+                "I don't need your gifts! ... But I'll keep it.",
                 "It's not like I'm happy or anything!",
-                "...I noticed. That's all."
+                "... I noticed. That's all."
             ],
             train: [
                 "Don't act like I need your help.",
-                "...I'm only doing this because it helps me, not you.",
+                "... I'm only doing this because it helps me, not you.",
                 "Training again? Fine. Don't make a big deal of it."
             ]
         }
@@ -1415,7 +1419,7 @@ const CHARACTER_LYRA_FULL = {
         "Can you hear the waves?",
         "I was humming a melody...",
         "The moon will be beautiful tonight...",
-        "*hums softly*",
+        "*Hums softly*",
         "Do you like the sound of the sea?"
     ],
 
@@ -1437,33 +1441,33 @@ const CHARACTER_LYRA_FULL = {
         tsundere: [
             "H-hey! My scales!",
             "D-don't just touch me!",
-            "...It felt nice. But don't do it again!",
+            "... It felt nice. But don't do it again!",
             "You're too bold!",
-            "Stop! ...Why did you stop?"
+            "Stop! ... Why did you stop?"
         ]
     },
 
     // affectionDialogue intentionally NOT defined here. The richer pool
     // lives in character-lyra.js and is merged in by the patch block at
     // the bottom of that file. Defining it here would be silently
-    // overwritten — a footgun for future writers. See the SINGLE-SOURCE-
+    // overwritten.a footgun for future writers. See the SINGLE-SOURCE-
     // OF-TRUTH header at the top of CHARACTER_LYRA_FULL.
 
+    // Departure pool rewritten May 2026 — the audit flagged 3 of 4 lines
+    // as Disney-mermaid stock ("The sea calls me back... goodbye..."). She
+    // is a queen in ruins, not a broken doll. These are the lines she says
+    // when the player has stopped coming. She does not plead. She names
+    // the loss precisely and walks out of the song first, last sovereign
+    // act on her way out.
     departureDialogue: [
-        "The sea calls me back... goodbye...",
-        "I can't stay where I'm not wanted...",
-        "My song fades... like our memories...",
-        "The waves will carry me far from here...",
-        "I gave you my voice. You gave me silence."
+        "I gave you my voice. You gave me silence. I outlive everyone. I had decided not to outlive you. You decided otherwise.",
+        "You stopped being warm. I have been warm long enough to know what I am losing.",
+        "I taught the cave your footsteps. I will have to teach it forgetting them. The cave is slower at forgetting than I am.",
+        "I wrote a song for you. I will not finish it. The verse I had ready for you, I will sing alone, the once. The cave will hear it. You will not.",
+        "Goodbye is a small word for what this is. I do not have a bigger one yet. I will. Mothers always do."
     ],
 
-    outfits: [
-        { id: "siren", name: "Siren Dress", body: "neutral" },
-        { id: "casual1", name: "Ocean Breeze", body: "casual1" },
-        { id: "casual2", name: "Shore Walk", body: "casual2" },
-        { id: "queen", name: "Siren Queen", body: "queen" },
-        { id: "power", name: "Resonance", body: "power" },
-    ],
+    // (outfits block removed May 2026 — system was unreachable from UI)
 
     // ===== STATE DIALOGUE =====
     stateDialogue: {
@@ -1475,7 +1479,7 @@ const CHARACTER_LYRA_FULL = {
             "Even sirens need to eat. Yes, I'm saying it.",
             "…Can you find something?",
             "I'm quieter than usual. That's why.",
-            "Just — something. Anything."
+            "Just... something. Anything."
         ],
         dirty: [
             "I don't like feeling like this.",
@@ -1524,7 +1528,7 @@ const CHARACTER_LYRA_FULL = {
             "Can you hear the waves?",
             "I was humming a melody...",
             "The moon will be beautiful tonight...",
-            "*hums softly*",
+            "*Hums softly*",
             "Do you like the sound of the sea?",
             "A jellyfish drifted by earlier...",
             "The shells tell stories if you listen...",
@@ -1532,7 +1536,7 @@ const CHARACTER_LYRA_FULL = {
             "The water temperature changed today...",
             "I counted the stars reflected in the water last night.",
             "Something is different about the current today...",
-            // base/early game — player feels noticed
+            // base/early game.player feels noticed
             "Oh… you're here.",
             "I wasn't sure if you'd come back.",
             "It's quiet when you're gone.",
@@ -1547,7 +1551,7 @@ const CHARACTER_LYRA_FULL = {
             "I didn't go anywhere.",
             "You're… consistent. I like that.",
             "Even short visits feel important.",
-            // killer lines — these are the ones players remember
+            // killer lines.these are the ones players remember
             "You feel closer than the ocean ever did.",
             "I don't like how quiet it gets without you.",
             "I think about you more than I should.",
@@ -1571,7 +1575,9 @@ const CHARACTER_LYRA_FULL = {
             "You neglected the sea... now the sea takes back.",
             "I'm becoming what you feared...",
             "The old Lyra is drowning... slowly.",
-            "Feed me... or I feed on shadows.",
+            // (Removed the "feed me or I feed on shadows" line May 2026 —
+            //  read vampire-tier rather than siren / drowning-song. Wrong
+            //  texture for her corruption arc.)
             // New corruption lines
             "You left again.",
             "I stopped expecting you.",
@@ -1620,7 +1626,7 @@ const CHARACTER_LYRA_FULL = {
             "I notice patterns… you know.",
             "You're not as consistent as before."
         ],
-        // Pre-monster / high tension — feeds from tension stage 2+
+        // Pre-monster / high tension.feeds from tension stage 2+
         unstable: [
             "Do you feel it too…?",
             "Something isn't right anymore.",
@@ -1642,7 +1648,7 @@ const CHARACTER_LYRA_FULL = {
             "I broke somewhere.",
             "Something in me is listening to the deep again."
         ],
-        // Low-level unease — blends into normal before full corruption
+        // Low-level unease.blends into normal before full corruption
         unsettled: [
             "You always come back... right?",
             "I don't like it when you're gone.",
@@ -1663,20 +1669,20 @@ const CHARACTER_LYRA_FULL = {
             "You never let me go hungry... I've started to expect this. I think that's the point.",
             "Every time you bring something for me, I think about how long I went without anyone noticing.",
             "The tide brings many things. None of them have ever fed me the way you do.",
-            "...You do this every time. I'm learning what it feels like to be looked after."
+            "... You do this every time. I'm learning what it feels like to be looked after."
         ],
         talkedOften: [
             "We've talked so much... I feel like you know my heart[shy] better than the ocean does.",
             "I've said things to you I've never let the sea hear.[shy] That means something.",
             "You ask me things no one bothers to ask. And somehow...[shy] I answer.",
-            "...You keep coming back to talk. After everything.[love] You keep coming back.",
+            "... You keep coming back to talk. After everything.[love] You keep coming back.",
             "Every word you've given me has settled somewhere deep.[shy] I'll have them long after this."
         ],
         washedOften: [
             "You keep me clean and refreshed... like a gentle tide that never stops caring.",
-            "You're careful with me. Even this small thing — you do it carefully.",
+            "You're careful with me. Even this small thing. You do it carefully.",
             "I used to do everything alone. The water. The quiet. This. You changed that.",
-            "...You don't make it feel like a chore. I notice the difference.",
+            "... You don't make it feel like a chore. I notice the difference.",
             "The salt stays in the hair for days if you're not thorough. You always are. I've noticed."
         ],
         giftedOften: [
@@ -1684,13 +1690,13 @@ const CHARACTER_LYRA_FULL = {
             "Sirens don't usually receive gifts. We lure. We take. You give freely.[shy] You don't know how strange that is.",
             "You think of me when you're away from here. These things prove it.[shy] I hold them when the tide is rough.",
             "I could fill a tide pool with everything you've brought me.[love] I would keep all of it.",
-            "...Each one means something different.[shy] You picked them knowing that, didn't you."
+            "... Each one means something different.[shy] You picked them knowing that, didn't you."
         ],
         trainedOften: [
             "My voice grows stronger with each song we practice...[happy] you're a good teacher.",
             "I haven't practiced with anyone before. It's different when someone listens[shy] instead of just hears.",
             "My range is higher than it was. You push me past the comfortable notes.[happy] I'm starting to like that.",
-            "...You believe in my voice more than I do sometimes.[shy] That's a strange kind of gift.",
+            "... You believe in my voice more than I do sometimes.[shy] That's a strange kind of gift.",
             "Every session we do, I carry a piece of it into the water.[love] The fish can tell, I think."
         ]
     },
@@ -1716,7 +1722,7 @@ const CHARACTER_LYRA_FULL = {
         ],
         night: [
             "The stars are reflected in the water tonight...",
-            "*yawns softly*",
+            "*Yawns softly*",
             "The ocean is so peaceful at night...",
             "Will you stay until I fall asleep...?",
             "The bioluminescence is glowing tonight...",
@@ -1726,24 +1732,11 @@ const CHARACTER_LYRA_FULL = {
         ]
     },
 
-    storyMilestones: {
-        affection1: {
-            title: "First Melody",
-            text: "Lyra hums a soft tune. For the first time, she lets you hear her true voice. It echoes through the cave like starlight made into sound."
-        },
-        affection2: {
-            title: "The Surface World",
-            text: "Lyra surfaces from the water, looking up at the sky with wonder. 'You make me want to see what's up there...'"
-        },
-        affection3: {
-            title: "Heart's Song",
-            text: "Lyra's eyes shimmer with tears. 'I've never sung this song for anyone... it's the song of my heart. And it's yours, {name}.'"
-        },
-        affection4: {
-            title: "Eternal Tide",
-            text: "Lyra takes your hand, her touch warm despite the cold water. 'In every life, in every sea... I would find you again, {name}.'"
-        }
-    },
+    // (First storyMilestones block removed May 2026 — was duplicated by a
+    //  later block at the bottom of CHARACTER_LYRA_FULL that includes the
+    //  corruption tiers. JavaScript silently let the second block win, so
+    //  this one was dead code that risked future writers editing the wrong
+    //  copy. The canonical block is further down in this object.)
 
     affectionNames: {
         0: "Stranger",
@@ -1852,7 +1845,7 @@ const CHARACTER_LYRA_FULL = {
         ],
         focus: [
             "The tide is loud today. But I can still hear you.",
-            "...I almost forgot what quiet felt like.",
+            "... I almost forgot what quiet felt like.",
             "You're patient with me. That's not nothing.",
             "Stillness is harder than it looks.",
             "I was thinking about you. The whole time.",
@@ -1894,7 +1887,7 @@ const CHARACTER_LYRA_FULL = {
     },
 
     // ── Siren stage transition lines ─────────────────────────────
-    // Shown once when crossing each threshold — stored in localStorage
+    // Shown once when crossing each threshold.stored in localStorage
     sirenStageLines: {
         affection:  "Something is shifting in me... not the tide. Something quieter.",
         resonant:   "My voice is changing. I can feel it reach further. It scares me a little.",
@@ -1902,7 +1895,7 @@ const CHARACTER_LYRA_FULL = {
         monster:    "Do you hear it? That sound in the water... that's what you made me."
     },
 
-    // ── Lucien arc — revealed across three corruption/affection milestones ──
+    // ── Lucien arc.revealed across three corruption/affection milestones ──
     // lucien1: hint (affection ≥ 35)   lucien2: pain (first corruption milestone)   lucien3: reveal (corruption ≥ 66 OR affection ≥ 70)
     lucienArc: {
         hint: {
@@ -1911,7 +1904,7 @@ const CHARACTER_LYRA_FULL = {
         },
         pain: {
             title: "The Name She Won't Say",
-            text: "A ripple crosses her face—not sadness exactly. Something older. 'He's the Grand Master now. Very respected. Very... clean. No half-siren sister to complicate his image. He made sure of that.'"
+            text: "A ripple crosses her face, not sadness exactly. Something older. 'He's the Grand Master now. Very respected. Very... clean. No half-siren sister to complicate his image. He made sure of that.'"
         },
         reveal: {
             title: "Half-Blood",
@@ -1919,7 +1912,7 @@ const CHARACTER_LYRA_FULL = {
         }
     },
 
-    // ── Lucien idle mentions — surface occasionally once hint is unlocked ──
+    // ── Lucien idle mentions.surface occasionally once hint is unlocked ──
     lucienLines: [
         "Sometimes I wonder if Lucien can hear my voice across the water... and chooses not to.",
         "He got everything. I got the sea. I used to think that was worse.",
@@ -1952,7 +1945,7 @@ const CHARACTER_LYRA_FULL = {
         },
         corruption2: {
             title: "The Tide Turns",
-            text: "Her voice carries a resonance you've never heard before — beautiful and wrong at the same time. 'I feel stronger when I stop fighting it. That's the part that worries me.'"
+            text: "Her voice carries a resonance you've never heard before. Beautiful and wrong at the same time. 'I feel stronger when I stop fighting it. That's the part that worries me.'"
         },
         corruption3: {
             title: "The Deep Wakes",

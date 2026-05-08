@@ -1037,13 +1037,25 @@ class GallerySystem {
                 }
             }
         } else {
+            // ── MYSTERY POLISH (May 2026) ─────────────────────────────
+            // For crossovers + endings + epilogues, hide the per-card
+            // lockHint entirely — those reveal character pairings or
+            // story moments and would spoil the gasp when the scene
+            // actually fires. Player sees only "???" + a generic
+            // "keep caring" line. Other categories (beginnings,
+            // affection, arc) keep their hints since players know
+            // which character they're caring for.
+            const HINT_HIDDEN_CATEGORIES = new Set(['crossover', 'ending', 'epilogue']);
+            const condition = HINT_HIDDEN_CATEGORIES.has(entry.category)
+                ? 'Keep caring. It will land on its own.'
+                : (entry.lockHint || 'Locked');
             cardEl.innerHTML = ''
                 + '<div class="gallery-card-img-wrap locked-wrap">'
                 +   '<div class="gallery-card-lock">🔒</div>'
                 + '</div>'
                 + '<div class="gallery-card-info">'
                 +   '<div class="gallery-card-title">???</div>'
-                +   '<div class="story-card-condition">' + (entry.lockHint || 'Locked') + '</div>'
+                +   '<div class="story-card-condition">' + condition + '</div>'
                 + '</div>';
         }
         grid.appendChild(cardEl);

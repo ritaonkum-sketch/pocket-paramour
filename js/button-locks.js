@@ -84,12 +84,22 @@
     }
 
     // ── Boot ─────────────────────────────────────────────────────
+    // refresh() reapplies lock state to game buttons. Gated on
+    // PPAmbient.tickAllowed() so it skips when the tab is hidden or a
+    // scene/modal is up — buttons aren't interactable in either case.
+    function refreshTick() {
+        try {
+            if (window.PPAmbient && typeof window.PPAmbient.tickAllowed === 'function'
+                && !window.PPAmbient.tickAllowed()) return;
+        } catch (_) { /* coordinator missing — fall through */ }
+        refresh();
+    }
     const poll = setInterval(() => {
         if (window._game && window._game.tickInterval) {
             clearInterval(poll);
             interceptClicks();
             refresh();
-            setInterval(refresh, 2000);
+            setInterval(refreshTick, 2000);
         }
     }, 500);
 

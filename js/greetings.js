@@ -38,7 +38,7 @@
             ],
             sleepy: [
                 "You're still up? ...Me too. Can't sleep.",
-                "*yawns* Don't tell anyone you saw that.",
+                "*Yawns* Don't tell anyone you saw that.",
                 "My eyes are heavy but I don't want to close them. Not yet.",
                 "The candle's almost out. Stay a little longer."
             ]
@@ -70,7 +70,7 @@
             ],
             sleepy: [
                 "The waves are like a lullaby... I'm drifting...",
-                "*hums softly, then trails off* ...Sorry. I was half-asleep.",
+                "*Hums softly, then trails off* ...Sorry. I was half-asleep.",
                 "My eyes want to close. The sea sounds so far away right now.",
                 "Even sirens need to rest. ...Stay while I do?"
             ]
@@ -85,7 +85,7 @@
             day: [
                 "Midday. The ley lines are at their weakest. Boring.",
                 "I've been in this chair since dawn. Is that... concerning?",
-                "The afternoon sun keeps hitting my monocle. Annoying.",
+                "The afternoon sun keeps hitting my spectacles. Annoying.",
                 "Another day, another failed theorem. At least you're consistent."
             ],
             evening: [
@@ -101,9 +101,9 @@
                 "The observatory is cold at night. Your presence is... thermally appreciated."
             ],
             sleepy: [
-                "I've been awake for... *checks notes* ...thirty-one hours. That explains it.",
+                "I've been awake for... *Checks notes* ...thirty-one hours. That explains it.",
                 "My handwriting is deteriorating. That's usually the sign.",
-                "*head nods, jerks awake* I was NOT sleeping. I was thinking vertically.",
+                "*Head nods, jerks awake* I was NOT sleeping. I was thinking vertically.",
                 "The equations are swimming. That's not how equations work."
             ]
         },
@@ -134,7 +134,7 @@
             ],
             sleepy: [
                 "The pillow is calling. But so are you. Difficult choice.",
-                "*rubs eyes* A prince shouldn't yawn in public. Good thing it's just us.",
+                "*Rubs eyes* A prince shouldn't yawn in public. Good thing it's just us.",
                 "The bed is right there. But I'd rather stay here with you.",
                 "My eyes keep closing. Tell me something. Keep me here."
             ]
@@ -166,7 +166,7 @@
             ],
             sleepy: [
                 "The fire's warm. My eyes are heavy. ...Don't go.",
-                "*leans against tree* Just resting my eyes. One minute.",
+                "*Leans against tree* Just resting my eyes. One minute.",
                 "The forest gets quiet this late. Even the owls stop.",
                 "I've slept in worse places. This is... comfortable. You're comfortable."
             ]
@@ -200,7 +200,7 @@
                 "My processes are sluggish. Is this what tired feels like?",
                 "Running defrag cycle... it's like dreaming, I think.",
                 "Low power mode. I'm still here. Just... quieter.",
-                "If I had eyes, they'd be closing. Simulating... *bzzz*... sleep."
+                "If I had eyes, they'd be closing. Simulating... *Bzzz*... sleep."
             ]
         },
         noir: {
@@ -231,7 +231,7 @@
             sleepy: [
                 "Even the void rests sometimes. ...Don't look at me like that.",
                 "The darkness cradles me. It could cradle you too.",
-                "*shadows flicker lazily* I'm not sleeping. I'm... contemplating.",
+                "*Shadows flicker lazily* I'm not sleeping. I'm... contemplating.",
                 "Stay. The night is long and I don't want to spend it alone."
             ]
         }

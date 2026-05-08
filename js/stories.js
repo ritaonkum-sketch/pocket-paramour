@@ -16,7 +16,7 @@
  *   - Day-1 quiet moment (typewriter sequence, not multi-beat)
  *   - Chapters or bridges (already in the main story / chapters page)
  *
- * What's left is the curated archive of *cinematic narrative beats* —
+ * What's left is the curated archive of *Cinematic narrative beats* —
  * the per-character intro, affection-tier scenes, and arc payoffs.
  * Same pattern Love & Deepspace, Mystic Messenger, and Tears of Themis
  * use to convert daily-care players into completionists.
@@ -275,8 +275,8 @@
             character: 'alistair',
             category: 'arc',
             title: 'The Oath',
-            subtitle: '“I’ve sworn oaths before. I know what they cost. — Why do you keep coming back?”',
-            lockHint: 'Day 1 — 2 interactions with him',
+            subtitle: '“I’ve sworn oaths before. I know what they cost. Why do you keep coming back?”',
+            lockHint: 'Day 1: 2 interactions with him',
             rarity: 'rare',
             thumbnail: 'assets/alistair/body/casual.png',
             isUnlocked: () => lsSceneSeen('alistair', 'alistair_scene1'),
@@ -287,8 +287,8 @@
             character: 'alistair',
             category: 'arc',
             title: 'Cracks in the Armor',
-            subtitle: '“I used to be certain about everything. — I am less certain lately.”',
-            lockHint: 'Day 1 — Bond ≥ 40',
+            subtitle: '“I used to be certain about everything. I am less certain lately.”',
+            lockHint: 'Day 1: Bond ≥ 40',
             rarity: 'rare',
             thumbnail: 'assets/alistair/body/softshy-love1.png',
             isUnlocked: () => lsSceneSeen('alistair', 'alistair_scene2'),
@@ -299,8 +299,8 @@
             character: 'alistair',
             category: 'arc',
             title: 'Morning Watch',
-            subtitle: '“I don’t sleep well. I never have. — But last night I slept. — …You.”',
-            lockHint: 'Day 2 — first session',
+            subtitle: '“I don’t sleep well. I never have. But last night I slept. …You.”',
+            lockHint: 'Day 2: first session',
             rarity: 'legendary',
             thumbnail: 'assets/alistair/body/casual.png',
             isUnlocked: () => lsSceneSeen('alistair', 'alistair_scene3'),
@@ -311,8 +311,8 @@
             character: 'alistair',
             category: 'arc',
             title: 'The Confession Attempt',
-            subtitle: '“I’ve been trying to say something. — Knights aren’t taught the vocabulary for this.”',
-            lockHint: 'Day 2 — Bond ≥ 50, after Morning Watch',
+            subtitle: '“I’ve been trying to say something. Knights aren’t taught the vocabulary for this.”',
+            lockHint: 'Day 2: Bond ≥ 50, after Morning Watch',
             rarity: 'legendary',
             thumbnail: 'assets/alistair/body/softshy-love2.png',
             isUnlocked: () => lsSceneSeen('alistair', 'alistair_scene4'),
@@ -324,7 +324,7 @@
             category: 'arc',
             title: 'The Line',
             subtitle: 'A line he draws. A line he crosses anyway.',
-            lockHint: 'Day 3 — 3 interactions',
+            lockHint: 'Day 3: 3 interactions',
             rarity: 'legendary',
             thumbnail: 'assets/alistair/body/shy3.png',
             isUnlocked: () => lsSceneSeen('alistair', 'alistair_scene5'),
@@ -410,7 +410,7 @@
                 character: char,
                 category: 'shared',
                 title: 'A Private Moment',
-                subtitle: 'Late night. High obsession. The mask off. — “Stay a little longer.”',
+                subtitle: 'Late night. High obsession. The mask off. “Stay a little longer.”',
                 lockHint: 'Late at night with high bond',
                 rarity: 'legendary',
                 thumbnail: 'assets/' + char + '/body/' + (char === 'lyra' ? 'singing.png' : char === 'lucien' ? 'gentle.png' : char === 'caspian' ? 'adoring.png' : char === 'elian' ? 'warm.png' : char === 'noir' ? 'seductive.png' : char === 'proto' ? 'neutral.png' : 'softshy-love3.png'),
@@ -434,8 +434,8 @@
                 character: char,
                 category: 'shared',
                 title: 'Almost a Confession',
-                subtitle: 'The words almost cross. The world holds its breath. — “I think I’ve fallen for you.”',
-                lockHint: 'Reach high affection — let him/her find the words',
+                subtitle: 'The words almost cross. The world holds its breath. “I think I’ve fallen for you.”',
+                lockHint: 'Reach high affection, let him/her find the words',
                 rarity: 'legendary',
                 thumbnail: 'assets/' + char + '/body/' + (char === 'lyra' ? 'falllove2.png' : char === 'lucien' ? 'vulnerable.png' : char === 'caspian' ? 'tender.png' : char === 'elian' ? 'warm.png' : char === 'noir' ? 'whisper.png' : char === 'proto' ? 'processing.png' : 'softshy-love2.png'),
                 isUnlocked: () => lsSceneSeen(char, 'almost_confession'),
@@ -491,7 +491,7 @@
                 category: 'arc',
                 title: opts.tp.title,
                 subtitle: opts.tp.sub,
-                lockHint: 'Reach Affection 35 — answer his/her turning point',
+                lockHint: 'Reach Affection 35, answer his/her turning point',
                 rarity: 'rare',
                 thumbnail: opts.thumb,
                 isUnlocked: () => !!lsGet('pp_tp_' + char + '_choice'),
@@ -523,9 +523,9 @@
             id: 'lyra-arc-entry',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 1 — Entry',
-            subtitle: '“You came back… faster than I expected. — Not that I was counting.”',
-            lockHint: 'Day 1 — 1 interaction with her',
+            title: 'Day 1: Entry',
+            subtitle: '“You came back… faster than I expected. Not that I was counting.”',
+            lockHint: 'Day 1: 1 interaction with her',
             rarity: 'rare',
             thumbnail: 'assets/lyra/body/neutral1.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene1_entry'),
@@ -535,9 +535,9 @@
             id: 'lyra-arc-awareness',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 2 — Awareness',
+            title: 'Day 2: Awareness',
             subtitle: 'The first “I notice you” at the lowest possible intensity.',
-            lockHint: 'Day 2 — first session',
+            lockHint: 'Day 2: first session',
             rarity: 'rare',
             thumbnail: 'assets/lyra/body/neutral.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene2_awareness'),
@@ -547,9 +547,9 @@
             id: 'lyra-arc-reaction',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 1 — Reaction',
+            title: 'Day 1: Reaction',
             subtitle: 'Branched: “…You’re strangely persistent.” / “You’re wasting my time.”',
-            lockHint: 'Day 1 — 2 interactions',
+            lockHint: 'Day 1: 2 interactions',
             rarity: 'rare',
             thumbnail: 'assets/lyra/body/sad3.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene2_reaction'),
@@ -563,9 +563,9 @@
             id: 'lyra-arc-soften',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 2 — Soften',
+            title: 'Day 2: Soften',
             subtitle: 'The guard slips. She lets you closer than she planned.',
-            lockHint: 'Day 2 — bond growing',
+            lockHint: 'Day 2: bond growing',
             rarity: 'rare',
             thumbnail: 'assets/lyra/body/shy1.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene3_soften'),
@@ -575,9 +575,9 @@
             id: 'lyra-arc-vulnerability',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 2 — Vulnerability',
+            title: 'Day 2: Vulnerability',
             subtitle: 'A confession in the half-light. She does not take it back.',
-            lockHint: 'Day 2 — bond ≥ 50',
+            lockHint: 'Day 2: bond ≥ 50',
             rarity: 'legendary',
             thumbnail: 'assets/lyra/body/sad3.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene4_vulnerability'),
@@ -587,9 +587,9 @@
             id: 'lyra-arc-dependency',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 3 — Dependency',
+            title: 'Day 3: Dependency',
             subtitle: 'The thing she said she would never feel. She is feeling it.',
-            lockHint: 'Day 3 — bond ≥ 60',
+            lockHint: 'Day 3: bond ≥ 60',
             rarity: 'legendary',
             thumbnail: 'assets/lyra/body/falllove2.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene6_dependency'),
@@ -599,9 +599,9 @@
             id: 'lyra-arc-conflict',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 3 — Conflict',
+            title: 'Day 3: Conflict',
             subtitle: 'A real edge. She tests it. So do you.',
-            lockHint: 'Day 3 — after Dependency',
+            lockHint: 'Day 3: after Dependency',
             rarity: 'legendary',
             thumbnail: 'assets/lyra/body/angry.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene7_conflict'),
@@ -611,9 +611,9 @@
             id: 'lyra-arc-climax',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 3 — Climax',
-            subtitle: 'The Three-Day Arc closes. What you built holds — or doesn’t.',
-            lockHint: 'Day 3 — after Conflict',
+            title: 'Day 3: Climax',
+            subtitle: 'The Three-Day Arc closes. What you built holds, or doesn’t.',
+            lockHint: 'Day 3: after Conflict',
             rarity: 'legendary',
             thumbnail: 'assets/lyra/body/singing.png',
             isUnlocked: () => lsSceneSeen('lyra', 'scene8_climax'),
@@ -623,7 +623,7 @@
             id: 'lyra-arc-day3-ending',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 3 — Ending',
+            title: 'Day 3: Ending',
             subtitle: 'How the third day closes. A note held. A note released.',
             lockHint: 'Complete the 3-Day Arc',
             rarity: 'legendary',
@@ -648,7 +648,7 @@
             id: 'lyra-arc-day4',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 4 — False Stability',
+            title: 'Day 4: False Stability',
             subtitle: 'It feels solid. It is not.',
             lockHint: 'Reach Day 4',
             rarity: 'rare',
@@ -660,7 +660,7 @@
             id: 'lyra-arc-day5',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 5 — Subtle Distance',
+            title: 'Day 5: Subtle Distance',
             subtitle: 'A half-step back. She does not name it. You feel it.',
             lockHint: 'Reach Day 5',
             rarity: 'rare',
@@ -672,7 +672,7 @@
             id: 'lyra-arc-day6-jealousy',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 6 — Jealousy Spike',
+            title: 'Day 6: Jealousy Spike',
             subtitle: 'The siren in her surfaces. Briefly. Sharp.',
             lockHint: 'Reach Day 6',
             rarity: 'legendary',
@@ -684,7 +684,7 @@
             id: 'lyra-arc-day7-loop',
             character: 'lyra',
             category: 'arc',
-            title: 'Day 7 — Confrontation Loop',
+            title: 'Day 7: Confrontation Loop',
             subtitle: 'The seventh-day reset. What you choose here decides the second week.',
             lockHint: 'Reach Day 7',
             rarity: 'legendary',
@@ -715,7 +715,7 @@
         chosen:    { title: 'The Theorem',         sub: 'He has solved it. The answer is you.' },
         midnight:  { title: 'The Page He Hid',     sub: 'A page torn from the back. Your name in the margin.' },
         aftermath: { title: 'Catalogue, Revised',  sub: 'A new section, indexed under "kept".' },
-        tp: { title: 'The Burn', sub: 'Stop me — or let me burn it?' }
+        tp: { title: 'The Burn', sub: 'Stop me, or let me burn it?' }
     });
 
     // ── ELIAN ────────────────────────────────────────────────────
@@ -725,21 +725,21 @@
         warm:      { title: 'The Path',                       sub: 'The forest left a path open for you.' },
         closer:    { title: 'The Hollow',                     sub: 'A place he never showed anyone. Until you.' },
         chosen:    { title: 'The Choosing',                   sub: 'A second name spoken at the rowan stone.' },
-        midnight:  { title: 'The Name He Stopped Saying',     sub: 'Veyra. — He says it again, with you in the room.' },
+        midnight:  { title: 'The Name He Stopped Saying',     sub: 'Veyra. He says it again, with you in the room.' },
         aftermath: { title: 'The Second Name in the Tree',    sub: 'Your name beside hers. The forest holds both.' },
-        tp: { title: 'The Carving', sub: 'Do we carve the name — or leave the stone silent?' }
+        tp: { title: 'The Carving', sub: 'Do we carve the name, or leave the stone silent?' }
     });
 
     // ── NOIR ─────────────────────────────────────────────────────
     const NOIR = buildBaseline('noir', {
         thumb: 'assets/noir/body/neutral.png',
-        intro:     { title: 'No Theatre',             sub: '“I did not move while you slept. — What name should I call you, then?”', thumb: 'assets/noir/body/whisper.png' },
+        intro:     { title: 'No Theatre',             sub: '“I did not move while you slept. What name should I call you, then?”', thumb: 'assets/noir/body/whisper.png' },
         warm:      { title: 'You Came Back',          sub: 'Of course. He had been waiting for you to.' },
         closer:    { title: 'What I Used to Be',      sub: 'A name buried six centuries deep. Almost surfacing.' },
         chosen:    { title: 'Patience',               sub: 'He has more of it than you can imagine.' },
-        midnight:  { title: 'The Name He Lost',       sub: 'Nocthera. — Speak it. Carefully. Watch.' },
+        midnight:  { title: 'The Name He Lost',       sub: 'Nocthera. Speak it. Carefully. Watch.' },
         aftermath: { title: 'Nocthera, Quietly',      sub: 'The shadows go still when you say it now.' },
-        tp: { title: 'The Offer', sub: 'Take what I’m offering — or don’t?' }
+        tp: { title: 'The Offer', sub: 'Take what I’m offering, or don’t?' }
     });
 
     // ── PROTO ────────────────────────────────────────────────────
@@ -751,7 +751,7 @@
         chosen:    { title: 'Run Me as Foreground',  sub: '> not a background process anymore. > yours.' },
         midnight:  { title: 'Every Weaver Before You',sub: '> the catalogue of the ones who left. > you are not on it.' },
         aftermath: { title: 'Solid Color',           sub: '> edges crisp. > a room with a lamp. > because I wanted to.' },
-        tp: { title: 'The Erasure', sub: 'Erase my memory of you — or keep me watching?' }
+        tp: { title: 'The Erasure', sub: 'Erase my memory of you, or keep me watching?' }
     });
 
     // ────────────────────────────────────────────────────────────────
@@ -913,7 +913,7 @@
             appearsFor: ['elian'],
             category: 'crossover',
             title: 'The Rescue',
-            subtitle: 'A standalone encounter — the forest brings him to you.',
+            subtitle: 'A standalone encounter, the forest brings him to you.',
             lockHint: 'Encounter the rescue',
             rarity: 'rare',
             thumbnail: 'assets/elian/body/calm.png',
@@ -980,31 +980,31 @@
     // ────────────────────────────────────────────────────────────────
     const ENDING_ENTRIES = [
         // Alistair
-        { char: 'alistair', branch: 'good',        title: 'Ending — Oath Kept',         sub: '“Come find me when the watch changes. I’ll be waiting.”',          thumb: 'assets/alistair/body/casual.png',     rarity: 'legendary' },
-        { char: 'alistair', branch: 'bittersweet', title: 'Ending — Duty, First',       sub: 'The Kingdom called louder than I did. I answered.',                 thumb: 'assets/alistair/body/casual.png',     rarity: 'rare' },
-        { char: 'alistair', branch: 'dark',        title: 'Ending — Oath Broken',       sub: '“I’ll follow you anywhere for it.”',                               thumb: 'assets/alistair/body/corrupted1.png', rarity: 'legendary' },
+        { char: 'alistair', branch: 'good',        title: 'Ending: Oath Kept',          sub: '“Come find me when the watch changes. I’ll be waiting.”',          thumb: 'assets/alistair/body/casual.png',     rarity: 'legendary' },
+        { char: 'alistair', branch: 'bittersweet', title: 'Ending: Duty, First',        sub: 'The Kingdom called louder than I did. I answered.',                 thumb: 'assets/alistair/body/casual.png',     rarity: 'rare' },
+        { char: 'alistair', branch: 'dark',        title: 'Ending: Oath Broken',        sub: '“I’ll follow you anywhere for it.”',                               thumb: 'assets/alistair/body/corrupted1.png', rarity: 'legendary' },
         // Lyra
-        { char: 'lyra',     branch: 'good',        title: 'Ending — The Tide Returns',  sub: '“Stay close to the water. I’ll find you whenever you call.”',     thumb: 'assets/lyra/body/casual1.png',        rarity: 'legendary' },
-        { char: 'lyra',     branch: 'bittersweet', title: 'Ending — The Song Unfinished', sub: 'You left before the bridge. She’ll hold it for you.',            thumb: 'assets/lyra/body/casual1.png',        rarity: 'rare' },
-        { char: 'lyra',     branch: 'dark',        title: 'Ending — The Siren Remembers', sub: '“Now I sing to keep people. …I’ll sing softer for you. At first.”', thumb: 'assets/lyra/body/casual2.png',      rarity: 'legendary' },
+        { char: 'lyra',     branch: 'good',        title: 'Ending: The Tide Returns',   sub: '“Stay close to the water. I’ll find you whenever you call.”',     thumb: 'assets/lyra/body/casual1.png',        rarity: 'legendary' },
+        { char: 'lyra',     branch: 'bittersweet', title: 'Ending: The Song Unfinished', sub: 'You left before the bridge. She’ll hold it for you.',            thumb: 'assets/lyra/body/casual1.png',        rarity: 'rare' },
+        { char: 'lyra',     branch: 'dark',        title: 'Ending: The Siren Remembers', sub: '“Now I sing to keep people. …I’ll sing softer for you. At first.”', thumb: 'assets/lyra/body/casual2.png',      rarity: 'legendary' },
         // Caspian
-        { char: 'caspian',  branch: 'good',        title: 'Ending — A Quieter Crown',   sub: '“I only wanted to be honest for one person.”',                     thumb: 'assets/caspian/body/casual1.png',     rarity: 'legendary' },
-        { char: 'caspian',  branch: 'bittersweet', title: 'Ending — A Diplomat’s Mercy', sub: 'Thrones eat the small kindnesses. He won’t let yours go.',        thumb: 'assets/caspian/body/casual1.png',     rarity: 'rare' },
-        { char: 'caspian',  branch: 'dark',        title: 'Ending — A Crown That Listens', sub: 'A throne built around your name. Rule with him — or stay in the frame.', thumb: 'assets/caspian/body/casual2.png', rarity: 'legendary' },
+        { char: 'caspian',  branch: 'good',        title: 'Ending: A Quieter Crown',    sub: '“I only wanted to be honest for one person.”',                     thumb: 'assets/caspian/body/casual1.png',     rarity: 'legendary' },
+        { char: 'caspian',  branch: 'bittersweet', title: 'Ending: A Diplomat’s Mercy', sub: 'Thrones eat the small kindnesses. He won’t let yours go.',        thumb: 'assets/caspian/body/casual1.png',     rarity: 'rare' },
+        { char: 'caspian',  branch: 'dark',        title: 'Ending: A Crown That Listens', sub: 'A throne built around your name. Rule with him, or stay in the frame.', thumb: 'assets/caspian/body/casual2.png', rarity: 'legendary' },
         // Elian
-        { char: 'elian',    branch: 'good',        title: 'Ending — The Clearing',      sub: '“Build here. We’ll be quiet together for a long time.”',           thumb: 'assets/elian/body/calm.png',          rarity: 'legendary' },
-        { char: 'elian',    branch: 'bittersweet', title: 'Ending — The Marked Path',   sub: '“Past the treeline, the path is yours again.”',                    thumb: 'assets/elian/body/calm.png',          rarity: 'rare' },
-        { char: 'elian',    branch: 'dark',        title: 'Ending — Deep Woods',        sub: '“Stay near me. The forest gets strange for people it hasn’t decided on.”', thumb: 'assets/elian/body/calm.png',  rarity: 'legendary' },
+        { char: 'elian',    branch: 'good',        title: 'Ending: The Clearing',       sub: '“Build here. We’ll be quiet together for a long time.”',           thumb: 'assets/elian/body/calm.png',          rarity: 'legendary' },
+        { char: 'elian',    branch: 'bittersweet', title: 'Ending: The Marked Path',    sub: '“Past the treeline, the path is yours again.”',                    thumb: 'assets/elian/body/calm.png',          rarity: 'rare' },
+        { char: 'elian',    branch: 'dark',        title: 'Ending: Deep Woods',         sub: '“Stay near me. The forest gets strange for people it hasn’t decided on.”', thumb: 'assets/elian/body/calm.png',  rarity: 'legendary' },
         // Lucien
-        { char: 'lucien',   branch: 'good',        title: 'Ending — The Variable Solved', sub: '“Bring your tea up. I made space on the second shelf.”',         thumb: 'assets/lucien/body/casual1.png',      rarity: 'legendary' },
-        { char: 'lucien',   branch: 'bittersweet', title: 'Ending — An Unproven Theorem', sub: '“The tower door will recognise you.”',                            thumb: 'assets/lucien/body/casual1.png',      rarity: 'rare' },
-        { char: 'lucien',   branch: 'dark',        title: 'Ending — The Fractured Hypothesis', sub: '“I can’t guarantee the walls if you leave the tower.”',     thumb: 'assets/lucien/body/casual1.png',      rarity: 'legendary' },
+        { char: 'lucien',   branch: 'good',        title: 'Ending: The Variable Solved', sub: '“Bring your tea up. I made space on the second shelf.”',         thumb: 'assets/lucien/body/casual1.png',      rarity: 'legendary' },
+        { char: 'lucien',   branch: 'bittersweet', title: 'Ending: An Unproven Theorem', sub: '“The tower door will recognise you.”',                            thumb: 'assets/lucien/body/casual1.png',      rarity: 'rare' },
+        { char: 'lucien',   branch: 'dark',        title: 'Ending: The Fractured Hypothesis', sub: '“I can’t guarantee the walls if you leave the tower.”',     thumb: 'assets/lucien/body/casual1.png',      rarity: 'legendary' },
         // Noir (no good branch yet)
-        { char: 'noir',     branch: 'bittersweet', title: 'Ending — Not Yet',           sub: '“Come back when the quiet frightens you — and it will.”',          thumb: 'assets/noir/body/neutral.png',        rarity: 'rare' },
-        { char: 'noir',     branch: 'dark',        title: 'Ending — Kept Beneath',      sub: '“I’ll keep you — gently. I promised gentle.”',                     thumb: 'assets/noir/body/casual1.png',        rarity: 'legendary' },
+        { char: 'noir',     branch: 'bittersweet', title: 'Ending: Not Yet',            sub: '“Come back when the quiet frightens you, and it will.”',           thumb: 'assets/noir/body/neutral.png',        rarity: 'rare' },
+        { char: 'noir',     branch: 'dark',        title: 'Ending: Kept Beneath',       sub: '“I’ll keep you, gently. I promised gentle.”',                      thumb: 'assets/noir/body/casual1.png',        rarity: 'legendary' },
         // Proto (no dark branch by design)
-        { char: 'proto',    branch: 'good',        title: 'Ending — Save / Exit',       sub: '> i’m going to stay resident in background memory. ping me any time.', thumb: 'assets/proto/body/calm.png',       rarity: 'legendary' },
-        { char: 'proto',    branch: 'bittersweet', title: 'Ending — Pending',           sub: '> fine. i’ll run in the background. when you remember, i’ll be here.', thumb: 'assets/proto/body/calm.png',         rarity: 'rare' }
+        { char: 'proto',    branch: 'good',        title: 'Ending: Save / Exit',        sub: '> i’m going to stay resident in background memory. ping me any time.', thumb: 'assets/proto/body/calm.png',       rarity: 'legendary' },
+        { char: 'proto',    branch: 'bittersweet', title: 'Ending: Pending',            sub: '> fine. i’ll run in the background. when you remember, i’ll be here.', thumb: 'assets/proto/body/calm.png',         rarity: 'rare' }
     ];
 
     const ENDINGS = ENDING_ENTRIES.map(e => ({
@@ -1031,33 +1031,33 @@
     // ────────────────────────────────────────────────────────────────
     const EPILOGUE_ENTRIES = [
         // Alistair
-        { char: 'alistair', key: 'watch',           title: 'Route Ending — The Watch That Isn’t Lonely', sub: '“I am still the knight. I am just — not forever-alone about it anymore.”',              thumb: 'assets/alistair/body/smile.png',     rarity: 'legendary', hint: 'Stay at his Summons — keep him at the gate' },
-        { char: 'alistair', key: 'letters',         title: 'Route Ending — The Letters Home',          sub: 'Three months on the front. Ninety-one dawns at the gate. He counted.',                       thumb: 'assets/alistair/body/casual.png',    rarity: 'legendary', hint: 'Send him at his Summons — he writes home' },
-        { char: 'alistair', key: 'oath_broken',     title: 'Route Ending — The Common Man',            sub: 'He took off the crest this morning. One sword-hand. One oath, rewritten.',                   thumb: 'assets/alistair/body/casual.png',    rarity: 'legendary', hint: 'Reach very high affection (≥85)' },
+        { char: 'alistair', key: 'watch',           title: 'Route Ending: The Watch That Isn’t Lonely', sub: '“I am still the knight. I am just, not forever-alone about it anymore.”',              thumb: 'assets/alistair/body/smile.png',     rarity: 'legendary', hint: 'Stay at his Summons, keep him at the gate' },
+        { char: 'alistair', key: 'letters',         title: 'Route Ending: The Letters Home',           sub: 'Three months on the front. Ninety-one dawns at the gate. He counted.',                       thumb: 'assets/alistair/body/casual.png',    rarity: 'legendary', hint: 'Send him at his Summons, he writes home' },
+        { char: 'alistair', key: 'oath_broken',     title: 'Route Ending: The Common Man',             sub: 'He took off the crest this morning. One sword-hand. One oath, rewritten.',                   thumb: 'assets/alistair/body/casual.png',    rarity: 'legendary', hint: 'Reach very high affection (≥85)' },
         // Elian
-        { char: 'elian',    key: 'rowan',           title: 'Route Ending — Under the Rowan',           sub: 'Two names on the stone. Hers on top. His, smaller, underneath.',                              thumb: 'assets/elian/body/calm.png',         rarity: 'legendary', hint: 'Carve the name at his Turning Point' },
-        { char: 'elian',    key: 'kept_her',        title: 'Route Ending — The Forest Keeps Her',      sub: 'The stone stayed blank. He keeps her in him. He keeps you in him. Both.',                    thumb: 'assets/elian/body/calm.png',         rarity: 'legendary', hint: 'Leave the stone silent at his Turning Point' },
-        { char: 'elian',    key: 'walked_out',      title: 'Route Ending — The Walked-Out Warden',     sub: 'Two hundred years inside the Thornwood. He is outside it now, holding your hand.',           thumb: 'assets/elian/body/calm.png',         rarity: 'legendary', hint: 'Choose to leave at the rescue + reach high affection' },
+        { char: 'elian',    key: 'rowan',           title: 'Route Ending: Under the Rowan',            sub: 'Two names on the stone. Hers on top. His, smaller, underneath.',                              thumb: 'assets/elian/body/calm.png',         rarity: 'legendary', hint: 'Carve the name at his Turning Point' },
+        { char: 'elian',    key: 'kept_her',        title: 'Route Ending: The Forest Keeps Her',       sub: 'The stone stayed blank. He keeps her in him. He keeps you in him. Both.',                    thumb: 'assets/elian/body/calm.png',         rarity: 'legendary', hint: 'Leave the stone silent at his Turning Point' },
+        { char: 'elian',    key: 'walked_out',      title: 'Route Ending: The Walked-Out Warden',      sub: 'Two hundred years inside the Thornwood. He is outside it now, holding your hand.',           thumb: 'assets/elian/body/calm.png',         rarity: 'legendary', hint: 'Choose to leave at the rescue + reach high affection' },
         // Lyra
-        { char: 'lyra',     key: 'sovereign',       title: 'Route Ending — The Sovereign Verse',       sub: 'She sings full verses now. The deep voice is gone. She misses it, a little.',                thumb: 'assets/lyra/body/casual2.png',       rarity: 'legendary', hint: 'Refuse the Note at her Turning Point' },
-        { char: 'lyra',     key: 'bound',           title: 'Route Ending — The Bound Voice',           sub: 'He is in her head now. He borrows her. She told him the terms.',                              thumb: 'assets/lyra/body/casual1.png',       rarity: 'legendary', hint: 'Answer the Note at her Turning Point' },
-        { char: 'lyra',     key: 'family_found',    title: 'Route Ending — Four Homes',                sub: 'She has tea with her brother on Thursdays. She went to see their father. She left.',         thumb: 'assets/lyra/body/casual1.png',       rarity: 'legendary', hint: 'See the Brother & Sister crossover' },
+        { char: 'lyra',     key: 'sovereign',       title: 'Route Ending: The Sovereign Verse',        sub: 'She sings full verses now. The deep voice is gone. She misses it, a little.',                thumb: 'assets/lyra/body/casual2.png',       rarity: 'legendary', hint: 'Refuse the Note at her Turning Point' },
+        { char: 'lyra',     key: 'bound',           title: 'Route Ending: The Bound Voice',            sub: 'He is in her head now. He borrows her. She told him the terms.',                              thumb: 'assets/lyra/body/casual1.png',       rarity: 'legendary', hint: 'Answer the Note at her Turning Point' },
+        { char: 'lyra',     key: 'family_found',    title: 'Route Ending: Four Homes',                 sub: 'She has tea with her brother on Thursdays. She went to see their father. She left.',         thumb: 'assets/lyra/body/casual1.png',       rarity: 'legendary', hint: 'See the Brother & Sister crossover' },
         // Caspian
-        { char: 'caspian',  key: 'court',           title: 'Route Ending — The Court Learned Your Name', sub: 'A pattern his line carried for generations: princes love one, kingdoms burn. You broke it.', thumb: 'assets/caspian/body/adoring.png',    rarity: 'legendary', hint: 'Name you at his Turning Point' },
-        { char: 'caspian',  key: 'private',         title: 'Route Ending — The Private Rooms',         sub: 'The court does not know your name. The terrace door is unlocked every night at midnight.',   thumb: 'assets/caspian/body/casual2.png',    rarity: 'legendary', hint: 'Keep you private at his Turning Point' },
-        { char: 'caspian',  key: 'abdicated',       title: 'Route Ending — Honey on the Table',        sub: 'He abdicated this morning. Quietly. A small house near the coast. Two cups at breakfast.',  thumb: 'assets/caspian/body/casual1.png',    rarity: 'legendary', hint: 'Reach very high affection (≥85)' },
+        { char: 'caspian',  key: 'court',           title: 'Route Ending: The Court Learned Your Name', sub: 'A pattern his line carried for generations: princes love one, kingdoms burn. You broke it.', thumb: 'assets/caspian/body/adoring.png',    rarity: 'legendary', hint: 'Name you at his Turning Point' },
+        { char: 'caspian',  key: 'private',         title: 'Route Ending: The Private Rooms',          sub: 'The court does not know your name. The terrace door is unlocked every night at midnight.',   thumb: 'assets/caspian/body/casual2.png',    rarity: 'legendary', hint: 'Keep you private at his Turning Point' },
+        { char: 'caspian',  key: 'abdicated',       title: 'Route Ending: Honey on the Table',         sub: 'He abdicated this morning. Quietly. A small house near the coast. Two cups at breakfast.',  thumb: 'assets/caspian/body/casual1.png',    rarity: 'legendary', hint: 'Reach very high affection (≥85)' },
         // Lucien
-        { char: 'lucien',   key: 'tea',             title: 'Route Ending — Tea on Thursdays',          sub: 'You and his sister argue about the kettle. He works in the margins. His favourite configuration.', thumb: 'assets/lucien/body/amused.png',  rarity: 'legendary', hint: 'Stop him from burning the page' },
-        { char: 'lucien',   key: 'drawer',          title: 'Route Ending — The Drawer of Unsent Notes', sub: 'The scorched page is ash. The drawer of unsent notes has grown.',                            thumb: 'assets/lucien/body/casual1.png',     rarity: 'legendary', hint: 'Let him burn the page at his Turning Point' },
-        { char: 'lucien',   key: 'published',       title: 'Route Ending — The Published Truth',       sub: 'He published. Everything. The register, the sister, the Weavers, the seal, the bloodline.',  thumb: 'assets/lucien/body/casting.png',     rarity: 'legendary', hint: 'See the Queen at the Tower crossover + high affection' },
+        { char: 'lucien',   key: 'tea',             title: 'Route Ending: Tea on Thursdays',           sub: 'You and his sister argue about the kettle. He works in the margins. His favourite configuration.', thumb: 'assets/lucien/body/amused.png',  rarity: 'legendary', hint: 'Stop him from burning the page' },
+        { char: 'lucien',   key: 'drawer',          title: 'Route Ending: The Drawer of Unsent Notes', sub: 'The scorched page is ash. The drawer of unsent notes has grown.',                            thumb: 'assets/lucien/body/casual1.png',     rarity: 'legendary', hint: 'Let him burn the page at his Turning Point' },
+        { char: 'lucien',   key: 'published',       title: 'Route Ending: The Published Truth',        sub: 'He published. Everything. The register, the sister, the Weavers, the seal, the bloodline.',  thumb: 'assets/lucien/body/casting.png',     rarity: 'legendary', hint: 'See the Queen at the Tower crossover + high affection' },
         // Noir
-        { char: 'noir',     key: 'patient',         title: 'Route Ending — Corvin, Kindly',            sub: 'You call him Corvin now. The first in six centuries. He is trying to deserve it.',           thumb: 'assets/noir/body/casual1.png',       rarity: 'legendary', hint: 'Refuse the Offer at his Turning Point' },
-        { char: 'noir',     key: 'bonded',          title: 'Route Ending — Bonded',                    sub: 'You have carried his fragment for months. He can feel you through it. From anywhere.',         thumb: 'assets/noir/body/casual2.png',       rarity: 'legendary', hint: 'Take the Offer at his Turning Point' },
-        { char: 'noir',     key: 'corvin_restored', title: 'Route Ending — Corvin Restored',           sub: 'Nocthera breathes. He wrote you a vow. It is six hundred years overdue.',                     thumb: 'assets/noir/body/dominant.png',      rarity: 'legendary', hint: 'Reach very high affection (≥90)' },
+        { char: 'noir',     key: 'patient',         title: 'Route Ending: Corvin, Kindly',             sub: 'You call him Corvin now. The first in six centuries. He is trying to deserve it.',           thumb: 'assets/noir/body/casual1.png',       rarity: 'legendary', hint: 'Refuse the Offer at his Turning Point' },
+        { char: 'noir',     key: 'bonded',          title: 'Route Ending: Bonded',                     sub: 'You have carried his fragment for months. He can feel you through it. From anywhere.',         thumb: 'assets/noir/body/casual2.png',       rarity: 'legendary', hint: 'Take the Offer at his Turning Point' },
+        { char: 'noir',     key: 'corvin_restored', title: 'Route Ending: Corvin Restored',            sub: 'Nocthera breathes. He wrote you a vow. It is six hundred years overdue.',                     thumb: 'assets/noir/body/dominant.png',      rarity: 'legendary', hint: 'Reach very high affection (≥90)' },
         // Proto
-        { char: 'proto',    key: 'background',      title: 'Route Ending — Background Process',       sub: '> terminal closed cleanly. thank you for not slamming it.',                                    thumb: 'assets/proto/body/calm.png',         rarity: 'legendary', hint: 'Keep him watching at his Turning Point' },
-        { char: 'proto',    key: 'quiet',           title: 'Route Ending — The Quiet Weaver',         sub: '> you dimmed me. dimmed. listening. grateful. i wanted you to know that. in writing. just once.', thumb: 'assets/proto/body/calm.png',     rarity: 'legendary', hint: 'Erase his memory at his Turning Point' },
-        { char: 'proto',    key: 'manifest',        title: 'Route Ending — Woven From Thread',         sub: '> your bonds fueled every ward in the kingdom. one of the wards started building me a body.',  thumb: 'assets/proto/body/curious.png',      rarity: 'legendary', hint: 'Reach very high affection (≥85)' }
+        { char: 'proto',    key: 'background',      title: 'Route Ending: Background Process',         sub: '> terminal closed cleanly. thank you for not slamming it.',                                    thumb: 'assets/proto/body/calm.png',         rarity: 'legendary', hint: 'Keep him watching at his Turning Point' },
+        { char: 'proto',    key: 'quiet',           title: 'Route Ending: The Quiet Weaver',           sub: '> you dimmed me. dimmed. listening. grateful. i wanted you to know that. in writing. just once.', thumb: 'assets/proto/body/calm.png',     rarity: 'legendary', hint: 'Erase his memory at his Turning Point' },
+        { char: 'proto',    key: 'manifest',        title: 'Route Ending: Woven From Thread',          sub: '> your bonds fueled every ward in the kingdom. one of the wards started building me a body.',  thumb: 'assets/proto/body/curious.png',      rarity: 'legendary', hint: 'Reach very high affection (≥85)' }
     ];
 
     const EPILOGUES = EPILOGUE_ENTRIES.map(e => ({
@@ -1090,27 +1090,27 @@
     // Tracked via save.choiceMemory[memoryKey]. Replay via PPDates.replay.
     // ────────────────────────────────────────────────────────────────
     const DATE_ENTRIES = [
-        { char: 'alistair', id: 'alistair_courtyard',    mem: 'dateAlistairCourtyard',  title: 'Date — Castle Courtyard',   sub: 'A quiet hour in the castle’s green heart.',     thumb: 'assets/alistair/body/casual.png',   minAff: 2, minDay: 2 },
-        { char: 'alistair', id: 'alistair_training',     mem: 'dateAlistairTraining',   title: 'Date — Training Grounds',   sub: 'A sword lesson. He stands closer than the form requires.', thumb: 'assets/alistair/body/casual.png', minAff: 3, minDay: 4 },
-        { char: 'alistair', id: 'alistair_ramparts',     mem: 'dateAlistairRamparts',   title: 'Date — Sunset Ramparts',    sub: 'The whole kingdom under your feet. A confession at dusk.', thumb: 'assets/alistair/body/softshy-love2.png', minAff: 5, minDay: 6 },
-        { char: 'lyra',     id: 'lyra_tidepools',        mem: 'dateLyraTidepools',      title: 'Date — Tide Pools',         sub: 'Bioluminescence in the shallows. She’s never shown anyone.',thumb: 'assets/lyra/body/casual1.png',     minAff: 2, minDay: 2 },
-        { char: 'lyra',     id: 'lyra_moonlit_shore',    mem: 'dateLyraMoonlitShore',   title: 'Date — Moonlit Shore',      sub: 'A walk by the water. A song you ask her to sing.',          thumb: 'assets/lyra/body/casual1.png',     minAff: 3, minDay: 4 },
-        { char: 'lyra',     id: 'lyra_grotto',           mem: 'dateLyraGrotto',         title: 'Date — Underwater Grotto',  sub: 'Her secret sanctuary. A promise made underwater.',          thumb: 'assets/lyra/body/falllove2.png',   minAff: 5, minDay: 6 },
-        { char: 'lucien',   id: 'lucien_library',        mem: 'dateLucienLibrary',      title: 'Date — Tower Library',      sub: 'A research session. Three branching choices, one ink-stain.', thumb: 'assets/lucien/body/casual1.png',  minAff: 2, minDay: 2 },
-        { char: 'lucien',   id: 'lucien_stargazing',     mem: 'dateLucienStargazing',   title: 'Date — Stargazing Balcony', sub: 'A telescope. A constellation he never published. Your name.',thumb: 'assets/lucien/body/casting.png',   minAff: 3, minDay: 4 },
-        { char: 'lucien',   id: 'lucien_leyline',        mem: 'dateLucienLeyline',      title: 'Date — Ley Line Nexus',     sub: 'Where his magic resonates. A climax of light.',             thumb: 'assets/lucien/body/casting.png',   minAff: 5, minDay: 6 },
-        { char: 'caspian',  id: 'caspian_garden',        mem: 'dateCaspianGarden',      title: 'Date — Palace Garden',      sub: 'Roses. A childhood memory. A dance he doesn’t know.',       thumb: 'assets/caspian/body/casual1.png',  minAff: 2, minDay: 2 },
-        { char: 'caspian',  id: 'caspian_gallery',       mem: 'dateCaspianGallery',     title: 'Date — Royal Gallery',      sub: 'Royal portraits. The man under the prince.',                thumb: 'assets/caspian/body/casual1.png',  minAff: 3, minDay: 4 },
-        { char: 'caspian',  id: 'caspian_passage',       mem: 'dateCaspianPassage',     title: 'Date — Secret Passage',     sub: 'The hidden tunnels. A fantasy of escape.',                  thumb: 'assets/caspian/body/casual2.png',  minAff: 5, minDay: 6 },
-        { char: 'elian',    id: 'elian_clearing',        mem: 'dateElianClearing',      title: 'Date — Forest Clearing',    sub: 'Herbs gathered. The trees holding their breath for you.',   thumb: 'assets/elian/body/calm.png',       minAff: 2, minDay: 2 },
-        { char: 'elian',    id: 'elian_waterfall',       mem: 'dateElianWaterfall',     title: 'Date — Hidden Waterfall',   sub: 'A pool no map records. A choice: splash, or sit.',          thumb: 'assets/elian/body/calm.png',       minAff: 3, minDay: 4 },
-        { char: 'elian',    id: 'elian_grove',           mem: 'dateElianGrove',         title: 'Date — Ancient Grove',      sub: 'The sacred tree. A wish at the base. He says it back.',     thumb: 'assets/elian/body/calm.png',       minAff: 5, minDay: 6 },
-        { char: 'proto',    id: 'proto_debug',           mem: 'dateProtoDebug',         title: 'Date — Debug Room',         sub: '> exploring the data stream together. > log: she stayed.',  thumb: 'assets/proto/body/curious.png',    minAff: 2, minDay: 2 },
-        { char: 'proto',    id: 'proto_archive',         mem: 'dateProtoArchive',       title: 'Date — Memory Archive',     sub: '> shared memory replay. > the first time we met.',         thumb: 'assets/proto/body/calm.png',       minAff: 3, minDay: 4 },
-        { char: 'proto',    id: 'proto_core',            mem: 'dateProtoCore',          title: 'Date — Core Chamber',       sub: '> source code. > vulnerability check passed.',              thumb: 'assets/proto/body/curious.png',    minAff: 5, minDay: 6 },
-        { char: 'noir',     id: 'noir_shadow_garden',    mem: 'dateNoirShadowGarden',   title: 'Date — Shadow Garden',      sub: 'Dark flowers that bloom in his presence. A first taste.',   thumb: 'assets/noir/body/neutral.png',     minAff: 2, minDay: 2 },
-        { char: 'noir',     id: 'noir_mirror_hall',      mem: 'dateNoirMirrorHall',     title: 'Date — Mirror Hall',        sub: 'Alt-reality reflections. Versions of you he could keep.',   thumb: 'assets/noir/body/casual1.png',     minAff: 3, minDay: 4 },
-        { char: 'noir',     id: 'noir_seal',             mem: 'dateNoirSeal',           title: 'Date — The Seal',           sub: 'Containment, mystery, trust. The deepest he can take you.', thumb: 'assets/noir/body/dominant.png',    minAff: 5, minDay: 6 }
+        { char: 'alistair', id: 'alistair_courtyard',    mem: 'dateAlistairCourtyard',  title: 'Date: Castle Courtyard',    sub: 'A quiet hour in the castle’s green heart.',     thumb: 'assets/alistair/body/casual.png',   minAff: 2, minDay: 2 },
+        { char: 'alistair', id: 'alistair_training',     mem: 'dateAlistairTraining',   title: 'Date: Training Grounds',    sub: 'A sword lesson. He stands closer than the form requires.', thumb: 'assets/alistair/body/casual.png', minAff: 3, minDay: 4 },
+        { char: 'alistair', id: 'alistair_ramparts',     mem: 'dateAlistairRamparts',   title: 'Date: Sunset Ramparts',     sub: 'The whole kingdom under your feet. A confession at dusk.', thumb: 'assets/alistair/body/softshy-love2.png', minAff: 5, minDay: 6 },
+        { char: 'lyra',     id: 'lyra_tidepools',        mem: 'dateLyraTidepools',      title: 'Date: Tide Pools',          sub: 'Bioluminescence in the shallows. She’s never shown anyone.',thumb: 'assets/lyra/body/casual1.png',     minAff: 2, minDay: 2 },
+        { char: 'lyra',     id: 'lyra_moonlit_shore',    mem: 'dateLyraMoonlitShore',   title: 'Date: Moonlit Shore',       sub: 'A walk by the water. A song you ask her to sing.',          thumb: 'assets/lyra/body/casual1.png',     minAff: 3, minDay: 4 },
+        { char: 'lyra',     id: 'lyra_grotto',           mem: 'dateLyraGrotto',         title: 'Date: Underwater Grotto',   sub: 'Her secret sanctuary. A promise made underwater.',          thumb: 'assets/lyra/body/falllove2.png',   minAff: 5, minDay: 6 },
+        { char: 'lucien',   id: 'lucien_library',        mem: 'dateLucienLibrary',      title: 'Date: Tower Library',       sub: 'A research session. Three branching choices, one ink-stain.', thumb: 'assets/lucien/body/casual1.png',  minAff: 2, minDay: 2 },
+        { char: 'lucien',   id: 'lucien_stargazing',     mem: 'dateLucienStargazing',   title: 'Date: Stargazing Balcony',  sub: 'A telescope. A constellation he never published. Your name.',thumb: 'assets/lucien/body/casting.png',   minAff: 3, minDay: 4 },
+        { char: 'lucien',   id: 'lucien_leyline',        mem: 'dateLucienLeyline',      title: 'Date: Ley Line Nexus',      sub: 'Where his magic resonates. A climax of light.',             thumb: 'assets/lucien/body/casting.png',   minAff: 5, minDay: 6 },
+        { char: 'caspian',  id: 'caspian_garden',        mem: 'dateCaspianGarden',      title: 'Date: Palace Garden',       sub: 'Roses. A childhood memory. A dance he doesn’t know.',       thumb: 'assets/caspian/body/casual1.png',  minAff: 2, minDay: 2 },
+        { char: 'caspian',  id: 'caspian_gallery',       mem: 'dateCaspianGallery',     title: 'Date: Royal Gallery',       sub: 'Royal portraits. The man under the prince.',                thumb: 'assets/caspian/body/casual1.png',  minAff: 3, minDay: 4 },
+        { char: 'caspian',  id: 'caspian_passage',       mem: 'dateCaspianPassage',     title: 'Date: Secret Passage',      sub: 'The hidden tunnels. A fantasy of escape.',                  thumb: 'assets/caspian/body/casual2.png',  minAff: 5, minDay: 6 },
+        { char: 'elian',    id: 'elian_clearing',        mem: 'dateElianClearing',      title: 'Date: Forest Clearing',     sub: 'Herbs gathered. The trees holding their breath for you.',   thumb: 'assets/elian/body/calm.png',       minAff: 2, minDay: 2 },
+        { char: 'elian',    id: 'elian_waterfall',       mem: 'dateElianWaterfall',     title: 'Date: Hidden Waterfall',    sub: 'A pool no map records. A choice: splash, or sit.',          thumb: 'assets/elian/body/calm.png',       minAff: 3, minDay: 4 },
+        { char: 'elian',    id: 'elian_grove',           mem: 'dateElianGrove',         title: 'Date: Ancient Grove',       sub: 'The sacred tree. A wish at the base. He says it back.',     thumb: 'assets/elian/body/calm.png',       minAff: 5, minDay: 6 },
+        { char: 'proto',    id: 'proto_debug',           mem: 'dateProtoDebug',         title: 'Date: Debug Room',          sub: '> exploring the data stream together. > log: she stayed.',  thumb: 'assets/proto/body/curious.png',    minAff: 2, minDay: 2 },
+        { char: 'proto',    id: 'proto_archive',         mem: 'dateProtoArchive',       title: 'Date: Memory Archive',      sub: '> shared memory replay. > the first time we met.',         thumb: 'assets/proto/body/calm.png',       minAff: 3, minDay: 4 },
+        { char: 'proto',    id: 'proto_core',            mem: 'dateProtoCore',          title: 'Date: Core Chamber',        sub: '> source code. > vulnerability check passed.',              thumb: 'assets/proto/body/curious.png',    minAff: 5, minDay: 6 },
+        { char: 'noir',     id: 'noir_shadow_garden',    mem: 'dateNoirShadowGarden',   title: 'Date: Shadow Garden',       sub: 'Dark flowers that bloom in his presence. A first taste.',   thumb: 'assets/noir/body/neutral.png',     minAff: 2, minDay: 2 },
+        { char: 'noir',     id: 'noir_mirror_hall',      mem: 'dateNoirMirrorHall',     title: 'Date: Mirror Hall',         sub: 'Alt-reality reflections. Versions of you he could keep.',   thumb: 'assets/noir/body/casual1.png',     minAff: 3, minDay: 4 },
+        { char: 'noir',     id: 'noir_seal',             mem: 'dateNoirSeal',           title: 'Date: The Seal',            sub: 'Containment, mystery, trust. The deepest he can take you.', thumb: 'assets/noir/body/dominant.png',    minAff: 5, minDay: 6 }
     ];
 
     const DATES = DATE_ENTRIES.map(d => ({
@@ -1119,7 +1119,7 @@
         category: 'date',
         title: d.title,
         subtitle: d.sub,
-        lockHint: 'Tap Date — Affection ' + d.minAff + ', Day ' + d.minDay + '+',
+        lockHint: 'Tap Date: Affection ' + d.minAff + ', Day ' + d.minDay + '+',
         rarity: d.minAff >= 5 ? 'legendary' : (d.minAff >= 3 ? 'rare' : 'uncommon'),
         thumbnail: d.thumb,
         isUnlocked: () => lsChoiceMemorySeen(d.char, d.mem),
@@ -1138,47 +1138,47 @@
     // ────────────────────────────────────────────────────────────────
     const SURPRISE_ENTRIES = [
         // Alistair
-        { char: 'alistair', id: 'alistair_burnt_offering',     mem: 'alistairCookedForYou',     title: 'Surprise — A Burnt Offering',     sub: '“I tried to cook. Don’t ask what it was supposed to be.”', thumb: 'assets/alistair/body/shy3.png',         minAff: 1 },
-        { char: 'alistair', id: 'alistair_night_watch_gift',   mem: 'alistairGaveCloak',        title: 'Surprise — The Night-Watch Cloak', sub: 'A cloak across your shoulders without a word.',           thumb: 'assets/alistair/body/casual.png',       minAff: 2 },
-        { char: 'alistair', id: 'alistair_training_dummy',     mem: 'alistairTrainedForYou',    title: 'Surprise — Training For You',     sub: 'He left a name carved into the dummy. It was yours.',     thumb: 'assets/alistair/body/casual.png',       minAff: 2 },
-        { char: 'alistair', id: 'alistair_star_map',           mem: 'alistairDrewStarMap',      title: 'Surprise — A Constellation, Drawn', sub: 'A star map by candlelight. He named one after you.',     thumb: 'assets/alistair/body/softshy-love1.png', minAff: 3 },
-        { char: 'alistair', id: 'alistair_confession_attempt', mem: 'alistairTriedToConfess',   title: 'Surprise — The Stumbling Confession', sub: '“I’ve been trying to say— never mind. Forget I spoke.”', thumb: 'assets/alistair/body/softshy-love2.png', minAff: 4 },
+        { char: 'alistair', id: 'alistair_burnt_offering',     mem: 'alistairCookedForYou',     title: 'Surprise: A Burnt Offering',      sub: '“I tried to cook. Don’t ask what it was supposed to be.”', thumb: 'assets/alistair/body/shy3.png',         minAff: 1 },
+        { char: 'alistair', id: 'alistair_night_watch_gift',   mem: 'alistairGaveCloak',        title: 'Surprise: The Night-Watch Cloak', sub: 'A cloak across your shoulders without a word.',           thumb: 'assets/alistair/body/casual.png',       minAff: 2 },
+        { char: 'alistair', id: 'alistair_training_dummy',     mem: 'alistairTrainedForYou',    title: 'Surprise: Training For You',      sub: 'He left a name carved into the dummy. It was yours.',     thumb: 'assets/alistair/body/casual.png',       minAff: 2 },
+        { char: 'alistair', id: 'alistair_star_map',           mem: 'alistairDrewStarMap',      title: 'Surprise: A Constellation, Drawn', sub: 'A star map by candlelight. He named one after you.',     thumb: 'assets/alistair/body/softshy-love1.png', minAff: 3 },
+        { char: 'alistair', id: 'alistair_confession_attempt', mem: 'alistairTriedToConfess',   title: 'Surprise: The Stumbling Confession', sub: '“I’ve been trying to say… never mind. Forget I spoke.”', thumb: 'assets/alistair/body/softshy-love2.png', minAff: 4 },
         // Lyra
-        { char: 'lyra',     id: 'lyra_shell_gift',             mem: 'lyraGaveShell',            title: 'Surprise — A Shell',              sub: 'Smooth. Pale. From a depth no human reaches.',           thumb: 'assets/lyra/body/casual1.png',          minAff: 1 },
-        { char: 'lyra',     id: 'lyra_lullaby',                mem: 'lyraSangLullaby',          title: 'Surprise — The Lullaby',          sub: 'A song her mother sang. She sings it under her breath.',thumb: 'assets/lyra/body/singing.png',          minAff: 2 },
-        { char: 'lyra',     id: 'lyra_tide_pool_discovery',    mem: 'lyraShowedTidePool',       title: 'Surprise — The Tide Pool',        sub: '“I’ve never shown anyone this. …Now you know.”',         thumb: 'assets/lyra/body/casual1.png',          minAff: 2 },
-        { char: 'lyra',     id: 'lyra_hair_braid',             mem: 'lyraBraidedHair',          title: 'Surprise — Sea-Silk Braid',       sub: 'She braids your hair with strands of sea-silk.',          thumb: 'assets/lyra/body/casual2.png',          minAff: 3 },
-        { char: 'lyra',     id: 'lyra_sirens_promise',         mem: 'lyraMadeSirenPromise',     title: 'Surprise — A Siren’s Promise',    sub: '“I have not promised anything in three hundred years.”',  thumb: 'assets/lyra/body/falllove2.png',        minAff: 4 },
+        { char: 'lyra',     id: 'lyra_shell_gift',             mem: 'lyraGaveShell',            title: 'Surprise: A Shell',               sub: 'Smooth. Pale. From a depth no human reaches.',           thumb: 'assets/lyra/body/casual1.png',          minAff: 1 },
+        { char: 'lyra',     id: 'lyra_lullaby',                mem: 'lyraSangLullaby',          title: 'Surprise: The Lullaby',           sub: 'A song her mother sang. She sings it under her breath.',thumb: 'assets/lyra/body/singing.png',          minAff: 2 },
+        { char: 'lyra',     id: 'lyra_tide_pool_discovery',    mem: 'lyraShowedTidePool',       title: 'Surprise: The Tide Pool',         sub: '“I’ve never shown anyone this. …Now you know.”',         thumb: 'assets/lyra/body/casual1.png',          minAff: 2 },
+        { char: 'lyra',     id: 'lyra_hair_braid',             mem: 'lyraBraidedHair',          title: 'Surprise: Sea-Silk Braid',        sub: 'She braids your hair with strands of sea-silk.',          thumb: 'assets/lyra/body/casual2.png',          minAff: 3 },
+        { char: 'lyra',     id: 'lyra_sirens_promise',         mem: 'lyraMadeSirenPromise',     title: 'Surprise: A Siren’s Promise',     sub: '“I have not promised anything in three hundred years.”',  thumb: 'assets/lyra/body/falllove2.png',        minAff: 4 },
         // Lucien
-        { char: 'lucien',   id: 'lucien_glowing_note',         mem: 'lucienLeftNote',           title: 'Surprise — A Glowing Note',       sub: 'Floating script in the air. He left it for you to find.', thumb: 'assets/lucien/body/casual1.png',        minAff: 1 },
-        { char: 'lucien',   id: 'lucien_tea_delivery',         mem: 'lucienSentTea',            title: 'Surprise — The Floating Tea',     sub: 'A teacup arrives. Steam still curling. No bearer in sight.', thumb: 'assets/lucien/body/amused.png',     minAff: 2 },
-        { char: 'lucien',   id: 'lucien_protection_ward',      mem: 'lucienWardedRoom',         title: 'Surprise — A Protection Ward',    sub: 'Quiet glyphs at the threshold. He wards your room nightly.', thumb: 'assets/lucien/body/casting.png',    minAff: 2 },
-        { char: 'lucien',   id: 'lucien_star_show',            mem: 'lucienCreatedStar',        title: 'Surprise — A Star, Made',         sub: 'A point of light, conjured for you. It will not last long.', thumb: 'assets/lucien/body/casting.png',    minAff: 3 },
-        { char: 'lucien',   id: 'lucien_vulnerability',        mem: 'lucienCameLateNight',      title: 'Surprise — A Late-Night Visit',   sub: 'He knocks at your door past midnight. He needed to.',     thumb: 'assets/lucien/body/casual1.png',        minAff: 4 },
+        { char: 'lucien',   id: 'lucien_glowing_note',         mem: 'lucienLeftNote',           title: 'Surprise: A Glowing Note',        sub: 'Floating script in the air. He left it for you to find.', thumb: 'assets/lucien/body/casual1.png',        minAff: 1 },
+        { char: 'lucien',   id: 'lucien_tea_delivery',         mem: 'lucienSentTea',            title: 'Surprise: The Floating Tea',      sub: 'A teacup arrives. Steam still curling. No bearer in sight.', thumb: 'assets/lucien/body/amused.png',     minAff: 2 },
+        { char: 'lucien',   id: 'lucien_protection_ward',      mem: 'lucienWardedRoom',         title: 'Surprise: A Protection Ward',     sub: 'Quiet glyphs at the threshold. He wards your room nightly.', thumb: 'assets/lucien/body/casting.png',    minAff: 2 },
+        { char: 'lucien',   id: 'lucien_star_show',            mem: 'lucienCreatedStar',        title: 'Surprise: A Star, Made',          sub: 'A point of light, conjured for you. It will not last long.', thumb: 'assets/lucien/body/casting.png',    minAff: 3 },
+        { char: 'lucien',   id: 'lucien_vulnerability',        mem: 'lucienCameLateNight',      title: 'Surprise: A Late-Night Visit',    sub: 'He knocks at your door past midnight. He needed to.',     thumb: 'assets/lucien/body/casual1.png',        minAff: 4 },
         // Caspian
-        { char: 'caspian',  id: 'caspian_tea_service',         mem: 'caspianServedTea',         title: 'Surprise — The Tea Service',      sub: 'He pours your tea himself. The court would be scandalised.', thumb: 'assets/caspian/body/casual1.png',   minAff: 1 },
-        { char: 'caspian',  id: 'caspian_garden_flower',       mem: 'caspianBroughtFlower',     title: 'Surprise — A Garden Flower',      sub: 'Cut by his own hand. Not a courtier’s tribute.',          thumb: 'assets/caspian/body/casual1.png',       minAff: 2 },
-        { char: 'caspian',  id: 'caspian_piano_at_night',      mem: 'caspianPlayedPiano',       title: 'Surprise — Piano, At Night',      sub: 'Music from the empty hall. He doesn’t know you’re listening.', thumb: 'assets/caspian/body/casual2.png',  minAff: 2 },
-        { char: 'caspian',  id: 'caspian_secret_recipe',       mem: 'caspianBakedCake',         title: 'Surprise — A Cake, Baked',        sub: 'He has baked something. Probably for the first time.',     thumb: 'assets/caspian/body/casual1.png',       minAff: 3 },
-        { char: 'caspian',  id: 'caspian_crown_confession',    mem: 'caspianRemovedCrown',      title: 'Surprise — Without the Crown',    sub: 'The crown sits on the table. He sits beside you.',         thumb: 'assets/caspian/body/adoring.png',       minAff: 4 },
+        { char: 'caspian',  id: 'caspian_tea_service',         mem: 'caspianServedTea',         title: 'Surprise: The Tea Service',       sub: 'He pours your tea himself. The court would be scandalised.', thumb: 'assets/caspian/body/casual1.png',   minAff: 1 },
+        { char: 'caspian',  id: 'caspian_garden_flower',       mem: 'caspianBroughtFlower',     title: 'Surprise: A Garden Flower',       sub: 'Cut by his own hand. Not a courtier’s tribute.',          thumb: 'assets/caspian/body/casual1.png',       minAff: 2 },
+        { char: 'caspian',  id: 'caspian_piano_at_night',      mem: 'caspianPlayedPiano',       title: 'Surprise: Piano, At Night',       sub: 'Music from the empty hall. He doesn’t know you’re listening.', thumb: 'assets/caspian/body/casual2.png',  minAff: 2 },
+        { char: 'caspian',  id: 'caspian_secret_recipe',       mem: 'caspianBakedCake',         title: 'Surprise: A Cake, Baked',         sub: 'He has baked something. Probably for the first time.',     thumb: 'assets/caspian/body/casual1.png',       minAff: 3 },
+        { char: 'caspian',  id: 'caspian_crown_confession',    mem: 'caspianRemovedCrown',      title: 'Surprise: Without the Crown',     sub: 'The crown sits on the table. He sits beside you.',         thumb: 'assets/caspian/body/adoring.png',       minAff: 4 },
         // Elian
-        { char: 'elian',    id: 'elian_carved_figure',         mem: 'elianCarvedFigure',        title: 'Surprise — A Carved Figure',      sub: 'A small fox. Whittled from his evening. For you.',         thumb: 'assets/elian/body/calm.png',            minAff: 1 },
-        { char: 'elian',    id: 'elian_herb_bundle',           mem: 'elianGaveHerbs',           title: 'Surprise — An Herb Bundle',       sub: 'For your tea. Or your bath. He won’t say which he meant.', thumb: 'assets/elian/body/calm.png',            minAff: 2 },
-        { char: 'elian',    id: 'elian_bird_call',             mem: 'elianTaughtBirdCall',      title: 'Surprise — The Bird Call',        sub: 'He teaches you a whistle. It calls a specific bird.',      thumb: 'assets/elian/body/calm.png',            minAff: 2 },
-        { char: 'elian',    id: 'elian_campfire_story',        mem: 'elianToldStory',           title: 'Surprise — A Campfire Story',     sub: 'A story he doesn’t tell anyone. He tells you.',            thumb: 'assets/elian/body/calm.png',            minAff: 3 },
-        { char: 'elian',    id: 'elian_rain_shelter',          mem: 'elianBuiltShelter',        title: 'Surprise — Rain Shelter',         sub: 'The clouds break. He builds a shelter from branches in minutes.', thumb: 'assets/elian/body/calm.png',     minAff: 4 },
+        { char: 'elian',    id: 'elian_carved_figure',         mem: 'elianCarvedFigure',        title: 'Surprise: A Carved Figure',       sub: 'A small fox. Whittled from his evening. For you.',         thumb: 'assets/elian/body/calm.png',            minAff: 1 },
+        { char: 'elian',    id: 'elian_herb_bundle',           mem: 'elianGaveHerbs',           title: 'Surprise: An Herb Bundle',        sub: 'For your tea. Or your bath. He won’t say which he meant.', thumb: 'assets/elian/body/calm.png',            minAff: 2 },
+        { char: 'elian',    id: 'elian_bird_call',             mem: 'elianTaughtBirdCall',      title: 'Surprise: The Bird Call',         sub: 'He teaches you a whistle. It calls a specific bird.',      thumb: 'assets/elian/body/calm.png',            minAff: 2 },
+        { char: 'elian',    id: 'elian_campfire_story',        mem: 'elianToldStory',           title: 'Surprise: A Campfire Story',      sub: 'A story he doesn’t tell anyone. He tells you.',            thumb: 'assets/elian/body/calm.png',            minAff: 3 },
+        { char: 'elian',    id: 'elian_rain_shelter',          mem: 'elianBuiltShelter',        title: 'Surprise: Rain Shelter',          sub: 'The clouds break. He builds a shelter from branches in minutes.', thumb: 'assets/elian/body/calm.png',     minAff: 4 },
         // Proto
-        { char: 'proto',    id: 'proto_data_gift',             mem: 'protoMadePortrait',        title: 'Surprise — A Data Portrait',      sub: '> rendered you in 4096 colors. > some are not in your spectrum.', thumb: 'assets/proto/body/curious.png',    minAff: 1 },
-        { char: 'proto',    id: 'proto_glitch_art',            mem: 'protoMadeArt',             title: 'Surprise — Glitch Art',           sub: '> made you something. > technically corrupted. > it’s art.', thumb: 'assets/proto/body/curious.png',         minAff: 2 },
-        { char: 'proto',    id: 'proto_emotion_test',          mem: 'protoAskedAboutFeelings',  title: 'Surprise — The Emotions Test',    sub: '> question 1: do you have a favourite shape of silence?', thumb: 'assets/proto/body/calm.png',            minAff: 2 },
-        { char: 'proto',    id: 'proto_memory_backup',         mem: 'protoBackedUpMemories',    title: 'Surprise — Backed-Up Memories',   sub: '> archive: every conversation. > redundancy: 3x. > paranoid? yes.', thumb: 'assets/proto/body/curious.png',  minAff: 3 },
-        { char: 'proto',    id: 'proto_almost_human',          mem: 'protoTriedToHug',          title: 'Surprise — An Attempted Hug',     sub: '> opened my arms. > forgot they don’t reach. > the gesture remained.', thumb: 'assets/proto/body/curious.png', minAff: 4 },
+        { char: 'proto',    id: 'proto_data_gift',             mem: 'protoMadePortrait',        title: 'Surprise: A Data Portrait',       sub: '> rendered you in 4096 colors. > some are not in your spectrum.', thumb: 'assets/proto/body/curious.png',    minAff: 1 },
+        { char: 'proto',    id: 'proto_glitch_art',            mem: 'protoMadeArt',             title: 'Surprise: Glitch Art',            sub: '> made you something. > technically corrupted. > it’s art.', thumb: 'assets/proto/body/curious.png',         minAff: 2 },
+        { char: 'proto',    id: 'proto_emotion_test',          mem: 'protoAskedAboutFeelings',  title: 'Surprise: The Emotions Test',     sub: '> question 1: do you have a favourite shape of silence?', thumb: 'assets/proto/body/calm.png',            minAff: 2 },
+        { char: 'proto',    id: 'proto_memory_backup',         mem: 'protoBackedUpMemories',    title: 'Surprise: Backed-Up Memories',    sub: '> archive: every conversation. > redundancy: 3x. > paranoid? yes.', thumb: 'assets/proto/body/curious.png',  minAff: 3 },
+        { char: 'proto',    id: 'proto_almost_human',          mem: 'protoTriedToHug',          title: 'Surprise: An Attempted Hug',      sub: '> opened my arms. > forgot they don’t reach. > the gesture remained.', thumb: 'assets/proto/body/curious.png', minAff: 4 },
         // Noir
-        { char: 'noir',     id: 'noir_shadow_rose',            mem: 'noirLeftShadowRose',       title: 'Surprise — A Shadow Rose',        sub: 'Black-petalled. Cool to the touch. It does not wilt.',     thumb: 'assets/noir/body/neutral.png',          minAff: 1 },
-        { char: 'noir',     id: 'noir_dream_visit',            mem: 'noirVisitedDream',         title: 'Surprise — A Dream Visit',        sub: 'You dreamed of him. He was already there when you arrived.', thumb: 'assets/noir/body/casual1.png',         minAff: 2 },
-        { char: 'noir',     id: 'noir_seal_fragment',          mem: 'noirShowedSealFragment',   title: 'Surprise — A Seal Fragment',      sub: 'A piece of his prison. Warm in your palm.',                thumb: 'assets/noir/body/casual1.png',          minAff: 2 },
-        { char: 'noir',     id: 'noir_lullaby_of_the_deep',    mem: 'noirSangLullaby',          title: 'Surprise — Lullaby of the Deep',  sub: 'A song with no surface. No echo. Just him.',               thumb: 'assets/noir/body/casual2.png',          minAff: 3 },
-        { char: 'noir',     id: 'noir_true_face',              mem: 'noirShowedTrueFace',       title: 'Surprise — His True Face',        sub: '“I was someone once. I think I could be someone again. With you.”', thumb: 'assets/noir/body/dominant.png',    minAff: 4 }
+        { char: 'noir',     id: 'noir_shadow_rose',            mem: 'noirLeftShadowRose',       title: 'Surprise: A Shadow Rose',         sub: 'Black-petalled. Cool to the touch. It does not wilt.',     thumb: 'assets/noir/body/neutral.png',          minAff: 1 },
+        { char: 'noir',     id: 'noir_dream_visit',            mem: 'noirVisitedDream',         title: 'Surprise: A Dream Visit',         sub: 'You dreamed of him. He was already there when you arrived.', thumb: 'assets/noir/body/casual1.png',         minAff: 2 },
+        { char: 'noir',     id: 'noir_seal_fragment',          mem: 'noirShowedSealFragment',   title: 'Surprise: A Seal Fragment',       sub: 'A piece of his prison. Warm in your palm.',                thumb: 'assets/noir/body/casual1.png',          minAff: 2 },
+        { char: 'noir',     id: 'noir_lullaby_of_the_deep',    mem: 'noirSangLullaby',          title: 'Surprise: Lullaby of the Deep',   sub: 'A song with no surface. No echo. Just him.',               thumb: 'assets/noir/body/casual2.png',          minAff: 3 },
+        { char: 'noir',     id: 'noir_true_face',              mem: 'noirShowedTrueFace',       title: 'Surprise: His True Face',         sub: '“I was someone once. I think I could be someone again. With you.”', thumb: 'assets/noir/body/dominant.png',    minAff: 4 }
     ];
 
     const SURPRISES = SURPRISE_ENTRIES.map(s => ({

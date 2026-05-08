@@ -1,16 +1,16 @@
-/* crossover-weavers-court.js — "The Weaver's Court"
+/* crossover-weavers-court.js."The Weaver's Court"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossWeaversCourt.
+ * Registers window. MSCrossWeaversCourt.
  *
  * THE ENSEMBLE CLIMAX. Aenor is coming for the Weaver tonight. All seven
  * suitors are here. Each gets one line. The player chooses who stands in
- * front \u2014 who speaks for her when the queen arrives.
+ * front.who speaks for her when the queen arrives.
  *
  * Structure: instead of side-by-side sprites, the scene ROTATES through
  * each character one at a time. Each steps forward, speaks their line,
  * steps back. Then the player chooses.
  *
- * The chosen character's ID is written to pp_weaver_champion \u2014 this
+ * The chosen character's ID is written to pp_weaver_champion.this
  * flag can gate future cinematics, ending branches, and the Aenor
  * confrontation (when written). This scene is the doorway to the
  * final-act battle.
@@ -34,7 +34,7 @@
  *   line. The tightest one each voice has.
  *
  *   The player chooses who goes first into the dark. It is not about
- *   who "wins" the romance \u2014 it is about who the player trusts to
+ *   who "wins" the romance.it is about who the player trusts to
  *   speak for her at the moment the queen arrives.
  */
 
@@ -53,32 +53,32 @@
     { id: 'alistair', name: 'ALISTAIR',
       pose: 'assets/alistair/body/casual.png',
       glow: 'rgba(255,210,140,0.35)',
-      line: 'I have guarded this kingdom for my whole life. \u2014 Tonight I guard only you. \u2014 The oath is still the oath. \u2014 It just finally has a face.'
+      line: 'I have guarded this kingdom for my whole life. Tonight I guard only you. The oath is still the oath. It just finally has a face.'
     },
     { id: 'elian', name: 'ELIAN',
       pose: 'assets/elian/body/calm.png',
       glow: 'rgba(140,190,140,0.35)',
-      line: 'The Thornwood opens for you. \u2014 I open for you. \u2014 Whatever comes through that door, it will come through me first. \u2014 Do not argue.'
+      line: 'The Thornwood opens for you. I open for you. Whatever comes through that door, it will come through me first. Do not argue.'
     },
     { id: 'lyra', name: 'LYRA',
       pose: 'assets/lyra/body/casual1.png',
       glow: 'rgba(120,210,230,0.35)',
-      line: 'My mother taught me one true thing before she died. \u2014 \u201cProtect the Weaver.\u201d \u2014 I thought it was a story. \u2014 It was instructions. \u2014 I am ready to follow them.'
+      line: 'My mother taught me one true thing before she died.\u201cProtect the Weaver.\u201d. I thought it was a story. It was instructions. I am ready to follow them.'
     },
     { id: 'caspian', name: 'CASPIAN',
       pose: 'assets/caspian/body/casual1.png',
       glow: 'rgba(230,160,210,0.35)',
-      line: 'My grandmother raised me to do the right thing for Aethermoor. \u2014 I have spent the last year doing the right thing for YOU. \u2014 She would call it treason. \u2014 I call it the first thing I have ever chosen.'
+      line: 'My grandmother raised me to do the right thing for Aethermoor. I have spent the last year doing the right thing for YOU. She would call it treason. I call it the first thing I have ever chosen.'
     },
     { id: 'lucien', name: 'LUCIEN',
       pose: 'assets/lucien/body/casual1.png',
       glow: 'rgba(200,170,240,0.35)',
-      line: 'I have been writing your name in the margins of every book for months. \u2014 The Dynasty has a lie for every truth. \u2014 I intend to publish a truth for every one of her lies. \u2014 I have started with yours.'
+      line: 'I have been writing your name in the margins of every book for months. The Dynasty has a lie for every truth. I intend to publish a truth for every one of her lies. I have started with yours.'
     },
     { id: 'noir', name: 'NOIR',
       pose: 'assets/noir/body/casual1.png',
       glow: 'rgba(160,90,200,0.35)',
-      line: 'I have watched her eat five of your kind from inside the stone. \u2014 I could do nothing. \u2014 Tonight I am not inside the stone. \u2014 \u2026Mm. \u2014 She will find that inconvenient.'
+      line: 'I have watched her eat five of your kind from inside the stone. I could do nothing. Tonight I am not inside the stone.\u2026Mm. She will find that inconvenient.'
     },
     { id: 'proto', name: 'PROTO',
       pose: 'assets/proto/body/calm.png',
@@ -90,8 +90,9 @@
   let _rootEl = null;
 
   function el(tag, css, text) { const e = document.createElement(tag); if (css) e.style.cssText = css; if (text) e.textContent = text; return e; }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -118,7 +119,7 @@
     ].join(';'));
     root.appendChild(bg);
 
-    // The queen's approaching presence \u2014 a pale horizon glow at the top
+    // The queen's approaching presence.a pale horizon glow at the top
     if (!document.getElementById('ms-keyframes-court')) {
       const kf = document.createElement('style');
       kf.id = 'ms-keyframes-court';
@@ -141,7 +142,7 @@
     ].join(';'));
     root.appendChild(horizon);
 
-    // Single character slot \u2014 we rotate through the seven
+    // Single character slot.we rotate through the seven
     const charWrap = el('div', [
       'position:relative', 'margin-bottom:30vh',
       'width:50%', 'max-width:260px', 'aspect-ratio:3/5',
@@ -225,7 +226,8 @@
     n.charImg.style.animation = 'courtFlareIn 700ms ease forwards';
     n.charImg.style.opacity = '1';
 
-    n.speaker.textContent = member.name;
+    if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, member.name); }
+    else { n.speaker.textContent = member.name; }
     await type(n.line, member.line, 24);
     await wait(2400);
   }
@@ -242,7 +244,7 @@
     if (_rootEl) { try { onDone && onDone(); } catch (_) {} return; }
     const roster = filterToMet(COURT);
     if (roster.length < 4) {
-      // Guard \u2014 this should never happen given trigger check, but safe.
+      // Guard.this should never happen given trigger check, but safe.
       try { onDone && onDone(); } catch (_) {}
       return;
     }
@@ -258,11 +260,12 @@
 
     try {
       // ---- OPENING NARRATION --------------------------------------
-      n.speaker.textContent = '\u2014 THE WEAVER\u2019S COURT, LAST HOUR BEFORE THE QUEEN ARRIVES \u2014';
-      await type(n.line, 'Word came at dusk. \u2014 Queen Aenor is walking here. \u2014 She has not walked this palace in a hundred years. \u2014 She will be at the door before dawn. \u2014 She is coming for the Weaver.', 22);
+      if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, 'THE WEAVER\u2019S COURT, LAST HOUR BEFORE THE QUEEN ARRIVES'); }
+      else { n.speaker.textContent = 'THE WEAVER\u2019S COURT, LAST HOUR BEFORE THE QUEEN ARRIVES'; }
+      await type(n.line, 'Word came at dusk. Queen Aenor is walking here. She has not walked this palace in a hundred years. She will be at the door before dawn. She is coming for the Weaver.', 22);
       await wait(3200);
 
-      await type(n.line, 'You did not summon them. \u2014 They came anyway. \u2014 Every one of them you have loved. \u2014 They are here. \u2014 Each has a line. \u2014 Then you will choose.', 22);
+      await type(n.line, 'You did not summon them. They came anyway. Every one of them you have loved. They are here. Each has a line. Then you will choose.', 22);
       await wait(3200);
 
       // ---- ONE LINE FROM EACH MET CHARACTER ------------------------
@@ -274,13 +277,14 @@
       n.charImg.style.animation = '';
       n.charImg.style.opacity = '0.4'; // dim while we choose
 
-      n.speaker.textContent = '';
-      await type(n.line, 'You have heard them. \u2014 The queen will be here before dawn. \u2014 One of them has to stand at the front when she arrives. \u2014 Not because the others are less. \u2014 Because you must choose whose voice she hears first. \u2014 Choose on purpose.', 22);
+      if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, ''); }
+      else { n.speaker.textContent = ''; }
+      await type(n.line, 'You have heard them. The queen will be here before dawn. One of them has to stand at the front when she arrives. Not because the others are less. Because you must choose whose voice she hears first. Choose on purpose.', 22);
       await wait(2200);
       n.hint.textContent = 'who stands in front when she arrives?';
       n.hint.style.opacity = '0.75';
 
-      const options = roster.map(m => ({ id: m.id, text: m.name.toLowerCase().replace(/^./, c => c.toUpperCase()) + ' \u2014 my champion.' }));
+      const options = roster.map(m => ({ id: m.id, text: m.name.toLowerCase().replace(/^./, c => c.toUpperCase()) + '.my champion.' }));
       const pick = await showChoice(n.choiceRow, n.dialogue, options);
 
       n.hint.style.opacity = '0';
@@ -299,25 +303,27 @@
       // eslint-disable-next-line no-unused-expressions
       n.charImg.offsetHeight;
 
-      n.speaker.textContent = chosen.name;
+      if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, chosen.name); }
+      else { n.speaker.textContent = chosen.name; }
       const chosenClosers = {
-        alistair: '*nods once, slow, steady, unbuckles his gauntlet and offers you his bare hand* \u2014 Then I stand first. \u2014 I have stood in front of worse than a dowager. \u2014 Hmm. \u2014 I have not. \u2014 I will stand anyway.',
-        elian:    '*unbuckles his cloak, drapes it around your shoulders, forehead to yours* \u2014 Then I stand first. \u2014 The Thornwood is with me. \u2014 So is every tree that ever remembered Veyra. \u2014 She has never faced that line.',
-        lyra:     '*sets her mother\u2019s staff upright between you and the door, hums one note of the old song* \u2014 Then I stand first. \u2014 My mother taught me how to be heard by someone who does not want to hear. \u2014 I have been practicing all my life.',
-        caspian:  '*a small, unterrified smile* \u2014 Then I stand first. \u2014 She raised me to obey her. \u2014 The last thing she expects is me using her own manners against her. \u2014 Let us find out how well I learned.',
-        lucien:   '*sets the pen down with deliberate care, turns every page facedown on the desk, lifts the staff* \u2014 Then I stand first. \u2014 I have been collecting evidence against her for years. \u2014 Tonight I publish.',
-        noir:     '*takes your chin between thumb and finger, tilts your face up, eye contact held* \u2014 Then I stand first. \u2014 She put me under a stone for loving a Weaver. \u2014 I have come back specifically to disappoint her.',
+        alistair: '*Nods once, slow, steady, unbuckles his gauntlet and offers you his bare hand*. Then I stand first. I have stood in front of worse than a dowager. Hmm. I have not. I will stand anyway.',
+        elian:    '*Unbuckles his cloak, drapes it around your shoulders, forehead to yours*. Then I stand first. The Thornwood is with me. So is every tree that ever remembered Veyra. She has never faced that line.',
+        lyra:     '*Sets her mother\u2019s staff upright between you and the door, hums one note of the old song*. Then I stand first. My mother taught me how to be heard by someone who does not want to hear. I have been practicing all my life.',
+        caspian:  '*A small, unterrified smile*. Then I stand first. She raised me to obey her. The last thing she expects is me using her own manners against her. Let us find out how well I learned.',
+        lucien:   '*Sets the pen down with deliberate care, turns every page facedown on the desk, lifts the staff*. Then I stand first. I have been collecting evidence against her for years. Tonight I publish.',
+        noir:     '*Takes your chin between thumb and finger, tilts your face up, eye contact held*. Then I stand first. She put me under a stone for loving a Weaver. I have come back specifically to disappoint her.',
         proto:    'THEN I STAND FIRST! i\u2019ve been waiting six hundred years for permission! the five in here with me all said YES at the same time! we are SO loud right now!'
       };
-      await type(n.line, chosenClosers[chosen.id] || 'Then I stand first. \u2014 For you.', 22);
+      await type(n.line, chosenClosers[chosen.id] || 'Then I stand first. For you.', 22);
       await wait(3600);
 
       // Final player-facing narration
-      n.speaker.textContent = '';
-      await type(n.line, 'The others step back. \u2014 Not away. \u2014 Behind your champion, in a line. \u2014 Every one of them between you and the door. \u2014 None of them flinching. \u2014 You are a Weaver. \u2014 This is your court. \u2014 She is coming. \u2014 So are you.', 22);
+      if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, ''); }
+      else { n.speaker.textContent = ''; }
+      await type(n.line, 'The others step back. Not away. Behind your champion, in a line. Every one of them between you and the door. None of them flinching. You are a Weaver. This is your court. She is coming. So are you.', 22);
       await wait(3800);
 
-      await type(n.line, 'TO BE CONTINUED. \u2014 The queen\u2019s knock is one room away. \u2014 Your seven are ready. \u2014 The kingdom has been waiting for you to pick up the thread. \u2014 Pick it up.', 22);
+      await type(n.line, 'TO BE CONTINUED. The queen\u2019s knock is one room away. Your seven are ready. The kingdom has been waiting for you to pick up the thread. Pick it up.', 22);
       await wait(3200);
 
       n.root.style.opacity = '0';
@@ -356,7 +362,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -375,7 +381,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
   else boot();
 
-  window.MSCrossWeaversCourt = {
+  window. MSCrossWeaversCourt = {
     play, force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); localStorage.removeItem(FLAG_CHAMPION); } catch (_) {} },
     seenKey: FLAG_SEEN

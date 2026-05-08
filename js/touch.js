@@ -25,16 +25,16 @@
                 { text: "...Okay. That was nice. Don't tell anyone.", emotion: "gentle", effects: { bond: 8, affection: 2 } }
             ],
             face: [
-                { text: "You\u2014 my face is not a\u2014 *turns red*", emotion: "shy", effects: { bond: 9, affection: 2 } },
+                { text: "You\u2014 my face is not a\u2014 *Turns red*", emotion: "shy", effects: { bond: 9, affection: 2 } },
                 { text: "The captain of the guard does NOT get poked on the cheek.", emotion: "annoyed", effects: { bond: 7, affection: 1 } },
                 { text: "...Your hands are cold. Here, let me\u2014", emotion: "gentle", effects: { bond: 10, affection: 2 } },
                 { text: "Nobody has ever\u2014 just... be careful. Please.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } }
             ],
             hand: [
-                { text: "*stiffens, then slowly holds back* ...I've held swords my whole life. This is different.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
+                { text: "*Stiffens, then slowly holds back* ...I've held swords my whole life. This is different.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
                 { text: "Your hand is small. I could protect it.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "Don't let go. ...Please.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } },
-                { text: "I\u2014 this isn't\u2014 *holds tighter* ...Forget what I was about to say.", emotion: "shy", effects: { bond: 10, affection: 2 } }
+                { text: "I\u2014 this isn't\u2014 *Holds tighter* ...Forget what I was about to say.", emotion: "shy", effects: { bond: 10, affection: 2 } }
             ]
         },
         lyra: {
@@ -45,13 +45,13 @@
                 { text: "...Do humans do this often? I could get used to it.", emotion: "happy", effects: { bond: 8, affection: 2 } }
             ],
             face: [
-                { text: "*blinks* You touched my face. No one touches a siren's face.", emotion: "shy", effects: { bond: 9, affection: 2 } },
+                { text: "*Blinks* You touched my face. No one touches a siren's face.", emotion: "shy", effects: { bond: 9, affection: 2 } },
                 { text: "My scales... you can feel them there? Most people flinch.", emotion: "vulnerable", effects: { bond: 10, affection: 2 } },
                 { text: "...That spot is sensitive. Be careful.", emotion: "gentle", effects: { bond: 8, affection: 2 } },
                 { text: "Your fingertips are so warm against my skin. I\u2014 don't stop.", emotion: "love", effects: { bond: 11, affection: 3 } }
             ],
             hand: [
-                { text: "*pulls away, then slowly reaches back* Your hands are warm. Mine aren't. Sorry.", emotion: "sad", effects: { bond: 10, affection: 2 } },
+                { text: "*Pulls away, then slowly reaches back* Your hands are warm. Mine aren't. Sorry.", emotion: "sad", effects: { bond: 10, affection: 2 } },
                 { text: "I could pull you into the sea with this hand. But I won't.", emotion: "gentle", effects: { bond: 9, affection: 2 } },
                 { text: "Hold tighter. I want to remember what warmth feels like.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "If I sing while you hold my hand, will you stay?", emotion: "vulnerable", effects: { bond: 11, affection: 3 } }
@@ -66,12 +66,12 @@
             ],
             face: [
                 { text: "Did you just\u2014 I was mid-equation. That equation is now ruined.", emotion: "annoyed", effects: { bond: 8, affection: 2 } },
-                { text: "My monocle. You'll knock my\u2014 ...fine. Just be careful.", emotion: "gentle", effects: { bond: 9, affection: 2 } },
+                { text: "My spectacles. You'll knock them. ...fine. Just be careful.", emotion: "gentle", effects: { bond: 9, affection: 2 } },
                 { text: "...No one has touched my face since I was a child.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } },
-                { text: "Your hand on my cheek. That's\u2014 let me just\u2014 *closes eyes*", emotion: "love", effects: { bond: 10, affection: 2 } }
+                { text: "Your hand on my cheek. That's\u2014 let me just\u2014 *Closes eyes*", emotion: "love", effects: { bond: 10, affection: 2 } }
             ],
             hand: [
-                { text: "*looks down at your hand in his* This isn't in my research notes.", emotion: "shy", effects: { bond: 10, affection: 2 } },
+                { text: "*Looks down at your hand in his* This isn't in my research notes.", emotion: "shy", effects: { bond: 10, affection: 2 } },
                 { text: "Your pulse rate is elevated. ...So is mine.", emotion: "gentle", effects: { bond: 11, affection: 3 } },
                 { text: "I should let go. I'm choosing not to. Interesting.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "Warm. Soft. Illogical. I want more data.", emotion: "curious", effects: { bond: 9, affection: 2 } }
@@ -79,19 +79,19 @@
         },
         caspian: {
             head: [
-                { text: "*freezes* A prince isn't... that's not... *melts* ...okay.", emotion: "shy", effects: { bond: 7, affection: 1 } },
+                { text: "*Freezes* A prince isn't... that's not... *Melts* ...okay.", emotion: "shy", effects: { bond: 7, affection: 1 } },
                 { text: "The crown usually goes there. I think I prefer this.", emotion: "gentle", effects: { bond: 8, affection: 2 } },
                 { text: "You're bold. The court would be scandalized.", emotion: "cheeky", effects: { bond: 6, affection: 1 } },
                 { text: "...No one has been this gentle with me since my mother.", emotion: "vulnerable", effects: { bond: 9, affection: 2 } }
             ],
             face: [
-                { text: "*sharp breath* That's\u2014 you can't just\u2014 *softens* ...again?", emotion: "shy", effects: { bond: 9, affection: 2 } },
+                { text: "*Sharp breath* That's\u2014 you can't just\u2014 *Softens* ...again?", emotion: "shy", effects: { bond: 9, affection: 2 } },
                 { text: "My face is always being watched. But never touched.", emotion: "sad", effects: { bond: 10, affection: 2 } },
                 { text: "The warmth of your hand... I forget what I was saying.", emotion: "love", effects: { bond: 11, affection: 3 } },
                 { text: "You touch me like I'm not a prince. Like I'm just... me.", emotion: "gentle", effects: { bond: 10, affection: 2 } }
             ],
             hand: [
-                { text: "*takes your hand formally, then intertwines fingers* ...Protocol doesn't cover this.", emotion: "shy", effects: { bond: 10, affection: 2 } },
+                { text: "*Takes your hand formally, then intertwines fingers* ...Protocol doesn't cover this.", emotion: "shy", effects: { bond: 10, affection: 2 } },
                 { text: "In the palace, we bow. We don't hold hands. I like your way better.", emotion: "happy", effects: { bond: 11, affection: 3 } },
                 { text: "Don't let the courtiers see. ...Actually, let them.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "Your hand fits in mine. That's not a metaphor. It just... does.", emotion: "gentle", effects: { bond: 10, affection: 2 } }
@@ -99,19 +99,19 @@
         },
         elian: {
             head: [
-                { text: "*goes very still* ...The animals do that too. When they trust.", emotion: "gentle", effects: { bond: 7, affection: 1 } },
+                { text: "*Goes very still* ...The animals do that too. When they trust.", emotion: "gentle", effects: { bond: 7, affection: 1 } },
                 { text: "My hair has leaves in it. You don't mind?", emotion: "shy", effects: { bond: 6, affection: 1 } },
                 { text: "...Hm. I understand why the wolves lean into this.", emotion: "happy", effects: { bond: 7, affection: 2 } },
                 { text: "That's... grounding. Like roots.", emotion: "gentle", effects: { bond: 8, affection: 1 } }
             ],
             face: [
-                { text: "*flinches, then holds steady* ...I'm not used to soft things.", emotion: "vulnerable", effects: { bond: 9, affection: 2 } },
+                { text: "*Flinches, then holds steady* ...I'm not used to soft things.", emotion: "vulnerable", effects: { bond: 9, affection: 2 } },
                 { text: "Your fingers smell like\u2014 nothing. City hands. I don't mind.", emotion: "gentle", effects: { bond: 8, affection: 2 } },
                 { text: "The forest doesn't touch gently. You do.", emotion: "love", effects: { bond: 10, affection: 2 } },
                 { text: "I've tracked animals by the warmth of their prints. Yours is... different.", emotion: "curious", effects: { bond: 9, affection: 2 } }
             ],
             hand: [
-                { text: "*rough, calloused hand holds yours carefully* I might break you. I'll be careful.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
+                { text: "*Rough, calloused hand holds yours carefully* I might break you. I'll be careful.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
                 { text: "I've held injured birds steadier than this. Sorry. I'm nervous.", emotion: "shy", effects: { bond: 11, affection: 3 } },
                 { text: "Warmth. Real warmth. Not fire, not sun. Just... you.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "My hands aren't soft. They've done hard things. But they'll be gentle for you.", emotion: "gentle", effects: { bond: 10, affection: 2 } }
@@ -139,19 +139,19 @@
         },
         noir: {
             head: [
-                { text: "You dare\u2014 *pauses* ...brave little thing.", emotion: "cheeky", effects: { bond: 6, affection: 1, corruption: 2 } },
+                { text: "You dare\u2014 *Pauses* ...brave little thing.", emotion: "cheeky", effects: { bond: 6, affection: 1, corruption: 2 } },
                 { text: "Most who touch me don't keep their hand. You're special.", emotion: "gentle", effects: { bond: 7, affection: 1, corruption: 2 } },
                 { text: "The darkness in my hair could swallow your fingers. But not today.", emotion: "love", effects: { bond: 8, affection: 2, corruption: 2 } },
-                { text: "*low laugh* Domesticating the void. How quaint.", emotion: "cheeky", effects: { bond: 5, affection: 1, corruption: 3 } }
+                { text: "*Low laugh* Domesticating the void. How quaint.", emotion: "cheeky", effects: { bond: 5, affection: 1, corruption: 3 } }
             ],
             face: [
-                { text: "*catches your wrist* Careful. This face has devoured stronger souls.", emotion: "intense", effects: { bond: 9, affection: 2, corruption: 3 } },
+                { text: "*Catches your wrist* Careful. This face has devoured stronger souls.", emotion: "intense", effects: { bond: 9, affection: 2, corruption: 3 } },
                 { text: "You touch me like I'm something worth saving. Dangerous assumption.", emotion: "vulnerable", effects: { bond: 10, affection: 2, corruption: 2 } },
                 { text: "...No one has been gentle with me. In centuries.", emotion: "gentle", effects: { bond: 11, affection: 3, corruption: 2 } },
                 { text: "Your fingers trace where the seal burns. It hurts less when you touch it.", emotion: "love", effects: { bond: 10, affection: 2, corruption: 3 } }
             ],
             hand: [
-                { text: "*cold fingers wrap around yours* My touch corrodes. Still want this?", emotion: "gentle", effects: { bond: 10, affection: 2, corruption: 3 } },
+                { text: "*Cold fingers wrap around yours* My touch corrodes. Still want this?", emotion: "gentle", effects: { bond: 10, affection: 2, corruption: 3 } },
                 { text: "Your warmth burns. I want more.", emotion: "love", effects: { bond: 12, affection: 3, corruption: 3 } },
                 { text: "Don't let go. I might forget what it feels like to be held.", emotion: "vulnerable", effects: { bond: 11, affection: 3, corruption: 2 } },
                 { text: "A soul weaver holding hands with a mortal. The others would laugh. I don't care.", emotion: "love", effects: { bond: 10, affection: 2, corruption: 3 } }

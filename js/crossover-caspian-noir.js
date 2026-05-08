@@ -1,10 +1,10 @@
-/* crossover-caspian-noir.js — "The Mirror Princes"
+/* crossover-caspian-noir.js."The Mirror Princes"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossCaspianNoir.
+ * Registers window. MSCrossCaspianNoir.
  *
  * Both princes. Both charm widely. Both love one. Caspian's grandmother
  * sealed Noir six centuries ago over the same woman who tangled their
- * bloodlines. They are mirrors \u2014 one light, one dark \u2014 and they have
+ * bloodlines. They are mirrors.one light, one dark.and they have
  * never been in a room together until the player brought them there.
  *
  * This scene is about two men recognising each other as the same animal,
@@ -41,8 +41,9 @@
     if (text) e.textContent = text;
     return e;
   }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -133,7 +134,8 @@
   }
 
   function say(n, name, text, cps) {
-    n.speaker.textContent = name;
+    if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); }
+    else { n.speaker.textContent = name; }
     return type(n.line, text, cps || 22);
   }
 
@@ -156,70 +158,70 @@
     n.dialogue.style.transform = 'translateY(0)';
 
     try {
-      n.speaker.textContent = '\u2014 PALACE TERRACE, MIDNIGHT, TEA FOR THREE \u2014';
-      await type(n.line, 'Caspian has invited Noir to the palace. \u2014 Privately. Through a door no courier knows about. \u2014 The Weaver brought them both there. \u2014 Neither man has seen the other in six hundred years. One of them was under stone for most of it.', 22);
+      n.speaker.textContent = 'PALACE TERRACE, MIDNIGHT, TEA FOR THREE';
+      await type(n.line, 'Caspian has invited Noir to the palace. Privately. Through a door no courier knows about. The Weaver brought them both there. Neither man has seen the other in six hundred years. One of them was under stone for most of it.', 22);
       await wait(2800);
 
       n.noir.wrap.style.opacity = '1';
       n.noir.wrap.style.transform = 'translateY(0) scale(1)';
       await wait(900);
 
-      await type(n.line, '*Noir enters through the terrace door \u2014 not the main one. Of course not. Caspian is already seated. Tea has been steeped. There is a third cup, untouched, for the Weaver.*', 22);
+      await type(n.line, '*Noir enters through the terrace door, not the main one. Of course not. Caspian is already seated. Tea has been steeped. There is a third cup, untouched, for the Weaver.*', 22);
       await wait(3200);
 
       // BEAT 1: Caspian speaks first. He is the host.
-      await say(n, 'CASPIAN', '*rises, inclines his head, the precise half-bow one gives family one has never met* \u2014 Prince Noctalis. \u2014 I hope the terrace door was \u2026 adequate.', 22);
+      await say(n, 'CASPIAN', '*Rises, inclines his head, the precise half-bow one gives family one has never met*. Prince Noctalis. I hope the terrace door was \u2026 adequate.', 22);
       await wait(2800);
 
-      await say(n, 'NOIR', '*mirrors the bow, slower, older* \u2014 It was. \u2014 Crown Prince. \u2014 \u2026You look like your grandfather. \u2014 The good half of him.', 22);
+      await say(n, 'NOIR', '*Mirrors the bow, slower, older*. It was. Crown Prince.\u2026You look like your grandfather. The good half of him.', 22);
       await wait(3000);
 
-      // BEAT 2: The recognition \u2014 both men see the other is wearing the charm
+      // BEAT 2: The recognition.both men see the other is wearing the charm
       n.caspian.img.src = CASP_ALT;
       n.noir.img.src    = NOIR_ALT;
-      await say(n, 'CASPIAN', '*small, exact smile \u2014 drops it* \u2014 You have been charming me. \u2014 For forty seconds. \u2014 It is very well done. \u2014 I recognise the technique. \u2014 My grandmother drilled it into me before I could read.', 22);
+      await say(n, 'CASPIAN', '*Small, exact smile. Drops it*. You have been charming me. For forty seconds. It is very well done. I recognise the technique. My grandmother drilled it into me before I could read.', 22);
       await wait(3600);
 
-      await say(n, 'NOIR', '*a low laugh, the first real one in six centuries* \u2014 And you have been charming me. \u2014 For the same forty seconds. \u2014 Better than I expected. \u2014 Our family has kept the trick.', 22);
+      await say(n, 'NOIR', '*A low laugh, the first real one in six centuries*. And you have been charming me. For the same forty seconds. Better than I expected. Our family has kept the trick.', 22);
       await wait(3400);
 
       // BEAT 3: Caspian drops it first
-      await say(n, 'CASPIAN', 'I would rather not charm you tonight, cousin. \u2014 It would feel like lying to kin.', 22);
+      await say(n, 'CASPIAN', 'I would rather not charm you tonight, cousin. It would feel like lying to kin.', 22);
       await wait(2800);
 
-      await say(n, 'NOIR', '\u2026You too. \u2014 Let us be the other thing we are. \u2014 Tired.', 22);
+      await say(n, 'NOIR', '\u2026You too. Let us be the other thing we are. Tired.', 22);
       await wait(2600);
 
       // BEAT 4: The tangled family line, named
-      await say(n, 'CASPIAN', 'My grandfather loved the same woman you loved. \u2014 My grandmother sealed you over it. \u2014 The tangle that made me prince made you a ghost. \u2014 I have inherited the charm. I have inherited the lore. \u2014 I have not inherited her cruelty. \u2014 I hope.', 22);
+      await say(n, 'CASPIAN', 'My grandfather loved the same woman you loved. My grandmother sealed you over it. The tangle that made me prince made you a ghost. I have inherited the charm. I have inherited the lore. I have not inherited her cruelty. I hope.', 22);
       await wait(4000);
 
-      await say(n, 'NOIR', '*looks at him a long time* \u2014 You have not. \u2014 I have been in the seal long enough to tell the difference. \u2014 The cruelty was hers. \u2014 The charm was ours, she only sharpened it into a knife. \u2014 You still have it as a door.', 22);
+      await say(n, 'NOIR', '*Looks at him a long time*. You have not. I have been in the seal long enough to tell the difference. The cruelty was hers. The charm was ours, she only sharpened it into a knife. You still have it as a door.', 22);
       await wait(3800);
 
-      // BEAT 5: The vow \u2014 coordinate to protect the Weaver
-      await say(n, 'CASPIAN', 'The Weaver is both of ours. \u2014 I do not mean romantically. \u2014 I mean politically. \u2014 My grandmother is hunting her. \u2014 Your kind, our kind, have both been hunted by her. \u2014 I would like to coordinate.', 22);
+      // BEAT 5: The vow.coordinate to protect the Weaver
+      await say(n, 'CASPIAN', 'The Weaver is both of ours. I do not mean romantically. I mean politically. My grandmother is hunting her. Your kind, our kind, have both been hunted by her. I would like to coordinate.', 22);
       await wait(3600);
 
-      await say(n, 'NOIR', '\u2026I will accept. \u2014 You take the day. I take the night. \u2014 You take the court. I take the seal-work that still leaks. \u2014 We do not let this one go the way Veyra went. \u2014 Agreed?', 22);
+      await say(n, 'NOIR', '\u2026I will accept. You take the day. I take the night. You take the court. I take the seal-work that still leaks. We do not let this one go the way Veyra went. Agreed?', 22);
       await wait(3600);
 
-      await say(n, 'CASPIAN', 'Agreed. \u2014 *lifts his cup* \u2014 To not repeating our family\u2019s mistakes.', 22);
+      await say(n, 'CASPIAN', 'Agreed. *Lifts his cup*. To not repeating our family\u2019s mistakes.', 22);
       await wait(2400);
 
-      await say(n, 'NOIR', '*lifts his* \u2014 To repeating only the good parts of them. \u2014 The love. None of the rest.', 22);
+      await say(n, 'NOIR', '*Lifts his*. To repeating only the good parts of them. The love. None of the rest.', 22);
       await wait(2800);
 
       // BEAT 6: The player acknowledged
-      await say(n, 'CASPIAN', '*sets his cup down, turns to the Weaver* \u2014 You are the first person in six generations to be loved by both halves of this family at once. \u2014 We intend to do it right. \u2014 Do not argue.', 22);
+      await say(n, 'CASPIAN', '*Sets his cup down, turns to the Weaver*. You are the first person in six generations to be loved by both halves of this family at once. We intend to do it right. Do not argue.', 22);
       await wait(3400);
 
-      await say(n, 'NOIR', '*the small ancient smile returns* \u2014 Hmm. \u2014 He sounds like me. \u2014 I like him. \u2014 Reluctantly.', 22);
+      await say(n, 'NOIR', '*The small ancient smile returns*. Hmm. He sounds like me. I like him. Reluctantly.', 22);
       await wait(2800);
 
       // Closing
       n.speaker.textContent = '';
-      await type(n.line, 'Noir leaves through the window. \u2014 Of course. \u2014 Caspian watches him go. \u2014 The Weaver watches Caspian watch him go. \u2014 Caspian turns, pours her more tea, does not comment. \u2014 Something six hundred years broken just became something that can be put back.', 22);
+      await type(n.line, 'Noir leaves through the window. Of course. Caspian watches him go. The Weaver watches Caspian watch him go. Caspian turns, pours her more tea, does not comment. Something six hundred years broken just became something that can be put back.', 22);
       await wait(3400);
 
       n.root.style.opacity = '0';
@@ -251,7 +253,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -273,7 +275,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
   else boot();
 
-  window.MSCrossCaspianNoir = {
+  window. MSCrossCaspianNoir = {
     play, force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); } catch (_) {} }, seenKey: FLAG_SEEN
   };

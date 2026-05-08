@@ -227,14 +227,9 @@ const ACHIEVEMENTS = [
         secret: true,
         check: (g) => g.revivedOnce === true
     },
-    {
-        id: "fashion",
-        name: "New Look",
-        icon: "👔",
-        description: "Changed their outfit",
-        secret: false,
-        check: (g) => g.currentOutfit !== (g.selectedCharacter === 'lyra' ? 'default' : 'knight')
-    },
+    // ("New Look" / fashion achievement removed May 2026 along with the
+    //  rest of the outfit system — the feature was already unreachable
+    //  from the UI, this achievement could never trigger.)
     {
         id: "full_stats",
         name: "Perfect Care",

@@ -1,6 +1,6 @@
-/* crossover-alistair-lucien.js \u2014 "The Watch and the Tower"
+/* crossover-alistair-lucien.js."The Watch and the Tower"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossAlistairLucien.
+ * Registers window. MSCrossAlistairLucien.
  *
  * Alistair has been sleeping by the player's door. Wards have started
  * sounding wrong on the south wall. Tonight he climbs Lucien's tower for
@@ -34,8 +34,9 @@
   let _rootEl = null;
 
   function el(tag, css, text) { const e = document.createElement(tag); if (css) e.style.cssText = css; if (text) e.textContent = text; return e; }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -115,7 +116,7 @@
     return { root, al, luc, dialogue, line, speaker };
   }
 
-  function say(n, name, text, cps) { n.speaker.textContent = name; return type(n.line, text, cps || 22); }
+  function say(n, name, text, cps) { if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); } else { n.speaker.textContent = name; } return type(n.line, text, cps || 22); }
 
   async function play(onDone) {
     if (_rootEl) { try { onDone && onDone(); } catch (_) {} return; }
@@ -140,22 +141,22 @@
 
     try {
       // Setup
-      n.speaker.textContent = '\u2014 LUCIEN\u2019S TOWER, 2 A.M., FIRST TIME ALISTAIR HAS CLIMBED THE STAIRS \u2014';
-      await type(n.line, 'Alistair has knocked on the tower door. \u2014 Alistair does not knock on tower doors. \u2014 Lucien sets the pen down with deliberate care, turns the page facedown, and lets him in.', 22);
+      n.speaker.textContent = 'LUCIEN\u2019S TOWER, 2 A. M., FIRST TIME ALISTAIR HAS CLIMBED THE STAIRS';
+      await type(n.line, 'Alistair has knocked on the tower door. Alistair does not knock on tower doors. Lucien sets the pen down with deliberate care, turns the page facedown, and lets him in.', 22);
       await wait(3000);
 
       // Lucien opens
-      await say(n, 'LUCIEN', '*small bow* \u2014 Captain. \u2014 You are nine years late. \u2014 Tea?', 22);
+      await say(n, 'LUCIEN', '*Small bow*. Captain. You are nine years late. Tea?', 22);
       await wait(2400);
 
       // Alistair, formal but tired
       n.al.img.src = AL_ALT;
-      await say(n, 'ALISTAIR', '*remains standing* \u2014 No, sir. \u2014 \u2026Yes. \u2014 Forgive the hour. The wards on the south wall have been sounding wrong for three nights.', 22);
+      await say(n, 'ALISTAIR', '*Remains standing*. No, sir.\u2026Yes. Forgive the hour. The wards on the south wall have been sounding wrong for three nights.', 22);
       await wait(3000);
 
       // Lucien, alert
       n.luc.img.src = LUC_ALT;
-      await say(n, 'LUCIEN', 'I know. \u2014 They are not breaking. \u2014 They are being LISTENED TO. \u2014 Different problem. \u2014 Worse one. \u2014 You came up here for a counter-ward.', 22);
+      await say(n, 'LUCIEN', 'I know. They are not breaking. They are being LISTENED TO. Different problem. Worse one. You came up here for a counter-ward.', 22);
       await wait(3400);
 
       // Alistair, surprised
@@ -163,57 +164,57 @@
       await wait(2000);
 
       // Lucien, dryly amused
-      await say(n, 'LUCIEN', '*small smile* \u2014 Good. \u2014 The brave man does not climb my stairs at 2 a.m. for tea. \u2014 He climbs them for parchment.', 22);
+      await say(n, 'LUCIEN', '*Small smile*. Good. The brave man does not climb my stairs at 2 a.m. for tea. He climbs them for parchment.', 22);
       await wait(2800);
 
       // Lucien lays out a sheet
       await type(n.line, '*Lucien crosses to the desk, slides a fresh sheet free, dips a pen. The wards on the lintel hum politely. The room smells of old paper and lavender.*', 22);
       await wait(3000);
 
-      // Lucien works \u2014 the recognition
-      await say(n, 'LUCIEN', '*as he writes* \u2014 You sleep by her door. \u2014 The watchhouse has been talking. \u2014 I do not gossip. \u2014 I file. \u2014 You sleep by her door.', 22);
+      // Lucien works.the recognition
+      await say(n, 'LUCIEN', '*As he writes*. You sleep by her door. The watchhouse has been talking. I do not gossip. I file. You sleep by her door.', 22);
       await wait(3400);
 
       // Alistair, the smallest crack
       n.al.img.src = AL_POSE;
-      await say(n, 'ALISTAIR', '*low* \u2014 \u2026I do.', 22);
+      await say(n, 'ALISTAIR', '*Low*. \u2026I do.', 22);
       await wait(1800);
 
-      await say(n, 'LUCIEN', 'I write her name in the margins of my books. \u2014 The wards on this tower bow to her. \u2014 We are doing the same job. \u2014 Different rooms. \u2014 Same gate.', 22);
+      await say(n, 'LUCIEN', 'I write her name in the margins of my books. The wards on this tower bow to her. We are doing the same job. Different rooms. Same gate.', 22);
       await wait(3600);
 
       // Alistair, quiet
-      await say(n, 'ALISTAIR', '*looks at him, properly, for the first time in their acquaintance* \u2014 \u2026Yes, sir.', 22);
+      await say(n, 'ALISTAIR', '*Looks at him, properly, for the first time in their acquaintance*. \u2026Yes, sir.', 22);
       await wait(2200);
 
       // The exchange of currency
-      await say(n, 'LUCIEN', '*finishes the parchment, hands it over with ink-stained fingers* \u2014 Take this. \u2014 Burn it on the threshold of her door. \u2014 The wards will hold for two weeks. \u2014 Then climb the stairs again. \u2014 I will be awake.', 22);
+      await say(n, 'LUCIEN', '*Finishes the parchment, hands it over with ink-stained fingers*. Take this. Burn it on the threshold of her door. The wards will hold for two weeks. Then climb the stairs again. I will be awake.', 22);
       await wait(3800);
 
       // Alistair takes it carefully, like the relic it is
-      await say(n, 'ALISTAIR', '*takes the parchment with both hands* \u2014 Thank you, scholar. \u2014 \u2026I owe you. \u2014 The Guard owes you.', 22);
+      await say(n, 'ALISTAIR', '*Takes the parchment with both hands*. Thank you, scholar.\u2026I owe you. The Guard owes you.', 22);
       await wait(2800);
 
-      await say(n, 'LUCIEN', '*shakes his head, soft* \u2014 No. \u2014 SHE owes me. \u2014 You and I are not in the column of people she owes anything to. \u2014 We are in the column of people who owe HER. \u2014 Pleasant company, that column. Highly recommend.', 22);
+      await say(n, 'LUCIEN', '*Shakes his head, soft*. No. SHE owes me. You and I are not in the column of people she owes anything to. We are in the column of people who owe HER. Pleasant company, that column. Highly recommend.', 22);
       await wait(3800);
 
       // Alistair, almost a smile
-      await say(n, 'ALISTAIR', '*the smallest exhale that is almost a laugh* \u2014 \u2026Then I will see you in two weeks, sir.', 22);
+      await say(n, 'ALISTAIR', '*The smallest exhale that is almost a laugh*. \u2026Then I will see you in two weeks, sir.', 22);
       await wait(2400);
 
-      await say(n, 'LUCIEN', '*sets the pen down again, looks up, real* \u2014 Captain. \u2014 If I send for you in less than two weeks \u2014 come fast. \u2014 The wards on this tower do not sound wrong yet. \u2014 But if they do.', 22);
+      await say(n, 'LUCIEN', '*Sets the pen down again, looks up, real*. Captain. If I send for you in less than two weeks. Come fast. The wards on this tower do not sound wrong yet. But if they do.', 22);
       await wait(3400);
 
-      await say(n, 'ALISTAIR', 'I will be at this door in seven minutes from anywhere in the palace. \u2014 You have my word. Mi\u2019lord scholar.', 22);
+      await say(n, 'ALISTAIR', 'I will be at this door in seven minutes from anywhere in the palace. You have my word. Mi\u2019lord scholar.', 22);
       await wait(3000);
 
       // Closer
-      await say(n, 'LUCIEN', '\u2026I have not been called \u201cmi\u2019lord\u201d by my own surname in a decade. \u2014 *small* \u2014 Thank you. \u2014 Now go burn the parchment before the south wall hears us caring about her.', 22);
+      await say(n, 'LUCIEN', '\u2026I have not been called \u201cmi\u2019lord\u201d by my own surname in a decade. *Small*. Thank you. Now go burn the parchment before the south wall hears us caring about her.', 22);
       await wait(3400);
 
       // Closing narration
       n.speaker.textContent = '';
-      await type(n.line, 'Alistair leaves with the parchment held flat against his chest, the way one carries something that just became holy. \u2014 Lucien picks up the pen again. \u2014 Two more men in the realm are now openly guarding the same door. \u2014 The Dowager will sense it. \u2014 So will Noir, somewhere underneath. \u2014 Neither of these two is afraid of either of them tonight.', 22);
+      await type(n.line, 'Alistair leaves with the parchment held flat against his chest, the way one carries something that just became holy. Lucien picks up the pen again. Two more men in the realm are now openly guarding the same door. The Dowager will sense it. So will Noir, somewhere underneath. Neither of these two is afraid of either of them tonight.', 22);
       await wait(4400);
 
       n.root.style.opacity = '0';
@@ -245,7 +246,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -264,7 +265,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
   else boot();
 
-  window.MSCrossAlistairLucien = {
+  window. MSCrossAlistairLucien = {
     play,
     force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); } catch (_) {} },

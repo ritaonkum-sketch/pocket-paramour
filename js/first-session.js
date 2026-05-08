@@ -44,7 +44,7 @@
     const QUIET_LINES = {
         alistair: [
             "You've been here all morning.",
-            "Most people leave after five minutes. You're still here.",
+            "Most people leave before the first bell. You're still here.",
             "...I'm glad. That's all."
         ],
         lyra: [

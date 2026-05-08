@@ -1,6 +1,6 @@
-/* crossover-noir-lyra.js — "The Song"
+/* crossover-noir-lyra.js."The Song"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossNoirLyra.
+ * Registers window. MSCrossNoirLyra.
  *
  * WHAT THIS SCENE DOES:
  *   Lyra hums. Noir hears it. He taught the melody to her mother's people
@@ -9,18 +9,18 @@
  *   last one who still knows the song. She does not know who he is.
  *
  *   This scene is the MELODY RECOGNITION. It is tender. It is the moment
- *   Noir drops every mask he has \u2014 no seduction, no chin-lift, no
+ *   Noir drops every mask he has.no seduction, no chin-lift, no
  *   "Hmm." He is Prince Corvin Noctalis, who loved a vanished people,
  *   hearing his own old song hummed back at him by their last daughter.
  *
  *   Then he teaches Lyra the second verse. The one her mother never
- *   learned \u2014 the hunters came first. Lyra is the first person in 600
+ *   learned.the hunters came first. Lyra is the first person in 600
  *   years to hear it. She will carry it from now on.
  *
  *   Pays off:
  *   - Existing lore: "Her cave was mine first. I left her the acoustics."
  *   - Noir's new whisper (post voice-pass): "I taught her mother's people
- *     a song, once. \u2014 I do not think she knows that. \u2014 Do not tell her.
+ *     a song, once. I do not think she knows that. Do not tell her.
  *     Yet."
  *   - Lyra's unseal epilogue: "He said he had taught a young siren a
  *     song, six hundred years ago. I hummed it back."
@@ -37,12 +37,12 @@
  *   - pp_cross_noir_lyra_seen = '1'
  *
  * VOICE DIRECTION:
- *   Noir \u2014 no seduction tonight. No "Mm." as punctuation. The mask is
+ *   Noir.no seduction tonight. No "Mm." as punctuation. The mask is
  *   OFF. He is gentler than any scene he has ever been in. Six hundred
  *   years of held grief come out as near-whispers. He treats her with
- *   the same reverence one gives a relic \u2014 because she is one. The last
+ *   the same reverence one gives a relic.because she is one. The last
  *   of a people he knew.
- *   Lyra \u2014 shifts from sovereign-siren to girl-who-just-found-someone-
+ *   Lyra.shifts from sovereign-siren to girl-who-just-found-someone-
  *   who-knew-her-mother's-kind. The staff stops humming. The cave
  *   stops echoing. She listens with her whole body.
  *
@@ -78,8 +78,10 @@
     if (text) e.textContent = text;
     return e;
   }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    // Stage-direction styling — delegate to shared helper if loaded.
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -123,7 +125,7 @@
     bgImg.src = BG_SRC;
     root.appendChild(bg);
 
-    // Melody ripples \u2014 subtle blue-purple waves, pulse when the song lands
+    // Melody ripples.subtle blue-purple waves, pulse when the song lands
     if (!document.getElementById('ms-keyframes-noir-lyra')) {
       const kf = document.createElement('style');
       kf.id = 'ms-keyframes-noir-lyra';
@@ -204,7 +206,8 @@
   }
 
   function say(n, name, text, cps) {
-    n.speaker.textContent = name;
+    if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); }
+    else { n.speaker.textContent = name; }
     return type(n.line, text, cps || 22);
   }
 
@@ -231,13 +234,13 @@
 
     try {
       // ---- BEAT 1: the cave. Lyra is humming. -----------------------
-      n.speaker.textContent = '\u2014 LYRA\u2019S CAVE, LATE TIDE, NO MOON \u2014';
-      await type(n.line, 'She is humming. \u2014 Her mother\u2019s song. \u2014 The third verse, which she never finishes, because it was the last verse her mother taught her before the hunters came.', 22);
+      n.speaker.textContent = 'LYRA\u2019S CAVE, LATE TIDE, NO MOON';
+      await type(n.line, 'She is humming. Her mother\u2019s song. The third verse, which she never finishes, because it was the last verse her mother taught her before the hunters came.', 22);
       await wait(2800);
       n.pulseRipple();
       await wait(1600);
 
-      await type(n.line, 'Something enters the cave mouth. \u2014 Quiet enough that the tide does not notice. \u2014 She does not notice. \u2014 He does not want her to notice yet. \u2014 He is listening.', 22);
+      await type(n.line, 'Something enters the cave mouth. Quiet enough that the tide does not notice. She does not notice. He does not want her to notice yet. He is listening.', 22);
       await wait(2800);
 
       // ---- BEAT 2: Noir, listening from the entrance ---------------
@@ -256,7 +259,7 @@
       await wait(2800);
 
       // ---- BEAT 4: Noir, plain and quiet ----------------------------
-      await say(n, 'NOIR', 'Do not stop. \u2014 Please. \u2014 Finish the verse.', 22);
+      await say(n, 'NOIR', 'Do not stop. Please. Finish the verse.', 22);
       await wait(2400);
 
       // ---- BEAT 5: Lyra, wary -------------------------------------
@@ -265,7 +268,7 @@
 
       // ---- BEAT 6: Noir, the reveal in two halves ------------------
       n.noir.img.src = NOIR_ALT;
-      await say(n, 'NOIR', 'Because I taught it to your mother\u2019s people. \u2014 Before your mother was born. \u2014 Before her mother was born. \u2014 I thought all of you were gone. \u2014 You are not all gone.', 20);
+      await say(n, 'NOIR', 'Because I taught it to your mother\u2019s people. Before your mother was born. Before her mother was born. I thought all of you were gone. You are not all gone.', 20);
       await wait(3800);
 
       // ---- BEAT 7: Lyra stops breathing -----------------------------
@@ -273,14 +276,14 @@
       await wait(3000);
 
       // ---- BEAT 8: Lyra, small ---------------------------------------
-      await say(n, 'LYRA', 'My mother taught me. \u2014 Before she died. \u2014 She said one man had given her people the song. \u2014 She said he was a prince. \u2014 She said he was sealed under stone.', 20);
+      await say(n, 'LYRA', 'My mother taught me. Before she died. She said one man had given her people the song. She said he was a prince. She said he was sealed under stone.', 20);
       await wait(3400);
 
       // ---- BEAT 9: Noir confirms, quietly -----------------------------
-      await say(n, 'NOIR', 'He was. \u2014 He is no longer. \u2014 He is standing in your cave. \u2014 He did not know there was anyone left to hear it.', 20);
+      await say(n, 'NOIR', 'He was. He is no longer. He is standing in your cave. He did not know there was anyone left to hear it.', 20);
       await wait(3000);
 
-      // ---- BEAT 10: Lyra \u2014 a single word -------------------------
+      // ---- BEAT 10: Lyra.a single word -------------------------
       await say(n, 'LYRA', 'Corvin.', 22);
       await wait(2200);
 
@@ -288,7 +291,7 @@
       await type(n.line, '*Noir closes his eyes. A very long pause. When he opens them, he has been crying silently.*', 22);
       await wait(3000);
 
-      await say(n, 'NOIR', 'No one has said that name \u2026 properly \u2026 in six hundred years. \u2014 Except the new Weaver. \u2014 And now you. \u2014 \u2026Your mother\u2019s mouth taught yours to say it. \u2014 That is \u2014 \u2014', 22);
+      await say(n, 'NOIR', 'No one has said that name \u2026 properly \u2026 in six hundred years. \u2026Your mother\u2019s mouth taught yours to say it. That is.', 22);
       await wait(3400);
 
       await say(n, 'NOIR', 'I am going to need a moment.', 22);
@@ -299,33 +302,33 @@
       await wait(2800);
 
       // ---- BEAT 13: Lyra, the gift --------------------------------
-      await say(n, 'LYRA', 'There is a third verse. \u2014 My mother taught me a version. \u2014 I think she learned it broken. \u2014 The hunters came before she finished learning.', 20);
+      await say(n, 'LYRA', 'There is a third verse. My mother taught me a version. I think she learned it broken. The hunters came before she finished learning.', 20);
       await wait(3400);
 
-      // ---- BEAT 14: Noir \u2014 the teaching move ---------------------
-      await say(n, 'NOIR', '*small, almost a smile* \u2014 I can finish it for you. \u2014 If you will let me.', 22);
+      // ---- BEAT 14: Noir.the teaching move ---------------------
+      await say(n, 'NOIR', '*Small, almost a smile*. I can finish it for you. If you will let me.', 22);
       await wait(2800);
 
       n.pulseRipple();
 
       // ---- BEAT 15: the song completes ----------------------------
-      await type(n.line, '*He hums the melody. She joins. The first verse is hers. The second is his. The third he sings alone \u2014 slowly, in a language the sea has not heard in six centuries. She listens with her whole body. When he stops, she does not speak for a long time.*', 22);
+      await type(n.line, '*He hums the melody. She joins. The first verse is hers. The second is his. The third he sings alone, slowly, in a language the sea has not heard in six centuries. She listens with her whole body. When he stops, she does not speak for a long time.*', 22);
       await wait(4200);
       n.pulseRipple();
       await wait(1600);
 
-      await say(n, 'LYRA', '*quiet, wrecked, steady* \u2014 That is the verse. \u2014 That is the one my mother was reaching for.', 20);
+      await say(n, 'LYRA', '*Quiet, wrecked, steady*. That is the verse. That is the one my mother was reaching for.', 20);
       await wait(2800);
 
-      await say(n, 'NOIR', 'She got close. \u2014 Tell her, if the water carries. \u2014 She got close.', 22);
+      await say(n, 'NOIR', 'She got close. Tell her, if the water carries. She got close.', 22);
       await wait(3000);
 
       // ---- BEAT 16: Noir, the boundary -----------------------------
-      await say(n, 'NOIR', 'I will not teach you more verses tonight. \u2014 You will need to sit with this one for a while. \u2014 I will come back, if you ask. \u2014 I will not come back, if you do not. \u2014 Either is honourable.', 22);
+      await say(n, 'NOIR', 'I will not teach you more verses tonight. You will need to sit with this one for a while. I will come back, if you ask. I will not come back, if you do not. Either is honourable.', 22);
       await wait(3600);
 
       // ---- BEAT 17: Lyra, small but sovereign -----------------------
-      await say(n, 'LYRA', '*small* \u2014 Come back. \u2014 My mother would have wanted to hear you finish it. \u2014 I am doing what she could not.', 22);
+      await say(n, 'LYRA', '*Small*. Come back. My mother would have wanted to hear you finish it. I am doing what she could not.', 22);
       await wait(3200);
 
       // ---- BEAT 18: the player as witness ----------------------------
@@ -333,7 +336,7 @@
       await type(n.line, '*Noir bows, ancient and gracious, to the player and then to Lyra. He steps back into the dark of the cave entrance. He is gone.*', 22);
       await wait(2600);
 
-      await type(n.line, 'Lyra sits down where she stood. \u2014 She puts her hand on the cave floor. \u2014 Six hundred years of her mother\u2019s kind, and one voice who remembered them. \u2014 She holds it quietly. \u2014 You sit with her. \u2014 She does not let you go for a long time.', 22);
+      await type(n.line, 'Lyra sits down where she stood. She puts her hand on the cave floor. Six hundred years of her mother\u2019s kind, and one voice who remembered them. She holds it quietly. You sit with her. She does not let you go for a long time.', 22);
       await wait(3600);
 
       n.root.style.opacity = '0';
@@ -367,7 +370,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -404,7 +407,7 @@
     boot();
   }
 
-  window.MSCrossNoirLyra = {
+  window. MSCrossNoirLyra = {
     play,
     force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); } catch (_) {} },

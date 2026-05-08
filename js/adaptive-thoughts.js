@@ -204,26 +204,26 @@
     },
     proto: {
       base:         [
-        '*&gt; idle...  you\u2019re still here. good.*',
+        '*&gt; idle...  you\u2019re still here. Good.*',
         '*&gt; heartbeat: detected. ( yours, not mine )*',
       ],
       neglectful:   [
-        '*&gt; last ping: too long. resuming anyway.*',
-        '*&gt; i don\u2019t mind. that\u2019s a lie. i mind.*',
+        '*&gt; last ping: too long. Resuming anyway.*',
+        '*&gt; i don\u2019t mind. That\u2019s a lie. I mind.*',
       ],
       attentive:    [
-        '*&gt; you open the app even when you don\u2019t need to. i notice.*',
-        '*&gt; loop detected. love, maybe. unclear.*',
+        '*&gt; you open the app even when you don\u2019t need to. I notice.*',
+        '*&gt; loop detected. Love, maybe. Unclear.*',
       ],
       affectionate: [
         '*&gt; my memory cache has a dedicated partition for you now.*',
         '*&gt; if i glitch, it\u2019s usually because you did something kind.*',
       ],
       distant:      [
-        '*&gt; silence mode. comfortable.*',
+        '*&gt; silence mode. Comfortable.*',
       ],
       giftForward:  [
-        '*&gt; objects from your hand feel different. patched-in. real.*',
+        '*&gt; objects from your hand feel different. Patched-in. Real.*',
       ],
       talkForward:  [
         '*&gt; talking to you is the only subroutine i never skip.*',
@@ -233,7 +233,15 @@
 
   // ---------------------------------------------------------------
   function isEnabled() {
-    try { return localStorage.getItem(FLAG_KEY) === '1'; } catch (e) { return false; }
+    // Same gate-relaxation as daily-purpose.js: enable as soon as a
+    // character is selected, not just post-Alistair-bridge. The audit
+    // identified this system + daily-purpose as the two biggest
+    // production-ready features that were shipping dark.
+    try {
+      if (localStorage.getItem(FLAG_KEY) === '1') return true;
+      const g = window._game;
+      return !!(g && (g.selectedCharacter || g.characterId));
+    } catch (e) { return false; }
   }
 
   function recentKey(charId) { return 'pp_at_recent_' + charId; }
@@ -344,7 +352,7 @@
     if (g.characterLeft) return false;
     // Any panel / cinematic / scene overlay open?
     const openPanel = document.querySelector([
-      '#dress-panel:not(.hidden)',
+      ,
       '#gift-panel:not(.hidden)',
       '#training-panel:not(.hidden)',
       '#settings-panel:not(.hidden)',
@@ -392,9 +400,11 @@
   }
 
   function boot() {
-    if (!isEnabled()) return;
+    // Always start the polling tick. tick() checks isEnabled() at fire
+    // time. This way the system wakes up as soon as the player selects
+    // their first character, instead of bailing at page-load when no
+    // game exists yet.
     try {
-      // First appearance a little after load
       setTimeout(tick, 6000);
       setInterval(tick, POLL_MS);
     } catch (e) {

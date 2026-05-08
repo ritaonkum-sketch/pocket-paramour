@@ -1,4 +1,4 @@
-/* onboarding-flow.js \u2014 the first ten minutes guided tour
+/* onboarding-flow.js.the first ten minutes guided tour
  * ============================================================================
  * WHY THIS EXISTS:
  *   A fresh player who installs Pocket Paramour will hit two parallel modes
@@ -18,7 +18,7 @@
  *   - 800ms have passed since the select screen rendered (so it does not
  *     compete with the world intro)
  *
- *   It also auto-disables once the player picks a character \u2014 no point
+ *   It also auto-disables once the player picks a character.no point
  *   replaying it after they have made their first choice.
  *
  * WHAT IT DOES:
@@ -34,7 +34,6 @@
  *
  * SAFETY CONTRACT:
  *   Additive. No edits to other files. Self-disables once flag is set.
- *   Never runs if pp_dev_panel = '1' (don't get in the dev's way).
  * ============================================================================
  */
 
@@ -42,7 +41,6 @@
   'use strict';
 
   const FLAG_DONE     = 'pp_onboarding_complete';
-  const FLAG_DEV      = 'pp_dev_panel';
   const FLAG_INTRO    = 'pp_world_intro_seen';
   const POLL_MS       = 1500;
   const FIRST_DELAY_MS = 1500;
@@ -52,14 +50,13 @@
 
   function shouldFire() {
     if (lsGet(FLAG_DONE) === '1') return false;
-    if (lsGet(FLAG_DEV) === '1') return false;
     // TIMING: fires after Bridge Alistair + Chapter 1 are done, when the
     // player first lands back on the select grid. The auto-chain pushes
     // straight from world intro → Arrival → Bridge Alistair → Chapter 1
-    // without ever pausing on the blank select grid — so the old "step
+    // without ever pausing on the blank select grid.so the old "step
     // must be 0" gate meant onboarding never fired in normal play. The
     // new gate allows step 1 (Alistair done) but bails at step 2+ (player
-    // has met a second character — onboarding moment has passed).
+    // has met a second character.onboarding moment has passed).
     try {
       const step = parseInt(lsGet('pp_chain_step') || '0', 10);
       if (step >= 2) { lsSet(FLAG_DONE, '1'); return false; }
@@ -86,7 +83,7 @@
     if (document.querySelector('#ms-encounter-root')) return false;
     if (document.querySelector('#chp-page')) return false;
     // CRITICAL: don't fire if the player is already in the care game
-    // (game-container visible). Onboarding is "BEFORE YOU PICK" — once they
+    // (game-container visible). Onboarding is "BEFORE YOU PICK".once they
     // have picked a character and started caring, this card is irrelevant
     // and feels like an interruption.
     const game = document.getElementById('game-container');
@@ -109,18 +106,25 @@
   }
 
   // --- Card content --------------------------------------------------------
+  // Rewritten May 2026 (owner request): the previous Card 1 spoiled the
+  // entire main-story arc by naming the player as "the Seventh Weaver" and
+  // saying "six came before you. None survived" before the player had
+  // earned any of those reveals through gameplay (Lyra Ch7 "Weaver" naming,
+  // Lucien Ch14 catch, Proto midnight, Aenor interlude). The slow-burn
+  // torn-page arc requires the player to NOT know yet. New onboarding is
+  // gameplay-mechanics-only with atmospheric hooks, no lore reveals.
   const CARDS = [
     {
-      eyebrow: '\u2014 BEFORE YOU PICK \u2014',
-      title: 'You are the Seventh Weaver.',
+      eyebrow: 'WELCOME',
+      title: 'Seven hearts are waiting.',
       body: [
-        'A soul who arrived in Aethermoor without memory.',
-        'Your gift is rare. Six of your kind came before you.',
-        'None survived. The kingdom has been waiting for you.'
+        'They will remember everything you do.',
+        'A gift is noticed. A silence is noticed twice.',
+        'They arrive one by one. How you meet them sets the tone.'
       ]
     },
     {
-      eyebrow: '\u2014 YOUR POWER \u2014',
+      eyebrow: 'YOUR POWER',
       title: 'Your bonds are the kingdom\u2019s magic.',
       body: [
         'Every connection you form lights a ward in the kingdom.',
@@ -129,20 +133,20 @@
       ]
     },
     {
-      eyebrow: '\u2014 HOW TO PLAY \u2014',
+      eyebrow: 'HOW TO PLAY',
       title: 'Two ways to spend time here.',
       body: [
-        'Pick anyone and care for them daily. Feed, talk, listen.',
-        'When you are ready for the bigger story, open the Main Story (pink chip, lower-left).',
-        'Both unlock together. Take it slow. They notice everything.'
+        'Care for them every day. Feed, wash, talk, listen.',
+        'When you are ready for the bigger story, tap the pink chip in the lower-left.',
+        'Both modes run together. Take your time. They notice everything.'
       ]
     },
     {
-      eyebrow: '\u2014 BEGIN \u2014',
+      eyebrow: 'BEGIN',
       title: 'Start with Alistair.',
       body: [
-        'He is the first thread in your weave \u2014 the only one open to you right now.',
-        'Care for him daily (feed, wash, talk) until your bond grows. Each bond you build unlocks the next character.',
+        'He is the first thread in your weave. The only one open to you right now.',
+        'Care for him daily until your bond grows. Each bond you build unlocks the next character.',
         'The story unfolds one heart at a time. Take it slow.'
       ]
     }
@@ -240,7 +244,7 @@
 
     const actions = document.createElement('div'); actions.className = 'pp-on-actions';
     // Card 1 has no previous, so it shows "Skip the tour" instead.
-    // Cards 2..N show "Previous" so the player can re-read an earlier card.
+    // Cards 2.N show "Previous" so the player can re-read an earlier card.
     const left = document.createElement('button'); left.className = 'pp-on-skip';
     if (idx === 0) {
       left.textContent = 'Skip the tour';
@@ -281,7 +285,7 @@
     document.body.appendChild(_root);
 
     // Hide the Main Story orb (the floating ✦ Main 4/26 chip) while the
-    // tour is up — the player should focus on the tour, not on whether
+    // tour is up.the player should focus on the tour, not on whether
     // to tap the orb. Restored in complete().
     const orb = document.getElementById('chp-orb');
     if (orb) orb.style.display = 'none';
@@ -311,7 +315,7 @@
     _running = false;
   }
 
-  // Listen for first character-card click \u2014 mark complete (in case they
+  // Listen for first character-card click.mark complete (in case they
   // skipped via the link or just dove in).
   function watchSelectGrid() {
     document.addEventListener('click', (e) => {

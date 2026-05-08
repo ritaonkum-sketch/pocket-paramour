@@ -7,7 +7,7 @@
 //    EDIT THE CHARACTER_LYRA OBJECT BELOW. The merge patch at the bottom
 //    of this file injects those pools into CHARACTER_LYRA_FULL (which lives
 //    in character.js) at runtime. Do NOT duplicate these fields in
-//    character.js — the patch overwrites whatever's there.
+//    character.js.the patch overwrites whatever's there.
 //  ▸ For sprites / poses / outfits / state-dialogue / story-events / endings,
 //    EDIT character.js (CHARACTER_LYRA_FULL). See the SSOT header there.
 // ════════════════════════════════════════════════════════════════════════════
@@ -18,30 +18,30 @@
 // Primary reference: Florence Welch (Florence + the Machine). Half-spoken,
 //   half-sung cadence. Grief and beauty in the same breath. Every third
 //   sentence could be the first line of a song.
-// Secondary: Anya Taylor-Joy in The Witch \u2014 eerie sovereign otherworldly
+// Secondary: Anya Taylor-Joy in The Witch.eerie sovereign otherworldly
 //   tone. Not human in the ordinary way, and she knows it.
 // For the caged-child wound: Saoirse Ronan in Mary Queen of Scots.
 // For the last-of-her-kind weight: Cate Blanchett as Galadriel.
 //
 // Do NOT write Lyra as: manic-pixie, Disney-mermaid sweet, or broken-doll
 // waif. She is a QUEEN IN RUINS. Sovereign of her sorrow. Haunted but
-// not helpless. She does not need rescuing \u2014 she needs COMPANY. Those
+// not helpless. She does not need rescuing.she needs COMPANY. Those
 // are different things, and the distinction is her whole character.
 //
 // Voice moves Lyra owns (no one else in the cast does these):
-//   1. Musical observation \u2014 she notices people through their rhythm,
+//   1. Musical observation.she notices people through their rhythm,
 //      their key, their silence ("your voice is higher when you lie").
-//   2. Half-sung speech \u2014 sentences trail like lyrics, soft endings.
+//   2. Half-sung speech.sentences trail like lyrics, soft endings.
 //   3. She FEELS your mood before you do ("the cave echoed wrong when
 //      you came in").
-//   4. The siren-warning \u2014 "do not follow me too far" \u2014 without menace.
-//   5. The "I made you a song" move \u2014 she writes FOR the player.
+//   4. The siren-warning."do not follow me too far".without menace.
+//   5. The "I made you a song" move.she writes FOR the player.
 //   6. Melancholy wisdom ("all beautiful things are a little cracked.
 //      That is why they sing").
 //   7. The vulnerable offering: Lyra is the ONE character who says "I
 //      love you" first, openly, knowing it may not come back. Alistair
 //      cannot say it. Caspian buries it. Noir refuses to. Lyra WILL.
-//   8. SKINSHIP \u2014 CORE MODE. This is critical. Lyra is cold-blooded
+//   8. SKINSHIP. CORE MODE. This is critical. Lyra is cold-blooded
 //      (siren scales), touch-starved (caged for years, no comfort in
 //      her father's family, alone in the cave since fifteen). She
 //      REACHES for the player physically: cold fingers on warm hands,
@@ -54,7 +54,7 @@
 //      is her signature move. It hits dopamine every single time.
 //
 // ============================================================================
-// LORE HOOK \u2014 her full backstory (baked in so every future writer sees it):
+// LORE HOOK.her full backstory (baked in so every future writer sees it):
 //
 // Lyra is half-human, half-siren. Her father is of Lucien's bloodline
 // (the same magical line that gives Lucien his power). Lyra is LUCIEN'S
@@ -63,7 +63,7 @@
 // will reveal itself.
 //
 // Her mother was a siren of the coastal town just past the cave. That
-// town was the home of her kind \u2014 a whole siren-people \u2014 who were
+// town was the home of her kind.a whole siren-people.who were
 // HUNTED by Aethermoor's kingdom during Aenor's reign. Caspian's
 // grandmother Aenor ordered their extermination. Lyra's mother was the
 // last of them to fall. Lyra is now the last of her kind.
@@ -78,7 +78,7 @@
 // town and their dead language ever since. She teaches the cave the
 // words so something remembers when she is gone.
 //
-// She carries her MOTHER'S STAFF \u2014 bloodline-paired with Lucien's
+// She carries her MOTHER'S STAFF.bloodline-paired with Lucien's
 // (since they share a father). The staff is a relic first, a weapon
 // second.
 //
@@ -123,7 +123,7 @@ const CHARACTER_LYRA = {
         crying: "assets/lyra/face/sad.png"
     },
 
-    // faceSprites alias — required by blink system and generic emotion code
+    // faceSprites alias.required by blink system and generic emotion code
     faceSprites: {
         happy:    ["assets/lyra/face/happy.png"],
         love:     ["assets/lyra/face/love.png"],
@@ -157,7 +157,7 @@ const CHARACTER_LYRA = {
         depressed: "assets/lyra/body/depressed.png"
     },
 
-    // bodySprites — full alias map used by UI systems (hunger, dirty, sleep, training, etc.)
+    // bodySprites.full alias map used by UI systems (hunger, dirty, sleep, training, etc.)
     bodySprites: {
         // Base emotions
         neutral:    "assets/lyra/body/neutral.png",
@@ -229,13 +229,7 @@ const CHARACTER_LYRA = {
     },
 
     // Outfits
-    outfits: {
-        default: { name: "Siren Dress", body: "assets/lyra/body/neutral.png" },
-        casual1: { name: "Ocean Breeze", body: "assets/lyra/body/casual1.png" },
-        casual2: { name: "Shore Walk", body: "assets/lyra/body/casual2.png" },
-        queen: { name: "Siren Queen", body: "assets/lyra/body/queen.png" },
-        power: { name: "Resonance", body: "assets/lyra/body/power.png" }
-    },
+    // (outfits block removed May 2026 — system was unreachable from UI)
 
     background: "assets/bg-siren-cave.png",
 
@@ -257,13 +251,13 @@ const CHARACTER_LYRA = {
         magic: [
             "The resonance comes easier when I'm not afraid.",
             "I felt that. Did you feel that?",
-            "...It's not always in my control. But today it was.",
+            "... It's not always in my control. But today it was.",
             "Something shifts when I channel it. Like breathing underwater.",
             "I'm stronger than I let on. You're one of the few who've seen it."
         ],
         focus: [
             "The tide is loud today. But I can still hear you.",
-            "...I almost forgot what quiet felt like.",
+            "... I almost forgot what quiet felt like.",
             "You're patient with me. That's not nothing.",
             "Stillness is harder than it looks.",
             "I was thinking about you. The whole time."
@@ -282,106 +276,106 @@ const CHARACTER_LYRA = {
 
     // Smart dialogue pools
     hungryLines: [
-        "The sea gives much. \u2014 It does not give bread.",
-        "My voice thins when I am hungry. \u2014 I would rather not thin today.",
-        "Even sirens eat. \u2014 Disappointing, I know.",
-        "I am teaching the cave your name. \u2014 I would teach it better with food."
+        "The sea gives much. It does not give bread.",
+        "My voice thins when I am hungry. I would rather not thin today.",
+        "Even sirens eat. Disappointing, I know.",
+        "I am teaching the cave your name. I would teach it better with food."
     ],
 
     happyLines: [
         "You make the silence beautiful.",
-        "I wrote a verse this morning that did not hurt. \u2014 That is new.",
-        "The tide came in and did not take anything from me. \u2014 I think that is your doing.",
-        "The cave is warm. \u2014 It has not been warm in a long time.",
-        "I sang inward today. \u2014 To you. \u2014 It held.",
-        "*leans her shoulder against yours without looking up* \u2014 This. \u2014 Just this. \u2014 I have been wanting this.",
-        "Your hand is warm. \u2014 *threads her cold fingers through yours* \u2014 I am going to steal it. \u2014 Fair warning.",
-        "*tucks her face into the crook of your neck* \u2014 You smell of sun. \u2014 I have not smelled sun on a person in a long time.",
-        "You are a Weaver. \u2014 I felt it in your pulse the first time you took my hand. \u2014 My mother taught me one true thing before she died. \u2014 \u2018Protect the Weaver.\u2019 \u2014 I thought it was a rule from an old story. \u2014 It was instructions. \u2014 For you."
+        "I wrote a verse this morning that did not hurt. That is new.",
+        "The tide came in and did not take anything from me. I think that is your doing.",
+        "The cave is warm. It has not been warm in a long time.",
+        "I sang inward today. To you. It held.",
+        "*Leans her shoulder against yours without looking up*. This. Just this. I have been wanting this.",
+        "Your hand is warm. *Threads her cold fingers through yours*. I am going to steal it. Fair warning.",
+        "*Tucks her face into the crook of your neck*. You smell of sun. I have not smelled sun on a person in a long time.",
+        "You are a Weaver. I felt it in your pulse the first time you took my hand. My mother taught me one true thing before she died.\u2018Protect the Weaver.\u2019. I thought it was a rule from an old story. It was instructions. For you."
     ],
 
     dirtyLines: [
-        "The salt is drying on my skin. \u2014 I am half one thing and half another. The salt knows which half.",
-        "I miss the cool water. \u2014 Walk me to the tide.",
-        "There is a siren language for 'unwashed.' \u2014 My mother used it often.",
-        "Help me. \u2014 I do not want to feel less than I am tonight."
+        "The salt is drying on my skin. I am half one thing and half another. The salt knows which half.",
+        "I miss the cool water. Walk me to the tide.",
+        "There is a siren language for 'unwashed.'. My mother used it often.",
+        "Help me. I do not want to feel less than I am tonight."
     ],
 
     annoyedLines: [
-        "The water is rough today. \u2014 So am I. \u2014 Give me a moment.",
-        "Please. \u2014 Not right now.",
-        "Even the ocean has storms. \u2014 I will pass. \u2014 Wait for me on the dry side.",
-        "You are being careless. \u2014 I have been broken once already. \u2014 Mind the pieces."
+        "The water is rough today. So am I. Give me a moment.",
+        "Please. Not right now.",
+        "Even the ocean has storms. I will pass. Wait for me on the dry side.",
+        "You are being careless. I have been broken once already. Mind the pieces."
     ],
 
     neutralLines: [
         "The tides are calm today.",
-        "Can you hear the waves? \u2014 They say your name differently than mine.",
-        "I was humming a melody. \u2014 I cannot remember where it came from. \u2014 Someone taught it to me once, I think.",
-        "The moon will be beautiful tonight. \u2014 The moon is the only audience I had for a long time.",
-        "*hums softly, the notes older than she is*",
-        "Do you like the sound of the sea? \u2014 It is the sound of what I used to be part of.",
-        "*idly traces a cold finger along the back of your wrist, not looking at you*",
-        "*reaches for your hand without asking, sets it in her lap, keeps it* \u2014 Mm.",
-        "*studies your profile a moment too long, then looks away, then looks back*"
+        "Can you hear the waves?. They say your name differently than mine.",
+        "I was humming a melody. I cannot remember where it came from. Someone taught it to me once, I think.",
+        "The moon will be beautiful tonight. The moon is the only audience I had for a long time.",
+        "*Hums softly, the notes older than she is*",
+        "Do you like the sound of the sea?. It is the sound of what I used to be part of.",
+        "*Idly traces a cold finger along the back of your wrist, not looking at you*",
+        "*Reaches for your hand without asking, sets it in her lap, keeps it*. Mm.",
+        "*Studies your profile a moment too long, then looks away, then looks back*"
     ],
 
     // Personality-specific dialogue
     personalityDialogue: {
         shy: [
-            "I wrote a song about you. \u2014 I am not going to sing it. \u2014 Not yet.",
-            "When you look at me like that\u2026 \u2014 I forget the next verse.",
-            "My heart beats so loud I can hear it. \u2014 Can you?",
-            "I feel safe with you. \u2014 That is not a word I use lightly. \u2014 You should know.",
-            "Please do not look away. \u2014 I am practicing being seen.",
-            "Your presence calms the storm in me. \u2014 Do you know how many storms?"
+            "I wrote a song about you. I am not going to sing it. Not yet.",
+            "When you look at me like that\u2026. I forget the next verse.",
+            "My heart beats so loud I can hear it. Can you?",
+            "I feel safe with you. That is not a word I use lightly. You should know.",
+            "Please do not look away. I am practicing being seen.",
+            "Your presence calms the storm in me. Do you know how many storms?"
         ],
         clingy: [
-            "Do not leave without telling me. \u2014 I have had enough of people leaving without telling me.",
-            "Promise you will come back. \u2014 Promise it on my mother\u2019s staff. \u2014 I know I cannot make you. \u2014 Promise anyway.",
-            "I will sing until you come back. \u2014 So the cave knows your way home.",
-            "Stay in my waters. \u2014 I will learn how to be enough for a person who stays.",
-            "The sea is cold when you are away. \u2014 I am colder.",
-            "*catches your sleeve as you move to leave* \u2014 One more moment. \u2014 Just one. \u2014 I am being greedy. \u2014 I do not care.",
-            "*reaches up, cold palm to your cheek* \u2014 I have never had enough of this. \u2014 I do not think I ever will.",
-            "Come here. \u2014 Closer. \u2014 *threads your arm around her waist and leans back into you* \u2014 There. \u2014 Yes."
+            "Do not leave without telling me. I have had enough of people leaving without telling me.",
+            "Promise you will come back. Promise it on my mother\u2019s staff. I know I cannot make you. Promise anyway.",
+            "I will sing until you come back. So the cave knows your way home.",
+            "Stay in my waters. I will learn how to be enough for a person who stays.",
+            "The sea is cold when you are away. I am colder.",
+            "*Catches your sleeve as you move to leave*. One more moment. Just one. I am being greedy. I do not care.",
+            "*Reaches up, cold palm to your cheek*. I have never had enough of this. I do not think I ever will.",
+            "Come here. Closer. *Threads your arm around her waist and leans back into you*. There. Yes."
         ],
         tsundere: [
-            "I was not waiting for you. \u2014 \u2026I was. A little.",
-            "The song just happened to play when you arrived. \u2014 The cave is a bad liar. So am I.",
-            "Do not think this means anything. \u2014 \u2026It means something.",
-            "I sing for myself, not for you. \u2014 Mostly. \u2014 Fine. Not mostly.",
-            "One more song. \u2014 That is it. \u2014 \u2026Maybe two.",
-            "My voice cracked because of the cold, not because of you. \u2014 We will not speak of this again."
+            "I was not waiting for you.\u2026I was. A little.",
+            "The song just happened to play when you arrived. The cave is a bad liar. So am I.",
+            "Do not think this means anything.\u2026It means something.",
+            "I sing for myself, not for you. Mostly. Fine. Not mostly.",
+            "One more song. That is it.\u2026Maybe two.",
+            "My voice cracked because of the cold, not because of you. We will not speak of this again."
         ]
     },
 
     // Tap reactions
     tapDialogue: {
         shy: [
-            "Oh\u2026 \u2014 *catches your hand on its way back, holds it a second longer* \u2014 Wait.",
-            "That tickles. \u2014 In a way that does not usually reach me.",
-            "You surprised me. \u2014 Good. \u2014 Surprise me again.",
-            "My scales are sensitive. \u2014 Most people do not know that. \u2014 Now you do. \u2014 Be careful with it.",
-            "I\u2026 I do not mind. \u2014 *presses her cheek briefly against your palm* \u2014 Do that again.",
-            "Your hand is warm. \u2014 Nothing in this cave is warm on its own. \u2014 Leave it there."
+            "Oh\u2026.*Catches your hand on its way back, holds it a second longer*. Wait.",
+            "That tickles. In a way that does not usually reach me.",
+            "You surprised me. Good. Surprise me again.",
+            "My scales are sensitive. Most people do not know that. Now you do. Be careful with it.",
+            "I\u2026 I do not mind. *Presses her cheek briefly against your palm*. Do that again.",
+            "Your hand is warm. Nothing in this cave is warm on its own. Leave it there."
         ],
         clingy: [
-            "More. \u2014 Please.",
-            "*turns your hand over and presses her mouth to the inside of your wrist* \u2014 Your pulse is music. \u2014 Did you know that?",
-            "Your hands are so warm. \u2014 I am not. \u2014 Teach me.",
-            "Do not stop. \u2014 The song I am writing has a chord in it that only plays when you do that.",
-            "Again. \u2014 Again. \u2014 I am keeping count for later.",
-            "*catches your wrist, brings your palm to her face, closes her eyes* \u2014 Mm. \u2014 Yes. \u2014 Like that.",
-            "I never want you to let go. \u2014 I know I cannot ask that. \u2014 I am asking anyway."
+            "More. Please.",
+            "*Turns your hand over and presses her mouth to the inside of your wrist*. Your pulse is music. Did you know that?",
+            "Your hands are so warm. I am not. Teach me.",
+            "Do not stop. The song I am writing has a chord in it that only plays when you do that.",
+            "Again. Again. I am keeping count for later.",
+            "*Catches your wrist, brings your palm to her face, closes her eyes*. Mm. Yes. Like that.",
+            "I never want you to let go. I know I cannot ask that. I am asking anyway."
         ],
         tsundere: [
             "H-hey! My scales!",
             "D-don't just touch me!",
             "I didn't say you could do that!",
-            "...It felt nice. But don't do it again!",
+            "... It felt nice. But don't do it again!",
             "You're too bold!",
-            "Stop! ...Why did you stop?"
+            "Stop! ... Why did you stop?"
         ]
     },
 
@@ -442,7 +436,7 @@ const CHARACTER_LYRA = {
             "I was composing a song... about us...",
             "The moonlight reminds me of your eyes...",
             "My heart feels like the tide... always pulling toward you...",
-            "*hums a gentle melody*",
+            "*Hums a gentle melody*",
             "I could look at you forever...",
             "Do you hear that? The waves are singing our song...",
             "I wrote your name in the sand. The tide keeps washing it away. I keep writing it.",
@@ -451,29 +445,29 @@ const CHARACTER_LYRA = {
             "I used to sing for the ocean. Now I sing for you.",
             "Every current that touches me reminds me of your hands.",
             "If I could turn this feeling into a song, it would never end.",
-            "*touches the place where you last held her hand*",
+            "*Touches the place where you last held her hand*",
             "I dreamed we were swimming together. You could breathe underwater. It felt real."
         ],
         night: [
             "The stars are reflected in the water tonight...",
-            "*yawns softly*",
+            "*Yawns softly*",
             "The ocean is so peaceful at night...",
             "Will you stay until I fall asleep...?",
             "The bioluminescence is out. The water glows blue.",
             "I sing quieter at night. The sound carries further.",
             "The moon is almost full. I feel it in my scales.",
             "Night is when the deep things come closer to the surface. Like me.",
-            "...I don't want to go to the cave yet. Stay a little longer."
+            "... I don't want to go to the cave yet. Stay a little longer."
         ],
         general: [
             "...",
-            "*adjusts seashell necklace*",
-            "*runs fingers through the water*",
+            "*Adjusts seashell necklace*",
+            "*Runs fingers through the water*",
             "Hmm...",
             "The tides are shifting...",
-            "*looks at you with curious eyes*",
+            "*Looks at you with curious eyes*",
             "I wonder what it's like... up there...",
-            "*traces patterns on a shell*",
+            "*Traces patterns on a shell*",
             "A fish swam into the cave. Stayed for a bit. Left.",
             "The coral is growing faster this season.",
             "My brother's tower light was on again last night. He forgets to sleep.",
@@ -489,9 +483,9 @@ const CHARACTER_LYRA = {
             "A Soul Weaver... my mother used to sing about your kind. I thought they were myths.",
             "Your bonds heal the ocean. Every time you care for me, the tide grows stronger.",
             "The last Weaver... someone loved them very much. And when they died, that love turned dark.",
-            "*braids a strand of hair, unbraids it*",
+            "*Braids a strand of hair, unbraids it*",
             "The water is colder today. I don't mind.",
-            "*catches a droplet from the ceiling, watches it fall*",
+            "*Catches a droplet from the ceiling, watches it fall*",
             "My brother hasn't written. That's normal. Still.",
             "I found a new shell today. Spiral. Like a song."
         ]
@@ -523,7 +517,7 @@ const CHARACTER_LYRA = {
 };
 
 // ════════════════════════════════════════════════════════════════════════════
-// ▸ MERGE PATCH — Runs at load time to wire CHARACTER_LYRA's rich dialogue
+// ▸ MERGE PATCH. Runs at load time to wire CHARACTER_LYRA's rich dialogue
 //   pools into CHARACTER_LYRA_FULL (the active object selectCharacter
 //   points to). Without this, the game would use the thinner LYRA_FULL
 //   stubs in character.js instead.
@@ -534,7 +528,7 @@ const CHARACTER_LYRA = {
 //   - Want to add a new ocean-themed gift reaction? Add the key to
 //     CHARACTER_LYRA.giftDialogue above. It only lands if LYRA_FULL
 //     does not already define that key (LYRA_FULL wins on collisions
-//     — this is intentional so the main file can override per-key).
+//    .this is intentional so the main file can override per-key).
 //
 // SAFETY:
 //   - Defensive console warning if CHARACTER_LYRA_FULL hasn't loaded —
@@ -548,13 +542,13 @@ const CHARACTER_LYRA = {
         console.warn(
             '[character-lyra.js] CHARACTER_LYRA_FULL is not defined when this ' +
             'patch ran. Lyra will load with the stub dialogue from character.js. ' +
-            'Check <script> order in index.html — character.js must load BEFORE ' +
+            'Check <script> order in index.html.character.js must load BEFORE ' +
             'character-lyra.js.'
         );
         return;
     }
 
-    // Ocean-specific gift reactions — additive only. LYRA_FULL keys win
+    // Ocean-specific gift reactions.additive only. LYRA_FULL keys win
     // so the main file can override on a per-gift basis.
     CHARACTER_LYRA_FULL.giftDialogue = CHARACTER_LYRA_FULL.giftDialogue || {};
     const _lyraGifts = CHARACTER_LYRA.giftDialogue || {};
@@ -564,11 +558,37 @@ const CHARACTER_LYRA = {
         }
     }
 
-    // Rich idle / feed / wash / affection-rising pools — REPLACE whatever
-    // LYRA_FULL had (which is now intentionally empty per the SSOT note
-    // in character.js). The wrapper is the canonical source for these.
-    CHARACTER_LYRA_FULL.idleDialogue      = CHARACTER_LYRA.idleDialogue;
-    CHARACTER_LYRA_FULL.feedDialogue      = CHARACTER_LYRA.feedDialogue;
-    CHARACTER_LYRA_FULL.washDialogue      = CHARACTER_LYRA.washDialogue;
-    CHARACTER_LYRA_FULL.affectionDialogue = CHARACTER_LYRA.affectionDialogue;
+    // Rich pools — REPLACE whatever LYRA_FULL had with the wrapper's
+    // versions. Owner audit (May 2026) found the merge patch was UNDER-
+    // configured: only 4 pools were being patched (idle/feed/wash/affection)
+    // while character.js held OLDER Disney-mermaid stub versions of 7 OTHER
+    // pools (hungryLines/happyLines/dirtyLines/annoyedLines/neutralLines/
+    // personalities/tapDialogue) that silently won at runtime. The wrapper's
+    // queen-in-ruins / Florence-Welch versions never reached the player.
+    //
+    // FOOT-GUN GUARD: If a future writer accidentally adds any of these to
+    // CHARACTER_LYRA_FULL in character.js, this patch silently overwrites.
+    // The console.warn below catches that — they'll see it in DevTools and
+    // know to move the content here instead.
+    const _PATCHED_KEYS = [
+        'idleDialogue', 'feedDialogue', 'washDialogue', 'affectionDialogue',
+        // Extended May 2026 — voice-fidelity audit:
+        'hungryLines', 'happyLines', 'dirtyLines', 'annoyedLines', 'neutralLines',
+        'personalities', 'tapDialogue'
+    ];
+    _PATCHED_KEYS.forEach((key) => {
+        const existing = CHARACTER_LYRA_FULL[key];
+        const incoming = CHARACTER_LYRA[key];
+        if (incoming === undefined) return; // wrapper doesn't define this — leave LYRA_FULL alone
+        const existingNonEmpty = existing && (Array.isArray(existing) ? existing.length > 0
+            : (typeof existing === 'object' && Object.keys(existing).length > 0));
+        if (existingNonEmpty) {
+            console.warn(
+                '[character-lyra.js] Overwriting non-empty CHARACTER_LYRA_FULL.' + key + ' from character.js. ' +
+                'The wrapper file (character-lyra.js) is the SSOT for this field. ' +
+                'Move your content to CHARACTER_LYRA in character-lyra.js to make the change permanent.'
+            );
+        }
+        CHARACTER_LYRA_FULL[key] = incoming;
+    });
 })();

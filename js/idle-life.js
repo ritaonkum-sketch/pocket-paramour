@@ -116,11 +116,68 @@
     }
 
     // ── Thought rendering ───────────────────────────────────────
-    // NOTE: Disabled per user request — the floating "thought" text
-    // was overlapping the character's face/body. Dialogue now fully
-    // lives in the dialogue-row at the character's feet.
-    function showThought(/* text */) {
-        return;
+    // Re-enabled May 2026 with top-of-screen positioning (was disabled
+    // because the original "thought above the head" placement clipped
+    // the character's face). Now mounts as a top-strip italic bubble
+    // matching early-whispers placement so it never overlaps the
+    // portrait. Audit identified the silenced thoughts as the largest
+    // missing "the character is thinking about me" daily-loop signal.
+    function ensureThoughtStyles() {
+        if (document.getElementById('pp-idle-thought-styles')) return;
+        const s = document.createElement('style');
+        s.id = 'pp-idle-thought-styles';
+        s.textContent = `
+            .pp-idle-thought {
+                position: fixed;
+                top: 68px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-10px);
+                max-width: 86vw;
+                padding: 9px 16px;
+                font-family: inherit;
+                font-style: italic;
+                font-size: 13px;
+                line-height: 1.4;
+                color: #f0e8ff;
+                background: linear-gradient(180deg, rgba(14,10,30,0.82), rgba(26,18,44,0.70));
+                border: 1px solid rgba(180, 160, 220, 0.30);
+                border-radius: 14px;
+                box-shadow: 0 8px 22px rgba(0,0,0,0.40);
+                text-align: center;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 8800;
+                transition: opacity 480ms ease, transform 480ms ease;
+            }
+            .pp-idle-thought.show {
+                opacity: 0.96;
+                transform: translateX(-50%) translateY(0);
+            }
+        `;
+        document.head.appendChild(s);
+    }
+
+    function showThought(text) {
+        if (!text) return;
+        // Don't stack on top of an early-whisper or any other top-strip
+        // ambient bubble. Coordinator-friendly: bail if anything else
+        // is already presenting at the top.
+        if (document.querySelector('#ew-whisper, .pp-idle-thought, .noir-whisper, .pp-aenor-bubble, .pp-multirom-bubble, .adaptive-thought')) return;
+        ensureThoughtStyles();
+        // Remove any previous (defensive)
+        document.querySelectorAll('.pp-idle-thought').forEach(n => n.remove());
+        const node = document.createElement('div');
+        node.className = 'pp-idle-thought';
+        node.textContent = text;
+        document.body.appendChild(node);
+        requestAnimationFrame(() => node.classList.add('show'));
+        // Auto-dismiss after a beat. ~5s is enough to read a one-liner
+        // and short enough to not crowd the screen.
+        clearTimeout(thoughtTimer);
+        thoughtTimer = setTimeout(() => {
+            node.classList.remove('show');
+            setTimeout(() => { try { node.remove(); } catch (_) {} }, 480);
+        }, 5000);
     }
 
     function dismissThought() {

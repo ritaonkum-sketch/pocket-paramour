@@ -1,6 +1,6 @@
-/* crossover-lucien-aenor.js — "The Tower"
+/* crossover-lucien-aenor.js."The Tower"
  * --------------------------------------------------------------------------
- * Registers window.MSCrossLucienAenor.
+ * Registers window. MSCrossLucienAenor.
  *
  * Queen Aenor comes uninvited to Lucien's tower. She heard he has been
  * writing. She knows exactly what. The whole scene is a chess match
@@ -8,7 +8,7 @@
  *
  * Lucien lies, precisely. Aenor smiles, ancient and cold. She presses on
  * his sister. She presses on the Weaver. He deflects. She leaves
- * unsatisfied \u2014 but not defeated. She will be back.
+ * unsatisfied.but not defeated. She will be back.
  *
  * This is the first on-screen Aenor scene. Use her sparingly.
  *
@@ -34,8 +34,9 @@
   let _rootEl = null;
 
   function el(tag, css, text) { const e = document.createElement(tag); if (css) e.style.cssText = css; if (text) e.textContent = text; return e; }
-  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function wait(ms) { return window.PPTapWait ? window.PPTapWait(_rootEl, ms) : new Promise(r => setTimeout(r, ms)); }
   function type(elRef, text, cps) {
+    if (window.PPTypeStage) return window.PPTypeStage(elRef, text, cps);
     return new Promise((resolve) => {
       elRef.textContent = '';
       const speed = Math.max(14, Math.round(1000 / (cps || 22)));
@@ -68,7 +69,7 @@
     bgImg.src = BG_SRC;
     root.appendChild(bg);
 
-    // Aenor presence \u2014 an unsettling pale glow at the top of the scene
+    // Aenor presence.an unsettling pale glow at the top of the scene
     if (!document.getElementById('ms-keyframes-aenor')) {
       const kf = document.createElement('style');
       kf.id = 'ms-keyframes-aenor';
@@ -123,7 +124,7 @@
     return { root, charWrap, charImg, dialogue, line, speaker, aenorAura };
   }
 
-  function say(n, name, text, cps) { n.speaker.textContent = name; return type(n.line, text, cps || 22); }
+  function say(n, name, text, cps) { if (window.PPApplyBubbleStyle) { window.PPApplyBubbleStyle(n, name); } else { n.speaker.textContent = name; } return type(n.line, text, cps || 22); }
 
   async function play(onDone) {
     if (_rootEl) { try { onDone && onDone(); } catch (_) {} return; }
@@ -142,8 +143,8 @@
     n.dialogue.style.transform = 'translateY(0)';
 
     try {
-      n.speaker.textContent = '\u2014 LUCIEN\u2019S TOWER, AFTER MIDNIGHT \u2014';
-      await type(n.line, 'A knock at the door. \u2014 Not a visitor he invited. \u2014 Not one he could refuse. \u2014 The wards on the lintel \u2026 bow.', 22);
+      n.speaker.textContent = 'LUCIEN\u2019S TOWER, AFTER MIDNIGHT';
+      await type(n.line, 'A knock at the door. Not a visitor he invited. Not one he could refuse. The wards on the lintel \u2026 bow.', 22);
       await wait(2600);
 
       n.aenorAura.style.opacity = '1';
@@ -153,47 +154,47 @@
       await wait(3400);
 
       // BEAT 1: her opening
-      await say(n, 'AENOR', '*warm as old silver* \u2014 My dear. \u2014 I hear you have been writing.', 22);
+      await say(n, 'AENOR', '*Warm as old silver*. My dear. I hear you have been writing.', 22);
       await wait(2200);
 
       // BEAT 2: Lucien lies
       n.charImg.src = LUC_ALT;
-      await say(n, 'LUCIEN', 'Only equations, Your Grace. \u2014 Nothing worth the journey up the stairs.', 22);
+      await say(n, 'LUCIEN', 'Only equations, Your Grace. Nothing worth the journey up the stairs.', 22);
       await wait(2400);
 
       // BEAT 3: she smiles. she knows.
-      await say(n, 'AENOR', '*the smile* \u2014 Equations. \u2014 The ink on your fingers is darker than equations usually require. \u2014 You have been writing prose. \u2014 About a woman, perhaps.', 22);
+      await say(n, 'AENOR', '*The smile*. Equations. The ink on your fingers is darker than equations usually require. You have been writing prose. About a woman, perhaps.', 22);
       await wait(3400);
 
       // BEAT 4: Lucien deflects precisely
-      await say(n, 'LUCIEN', 'My marginalia, Your Grace. \u2014 A private habit. \u2014 Nothing of import.', 22);
+      await say(n, 'LUCIEN', 'My marginalia, Your Grace. A private habit. Nothing of import.', 22);
       await wait(2400);
 
-      // BEAT 5: the first strike \u2014 she brings up the sister
-      await say(n, 'AENOR', '*examining a bookshelf, not looking at him* \u2014 Your father had a daughter once. \u2014 A difficult creature. \u2014 She was, of course, not part of the Dynasty register. \u2014 Which is a shame. A sister would soften you. \u2014 Such a solitary young man.', 22);
+      // BEAT 5: the first strike.she brings up the sister
+      await say(n, 'AENOR', '*Examining a bookshelf, not looking at him*. Your father had a daughter once. A difficult creature. She was, of course, not part of the Dynasty register. Which is a shame. A sister would soften you. Such a solitary young man.', 22);
       await wait(3800);
 
-      // BEAT 6: Lucien \u2014 interior shatters, exterior holds
-      await say(n, 'LUCIEN', '*not a muscle moves* \u2014 I am not familiar with the reference, Your Grace. \u2014 The register is the register.', 22);
+      // BEAT 6: Lucien.interior shatters, exterior holds
+      await say(n, 'LUCIEN', '*Not a muscle moves*. I am not familiar with the reference, Your Grace. The register is the register.', 22);
       await wait(2800);
 
-      await say(n, 'AENOR', '*turns, still smiling, eyes like cold water* \u2014 Quite. \u2014 The register is the register. \u2014 Let us keep it that way.', 22);
+      await say(n, 'AENOR', '*Turns, still smiling, eyes like cold water*. Quite. The register is the register. Let us keep it that way.', 22);
       await wait(2800);
 
-      // BEAT 7: the second strike \u2014 she brings up the Weaver
-      await say(n, 'AENOR', 'There is a new \u2026 person at court. \u2014 A Weaver. \u2014 I am told the young men have been noticing her. \u2014 You especially. \u2014 I had hoped you might be more \u2026 academic about it.', 22);
+      // BEAT 7: the second strike.she brings up the Weaver
+      await say(n, 'AENOR', 'There is a new \u2026 person at court. A Weaver. I am told the young men have been noticing her. You especially. I had hoped you might be more \u2026 academic about it.', 22);
       await wait(3600);
 
       // BEAT 8: Lucien draws his line
-      await say(n, 'LUCIEN', 'I am a scholar, Your Grace. \u2014 I serve the truth. \u2014 The truth at this hour is that the kingdom is safer with the Weaver protected. \u2014 That is the direction of my research. \u2014 I will not be apologetic about it.', 22);
+      await say(n, 'LUCIEN', 'I am a scholar, Your Grace. I serve the truth. The truth at this hour is that the kingdom is safer with the Weaver protected. That is the direction of my research. I will not be apologetic about it.', 22);
       await wait(3800);
 
       // BEAT 9: she weighs him
-      await say(n, 'AENOR', '*a long quiet moment* \u2014 You are your father\u2019s son. \u2014 Also your grandmother\u2019s. \u2014 She was stubborn, too. \u2014 She died early. \u2014 *polite, devastating* \u2014 Do be careful, my dear.', 22);
+      await say(n, 'AENOR', '*A long quiet moment*. You are your father\u2019s son. Also your grandmother\u2019s. She was stubborn, too. She died early. *Polite, devastating*. Do be careful, my dear.', 22);
       await wait(3800);
 
       // BEAT 10: she leaves
-      await say(n, 'AENOR', '*turns toward the door, pauses, glances at the page still facedown on his desk* \u2014 I will be back. \u2014 I should like to read your \u2026 equations. \u2014 When they are finished.', 22);
+      await say(n, 'AENOR', '*Turns toward the door, pauses, glances at the page still facedown on his desk*. I will be back. I should like to read your \u2026 equations. When they are finished.', 22);
       await wait(3200);
 
       // BEAT 11: the door. Silence.
@@ -204,10 +205,10 @@
 
       // BEAT 12: the unsent note, read aloud
       n.charImg.src = LUC_POSE;
-      await say(n, 'LUCIEN', '*quiet, to the page, to you across the kingdom* \u2014 She will come for you. \u2014 She knows what you are. She suspects what I am to you. \u2014 Do not come to my tower for a week. \u2014 Use the Warden\u2019s path. \u2014 Tell no one. \u2014 I am with you. \u2014 Always. \u2014 I will not send this.', 22);
+      await say(n, 'LUCIEN', '*Quiet, to the page, to you across the kingdom*. She will come for you. She knows what you are. She suspects what I am to you. Do not come to my tower for a week. Use the Warden\u2019s path. Tell no one. I am with you. Always. I will not send this.', 22);
       await wait(4000);
 
-      await say(n, 'LUCIEN', '*folds the note, puts it in the drawer with the others* \u2014 One day, if I survive her, I will show you the drawer. \u2014 Until then. \u2014 Be careful, my heart. \u2014 My grandmother died early too.', 22);
+      await say(n, 'LUCIEN', '*Folds the note, puts it in the drawer with the others*. One day, if I survive her, I will show you the drawer. Until then. Be careful, my heart. My grandmother died early too.', 22);
       await wait(3800);
 
       n.root.style.opacity = '0';
@@ -238,7 +239,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)', '#main-story-page:not(.hidden)'
     ].join(','));
     return !block;
@@ -257,7 +258,7 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
   else boot();
 
-  window.MSCrossLucienAenor = {
+  window. MSCrossLucienAenor = {
     play, force() { lsSet(FLAG_SEEN, ''); _firing = false; tick(); },
     reset() { try { localStorage.removeItem(FLAG_SEEN); } catch (_) {} }, seenKey: FLAG_SEEN
   };

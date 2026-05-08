@@ -101,9 +101,6 @@ gallery.js, memory-gallery.js, cards-library.js, premium-card.js
 achievements.js, bandit.js (Thompson sampling), dates.js, crossovers.js
 (legacy), analytics.js, affection-drift.js, endings.js, puzzles.js
 
-### Dev tooling (1)
-dev-panel.js    — hidden debug overlay, activated by ?dev=1 URL param
-
 --------------------------------------------------------------------------
 3. SCRIPT LOAD ORDER (from index.html)
 --------------------------------------------------------------------------
@@ -130,7 +127,6 @@ Correct order matters because later scripts depend on earlier ones.
   18. crossover-*.js (7 files)
   19. ambient-coordinator.js   — must run AFTER ambient modules
   20. payments-guard.js
-  21. dev-panel.js             — last
 
 --------------------------------------------------------------------------
 4. localStorage KEY SCHEMA
@@ -170,7 +166,6 @@ pp_cross_lyra_lucien_choice           — 'reconcile' | 'wait' (in that one scen
 ### System flags
 pp_schema_v                           — storage schema version (currently 1)
 pp_dev_payments                       — '1' = per-device dev escape for payments
-pp_dev_panel                          — '1' = dev-panel active
 pp_rc_public_key                      — RevenueCat public key
 pp_purchases                          — JSON object of purchased productIds
 pp_drift_<char>                       — '1' while char is neglected (drift cap)
@@ -243,10 +238,12 @@ Copy one of the crossover-*.js files as a template. Edit:
   - FLAG_SEEN (new unique pp_cross_<pair>_seen key)
   - trigger conditions (metX, metY, bond thresholds)
   - play() beat sequence
-  - register it in dev-panel.js SCENES array
   - register it in index.html <script> tag
   - add to sw.js CORE_ASSETS manifest
   - bump CACHE_NAME in sw.js
+  - add an entry to stories.js CROSSOVERS array (title, subtitle,
+    appearsFor, isUnlocked, replay) so the gallery's Stories tab
+    surfaces it as a locked silhouette → unlocked replay card
 
 ### Case C: a new main-story chapter
 Edit chapters.js CHAPTERS array. Use existing chapters as templates.
@@ -259,40 +256,11 @@ update routeEndingKey() for that character so it returns the new
 key when appropriate conditions match. No other changes needed.
 
 --------------------------------------------------------------------------
-8. DEV PANEL (dev-panel.js)
---------------------------------------------------------------------------
-
-To activate: append `?dev=1` to the game URL, OR triple-tap the
-top-right corner of the screen.
-
-### What it gives you
-  - Overview tab: world flags + chapter progress
-  - Characters tab: per-character affection sliders, TP choice
-    buttons, force-meet, force-ending, champion toggle
-  - Scenes tab: force-fire button for every auto-firing scene
-  - Storage tab: raw localStorage dump + copy-to-clipboard
-
-### How to disable
-Click the "Disable" button in the header, OR run
-`window.PPDev.disable()` in the console, OR delete the
-`pp_dev_panel` localStorage key and reload.
-
-### Public API
-  window.PPDev.open()     — open the panel
-  window.PPDev.close()    — close the panel
-  window.PPDev.fire(id)   — fire a scene by id (see SCENES array)
-  window.PPDev.setAffection(char, value)
-  window.PPDev.setTP(char, choice)
-  window.PPDev.disable()  — turn off the panel
-
---------------------------------------------------------------------------
-9. SHIP-READINESS CHECKLIST
+8. SHIP-READINESS CHECKLIST
 --------------------------------------------------------------------------
 
 Before publishing a build to real users:
 
-  [ ] Remove `?dev=1` from any default URL
-  [ ] Delete `pp_dev_panel` from any demo save
   [ ] Verify `window.PP_PRODUCTION = true` OR hostname is NOT localhost
   [ ] Confirm payments-guard is active (check `PPPaymentsGuard.active`)
   [ ] Test on Android WebView for backdrop-filter degradation
@@ -300,11 +268,11 @@ Before publishing a build to real users:
   [ ] Verify SW CORE_ASSETS includes every <script> in index.html
 
 --------------------------------------------------------------------------
-10. FUTURE WORK / KNOWN DEBT
+9. FUTURE WORK / KNOWN DEBT
 --------------------------------------------------------------------------
 
 ### High-value, low-risk
-  - [ ] Playtest one full route end-to-end (use dev panel to speed up)
+  - [ ] Playtest one full route end-to-end on a clean save
   - [ ] Art direction pass: consistent style across all 7 characters
   - [ ] Voice-line recording pass (when ready): use the voice-direction
         headers in each character file as the casting brief

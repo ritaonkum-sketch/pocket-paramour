@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v337';
+const CACHE_NAME = 'pocket-love-v486';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -14,6 +14,7 @@ const CORE_ASSETS = [
     '/manifest.json',
 
     // Core engine
+    '/js/pp-overlay.js',
     '/js/remote-config.js',
     '/js/analytics.js',
     '/js/bandit.js',
@@ -90,6 +91,9 @@ const CORE_ASSETS = [
     '/js/alistair-arc.js',
     '/js/early-whispers.js',
     '/js/affection-drift.js',
+    '/js/small-moments.js',
+    '/js/scheduled-moments.js',
+    '/js/fight-makeup.js',
 
     // Ship-readiness pass (April 2026): coordinator + guards + dev panel
     '/js/ambient-coordinator.js',
@@ -101,14 +105,10 @@ const CORE_ASSETS = [
     '/js/multi-romance.js',
     '/js/prologue-chain.js',
     '/js/world-arrival.js',
-    '/js/bridge-alistair.js',
-    '/js/bridge-elian.js',
-    '/js/bridge-lyra.js',
-    '/js/bridge-caspian.js',
-    '/js/bridge-lucien.js',
-    '/js/bridge-noir.js',
-    '/js/bridge-proto.js',
-    '/js/dev-panel.js'
+    // bridge-*.js files merged into chapters.js (May 2026, owner request)
+    // — they live as appended IIFEs at the bottom of chapters.js. Their
+    // window.PPBridge<Name> globals are still registered there.
+    '/js/today-hub.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.

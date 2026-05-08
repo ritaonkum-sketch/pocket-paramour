@@ -69,13 +69,13 @@ const RANDOM_EVENTS = [
             {
                 text: "Hold his hand until he calms",
                 effects: { bond: 20, affection: 8 },
-                response: "*wakes up slowly* ...Your hand is warm. Was I... crying?",
+                response: "*Wakes up slowly* ...Your hand is warm. Was I... crying?",
                 emotion: "shy"
             },
             {
                 text: "Let him sleep through it",
                 effects: { corruption: 3 },
-                response: "*in the morning* I had a terrible dream... But you weren't there.",
+                response: "*In the morning* I had a terrible dream... But you weren't there.",
                 emotion: "sad"
             }
         ]
@@ -131,7 +131,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Pretend you never saw it",
                 effects: { bond: 5 },
-                response: "*later that day, you catch him rewriting it more carefully*",
+                response: "*Later that day, you catch him rewriting it more carefully*",
                 emotion: "neutral"
             }
         ]
@@ -257,7 +257,7 @@ const RANDOM_EVENTS = [
                 emotion: "sad"
             },
             {
-                text: "Ignore it — he's a knight, he can handle it",
+                text: "Ignore it. He's a knight, he can handle it",
                 effects: { bond: -15, corruption: 5 },
                 response: "Right... I'm just a knight. I should be used to pain by now.",
                 emotion: "sad"
@@ -269,7 +269,7 @@ const RANDOM_EVENTS = [
         title: "A Mysterious Package",
         icon: "📦",
         character: "alistair",
-        description: "A package arrived at the castle addressed to both of you. Inside is a beautiful matching pair of keychains — a sword and a shield...",
+        description: "A package arrived at the castle addressed to both of you. Inside is a beautiful matching pair of keychains: a sword and a shield...",
         minAffection: 2,
         choices: [
             {
@@ -319,7 +319,7 @@ const RANDOM_EVENTS = [
         title: "A Secret Celebration",
         icon: "🎂",
         character: "alistair",
-        description: "It's ${CHARACTER.name}'s birthday — but he never told you. You overheard the castle servants whispering about it...",
+        description: "It's ${CHARACTER.name}'s birthday, but he never told you. You overheard the castle servants whispering about it...",
         minAffection: 1,
         choices: [
             {
@@ -337,7 +337,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Don't mention it",
                 effects: { bond: -5, corruption: 2 },
-                response: "*stares out the window quietly all day*",
+                response: "*Stares out the window quietly all day*",
                 emotion: "sad"
             }
         ]
@@ -369,7 +369,7 @@ const RANDOM_EVENTS = [
         id: "dark_whispers",
         title: "Whispers in the Dark",
         icon: "🌑",
-        description: "Late at night, you hear ${CHARACTER.name} talking to ${himself}. ${His} voice sounds different — deeper, colder...",
+        description: "Late at night, you hear ${CHARACTER.name} talking to ${himself}. ${His} voice sounds different. Deeper, colder...",
         minAffection: 0,
         minCorruption: 25,
         choices: [
@@ -398,7 +398,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Hug ${him} from behind",
                 effects: { bond: 20, corruption: -15, affection: 5 },
-                response: "*flinches* ...You... you're real. I thought I was alone in the dark.",
+                response: "*Flinches* ...You... you're real. I thought I was alone in the dark.",
                 emotion: "crying"
             },
             {
@@ -529,7 +529,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Listen quietly from the shadows",
                 effects: { bond: 15, affection: 4 },
-                response: "*gasps* You heard that...? That song... it's the one I only sing when I think of you.",
+                response: "*Gasps* You heard that...? That song... it's the one I only sing when I think of you.",
                 emotion: "shy"
             },
             {
@@ -541,7 +541,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Ask her to teach you",
                 effects: { bond: 10, affection: 3 },
-                response: "Teach you? *laughs softly* Your voice is like the land... rough and beautiful. Let's try.",
+                response: "Teach you? *Laughs softly* Your voice is like the land... rough and beautiful. Let's try.",
                 emotion: "happy"
             }
         ]
@@ -579,7 +579,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Tell her she's free to go",
                 effects: { bond: 25, affection: 8 },
-                response: "You'd let me go...? *tears* That's why I'll never leave. You're the first to give me a choice.",
+                response: "You'd let me go...? *Tears* That's why I'll never leave. You're the first to give me a choice.",
                 emotion: "crying"
             },
             {
@@ -613,7 +613,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Watch and wait patiently",
                 effects: { bond: 10, affection: 3 },
-                response: "*holds it out with trembling hands* I made this... for you. Do you like it...?",
+                response: "*Holds it out with trembling hands* I made this... for you. Do you like it...?",
                 emotion: "shy"
             }
         ]
@@ -629,13 +629,13 @@ const RANDOM_EVENTS = [
             {
                 text: "Gently wake her",
                 effects: { bond: 20, corruption: -10, affection: 5 },
-                response: "*gasps awake* The dark water... it was pulling me down... but your voice brought me back.",
+                response: "*Gasps awake* The dark water... it was pulling me down... but your voice brought me back.",
                 emotion: "crying"
             },
             {
                 text: "Sing to her softly",
                 effects: { bond: 25, corruption: -15, affection: 8 },
-                response: "*eyes flutter open* You were... singing? For me? Nobody has ever sung me to sleep before...",
+                response: "*Eyes flutter open* You were... singing? For me? Nobody has ever sung me to sleep before...",
                 emotion: "love"
             },
             {
@@ -680,7 +680,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Call her name gently",
                 effects: { bond: 20, corruption: -20, affection: 5 },
-                response: "*blinks* What... what happened? I felt so cold... Thank you for calling me back.",
+                response: "*Blinks* What... what happened? I felt so cold... Thank you for calling me back.",
                 emotion: "crying"
             },
             {
@@ -731,13 +731,13 @@ const RANDOM_EVENTS = [
         title: "Another Voice",
         icon: "🎶",
         character: "lyra",
-        description: "A second siren appears near the cave — younger, louder. She sings directly at you. ${CHARACTER.name} goes very still.",
+        description: "A second siren appears near the cave. Younger, louder. She sings directly at you. ${CHARACTER.name} goes very still.",
         minAffection: 2,
         choices: [
             {
                 text: "Stay next to ${CHARACTER.name}",
                 effects: { bond: 25, affection: 8 },
-                response: "You didn't even look at her... *exhales slowly* ...Good.",
+                response: "You didn't even look at her... *Exhales slowly* ...Good.",
                 emotion: "love"
             },
             {
@@ -749,7 +749,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Tell ${CHARACTER.name} her voice is better",
                 effects: { bond: 15, affection: 6 },
-                response: "You don't have to say that... *pause* ...But thank you. I needed to hear it.",
+                response: "You don't have to say that... *Pause* ...But thank you. I needed to hear it.",
                 emotion: "shy"
             }
         ]
@@ -759,7 +759,7 @@ const RANDOM_EVENTS = [
         title: "The Day She Won't Name",
         icon: "🌙",
         character: "lyra",
-        description: "${CHARACTER.name} has been quieter than usual all morning. Something about today feels different — weighted. Like she's carrying a memory.",
+        description: "${CHARACTER.name} has been quieter than usual all morning. Something about today feels different. Weighted. Like she's carrying a memory.",
         minAffection: 1,
         choices: [
             {
@@ -771,7 +771,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Sit with her in silence",
                 effects: { bond: 25, affection: 5 },
-                response: "*after a long moment* You didn't ask. You just stayed. ...That's exactly what I needed.",
+                response: "*After a long moment* You didn't ask. You just stayed. ...That's exactly what I needed.",
                 emotion: "love"
             },
             {
@@ -794,7 +794,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Help him clean up",
                 effects: { bond: 15, clean: -10, affection: 4 },
-                response: "You don't have to\u2014 ...Actually, the crystallized residue near your left foot is unstable. Step carefully. But thank you.",
+                response: "You don't have to....Actually, the crystallized residue near your left foot is unstable. Step carefully. But thank you.",
                 emotion: "happy"
             },
             {
@@ -838,7 +838,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Buy it for him",
                 effects: { bond: 25, hunger: -15, affection: 8 },
-                response: "You\u2014 this is\u2014 I'll spend years translating this. Decades. ...You just gave me decades of purpose.",
+                response: "You. This is. I'll spend years translating this. Decades. ...You just gave me decades of purpose.",
                 emotion: "love"
             },
             {
@@ -854,14 +854,14 @@ const RANDOM_EVENTS = [
         title: "The Equations Won't Stop",
         icon: "\uD83C\uDF19",
         character: "lucien",
-        description: "You find ${CHARACTER.name} at 3 AM, pacing. His hands are shaking and glowing faintly. \u201CThe patterns\u2014 they followed me out of a dream. I can still see them.\u201D",
+        description: "You find ${CHARACTER.name} at 3 AM, pacing. His hands are shaking and glowing faintly. \u201CThe patterns. They followed me out of a dream. I can still see them.\u201D",
         minAffection: 1,
         timeOfDay: "night",
         choices: [
             {
-                text: "Ground him \u2014 hold his hands",
+                text: "Ground him. Hold his hands",
                 effects: { bond: 22, affection: 8, corruption: -5 },
-                response: "...The glowing stopped. How did you\u2014 ...Your hands are warm. The patterns can't compete with that.",
+                response: "...The glowing stopped. How did you....Your hands are warm. The patterns can't compete with that.",
                 emotion: "shy"
             },
             {
@@ -877,7 +877,7 @@ const RANDOM_EVENTS = [
         title: "Her Song, His Numbers",
         icon: "\uD83C\uDFB5",
         character: "lucien",
-        description: "${CHARACTER.name} is transcribing something \u2014 musical notation converted into mathematical sequences. \u201CMy sister used to sing this. I'm trying to preserve it in a language that won't fade.\u201D",
+        description: "${CHARACTER.name} is transcribing something. Musical notation converted into mathematical sequences. \u201CMy sister used to sing this. I'm trying to preserve it in a language that won't fade.\u201D",
         minAffection: 2,
         choices: [
             {
@@ -965,7 +965,7 @@ const RANDOM_EVENTS = [
         title: "Something Got Through",
         icon: "\u26A0\uFE0F",
         character: "lucien",
-        description: "The tower's wards flicker and die for three seconds. ${CHARACTER.name}'s face goes pale. \u201CThat shouldn't be possible. Something\u2014 or someone\u2014 tested them.\u201D",
+        description: "The tower's wards flicker and die for three seconds. ${CHARACTER.name}'s face goes pale. \u201CThat shouldn't be possible. Something. Or someone. Tested them.\u201D",
         minAffection: 1,
         minCorruption: 15,
         choices: [
@@ -988,7 +988,7 @@ const RANDOM_EVENTS = [
         title: "Roof of the Tower",
         icon: "\u2B50",
         character: "lucien",
-        description: "You find ${CHARACTER.name} on the tower roof at midnight, not studying \u2014 just looking up. No instruments. No notes. Just him and the sky.",
+        description: "You find ${CHARACTER.name} on the tower roof at midnight, not studying. Just looking up. No instruments. No notes. Just him and the sky.",
         minAffection: 2,
         timeOfDay: "night",
         choices: [
@@ -1118,7 +1118,7 @@ const RANDOM_EVENTS = [
     },
     {
         id: "noir_dark_mirror", title: "The Mirror", icon: "\uD83E\uDE9E", character: "noir",
-        description: "${CHARACTER.name} holds up a dark surface. Your reflection looks different \u2014 sharper, hungrier, more alive. \u201CThat's you without the mask. Beautiful, isn't it?\u201D",
+        description: "${CHARACTER.name} holds up a dark surface. Your reflection looks different. Sharper, hungrier, more alive. \u201CThat's you without the mask. Beautiful, isn't it?\u201D",
         minAffection: 1,
         choices: [
             { text: "It is", effects: { bond: 20, affection: 7, corruption: 6 }, response: "The version of you that doesn't apologize for wanting things. I love that version.", emotion: "love" },
@@ -1191,7 +1191,7 @@ const RANDOM_EVENTS = [
     // ===== ELIAN-SPECIFIC EVENTS =====
     {
         id: "elian_herb_gathering", title: "Wild Harvest", icon: "\uD83C\uDF3F", character: "elian",
-        description: "${CHARACTER.name} finds a patch of rare herbs. \u201CThis only grows after rainfall. We have five minutes before the sun dries it.\u201D",
+        description: "${CHARACTER.name} finds a patch of rare herbs. \u201CThis only grows after rainfall. We have a small window before the sun dries it.\u201D",
         minAffection: 0,
         choices: [
             { text: "Help gather quickly", effects: { bond: 18, hunger: -5, affection: 5 }, response: "Fast hands. Good instincts. You'd survive a winter out here.", emotion: "happy" },
@@ -1301,7 +1301,7 @@ const RANDOM_EVENTS = [
         minAffection: 0,
         choices: [
             { text: "Help him brew it", effects: { bond: 18, affection: 5 }, response: "You know, this is the most normal I've felt in months. Thank you for that.", emotion: "happy" },
-            { text: "Tease him about it", effects: { bond: 12, affection: 3 }, response: "The scandal of the century \u2014 the prince can boil water. Alert the court.", emotion: "happy" }
+            { text: "Tease him about it", effects: { bond: 12, affection: 3 }, response: "The scandal of the century. The prince can boil water. Alert the court.", emotion: "happy" }
         ]
     },
     {
@@ -1478,15 +1478,25 @@ class EventSystem {
         const event = this.getRandomEvent();
         if (!event) return;
 
+        // ── CROSS-SYSTEM SCENE MUTEX (May 2026 audit, Phase 2) ─────────
+        // Random events can collide with surprises / small-moments / etc.
+        // when they happen to roll in the same tick. Defer if any other
+        // scheduled-scene system fired in the last 5 min. Don't burn
+        // triggeredToday/seen flags on a denial — try again next tick.
+        if (window.PPAmbient && window.PPAmbient.tryClaimSceneSlot
+            && !window.PPAmbient.tryClaimSceneSlot('event:' + event.id)) {
+            return;
+        }
+
         this.triggeredToday = true;
         this.triggeredCount++;
         this.lastEventTime = Date.now();
         this.seenEvents.add(event.id);
-        // Persistent per-event seen flag (additive — alongside the
-        // existing in-save seenEvents Set). Used by the Stories
-        // archive (stories.js) to surface which events the player has
-        // experienced, and to guard the lock state on locked entries.
-        try { localStorage.setItem('pp_event_' + event.id + '_seen', '1'); } catch (_) {}
+        // (Removed orphan 'pp_event_<id>_seen' write May 2026 — comment
+        //  claimed stories.js read it, but no reader was ever added. The
+        //  in-save seenEvents Set still tracks event history via game.js
+        //  save/load. Without this fix, every random event was bloating
+        //  the player's localStorage with a 1-byte flag they couldn't use.)
 
         this.showEvent(event);
     }
@@ -1596,7 +1606,7 @@ class EventSystem {
     // Force-show an event by ID, bypassing the random-trigger gates.
     // Used by the Stories archive's Replay button so a player can
     // re-experience an event they've already encountered. Does NOT
-    // count against the per-session/per-day limits — replay is
+    // count against the per-session/per-day limits.replay is
     // explicit player intent, not RNG.
     forceShow(eventId) {
         const event = RANDOM_EVENTS.find(e => e.id === eventId);

@@ -88,6 +88,13 @@
         0% { transform: scale(0.99) translateY(2px); opacity: 0.75; filter: blur(2px); }
         100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
       }
+      /* Stage-direction styling: text wrapped in *Asterisks* in beat
+         strings is narration (he turns / she sets the cup down), not
+         spoken dialogue. Render it italic and dimmed so the player can
+         tell at a glance which parts the character is saying out loud
+         versus which parts are described action. The asterisks
+         themselves are stripped — only the styling carries the cue. */
+      .mscard-stage { font-style: italic; opacity: 0.62; }
     `;
     document.head.appendChild(s);
   }
@@ -177,7 +184,10 @@
       `<div style="font-size:10px;opacity:0.6;margin-top:3px;">${(card.subtitle || '')}</div>`;
     root.appendChild(titleStrip);
 
-    // Dialogue bottom panel
+    // Dialogue bottom panel — bubble. Narration vs spoken-dialogue bubble
+    // styles are swapped at line-beat time (see line-handler below). Owner
+    // feedback May 2026: narration bubble made MORE transparent so the
+    // player can read at a glance whether someone is speaking or describing.
     const dialogue = el('div', [
       'position:absolute', 'left:6%', 'right:6%', 'bottom:6%',
       'padding:16px 20px', 'border-radius:18px',
@@ -185,11 +195,11 @@
       `color:${pal.accent || '#f4e6ff'}`, 'font-size:17px', 'line-height:1.45',
       'box-shadow:0 6px 28px rgba(0,0,0,0.55)', 'min-height:64px',
       'opacity:0', 'transform:translateY(14px)',
-      'transition:opacity 500ms ease, transform 500ms ease',
+      'transition:opacity 500ms ease, transform 500ms ease, background-color 380ms ease, box-shadow 380ms ease',
       'pointer-events:none'
     ].join(';'));
     dialogue.id = 'mscard-dialogue';
-    const speaker = el('div', 'font-size:11px;letter-spacing:2px;opacity:0.65;margin-bottom:6px;transition:opacity 220ms ease;', card.speaker || '');
+    const speaker = el('div', 'font-size:11px;letter-spacing:2px;opacity:0.65;margin-bottom:6px;transition:opacity 220ms ease, color 220ms ease, border-color 220ms ease;', card.speaker || '');
     speaker.id = 'mscard-speaker';
     const line = el('div', 'min-height:42px;transition:font-style 220ms ease, opacity 220ms ease;', '');
     line.id = 'mscard-line';
@@ -285,20 +295,83 @@
       resetSkip();
     };
     const typeToS = async (target, text, cps) => {
-      target.textContent = '';
+      // {name} substitution — MSCard beats with {name} tokens (chapters.js,
+      // affection-scenes.js midnight scenes) need the player's name swapped
+      // in. PPApplyName lives in dialogue.js and is a no-op without the token.
+      if (text && window.PPApplyName) text = window.PPApplyName(text);
+
+      // Stage-direction parsing (May 2026 owner feedback): scenes felt
+      // monologue-y because *Asterisk-wrapped* narration rendered identical
+      // to spoken dialogue. Now: split the text on asterisks into segments,
+      // each marked italic or regular. Italic segments render in <em> with
+      // the .mscard-stage class (dimmed + italic). Asterisks are stripped.
+      // Unbalanced asterisks (one without a closing pair) gracefully fall
+      // back to regular styling so malformed beats don't quietly italicise
+      // everything to end-of-line.
+      const segments = [];
+      {
+        let buf = '';
+        let inItalic = false;
+        const txt = text || '';
+        for (let k = 0; k < txt.length; k++) {
+          if (txt[k] === '*') {
+            if (buf) segments.push({ italic: inItalic, text: buf });
+            buf = '';
+            inItalic = !inItalic;
+          } else {
+            buf += txt[k];
+          }
+        }
+        if (buf) segments.push({ italic: inItalic, text: buf });
+        // If we ended in italic mode the asterisks were unbalanced — convert
+        // the trailing segment back to regular so the rest of the line does
+        // not silently italicise.
+        if (inItalic && segments.length > 0) {
+          segments[segments.length - 1].italic = false;
+        }
+      }
+
+      target.innerHTML = '';
+      const spans = segments.map(seg => {
+        const tag = seg.italic ? 'em' : 'span';
+        const elNode = document.createElement(tag);
+        if (seg.italic) elNode.className = 'mscard-stage';
+        target.appendChild(elNode);
+        return elNode;
+      });
+      const totalLen = segments.reduce((sum, s) => sum + s.text.length, 0);
+      const fillAll = () => {
+        for (let s = 0; s < segments.length; s++) spans[s].textContent = segments[s].text;
+      };
+      // Edge case: text is empty (or only asterisks). Nothing to type.
+      if (totalLen === 0) { fillAll(); resetSkip(); return; }
+
       const speed = Math.max(14, Math.round(1000 / (cps || 32)));
       let i = 0;
       let cancelled = false;
       const tick = new Promise(resolve => {
         const step = () => {
-          if (cancelled) { target.textContent = text; resolve(); return; }
-          if (i < text.length) { target.textContent += text[i++]; setTimeout(step, speed); }
-          else resolve();
+          if (cancelled) { fillAll(); resolve(); return; }
+          if (i < totalLen) {
+            // Map global char index `i` to the right segment + offset.
+            let remaining = i;
+            for (let s = 0; s < segments.length; s++) {
+              if (remaining < segments[s].text.length) {
+                spans[s].textContent = segments[s].text.substring(0, remaining + 1);
+                break;
+              }
+              remaining -= segments[s].text.length;
+            }
+            i++;
+            setTimeout(step, speed);
+          } else {
+            resolve();
+          }
         };
         step();
       });
       // If tap fires while typing, instantly complete the text.
-      const raced = skipPromise.then(() => { cancelled = true; target.textContent = text; });
+      const raced = skipPromise.then(() => { cancelled = true; fillAll(); });
       await Promise.race([tick, raced]);
       resetSkip();
     };
@@ -358,6 +431,16 @@
           }
           case 'pose': {
             if (beat.src) {
+              // Reset any prior fallback styling (left over from a 404 on
+              // an earlier pose). Without this, once charFallback() fired
+              // the image stays opacity:0 forever and the character is
+              // invisible for the rest of the card. Bug spotted May 2026.
+              n.charImg.style.opacity = '';
+              const charWrap = n.charImg.parentNode;
+              if (charWrap) {
+                charWrap.style.background = '';
+                charWrap.style.minHeight = '';
+              }
               n.charImg.classList.remove('mscard-poseSwap');
               // trigger reflow so animation can restart
               void n.charImg.offsetWidth;
@@ -373,22 +456,74 @@
             // explicitly an empty string, render in italic narration mode
             // with no speaker label. When non-empty, replace the speaker
             // label. When undefined, leave the card-level speaker intact.
-            if (beat.speaker !== undefined && n.speaker) {
-              if (beat.speaker === '') {
+            // Resolve which "speaker" to apply for this beat.
+            //   - Bridges: each beat sets `speaker` explicitly (per-beat
+            //     narration / dialogue switching).
+            //   - Chapters: card-level `speaker` is set ONCE and most beats
+            //     don't override. Beats inherit the card-level speaker
+            //     unless they explicitly set `speaker: ''` to mark a
+            //     narration beat. Without this fallback, chapter beats with
+            //     no per-beat speaker would skip the styling block entirely
+            //     and the bubble would stay in whatever mode the previous
+            //     beat left it — wrong for chapters that mix one narration
+            //     beat into a long dialogue scene.
+            const resolvedSpeaker = (beat.speaker !== undefined)
+              ? beat.speaker
+              : (card.speaker || '');
+            if (n.speaker) {
+              if (resolvedSpeaker === '') {
+                // ── NARRATION mode ──
+                // Owner feedback May 2026: make narration visually distinct
+                // from spoken dialogue. Bubble drops to ~30% opacity (so the
+                // background scene reads through), no speaker label, italic
+                // text. Player should know at a glance: nobody is talking,
+                // this is description.
                 n.speaker.style.opacity = '0';
                 n.speaker.style.height = '0';
                 n.speaker.style.marginBottom = '0';
                 n.speaker.style.overflow = 'hidden';
+                n.speaker.style.borderBottom = '';
+                n.speaker.style.paddingBottom = '';
+                n.speaker.style.display = '';
                 n.line.style.fontStyle = 'italic';
                 n.line.style.opacity = '0.92';
+                n.dialogue.style.background = 'rgba(10,6,22,0.32)';
+                n.dialogue.style.boxShadow = '0 4px 14px rgba(0,0,0,0.25)';
+                // Reset alignment when going to narration.
+                n.dialogue.style.textAlign = 'left';
+                n.line.style.textAlign = 'left';
               } else {
-                n.speaker.textContent = beat.speaker;
-                n.speaker.style.opacity = '0.65';
+                // ── DIALOGUE mode ──
+                // Speaker label gets a colored underline matching the card's
+                // palette glow (per-character hue) and a brighter accent
+                // color so it pops. Bubble goes opaque so the spoken line
+                // reads as a panel, not an overlay. Player ('YOU') gets the
+                // soft-pink hue from the global PPSpeakerHue table and the
+                // speaker label aligns RIGHT (visual signal that the player
+                // is speaking, not a character).
+                const isPlayer = String(resolvedSpeaker).toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '') === 'you';
+                const playerHue = '#ffb6c1';
+                const speakerColor = isPlayer
+                    ? playerHue
+                    : (pal.glow || pal.accent || '#f4e6ff');
+                const underlineColor = isPlayer
+                    ? playerHue
+                    : (pal.glow || pal.accent || '#a98ad8');
+                n.speaker.textContent = resolvedSpeaker;
+                n.speaker.style.opacity = '1';
                 n.speaker.style.height = '';
-                n.speaker.style.marginBottom = '6px';
+                n.speaker.style.marginBottom = '8px';
                 n.speaker.style.overflow = '';
+                n.speaker.style.color = speakerColor;
+                n.speaker.style.borderBottom = '2px solid ' + underlineColor;
+                n.speaker.style.paddingBottom = '4px';
+                n.speaker.style.display = 'inline-block';
                 n.line.style.fontStyle = 'normal';
                 n.line.style.opacity = '1';
+                n.dialogue.style.background = 'rgba(10,6,22,0.88)';
+                n.dialogue.style.boxShadow = '0 6px 28px rgba(0,0,0,0.55)';
+                n.dialogue.style.textAlign = isPlayer ? 'right' : 'left';
+                n.line.style.textAlign = 'left';
               }
             }
             await typeToS(n.line, beat.text || '', beat.cps || 32);
@@ -398,15 +533,38 @@
             // tap (during typing) completes the typewriter via the existing
             // skip system; this fresh listener requires ANOTHER, separate tap
             // before the next beat fires. No timer. No auto-advance ever.
+            //
+            // PLUS a MutationObserver watching for root removal — if
+            // _switchToSelect (or any other code) yanks the card out of the
+            // DOM mid-beat, the Promise must resolve so the for-loop exits
+            // and the chapter's onDone fires. Without this, force-removed
+            // cards leave the chapter half-played: markDone() never runs,
+            // chain doesn't advance, save state is corrupt. Fixed May 2026.
             await new Promise((resolve) => {
-              const tap = (e) => {
-                if (e && e.stopPropagation) e.stopPropagation();
+              let done = false;
+              const finish = () => {
+                if (done) return;
+                done = true;
                 n.root.removeEventListener('click', tap);
                 n.root.removeEventListener('touchstart', tap);
+                if (removalObserver) try { removalObserver.disconnect(); } catch (_) {}
                 resolve();
+              };
+              const tap = (e) => {
+                if (e && e.stopPropagation) e.stopPropagation();
+                finish();
               };
               n.root.addEventListener('click', tap);
               n.root.addEventListener('touchstart', tap, { passive: true });
+              // Watch the parent (or document.body) for our root being removed.
+              let removalObserver = null;
+              try {
+                const parent = n.root.parentNode || document.body;
+                removalObserver = new MutationObserver(() => {
+                  if (!document.body.contains(n.root)) finish();
+                });
+                removalObserver.observe(parent, { childList: true });
+              } catch (_) { /* MutationObserver missing — fall back to tap-only */ }
             });
             resetSkip();
             break;
@@ -424,7 +582,8 @@
             break;
           }
           case 'flourish': {
-            n.flourish.textContent = beat.text || '';
+            const ftext = beat.text || '';
+            n.flourish.textContent = (window.PPApplyName ? window.PPApplyName(ftext) : ftext);
             n.flourish.style.animation = 'mscardFlourish 1600ms ease-out forwards';
             await waitS(beat.duration || 1700);
             n.flourish.style.animation = '';

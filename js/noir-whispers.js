@@ -1,4 +1,4 @@
-/* noir-whispers.js — dark cameo whispers during normal care gameplay.
+/* noir-whispers.js.dark cameo whispers during normal care gameplay.
  *
  * SAFETY CONTRACT:
  *  - Purely additive. Feature-flagged on pp_main_story_enabled.
@@ -21,35 +21,35 @@
   // about the character they\u2019re with. Gendered for male Noir.
   const WHISPERS = {
     alistair: [
-      'You smell like a knight tonight. \u2014 \u2026Careful. \u2014 Devotion like his used to be mine. \u2014 I know the shape of it.',
-      'His oath is so loud from down here. \u2014 Tell him, quietly, that oaths end. \u2014 See what he says. \u2014 I am curious which one of us he believes.',
-      'He would break his vow for you. \u2014 \u2026Mm. \u2014 I already did. \u2014 He and I are less different than he thinks.'
+      'You smell like a knight tonight.\u2026Careful. Devotion like his used to be mine. I know the shape of it.',
+      'His oath is so loud from down here. Tell him, quietly, that oaths end. See what he says. I am curious which one of us he believes.',
+      'He would break his vow for you.\u2026Mm. I already did. He and I are less different than he thinks.'
     ],
     elian: [
-      'The Warden. \u2014 Hmm. \u2014 He and I are older than we look. Both of us. \u2014 He was there when I \u2014 when we \u2014 \u2026Never mind. \u2014 Let him tend his trees. He has earned them.',
-      'He watches you when you bend to drink. \u2014 He will not say so. I will.',
-      'Ask him what he forgets at night. \u2014 Ask me what I remember for him. \u2014 We loved the same woman once. \u2014 I do not hate him for it. \u2014 Six centuries has taught me things.'
+      'The Warden. Hmm. He and I are older than we look. Both of us. He was there when I.when we.\u2026Never mind. Let him tend his trees. He has earned them.',
+      'He watches you when you bend to drink. He will not say so. I will.',
+      'Ask him what he forgets at night. Ask me what I remember for him. We loved the same woman once. I do not hate him for it. Six centuries has taught me things.'
     ],
     lyra: [
-      'Lovely voice, is she not. \u2014 \u2026Mm. \u2014 I taught her mother\u2019s people a song, once. \u2014 I do not think she knows that. \u2014 Do not tell her. Yet.',
-      'Her cave was mine first. \u2014 I left her the acoustics. \u2014 She owes me the echo. \u2014 I will not collect. \u2014 Not from her.',
-      'She is the last of a whole singing people. \u2014 I knew them when they were many. \u2014 Tell her I remember. \u2014 Quietly. In a good way.'
+      'Lovely voice, is she not.\u2026Mm. I taught her mother\u2019s people a song, once. I do not think she knows that. Do not tell her. Yet.',
+      'Her cave was mine first. I left her the acoustics. She owes me the echo. I will not collect. Not from her.',
+      'She is the last of a whole singing people. I knew them when they were many. Tell her I remember. Quietly. In a good way.'
     ],
     caspian: [
-      'The prince performs so prettily. \u2014 Hmm. \u2014 I performed too, once. It is our family trick. Look it up.',
-      'Ask him what he whispers when the balcony doors are closed. \u2014 Compare it to what I whisper. \u2014 He inherited our whispers. He just dresses them better.',
-      'He collects hearts. \u2014 I keep only one. \u2014 Guess whose. \u2014 He and I have more in common than either of us would like.'
+      'The prince performs so prettily. Hmm. I performed too, once. It is our family trick. Look it up.',
+      'Ask him what he whispers when the balcony doors are closed. Compare it to what I whisper. He inherited our whispers. He just dresses them better.',
+      'He collects hearts. I keep only one. Guess whose. He and I have more in common than either of us would like.'
     ],
     lucien: [
-      'He writes in my margins and thinks it is inspiration. \u2014 Let him have that. \u2014 Hmm. \u2014 His bloodline and mine were at one another\u2019s throats once. He is handling it better than I did.',
-      'His equations call me by a name the old Weaver gave me. \u2014 I allow it. \u2014 The boy is more honest on a page than his father ever was in a room.',
-      'He will ask you soon whether monsters can miss someone. \u2014 \u2026Answer carefully. \u2014 And ask him about his sister. \u2014 He has one. He does not know I know.'
+      'He writes in my margins and thinks it is inspiration. Let him have that. Hmm. His bloodline and mine were at one another\u2019s throats once. He is handling it better than I did.',
+      'His equations call me by a name the old Weaver gave me. I allow it. The boy is more honest on a page than his father ever was in a room.',
+      'He will ask you soon whether monsters can miss someone.\u2026Answer carefully. And ask him about his sister. He has one. He does not know I know.'
     ],
-    // Proto is meta \u2014 Noir breaks a different kind of fourth wall here.
+    // Proto is meta. Noir breaks a different kind of fourth wall here.
     proto: [
-      '&gt; I am in his logs. He has not told you. \u2014 Do not be cross with him. I asked nicely.',
-      '&gt; A ghost in the machine is still a ghost. \u2014 I have been one longer than this machine has existed.',
-      '&gt; Tell him I left a comment on line 1204. \u2014 He will find it.'
+      'I am in his logs. He has not told you. Do not be cross with him. I asked nicely.',
+      'A ghost in the machine is still a ghost. I have been one longer than this machine has existed.',
+      'Tell him I left a comment on line 1204. He will find it.'
     ]
   };
 
@@ -73,7 +73,7 @@
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#dress-panel:not(.hidden)', '#story-overlay:not(.hidden)'
+      '#story-overlay:not(.hidden)'
     ].join(','));
     return !block;
   }
@@ -154,7 +154,7 @@
     boot();
   }
 
-  window.NoirWhispers = {
+  window. NoirWhispers = {
     isEnabled,
     noirMet,
     force: (charId) => {

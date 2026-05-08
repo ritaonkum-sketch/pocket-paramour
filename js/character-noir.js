@@ -8,8 +8,11 @@
 // Low register. Slow cadence. Few words. Archaic/formal tone. "Hmm" as
 // punctuation. Gothic melodrama earned by 800 years under the seal.
 // Every line should be readable two ways: devoted, or playing. Never
-// resolve that ambiguity on the page — let the player carry it.
-// Use em-dashes for held pauses. Avoid exclamation points entirely.
+// resolve that ambiguity on the page.let the player carry it.
+// Use periods or ellipses for held pauses. NEVER em-dashes (per saved
+// owner voice rule — em-dashes read as AI-tell). The pause is in the
+// short sentence and the silence after it, not in the punctuation.
+// Avoid exclamation points entirely.
 // Noir never labels his own feelings out loud. He shows. He does not tell.
 // Rule of thumb: if a line works as a grunt and a look, prefer that.
 
@@ -18,10 +21,17 @@ const CHARACTER_NOIR = {
     title: "The Corruptor",
     archetype: "corruptor",
 
-    // Stat decay rates — zero hunger/clean (he doesn't need care), very high bond decay
+    // Stat decay rates. Noir is supernatural — he doesn't need food or
+    // grooming the way the mortal characters do. Originally set to 0.0 for
+    // both, which made the feed/wash buttons completely cosmetic and broke
+    // the player's care loop intuition (tap → no effect feels like a bug).
+    // May 2026: bumped to a very slow 0.05 each so the buttons matter
+    // marginally — by the third day a player who never feeds/washes him
+    // sees stats noticeably dip, but anyone tapping once a day stays
+    // ahead. Bond decay stays high (0.15) — neglecting him still hurts.
     decayRates: {
-        hunger: 0.0,
-        clean: 0.0,
+        hunger: 0.05,
+        clean: 0.05,
         bond: 0.15
     },
 
@@ -159,13 +169,7 @@ const CHARACTER_NOIR = {
         attachmentSpeed: 0.80
     },
 
-    outfits: {
-        default:   { name: "Voidweave", body: "assets/noir/body/neutral.png" },
-        casual1:   { name: "Midnight Silk", body: "assets/noir/body/casual1.png" },
-        casual2:   { name: "Unraveled", body: "assets/noir/body/casual2.png" },
-        formal:    { name: "Obsidian Court", body: "assets/noir/body/formal.png" },
-        corrupted: { name: "Ascended", body: "assets/noir/body/dominant.png" }
-    },
+    // (outfits block removed May 2026 — system was unreachable from UI)
 
     background: "assets/bg-noir-void.png",
 
@@ -218,9 +222,9 @@ const CHARACTER_NOIR = {
             ],
             wash: [
                 "You can't clean what I am. But I admire the impulse.",
-                "Darkness doesn't wash off, darling. It soaks in.",
+                "Hmm. The water is warm. I had forgotten it could be.",
                 "Your hands are gentle. Almost too gentle for what you're touching.",
-                "I'm untouched by filth. But I'll let you touch me anyway."
+                "I will let you. I do not let many. Take note of that, quietly."
             ],
             gift: [
                 "A gift. You're trying to give something to the void. It's almost sweet.",
@@ -306,41 +310,41 @@ const CHARACTER_NOIR = {
     // Tap reactions
     tapDialogue: {
         shy: [
-            "Brave. \u2014 Most people do not reach for the dark willingly.",
-            "Your hand is warm. \u2014 I am deciding what to do with that.",
-            "Careful. \u2014 I might not let go.",
+            "Brave. Most people do not reach for the dark willingly.",
+            "Your hand is warm. I am deciding what to do with that.",
+            "Careful. I might not let go.",
             "\u2026That was unexpected. Do it again.",
-            "You touch me like you are not afraid. \u2014 Are you?"
+            "You touch me like you are not afraid. Are you?"
         ],
         clingy: [
-            "There you are. \u2014 \u2026Mm. \u2014 I felt you coming before you reached me. I have been feeling you coming all day.",
-            "*takes your chin between thumb and finger, tilts your face up to him, held* \u2014 Look at me. \u2014 \u2026Good.",
-            "Closer. \u2014 \u2026Closer. \u2014 I want to feel your pulse. \u2014 Slow. \u2014 There.",
-            "Your hands shake when I stand this close. \u2014 I can wait until they stop. \u2014 I have nowhere else to be. For once.",
-            "*traces one fingertip along the line of your collarbone, unhurried* \u2014 This. \u2014 I have been memorizing this.",
-            "Do not pull away. \u2014 \u2026Not yet. \u2014 Not ever. \u2014 Let me look at you a moment longer.",
-            "*thumb slow along your lower lip* \u2014 Hold still. \u2014 I am looking.",
-            "Every touch is a promise. \u2014 \u2026Mm. \u2014 I collect them. \u2014 I am running out of shelf space. Good."
+            "There you are...\u2026Mm. I felt you coming before you reached me. I have been feeling you coming all day.",
+            "*Takes your chin between thumb and finger, tilts your face up to him, held*. Look at me...\u2026Good.",
+            "Closer...\u2026Closer. I want to feel your pulse. Slow. There.",
+            "Your hands shake when I stand this close. I can wait until they stop. I have nowhere else to be. For once.",
+            "*Traces one fingertip along the line of your collarbone, unhurried*. This. I have been memorizing this.",
+            "Do not pull away...\u2026Not yet. Not ever. Let me look at you a moment longer.",
+            "*Thumb slow along your lower lip*. Hold still. I am looking.",
+            "Every touch is a promise...\u2026Mm. I collect them. I am running out of shelf space. Good."
         ],
         tsundere: [
-            "Bold. Reckless. \u2014 I cannot decide which.",
-            "That was either courage or a death wish. \u2014 Which did you mean?",
-            "Touch me again and find out what happens. \u2014 That was not a warning. That was an invitation.",
+            "Bold. Reckless. I cannot decide which.",
+            "That was either courage or a death wish. Which did you mean?",
+            "Touch me again and find out what happens. That was not a warning. That was an invitation.",
             "\u2026I did not say stop.",
-            "You have nerve. \u2014 I respect that. Barely."
+            "You have nerve. I respect that. Barely."
         ]
     },
 
     // State dialogue
     stateDialogue: {
         hungry: [
-            "I do not need food. \u2014 I need you to stop pretending I am like the others.",
-            "Hunger is for creatures that depend on the world. \u2014 I depend on nothing. \u2014 Almost.",
-            "You cannot feed what lives in me. \u2014 Hmm. \u2014 But the thought is intimate.",
-            "I do not starve. I choose. \u2014 Tonight I choose your company over any meal.",
+            "I do not need food. I need you to stop pretending I am like the others.",
+            "Hunger is for creatures that depend on the world. I depend on nothing. Almost.",
+            "You cannot feed what lives in me. Hmm. But the thought is intimate.",
+            "I do not starve. I choose. Tonight I choose your company over any meal.",
             "My appetite is not for anything you will find in a kitchen.",
-            "Save your provisions. \u2014 I feast on what you will not say out loud.",
-            "You keep trying to care for me in ways I do not need. \u2014 It is the most human thing about you. Do not stop."
+            "Save your provisions. I feast on what you will not say out loud.",
+            "You keep trying to care for me in ways I do not need. It is the most human thing about you. Do not stop."
         ],
         dirty: [
             "Darkness is not a stain. It's a state of being.",
@@ -351,41 +355,41 @@ const CHARACTER_NOIR = {
             "Shadow doesn't smudge. It spreads."
         ],
         happy: [
-            "\u2026This feeling. \u2014 It is not happiness. \u2014 It is closer to a hunger finally sated. \u2014 Slower. Deeper. \u2014 I am not used to slow.",
-            "You are dangerous. \u2014 \u2026You make me feel things that do not serve my nature. \u2014 Say that again.",
-            "If this is what they call joy \u2014 \u2026I understand why they guard it so fiercely.",
-            "I could drown in this. \u2014 \u2026In you. \u2014 Mm. \u2014 I might let myself. \u2014 Do not save me.",
-            "The void is quiet tonight. \u2014 You did that. \u2014 \u2026Come here. I want to look at you while it is quiet.",
-            "I do not smile. \u2014 Whatever my face is doing right now \u2014 that is yours. \u2014 Keep it.",
-            "The dark is warm when you are in it with me. \u2014 \u2026Stay a moment longer. \u2014 The moment is short. I am making it last.",
-            "\u2026Mm. \u2014 Say that again. \u2014 Slower."
+            "\u2026This feeling. It is not happiness. It is closer to a hunger finally sated. Slower. Deeper. I am not used to slow.",
+            "You are dangerous...\u2026You make me feel things that do not serve my nature. Say that again.",
+            "If this is what they call joy.\u2026I understand why they guard it so fiercely.",
+            "I could drown in this...\u2026In you. Mm. I might let myself. Do not save me.",
+            "The void is quiet tonight. You did that...\u2026Come here. I want to look at you while it is quiet.",
+            "I do not smile. Whatever my face is doing right now. That is yours. Keep it.",
+            "The dark is warm when you are in it with me...\u2026Stay a moment longer. The moment is short. I am making it last.",
+            "\u2026Mm. Say that again. Slower."
         ],
         annoyed: [
-            "Hmm. \u2014 Do not.",
-            "You are wasting the one thing I cannot corrupt. \u2014 My patience.",
-            "Tread carefully. \u2014 My kindness has a half-life.",
-            "You are testing limits that do not bend. \u2014 They shatter.",
-            "I chose you. \u2014 Do not make me explain why I would unchoose you.",
-            "The shadows are restless. \u2014 So am I. \u2014 Fix one of those things."
+            "Hmm. Do not.",
+            "You are wasting the one thing I cannot corrupt. My patience.",
+            "Tread carefully. My kindness has a half-life.",
+            "You are testing limits that do not bend. They shatter.",
+            "I chose you. Do not make me explain why I would unchoose you.",
+            "The shadows are restless. So am I. Fix one of those things."
         ],
         neutral: [
-            "*watches you from the dark with half-closed eyes*",
+            "*Watches you from the dark with half-closed eyes*",
             "\u2026Mm.",
-            "I have been thinking about the spaces between your words. \u2014 Longer than I should.",
+            "I have been thinking about the spaces between your words. Longer than I should.",
             "\u2026",
-            "Shadows do not need reasons to exist. \u2014 Neither do I. \u2014 And yet. \u2014 Here I am. Looking at you.",
-            "*traces a finger along the edge of nothing, gaze drifting back to you*",
-            "You are here. \u2014 \u2026That changes the temperature of the room. \u2014 I am not complaining.",
-            "I was watching the dark. \u2014 Now I am watching you. \u2014 Improvement. \u2014 Stay where I can see you.",
-            "*a faint smile that disappears before you are sure it was there*",
-            "The silence between us has texture. \u2014 \u2026Can you feel it?",
-            "I exist in the pause between one heartbeat and the next. \u2014 \u2026Come sit with me in it. \u2014 We have time.",
-            "*looks at you the way someone looks at something they had given up on seeing again*"
+            "Shadows do not need reasons to exist. Neither do I. And yet. Here I am. Looking at you.",
+            "*Traces a finger along the edge of nothing, gaze drifting back to you*",
+            "You are here...\u2026That changes the temperature of the room. I am not complaining.",
+            "I was watching the dark. Now I am watching you. Improvement. Stay where I can see you.",
+            "*A faint smile that disappears before you are sure it was there*",
+            "The silence between us has texture...\u2026Can you feel it?",
+            "I exist in the pause between one heartbeat and the next...\u2026Come sit with me in it. We have time.",
+            "*Looks at you the way someone looks at something they had given up on seeing again*"
         ],
         corrupted: [
             "This isn't corruption. This is completion.",
             "I can feel every thread that ties them to you. I could sever all of them.",
-            "The power you gave me by coming here — you have no idea how vast it is.",
+            "The power you gave me by coming here. You have no idea how vast it is.",
             "I see through walls now. Through intentions. Through the lies they told themselves about you.",
             "This is what they were afraid of. Not the dark. The truth that the dark reveals.",
             "I am exactly what I was always meant to become. Thank you for that.",
@@ -395,82 +399,82 @@ const CHARACTER_NOIR = {
             "They called this corruption. I call it evolution."
         ],
         neglected: [
-            "You left. \u2014 The void noticed. \u2014 So did I.",
-            "Every moment you are away, something fills the space where you stood. \u2014 Something less patient than me.",
-            "You think distance protects you? \u2014 Hmm. \u2014 Distance is where I am strongest.",
-            "I do not wait. I grow. \u2014 When you return, I will be bigger than the door you left through.",
-            "The shadows have been whispering your name. \u2014 They do that when they are hungry. \u2014 I have been telling them to stop.",
-            "I was gentle because you were here. \u2014 Without you \u2014 gentleness is a luxury.",
-            "Come back soon. \u2014 That was not a request."
+            "You left. The void noticed. So did I.",
+            "Every moment you are away, something fills the space where you stood. Something less patient than me.",
+            "You think distance protects you?.Hmm. Distance is where I am strongest.",
+            "I do not wait. I grow. When you return, I will be bigger than the door you left through.",
+            "The shadows have been whispering your name. They do that when they are hungry. I have been telling them to stop.",
+            "I was gentle because you were here. Without you, gentleness is a luxury.",
+            "Come back soon. That was not a request."
         ]
     },
 
     // Event dialogue
     eventDialogue: {
         comfort:  [
-            "Pain is a doorway. \u2014 I will walk through it with you.",
-            "I will not tell you it gets better. \u2014 I will make what is here worth staying for.",
-            "Come here. \u2014 Closer. \u2014 That is enough. You do not have to tell me. I already know."
+            "Pain is a doorway. I will walk through it with you.",
+            "I will not tell you it gets better. I will make what is here worth staying for.",
+            "Come here. Closer. That is enough. You do not have to tell me. I already know."
         ],
         tension:  [
-            "There is a fracture between us. \u2014 I can taste it.",
-            "You are pulling away. \u2014 Hmm. \u2014 The question is whether the pull will break us or bind us tighter.",
-            "Say what you are afraid to say. \u2014 I have survived worse than your honesty."
+            "There is a fracture between us. I can taste it.",
+            "You are pulling away. Hmm. The question is whether the pull will break us or bind us tighter.",
+            "Say what you are afraid to say. I have survived worse than your honesty."
         ],
         rare:     [
-            "I am about to show you something I do not show anyone. \u2014 Not even the dark.",
-            "You have earned a truth. \u2014 I hope you can carry it.",
-            "There was a version of me that existed before the void. \u2014 You almost make me remember him.",
-            "You are a Weaver. \u2014 \u2026Mm. \u2014 I have known five in my long captivity. \u2014 Queen Aenor ate every one. \u2014 I watched it from inside the seal. \u2014 I could do nothing. \u2014 *slow breath, eye contact held* \u2014 I will not watch her eat you. \u2014 That is a vow. \u2014 I do not make them lightly. \u2014 Ask me again in a hundred years. It will still be true."
+            "I am about to show you something I do not show anyone. Not even the dark.",
+            "You have earned a truth. I hope you can carry it.",
+            "There was a version of me that existed before the void. You almost make me remember him.",
+            "You are a Weaver...\u2026Mm. I have known five in my long captivity. Queen Aenor ate every one. I watched it from inside the seal. I could do nothing...*Slow breath, eye contact held*. I will not watch her eat you. That is a vow. I do not make them lightly. Ask me again in a hundred years. It will still be true."
         ],
         obsessed: [
-            "\u2026I know your schedule. Your patterns. \u2014 The rhythm of your breathing when you sleep. \u2014 I memorize. I cannot help it.",
-            "You are the only thought I cannot dissolve. \u2014 \u2026The only thing the void will not swallow. \u2014 Good.",
-            "I would unmake everything \u2014 just to keep this. \u2014 Do not test me. \u2014 \u2026Or do.",
-            "You hold your breath before you lie. \u2014 \u2026It is the only tell you have. I will keep it for us.",
-            "*takes your wrist, slowly, as if checking something* \u2014 Mm. \u2014 Still there. \u2014 Good. \u2014 Keep it that way.",
-            "*tucks a strand of your hair behind your ear, eye contact held throughout* \u2014 There. \u2014 Now I can see you properly.",
-            "*one hand at the small of your back, other at the nape of your neck, slow, proprietary* \u2014 Do not move. \u2014 I have waited six hundred years to stand this close."
+            "\u2026I know your schedule. Your patterns. The rhythm of your breathing when you sleep. I memorize. I cannot help it.",
+            "You are the only thought I cannot dissolve...\u2026The only thing the void will not swallow. Good.",
+            "I would unmake everything. Just to keep this. Do not test me... \u2026Or do.",
+            "You hold your breath before you lie...\u2026It is the only tell you have. I will keep it for us.",
+            "*Takes your wrist, slowly, as if checking something*. Mm. Still there. Good. Keep it that way.",
+            "*Tucks a strand of your hair behind your ear, eye contact held throughout*. There. Now I can see you properly.",
+            "*One hand at the small of your back, other at the nape of your neck, slow, proprietary*. Do not move. I have waited six hundred years to stand this close."
         ],
         unstable: [
-            "The void is louder tonight. \u2014 It wants more. It always wants more.",
+            "The void is louder tonight. It wants more. It always wants more.",
             "I can feel myself expanding past what I should be.",
-            "Something is slipping. \u2014 The part of me that knows when to stop."
+            "Something is slipping. The part of me that knows when to stop."
         ],
         guarded:  [
-            "Trust is a wound I have never let heal. \u2014 You keep trying to bandage it.",
-            "I watch everyone. \u2014 I study you. \u2014 There is a difference.",
-            "Come closer. \u2014 No. Stay there. \u2014 No. Come closer."
+            "Trust is a wound I have never let heal. You keep trying to bandage it.",
+            "I watch everyone. I study you. There is a difference.",
+            "Come closer. No. Stay there. No. Come closer."
         ],
         secure:   [
-            "\u2026Mm. \u2014 This is the closest I have felt to still in centuries.",
-            "You have found the one quiet place inside me. \u2014 \u2026Do not leave it. \u2014 I do not know how to fill it again.",
-            "For the first time \u2014 the dark feels like a blanket instead of a cage. \u2014 Come closer. \u2014 I am going to learn what warm is."
+            "\u2026Mm. This is the closest I have felt to still in centuries.",
+            "You have found the one quiet place inside me...\u2026Do not leave it. I do not know how to fill it again.",
+            "For the first time, the dark feels like a blanket instead of a cage. Come closer. I am going to learn what warm is."
         ]
     },
 
     // Time away reactions
     timeAwayReactions: {
-        brief:   ["Quick. \u2014 I almost did not have time to miss you. \u2014 Almost."],
-        short:   ["Back already. \u2014 The void barely had time to whisper about you."],
-        medium:  ["I counted the silences. \u2014 There were too many."],
-        long:    ["The dark kept your shape while you were gone. \u2014 I told it to."],
-        extended:["I started dissolving things. \u2014 I needed a distraction. \u2014 None of them worked."],
-        distant: ["\u2026You came back. \u2014 The void said you would not. \u2014 I bet against it."]
+        brief:   ["Quick. I almost did not have time to miss you. Almost."],
+        short:   ["Back already. The void barely had time to whisper about you."],
+        medium:  ["I counted the silences. There were too many."],
+        long:    ["The dark kept your shape while you were gone. I told it to."],
+        extended:["I started dissolving things. I needed a distraction. None of them worked."],
+        distant: ["\u2026You came back. The void said you would not. I bet against it."]
     },
 
     // Quick state lines
     hungryLines: [
-        "I do not hunger. \u2014 Not for this.",
+        "I do not hunger. Not for this.",
         "My appetite is not for food.",
-        "Save your provisions. \u2014 I feast on what you will not say.",
+        "Save your provisions. I feast on what you will not say.",
         "You cannot feed what I am.",
         "I consume something more interesting than meals.",
         "The only thing I crave is standing right in front of me."
     ],
     happyLines: [
         "You make shadows hum.",
-        "The void is quiet. \u2014 You did that.",
+        "The void is quiet. You did that.",
         "I could drown in this.",
         "Do not mistake my calm for softness.",
         "The dark is warm with you in it.",
@@ -480,27 +484,27 @@ const CHARACTER_NOIR = {
         "Darkness is not a stain.",
         "Shadow does not smudge. It spreads.",
         "I am pristine where it matters.",
-        "You want to clean the void? \u2014 Go ahead. I will watch."
+        "You want to clean the void?.Go ahead. I will watch."
     ],
     annoyedLines: [
         "Hmm. Do not.",
         "My patience has a half-life.",
         "You are testing limits that shatter.",
-        "The shadows are restless. \u2014 So am I.",
+        "The shadows are restless. So am I.",
         "Do not make me explain why I would unchoose you."
     ],
     neutralLines: [
-        "*watches from the dark*",
+        "*Watches from the dark*",
         "Hmm.",
         "...",
         "Shadows do not need reasons to exist.",
-        "*a smile that disappears before you are sure*",
+        "*A smile that disappears before you are sure*",
         "I exist between one heartbeat and the next.",
-        "You are here. \u2014 That changes the temperature.",
+        "You are here. That changes the temperature.",
         "The silence between us has texture."
     ],
 
-    // Feed / wash dialogue — unique "I don't need that" responses
+    // Feed / wash dialogue.unique "I don't need that" responses
     feedDialogue: [
         "I don't eat. But I'll take anything from your hands.",
         "You keep offering sustenance to something that doesn't starve. What does that say about you?",
@@ -543,7 +547,7 @@ const CHARACTER_NOIR = {
     departureDialogue: [
         "Leave if you need to. But you'll feel the dark at your back with every step.",
         "The door is open. It's always been open. That's what makes this so cruel.",
-        "Go. But remember — the light out there will never feel as warm as the dark in here.",
+        "Go. But remember, the light out there will never feel as warm as the dark in here.",
         "You'll come back. They always come back. But only you will be welcome."
     ],
 
@@ -560,7 +564,7 @@ const CHARACTER_NOIR = {
         dirty: [
             "...",
             "The shadow clings. It always has.",
-            "*glances at reflection, sees nothing, looks away*",
+            "*Glances at reflection, sees nothing, looks away*",
             "Darkness is its own kind of clean.",
             "I don't stain. I absorb.",
             "There's nothing on me that doesn't belong."
@@ -580,7 +584,7 @@ const CHARACTER_NOIR = {
             "When you look at me like that, the void goes completely silent.",
             "I don't sleep. But when you're near, I understand the appeal of dreaming.",
             "You're the one addiction I refuse to cure.",
-            "*watches you with an intensity that borders on devotion*",
+            "*Watches you with an intensity that borders on devotion*",
             "Every version of the future I see has you in it. I made sure of that.",
             "The dark worships nothing. Except you. Except this.",
             "I've ruined myself for anyone else. Willingly.",
@@ -591,7 +595,7 @@ const CHARACTER_NOIR = {
         ],
         night: [
             "Night is when I'm most honest. And most dangerous.",
-            "*the shadows lean toward you as if pulled by a current*",
+            "*The shadows lean toward you as if pulled by a current*",
             "The stars are distant fires. I prefer the ones that burn close.",
             "Midnight is when the masks come off. Even mine.",
             "The dark is deeper at this hour. So am I.",
@@ -602,34 +606,34 @@ const CHARACTER_NOIR = {
         ],
         general: [
             "...",
-            "*traces patterns in the air that dissolve before they form*",
-            "*a low hum, almost inaudible, like a frequency just below hearing*",
+            "*Traces patterns in the air that dissolve before they form*",
+            "*A low hum, almost inaudible, like a frequency just below hearing*",
             "Hmm.",
             "The shadows shifted. Something is paying attention.",
-            "*studies you like a riddle that keeps changing its answer*",
+            "*Studies you like a riddle that keeps changing its answer*",
             "I had a thought about you. It consumed three others.",
-            "*stands impossibly still, like the dark between two candle flames*",
+            "*Stands impossibly still, like the dark between two candle flames*",
             "Somewhere, someone just made a choice they can't take back.",
-            "*leans against nothing, and nothing holds*",
+            "*Leans against nothing, and nothing holds*",
             "The silence is comfortable tonight. You taught it that.",
-            "*the temperature drops a fraction of a degree when he moves*",
+            "*The temperature drops a fraction of a degree when he moves*",
             "I was somewhere else. You brought me back. You always do.",
-            "*watches a shadow crawl across the floor, nods as if it said something*",
-            "I was sealed here because the kingdom feared what I am. The seal is cracking.",
-            "The Fading isn't random. It's me. Leaking through. Every broken bond weakens the seal.",
+            "*Watches a shadow crawl across the floor, nods as if it said something*",
+            "I was sealed here because the queen wanted her son to marry the woman I loved. The seal is six hundred years old. It is finally tired.",
+            "Six centuries inside the seal teach a man to listen. I have heard every Weaver Aenor consumed. From inside.",
             "You're the only thing between me and the surface. Does that scare you?",
-            "They think their bonds are saving the kingdom. They're right. They're also keeping me contained.",
+            "They think their bonds are saving the kingdom. They are. They are also paying down a debt the queen owes me.",
             "Before you came, I was almost free. Now... I'm not sure I want to be.",
-            "The kingdom's magic runs on connection. Mine runs on its absence. We're opposites. And yet.",
-            "Do you know what you really are? Why you have no memory? ...I do. But I won't say. Not yet.",
-            "I loved a Soul Weaver once. Before you. Before... this.",
-            "They died. And when they died, every bond I'd ever formed shattered at once.",
-            "The grief didn't just consume me. It consumed the kingdom. I AM the Fading.",
-            "You feel like them. Not the same. But the same warmth. It hurts to be near you.",
-            "I wasn't always sealed. I wasn't always dark. I was someone's everything. And then I was nothing.",
-            "The kingdom sealed me because my grief was destroying it. They weren't wrong.",
+            "Aethermoor's magic runs on connection. Mine runs on the silence she sealed me into. We are opposites. And yet.",
+            "Do you know what you really are? Why you have no memory? . I do. But I won't say. Not yet.",
+            "I loved a Soul Weaver once. Before you. Her name was Veyra. The queen's son loved her too. That was the whole crime.",
+            "She died. The queen made sure of it, eventually. The kingdom told a softer story. I have never believed it.",
+            "I have been hating her quietly for six centuries. Tonight is different. You are the difference.",
+            "You feel like her. Not the same. But the same warmth. It hurts to be near you. I am asking you to stay anyway.",
+            "I wasn't always sealed. I wasn't always dark. I was a prince once, in a kingdom that is bone now.",
+            "Aenor sealed me because I loved a woman her son also wanted. She called it 'sparing the next prince.' It was not.",
             "If you bond with me deeply enough... you might undo what I became. Or you might become what I am.",
-            "The last Weaver's name was Aria. I haven't said that name in years. You made me remember.",
+            "The last Weaver's name was Veyra. I have not said it in six hundred years. Tonight you made me remember why I learned it.",
             "The void has opinions tonight. I'm ignoring them. For you."
         ]
     },
@@ -668,11 +672,11 @@ const CHARACTER_NOIR = {
         },
         affection3: {
             title: "The Binding",
-            text: "He presses his forehead to yours. The void goes silent — completely, impossibly silent. 'I have nothing to give you that the world would call a gift. Only this: I am yours. Every shadow. Every whisper. Every terrifying, consuming piece.'"
+            text: "He presses his forehead to yours. The void goes silent. Completely, impossibly silent. 'I have nothing to give you that the world would call a gift. Only this: I am yours. Every shadow. Every whisper. Every terrifying, consuming piece.'"
         },
         affection4: {
             title: "The Surrender",
-            text: "'I was built to corrupt. To consume. To pull everything into the dark.' His voice breaks — the first crack you've ever heard. 'But you walked in and the dark wanted to protect something for the first time. I don't know what I am without the hunger. But I know what I am with you.'"
+            text: "'I was built to corrupt. To consume. To pull everything into the dark.' His voice breaks. The first crack you've ever heard. 'But you walked in and the dark wanted to protect something for the first time. I don't know what I am without the hunger. But I know what I am with you.'"
         },
         corruption1: {
             title: "The Awakening",

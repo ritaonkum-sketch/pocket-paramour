@@ -147,7 +147,7 @@
     // own ready modal) keep their own logic — this is purely additive.
     // ========================================================================
 
-    // Selectors that should suppress *all* ambient/secondary popups.
+    // Selectors that should suppress *All* ambient/secondary popups.
     // Order: chain transitions first (most fragile), then scene overlays,
     // then modals. Any one of these matching means "the player is in a
     // moment that should not be interrupted".
@@ -168,14 +168,73 @@
         '#story-overlay:not(.hidden)',     // story overlay
         '#daily-reward-overlay:not(.hidden)', // daily reward modal
         '#tp-root',                        // turning-point card (when shown)
-        '#talk-choice-overlay:not(.hidden)' // talk choice modal
+        '#talk-choice-overlay:not(.hidden)', // talk choice modal
+        // (Added May 2026 — owner reported a small-moment firing INSIDE the
+        //  open Gallery overlay. The fullscreen UIs below take the player out
+        //  of care-loop attention; ambient/secondary popups must not fire
+        //  while any of them is open.)
+        '#gallery-overlay:not(.hidden)',   // gallery (fullscreen)
+        '#gallery-viewer:not(.hidden)',    // gallery card lightbox
+        '#card-reveal-overlay:not(.hidden)', // card reveal animation
+        '#achievement-panel:not(.hidden)', // achievements list
+        '#settings-overlay:not(.hidden)',  // settings menu
+        '#game-over-overlay:not(.hidden)', // death / game-over
+        '#intro-overlay:not(.hidden)',     // per-character intro modal
+        // (Added May 2026 — owner reported the chain-ready popup firing on
+        //  the TITLE screen. These pre-care states are not "blockers" in the
+        //  in-game-overlay sense, but ambient popups (chain-ready, whispers,
+        //  small-moments, etc.) must not fire when the player isn't actively
+        //  in the care loop. Treating them as blockers is the cleanest gate.)
+        '#title-screen:not(.hidden)',      // title / splash screen
+        '#select-screen:not(.hidden)'      // character-select grid
     ];
+
+    // Helper: is this element ACTUALLY visible to the user (not just
+    // class-marked as visible)? A class can drift (cinematic-overlay can
+    // be left with `.visible` class even when nothing's painted), so we
+    // verify with computed styles AND a hit-test at the element center.
+    //
+    // (Added May 2026 — playtest found stale `cinematic-overlay.visible`
+    //  + `story-overlay` (without .hidden) blocking the chain-ready
+    //  popup AFTER the bridge had completed and the player was back in
+    //  the care loop. The classes were left dirty by some path that
+    //  didn't clean up, but nothing was actually painted. The class-only
+    //  check returned true, so all ambient systems thought the screen
+    //  was busy when it was idle.)
+    function _isReallyVisible(el) {
+        if (!el || !el.isConnected) return false;
+        try {
+            const cs = getComputedStyle(el);
+            if (cs.display === 'none') return false;
+            if (cs.visibility === 'hidden') return false;
+            if (parseFloat(cs.opacity || '1') < 0.05) return false;
+            const r = el.getBoundingClientRect();
+            if (r.width < 1 || r.height < 1) return false;
+            // Hit-test at the element center. If something else is on top
+            // (e.g. game-container painted over a leftover lower-z scene),
+            // the element is not actually a visual blocker for the user.
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            if (cx < 0 || cy < 0 || cx > window.innerWidth || cy > window.innerHeight) {
+                // Off-screen — not a blocker either.
+                return false;
+            }
+            const top = document.elementFromPoint(cx, cy);
+            if (!top) return false;
+            // Counts as visible if the topmost element at the center is
+            // this element OR one of its descendants (the overlay's content).
+            return el === top || el.contains(top);
+        } catch (_) { return true; } // Be conservative — any error, treat as visible.
+    }
 
     function firstHourBusy() {
         try {
             if (document.body && document.body.classList.contains('pp-chain-in-progress')) return true;
             for (const sel of HARD_BLOCKERS) {
-                if (document.querySelector(sel)) return true;
+                const matches = document.querySelectorAll(sel);
+                for (const el of matches) {
+                    if (_isReallyVisible(el)) return true;
+                }
             }
             return false;
         } catch (_) { return false; }
@@ -232,7 +291,7 @@
 
     // Defensive scrub — if any of the registered ambient bubbles is in the DOM
     // while a hard blocker is up, remove it. Runs cheaply on a 1.5s interval.
-    // This catches the case where a module mounted its bubble *just before*
+    // This catches the case where a module mounted its bubble *Just before*
     // a chain transition started (race window). Without this, the bubble would
     // sit on top of the cinematic.
     // pp-chain-toast is intentionally NOT in this list. It IS the chain-
@@ -399,5 +458,90 @@
         window.PPAmbient.isHidden = () => {
             try { return !!(document.hidden || document.visibilityState === 'hidden'); } catch (_) { return false; }
         };
+    }
+
+    // ========================================================================
+    // SCHEDULED-SCENE MUTEX (May 2026 — Phase 2 consolidation)
+    // ------------------------------------------------------------------------
+    // BACKGROUND: Pocket Paramour has 5+ scheduled-scene systems that each
+    // fire on their own cooldown:
+    //
+    //     small-moments      — 8-14 min   (kilig beats during care)
+    //     scheduled-moments  — 36 hours   (between-session invitations)
+    //     fight-makeup       — once/save  (relationship withdrawal arc)
+    //     surprises          — 8 hours    (gift surprises)
+    //     events             — random     (daily events)
+    //
+    // Each system enforces its OWN cooldown perfectly. But none of them
+    // know about each other. So if small-moments rolls "fire now" at
+    // 09:31:15 and surprises also rolls "fire now" at 09:31:30, the
+    // player gets two scenes back-to-back with no breathing room. To a
+    // player this reads as "the game won't shut up" — exactly what made
+    // the owner say "do you understand the goal of my game?"
+    //
+    // SOLUTION: a single cross-system mutex. After ANY scheduled-scene
+    // system fires, all other scheduled-scene systems back off for a
+    // minimum gap (default 5 minutes). Each system's own cooldown still
+    // applies on top — this is the FLOOR, not a replacement.
+    //
+    // USAGE in a scheduled-scene system's tick():
+    //
+    //     if (!shouldFireBySelfCooldown()) return;
+    //     if (!PPAmbient.tryClaimSceneSlot('small-moments')) return;
+    //     // ...fire the scene...
+    //
+    // Returns true exactly when granted. Granting also stamps the timer.
+    // ========================================================================
+    const SCENE_GAP_KEY = 'pp_scene_last_fire_global';
+    const SCENE_GAP_DEFAULT_MS = 5 * 60 * 1000;  // 5 min between ANY scenes
+
+    function _readLastSceneFire() {
+        try {
+            const raw = localStorage.getItem(SCENE_GAP_KEY);
+            if (!raw) return 0;
+            const parsed = JSON.parse(raw);
+            return parsed && typeof parsed.ts === 'number' ? parsed : { ts: 0, who: '' };
+        } catch (_) {
+            return { ts: 0, who: '' };
+        }
+    }
+    function _stampSceneFire(name) {
+        try {
+            localStorage.setItem(SCENE_GAP_KEY, JSON.stringify({ ts: Date.now(), who: String(name || 'unknown') }));
+        } catch (_) {}
+    }
+
+    function tryClaimSceneSlot(name, opts) {
+        const minGap = (opts && typeof opts.minGapMs === 'number') ? opts.minGapMs : SCENE_GAP_DEFAULT_MS;
+        const last = _readLastSceneFire();
+        const lastTs = last && typeof last === 'object' ? last.ts : 0;
+        const age = Date.now() - lastTs;
+        if (age < minGap) {
+            try { console.debug('[scene-mutex] denied', name, 'last=' + (last && last.who) + ' age=' + Math.round(age / 1000) + 's'); } catch (_) {}
+            return false;
+        }
+        _stampSceneFire(name);
+        try { console.debug('[scene-mutex] granted', name); } catch (_) {}
+        return true;
+    }
+
+    // Read-only inspector — useful for dev panel / debug overlay.
+    function lastSceneFire() {
+        const r = _readLastSceneFire();
+        if (!r || !r.ts) return null;
+        return { name: r.who, ts: r.ts, ageMs: Date.now() - r.ts };
+    }
+
+    // Force-clear the mutex. Used when starting a new session, when the
+    // player resets their save, or in dev. Should NOT be called during
+    // normal play.
+    function clearSceneSlot() {
+        try { localStorage.removeItem(SCENE_GAP_KEY); } catch (_) {}
+    }
+
+    if (window.PPAmbient) {
+        window.PPAmbient.tryClaimSceneSlot = tryClaimSceneSlot;
+        window.PPAmbient.lastSceneFire = lastSceneFire;
+        window.PPAmbient.clearSceneSlot = clearSceneSlot;
     }
 })();
