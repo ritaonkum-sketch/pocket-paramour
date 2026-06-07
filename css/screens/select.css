@@ -1,0 +1,1507 @@
+/* ============================================================================
+   POCKET PARAMOUR — CHARACTER SELECT SCREEN (Dark velvet + arched panels)
+   ----------------------------------------------------------------------------
+   Migrated to match the title-screen direction (dark velvet + gold + jewel
+   tones per character). Replaces the circular portrait cards with tall
+   arched panels — each in the character's signature jewel tone.
+
+   Reference: owner's poster art (gothic romantasy court with arched
+   silhouette panels).
+
+   Load order: AFTER style.css.
+   ============================================================================ */
+
+
+/* ──────────────────────── DARK VELVET BACKGROUND ──────────────────────── */
+
+#select-screen {
+    /* Match the reference mockup — deep purple-black, flat & cinematic.
+       No rose/wine tinting that was making it look reddish before. */
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(40, 15, 55, 0.45) 0%, transparent 70%),
+        linear-gradient(180deg, #0B0612 0%, #0A0510 50%, #08040E 100%);
+    /* Kill scrolling — everything must fit in viewport */
+    overflow: hidden;
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE/Edge legacy */
+}
+#select-screen::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+
+
+/* ──────────────────────── CONTAINER ──────────────────────── */
+
+#select-content {
+    padding: var(--s-4) var(--s-3) var(--s-5);
+    max-width: 460px;
+    border: 1px solid rgba(212, 168, 91, 0.22);
+    border-radius: var(--r-lg);
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.55) 0%, rgba(15, 8, 26, 0.65) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(212, 168, 91, 0.10),
+        0 12px 40px -16px rgba(0, 0, 0, 0.7),
+        0 0 32px rgba(122, 18, 36, 0.18);
+}
+
+
+/* ──────────────────────── HEADER TYPOGRAPHY (Cormorant Garamond italic) ──────────────────────── */
+/* June 2026: matched to the title screen's literary voice — Cormorant
+   Garamond italic. Kept the gold shimmer on the title since "Threads
+   of Fate" deserves the brand glow. */
+
+#select-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: var(--text-2xl);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    background: linear-gradient(135deg, #8C6E2C, #D4B26E, #F2D690, #D4B26E, #8C6E2C);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    animation: ppSelectTitleShimmer 8s var(--ease-tender) infinite;
+    margin: 0 0 var(--s-2) 0;
+    text-align: center;
+    filter: drop-shadow(0 1px 6px rgba(184, 146, 62, 0.45));
+}
+
+@keyframes ppSelectTitleShimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#select-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: var(--text-md);
+    letter-spacing: 0.02em;
+    color: rgba(232, 200, 220, 0.78);
+    margin-bottom: var(--s-3);
+    text-align: center;
+    line-height: var(--lh-base);
+}
+
+
+/* ──────────────────────── INLINE MAIN STORY BUTTON ──────────────────────── */
+/* Always visible above the character grid so players can find Main Story
+   without scanning for a small floating orb. */
+
+.select-main-story-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    width: 100%;
+    max-width: 360px;
+    min-height: 44px;
+    margin: 0 auto var(--s-3);
+    padding: var(--s-2) var(--s-5);
+    background: linear-gradient(180deg, #D4B26E 0%, #B8923E 100%);
+    color: #1F140B;
+    border: 1.5px solid #D4B26E;
+    border-radius: var(--r-pill);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: var(--text-base);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.30),
+        0 6px 22px -4px rgba(184, 146, 62, 0.55),
+        0 0 36px rgba(184, 146, 62, 0.18);
+    transition: all var(--dur-base) var(--ease-tender);
+    animation: selectMsBtnPulse 2.4s var(--ease-tender) infinite;
+}
+
+.select-main-story-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.36),
+        0 10px 30px -4px rgba(184, 146, 62, 0.75),
+        0 0 56px rgba(184, 146, 62, 0.30);
+}
+
+.select-main-story-btn:active {
+    transform: scale(0.98);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.select-main-story-btn .ms-btn-icon {
+    font-size: var(--text-lg);
+    line-height: 1;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3));
+}
+
+.select-main-story-btn .ms-btn-label {
+    flex: 0 1 auto;
+}
+
+.select-main-story-btn .ms-btn-count {
+    display: inline-block;
+    margin-left: var(--s-2);
+    padding: 2px 10px;
+    background: rgba(31, 20, 11, 0.25);
+    border-radius: var(--r-pill);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #1F140B;
+}
+
+@keyframes selectMsBtnPulse {
+    0%, 100% {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.30),
+            0 6px 22px -4px rgba(184, 146, 62, 0.55),
+            0 0 36px rgba(184, 146, 62, 0.18);
+    }
+    50% {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.36),
+            0 10px 32px -2px rgba(184, 146, 62, 0.80),
+            0 0 64px rgba(184, 146, 62, 0.35);
+    }
+}
+
+
+/* ──────────────────────── GRID ──────────────────────── */
+
+#select-grid {
+    gap: var(--s-2) var(--s-2);
+    padding: 0 var(--s-1);
+    max-width: 400px;
+    justify-content: center;
+}
+
+
+/* ──────────────────────── CIRCULAR CARD ──────────────────────── */
+/* Circular portraits (per owner request). Each circle has a gold border
+   and a per-character jewel-tone halo glow behind it.
+   Compact sizing so all 7 characters fit without scrolling. */
+
+.select-card {
+    width: 95px;
+    cursor: pointer;
+    transition: transform var(--dur-base) var(--ease-tender);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.select-card:hover,
+.select-card:active {
+    transform: translateY(-3px);
+}
+
+/* The portrait wrapper is a CIRCLE — smaller to fit 7 chars no-scroll */
+.select-card-img-wrap {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto var(--s-1);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(212, 168, 91, 0.65);
+    background:
+        radial-gradient(circle at center, var(--char-tone, rgba(60, 30, 80, 0.7)) 0%, rgba(15, 8, 26, 0.95) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 1px 0 rgba(212, 168, 91, 0.15),
+        0 6px 18px -4px rgba(0, 0, 0, 0.6),
+        0 0 18px var(--char-glow, rgba(212, 168, 91, 0.25));
+    transition:
+        border-color var(--dur-base) var(--ease-tender),
+        box-shadow var(--dur-base) var(--ease-tender);
+    position: relative;
+}
+
+.select-card:hover .select-card-img-wrap,
+.select-card:active .select-card-img-wrap {
+    border-color: rgba(232, 200, 138, 1);
+    box-shadow:
+        inset 0 1px 0 rgba(212, 168, 91, 0.25),
+        0 10px 28px -4px rgba(0, 0, 0, 0.75),
+        0 0 36px var(--char-glow, rgba(212, 168, 91, 0.6));
+}
+
+.select-card-img {
+    width: 88%;
+    height: 88%;
+    object-fit: cover;
+    object-position: center 30%;
+    /* Zoomed out a touch so faces have breathing room inside the circle
+       (chins shouldn't touch the edge). The wrapper's jewel-tone gradient
+       shows as a halo around the image — intentional. */
+    border-radius: 50%;
+    display: block;
+}
+
+
+/* ──────────────────────── PER-CHARACTER JEWEL TONES ──────────────────────── */
+/* Each character's panel gets its signature color as the gradient top + glow.
+   Pulled from MARKET-STUDY.md Section 2.3 character color signatures. */
+
+.select-card[data-character="alistair"] {
+    --char-tone: rgba(196, 147, 63, 0.55);   /* captain-gold */
+    --char-glow: rgba(196, 147, 63, 0.40);
+}
+.select-card[data-character="elian"] {
+    --char-tone: rgba(47, 74, 54, 0.65);     /* forest-deep */
+    --char-glow: rgba(47, 74, 54, 0.45);
+}
+.select-card[data-character="lyra"] {
+    --char-tone: rgba(132, 166, 184, 0.50);  /* sea-silver */
+    --char-glow: rgba(132, 166, 184, 0.40);
+}
+.select-card[data-character="caspian"] {
+    --char-tone: rgba(42, 73, 120, 0.65);    /* royal-sapphire */
+    --char-glow: rgba(42, 73, 120, 0.45);
+}
+.select-card[data-character="lucien"] {
+    --char-tone: rgba(61, 51, 94, 0.65);     /* blue-violet */
+    --char-glow: rgba(232, 201, 126, 0.30);  /* starlight-gold accent */
+}
+.select-card[data-character="noir"] {
+    --char-tone: rgba(14, 7, 16, 0.85);      /* black-velvet */
+    --char-glow: rgba(154, 47, 78, 0.35);    /* wine-blood accent */
+}
+.select-card[data-character="proto"] {
+    --char-tone: rgba(63, 184, 177, 0.45);   /* static-cyan */
+    --char-glow: rgba(63, 184, 177, 0.40);
+}
+
+
+/* ──────────────────────── CARD TEXT (Inter) ──────────────────────── */
+
+.select-card-name {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: 0.5px;
+    color: #F4ECDC;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.select-card-role {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.6px;
+    color: rgba(212, 168, 91, 0.75);
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 2px;
+    line-height: 1.2;
+    padding: 0 var(--s-1);
+}
+
+
+/* ──────────────────────── LOCKED CARD ──────────────────────── */
+
+.select-card-locked .select-card-img-wrap {
+    border-color: rgba(184, 146, 62, 0.22);
+    box-shadow:
+        inset 0 0 18px rgba(0, 0, 0, 0.65),
+        0 4px 14px -4px rgba(0, 0, 0, 0.5);
+}
+
+.select-card-locked .select-card-img {
+    filter: brightness(0.25) saturate(0.4);
+}
+
+.select-card-locked .select-card-name {
+    color: rgba(244, 236, 220, 0.45);
+}
+
+.select-card-locked .select-card-role {
+    color: rgba(244, 236, 220, 0.30);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPANION CHRONICLE — full character-select rebuild (June 2026)
+   ───────────────────────────────────────────────────────────────────────────
+   New screen-spanning layout:
+     [Header: ornament corners + COMPANION CHRONICLE + tagline]
+     [Current Story card with progress ribbon]
+     [Active Companion hero with bond level + 3 action buttons]
+     [Other Threads of Fate horizontal row]
+     [Bottom Nav: HOME / COMPANIONS / JOURNAL / SHOP / MORE]
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Allow vertical scroll for the new layout (gracefully — scrollbar hidden) */
+#select-screen {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Strip the legacy panel chrome — new layout owns its own backgrounds */
+#select-content {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 14px 14px 90px;  /* bottom padding clears the fixed bottom nav */
+    border: none;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+
+/* ─── HEADER ─────────────────────────────────────────────────────────── */
+.cc-header {
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+    padding: 16px 14px 14px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.cc-corner-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 32% 32%, rgba(74, 30, 60, 0.85), rgba(15, 8, 28, 0.95));
+    border: 1px solid rgba(212, 168, 91, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #D4B26E;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 200, 220, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.55),
+        0 0 12px rgba(214, 59, 122, 0.15);
+}
+
+.cc-corner-right {
+    background:
+        radial-gradient(circle at 30% 30%, rgba(214, 59, 122, 0.7), rgba(122, 18, 36, 0.95));
+    border: 1.5px solid rgba(232, 200, 138, 0.6);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 200, 220, 0.4),
+        0 0 14px rgba(232, 76, 140, 0.55),
+        0 2px 8px rgba(0, 0, 0, 0.55);
+}
+.cc-corner-seal {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: #FFF0F6;
+    text-shadow: 0 1px 2px rgba(74, 10, 26, 0.5);
+}
+
+.cc-title-block {
+    text-align: center;
+}
+.cc-heart-divider {
+    font-size: 11px;
+    color: #E84C8C;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 0 6px rgba(232, 76, 140, 0.7));
+}
+#select-title.cc-title {
+    font-family: var(--font-serif);
+    font-style: normal;       /* override the older italic */
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #C9A24F 0%, #F2D690 50%, #C9A24F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin: 0 0 4px 0;
+    filter: drop-shadow(0 1px 4px rgba(184, 146, 62, 0.45));
+    animation: none;
+}
+#select-subtitle.cc-tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: rgba(232, 200, 220, 0.72);
+    margin: 0;
+}
+
+
+/* ─── CURRENT STORY CARD ─────────────────────────────────────────────── */
+.cc-current-story {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    gap: 12px;
+    padding: 16px 16px 16px;
+    margin: 0 0 16px;
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.85) 0%, rgba(15, 8, 26, 0.95) 100%);
+    border: 1px solid rgba(212, 168, 91, 0.32);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 200, 220, 0.10),
+        0 8px 22px -6px rgba(0, 0, 0, 0.65),
+        0 0 28px rgba(154, 69, 103, 0.18);
+}
+.cc-story-art {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 80% 30%, rgba(180, 100, 200, 0.32) 0%, transparent 60%),
+        radial-gradient(ellipse at 90% 80%, rgba(232, 76, 140, 0.18) 0%, transparent 55%),
+        linear-gradient(135deg, rgba(15, 8, 26, 0) 40%, rgba(80, 30, 110, 0.32) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+.cc-story-content { position: relative; z-index: 1; }
+.cc-story-label {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-gold-soft, #D4B26E);
+    margin-bottom: 6px;
+}
+.cc-story-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #F2E0EC;
+    margin: 0 0 4px 0;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+.cc-story-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 15px;
+    color: rgba(232, 200, 220, 0.88);
+    margin-bottom: 8px;
+}
+.cc-sparkle { color: #E84C8C; font-size: 10px; vertical-align: middle; }
+.cc-story-desc {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(232, 200, 220, 0.65);
+    margin: 0 0 12px;
+    max-width: 200px;
+}
+/* CONTINUE STORY button (reuses #select-main-story-btn id, but new styling) */
+#select-main-story-btn.cc-continue-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 9px 18px;
+    background: linear-gradient(180deg, #B85B7E 0%, #7A2B4D 100%);
+    color: #FFF6FA;
+    border: 1px solid rgba(232, 200, 138, 0.6);
+    border-radius: 20px;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    box-shadow:
+        0 4px 14px -2px rgba(122, 18, 36, 0.65),
+        0 0 22px rgba(214, 59, 122, 0.25);
+    animation: none;  /* override the gold-pulse */
+}
+#select-main-story-btn.cc-continue-btn .cc-arrow {
+    font-size: 14px;
+    line-height: 1;
+}
+#select-main-story-btn.cc-continue-btn .ms-btn-icon,
+#select-main-story-btn.cc-continue-btn .ms-btn-count { display: none; }
+
+.cc-progress-ribbon {
+    position: absolute;
+    top: -1px;
+    right: 16px;
+    z-index: 2;
+    width: 70px;
+    padding: 14px 8px 22px;
+    background: linear-gradient(180deg, #C46A8D 0%, #7A2B4D 100%);
+    border: 1px solid rgba(232, 200, 138, 0.6);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    text-align: center;
+    color: #FFF6FA;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+    box-shadow: 0 4px 12px rgba(74, 10, 26, 0.55);
+}
+.cc-ribbon-spark { font-size: 14px; color: #F2D690; display: block; margin-bottom: 2px; }
+.cc-ribbon-label {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 246, 250, 0.85);
+    margin-bottom: 2px;
+}
+.cc-ribbon-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 13px;
+    color: #FFF6FA;
+}
+
+
+/* ─── ACTIVE COMPANION ───────────────────────────────────────────────── */
+.cc-active-companion {
+    position: relative;
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 14px;
+    padding: 16px 16px 18px;
+    margin: 0 0 18px;
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.85) 0%, rgba(15, 8, 26, 0.95) 100%);
+    border: 1px solid rgba(212, 168, 91, 0.32);
+    border-radius: 14px;
+    overflow: visible;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 200, 220, 0.10),
+        0 10px 28px -6px rgba(0, 0, 0, 0.7),
+        0 0 36px rgba(154, 69, 103, 0.22);
+}
+.cc-active-portrait {
+    position: relative;
+    width: 130px;
+    height: 160px;
+    /* No frame — the character art floats with just the per-character
+       glow halo. Background, border, and inset shadow removed June 2026. */
+    border-radius: 0;
+    overflow: visible;
+    background: none;
+}
+.cc-active-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    /* Soft vignette mask so the portrait edges fade gracefully into the
+       card background instead of cutting hard at the rectangle. */
+    -webkit-mask-image:
+        radial-gradient(ellipse at 50% 45%, #000 50%, transparent 95%);
+    mask-image:
+        radial-gradient(ellipse at 50% 45%, #000 50%, transparent 95%);
+    /* Apply the per-character glow as a drop-shadow on the image itself
+       so the halo follows the actual portrait silhouette, not a box. */
+    filter:
+        drop-shadow(0 0 14px var(--cc-char-glow, rgba(232, 76, 140, 0.5)))
+        drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55));
+}
+.cc-active-portrait-glow {
+    /* Now used only as a faint upward backdrop glow behind the silhouette */
+    position: absolute;
+    inset: -10px;
+    background:
+        radial-gradient(ellipse at 50% 55%, var(--cc-char-glow, rgba(232, 76, 140, 0.32)) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: -1;
+}
+.cc-active-info { min-width: 0; }
+.cc-active-label {
+    font-family: var(--font-serif);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-gold-soft, #D4B26E);
+    margin-bottom: 4px;
+}
+.cc-active-name {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #F4E0E8 0%, #E84C8C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin: 0;
+    filter: drop-shadow(0 2px 6px rgba(232, 76, 140, 0.4));
+}
+.cc-active-role {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-gold-soft, #D4B26E);
+    margin-bottom: 10px;
+}
+.cc-bond-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.cc-bond-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 32%, #E84C8C, #7A2B4D);
+    border: 1.5px solid rgba(232, 200, 138, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFF6FA;
+    box-shadow:
+        0 0 12px rgba(232, 76, 140, 0.55),
+        inset 0 1px 0 rgba(255, 230, 240, 0.45);
+}
+.cc-bond-label {
+    font-family: var(--font-serif);
+    font-size: 9px;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: var(--c-gold-soft, #D4B26E);
+}
+.cc-bond-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(232, 200, 220, 0.85);
+}
+.cc-active-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: rgba(232, 200, 220, 0.75);
+    margin: 0 0 12px;
+}
+.cc-action-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+}
+.cc-action-btn.cc-action-care {
+    min-width: 160px;
+    padding: 11px 26px;
+    background: linear-gradient(180deg, rgba(122, 18, 36, 0.55) 0%, rgba(74, 10, 26, 0.78) 100%);
+    border-color: rgba(232, 200, 138, 0.7);
+    box-shadow:
+        0 4px 14px -3px rgba(122, 18, 36, 0.55),
+        0 0 22px rgba(232, 76, 140, 0.18);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+}
+.cc-action-btn.cc-action-care:hover {
+    box-shadow:
+        0 6px 18px -3px rgba(122, 18, 36, 0.70),
+        0 0 36px rgba(232, 76, 140, 0.32);
+}
+.cc-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 6px;
+    background: linear-gradient(180deg, rgba(43, 17, 51, 0.7) 0%, rgba(15, 8, 26, 0.7) 100%);
+    border: 1px solid rgba(212, 168, 91, 0.45);
+    border-radius: 8px;
+    color: rgba(232, 200, 220, 0.92);
+    font-family: var(--font-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease-tender), background var(--dur-fast) var(--ease-tender);
+}
+.cc-action-btn:hover { background: linear-gradient(180deg, rgba(74, 30, 60, 0.85) 0%, rgba(31, 14, 38, 0.9) 100%); }
+.cc-action-btn:active { transform: scale(0.96); }
+.cc-action-btn.cc-action-visit {
+    background: linear-gradient(180deg, rgba(122, 18, 36, 0.55) 0%, rgba(74, 10, 26, 0.7) 100%);
+    border-color: rgba(232, 200, 138, 0.7);
+}
+.cc-action-icon { color: var(--c-rose, #E84C8C); font-size: 12px; line-height: 1; }
+.cc-action-btn.cc-action-care .cc-action-icon { color: #E84C8C; }
+.cc-action-btn.cc-action-story .cc-action-icon { color: #F2D690; }
+.cc-favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(15, 8, 26, 0.7);
+    border: 1px solid rgba(212, 168, 91, 0.55);
+    color: #E84C8C;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* ─── OTHER THREADS OF FATE ──────────────────────────────────────────── */
+.cc-threads-section { margin-bottom: 8px; padding-top: 6px; }
+.cc-threads-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 0 6px;
+}
+.cc-ornament-line {
+    flex: 1;
+    max-width: 72px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 91, 0.65) 30%, rgba(232, 200, 138, 0.85) 50%, rgba(212, 168, 91, 0.65) 70%, transparent);
+    position: relative;
+}
+.cc-ornament-line::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 4px;
+    height: 4px;
+    background: #D4B26E;
+    box-shadow: 0 0 4px rgba(212, 168, 91, 0.7);
+}
+.cc-threads-title {
+    font-family: var(--font-serif);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #C9A24F 0%, #F2D690 50%, #C9A24F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 4px rgba(184, 146, 62, 0.45));
+    white-space: nowrap;
+}
+
+/* Override the legacy #select-grid layout — now a horizontal scroll row */
+#select-grid.cc-threads-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 4px 8px;
+    max-width: none;
+    justify-content: flex-start;
+    scrollbar-width: none;
+}
+#select-grid.cc-threads-row::-webkit-scrollbar { display: none; }
+
+/* Tall portrait-format thread cards — June 2026 rebuild per owner mockup */
+.cc-thread-card.select-card {
+    flex: 0 0 118px;
+    width: 118px;
+    height: 240px;
+    padding: 8px;
+    background:
+        linear-gradient(180deg, rgba(43, 17, 60, 0.75) 0%, rgba(15, 8, 26, 0.92) 100%);
+    border: 1px solid rgba(212, 168, 91, 0.45);
+    border-radius: 14px;
+    scroll-snap-align: start;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow:
+        0 6px 14px -3px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 200, 220, 0.08);
+    transition:
+        transform var(--vfx-motion-quick, 320ms) var(--vfx-ease-tender, ease-out),
+        box-shadow var(--vfx-motion-quick, 320ms) var(--vfx-ease-tender, ease-out),
+        border-color var(--vfx-motion-quick, 320ms) var(--vfx-ease-tender, ease-out);
+}
+
+/* Portrait now fills the TOP of the card — rectangular, no frame.
+   The character face bleeds naturally into the card backdrop via a
+   soft radial mask. Per-character glow applied as drop-shadow on the
+   image itself so the halo follows the silhouette, not a box. */
+.cc-thread-portrait {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    overflow: visible;
+}
+.cc-thread-portrait img.select-card-img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    object-position: center 18%;
+    border-radius: 0;
+    display: block;
+    /* Soft vignette mask so edges fade gracefully into the card */
+    -webkit-mask-image:
+        radial-gradient(ellipse at 50% 42%, #000 55%, transparent 95%);
+    mask-image:
+        radial-gradient(ellipse at 50% 42%, #000 55%, transparent 95%);
+    /* Per-character glow follows the silhouette */
+    filter:
+        drop-shadow(0 0 10px var(--char-glow, rgba(212, 168, 91, 0.35)))
+        drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+.cc-thread-name.select-card-name {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: #F4E0E8;
+    margin: 6px 0 0;
+    line-height: 1.1;
+}
+.cc-thread-role.select-card-role {
+    font-family: var(--font-serif);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(212, 168, 91, 0.78);
+    line-height: 1.25;
+    padding: 0 4px;
+}
+
+.cc-thread-card.select-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(232, 200, 138, 0.80);
+    box-shadow:
+        0 10px 22px -4px rgba(0, 0, 0, 0.75),
+        0 0 22px var(--char-glow, rgba(212, 168, 91, 0.40)),
+        inset 0 1px 0 rgba(255, 200, 220, 0.12);
+}
+
+/* ── LOCKED CARDS ── silhouette + silver thread + lock pill ──
+   The decorative locked-state elements (.cc-locked-thread, .cc-locked-pill,
+   .cc-locked-badge) are HIDDEN by default and only render when the
+   parent card has .cc-thread-locked. This way game.js can remove the
+   locked class on Proto / Noir unlock and the card cleanly transitions
+   to the standard unlocked appearance with no leftover lock visuals. */
+.cc-locked-thread,
+.cc-locked-pill,
+.cc-locked-badge { display: none; }
+
+/* Lock-state selector — matches BOTH our new cc-thread-locked class AND
+   the legacy ms-locked / select-card-locked classes that main-story.js
+   and game.js apply. This way any card the game says is locked gets
+   the full visual treatment. */
+.cc-thread-locked.select-card,
+.cc-thread-card.ms-locked,
+.cc-thread-card.select-card-locked {
+    background:
+        linear-gradient(180deg, rgba(43, 17, 60, 0.85) 0%, rgba(15, 8, 26, 0.95) 100%);
+    border-color: rgba(212, 168, 91, 0.28);
+}
+
+/* Override the LEGACY .select-card-locked rule from style.css that applied
+   opacity:0.5 + pointer-events:none + filter:grayscale(0.5) to Noir. Those
+   were appropriate for the old design but break the new locked-card look
+   (Noir was half-transparent vs Lucien/Caspian/Lyra which use ms-locked).
+   Also unblocks the click so the lock-popup can fire. */
+.cc-thread-card.select-card-locked,
+.cc-thread-card.cc-thread-locked {
+    opacity: 1;
+    pointer-events: auto;
+    filter: none;
+}
+.cc-thread-locked .select-card-img,
+.cc-thread-card.ms-locked .select-card-img,
+.cc-thread-card.select-card-locked .select-card-img {
+    /* Heavy darken + purple tint to create silhouette feel */
+    filter:
+        brightness(0.20)
+        saturate(0.6)
+        contrast(1.1)
+        hue-rotate(-15deg)
+        drop-shadow(0 0 6px rgba(180, 130, 200, 0.35));
+}
+
+/* The silver thread SVG weaving around the silhouette area */
+.cc-thread-locked .cc-locked-thread,
+.cc-thread-card.ms-locked .cc-locked-thread,
+.cc-thread-card.select-card-locked .cc-locked-thread {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Apply the pulse to the path strokes THEMSELVES (not the container)
+   so the threads shimmer in and out independently of the card.
+   Per ChatGPT's premium-UI layering guidance. */
+.cc-locked-thread path {
+    filter: drop-shadow(0 0 4px rgba(255, 220, 240, 0.75));
+    animation: ppThreadPulse 4s ease-in-out infinite;
+}
+.cc-locked-thread path:nth-child(odd) { animation-delay: 0s; }
+.cc-locked-thread path:nth-child(even) { animation-delay: 1.2s; }
+
+@keyframes ppThreadPulse {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
+}
+
+/* The sparkle dots on the threads twinkle on their own offset */
+.cc-locked-thread circle {
+    filter: drop-shadow(0 0 4px rgba(255, 200, 220, 0.95));
+    animation: ppThreadSparkle 3s ease-in-out infinite;
+}
+.cc-locked-thread circle:nth-child(1) { animation-delay: 0s; }
+.cc-locked-thread circle:nth-child(2) { animation-delay: 0.9s; }
+.cc-locked-thread circle:nth-child(3) { animation-delay: 1.7s; }
+
+@keyframes ppThreadSparkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50%      { opacity: 1;   transform: scale(1.3); }
+}
+
+/* Deeper silhouette via a mix-blend-mode shadow overlay sitting between
+   the image and the thread. Per ChatGPT: dark fantasy needs restrained,
+   low-opacity layering, not flat blackness. */
+.cc-locked-shadow-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        rgba(10, 0, 20, 0.18) 0%,
+        rgba(35, 10, 50, 0.55) 60%,
+        rgba(5, 0, 15, 0.85) 100%);
+    border-radius: 10px;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+}
+
+/* Floating particles inside the silhouette — drift upward, fade. */
+.cc-locked-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 180, 220, 0.75);
+    filter: blur(1px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 4;
+    animation: ppLockedParticleFloat 8s ease-in-out infinite;
+}
+.cc-locked-particle.lp-1 { left: 22%; bottom: 18%; animation-delay: 0s;   }
+.cc-locked-particle.lp-2 { left: 58%; bottom: 12%; animation-delay: 2.6s; width: 3px; height: 3px; }
+.cc-locked-particle.lp-3 { left: 78%; bottom: 28%; animation-delay: 5.2s; width: 5px; height: 5px; background: rgba(220, 180, 255, 0.7); }
+
+@keyframes ppLockedParticleFloat {
+    0%   { transform: translateY(0)     scale(0.8); opacity: 0; }
+    20%  { opacity: 1; }
+    60%  { opacity: 0.8; }
+    100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cc-locked-thread path,
+    .cc-locked-thread circle,
+    .cc-locked-particle { animation: none; }
+}
+
+/* Lock icon pill — sits BELOW the silhouette area, centered */
+.cc-thread-locked .cc-locked-pill,
+.cc-thread-card.ms-locked .cc-locked-pill,
+.cc-thread-card.select-card-locked .cc-locked-pill {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, rgba(74, 30, 60, 0.95), rgba(15, 8, 28, 0.98));
+    border: 1px solid rgba(248, 180, 200, 0.45);
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 10px rgba(232, 76, 140, 0.32),
+        0 2px 4px rgba(0, 0, 0, 0.55);
+    z-index: 3;
+}
+.cc-locked-lock-icon {
+    font-size: 14px;
+    line-height: 1;
+    filter: grayscale(0.6) brightness(0.85);
+}
+
+/* "LOCKED" pill badge below the role */
+.cc-thread-locked .cc-locked-badge,
+.cc-thread-card.ms-locked .cc-locked-badge,
+.cc-thread-card.select-card-locked .cc-locked-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin: 4px auto 0;
+    padding: 3px 10px;
+    background: rgba(74, 30, 60, 0.55);
+    border: 1px solid rgba(212, 168, 91, 0.30);
+    border-radius: 10px;
+    font-family: var(--font-serif);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(248, 180, 200, 0.85);
+}
+
+/* Locked card text styling (lavender / muted) */
+.cc-thread-card.ms-locked .cc-thread-name.select-card-name,
+.cc-thread-card.select-card-locked .cc-thread-name.select-card-name {
+    color: rgba(232, 200, 220, 0.78);
+    letter-spacing: 0.18em;
+}
+.cc-thread-card.ms-locked .cc-thread-role.select-card-role,
+.cc-thread-card.select-card-locked .cc-thread-role.select-card-role {
+    color: rgba(232, 200, 220, 0.55);
+}
+.cc-locked-badge span {
+    font-size: 9px;
+    line-height: 1;
+}
+
+/* Locked cards — name colour shift to lavender */
+.cc-thread-locked .cc-thread-name.select-card-name {
+    color: rgba(232, 200, 220, 0.78);
+    letter-spacing: 0.18em;
+}
+.cc-thread-locked .cc-thread-role.select-card-role {
+    color: rgba(232, 200, 220, 0.55);
+}
+
+
+/* ─── BOTTOM NAV ─────────────────────────────────────────────────────── */
+.cc-bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 6px 6px 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0));
+    max-width: 480px;
+    margin: 0 auto;
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.85) 0%, rgba(11, 4, 16, 0.98) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(212, 168, 91, 0.40);
+    box-shadow:
+        0 -10px 28px -6px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(212, 168, 91, 0.25);
+}
+/* Gold ornament line above the nav — center diamond + fading lines */
+.cc-bottom-nav::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 200, 138, 0.65), transparent);
+    pointer-events: none;
+}
+.cc-bottom-nav::after {
+    content: "✦";
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: #D4B26E;
+    background: rgba(11, 4, 16, 0.96);
+    padding: 0 6px;
+    text-shadow: 0 0 8px rgba(212, 168, 91, 0.65);
+    pointer-events: none;
+}
+
+.cc-nav-tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 2px 6px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: rgba(232, 200, 220, 0.55);
+    font-family: var(--font-serif);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition:
+        color var(--dur-fast, 220ms) var(--ease-tender, cubic-bezier(0.22, 1, 0.36, 1)),
+        background var(--dur-fast, 220ms) var(--ease-tender, cubic-bezier(0.22, 1, 0.36, 1));
+}
+.cc-nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    opacity: 0.72;
+    transition: opacity var(--dur-fast, 220ms) var(--ease-tender, cubic-bezier(0.22, 1, 0.36, 1));
+}
+.cc-nav-tab:hover {
+    color: rgba(232, 200, 220, 0.85);
+    background: rgba(232, 200, 138, 0.05);
+}
+.cc-nav-tab:hover .cc-nav-icon { opacity: 0.9; }
+
+/* ACTIVE STATE — magenta-rose pill background + gold top accent + glowing icon */
+.cc-nav-tab.is-active {
+    color: #FFE0EC;
+    background:
+        radial-gradient(ellipse at center top, rgba(232, 76, 140, 0.32) 0%, rgba(122, 18, 36, 0.20) 60%, transparent 100%);
+}
+.cc-nav-tab.is-active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #F2D690, #E84C8C, #F2D690, transparent);
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(232, 76, 140, 0.85);
+}
+.cc-nav-tab.is-active .cc-nav-icon {
+    opacity: 1;
+    color: #E84C8C;
+    filter:
+        drop-shadow(0 0 8px rgba(232, 76, 140, 0.85))
+        drop-shadow(0 0 16px rgba(232, 76, 140, 0.45));
+    animation: ppNavIconBreathe 3s ease-in-out infinite;
+}
+@keyframes ppNavIconBreathe {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.08); }
+}
+
+.cc-nav-dot {
+    position: absolute;
+    top: 6px;
+    right: 22%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E84C8C;
+    box-shadow:
+        0 0 6px rgba(232, 76, 140, 0.95),
+        0 0 12px rgba(232, 76, 140, 0.5);
+    animation: ppNavDotPulse 2s ease-in-out infinite;
+}
+@keyframes ppNavDotPulse {
+    0%, 100% { transform: scale(1);    box-shadow: 0 0 6px rgba(232, 76, 140, 0.95), 0 0 12px rgba(232, 76, 140, 0.5); }
+    50%      { transform: scale(1.18); box-shadow: 0 0 8px rgba(232, 76, 140, 1),    0 0 18px rgba(232, 76, 140, 0.65); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STAGE 2 POLISH — corner ornaments, silver thread, glow, starfield
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── GOLD CORNER ORNAMENTS on big cards ─── */
+.cc-current-story::before,
+.cc-current-story::after,
+.cc-active-companion::before,
+.cc-active-companion::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    z-index: 3;
+    border: 1.5px solid rgba(212, 168, 91, 0.85);
+    filter: drop-shadow(0 0 4px rgba(212, 168, 91, 0.55));
+}
+.cc-current-story::before,
+.cc-active-companion::before {
+    top: 5px; left: 5px;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 6px;
+}
+.cc-current-story::after,
+.cc-active-companion::after {
+    bottom: 5px; right: 5px;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 6px;
+}
+
+/* Smaller corner brackets on thread cards */
+.cc-thread-card.select-card { position: relative; }
+.cc-thread-card.select-card::before,
+.cc-thread-card.select-card::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    border: 1px solid rgba(212, 168, 91, 0.55);
+}
+.cc-thread-card.select-card::before {
+    top: 3px; left: 3px;
+    border-right: none; border-bottom: none;
+}
+.cc-thread-card.select-card::after {
+    bottom: 3px; right: 3px;
+    border-left: none; border-top: none;
+}
+
+
+/* ─── SILVER THREAD WEAVING through threads row ─── */
+/* SVG-encoded data URI of a sine-wave thread that tiles horizontally. */
+.cc-threads-section {
+    position: relative;
+}
+.cc-threads-section::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    top: 50px;        /* aligned with the middle of the card portraits */
+    height: 30px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='30' viewBox='0 0 200 30'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='rgba(220,224,250,0)'/><stop offset='50%25' stop-color='rgba(232,236,255,0.85)'/><stop offset='100%25' stop-color='rgba(220,224,250,0)'/></linearGradient></defs><path d='M0,15 Q50,2 100,15 T200,15' stroke='url(%23g)' stroke-width='0.6' fill='none'/></svg>");
+    background-repeat: repeat-x;
+    background-size: 200px 30px;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+    animation: ppThreadsDrift 22s linear infinite;
+}
+@keyframes ppThreadsDrift {
+    from { background-position: 0 0; }
+    to   { background-position: 200px 0; }
+}
+#select-grid.cc-threads-row { position: relative; z-index: 1; }
+
+
+/* ─── HERO PORTRAIT BREATH ───
+   No frame, no border, no inset shadow. Just the silhouette breathing
+   through the per-character glow filter applied to the image itself. */
+.cc-active-portrait {
+    border: none;
+    box-shadow: none;
+    animation: ppCcPortraitBreathe 4.5s ease-in-out infinite;
+}
+@keyframes ppCcPortraitBreathe {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(232, 76, 140, 0.18)); }
+    50%      { filter: drop-shadow(0 0 22px rgba(232, 76, 140, 0.35)); }
+}
+
+
+/* ─── TWINKLING STARFIELD on select screen ─── */
+/* Container for individual star spans (positioned via inline style).
+   Each star blinks on its own rhythm via .vfx-star-tiny / .vfx-star-bright
+   from the visual system, with inline --vfx-* custom properties for
+   per-star position and timing. */
+#select-stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+#select-content,
+.cc-header,
+.cc-bottom-nav { position: relative; z-index: 1; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STAGE 3 — per-character theming, swap fade, tap sparkle, label ornaments
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── PER-CHARACTER THEMED COLORS ───
+   Each character's data-character on .cc-active-companion sets two CSS
+   variables that ripple through the portrait halo, bond badge, and
+   role label accent. Defaults (magenta) live on the base rule above. */
+.cc-active-companion {
+    --cc-char-glow:   rgba(232, 76, 140, 0.50);
+    --cc-char-accent: #D4B26E;
+}
+.cc-active-companion[data-character="alistair"] {
+    --cc-char-glow:   rgba(232, 196, 76, 0.55);
+    --cc-char-accent: #E2C079;
+}
+.cc-active-companion[data-character="elian"] {
+    --cc-char-glow:   rgba(96, 180, 130, 0.45);
+    --cc-char-accent: #A0CCB0;
+}
+.cc-active-companion[data-character="lyra"] {
+    --cc-char-glow:   rgba(132, 180, 220, 0.50);
+    --cc-char-accent: #C7D6E0;
+}
+.cc-active-companion[data-character="caspian"] {
+    --cc-char-glow:   rgba(120, 90, 220, 0.50);
+    --cc-char-accent: #B5A3E0;
+}
+.cc-active-companion[data-character="lucien"] {
+    --cc-char-glow:   rgba(180, 145, 245, 0.50);
+    --cc-char-accent: #C8B5F0;
+}
+.cc-active-companion[data-character="noir"] {
+    --cc-char-glow:   rgba(154, 47, 78, 0.50);
+    --cc-char-accent: #8A4555;
+}
+.cc-active-companion[data-character="proto"] {
+    --cc-char-glow:   rgba(63, 184, 177, 0.50);
+    --cc-char-accent: #6FCFCB;
+}
+
+/* Apply the variables. */
+/* Per-character glow already applied as drop-shadow on the image itself;
+   no border or box-shadow here. The breath animation handles the soft
+   pulsation via the img filter. */
+.cc-active-companion .cc-active-role {
+    color: var(--cc-char-accent);
+}
+.cc-active-companion .cc-bond-badge {
+    background: radial-gradient(circle at 32% 32%, var(--cc-char-accent), rgba(74, 30, 60, 0.85));
+    border-color: var(--cc-char-accent);
+    box-shadow:
+        0 0 14px var(--cc-char-glow),
+        inset 0 1px 0 rgba(255, 230, 240, 0.45);
+}
+
+
+/* ─── SMOOTH FADE SWAP ───
+   When switching active companion, JS adds .is-swapping for ~250ms
+   while it swaps the DOM. Content fades to 0 then back to 1. */
+.cc-active-companion .cc-active-portrait img,
+.cc-active-companion .cc-active-name,
+.cc-active-companion .cc-active-role,
+.cc-active-companion .cc-active-quote,
+.cc-active-companion .cc-bond-badge,
+.cc-active-companion .cc-bond-value {
+    transition: opacity 240ms ease;
+}
+.cc-active-companion.is-swapping .cc-active-portrait img,
+.cc-active-companion.is-swapping .cc-active-name,
+.cc-active-companion.is-swapping .cc-active-role,
+.cc-active-companion.is-swapping .cc-active-quote,
+.cc-active-companion.is-swapping .cc-bond-badge,
+.cc-active-companion.is-swapping .cc-bond-value {
+    opacity: 0;
+}
+
+
+/* ─── SPARKLE BURST on action button tap ─── */
+.cc-action-btn { position: relative; overflow: hidden; }
+.cc-action-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at center, rgba(255, 240, 230, 0.6) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0.6);
+    pointer-events: none;
+}
+.cc-action-btn:active::after {
+    animation: ppCcActionSparkle 420ms ease-out;
+}
+@keyframes ppCcActionSparkle {
+    0%   { opacity: 0;   transform: scale(0.6); }
+    30%  { opacity: 0.9; transform: scale(1); }
+    100% { opacity: 0;   transform: scale(1.6); }
+}
+
+
+/* ─── LABEL ORNAMENTS — sparkle ✦ flanking the role + heart-row flourishes ─── */
+.cc-active-role {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+}
+.cc-active-role::before,
+.cc-active-role::after {
+    content: "✦";
+    font-size: 10px;
+    color: var(--cc-char-accent);
+    opacity: 0.8;
+}
+
+/* Header heart divider with side flourishes */
+.cc-heart-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.cc-heart-divider::before,
+.cc-heart-divider::after {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 91, 0.75), transparent);
+}
+
+
+/* ─── LOCKED ICON PULSE ─── */
+.cc-thread-lock {
+    animation: ppCcLockPulse 3s ease-in-out infinite;
+}
+@keyframes ppCcLockPulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1;    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cc-active-portrait,
+    .cc-thread-lock,
+    .cc-action-btn::after,
+    #select-screen::before,
+    .cc-threads-section::before { animation: none; }
+}

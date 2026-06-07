@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v486';
+const CACHE_NAME = 'pocket-love-v603';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -10,7 +10,18 @@ const CACHE_NAME = 'pocket-love-v486';
 // -----------------------------------------------------------------------------
 const CORE_ASSETS = [
     '/index.html',
+    '/css/tokens.css',
     '/css/style.css',
+    '/css/visual-system.css',
+    '/css/screens/title.css',
+    '/css/screens/select.css',
+    '/css/screens/world-intro.css',
+    '/assets/title-seal.png',
+    '/assets/title-wordmark.png',
+    '/assets/title-silver-thread.png',
+    '/assets/petals/petal-1.png',
+    '/assets/petals/petal-2.png',
+    '/assets/petals/petal-3.png',
     '/manifest.json',
 
     // Core engine
@@ -52,24 +63,13 @@ const CORE_ASSETS = [
     '/js/talk-choices.js',
     '/js/surprises.js',
     '/js/dates.js',
-    '/js/crossovers.js',
     '/js/button-locks.js',
 
     // Main-story route (opt-in; flag: pp_main_story_enabled)
-    // The 7 legacy encounter-<char>.js files were removed — bridges
-    // in the prologue chain are the meet-cutes now.
-    '/js/encounter-elian-rescue.js',
-    '/js/crossover-lyra-lucien.js',
-    '/js/crossover-noir-elian.js',
-    '/js/crossover-noir-lyra.js',
-    '/js/crossover-caspian-noir.js',
-    '/js/crossover-proto-noir.js',
-    '/js/crossover-elian-lyra.js',
-    '/js/crossover-lucien-aenor.js',
-    '/js/crossover-weavers-court.js',
-    '/js/crossover-alistair-caspian.js',
-    '/js/crossover-alistair-lucien.js',
-    '/js/crossover-caspian-lucien.js',
+    // Crossovers, bridges, and all encounter-*.js files deleted June 2026
+    // (owner cleanup ahead of new main-story content). chapters.js now
+    // contains only Prologue + id:1 (Chapter 3 "Gauntlet Off") — new
+    // story will be appended to its CHAPTERS array.
     '/js/main-story.js',
     '/js/daily-purpose.js',
     '/js/premium-card.js',
@@ -103,11 +103,9 @@ const CORE_ASSETS = [
     '/js/aenor-presence.js',
     '/js/care-weaver-thread.js',
     '/js/multi-romance.js',
-    '/js/prologue-chain.js',
-    '/js/world-arrival.js',
-    // bridge-*.js files merged into chapters.js (May 2026, owner request)
-    // — they live as appended IIFEs at the bottom of chapters.js. Their
-    // window.PPBridge<Name> globals are still registered there.
+    // prologue-chain.js + world-arrival.js removed June 2026 (owner clean
+    // slate) — they orchestrated meet-cutes that no longer exist. When the
+    // new main story is written, a fresh orchestrator can be added back.
     '/js/today-hub.js'
 ];
 

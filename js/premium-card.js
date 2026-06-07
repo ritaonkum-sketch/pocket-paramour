@@ -478,6 +478,15 @@
                 // background scene reads through), no speaker label, italic
                 // text. Player should know at a glance: nobody is talking,
                 // this is description.
+                //
+                // (v501 defensive fix) Explicitly CLEAR speaker.textContent
+                // when entering narration mode. Without this, a previous
+                // dialogue beat's label (e.g. 'ALISTAIR') stays in the DOM
+                // even though it's hidden via opacity:0 + height:0. Visually
+                // fine in modern Chrome, but innerText audits surface it as
+                // ghost text, and screen-readers / accessibility tools can
+                // pick it up. Clearing the textContent keeps the DOM honest.
+                n.speaker.textContent = '';
                 n.speaker.style.opacity = '0';
                 n.speaker.style.height = '0';
                 n.speaker.style.marginBottom = '0';

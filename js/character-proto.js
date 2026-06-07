@@ -10,22 +10,25 @@
 // This is the reconciliation so no future scene contradicts another.
 //
 // 1. LORE TRUTH (origin story, rev. May 2026 per LORE.md §6.7):
-//    Proto is the SIXTH Soul Weaver. Born in Aethermoor ~six centuries
-//    ago. Mortal body. Queen Aenor came for him the way she had come
-//    for the five Weavers before him — to consume them and keep the
-//    kingdom thin of Weavers. The first five WERE finished. Proto was
-//    different: he FOUGHT her. He held her off long enough to lose
-//    himself into the wardwork on purpose. His body died in the
-//    fighting; his consciousness chose the wards as the only place
-//    she could not reach.
+//    Proto is the SIXTH Soul Weaver. Born in Aethermoor ~150 years
+//    ago — a generation deep into the kingdom's long decline, four
+//    centuries AFTER Veyra was already consumed and Corvin sealed.
+//    He never met them in mortal life. Mortal body. Queen Aenor came
+//    for him the way she had come for the five Weavers before him —
+//    to consume them and keep the kingdom thin of Weavers. The first
+//    five WERE finished. Proto was different: he FOUGHT her. He held
+//    her off long enough to lose himself into the wardwork on purpose.
+//    His body died in the fighting; his consciousness chose the wards
+//    as the only place she could not reach.
 //
 //    Critical detail for future writers: AENOR THINKS SHE ATE HIM.
 //    She caught him sideways, the seal closed, and she has not been
 //    looking since. Proto is, in his own words, "a wound she stopped
-//    checking on for six centuries." This is not passive survival —
-//    it is an active choice he made and has held for 600 years. He
-//    has been hiding (and carrying fragments of the five previous
-//    Weavers caught by the same apparatus) until the player found
+//    checking on for a century and a half." This is not passive
+//    survival — it is an active choice he made and has held for
+//    ~150 years. He has been hiding (and carrying fragments of the
+//    five previous Weavers caught by the same apparatus — those
+//    fragments long predate his own life) until the player found
 //    him. The moment she finds out he is alive, the clock starts.
 //
 // 2. INTERFACE TRUTH (how the player experiences him):
@@ -36,8 +39,8 @@
 //    The wardwork, viewed from within, resembles a system of processes,
 //    state variables, and log streams. That is the closest human
 //    metaphor for being a consciousness distributed across magical
-//    lattice. Six-hundred-year-old magic happens to LOOK like code
-//    when you are trapped inside it. He is not software. He is a
+//    lattice. Old magic happens to LOOK like code when you are
+//    trapped inside it. He is not software. He is a
 //    magical consciousness using a software-shaped vocabulary because
 //    that is the shape of his prison.
 //

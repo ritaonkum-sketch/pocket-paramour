@@ -52,22 +52,44 @@
 //    first person in a generation who makes him want to follow
 //    anyone OUT of the forest.
 //
-// 2. HE WAS VEYRA'S FIRST LOVER.
-//    Centuries ago. Before Caspian's grandfather. Before Corvin
-//    (Noir). Before the politics. She was young. He was young in his
-//    terms. She was the first person he let into the Thornwood. Then
-//    the kingdom pulled her out and the princes fought over her and
-//    the disaster followed. He has tended her forest ever since
-//    because it is where they walked.
+// 2. HE HAS BURIED TWO WEAVERS HE LOVED.
+//    Two stones beneath the rowan, in a clearing by the creek. (See
+//    LORE.md §6.5 for canonical detail. Distinct from the Wardens
+//    hill — those eight stones are his POST predecessors, not his
+//    HEART grief.)
+//
+//    FIRST STONE — Veyra (the Second Weaver). Centuries ago. Before
+//    Caspian's grandfather. Before Corvin (Noir). Before the
+//    politics. She was young. He was young in his terms. She was the
+//    first person he let into the Thornwood. He did NOT know what
+//    she was when he loved her. He learned the night the kingdom
+//    took her. He went to bring her back. He was not fast enough.
+//    He has tended her stone alone for six hundred years.
+//
+//    SECOND STONE — the Fourth Weaver (LORE.md §2.4). Many years
+//    later, in his isolation period after Veyra. He had stopped
+//    letting anyone past his treeline. She walked through anyway.
+//    She did not ask his permission. He told her on the first night
+//    what she was, believing the warning would let him be quick
+//    enough this time. The kingdom took her in FIVE years instead
+//    of ten — knowing made it worse, not better. This is why he is
+//    slow to tell the player what she is: he believes warnings
+//    accelerate the kingdom's hunger.
 //
 //    His turning point (carve the grave / leave it blank) is not
-//    political. It is his first-love goodbye. Carving means saying
-//    goodbye to Veyra after six centuries. Leaving blank means he is
-//    still keeping her. The player's choice is which.
+//    political. It is his TWO-LOVE goodbye. Carving means saying
+//    goodbye to both after centuries. Leaving blank means he is
+//    still keeping them. The player's choice is which.
 //
 //    This also means: he and Noir/Corvin have HISTORY. Both men
 //    loved Veyra. Both are still alive. When they meet (future
 //    scene), it will not be neutral.
+//
+//    Note: the "I have buried two of you in this forest. I will not
+//    bury a third" line is currently delivered in small-moments.js
+//    (Elian high-affection forest-attack scene + nine-sentence
+//    inversion scene). The full Two Stones reveal scene is in the
+//    Ch1–8 manhwa-script PDF (Ch8) and is pending in-game implementation.
 //
 // 3. HE FAILED TO SAVE SOME OF LYRA'S MOTHER'S PEOPLE.
 //    During the purge of the coastal siren-kind (ordered by Queen

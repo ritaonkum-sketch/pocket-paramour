@@ -1,0 +1,593 @@
+/* ============================================================================
+   POCKET PARAMOUR — DESIGN TOKENS
+   ----------------------------------------------------------------------------
+   A4 implementation of docs/design/DESIGN-SYSTEM.md (A3).
+
+   This file is the SINGLE SOURCE OF TRUTH for visual values. Every screen
+   in the game pulls from these tokens. NEVER hardcode a color, spacing,
+   easing, or duration anywhere else. If a value isn't here, add it here
+   first, then reference it.
+
+   Token naming convention:
+     --c-*       Color
+     --c-char-*  Per-character signature color (set by .char-<name> class)
+     --font-*    Font family
+     --text-*    Font size
+     --lh-*      Line height
+     --ls-*      Letter spacing
+     --s-*       Spacing (4px-based)
+     --r-*       Border radius
+     --z-*       Z-index
+     --dur-*     Animation duration
+     --ease-*    Animation easing curve
+     --icon-*    Icon size
+
+   Loading order: this file MUST load BEFORE css/style.css so style.css can
+   reference these tokens going forward (during migration).
+
+   Companion docs:
+     docs/design/MARKET-STUDY.md       — A1, the market compass
+     docs/design/BRAND-FOUNDATION.md   — A2, the design DNA + decision matrix
+     docs/design/DESIGN-SYSTEM.md      — A3, the full token spec with rationale
+   ============================================================================ */
+
+
+/* ============================================================================
+   FONT FACES
+   Loaded via <link> in index.html for proper preloading. This @import is a
+   FALLBACK in case tokens.css is loaded standalone (e.g. in style guides).
+   Comment out the @import in production once index.html links are confirmed.
+   ============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+
+/* ============================================================================
+   ROOT TOKENS — DEFAULT MODE = CANDLELIT (light)
+   ============================================================================ */
+:root {
+
+    /* ───────────────────────── TYPOGRAPHY ───────────────────────── */
+
+    /* Font families (with full fallback chain)
+     * Hybrid Option B: UI uses sans (--font-sans = Inter), story content uses
+     * serif italic (--font-serif), wordmark uses distinctive display
+     * (--font-wordmark = Cormorant Unicase).
+     * --font-display = Cinzel retained as a legacy fallback for any
+     * existing references; new code should prefer --font-sans or
+     * --font-wordmark depending on context. */
+    --font-display:  'Marcellus', 'Cinzel', 'Trajan Pro', 'Times New Roman', serif;
+    --font-wordmark: 'Marcellus', 'Cinzel', 'Trajan Pro', 'Times New Roman', serif;
+    --font-serif:    'Cormorant Garamond', 'EB Garamond', 'Garamond', 'Georgia', serif;
+    /* --font-sans is the UI font for everything (menus, buttons, labels,
+       modals, care loop). Owner-locked to Quicksand for the rounded "circle"
+       feel they prefer over Inter. Inter kept as fallback. */
+    --font-sans:     'Quicksand', 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+
+    /* Type scale (modular 1.25 ratio, anchored at 16px body) */
+    --text-xs:   12px;   /* utility labels, version, timestamps        */
+    --text-sm:   14px;   /* UI button labels, settings rows            */
+    --text-base: 16px;   /* UI body, chapter card subtitles            */
+    --text-md:   18px;   /* in-world body dialogue                     */
+    --text-lg:   22px;   /* section headlines, chapter card titles     */
+    --text-xl:   28px;   /* modal headlines                            */
+    --text-2xl:  36px;   /* screen titles                              */
+    --text-3xl:  48px;   /* chapter title (in card)                    */
+    --text-4xl:  64px;   /* hero title card "PROLOGUE"                 */
+
+    /* Line height */
+    --lh-tight:  1.15;   /* display caps                               */
+    --lh-snug:   1.35;   /* headlines                                  */
+    --lh-base:   1.55;   /* body reading (comfortable default)         */
+    --lh-loose:  1.75;   /* long-form chapter narration                */
+
+    /* Letter spacing */
+    --ls-tight:  -0.01em;
+    --ls-base:   0;
+    --ls-wide:   0.08em;
+    --ls-wider:  0.18em;
+    --ls-widest: 0.32em;
+
+
+    /* ───────────────────────── SPACING (4px base) ───────────────────────── */
+
+    --s-0:   0;
+    --s-1:   4px;
+    --s-2:   8px;
+    --s-3:   12px;
+    --s-4:   16px;
+    --s-5:   24px;
+    --s-6:   32px;
+    --s-7:   48px;
+    --s-8:   64px;
+    --s-9:   96px;
+    --s-10:  128px;
+
+
+    /* ───────────────────────── BORDER RADII ───────────────────────── */
+
+    --r-none: 0;
+    --r-sm:   4px;
+    --r-md:   8px;
+    --r-lg:   14px;
+    --r-pill: 9999px;
+
+
+    /* ───────────────────────── COLORS — MODE A: CANDLELIT (default) ─────────────────────────
+       Used for care interactions, intimate dialogue, hopeful moments, dawn scenes,
+       the heroine's interior beats.
+       ────────────────────────────────────────────────────────────── */
+
+    /* Surfaces */
+    --c-bg-page:      #F5EDD8;   /* warm parchment cream                     */
+    --c-bg-surface:   #FDF7E9;   /* card / panel — ivory                     */
+    --c-bg-elevated:  #FFFCF2;   /* elevated modal — palest cream            */
+    --c-bg-recessed:  #EAE0C7;   /* sunken / inactive surface                */
+
+    /* Text */
+    --c-ink-body:     #3B2A1F;   /* body text — warm ink-brown               */
+    --c-ink-emphasis: #1F140B;   /* emphasis — near-black coffee             */
+    --c-ink-mute:     #8C7A66;   /* muted / secondary — warm grey            */
+
+    /* Brand accents */
+    --c-accent-gold:         #B8923E;   /* antique gold — primary brand     */
+    --c-accent-gold-soft:    #D4B26E;   /* lightened gold                   */
+    --c-accent-dawn:         #E8B7B5;   /* dawn-pink — romance moments      */
+    --c-accent-seventh:      #9CC4E8;   /* seventh-light cyan — brand glow  */
+    --c-accent-seventh-shift:#B4A8E5;   /* seventh-light shifted lavender   */
+
+    /* Lines & rules */
+    --c-line-fine:    rgba(184, 146, 62, 0.35);   /* gold filigree thin rule */
+    --c-line-rule:    rgba(59, 42, 31, 0.18);     /* body divider rule       */
+
+
+    /* ───────────────────────── SEMANTIC COLORS (mode-independent) ───────────────────────── */
+
+    --c-success: #5A8C5F;
+    --c-warning: #C68A3A;
+    --c-danger:  #9C2E3B;
+    --c-info:    #5B7F9E;
+
+
+    /* ───────────────────────── MOTION ───────────────────────── */
+
+    /* Easing curves */
+    --ease-tender:      cubic-bezier(0.32, 0.04, 0.18, 1);   /* default — graceful settling   */
+    --ease-ceremonial:  cubic-bezier(0.45, 0.05, 0.15, 1);   /* dignified, page-turn          */
+    --ease-threat:      cubic-bezier(0.70, 0.00, 0.84, 0);   /* sharp acceleration            */
+    --ease-grief:       cubic-bezier(0.00, 0.00, 0.18, 1);   /* slow deceleration             */
+    --ease-bloom:       cubic-bezier(0.16, 1.00, 0.30, 1);   /* soft bloom outward            */
+
+    /* Durations */
+    --dur-instant:     100ms;
+    --dur-quick:       200ms;
+    --dur-base:        400ms;
+    --dur-slow:        700ms;
+    --dur-dramatic:   1200ms;
+    --dur-ceremonial: 1800ms;
+
+
+    /* ───────────────────────── ICONS ───────────────────────── */
+
+    --icon-sm: 16px;
+    --icon-md: 20px;
+    --icon-lg: 24px;
+    --icon-xl: 32px;
+
+
+    /* ───────────────────────── Z-INDEX ───────────────────────── */
+
+    --z-base:      0;
+    --z-particles: 5;
+    --z-elevated:  100;
+    --z-sticky:    500;
+    --z-overlay:   1000;
+    --z-modal:     1100;
+    --z-toast:     2000;
+    --z-tooltip:   3000;
+    --z-debug:     9999;
+
+
+    /* ───────────────────────── RESPONSIVE BREAKPOINTS ───────────────────────── */
+    /* Reference values — used in @media rules, not as CSS custom properties */
+    /* --bp-mobile:  480px (up to)  */
+    /* --bp-tablet:  768px           */
+    /* --bp-desktop: 769px+          */
+}
+
+
+/* ============================================================================
+   MODE B — VELVET HOUR (dark)
+   Used for Aenor scenes, wound-creatures, Noir's chamber, chase sequences,
+   nighttime escape, threat reveals.
+
+   Activate by setting [data-theme="velvet"] on <html> or any ancestor.
+   ============================================================================ */
+[data-theme="velvet"] {
+
+    /* Surfaces */
+    --c-bg-page:      #15081A;   /* deep aubergine-black                     */
+    --c-bg-surface:   #1F0D26;   /* card — black velvet                      */
+    --c-bg-elevated:  #2B1133;   /* elevated modal — wine-dark               */
+    --c-bg-recessed:  #0B040E;   /* sunken — near-black void                 */
+
+    /* Text */
+    --c-ink-body:     #F4ECDC;   /* body — ivory                             */
+    --c-ink-emphasis: #FFFFFF;   /* emphasis — bone-white                    */
+    --c-ink-mute:     #9B8FA8;   /* muted — dusty violet                     */
+
+    /* Brand accents */
+    --c-accent-gold:         #D4A85B;   /* gilded gold                      */
+    --c-accent-gold-soft:    #8C6E2C;   /* darker gold for backgrounds      */
+    --c-accent-dawn:         #7A1224;   /* (re-purposed in dark mode) blood */
+    --c-accent-seventh:      #7BB4DC;   /* seventh-light cyan               */
+    --c-accent-seventh-shift:#9C8FD4;   /* seventh-light lavender           */
+
+    /* Lines & rules */
+    --c-line-fine:    rgba(212, 168,  91, 0.40);
+    --c-line-rule:    rgba(244, 236, 220, 0.12);
+
+    /* Additional dark-mode-only tokens */
+    --c-accent-blood:  #7A1224;   /* blood-wine for danger      */
+    --c-accent-silver: #C6BFB1;   /* sharp silver / blade-shine */
+}
+
+
+/* ============================================================================
+   PER-CHARACTER COLOR SIGNATURES
+   Apply by adding .char-<name> class on a container. The contained UI then
+   has access to --c-char-primary / --c-char-highlight / --c-char-depth and
+   can tint accents accordingly.
+
+   Each triplet is: primary (dominant), highlight (accent), depth (deep bg).
+   ============================================================================ */
+
+.char-alistair {
+    --c-char-primary:   #C4933F;   /* captain-gold       */
+    --c-char-highlight: #FFEED0;   /* dawn-cream         */
+    --c-char-depth:     #6B4F1F;   /* deep-gilt          */
+}
+.char-elian {
+    --c-char-primary:   #2F4A36;   /* forest-deep        */
+    --c-char-highlight: #E6E0CB;   /* antler-cream       */
+    --c-char-depth:     #101B14;   /* woodsmoke          */
+}
+.char-lyra {
+    --c-char-primary:   #84A6B8;   /* sea-silver         */
+    --c-char-highlight: #F2EFEA;   /* pearl              */
+    --c-char-depth:     #1F3946;   /* ocean-deep         */
+}
+.char-caspian {
+    --c-char-primary:   #2A4978;   /* royal-sapphire     */
+    --c-char-highlight: #E2DED1;   /* palace-marble      */
+    --c-char-depth:     #101C32;   /* deep-night-blue    */
+}
+.char-lucien {
+    --c-char-primary:   #3D335E;   /* blue-violet        */
+    --c-char-highlight: #E8C97E;   /* starlight-gold     */
+    --c-char-depth:     #160F2A;   /* tower-deep         */
+}
+.char-noir {
+    --c-char-primary:   #0E0710;   /* black-velvet       */
+    --c-char-highlight: #F1E9D8;   /* bone-white         */
+    --c-char-depth:     #1A1421;   /* sealed-silver-back */
+}
+.char-proto {
+    --c-char-primary:   #3FB8B1;   /* static-cyan        */
+    --c-char-highlight: #D8D2DE;   /* mirror-silver      */
+    --c-char-depth:     #3F3656;   /* five-faces-violet  */
+}
+.char-heroine {
+    --c-char-primary:   #9CC4E8;   /* seventh-light      */
+    --c-char-highlight: #FFE9DE;   /* candle-warm        */
+    --c-char-depth:     #7C5F8F;   /* deep-bond          */
+}
+.char-aenor {
+    --c-char-primary:   #5C0E1F;   /* wine-blood         */
+    --c-char-highlight: #D4A85B;   /* dying-gold         */
+    --c-char-depth:     #1A0610;   /* royal-aubergine-deep */
+}
+
+
+/* ============================================================================
+   TYPOGRAPHY UTILITY CLASSES
+   Curated pairings from A3 Section 1.4. Don't invent new combos —
+   use these named patterns.
+   ============================================================================ */
+
+.t-display-hero {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-4xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+}
+
+.t-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-3xl);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+}
+
+.t-display-sm {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+}
+
+.t-headline {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--text-xl);
+    line-height: var(--lh-snug);
+    letter-spacing: var(--ls-tight);
+}
+
+.t-headline-md {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: var(--text-lg);
+    line-height: var(--lh-snug);
+}
+
+.t-body {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--text-md);
+    line-height: var(--lh-base);
+}
+
+.t-body-loose {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--text-md);
+    line-height: var(--lh-loose);
+}
+
+.t-body-italic {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: var(--text-md);
+    line-height: var(--lh-base);
+}
+
+.t-ui {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    letter-spacing: var(--ls-base);
+}
+
+.t-ui-sm {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: var(--text-xs);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+}
+
+.t-section-label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--c-ink-mute);
+}
+
+
+/* ============================================================================
+   SURFACE TREATMENTS
+   ============================================================================ */
+
+.surface-parchment {
+    background-color: var(--c-bg-surface);
+    background-image: linear-gradient(165deg, transparent 0%, rgba(255, 247, 229, 0.6) 100%);
+    border: 1px solid var(--c-line-fine);
+    border-radius: var(--r-md);
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.04),
+        0 12px 32px -16px rgba(59, 42, 31, 0.18);
+}
+
+.surface-velvet {
+    background-color: var(--c-bg-surface);
+    background-image: linear-gradient(165deg, rgba(43, 17, 51, 0.4) 0%, rgba(15, 8, 26, 0.8) 100%);
+    border: 1px solid var(--c-line-fine);
+    border-radius: var(--r-md);
+    box-shadow:
+        inset 0 1px 0 rgba(212, 168, 91, 0.08),
+        0 16px 40px -16px rgba(0, 0, 0, 0.6);
+}
+
+.surface-glass {
+    background-color: rgba(31, 13, 38, 0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(212, 168, 91, 0.18);
+    border-radius: var(--r-lg);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.06),
+        0 24px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+
+/* ============================================================================
+   DECORATIVE PRIMITIVES
+   ============================================================================ */
+
+.divider-rule {
+    width: 96px;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--c-accent-gold), transparent);
+    opacity: 0.7;
+}
+
+.divider-rule--full {
+    width: 100%;
+}
+
+.drop-cap::first-letter {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 4em;
+    float: left;
+    line-height: 0.9;
+    margin-right: 0.12em;
+    margin-top: 0.05em;
+    color: var(--c-accent-gold);
+}
+
+
+/* ============================================================================
+   BUTTONS
+   Three base variants. All meet 48pt touch target minimum.
+   ============================================================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    min-height: 48px;
+    padding: var(--s-3) var(--s-6);
+    border-radius: var(--r-md);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--dur-quick) var(--ease-tender);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, var(--c-accent-gold), var(--c-accent-gold-soft));
+    color: var(--c-bg-page);
+    border: 1px solid var(--c-accent-gold);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        0 4px 12px -4px rgba(184, 146, 62, 0.4);
+}
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 8px 18px -6px rgba(184, 146, 62, 0.55);
+}
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--c-ink-body);
+    border: 1px solid var(--c-line-fine);
+}
+.btn-secondary:hover {
+    background: var(--c-bg-elevated);
+    border-color: var(--c-accent-gold);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--c-ink-mute);
+    border: none;
+    box-shadow: none;
+}
+.btn-ghost:hover {
+    color: var(--c-ink-body);
+    text-decoration: underline;
+    text-decoration-color: var(--c-accent-gold);
+    text-underline-offset: 4px;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none;
+}
+
+
+/* ============================================================================
+   TAP HINT — the pulsing "tap to continue" line
+   ============================================================================ */
+
+.tap-hint {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-xs);
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    color: var(--c-ink-mute);
+    animation: tapHintPulse 1.8s var(--ease-tender) infinite;
+}
+
+@keyframes tapHintPulse {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 0.9; }
+}
+
+
+/* ============================================================================
+   FOCUS INDICATORS
+   Visible, always. Never outline: none without a replacement.
+   ============================================================================ */
+
+:focus-visible {
+    outline: 2px solid var(--c-accent-gold);
+    outline-offset: 3px;
+    border-radius: var(--r-sm);
+}
+
+[data-theme="velvet"] :focus-visible {
+    outline-color: var(--c-accent-seventh);
+}
+
+
+/* ============================================================================
+   REDUCED MOTION SUPPORT
+   When prefers-reduced-motion is set, collapse all motion to near-instant
+   and disable curves. Never break the experience for accessibility.
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --dur-instant:    100ms !important;
+        --dur-quick:      100ms !important;
+        --dur-base:       100ms !important;
+        --dur-slow:       100ms !important;
+        --dur-dramatic:   100ms !important;
+        --dur-ceremonial: 100ms !important;
+        --ease-tender:     linear !important;
+        --ease-ceremonial: linear !important;
+        --ease-threat:     linear !important;
+        --ease-grief:      linear !important;
+        --ease-bloom:      linear !important;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* ============================================================================
+   END — POCKET PARAMOUR DESIGN TOKENS
+   ============================================================================ */

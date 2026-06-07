@@ -319,7 +319,7 @@
       '#mg-overlay','#mon-bundle-back','#settings-overlay:not(.hidden)',
       '#cinematic-overlay.visible','#event-overlay:not(.hidden)',
       '#gift-panel:not(.hidden)','#training-panel:not(.hidden)',
-      ,'#story-overlay:not(.hidden)',
+      '#story-overlay:not(.hidden)',
       '#world-intro:not(.hidden)','#main-story-page:not(.hidden)',
       '#pp-onboarding-overlay'
     ].join(','));

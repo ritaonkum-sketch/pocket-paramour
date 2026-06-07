@@ -1,0 +1,67 @@
+/* ============================================================================
+   POCKET PARAMOUR — WORLD INTRO OVERLAY (Option B hybrid)
+   ----------------------------------------------------------------------------
+   The prayer beats are STORY CONTENT — kept in Cormorant Garamond italic
+   (literary register). The "tap to continue" hint is UI — Inter.
+
+   June 2026 owner direction: remove the kingdom backdrop image, render the
+   prologue text on a pure dark velvet field so the words carry the moment.
+   Text fades in and out slowly between beats — cinematic register, not UI.
+   ============================================================================ */
+
+
+/* ──────────────────────── BACKDROP — pure dark velvet, NO image ──────────────────────── */
+/* Overrides #world-intro background in style.css (which had bg-world.png). */
+
+#world-intro {
+    background:
+        radial-gradient(ellipse at 50% 35%, #1A0826 0%, #0B0410 70%, #050108 100%);
+}
+
+
+/* ──────────────────────── BODY TEXT (the prayer beats) ──────────────────────── */
+
+#world-intro-text {
+    /* STORY CONTENT — Cormorant Garamond italic (literary register) */
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.7;
+    letter-spacing: var(--ls-base);
+    color: rgba(244, 235, 220, 0.92);
+    max-width: 380px;
+    text-shadow:
+        0 1px 8px rgba(0, 0, 0, 0.55),
+        0 0 24px rgba(0, 0, 0, 0.35);
+    white-space: pre-line;
+
+    /* Slow cinematic fade — overrides style.css 0.8s.
+       Paired with longer between-beat hold in game.js so fade-out
+       FULLY completes before the next beat fades in. */
+    transition:
+        opacity 1.6s ease,
+        transform 1.6s ease;
+}
+
+
+/* ──────────────────────── DARK OVERLAY ──────────────────────── */
+/* Kept transparent now that the backdrop is already dark — no double-dim. */
+
+#world-intro::before {
+    background: transparent;
+}
+
+
+/* ──────────────────────── TAP HINT ──────────────────────── */
+
+#world-intro-hint {
+    /* UI — Inter sans */
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: var(--text-xs);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: rgba(244, 235, 220, 0.55);
+    bottom: calc(var(--s-7) + env(safe-area-inset-bottom, 0));
+}

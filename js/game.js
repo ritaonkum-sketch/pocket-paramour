@@ -1,5 +1,385 @@
 // Core game engine
 
+// ─────────────────────────────────────────────────────────────────────
+// PPWorldIntro — the world-intro overlay as a reusable function.
+// Used by:
+//   (1) First-launch Start-button handler (below) — plays once per save
+//       when pp_world_intro_seen is unset. The handler also takes care
+//       of writing the seen flag and transitioning to the select screen
+//       in its onComplete callback.
+//   (2) Main Story menu Prologue replay (chapters.js id:0 play()) — fires
+//       on demand from the chapter list, without setting the seen flag,
+//       and just resolves so the menu can reopen.
+// Single source of truth for the worldBeats prayer.
+// ─────────────────────────────────────────────────────────────────────
+window.PPWorldIntro = (function () {
+    var worldBeats = [
+        "The Kingdom of Aethermoor is dying.",
+        "Its magic was sustained by bonds\nbetween its people.\nThose bonds are breaking.",
+        "The last Soul Weaver:\n\n“BY WHOSE LOOM THE LIVING WORLD IS BOUND.\nBY WHOSE HANDS THE BONDS ARE WOVEN WHOLE.\nBY WHOSE WEAVING THE DEEP IS TURNED TO LIGHT.”",
+        "...is gone.",
+        "In desperation, the kingdom’s magic\nreached across worlds\nand found you.",
+        "You arrived through the portal\nwith no memory.\nOnly an instinct to connect.",
+        "Where you walk, the magic returns.\nWhere you care, the Fading retreats.",
+        "They found you.\nNow they won’t let go."
+    ];
+
+    // play(onComplete, options)
+    //   onComplete — fired when all beats are done and the overlay has hidden.
+    //   options.titleCard — { title, subtitle } — if provided, renders a
+    //                       cinematic title card BEFORE the body beats:
+    //                       large serif title fades in with a thin accent
+    //                       rule and an italic subtitle, holds, then fades
+    //                       out and body beats begin.
+    //   options.cinematic — if true, body beats use elegant serif italic
+    //                       styling (matches the title card's register).
+    //   options.cascade   — if true, each LINE within a beat (split on \n)
+    //                       fades in one at a time with a breath-pause.
+    //   options.type      — if true, type each beat character-by-character.
+    //   options.cps       — chars per second for typing mode (default 26).
+    //
+    // Default (no options): per-beat fade-in (first-launch behaviour).
+    //
+    // Tap behaviour:
+    //   - Grace period (first 700ms): taps ignored.
+    //   - Mid fade-out between beats: taps ignored.
+    //   - Mid type (typing mode): tap instant-completes the current beat.
+    //   - Mid cascade (cascade mode): tap instant-completes all remaining
+    //     lines of the current beat.
+    //   - After a beat is fully shown: tap advances to the next.
+    function play(onComplete, options) {
+        var worldIntro = document.getElementById('world-intro');
+        var worldText = document.getElementById('world-intro-text');
+        if (!worldIntro || !worldText) {
+            if (typeof onComplete === 'function') onComplete();
+            return;
+        }
+
+        var typeMode      = !!(options && options.type);
+        var cascadeMode   = !!(options && options.cascade);
+        var cinematicMode = !!(options && options.cinematic);
+        var titleCard     = (options && options.titleCard) || null;
+        var cps = (options && options.cps) || 26;
+        var msPerChar = Math.max(10, Math.round(1000 / cps));
+
+        // Cascade tuning — ceremonial line-by-line reveal.
+        var cascadeStaggerMs   = 850;   // gap between successive line fades
+        var cascadeFadeMs      = 700;   // per-line fade-in duration
+        var cascadeFinalHoldMs = 200;   // breath after last line settles
+
+        // Title-card tuning — cinematic opening shot.
+        var tcTitleFadeMs    = 1500;   // title fade-in duration
+        var tcRuleDelay      = 1300;   // rule starts after this much delay
+        var tcSubDelay       = 1900;   // subtitle starts after this much delay
+        var tcHoldMs         = 5200;   // total time before fade-out begins
+        var tcFadeOutMs      = 1200;   // fade-out duration
+
+        var worldIndex = 0;
+        var transitioning = false;       // true during fade-out between beats
+        var typingTimer = null;          // non-null while a beat is mid-type
+        var cascadeFinalTimer = null;    // non-null while a beat is mid-cascade
+        var cascadeLines = null;         // refs to the cascade-line divs, for tap-skip
+        var titleCardActive = false;     // true while the title card is on screen
+        var titleCardTimer = null;       // pending hold/fade-out timer for skip
+        var titleCardTimers = [];        // pending stagger timers for skip
+        var acceptingTaps = false;
+        var lastTap = 0;
+        var advanceHandler = null;
+
+        // Inject cascade CSS once per session (idempotent via the style id).
+        if (cascadeMode && !document.getElementById('pp-cascade-style')) {
+            var style = document.createElement('style');
+            style.id = 'pp-cascade-style';
+            style.textContent =
+                '#world-intro-text .cascade-line {' +
+                '  display: block;' +
+                '  opacity: 0;' +
+                '  transform: translateY(8px);' +
+                '  transition: opacity ' + cascadeFadeMs + 'ms ease, transform ' + cascadeFadeMs + 'ms ease;' +
+                '}' +
+                '#world-intro-text .cascade-line.show {' +
+                '  opacity: 1;' +
+                '  transform: translateY(0);' +
+                '}';
+            document.head.appendChild(style);
+        }
+
+        // Inject cinematic title-card + body CSS once per session.
+        if ((titleCard || cinematicMode) && !document.getElementById('pp-cinematic-style')) {
+            var cs = document.createElement('style');
+            cs.id = 'pp-cinematic-style';
+            cs.textContent = [
+                '#world-intro-text .tc-title {',
+                '  font-family: "Cormorant Garamond", "EB Garamond", "Garamond", "Georgia", serif;',
+                '  font-size: 52px;',
+                '  font-weight: 300;',
+                '  letter-spacing: 16px;',
+                '  color: #f4ebff;',
+                '  text-align: center;',
+                '  text-transform: uppercase;',
+                '  margin: 0 0 28px;',
+                '  text-indent: 16px;',
+                '  opacity: 0;',
+                '  transform: translateY(10px);',
+                '  transition: opacity ' + tcTitleFadeMs + 'ms ease, transform ' + tcTitleFadeMs + 'ms ease;',
+                '}',
+                '#world-intro-text .tc-title.show { opacity: 1; transform: translateY(0); }',
+                '#world-intro-text .tc-rule {',
+                '  width: 96px;',
+                '  height: 1px;',
+                '  margin: 0 auto 24px;',
+                '  background: linear-gradient(90deg, transparent, rgba(244,235,255,0.55), transparent);',
+                '  opacity: 0;',
+                '  transition: opacity 1100ms ease;',
+                '}',
+                '#world-intro-text .tc-rule.show { opacity: 1; }',
+                '#world-intro-text .tc-sub {',
+                '  font-family: "Cormorant Garamond", "EB Garamond", "Garamond", "Georgia", serif;',
+                '  font-size: 19px;',
+                '  font-style: italic;',
+                '  font-weight: 300;',
+                '  letter-spacing: 3px;',
+                '  color: rgba(244,235,255,0.72);',
+                '  text-align: center;',
+                '  margin: 0;',
+                '  opacity: 0;',
+                '  transition: opacity 1400ms ease;',
+                '}',
+                '#world-intro-text .tc-sub.show { opacity: 1; }',
+                '#world-intro-text .cinematic-body {',
+                '  font-family: "Cormorant Garamond", "EB Garamond", "Garamond", "Georgia", serif;',
+                '  font-size: 26px;',
+                '  font-style: italic;',
+                '  font-weight: 300;',
+                '  letter-spacing: 1.5px;',
+                '  line-height: 1.55;',
+                '  color: rgba(244,235,255,0.92);',
+                '  text-align: center;',
+                '  opacity: 0;',
+                '  transform: translateY(6px);',
+                '  transition: opacity 1100ms ease, transform 1100ms ease;',
+                '}',
+                '#world-intro-text .cinematic-body.show { opacity: 1; transform: translateY(0); }'
+            ].join('\n');
+            document.head.appendChild(cs);
+        }
+
+        worldIntro.classList.remove('hidden');
+        requestAnimationFrame(function () { worldIntro.classList.add('visible'); });
+
+        function showBeat() {
+            if (worldIndex < worldBeats.length) {
+                var fullText = worldBeats[worldIndex];
+                transitioning = true;
+                worldText.classList.remove('show');
+
+                if (cascadeMode) {
+                    // Line cascade: parent visible immediately, each line
+                    // appended as a div, lines fade in one at a time with
+                    // a breath-pause between.
+                    setTimeout(function () {
+                        worldText.style.whiteSpace = 'normal';
+                        worldText.innerHTML = '';
+                        worldText.classList.add('show');
+                        transitioning = false;
+
+                        var lines = fullText.split('\n');
+                        cascadeLines = [];
+                        lines.forEach(function (lineText, idx) {
+                            var div = document.createElement('div');
+                            div.className = 'cascade-line';
+                            // Non-breaking space preserves height for blank lines
+                            // (e.g. the empty line between "The last Soul Weaver:"
+                            // and the opening of the prayer).
+                            div.textContent = lineText.length > 0 ? lineText : ' ';
+                            worldText.appendChild(div);
+                            cascadeLines.push(div);
+                            setTimeout(function () {
+                                div.classList.add('show');
+                            }, idx * cascadeStaggerMs);
+                        });
+
+                        // Cascade is complete after the last line has finished
+                        // fading in, plus a small breath-hold.
+                        var totalMs = (lines.length - 1) * cascadeStaggerMs + cascadeFadeMs + cascadeFinalHoldMs;
+                        cascadeFinalTimer = setTimeout(function () {
+                            cascadeFinalTimer = null;
+                            cascadeLines = null;
+                        }, totalMs);
+                    }, 200);
+                } else if (typeMode) {
+                    // Typing: brief fade-out, then type characters in.
+                    setTimeout(function () {
+                        worldText.textContent = '';
+                        worldText.style.whiteSpace = 'pre-line';
+                        worldText.classList.add('show');
+                        transitioning = false;
+                        var typed = 0;
+                        typingTimer = setInterval(function () {
+                            typed++;
+                            worldText.textContent = fullText.substring(0, typed);
+                            if (typed >= fullText.length) {
+                                clearInterval(typingTimer);
+                                typingTimer = null;
+                            }
+                        }, msPerChar);
+                    }, 200);
+                } else if (cinematicMode) {
+                    // Cinematic body: elegant serif italic wrapped in a div
+                    // so the new font/letter-spacing applies cleanly.
+                    setTimeout(function () {
+                        worldText.style.whiteSpace = 'normal';
+                        worldText.innerHTML = '';
+                        worldText.classList.add('show');
+                        var bodyDiv = document.createElement('div');
+                        bodyDiv.className = 'cinematic-body';
+                        bodyDiv.style.whiteSpace = 'pre-line';
+                        bodyDiv.textContent = fullText;
+                        worldText.appendChild(bodyDiv);
+                        requestAnimationFrame(function () {
+                            bodyDiv.classList.add('show');
+                            setTimeout(function () { transitioning = false; }, 1100);
+                        });
+                    }, 300);
+                } else {
+                    // Default mode: SLOW cinematic fade-in + fade-out.
+                    // Tap removes .show (CSS transitions opacity 1→0 over 1.6s).
+                    // We wait the FULL 1.6s before swapping text + fading in,
+                    // so the previous beat fully disappears before the next
+                    // one arrives — no overlap, no flash. Owner direction
+                    // June 2026 for the Prologue (world-intro.css matches).
+                    setTimeout(function () {
+                        worldText.textContent = fullText;
+                        worldText.style.whiteSpace = 'pre-line';
+                        requestAnimationFrame(function () {
+                            worldText.classList.add('show');
+                            // Block taps until fade-in nearly completes
+                            // (1.6s CSS transition) so the player can't
+                            // skip past a beat that's mid-appearance.
+                            setTimeout(function () { transitioning = false; }, 1400);
+                        });
+                    }, 1600);
+                }
+            } else {
+                worldIntro.classList.remove('visible');
+                if (advanceHandler) {
+                    worldIntro.removeEventListener('click', advanceHandler);
+                    advanceHandler = null;
+                }
+                setTimeout(function () {
+                    worldIntro.classList.add('hidden');
+                    if (typeof onComplete === 'function') onComplete();
+                }, 800);
+            }
+        }
+
+        // Title card phase — runs BEFORE the body beats if requested.
+        function showTitleCard(onCardDone) {
+            titleCardActive = true;
+            worldText.style.whiteSpace = 'normal';
+            worldText.innerHTML = '';
+            worldText.classList.add('show');
+
+            var titleDiv = document.createElement('div');
+            titleDiv.className = 'tc-title';
+            titleDiv.textContent = titleCard.title || '';
+            worldText.appendChild(titleDiv);
+
+            var ruleDiv = document.createElement('div');
+            ruleDiv.className = 'tc-rule';
+            worldText.appendChild(ruleDiv);
+
+            var subDiv = document.createElement('div');
+            subDiv.className = 'tc-sub';
+            subDiv.textContent = titleCard.subtitle || '';
+            worldText.appendChild(subDiv);
+
+            // Staggered fade-ins. Tracked so a tap-skip can cancel them.
+            titleCardTimers.push(setTimeout(function () { titleDiv.classList.add('show'); }, 400));
+            titleCardTimers.push(setTimeout(function () { ruleDiv.classList.add('show'); }, tcRuleDelay));
+            titleCardTimers.push(setTimeout(function () { subDiv.classList.add('show'); }, tcSubDelay));
+
+            // Auto fade-out after hold, then transition to body beats.
+            titleCardTimer = setTimeout(function () {
+                titleDiv.style.transition = 'opacity ' + tcFadeOutMs + 'ms ease';
+                ruleDiv.style.transition  = 'opacity ' + tcFadeOutMs + 'ms ease';
+                subDiv.style.transition   = 'opacity ' + tcFadeOutMs + 'ms ease';
+                titleDiv.classList.remove('show');
+                ruleDiv.classList.remove('show');
+                subDiv.classList.remove('show');
+                titleCardTimer = setTimeout(function () {
+                    worldText.classList.remove('show');
+                    worldText.innerHTML = '';
+                    titleCardActive = false;
+                    titleCardTimer = null;
+                    titleCardTimers = [];
+                    if (onCardDone) onCardDone();
+                }, tcFadeOutMs + 100);
+            }, tcHoldMs);
+        }
+
+        if (titleCard) {
+            showTitleCard(function () {
+                // After title card closes, wait a beat then start body beats.
+                setTimeout(showBeat, 350);
+            });
+        } else {
+            showBeat();
+        }
+        setTimeout(function () { acceptingTaps = true; }, 700);
+
+        advanceHandler = function (ev) {
+            if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+            if (!acceptingTaps) return;        // grace period
+            // Title card active — tap skips it and jumps straight to body beats.
+            if (titleCardActive) {
+                if (titleCardTimer) {
+                    clearTimeout(titleCardTimer);
+                    titleCardTimer = null;
+                }
+                titleCardTimers.forEach(function (t) { clearTimeout(t); });
+                titleCardTimers = [];
+                worldText.classList.remove('show');
+                titleCardActive = false;
+                setTimeout(function () {
+                    worldText.innerHTML = '';
+                    showBeat();
+                }, 350);
+                return;
+            }
+            // Mid-type: tap instant-completes the current beat.
+            if (typingTimer) {
+                clearInterval(typingTimer);
+                typingTimer = null;
+                worldText.textContent = worldBeats[worldIndex];
+                return;
+            }
+            // Mid-cascade: tap instant-completes all remaining lines.
+            if (cascadeFinalTimer) {
+                clearTimeout(cascadeFinalTimer);
+                cascadeFinalTimer = null;
+                if (cascadeLines) {
+                    cascadeLines.forEach(function (div) {
+                        div.style.transition = 'none';
+                        div.classList.add('show');
+                    });
+                    cascadeLines = null;
+                }
+                return;
+            }
+            if (transitioning) return;        // mid-fade
+            var now = Date.now();
+            if (now - lastTap < 350) return;  // debounce
+            lastTap = now;
+            worldIndex++;
+            showBeat();
+        };
+        worldIntro.addEventListener('click', advanceHandler);
+    }
+
+    return { play: play };
+})();
+
 class PocketLoveGame {
     constructor(characterId) {
         // Character must be set before load() is called in init()
@@ -10561,98 +10941,67 @@ let selectedCharacter = 'alistair';
         // Otherwise (returning save mid-chain or chain skipped) we fall
         // back to the legacy behaviour (play once if pp_world_intro_seen
         // is unset, else go straight to the select grid).
+        //
+        // FIX (June 2026): once `pp_world_intro_seen` is set, the intro
+        // must NEVER auto-replay on the start screen — not even for the
+        // chain entrance. Previously the chain-gate forgot to check the
+        // seen flag, so every returning player saw the prayer all over
+        // again. The Main Story menu still offers a manual Replay path
+        // for the Prologue (chapters.js id:0), which is the only correct
+        // way to re-watch it.
         var __chainStep    = parseInt(localStorage.getItem('pp_chain_step') || '0', 10) || 0;
         var __chainSkipped = localStorage.getItem('pp_chain_skipped') === '1';
         var __routeOn      = localStorage.getItem('pp_main_story_enabled') === '1';
         var __seenWorldIntro = localStorage.getItem('pp_world_intro_seen') === '1';
-        var __playForChain   = __routeOn && !__chainSkipped && __chainStep < 1;
+        // Chain-entrance path now requires the world intro to be UNSEEN.
+        var __playForChain   = __routeOn && !__chainSkipped && __chainStep < 1 && !__seenWorldIntro;
         var __playLegacy     = !__playForChain && !__seenWorldIntro;
         var __shouldPlayIntro = __playForChain || __playLegacy;
+        // For the case where we skip the intro (seen) but the chain HAS
+        // NOT been entered yet, we still want PPChain.tryArrival() to
+        // fire so the threaded prologue doesn't get stuck. Captured here
+        // so we can call it from the else branch too.
+        var __chainEntryConditions = __routeOn && !__chainSkipped && __chainStep < 1;
 
         if (__shouldPlayIntro) {
-            var worldIntro = document.getElementById('world-intro');
-            var worldText = document.getElementById('world-intro-text');
-            var worldBeats = [
-                "The Kingdom of Aethermoor is dying.",
-                "Its magic was sustained by bonds\nbetween its people.\nThose bonds are breaking.",
-                "The last Soul Weaver, \u201cTHE ONE WHO\nKEPT THE CONNECTIONS ALIVE,\u201d is gone.",
-                "In desperation, the kingdom\u2019s magic\nreached across worlds\nand found you.",
-                "You arrived through the portal\nwith no memory.\nOnly an instinct to connect.",
-                "Where you walk, the magic returns.\nWhere you care, the Fading retreats.",
-                "They found you.\nNow they won\u2019t let go."
-            ];
-            var worldIndex = 0;
-            var __wiTransitioning = false;
-            var __wiAcceptingTaps = false;
-            var __wiLastTap       = 0;
-
-            worldIntro.classList.remove('hidden');
-            requestAnimationFrame(function() { worldIntro.classList.add('visible'); });
-
-            var showWorldBeat = function() {
-                if (worldIndex < worldBeats.length) {
-                    __wiTransitioning = true;
-                    worldText.classList.remove('show');
-                    setTimeout(function() {
-                        worldText.textContent = worldBeats[worldIndex];
-                        worldText.style.whiteSpace = 'pre-line';
-                        requestAnimationFrame(function() {
-                            worldText.classList.add('show');
-                            // Lock taps until the fade-in finishes.
-                            setTimeout(function() { __wiTransitioning = false; }, 600);
-                        });
-                    }, 300);
-                } else {
-                    // Done — save and show select
-                    localStorage.setItem('pp_world_intro_seen', '1');
-                    // Auto-enable main-story for fresh saves so the unified
-                    // chain (arrival → bridges → chapters) runs by default.
-                    if (!localStorage.getItem('pp_main_story_enabled')) {
-                        localStorage.setItem('pp_main_story_enabled', '1');
-                    }
-                    worldIntro.classList.remove('visible');
-                    setTimeout(function() {
-                        worldIntro.classList.add('hidden');
-                        refreshUnlockedCards();
-                        selectScreen.classList.remove('hidden');
-                        // Hand off to the prologue chain ONLY if this play
-                        // was for the chain. (Legacy plays — main-story
-                        // disabled / mid-chain — do not fire arrival.)
-                        if (__playForChain) {
-                            try {
-                                if (window.PPChain && typeof window.PPChain.tryArrival === 'function') {
-                                    window.PPChain.tryArrival();
-                                }
-                            } catch (e) {}
-                        }
-                    }, 800);
+            // Delegated to window.PPWorldIntro.play (defined at the top of
+            // this file). The onComplete callback handles the first-launch
+            // bookkeeping: save the seen flag, enable main-story by default,
+            // transition to the select screen, and hand off to the chain
+            // if applicable. The Main Story menu Prologue replay (chapters.js
+            // id:0) calls the same function with its own callback, which
+            // just resolves the play() promise and reopens the menu.
+            window.PPWorldIntro.play(function () {
+                localStorage.setItem('pp_world_intro_seen', '1');
+                if (!localStorage.getItem('pp_main_story_enabled')) {
+                    localStorage.setItem('pp_main_story_enabled', '1');
                 }
-            };
-
-            // Show the first beat. We do NOT attach the click handler
-            // synchronously — the original Start-button click can bubble
-            // and immediately advance to beat 2. Wait ~700ms before
-            // accepting taps. The "tap to continue" hint pulses on its
-            // own to signal interactivity.
-            showWorldBeat();
-            setTimeout(function() { __wiAcceptingTaps = true; }, 700);
-
-            var __wiAdvance = function(ev) {
-                if (ev) { ev.preventDefault(); ev.stopPropagation(); }
-                if (!__wiAcceptingTaps) return;        // grace period
-                if (__wiTransitioning)  return;        // mid-fade
-                var __now = Date.now();
-                if (__now - __wiLastTap < 350) return; // debounce
-                __wiLastTap = __now;
-                worldIndex++;
-                showWorldBeat();
-            };
-            worldIntro.addEventListener('click', __wiAdvance);
+                refreshUnlockedCards();
+                selectScreen.classList.remove('hidden');
+                if (__playForChain) {
+                    try {
+                        if (window.PPChain && typeof window.PPChain.tryArrival === 'function') {
+                            window.PPChain.tryArrival();
+                        }
+                    } catch (e) {}
+                }
+            });
         } else {
-            // Already seen — go straight to select
+            // Already seen — go straight to select.
             setTimeout(function() {
                 refreshUnlockedCards();
                 selectScreen.classList.remove('hidden');
+                // If the intro would have triggered the chain entrance
+                // but we skipped it because the player has already seen
+                // the prayer, still kick the chain off so the threaded
+                // prologue can advance.
+                if (__chainEntryConditions) {
+                    try {
+                        if (window.PPChain && typeof window.PPChain.tryArrival === 'function') {
+                            window.PPChain.tryArrival();
+                        }
+                    } catch (e) {}
+                }
             }, 600);
         }
     };
@@ -10747,6 +11096,11 @@ let selectedCharacter = 'alistair';
                 var protoCard = document.getElementById('proto-card');
                 if (protoCard && protoCard.classList.contains('select-card-locked')) {
                     protoCard.classList.remove('select-card-locked');
+                    // Also remove the Companion Chronicle locked class so the
+                    // silver-thread overlay, lock pill, and LOCKED badge stop
+                    // rendering. Keeps the card's visual state in sync with
+                    // the unlocked status. (Added June 2026.)
+                    protoCard.classList.remove('cc-thread-locked');
                     protoCard.querySelector('.select-card-name').textContent = 'Proto';
                     protoCard.querySelector('.select-card-role').textContent = 'The Glitch';
                     var protoImg = protoCard.querySelector('.select-card-img');
@@ -10773,6 +11127,9 @@ let selectedCharacter = 'alistair';
                 var noirCard = document.getElementById('noir-card');
                 if (noirCard && noirCard.classList.contains('select-card-locked')) {
                     noirCard.classList.remove('select-card-locked');
+                    // Also remove the Companion Chronicle locked class
+                    // (same reason as Proto above).
+                    noirCard.classList.remove('cc-thread-locked');
                     noirCard.querySelector('.select-card-name').textContent = 'Noir';
                     noirCard.querySelector('.select-card-role').textContent = 'The Corruptor';
                     var noirImg = noirCard.querySelector('.select-card-img');

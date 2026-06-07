@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocket Paramour — Font Sample Sheet</title>
+
+<!-- Load all candidate fonts in one shot via Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+SC:wght@400;500;600&family=Cormorant+Unicase:wght@400;500;600&family=Della+Respira&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Italianno&family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&family=Marcellus&family=Marcellus+SC&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap">
+
+<style>
+body {
+    margin: 0;
+    padding: 32px 16px 48px;
+    background: linear-gradient(180deg, #1F0D26 0%, #15081A 100%);
+    color: #F4ECDC;
+    font-family: 'Inter', sans-serif;
+}
+
+h1.page-title {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(244, 235, 220, 0.5);
+    margin: 0 0 24px;
+}
+
+.sample {
+    max-width: 560px;
+    margin: 0 auto 40px;
+    padding: 32px 28px;
+    background: rgba(43, 17, 51, 0.5);
+    border: 1px solid rgba(212, 168, 91, 0.20);
+    border-radius: 12px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 247, 229, 0.06),
+        0 16px 40px -16px rgba(0, 0, 0, 0.6);
+}
+
+.sample-tag {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #D4A85B;
+    margin-bottom: 4px;
+}
+
+.sample-spec {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(244, 235, 220, 0.55);
+    margin-bottom: 28px;
+    font-style: italic;
+}
+
+.divider-rule {
+    height: 1px;
+    width: 80%;
+    margin: 18px auto;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 91, 0.5), transparent);
+}
+
+.subtitle {
+    text-align: center;
+    margin: 6px 0 22px;
+    color: rgba(244, 235, 220, 0.72);
+}
+
+.body-text {
+    text-align: center;
+    color: rgba(244, 235, 220, 0.85);
+    margin: 18px auto 24px;
+    max-width: 460px;
+}
+
+.btn-sample {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 36px;
+    background: linear-gradient(180deg, #D4B26E, #B8923E);
+    color: #1F140B;
+    border: 1px solid #D4B26E;
+    border-radius: 100px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 4px 14px -4px rgba(184, 146, 62, 0.45);
+}
+
+.title-line {
+    text-align: center;
+    margin: 0;
+    color: #F4ECDC;
+}
+
+/* ─────────── PAIRING 1: CURRENT (Cinzel + Cormorant Garamond) ─────────── */
+.p1 .title-line {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 38px;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+}
+.p1 .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: 0.04em;
+}
+.p1 .body-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: italic;
+}
+.p1 .btn-sample {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.20em;
+}
+
+/* ─────────── PAIRING 2: Cormorant Unicase + Lora ─────────── */
+.p2 .title-line {
+    font-family: 'Cormorant Unicase', serif;
+    font-weight: 600;
+    font-size: 44px;
+    letter-spacing: 0.08em;
+}
+.p2 .subtitle {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+}
+.p2 .body-text {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.65;
+}
+.p2 .btn-sample {
+    font-family: 'Cormorant Unicase', serif;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+}
+
+/* ─────────── PAIRING 3: Della Respira + EB Garamond ─────────── */
+.p3 .title-line {
+    font-family: 'Della Respira', serif;
+    font-weight: 400;
+    font-size: 42px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+.p3 .subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+}
+.p3 .body-text {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.65;
+}
+.p3 .btn-sample {
+    font-family: 'Della Respira', serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+/* ─────────── PAIRING 4: Marcellus SC + Cormorant Garamond ─────────── */
+.p4 .title-line {
+    font-family: 'Marcellus SC', serif;
+    font-weight: 400;
+    font-size: 42px;
+    letter-spacing: 0.08em;
+}
+.p4 .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+}
+.p4 .body-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.65;
+}
+.p4 .btn-sample {
+    font-family: 'Marcellus SC', serif;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+}
+
+/* ─────────── PAIRING 5: Italianno + Cormorant Garamond ─────────── */
+.p5 .title-line {
+    font-family: 'Italianno', cursive;
+    font-weight: 400;
+    font-size: 78px;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 0.95;
+}
+.p5 .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+}
+.p5 .body-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.65;
+}
+.p5 .btn-sample {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.20em;
+}
+
+/* ─────────── PAIRING 6: Playfair Display + Manrope ─────────── */
+.p6 .title-line {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 44px;
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+.p6 .subtitle {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.p6 .body-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+}
+.p6 .btn-sample {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.20em;
+}
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Pocket Paramour · Font Pairing Samples</h1>
+
+<!-- PAIRING 1: CURRENT -->
+<section class="sample p1">
+    <span class="sample-tag">Pairing 1 · Current</span>
+    <span class="sample-spec">Cinzel (display) + Cormorant Garamond (body, italic) — what we're using now. Manuscript register, widely used in romantasy book covers.</span>
+    <h2 class="title-line">POCKET PARAMOUR</h2>
+    <p class="subtitle">A Romance of the Seventh Weaver</p>
+    <div class="divider-rule"></div>
+    <p class="body-text">By whose loom the living world is bound. By whose hands the bonds are woven whole. By whose weaving the Deep is turned to light.</p>
+    <button class="btn-sample">Begin</button>
+</section>
+
+<!-- PAIRING 2: Cormorant Unicase + Lora -->
+<section class="sample p2">
+    <span class="sample-tag">Pairing 2 · Cormorant Unicase + Lora</span>
+    <span class="sample-spec">Mixed-case serif (distinctive, unusual letterforms) + warm book serif. Unique to us, still elegant.</span>
+    <h2 class="title-line">Pocket Paramour</h2>
+    <p class="subtitle">A Romance of the Seventh Weaver</p>
+    <div class="divider-rule"></div>
+    <p class="body-text">By whose loom the living world is bound. By whose hands the bonds are woven whole. By whose weaving the Deep is turned to light.</p>
+    <button class="btn-sample">Begin</button>
+</section>
+
+<!-- PAIRING 3: Della Respira + EB Garamond -->
+<section class="sample p3">
+    <span class="sample-tag">Pairing 3 · Della Respira + EB Garamond</span>
+    <span class="sample-spec">Art Nouveau swirls (very distinctive, almost organic curves) + classic book serif. Highly unique.</span>
+    <h2 class="title-line">POCKET PARAMOUR</h2>
+    <p class="subtitle">A Romance of the Seventh Weaver</p>
+    <div class="divider-rule"></div>
+    <p class="body-text">By whose loom the living world is bound. By whose hands the bonds are woven whole. By whose weaving the Deep is turned to light.</p>
+    <button class="btn-sample">Begin</button>
+</section>
+
+<!-- PAIRING 4: Marcellus SC + Cormorant Garamond -->
+<section class="sample p4">
+    <span class="sample-tag">Pairing 4 · Marcellus SC + Cormorant Garamond</span>
+    <span class="sample-spec">Elegant Roman small caps (less common than Cinzel) + Cormorant body. Manuscript feel with a softer, less angular display face.</span>
+    <h2 class="title-line">Pocket Paramour</h2>
+    <p class="subtitle">A Romance of the Seventh Weaver</p>
+    <div class="divider-rule"></div>
+    <p class="body-text">By whose loom the living world is bound. By whose hands the bonds are woven whole. By whose weaving the Deep is turned to light.</p>
+    <button class="btn-sample">Begin</button>
+</section>
+
+<!-- PAIRING 5: Italianno + Cormorant Garamond -->
+<section class="sample p5">
+    <span class="sample-tag">Pairing 5 · Italianno + Cormorant Garamond</span>
+    <span class="sample-spec">Flowing wedding-invitation script for the title + literary body. Very feminine, very Otome, very unique. Closest to a "circle" / curvy font.</span>
+    <h2 class="title-line">Pocket Paramour</h2>
+    <p class="subtitle">A Romance of the Seventh Weaver</p>
+    <div class="divider-rule"></div>
+    <p class="body-text">By whose loom the living world is bound. By whose hands the bonds are woven whole. By whose weaving the Deep is turned to light.</p>
+    <button class="btn-sample">Begin</button>
+</section>
+
+<!-- PAIRING 6: Playfair Display + Manrope -->
+<section class="sample p6">
+    <span class="sample-tag">Pairing 6 · Playfair Display Italic + Manrope</span>
+    <span class="sample-spec">Fashion-magazine high-contrast italic serif + rounded modern sans body. Most "modern Otome" of the bunch.</span>
+    <h2 class="title-line">Pocket Paramour</h2>
+    <p class="subtitle">A ROMANCE OF THE SEVENTH WEAVER</p>
+    <div class="divider-rule"></div>
+    <p class="body-text">By whose loom the living world is bound. By whose hands the bonds are woven whole. By whose weaving the Deep is turned to light.</p>
+    <button class="btn-sample">Begin</button>
+</section>
+
+</body>
+</html>

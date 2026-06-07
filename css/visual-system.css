@@ -1,0 +1,496 @@
+/* ============================================================================
+   POCKET PARAMOUR — VISUAL SYSTEM
+   ----------------------------------------------------------------------------
+   The shared design language. Defined ONCE, consumed EVERYWHERE.
+
+   The rule: never reinvent a petal, a star, a glow, a card frame, or a thread
+   inside a screen-specific CSS file. Always reach for a `.vfx-*` class first.
+
+   This file owns:
+     1. MOTION TOKENS    — timing + easing curves
+     2. GLOW LANGUAGE    — 3 intensities × brand colors
+     3. PARTICLE COMPS   — petals, stars, motes, sparkles
+     4. SHARED KEYFRAMES — drift, twinkle, breathe, pulse, shimmer
+     5. FRAME ORNAMENTS  — corner brackets, ornament lines, sparkle rows
+     6. CARD RECIPES     — velvet card, glass card
+     7. TYPOGRAPHY UTIL  — title serif, tagline italic, label caps
+
+   Naming convention: every utility class starts with `.vfx-` so it's
+   instantly clear which CSS came from the visual system vs. screen-local.
+
+   Load order: AFTER style.css, BEFORE screens/*.css. This way screens can
+   override the system where needed but inherit defaults automatically.
+   ============================================================================ */
+
+
+/* ============================================================================
+   1. MOTION TOKENS — timing + easing curves
+   ============================================================================ */
+:root {
+
+    /* Duration scale — restraint over speed. Premium UI never lets
+       motion finish in under 1 second except for tap/press feedback. */
+    --vfx-motion-tap:      180ms;   /* press / click feedback */
+    --vfx-motion-quick:    320ms;   /* small reveal, swap */
+    --vfx-motion-blink:    1.5s;    /* tiny twinkles */
+    --vfx-motion-pulse:    2.4s;    /* attention-getting glow pulse */
+    --vfx-motion-breath:   3.8s;    /* medium breathing things */
+    --vfx-motion-whisper:  5.5s;    /* ambient slow loops */
+    --vfx-motion-drift:    18s;     /* particles drifting across screen */
+    --vfx-motion-celestial:42s;     /* very slow rotations (sigils, stars) */
+
+    /* Easing curves */
+    --vfx-ease-tender: cubic-bezier(0.22, 1, 0.36, 1);   /* default — soft, romantic */
+    --vfx-ease-thread: cubic-bezier(0.65, 0, 0.35, 1);   /* for thread weaving */
+    --vfx-ease-pop:    cubic-bezier(0.34, 1.56, 0.64, 1); /* spring-back tap */
+
+
+    /* ============================================================================
+       2. GLOW LANGUAGE — semantic glow colors per palette
+       ============================================================================ */
+
+    /* Brand glow colors — used by .vfx-glow-* utilities and per-element drop-shadows */
+    --vfx-glow-rose:        rgba(232, 76, 140, 0.55);
+    --vfx-glow-rose-soft:   rgba(248, 144, 184, 0.35);
+    --vfx-glow-wine:        rgba(122, 18, 36, 0.55);
+    --vfx-glow-gold:        rgba(212, 168, 91, 0.55);
+    --vfx-glow-gold-bright: rgba(242, 214, 144, 0.65);
+    --vfx-glow-silver:      rgba(232, 236, 250, 0.85);
+    --vfx-glow-cream:       rgba(255, 245, 240, 0.65);
+
+    /* Per-character glow — set on hero portrait + bond accents.
+       Defaults to brand rose; per-char attribute selectors override. */
+    --vfx-glow-char: var(--vfx-glow-rose);
+    --vfx-accent-char: #D4B26E;
+}
+
+/* Per-character glow accents — apply data-character on any ancestor
+   and these cascade down. The Companion Chronicle uses this on
+   .cc-active-companion, but ANY screen can adopt the same convention. */
+[data-character="alistair"] { --vfx-glow-char: rgba(232, 196, 76, 0.55);  --vfx-accent-char: #E2C079; }
+[data-character="elian"]    { --vfx-glow-char: rgba(96, 180, 130, 0.45);  --vfx-accent-char: #A0CCB0; }
+[data-character="lyra"]     { --vfx-glow-char: rgba(132, 180, 220, 0.50); --vfx-accent-char: #C7D6E0; }
+[data-character="caspian"]  { --vfx-glow-char: rgba(120, 90, 220, 0.50);  --vfx-accent-char: #B5A3E0; }
+[data-character="lucien"]   { --vfx-glow-char: rgba(180, 145, 245, 0.50); --vfx-accent-char: #C8B5F0; }
+[data-character="noir"]     { --vfx-glow-char: rgba(154, 47, 78, 0.50);   --vfx-accent-char: #8A4555; }
+[data-character="proto"]    { --vfx-glow-char: rgba(63, 184, 177, 0.50);  --vfx-accent-char: #6FCFCB; }
+
+
+/* Glow utility classes — apply to any element to give it a halo.
+   Each comes in 3 intensities: whisper (subtle), breath (medium,
+   animated), pulse (strong, animated). */
+
+.vfx-glow-whisper-rose   { box-shadow: 0 0 14px var(--vfx-glow-rose); }
+.vfx-glow-whisper-gold   { box-shadow: 0 0 14px var(--vfx-glow-gold); }
+.vfx-glow-whisper-silver { box-shadow: 0 0 14px var(--vfx-glow-silver); }
+.vfx-glow-whisper-char   { box-shadow: 0 0 14px var(--vfx-glow-char); }
+
+.vfx-glow-breath-rose,
+.vfx-glow-breath-gold,
+.vfx-glow-breath-silver,
+.vfx-glow-breath-char {
+    animation: vfxGlowBreath var(--vfx-motion-breath) var(--vfx-ease-tender) infinite;
+}
+.vfx-glow-breath-rose   { --_glow: var(--vfx-glow-rose); }
+.vfx-glow-breath-gold   { --_glow: var(--vfx-glow-gold); }
+.vfx-glow-breath-silver { --_glow: var(--vfx-glow-silver); }
+.vfx-glow-breath-char   { --_glow: var(--vfx-glow-char); }
+
+@keyframes vfxGlowBreath {
+    0%, 100% { box-shadow: 0 0 18px var(--_glow); }
+    50%      { box-shadow: 0 0 36px var(--_glow); }
+}
+
+.vfx-glow-pulse-rose,
+.vfx-glow-pulse-char {
+    animation: vfxGlowPulse var(--vfx-motion-pulse) var(--vfx-ease-tender) infinite;
+}
+.vfx-glow-pulse-rose { --_glow: var(--vfx-glow-rose); }
+.vfx-glow-pulse-char { --_glow: var(--vfx-glow-char); }
+
+@keyframes vfxGlowPulse {
+    0%, 100% { box-shadow: 0 0 22px var(--_glow), 0 0 0 rgba(0,0,0,0); }
+    50%      { box-shadow: 0 0 44px var(--_glow), 0 0 80px var(--_glow); }
+}
+
+
+/* ============================================================================
+   3. PARTICLE COMPONENTS — drift + twinkle + sparkle
+   ============================================================================
+   Wrap particles in a container with `position: relative`. The container
+   defines the drift area. Particles position absolutely within.
+
+   Stagger via per-element CSS custom properties (--vfx-x, --vfx-delay,
+   --vfx-duration) — see usage examples in HTML.
+   ============================================================================ */
+
+/* ── .vfx-petal — drifting rose petal */
+.vfx-petal {
+    position: absolute;
+    top: -40px;
+    left: var(--vfx-x, 50%);
+    width: var(--vfx-size, 13px);
+    height: calc(var(--vfx-size, 13px) * 1.3);
+    background:
+        radial-gradient(ellipse at 35% 25%, #E84C8C 0%, #9A1F32 55%, #4A0A1A 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    opacity: 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    will-change: transform, opacity;
+    animation:
+        vfxPetalDrift var(--vfx-duration, 22s) linear infinite;
+    animation-delay: var(--vfx-delay, 0s);
+}
+
+@keyframes vfxPetalDrift {
+    0%   { transform: translate3d(0, 0, 0)              rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.85; }
+    50%  { transform: translate3d(-30px, 50vh, 0)       rotate(180deg); opacity: 0.7; }
+    90%  { opacity: 0.5; }
+    100% { transform: translate3d(20px, 110vh, 0)       rotate(360deg); opacity: 0; }
+}
+
+
+/* ── .vfx-star-tiny — small twinkling background star (1.5–2.5px) */
+.vfx-star-tiny {
+    position: absolute;
+    top: var(--vfx-y, 50%);
+    left: var(--vfx-x, 50%);
+    width: var(--vfx-size, 2px);
+    height: var(--vfx-size, 2px);
+    border-radius: 50%;
+    background: rgba(255, 245, 240, 0.95);
+    box-shadow: 0 0 4px rgba(255, 245, 240, 0.65);
+    opacity: 0;
+    will-change: opacity, transform;
+    animation:
+        vfxStarBlink var(--vfx-duration, 3.5s) var(--vfx-ease-tender, ease-in-out) infinite;
+    animation-delay: var(--vfx-delay, 0s);
+}
+
+@keyframes vfxStarBlink {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+
+/* ── .vfx-star-bright — larger, more dramatic sparkle (3–4px) */
+.vfx-star-bright {
+    position: absolute;
+    top: var(--vfx-y, 50%);
+    left: var(--vfx-x, 50%);
+    width: var(--vfx-size, 4px);
+    height: var(--vfx-size, 4px);
+    border-radius: 50%;
+    background: rgba(255, 250, 245, 1);
+    box-shadow:
+        0 0 8px rgba(255, 245, 240, 0.85),
+        0 0 16px rgba(255, 220, 200, 0.45);
+    opacity: 0;
+    will-change: opacity, transform;
+    animation:
+        vfxStarSparkle var(--vfx-duration, 3.2s) var(--vfx-ease-tender, ease-in-out) infinite;
+    animation-delay: var(--vfx-delay, 0s);
+}
+
+@keyframes vfxStarSparkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.5); }
+    50%      { opacity: 1;   transform: scale(1.4); }
+}
+
+
+/* ── .vfx-sparkle-cross — 4-point star ornament (SVG-shaped via mask) */
+.vfx-sparkle-cross {
+    position: absolute;
+    top: var(--vfx-y, 50%);
+    left: var(--vfx-x, 50%);
+    width: var(--vfx-size, 8px);
+    height: var(--vfx-size, 8px);
+    background: var(--vfx-color, #FFFFFF);
+    /* 4-point star shape via clip-path */
+    clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+    filter: drop-shadow(0 0 4px var(--vfx-color, rgba(255, 255, 255, 0.85)));
+    opacity: 0;
+    will-change: opacity, transform;
+    animation:
+        vfxSparkleCrossTwinkle var(--vfx-duration, 3s) var(--vfx-ease-tender, ease-in-out) infinite;
+    animation-delay: var(--vfx-delay, 0s);
+}
+
+@keyframes vfxSparkleCrossTwinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.6) rotate(0deg); }
+    50%      { opacity: 1;   transform: scale(1.2) rotate(45deg); }
+}
+
+
+/* ── .vfx-mote — drifting dust mote, slower than petals */
+.vfx-mote {
+    position: absolute;
+    top: -20px;
+    left: var(--vfx-x, 50%);
+    width: var(--vfx-size, 3px);
+    height: var(--vfx-size, 3px);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--vfx-color, rgba(255, 245, 220, 0.8)) 0%, transparent 70%);
+    opacity: 0;
+    filter: blur(0.5px);
+    will-change: transform, opacity;
+    animation:
+        vfxMoteDrift var(--vfx-duration, 28s) linear infinite;
+    animation-delay: var(--vfx-delay, 0s);
+}
+
+@keyframes vfxMoteDrift {
+    0%   { transform: translate3d(0, 0, 0);          opacity: 0; }
+    15%  { opacity: 0.6; }
+    50%  { transform: translate3d(15px, 50vh, 0);    opacity: 0.5; }
+    85%  { opacity: 0.4; }
+    100% { transform: translate3d(-10px, 110vh, 0);  opacity: 0; }
+}
+
+
+/* Particle container — apply on a parent to scope the absolute positioning */
+.vfx-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+
+/* ============================================================================
+   4. FRAME ORNAMENTS — gold corner brackets, ornament dividers, sparkle rows
+   ============================================================================ */
+
+/* .vfx-corner-bracket — apply to any element with position:relative.
+   Adds top-left + bottom-right L brackets via ::before/::after. */
+.vfx-corner-bracket {
+    position: relative;
+}
+.vfx-corner-bracket::before,
+.vfx-corner-bracket::after {
+    content: "";
+    position: absolute;
+    width: var(--vfx-corner-size, 14px);
+    height: var(--vfx-corner-size, 14px);
+    border: 1.5px solid var(--vfx-corner-color, rgba(212, 168, 91, 0.85));
+    filter: drop-shadow(0 0 4px var(--vfx-glow-gold));
+    pointer-events: none;
+    z-index: 3;
+}
+.vfx-corner-bracket::before {
+    top: 5px; left: 5px;
+    border-right: none; border-bottom: none;
+    border-top-left-radius: 6px;
+}
+.vfx-corner-bracket::after {
+    bottom: 5px; right: 5px;
+    border-left: none; border-top: none;
+    border-bottom-right-radius: 6px;
+}
+
+/* .vfx-corner-bracket-all — 4 corners (heavier, more ornate) */
+.vfx-corner-bracket-all {
+    position: relative;
+    background-image:
+        linear-gradient(to right,  rgba(212, 168, 91, 0.85) 0, rgba(212, 168, 91, 0.85) var(--vfx-corner-size, 14px), transparent var(--vfx-corner-size, 14px)) ,
+        linear-gradient(to bottom, rgba(212, 168, 91, 0.85) 0, rgba(212, 168, 91, 0.85) var(--vfx-corner-size, 14px), transparent var(--vfx-corner-size, 14px));
+    background-repeat: no-repeat;
+    background-size: var(--vfx-corner-size, 14px) 1.5px, 1.5px var(--vfx-corner-size, 14px);
+    background-position: 5px 5px, 5px 5px;
+}
+
+
+/* .vfx-ornament-divider — horizontal gold gradient + center diamond pip */
+.vfx-ornament-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 0 6px;
+}
+.vfx-ornament-line {
+    flex: 1;
+    max-width: var(--vfx-line-max, 72px);
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(212, 168, 91, 0.65) 30%,
+        rgba(232, 200, 138, 0.85) 50%,
+        rgba(212, 168, 91, 0.65) 70%,
+        transparent);
+    position: relative;
+}
+.vfx-ornament-line-pip::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 4px;
+    height: 4px;
+    background: #D4B26E;
+    box-shadow: 0 0 4px rgba(212, 168, 91, 0.7);
+}
+.vfx-ornament-label {
+    font-family: var(--font-serif);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #C9A24F 0%, #F2D690 50%, #C9A24F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 4px rgba(184, 146, 62, 0.45));
+    white-space: nowrap;
+}
+
+
+/* .vfx-sparkle-row — wrap any text with ✦ sparkles on each side */
+.vfx-sparkle-row::before,
+.vfx-sparkle-row::after {
+    content: "✦";
+    display: inline-block;
+    font-size: 0.8em;
+    color: var(--vfx-accent-char, var(--vfx-accent-gold, #D4B26E));
+    opacity: 0.85;
+    margin: 0 6px;
+    vertical-align: middle;
+}
+
+
+/* ============================================================================
+   5. CARD RECIPES — velvet card + glass card
+   ============================================================================ */
+
+/* .vfx-card-velvet — the canonical dark-velvet container with gold border */
+.vfx-card-velvet {
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.85) 0%, rgba(15, 8, 26, 0.95) 100%);
+    border: 1px solid rgba(212, 168, 91, 0.32);
+    border-radius: 14px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 200, 220, 0.10),
+        0 8px 22px -6px rgba(0, 0, 0, 0.65),
+        0 0 28px rgba(154, 69, 103, 0.18);
+}
+
+/* .vfx-card-glass — translucent glassmorphism with backdrop blur */
+.vfx-card-glass {
+    background: linear-gradient(180deg, rgba(31, 14, 56, 0.45) 0%, rgba(15, 5, 28, 0.55) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(232, 200, 138, 0.28);
+    border-radius: 14px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 200, 220, 0.10),
+        0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ============================================================================
+   6. TYPOGRAPHY UTILITIES
+   ============================================================================ */
+
+/* .vfx-title-serif — uppercase gold gradient title, our headline voice */
+.vfx-title-serif {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #C9A24F 0%, #F2D690 50%, #C9A24F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 4px rgba(184, 146, 62, 0.45));
+    margin: 0;
+}
+
+/* .vfx-tagline-italic — Cormorant italic, soft cream — literary prose voice */
+.vfx-tagline-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(232, 200, 220, 0.78);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* .vfx-label-caps — small caps gold-tinted label for section headings */
+.vfx-label-caps {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-gold-soft, #D4B26E);
+}
+
+/* .vfx-name-rose — rose-gold gradient name (for character names) */
+.vfx-name-rose {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    background: linear-gradient(135deg, #F4E0E8 0%, #E84C8C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 2px 6px rgba(232, 76, 140, 0.4));
+}
+
+
+/* ============================================================================
+   7. SILVER THREAD COMPONENT — canonical magical thread
+   ============================================================================
+   Wraps the canonical silver thread inside an element. Use:
+       <div class="vfx-thread"></div>
+   The container provides a sine-wave thread that tiles + drifts. For more
+   elaborate threads (multi-strand, with sparkles), use the SVG components
+   defined inline per screen — this class is for the simple ambient case.
+   ============================================================================ */
+
+.vfx-thread {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='30' viewBox='0 0 200 30'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='0%25'><stop offset='0%25' stop-color='rgba(220,224,250,0)'/><stop offset='50%25' stop-color='rgba(232,236,255,0.85)'/><stop offset='100%25' stop-color='rgba(220,224,250,0)'/></linearGradient></defs><path d='M0,15 Q50,2 100,15 T200,15' stroke='url(%23g)' stroke-width='0.7' fill='none'/></svg>");
+    background-repeat: repeat-x;
+    background-size: 200px 30px;
+    background-position: 0 50%;
+    opacity: 0.45;
+    animation: vfxThreadDrift var(--vfx-motion-celestial, 42s) linear infinite;
+}
+
+@keyframes vfxThreadDrift {
+    from { background-position: 0 50%; }
+    to   { background-position: 200px 50%; }
+}
+
+
+/* ============================================================================
+   8. REDUCED-MOTION RESPECT
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .vfx-petal,
+    .vfx-mote,
+    .vfx-sparkle-cross,
+    .vfx-thread {
+        animation: none;
+    }
+    .vfx-star-tiny,
+    .vfx-star-bright {
+        animation: none;
+        opacity: 0.6;
+    }
+    .vfx-glow-breath-rose,
+    .vfx-glow-breath-gold,
+    .vfx-glow-breath-silver,
+    .vfx-glow-breath-char,
+    .vfx-glow-pulse-rose,
+    .vfx-glow-pulse-char { animation: none; }
+}

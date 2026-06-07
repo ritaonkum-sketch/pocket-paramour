@@ -40,6 +40,69 @@
 // Rule of thumb: every Caspian scene should cost him something.a
 // court convention broken, a grandmother's disapproval, a tired
 // admission. "Kind" is only sexy when it is expensive to give.
+//
+// ============================================================================
+// CASPIAN'S LINEAGE (canonical, May 2026 per LORE.md §6.3.1).
+//
+// The Aethermoor royal line is NOT natural. It is a constructed line.
+// In order, oldest to youngest:
+//
+//   CASSIEN  .Caspian's grandfather. Aethermoor noble. Forced political
+//              consort to Aenor after Veyra refused her. LOVED VEYRA.
+//              Fled north with Veyra during her dying decade. Returned
+//              alone, broken. Aenor married him out of spite. Died ~550
+//              years ago of "a long illness." Buried in the royal vault.
+//              **Aenor opened his grave ~80 years ago and took his
+//              bones** for the working that made Aurelius (LORE.md §3.6).
+//              Caspian is named after him without knowing.
+//
+//   AURELIUS .Caspian's father. Magic-woven by Aenor ~70 years ago from
+//              Cassien's bones, her own essence, and consumed bond-
+//              fragments. Fully mortal once born, but necromantic in
+//              origin. Aenor raised him. He turned out kind, which
+//              disappointed her. Had Cassien's quiet eyes. Insisted on
+//              naming his son "Caspian" without understanding why.
+//
+//   LIRIEN   .Caspian's mother. Aethermoor minor nobility. Quiet,
+//              observant, devout. Loved Aurelius from before the
+//              marriage was arranged. Knew early that Aenor was wrong.
+//              Kept her mouth shut to protect her children.
+//
+//   CASPIAN  .crown prince, ~25. Public charm, private gravity. Knows
+//              less than he suspects.
+//
+//   MIRA     .Caspian's younger sister. Dead at six. Killed by Aenor's
+//              riders at the bridge fifteen years ago when the family
+//              tried to flee the kingdom. Her bedroom in the east wing
+//              has not been touched since. Caspian visits on the
+//              anniversary.
+//
+//   [HIDDEN] .a third sibling, currently ~5. Lirien's secret pregnancy.
+//              Born at her family seat, told to court as a stillbirth.
+//              Given to Lirien's old nurse and hidden in a coastal
+//              village. NEITHER CASPIAN NOR AENOR KNOWS HE SURVIVED.
+//              Future-arc reveal slot. Name TBD.
+//
+// THE BRIDGE (Caspian was 10): Aurelius and Lirien tried to flee with
+// the children. Aenor sent her own riders. Aurelius and Lirien killed
+// at the bridge. Mira killed when she would not stop crying. Caspian
+// was the only acknowledged survivor (pulled from the water by a
+// guard). Official story: a carriage went off the bridge in the dark.
+// Caspian has not believed Aenor's version since he was sixteen. He
+// has never said this aloud. THE PLAYER IS THE FIRST PERSON HE WILL
+// TELL.
+//
+// What Caspian does NOT know (compartments to open over his arc):
+//   1. His grandfather Cassien loved Veyra. (Suspects from old
+//      documents in Lucien's tower.)
+//   2. His father Aurelius was woven from a dug-up grave. (No idea.)
+//   3. The bridge "accident" was murder. (Suspects strongly.)
+//   4. He has a living brother. (No idea.)
+//   5. Mira was killed because she cried. (He remembers her crying
+//      that night. He does not know what it cost her.)
+//
+// His affection arc is the slow opening of each of these compartments.
+// ============================================================================
 
 const CHARACTER_CASPIAN = {
     name: "Caspian",
