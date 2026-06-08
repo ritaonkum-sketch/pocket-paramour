@@ -133,7 +133,10 @@
     pointer-events: none;
     z-index: 10003;
     filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.55));
-    animation: ppBurstScatter 2s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+    /* 3s duration with held opacity (see keyframe). Owner direction
+       Jun 2026 — petals now stay full-bright for ~2.1s before fading,
+       so they don't melt away halfway through. */
+    animation: ppBurstScatter 3s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
     will-change: transform, opacity;
 }
 .cc-burst-petal.bp-v1 { background-image: url('../../assets/petals/petal-1.png'); }
@@ -148,8 +151,14 @@
 .cc-burst-petal.bp-blur-3 { filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25)) blur(4.5px); }
 
 @keyframes ppBurstScatter {
-    0%   { opacity: 1; transform: translate(0, 0)                 rotate(0deg)   scale(1); }
-    100% { opacity: 0; transform: translate(var(--x), var(--y))   rotate(720deg) scale(0.3); }
+    /* Hold opacity at 1 through 70% of the animation so petals stay
+       fully visible during the burst + scatter, only fading in the
+       last 30% as the black overlay finishes covering them. Was a
+       linear opacity 1→0 fade, which meant petals were at 50% halfway
+       through — looked like they melted away too fast. */
+    0%   { opacity: 1; transform: translate(0, 0)                                                      rotate(0deg)   scale(1);    }
+    70%  { opacity: 1; transform: translate(calc(var(--x) * 0.88), calc(var(--y) * 0.88))              rotate(560deg) scale(0.55); }
+    100% { opacity: 0; transform: translate(var(--x), var(--y))                                        rotate(720deg) scale(0.3);  }
 }
 
 /* Subtle camera-zoom — the whole title screen breathes outward as the
@@ -167,7 +176,9 @@
    nothing under the overlay stays visible. Belt + braces with the
    overlay so the final frame is truly black. */
 #title-screen.is-starting {
-    animation: ppTitleZoomFade 2.4s ease-in forwards;
+    /* 3.5s — synced with the 3s held-opacity petal burst + 1.5s
+       overlay-fade delay so everything finishes together. */
+    animation: ppTitleZoomFade 3.5s ease-in forwards;
 }
 @keyframes ppTitleZoomFade {
     0%   { transform: scale(1.025); opacity: 1; }
@@ -645,6 +656,12 @@ body.cinematic-transition [class*="notification"] {
    Mix of clockwise (positive rotate) and counter-clockwise (negative),
    varied horizontal drift and tumble amounts so no two petals fall
    the same way. */
+/* Owner direction Jun 2026: petal start-delays were 0–16s, meaning
+   half the petals didn't even appear until 8–16 seconds after the
+   title screen opened. Compressed to 0–3.5s so all 9 are visibly
+   falling within the first few seconds of the title — the screen
+   feels populated immediately. Per-petal staggering preserved so
+   they never fall in sync. */
 .title-petal.p1 {
     left:  6%; width: 26px; height: 26px;
     animation-duration: 18s; animation-delay: 0s;
@@ -653,49 +670,49 @@ body.cinematic-transition [class*="notification"] {
 }
 .title-petal.p2 {
     left: 18%; width: 30px; height: 30px;
-    animation-duration: 22s; animation-delay: 4s;
+    animation-duration: 22s; animation-delay: 0.4s;
     --sway-mid:   55px; --drift-end: -25px;
     --rotate-start:  15deg; --rotate-mid:-180deg; --rotate-end: -420deg;
 }
 .title-petal.p3 {
     left: 32%; width: 24px; height: 24px;
-    animation-duration: 16s; animation-delay: 8s;
+    animation-duration: 16s; animation-delay: 1.4s;
     --sway-mid:  -25px; --drift-end:  60px;
     --rotate-start: -30deg; --rotate-mid: 120deg; --rotate-end:  300deg;
 }
 .title-petal.p4 {
     left: 48%; width: 28px; height: 28px;
-    animation-duration: 24s; animation-delay: 2s;
+    animation-duration: 24s; animation-delay: 0.2s;
     --sway-mid:   40px; --drift-end: -50px;
     --rotate-start:   0deg; --rotate-mid: 380deg; --rotate-end:  720deg;
 }
 .title-petal.p5 {
     left: 60%; width: 32px; height: 32px;
-    animation-duration: 20s; animation-delay: 11s;
+    animation-duration: 20s; animation-delay: 2.2s;
     --sway-mid:  -50px; --drift-end:  25px;
     --rotate-start:  45deg; --rotate-mid:-100deg; --rotate-end: -360deg;
 }
 .title-petal.p6 {
     left: 74%; width: 22px; height: 22px;
-    animation-duration: 26s; animation-delay: 6s;
+    animation-duration: 26s; animation-delay: 0.8s;
     --sway-mid:   35px; --drift-end: -40px;
     --rotate-start: -20deg; --rotate-mid: 280deg; --rotate-end:  640deg;
 }
 .title-petal.p7 {
     left: 84%; width: 28px; height: 28px;
-    animation-duration: 19s; animation-delay: 14s;
+    animation-duration: 19s; animation-delay: 2.6s;
     --sway-mid:  -45px; --drift-end:  20px;
     --rotate-start:  60deg; --rotate-mid: -90deg; --rotate-end: -480deg;
 }
 .title-petal.p8 {
     left: 92%; width: 24px; height: 24px;
-    animation-duration: 23s; animation-delay: 9s;
+    animation-duration: 23s; animation-delay: 1.2s;
     --sway-mid:   30px; --drift-end: -35px;
     --rotate-start: -10deg; --rotate-mid: 200deg; --rotate-end:  420deg;
 }
 .title-petal.p9 {
     left: 40%; width: 30px; height: 30px;
-    animation-duration: 21s; animation-delay: 16s;
+    animation-duration: 21s; animation-delay: 1.8s;
     --sway-mid:  -35px; --drift-end:  45px;
     --rotate-start:  25deg; --rotate-mid: 340deg; --rotate-end:  680deg;
 }

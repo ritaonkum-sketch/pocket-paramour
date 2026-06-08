@@ -304,14 +304,17 @@
 
         <div id="select-content">
 
-            <!-- Current Story Card -->
-            <section class="cc-current-story">
+            <!-- CURRENT STORY card REMOVED (Jun 2026 owner direction).
+                 Story progression now lives in its own STORY bottom-nav
+                 tab — see <button data-tab="story"> below. Home page is
+                 now pure care loop: Active Companion + Other Threads. -->
+            <section class="cc-current-story" hidden style="display:none">
                 <div class="cc-story-art" aria-hidden="true"></div>
                 <div class="cc-story-content">
                     <div class="cc-story-label">✧ CURRENT STORY</div>
-                    <h3 class="cc-story-title" id="cc-story-title">Chapter 1</h3>
-                    <div class="cc-story-subtitle" id="cc-story-subtitle">The Page in the Moss <span class="cc-sparkle">✦</span></div>
-                    <p class="cc-story-desc" id="cc-story-desc">You wake in moss with no memory. A burnt page in your hand.</p>
+                    <h3 class="cc-story-title" id="cc-story-title">Prologue</h3>
+                    <div class="cc-story-subtitle" id="cc-story-subtitle">A Kingdom Fades <span class="cc-sparkle">✦</span></div>
+                    <p class="cc-story-desc" id="cc-story-desc">Pick up where you left off.</p>
                     <button id="select-main-story-btn" class="cc-continue-btn" type="button">
                         <span class="ms-btn-label">CONTINUE STORY</span>
                         <span class="cc-arrow">→</span>
@@ -325,28 +328,33 @@
                 </div>
             </section>
 
-            <!-- Active Companion -->
-            <section class="cc-active-companion" data-character="alistair" id="cc-active">
+            <!-- Active Companion (defaults to LOCKED state so first
+                 paint matches what fresh-save players should see —
+                 prevents the flash of "Alistair / Captain of the Guard"
+                 before JS swaps to the locked silhouette. JS removes
+                 .is-locked and fills real character data when chapter 1
+                 has been completed.) -->
+            <section class="cc-active-companion is-locked" data-character="alistair" id="cc-active">
                 <div class="cc-active-portrait">
                     <img src="assets/alistair/select-portrait.png" alt="" id="cc-active-img">
                     <div class="cc-active-portrait-glow" aria-hidden="true"></div>
                 </div>
                 <div class="cc-active-info">
                     <div class="cc-active-label">✦ ACTIVE COMPANION ✦</div>
-                    <h2 class="cc-active-name" id="cc-active-name">Alistair</h2>
-                    <div class="cc-active-role" id="cc-active-role">Captain of the Guard</div>
+                    <h2 class="cc-active-name" id="cc-active-name">???</h2>
+                    <div class="cc-active-role" id="cc-active-role">Unknown</div>
                     <div class="cc-bond-row">
-                        <div class="cc-bond-badge" id="cc-bond-badge">1</div>
+                        <div class="cc-bond-badge" id="cc-bond-badge">–</div>
                         <div class="cc-bond-info">
                             <div class="cc-bond-label">BOND LEVEL</div>
-                            <div class="cc-bond-value" id="cc-bond-value">1 / 9</div>
+                            <div class="cc-bond-value" id="cc-bond-value">— / 9</div>
                         </div>
                     </div>
-                    <p class="cc-active-quote" id="cc-active-quote">He watches over you, even when you don't see him.</p>
+                    <p class="cc-active-quote" id="cc-active-quote">Begin Chapter 1 to meet your first companion.</p>
                     <div class="cc-action-row">
-                        <button class="cc-action-btn cc-action-care" type="button" data-action="care">
-                            <span class="cc-action-icon">♥</span>
-                            <span class="cc-action-label">CARE</span>
+                        <button class="cc-action-btn cc-action-care" type="button" data-action="begin-ch1">
+                            <span class="cc-action-icon">✦</span>
+                            <span class="cc-action-label">BEGIN CHAPTER 1</span>
                         </button>
                     </div>
                 </div>
@@ -363,40 +371,102 @@
                 <div id="select-grid" class="cc-threads-row">
                     <!-- Each .select-card preserves data-character so existing
                          click handlers continue to work. -->
-                    <div class="cc-thread-card select-card" data-character="alistair" title="He guards the kingdom with his life. But who guards his heart?">
+                    <!-- Default-locked roster (Jun 2026 — full HTML
+                         pre-render). All 5 cards ship with locked
+                         classes + silver thread SVG + lock pill +
+                         LOCKED badge ALREADY in markup so first paint
+                         is correct. JS restores real names from
+                         data-orig-name + removes lock classes for
+                         characters whose story gate is satisfied. -->
+                    <div class="cc-thread-card cc-thread-locked select-card" data-character="alistair" title="He guards the kingdom with his life. But who guards his heart?">
                         <div class="cc-thread-portrait">
                             <img src="assets/alistair/select-portrait.png" alt="" class="select-card-img">
+                            <svg class="cc-locked-thread" viewBox="0 0 110 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                <defs><linearGradient id="locked-g-alistair" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(232,236,255,0)"/><stop offset="50%" stop-color="rgba(248,144,184,0.85)"/><stop offset="100%" stop-color="rgba(232,236,255,0)"/></linearGradient></defs>
+                                <path d="M -10,80 Q 60,60 100,110 T 120,170" stroke="url(#locked-g-alistair)" stroke-width="0.8" fill="none"/>
+                                <path d="M -10,130 Q 50,130 110,90 T 130,150" stroke="url(#locked-g-alistair)" stroke-width="0.6" fill="none"/>
+                                <path d="M -5,170 Q 50,160 100,180 T 120,140" stroke="url(#locked-g-alistair)" stroke-width="0.7" fill="none"/>
+                                <circle cx="30" cy="100" r="1.4" fill="rgba(255,200,220,1)"/>
+                                <circle cx="80" cy="140" r="1.6" fill="rgba(255,200,220,1)"/>
+                                <circle cx="55" cy="170" r="1.2" fill="rgba(255,200,220,1)"/>
+                            </svg>
+                            <div class="cc-locked-pill"><span class="cc-locked-lock-icon">🔒</span></div>
                         </div>
-                        <div class="cc-thread-name select-card-name">Alistair</div>
-                        <div class="cc-thread-role select-card-role">Captain of the Guard</div>
+                        <div class="cc-thread-name select-card-name" data-orig-name="Alistair">???</div>
+                        <div class="cc-thread-role select-card-role" data-orig-role="Captain of the Guard">UNKNOWN</div>
+                        <div class="cc-locked-badge"><span>🔒</span> LOCKED</div>
                     </div>
-                    <div class="cc-thread-card select-card" data-character="elian" title="The forest doesn't wait. Neither does he.">
+                    <div class="cc-thread-card cc-thread-locked select-card" data-character="elian" title="The forest doesn't wait. Neither does he.">
                         <div class="cc-thread-portrait">
                             <img src="assets/elian/select-portrait.png" alt="" class="select-card-img">
+                            <svg class="cc-locked-thread" viewBox="0 0 110 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                <defs><linearGradient id="locked-g-elian" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(232,236,255,0)"/><stop offset="50%" stop-color="rgba(248,144,184,0.85)"/><stop offset="100%" stop-color="rgba(232,236,255,0)"/></linearGradient></defs>
+                                <path d="M -10,80 Q 60,60 100,110 T 120,170" stroke="url(#locked-g-elian)" stroke-width="0.8" fill="none"/>
+                                <path d="M -10,130 Q 50,130 110,90 T 130,150" stroke="url(#locked-g-elian)" stroke-width="0.6" fill="none"/>
+                                <path d="M -5,170 Q 50,160 100,180 T 120,140" stroke="url(#locked-g-elian)" stroke-width="0.7" fill="none"/>
+                                <circle cx="30" cy="100" r="1.4" fill="rgba(255,200,220,1)"/>
+                                <circle cx="80" cy="140" r="1.6" fill="rgba(255,200,220,1)"/>
+                                <circle cx="55" cy="170" r="1.2" fill="rgba(255,200,220,1)"/>
+                            </svg>
+                            <div class="cc-locked-pill"><span class="cc-locked-lock-icon">🔒</span></div>
                         </div>
-                        <div class="cc-thread-name select-card-name">Elian</div>
-                        <div class="cc-thread-role select-card-role">Warden of Thornwood</div>
+                        <div class="cc-thread-name select-card-name" data-orig-name="Elian">???</div>
+                        <div class="cc-thread-role select-card-role" data-orig-role="Warden of Thornwood">UNKNOWN</div>
+                        <div class="cc-locked-badge"><span>🔒</span> LOCKED</div>
                     </div>
-                    <div class="cc-thread-card select-card" data-character="lyra" title="She sings for those who stay. Most don't.">
+                    <div class="cc-thread-card cc-thread-locked select-card" data-character="lyra" title="She sings for those who stay. Most don't.">
                         <div class="cc-thread-portrait">
                             <img src="assets/lyra/select-portrait.png" alt="" class="select-card-img">
+                            <svg class="cc-locked-thread" viewBox="0 0 110 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                <defs><linearGradient id="locked-g-lyra" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(232,236,255,0)"/><stop offset="50%" stop-color="rgba(248,144,184,0.85)"/><stop offset="100%" stop-color="rgba(232,236,255,0)"/></linearGradient></defs>
+                                <path d="M -10,80 Q 60,60 100,110 T 120,170" stroke="url(#locked-g-lyra)" stroke-width="0.8" fill="none"/>
+                                <path d="M -10,130 Q 50,130 110,90 T 130,150" stroke="url(#locked-g-lyra)" stroke-width="0.6" fill="none"/>
+                                <path d="M -5,170 Q 50,160 100,180 T 120,140" stroke="url(#locked-g-lyra)" stroke-width="0.7" fill="none"/>
+                                <circle cx="30" cy="100" r="1.4" fill="rgba(255,200,220,1)"/>
+                                <circle cx="80" cy="140" r="1.6" fill="rgba(255,200,220,1)"/>
+                                <circle cx="55" cy="170" r="1.2" fill="rgba(255,200,220,1)"/>
+                            </svg>
+                            <div class="cc-locked-pill"><span class="cc-locked-lock-icon">🔒</span></div>
                         </div>
-                        <div class="cc-thread-name select-card-name">Lyra</div>
-                        <div class="cc-thread-role select-card-role">Voice of the Caves</div>
+                        <div class="cc-thread-name select-card-name" data-orig-name="Lyra">???</div>
+                        <div class="cc-thread-role select-card-role" data-orig-role="Voice of the Caves">UNKNOWN</div>
+                        <div class="cc-locked-badge"><span>🔒</span> LOCKED</div>
                     </div>
-                    <div class="cc-thread-card select-card" data-character="caspian" title="The crown is heavy. Your company makes it lighter.">
+                    <div class="cc-thread-card cc-thread-locked select-card" data-character="caspian" title="The crown is heavy. Your company makes it lighter.">
                         <div class="cc-thread-portrait">
                             <img src="assets/caspian/select-portrait.png" alt="" class="select-card-img">
+                            <svg class="cc-locked-thread" viewBox="0 0 110 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                <defs><linearGradient id="locked-g-caspian" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(232,236,255,0)"/><stop offset="50%" stop-color="rgba(248,144,184,0.85)"/><stop offset="100%" stop-color="rgba(232,236,255,0)"/></linearGradient></defs>
+                                <path d="M -10,80 Q 60,60 100,110 T 120,170" stroke="url(#locked-g-caspian)" stroke-width="0.8" fill="none"/>
+                                <path d="M -10,130 Q 50,130 110,90 T 130,150" stroke="url(#locked-g-caspian)" stroke-width="0.6" fill="none"/>
+                                <path d="M -5,170 Q 50,160 100,180 T 120,140" stroke="url(#locked-g-caspian)" stroke-width="0.7" fill="none"/>
+                                <circle cx="30" cy="100" r="1.4" fill="rgba(255,200,220,1)"/>
+                                <circle cx="80" cy="140" r="1.6" fill="rgba(255,200,220,1)"/>
+                                <circle cx="55" cy="170" r="1.2" fill="rgba(255,200,220,1)"/>
+                            </svg>
+                            <div class="cc-locked-pill"><span class="cc-locked-lock-icon">🔒</span></div>
                         </div>
-                        <div class="cc-thread-name select-card-name">Caspian</div>
-                        <div class="cc-thread-role select-card-role">Crown Prince</div>
+                        <div class="cc-thread-name select-card-name" data-orig-name="Caspian">???</div>
+                        <div class="cc-thread-role select-card-role" data-orig-role="Crown Prince">UNKNOWN</div>
+                        <div class="cc-locked-badge"><span>🔒</span> LOCKED</div>
                     </div>
-                    <div class="cc-thread-card select-card" data-character="lucien" title="He studies the patterns beneath reality. You broke all of them.">
+                    <div class="cc-thread-card cc-thread-locked select-card" data-character="lucien" title="He studies the patterns beneath reality. You broke all of them.">
                         <div class="cc-thread-portrait">
                             <img src="assets/lucien/select-portrait.png" alt="" class="select-card-img">
+                            <svg class="cc-locked-thread" viewBox="0 0 110 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                <defs><linearGradient id="locked-g-lucien" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(232,236,255,0)"/><stop offset="50%" stop-color="rgba(248,144,184,0.85)"/><stop offset="100%" stop-color="rgba(232,236,255,0)"/></linearGradient></defs>
+                                <path d="M -10,80 Q 60,60 100,110 T 120,170" stroke="url(#locked-g-lucien)" stroke-width="0.8" fill="none"/>
+                                <path d="M -10,130 Q 50,130 110,90 T 130,150" stroke="url(#locked-g-lucien)" stroke-width="0.6" fill="none"/>
+                                <path d="M -5,170 Q 50,160 100,180 T 120,140" stroke="url(#locked-g-lucien)" stroke-width="0.7" fill="none"/>
+                                <circle cx="30" cy="100" r="1.4" fill="rgba(255,200,220,1)"/>
+                                <circle cx="80" cy="140" r="1.6" fill="rgba(255,200,220,1)"/>
+                                <circle cx="55" cy="170" r="1.2" fill="rgba(255,200,220,1)"/>
+                            </svg>
+                            <div class="cc-locked-pill"><span class="cc-locked-lock-icon">🔒</span></div>
                         </div>
-                        <div class="cc-thread-name select-card-name">Lucien</div>
-                        <div class="cc-thread-role select-card-role">Scholar of the Tower</div>
+                        <div class="cc-thread-name select-card-name" data-orig-name="Lucien">???</div>
+                        <div class="cc-thread-role select-card-role" data-orig-role="Scholar of the Tower">UNKNOWN</div>
+                        <div class="cc-locked-badge"><span>🔒</span> LOCKED</div>
                     </div>
                     <div class="cc-thread-card cc-thread-locked select-card select-card-locked" data-character="proto" id="proto-card" title="A signal in the static. Something that shouldn't exist.">
                         <div class="cc-thread-portrait">
@@ -480,15 +550,19 @@
                 </span>
                 <span class="cc-nav-label">COMPANIONS</span>
             </button>
-            <button class="cc-nav-tab" type="button" data-tab="journal">
+            <button class="cc-nav-tab" type="button" data-tab="story">
                 <span class="cc-nav-icon" aria-hidden="true">
+                    <!-- Open book — opens the Main Story chapter list
+                         (window.MSChapters.open()). Replaced JOURNAL
+                         tab Jun 2026 per owner direction. Letters
+                         stayed inside the care loop, no nav entry. -->
                     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
-                        <path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/>
-                        <path d="M5 17a3 3 0 0 1 3-3h11"/>
-                        <path d="M9 8h6M9 11h6"/>
+                        <path d="M12 6c-1.6-1.6-4.2-2.2-7-2.2v15c2.8 0 5.4.6 7 2.2"/>
+                        <path d="M12 6c1.6-1.6 4.2-2.2 7-2.2v15c-2.8 0-5.4.6-7 2.2"/>
+                        <path d="M12 6v15"/>
                     </svg>
                 </span>
-                <span class="cc-nav-label">JOURNAL</span>
+                <span class="cc-nav-label">STORY</span>
             </button>
             <button class="cc-nav-tab" type="button" data-tab="shop">
                 <span class="cc-nav-icon" aria-hidden="true">
@@ -1092,7 +1166,10 @@
             return 9;
         }
 
-        // CURRENT STORY — find the next chapter to play and surface it.
+        // CURRENT STORY card removed Jun 2026 — story access moved to
+        // bottom-nav STORY tab. This function is now a no-op; left
+        // wired up so the existing maybeRefresh call chain doesn't
+        // throw if it fires while the hidden card stub is still in DOM.
         function refreshStoryCard() {
             var titleEl    = document.getElementById('cc-story-title');
             var subtitleEl = document.getElementById('cc-story-subtitle');
@@ -1149,6 +1226,28 @@
             }
         }
 
+        // Per owner direction Jun 2026: Alistair is locked until the
+        // player completes Chapter 1 ("Gauntlet Off", id:1). Same gate
+        // applies later to other characters as their first chapters
+        // are added. Reads the chapters.js localStorage key directly
+        // so this works whether main-story is enabled or not.
+        function isChapterDone(id) {
+            try { return localStorage.getItem('pp_chapter_done_' + id) === '1'; }
+            catch (e) { return false; }
+        }
+        // Returns the first-chapter id that must be done for this
+        // character to unlock. null = no gate (always unlocked).
+        function firstChapterFor(c) {
+            if (c === 'alistair') return 1;
+            // Other characters use the existing main-story / ms-locked
+            // gating system — no per-character chapter gate here yet.
+            return null;
+        }
+        function isCharLocked(c) {
+            var ch = firstChapterFor(c);
+            return ch !== null && !isChapterDone(ch);
+        }
+
         function refreshActive() {
             var c = getActive();
             var def = CHARS[c]; if (!def) return;
@@ -1160,12 +1259,42 @@
             var valueEl  = document.getElementById('cc-bond-value');
             var imgEl    = document.getElementById('cc-active-img');
             var rootEl   = document.getElementById('cc-active');
+            var careBtn  = rootEl ? rootEl.querySelector('.cc-action-care') : null;
+            var locked   = isCharLocked(c);
 
+            // ── LOCKED state ────────────────────────────────────────
+            // Portrait blurred + greyed via CSS .is-locked, name and
+            // role become "???", quote prompts the player to play
+            // Chapter 1, CARE button swaps to "BEGIN CHAPTER 1".
+            if (locked) {
+                if (rootEl) {
+                    rootEl.classList.add('is-locked');
+                    rootEl.setAttribute('data-character', c);
+                }
+                if (nameEl)  nameEl.textContent  = '???';
+                if (roleEl)  roleEl.textContent  = 'Unknown';
+                if (quoteEl) quoteEl.textContent = 'Begin Chapter 1 to meet your first companion.';
+                if (imgEl)   imgEl.src = 'assets/' + c + '/select-portrait.png';
+                if (badgeEl) badgeEl.textContent = '–';
+                if (valueEl) valueEl.textContent = '— / 9';
+                if (careBtn) {
+                    careBtn.setAttribute('data-action', 'begin-ch1');
+                    careBtn.innerHTML = '<span class="cc-action-icon">✦</span><span class="cc-action-label">BEGIN CHAPTER 1</span>';
+                }
+                return;
+            }
+
+            // ── UNLOCKED state ──────────────────────────────────────
+            if (rootEl)  rootEl.classList.remove('is-locked');
             if (nameEl)  nameEl.textContent  = def.name;
             if (roleEl)  roleEl.textContent  = def.role;
             if (quoteEl) quoteEl.textContent = def.quote;
             if (imgEl)   imgEl.src = 'assets/' + c + '/select-portrait.png';
             if (rootEl)  rootEl.setAttribute('data-character', c);
+            if (careBtn) {
+                careBtn.setAttribute('data-action', 'care');
+                careBtn.innerHTML = '<span class="cc-action-icon">♥</span><span class="cc-action-label">CARE</span>';
+            }
 
             var bl = bondLevel(c);
             if (badgeEl) badgeEl.textContent = String(bl);
@@ -1179,22 +1308,49 @@
             document.querySelectorAll('.cc-thread-card[data-character]').forEach(function (card) {
                 var nameEl = card.querySelector('.cc-thread-name');
                 if (!nameEl) return;
+                var charId = card.getAttribute('data-character');
+
+                // Per-character first-chapter gate (Jun 2026).
+                // - Locked: force cc-thread-locked class so the card uses
+                //   the silhouette + dim treatment.
+                // - Unlocked-and-has-a-gate: strip cc-thread-locked so
+                //   the card returns to its normal visual.
+                // Character-generic so future chars wired into
+                // firstChapterFor() (Elian's ch2, Lyra's ch3, etc) auto-
+                // unlock when their chapter is done.
+                // Noir/Proto have no chapter gate (firstChapterFor returns
+                // null) AND carry select-card-locked from legacy HTML, so
+                // they stay locked via that path — never touched here.
+                if (charId && isCharLocked(charId)) {
+                    card.classList.add('cc-thread-locked');
+                } else if (charId && firstChapterFor(charId) !== null) {
+                    card.classList.remove('cc-thread-locked');
+                }
 
                 var isLocked = card.classList.contains('cc-thread-locked')
                             || card.classList.contains('ms-locked')
                             || card.classList.contains('select-card-locked');
 
+                var roleEl = card.querySelector('.cc-thread-role');
                 if (isLocked) {
-                    // Store the original on first lock so unlocking restores it
+                    // Store original name/role on first lock so unlock restores them
                     if (nameEl.dataset.origName === undefined && nameEl.textContent !== '???') {
                         nameEl.dataset.origName = nameEl.textContent;
                     }
+                    if (roleEl && roleEl.dataset.origRole === undefined && roleEl.textContent !== 'UNKNOWN') {
+                        roleEl.dataset.origRole = roleEl.textContent;
+                    }
                     nameEl.textContent = '???';
+                    if (roleEl) roleEl.textContent = 'UNKNOWN';
                 } else {
-                    // Restore original name on unlock if we previously masked it
+                    // Restore original name + role on unlock. Sources: the
+                    // data-orig-name/role attrs hardcoded in HTML for
+                    // default-locked cards, or stored at lock time.
                     if (nameEl.dataset.origName) {
                         nameEl.textContent = nameEl.dataset.origName;
-                        delete nameEl.dataset.origName;
+                    }
+                    if (roleEl && roleEl.dataset.origRole) {
+                        roleEl.textContent = roleEl.dataset.origRole;
                     }
                 }
             });
@@ -1271,12 +1427,66 @@
             });
         }
 
+        // Per-character lock hints (Jun 2026 — restored per owner
+        // direction). Shown as a small italic bubble when the player
+        // taps a locked thread card. Auto-dismisses in 2.6s.
+        // First-person voice — each character whispers to the player
+        // through the silhouette (Jun 2026 owner direction). More
+        // immersive than third-person UI instructions.
+        var LOCK_HINTS = {
+            alistair: 'Begin your story, you will meet me.',
+            elian:    'Find me where the trees begin to whisper.',
+            lyra:     'Listen for me. I am still in silence.',
+            caspian:  'I have not noticed you. Not yet.',
+            lucien:   'Climb when you are ready. My tower waits.',
+            noir:     '…you do not know me yet.',
+            proto:    'I am hidden in the wards. Look closer.'
+        };
+        function showCardLockHint(charId) {
+            var msg = LOCK_HINTS[charId] || 'Not yet.';
+            var el = document.getElementById('cc-card-lock-hint');
+            if (!el) {
+                el = document.createElement('div');
+                el.id = 'cc-card-lock-hint';
+                el.style.cssText = [
+                    'position:fixed',
+                    'left:50%', 'bottom:18%',
+                    'transform:translateX(-50%) translateY(10px)',
+                    'background:linear-gradient(180deg, rgba(43,17,51,0.96), rgba(21,8,26,0.98))',
+                    'border:1px solid rgba(232,200,138,0.45)',
+                    'color:rgba(244,235,220,0.92)',
+                    'padding:14px 24px',
+                    'border-radius:20px',
+                    'font-family:"Cormorant Garamond","EB Garamond","Garamond","Georgia",serif',
+                    'font-style:italic', 'font-weight:400',
+                    'font-size:16px', 'line-height:1.45', 'letter-spacing:0.02em',
+                    'box-shadow:0 8px 28px rgba(0,0,0,0.65), 0 0 36px rgba(122,18,36,0.28)',
+                    'backdrop-filter:blur(8px)',
+                    '-webkit-backdrop-filter:blur(8px)',
+                    'opacity:0', 'pointer-events:none', 'z-index:9700',
+                    'max-width:78%', 'text-align:center',
+                    'transition:opacity 320ms ease, transform 320ms ease'
+                ].join(';');
+                document.body.appendChild(el);
+            }
+            el.textContent = msg;
+            requestAnimationFrame(function () {
+                el.style.opacity = '1';
+                el.style.transform = 'translateX(-50%) translateY(0)';
+            });
+            clearTimeout(el.__ccTimer);
+            el.__ccTimer = setTimeout(function () {
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(-50%) translateY(10px)';
+            }, 2600);
+        }
+
         // Click on a Thread of Fate card → set active ONLY. Per owner
         // direction (Jun 2026): tapping a thread card must never route
         // into the care game. The CARE button on the Active Companion
         // card is the sole entry point to the care route.
         //
-        // Locked: silent block (no popup).
+        // Locked: show LOCK_HINTS bubble + block routing.
         // Unlocked direct tap: setActive + STOP propagation so game.js's
         //   selectScreen handler can't fire and route into care.
         // Synthetic click from CARE button: bypass flag tells us to let
@@ -1288,13 +1498,14 @@
                     var c = card.getAttribute('data-character');
                     if (!c) return;
 
-                    // Locked? Block silently — no active swap, no popup.
+                    // Locked? Show contextual hint bubble, block routing.
                     var isLocked = card.classList.contains('cc-thread-locked')
                                 || card.classList.contains('ms-locked')
                                 || card.classList.contains('select-card-locked');
                     if (isLocked) {
                         e.stopPropagation();
                         e.preventDefault();
+                        showCardLockHint(c);
                         return;
                     }
 
@@ -1317,10 +1528,12 @@
             });
         }
 
-        // CARE / STORY action buttons on the Active Companion card.
+        // CARE / STORY / BEGIN-CH1 action buttons on the Active Companion.
         // CARE is the ONLY path into the care game route — it routes by
         // setting a bypass flag on the hidden thread card then firing a
         // synthetic click so game.js's existing route logic runs.
+        // BEGIN-CH1 opens the Main Story menu so the player can play
+        // Chapter 1 — same destination as CONTINUE STORY card.
         function wireActionButtons() {
             document.querySelectorAll('.cc-action-btn').forEach(function (btn) {
                 if (btn.__ccBound) return; btn.__ccBound = true;
@@ -1328,8 +1541,18 @@
                     e.stopPropagation();
                     var action = btn.getAttribute('data-action');
                     var c = getActive();
-                    if (action === 'story') {
-                        // Open Main Story menu
+                    if (action === 'story' || action === 'begin-ch1') {
+                        // Open Main Story menu (where player picks Chapter 1)
+                        if (window.MSChapters && typeof window.MSChapters.open === 'function') {
+                            window.MSChapters.open();
+                        }
+                        return;
+                    }
+                    // CARE: blocked entirely if the active companion is
+                    // locked (defensive — refreshActive should already
+                    // have swapped the button to BEGIN-CH1, but in case
+                    // of a race we double-check here).
+                    if (isCharLocked(c)) {
                         if (window.MSChapters && typeof window.MSChapters.open === 'function') {
                             window.MSChapters.open();
                         }
@@ -1362,8 +1585,10 @@
         // Wire bottom nav tab toggles. Active routes:
         //   daily      → window.PPTodayHub.open()  (daily-task panel)
         //   companions → this screen (no-op)
-        //   journal    → window.PPLettersArchive.open()
+        //   story      → window.MSChapters.open()  (Main Story menu)
         //   shop / more → placeholders for now
+        // Letters: NOT in nav anymore — accessible from the care-loop
+        // floating button inside #game-container.
         function wireBottomNav() {
             document.querySelectorAll('.cc-nav-tab').forEach(function (tab) {
                 if (tab.__ccBound) return; tab.__ccBound = true;
@@ -1378,9 +1603,10 @@
                         window.PPTodayHub.open();
                         return;
                     }
-                    if (which === 'journal' && window.PPLettersArchive
-                        && typeof window.PPLettersArchive.open === 'function') {
-                        window.PPLettersArchive.open();
+                    if (which === 'story' && window.MSChapters
+                        && typeof window.MSChapters.open === 'function') {
+                        window.MSChapters.open();
+                        return;
                     }
                 });
             });

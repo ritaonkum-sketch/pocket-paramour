@@ -11211,16 +11211,19 @@ let selectedCharacter = 'alistair';
                 p.style.width  = sz + 'px';
                 p.style.height = sz + 'px';
                 document.body.appendChild(p);
-                // Cleanup after the 2s animation completes
-                (function (el) { setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 2100); })(p);
+                // Cleanup after the 3s animation completes
+                (function (el) { setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 3200); })(p);
             }
         } catch (_) {}
 
-        // Fade in the black overlay after 700ms (lets the burst start first)
+        // Fade in the black overlay after 1500ms — owner direction Jun 2026.
+        // The previous 700ms start meant petals were only fully visible
+        // for ~0.7s before the overlay began darkening them. 1.5s gives
+        // the player a full clean view of the rose burst before darkness.
         var overlay = document.getElementById('title-transition-overlay');
         setTimeout(function () {
             if (overlay) overlay.classList.add('is-firing');
-        }, 700);
+        }, 1500);
 
         // Fade out the ambient BGM as the screen darkens
         try {
@@ -11237,8 +11240,16 @@ let selectedCharacter = 'alistair';
             }
         } catch (_) {}
 
-        // After the full cinematic finishes (2.5s), hide title and proceed
-        setTimeout(function () { runTitleStartFlow(); }, 2500);
+        // After the full cinematic finishes, hide title and proceed.
+        // Timing breakdown (Jun 2026, revised):
+        //   t=0       petals spawn (3s animation, opacity held to 70%)
+        //   t=1500    overlay fade-in begins (1.4s)
+        //   t=2100    petals start fading (70% of 3s)
+        //   t=2900    overlay reaches full black
+        //   t=3000    petal animation fully complete
+        //   t=3200    petals removed from DOM
+        //   t=3800    runTitleStartFlow — 900ms full-black buffer
+        setTimeout(function () { runTitleStartFlow(); }, 3800);
     };
 
     function runTitleStartFlow() {

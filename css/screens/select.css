@@ -708,6 +708,77 @@ body:has(#select-screen:not(.hidden)) .pp-today-dot {
 }
 
 
+/* ─── ACTIVE COMPANION — LOCKED STATE (Jun 2026) ────────────────────────
+   When the active companion hasn't been unlocked by their first chapter
+   (e.g. Alistair before Chapter 1 plays), the card shows a locked
+   silhouette treatment with prompt to begin the story. Refresh logic
+   in index.html toggles .is-locked + swaps content (name → "???",
+   quote → "Begin Chapter 1 to meet your first companion.",
+   CARE button → "BEGIN CHAPTER 1"). */
+
+.cc-active-companion.is-locked .cc-active-portrait img {
+    filter: grayscale(0.95) brightness(0.35) blur(2.5px);
+    transition: filter 600ms ease;
+}
+.cc-active-companion.is-locked .cc-active-portrait::after {
+    /* Lock badge over the silhouette portrait */
+    content: '🔒';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(15, 8, 26, 0.78);
+    border: 1px solid rgba(232, 200, 138, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: rgba(232, 200, 138, 0.85);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+.cc-active-companion.is-locked .cc-active-portrait-glow {
+    opacity: 0 !important;
+}
+.cc-active-companion.is-locked .cc-active-name {
+    color: rgba(232, 200, 138, 0.55) !important;
+    background: none !important;
+    -webkit-text-fill-color: rgba(232, 200, 138, 0.55) !important;
+    letter-spacing: 0.18em;
+}
+.cc-active-companion.is-locked .cc-active-role {
+    opacity: 0.45;
+    font-style: italic;
+}
+.cc-active-companion.is-locked .cc-bond-row {
+    opacity: 0.35;
+}
+.cc-active-companion.is-locked .cc-bond-badge {
+    background: rgba(232, 200, 138, 0.15) !important;
+    color: rgba(232, 200, 138, 0.55) !important;
+    box-shadow: none !important;
+}
+.cc-active-companion.is-locked .cc-active-quote {
+    color: rgba(232, 200, 138, 0.78);
+    font-style: italic;
+}
+/* CARE button when in BEGIN-CHAPTER-1 mode — gold accent so it reads
+   as a story action, not a care action. */
+.cc-active-companion.is-locked .cc-action-care {
+    background: linear-gradient(180deg,
+        rgba(122, 18, 36, 0.65) 0%,
+        rgba(74, 10, 26, 0.85) 100%);
+    border-color: rgba(232, 200, 138, 0.75);
+    color: rgba(244, 235, 220, 0.95);
+}
+.cc-active-companion.is-locked .cc-action-care .cc-action-icon {
+    color: rgba(232, 200, 138, 0.95);
+}
+
+
 /* ─── OTHER THREADS OF FATE ──────────────────────────────────────────── */
 .cc-threads-section { margin-bottom: 8px; padding-top: 6px; }
 .cc-threads-header {
@@ -885,16 +956,26 @@ body:has(#select-screen:not(.hidden)) .pp-today-dot {
     pointer-events: auto;
     filter: none;
 }
-.cc-thread-locked .select-card-img,
+/* Specificity NOTE (Jun 2026): see history for the .cc-thread-card
+   prefix reason. brightness(0) collapses ALL RGB channels to 0,
+   preserving only the alpha shape — uniform pure-black silhouette
+   regardless of source brightness. */
+.cc-thread-card.cc-thread-locked .select-card-img,
 .cc-thread-card.ms-locked .select-card-img,
 .cc-thread-card.select-card-locked .select-card-img {
-    /* Heavy darken + purple tint to create silhouette feel */
-    filter:
-        brightness(0.20)
-        saturate(0.6)
-        contrast(1.1)
-        hue-rotate(-15deg)
-        drop-shadow(0 0 6px rgba(180, 130, 200, 0.35));
+    filter: brightness(0) !important;
+}
+
+/* CARD-LEVEL grayscale + brightness dim (Jun 2026 fix).
+   main-story.js's injected CSS applies `filter: grayscale(0.78)
+   brightness(0.62)` to .select-card.ms-locked — that's why Elian
+   /Caspian's whole card (incl. lock pill, label, bg) reads as
+   uniformly dim grey-purple. cc-thread-locked (used for Alistair
+   via the chapter-1 gate) was MISSING this card-wide filter, so
+   Alistair's card stayed bright with pink pill while others
+   were dimmed. Apply the same filter to match. */
+.cc-thread-card.cc-thread-locked {
+    filter: grayscale(0.78) brightness(0.62) !important;
 }
 
 /* The silver thread SVG weaving around the silhouette area */

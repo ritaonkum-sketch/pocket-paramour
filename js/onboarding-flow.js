@@ -161,24 +161,37 @@
     if (document.getElementById('pp-onboarding-styles')) return;
     const s = document.createElement('style');
     s.id = 'pp-onboarding-styles';
+    // Restyled Jun 2026 to match Pocket Paramour brand:
+    //   - Cormorant Garamond italic for story register (title + body)
+    //   - Quicksand uppercase for UI labels (WELCOME, SKIP)
+    //   - Wine-velvet card bg + rose-gold thin border (matches title)
+    //   - Continue button uses START-button magenta-wine gradient
+    //   - Magenta active dot with soft glow
     s.textContent = `
       #pp-onboarding-overlay {
         position:fixed; inset:0; z-index:9700;
-        background:radial-gradient(ellipse at center, rgba(20,12,38,0.92) 0%, rgba(6,4,14,0.96) 80%);
-        backdrop-filter:blur(6px);
+        background:radial-gradient(ellipse at center, rgba(43, 17, 51, 0.70) 0%, rgba(5, 0, 10, 0.95) 80%);
+        backdrop-filter:blur(8px);
+        -webkit-backdrop-filter:blur(8px);
         display:flex; align-items:center; justify-content:center;
         padding:24px;
         opacity:0; transition:opacity 600ms ease;
-        font-family:inherit; color:#f0e4ff;
+        color:rgba(244, 235, 220, 0.92);
       }
       #pp-onboarding-overlay.show { opacity:1; }
       #pp-onboarding-overlay:not(.show) { pointer-events:none; }
       #pp-onboarding-card {
         max-width:420px; width:100%;
-        background:linear-gradient(180deg, rgba(38,24,68,0.95), rgba(20,12,40,0.95));
-        border:1px solid rgba(200,170,255,0.25);
-        border-radius:22px; padding:28px 24px;
-        box-shadow:0 20px 50px rgba(0,0,0,0.55);
+        /* Dark velvet card with subtle wine glow within */
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.25) 0%, rgba(0,0,0,0) 60%),
+          linear-gradient(180deg, rgba(43, 17, 51, 0.96), rgba(21, 8, 26, 0.98));
+        /* Rose-gold thin border */
+        border:1px solid rgba(232, 200, 138, 0.32);
+        border-radius:22px; padding:32px 28px;
+        box-shadow:
+          0 20px 50px rgba(0, 0, 0, 0.65),
+          0 0 70px rgba(122, 18, 36, 0.22);
         text-align:center;
         transform:translateY(20px) scale(0.98);
         transition:transform 600ms cubic-bezier(.2,.8,.2,1);
@@ -186,42 +199,108 @@
       #pp-onboarding-overlay.show #pp-onboarding-card {
         transform:translateY(0) scale(1);
       }
+
+      /* Eyebrow label ("WELCOME") — UI register */
       .pp-on-eyebrow {
-        font-size:11px; letter-spacing:3px; opacity:0.65;
-        margin-bottom:10px;
+        font-family:'Quicksand','Inter','Segoe UI',sans-serif;
+        font-weight:500;
+        font-size:10.5px; letter-spacing:3.5px;
+        text-transform:uppercase;
+        color:rgba(232, 200, 138, 0.78);
+        margin-bottom:14px;
       }
+
+      /* Title ("Seven hearts are waiting.") — STORY register */
       .pp-on-title {
-        font-size:22px; font-weight:700; line-height:1.3;
-        margin-bottom:14px; color:#fbeeff;
+        font-family:'Cormorant Garamond','EB Garamond','Garamond','Georgia',serif;
+        font-style:italic;
+        font-weight:400;
+        font-size:26px; line-height:1.3;
+        letter-spacing:0.01em;
+        color:rgba(244, 235, 220, 0.96);
+        margin-bottom:16px;
+        text-shadow:0 1px 8px rgba(0, 0, 0, 0.5);
       }
+
+      /* Body lines — same literary register */
       .pp-on-body {
-        font-size:14px; line-height:1.5; color:#dac8ec;
+        font-family:'Cormorant Garamond','EB Garamond','Garamond','Georgia',serif;
+        font-style:italic;
+        font-size:15.5px; line-height:1.55;
+        color:rgba(232, 200, 220, 0.85);
       }
-      .pp-on-body p { margin:6px 0; }
+      .pp-on-body p { margin:8px 0; }
+
+      /* Action row */
       .pp-on-actions {
-        margin-top:22px; display:flex; align-items:center; justify-content:space-between;
+        margin-top:24px; display:flex; align-items:center; justify-content:space-between;
       }
+
+      /* Skip — small UI text */
       .pp-on-skip {
-        font-size:12px; color:#9988ba; cursor:pointer; opacity:0.7;
-        background:none; border:0; padding:0;
+        font-family:'Quicksand','Inter',sans-serif;
+        font-weight:500;
+        font-size:10.5px; letter-spacing:1.6px;
+        text-transform:uppercase;
+        color:rgba(244, 235, 220, 0.50);
+        background:none; border:0; padding:6px 4px;
+        cursor:pointer;
+        transition:color 280ms ease;
       }
-      .pp-on-skip:hover { opacity:1; }
+      .pp-on-skip:hover { color:rgba(244, 235, 220, 0.90); }
+
+      /* Continue — premium magenta-wine pill matching START button */
       .pp-on-next {
-        background:linear-gradient(180deg,#7b5fb0,#5b3f8a);
-        color:#fff; font-size:14px; font-weight:600;
-        border:0; border-radius:14px;
-        padding:10px 24px; cursor:pointer;
-        box-shadow:0 4px 14px rgba(120,80,200,0.4);
+        background:linear-gradient(180deg,
+          #C46A8D 0%,
+          #9A4567 38%,
+          #7A2B4D 70%,
+          #5A1A36 100%);
+        color:#FFF6FA;
+        font-family:'Cormorant Garamond','EB Garamond',serif;
+        font-weight:500;
+        font-size:14px;
+        letter-spacing:0.18em;
+        text-transform:uppercase;
+        text-shadow:
+          0 1px 0 rgba(74, 10, 26, 0.55),
+          0 2px 6px rgba(0, 0, 0, 0.40);
+        border:1px solid rgba(232, 200, 138, 0.65);
+        border-radius:999px;
+        padding:10px 26px;
+        cursor:pointer;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 230, 240, 0.40),
+          inset 0 -2px 6px rgba(74, 10, 26, 0.50),
+          inset 0 0 0 1px rgba(232, 200, 138, 0.20),
+          0 6px 20px -2px rgba(74, 10, 26, 0.70),
+          0 0 36px rgba(154, 69, 103, 0.30);
+        transition:transform 200ms ease, box-shadow 200ms ease;
       }
+      .pp-on-next:hover {
+        transform:scale(1.03);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 230, 240, 0.45),
+          inset 0 -2px 6px rgba(74, 10, 26, 0.50),
+          inset 0 0 0 1px rgba(232, 200, 138, 0.40),
+          0 8px 26px -2px rgba(74, 10, 26, 0.80),
+          0 0 50px rgba(214, 59, 122, 0.45);
+      }
+      .pp-on-next:active { transform:scale(0.97); }
+
+      /* Progress dots — magenta active with soft halo */
       .pp-on-dots {
-        margin-top:14px; display:flex; gap:6px; justify-content:center;
+        margin-top:18px; display:flex; gap:7px; justify-content:center;
       }
       .pp-on-dot {
         width:6px; height:6px; border-radius:50%;
-        background:rgba(200,180,240,0.25);
-        transition:background 280ms ease;
+        background:rgba(232, 200, 138, 0.22);
+        transition:background 280ms ease, box-shadow 280ms ease;
       }
-      .pp-on-dot.active { background:#d8c0ff; }
+      .pp-on-dot.active {
+        background:rgba(232, 76, 140, 0.95);
+        box-shadow:0 0 8px rgba(232, 76, 140, 0.55);
+      }
     `;
     document.head.appendChild(s);
   }

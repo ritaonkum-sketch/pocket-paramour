@@ -901,6 +901,31 @@ body.pp-chain-in-progress #chp-orb {
 }
 
 /* ────────────────────────────────────────────────────────────────────────
+   DP-BANNER vs AMBIENT BUBBLES — anti-stacking gate (Jun 2026)
+   ──────────────────────────────────────────────────────────────────────
+   #dp-banner ("TODAY · ...") sits at top:52px in the head area where the
+   ambient-coordinator's bubble systems also render. The coordinator
+   handles bubble-on-bubble overlap but never knew about dp-banner.
+   Owner reported a daily-purpose chip stacking with an adaptive-thought
+   bubble — both visible at once in the same vertical slot.
+
+   Pure CSS fix: when ANY ambient bubble is present in the DOM, fade
+   dp-banner out smoothly. The bubble removes itself after its lifetime,
+   the :has() match fails, and dp-banner fades back in. No DOM churn,
+   no JS coordination, no risk of dp-banner getting "stuck hidden". */
+body:has(#cc-bubble)         #dp-banner,
+body:has(#noir-whisper)      #dp-banner,
+body:has(#ew-whisper)        #dp-banner,
+body:has(#adaptive-thought)  #dp-banner,
+body:has(#pp-aenor-bubble)   #dp-banner,
+body:has(#pp-multirom-bubble) #dp-banner,
+body:has(#pp-care-thread-toast) #dp-banner {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 300ms ease !important;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
    TOPBAR (#affection-display) — hide entirely during story-blocking scenes.
    Originally pierced through scenes (z:11500) so the 💞 escape button was
    reachable. Owner reported the topbar visually overlaying the intro
