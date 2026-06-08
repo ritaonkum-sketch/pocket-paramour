@@ -1,21 +1,513 @@
 /* ============================================================================
-   POCKET PARAMOUR — WORLD INTRO OVERLAY (Option B hybrid)
+   POCKET PARAMOUR — WORLD INTRO OVERLAY (the Prologue)
    ----------------------------------------------------------------------------
-   The prayer beats are STORY CONTENT — kept in Cormorant Garamond italic
+   The prayer beats are STORY CONTENT — Cormorant Garamond italic
    (literary register). The "tap to continue" hint is UI — Inter.
 
-   June 2026 owner direction: remove the kingdom backdrop image, render the
-   prologue text on a pure dark velvet field so the words carry the moment.
-   Text fades in and out slowly between beats — cinematic register, not UI.
+   Owner direction (Jun 2026 — final): no background image, no gradient.
+   Pure black. The words are everything. Fade between beats slow and
+   cinematic so the silence between lines reads as weight, not delay.
    ============================================================================ */
 
 
-/* ──────────────────────── BACKDROP — pure dark velvet, NO image ──────────────────────── */
-/* Overrides #world-intro background in style.css (which had bg-world.png). */
+/* ──────────────────────── BACKDROP — PURE BLACK ──────────────────────── */
+/* Pure black base. Per-beat atmospheric backgrounds (kingdom, ritual)
+   layer on top via #world-intro-bg, controlled by PPWorldIntro in
+   game.js. Beats with no assigned image fall back to this black. */
 
 #world-intro {
+    background: #000;
+}
+
+
+/* ──────────────────────── PER-BEAT BACKGROUND LAYER ──────────────────────── */
+/* Two stacked image layers (.wi-bg-a / .wi-bg-b) crossfade between
+   different beats. JS swaps the inactive layer's background-image and
+   toggles .is-active to fade it in while the other fades out.
+   Dark scrim on top keeps the prayer text readable. */
+
+#world-intro-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;             /* behind text + hint, above #world-intro bg */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.wi-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    /* Slow cinematic crossfade matching the 1.6s text fade. */
+    transition: opacity 1.6s ease;
+    /* Subtle slow Ken-Burns-style zoom so the still images breathe. */
+    transform: scale(1);
+    will-change: opacity, transform;
+}
+
+.wi-bg-layer.is-active {
+    opacity: 1;
+    animation: wi-bg-breathe 22s ease-in-out infinite alternate;
+}
+
+@keyframes wi-bg-breathe {
+    from { transform: scale(1);    }
+    to   { transform: scale(1.05); }
+}
+
+
+/* Ritual-chamber glow — pulses the magic circle on Beat 3-4.
+   Centred on the sacred-geometry symbol (upper-middle of the image).
+   Soft magenta/violet radial that screen-blends into the bg, so it
+   appears to LIGHT the circle itself rather than sit on top. Slow
+   5s breath so it feels alive without distracting from the prayer.
+   Only applies to layers tagged .is-ritual (set in JS for the
+   beat-3-4-ritual.png image). */
+.wi-bg-layer.is-ritual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background:
-        radial-gradient(ellipse at 50% 35%, #1A0826 0%, #0B0410 70%, #050108 100%);
+        radial-gradient(circle at 50% 45%,
+            rgba(232, 76, 200, 0.55) 0%,
+            rgba(168, 60, 232, 0.32) 16%,
+            rgba(80, 30, 110, 0.08) 32%,
+            rgba(0, 0, 0, 0) 48%
+        );
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: wi-circle-glow 5s ease-in-out infinite;
+    will-change: opacity, transform;
+}
+
+@keyframes wi-circle-glow {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.96);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wi-bg-layer.is-ritual::after { animation: none; opacity: 0.55; }
+}
+
+
+/* Portal glow — DOUBLE-LAYER bloom for Beat 6.
+   Two stacked elements so the portal has both a tight bright ring
+   AND a wide soft aura that breathes outward. Screen blend means
+   the dark scrim can't dim it — the glow PUNCHES through.
+
+   ::after  = inner intense ring (the portal edge plasma)
+   ::before = outer halo aura (radiating into the surrounding forest) */
+
+.wi-bg-layer.is-portal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 38% 48% at 50% 42%,
+            rgba(230, 140, 255, 1.0) 0%,
+            rgba(200, 100, 255, 0.85) 10%,
+            rgba(160, 70, 240, 0.60) 28%,
+            rgba(100, 40, 180, 0.30) 48%,
+            rgba(50, 15, 100, 0.10) 62%,
+            rgba(0, 0, 0, 0) 75%
+        );
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 1;
+    animation: wi-portal-pulse 3.8s ease-in-out infinite;
+    will-change: opacity, transform;
+}
+
+.wi-bg-layer.is-portal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 75% 85% at 50% 42%,
+            rgba(180, 80, 255, 0.35) 0%,
+            rgba(140, 50, 220, 0.18) 30%,
+            rgba(80, 30, 130, 0.05) 55%,
+            rgba(0, 0, 0, 0) 75%
+        );
+    mix-blend-mode: screen;
+    pointer-events: none;
+    opacity: 1;
+    /* Counter-pulse — when inner ring shrinks, aura swells, and
+       vice versa. Gives the portal a "breathing energy" feel. */
+    animation: wi-portal-aura 5.2s ease-in-out infinite;
+    will-change: opacity, transform;
+    z-index: 1;
+}
+
+@keyframes wi-portal-pulse {
+    0%, 100% {
+        opacity: 0.75;
+        transform: scale(0.96);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+@keyframes wi-portal-aura {
+    0%, 100% {
+        opacity: 0.55;
+        transform: scale(1.04);
+    }
+    50% {
+        opacity: 0.95;
+        transform: scale(0.96);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wi-bg-layer.is-portal::after  { animation: none; opacity: 0.9; }
+    .wi-bg-layer.is-portal::before { animation: none; opacity: 0.7; }
+}
+
+
+/* ──────────────────────── PORTAL SPARKLES (electrical arc dots) ──────────────────────── */
+/* 16 small bright dots scattered along the portal's elliptical ring.
+   Each twinkles on its own rhythm (different delays + durations) so
+   the ring looks like it's CRACKLING with electrical energy. Only
+   appears when the portal image is the active bg layer — gated via
+   :has() so the sparkles don't bleed onto other beats. */
+
+.wi-portal-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;                /* above bg layers, below scrim */
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+#world-intro-bg:has(.wi-bg-layer.is-portal.is-active) .wi-portal-sparkles {
+    opacity: 1;
+}
+
+.wi-portal-sparkles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(245, 215, 255, 1);
+    box-shadow:
+        0 0 4px  rgba(230, 140, 255, 0.95),
+        0 0 10px rgba(180, 80, 255, 0.65),
+        0 0 18px rgba(140, 50, 220, 0.35);
+    opacity: 0;
+    mix-blend-mode: screen;
+    animation: wi-portal-spark var(--spark-dur, 2.4s) ease-in-out infinite;
+    animation-delay: var(--spark-delay, 0s);
+    will-change: opacity, transform;
+}
+
+@keyframes wi-portal-spark {
+    0%, 100% { opacity: 0;   transform: scale(0.4); }
+    45%      { opacity: 1;   transform: scale(1.6); }
+    55%      { opacity: 0.9; transform: scale(1.3); }
+    70%      { opacity: 0.5; transform: scale(0.9); }
+}
+
+/* Positions along the portal ellipse (centre 50%, 42%; semi-axes
+   ~19% horizontal, ~24% vertical). Each sparkle sits on the ring
+   at a different angle, with randomised delay/duration so the
+   crackle never repeats in a pattern. */
+.wi-portal-sparkles span:nth-child(1)  { left: 50%;   top: 18%; --spark-delay: 0s;    --spark-dur: 2.4s; }
+.wi-portal-sparkles span:nth-child(2)  { left: 60%;   top: 20%; --spark-delay: 0.7s;  --spark-dur: 2.9s; }
+.wi-portal-sparkles span:nth-child(3)  { left: 66.5%; top: 27%; --spark-delay: 1.2s;  --spark-dur: 2.1s; }
+.wi-portal-sparkles span:nth-child(4)  { left: 69%;   top: 36%; --spark-delay: 0.3s;  --spark-dur: 3.3s; }
+.wi-portal-sparkles span:nth-child(5)  { left: 69%;   top: 48%; --spark-delay: 1.8s;  --spark-dur: 2.2s; }
+.wi-portal-sparkles span:nth-child(6)  { left: 66.5%; top: 57%; --spark-delay: 0.9s;  --spark-dur: 2.7s; }
+.wi-portal-sparkles span:nth-child(7)  { left: 60%;   top: 63%; --spark-delay: 2.1s;  --spark-dur: 2.4s; }
+.wi-portal-sparkles span:nth-child(8)  { left: 50%;   top: 66%; --spark-delay: 1.4s;  --spark-dur: 3.0s; }
+.wi-portal-sparkles span:nth-child(9)  { left: 40%;   top: 63%; --spark-delay: 0.5s;  --spark-dur: 2.3s; }
+.wi-portal-sparkles span:nth-child(10) { left: 33.5%; top: 57%; --spark-delay: 1.7s;  --spark-dur: 2.6s; }
+.wi-portal-sparkles span:nth-child(11) { left: 31%;   top: 48%; --spark-delay: 0.2s;  --spark-dur: 3.1s; }
+.wi-portal-sparkles span:nth-child(12) { left: 31%;   top: 36%; --spark-delay: 2.3s;  --spark-dur: 2.0s; }
+.wi-portal-sparkles span:nth-child(13) { left: 33.5%; top: 27%; --spark-delay: 1.0s;  --spark-dur: 2.8s; }
+.wi-portal-sparkles span:nth-child(14) { left: 40%;   top: 20%; --spark-delay: 0.6s;  --spark-dur: 2.5s; }
+/* Two extra brighter "core" sparkles inside the portal void */
+.wi-portal-sparkles span:nth-child(15) { left: 47%;   top: 38%; --spark-delay: 1.5s;  --spark-dur: 3.2s; width: 5px; height: 5px; }
+.wi-portal-sparkles span:nth-child(16) { left: 54%;   top: 46%; --spark-delay: 2.5s;  --spark-dur: 2.9s; width: 5px; height: 5px; }
+
+@media (prefers-reduced-motion: reduce) {
+    .wi-portal-sparkles span { animation: none; opacity: 0.6; }
+}
+
+
+/* ──────────────────────── FOREST STARS (Beat 8 firefly blinks) ──────────────────────── */
+/* 24 tiny stars scattered along the bioluminescent thread paths in
+   the magic-forest image. Softer + slower than the portal sparkles:
+   these are magical fireflies, not electrical crackle. Each blinks
+   on its own 3–5s rhythm. Gated on .is-forest.is-active so they
+   only fire when the forest image is the active bg. */
+
+.wi-forest-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;                /* above bg layers, below scrim */
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+#world-intro-bg:has(.wi-bg-layer.is-forest.is-active) .wi-forest-stars {
+    opacity: 1;
+}
+
+.wi-forest-stars span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(240, 230, 255, 1);
+    box-shadow:
+        0 0 4px  rgba(220, 200, 255, 0.85),
+        0 0 9px  rgba(160, 120, 240, 0.55),
+        0 0 14px rgba(120, 80, 200, 0.30);
+    opacity: 0;
+    mix-blend-mode: screen;
+    animation: wi-forest-twinkle var(--star-dur, 3.5s) ease-in-out infinite;
+    animation-delay: var(--star-delay, 0s);
+    will-change: opacity, transform;
+}
+
+@keyframes wi-forest-twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.55); }
+    50%      { opacity: 1;    transform: scale(1.35); }
+}
+
+/* Positions chosen to land on the brightest thread-light spots in
+   the source image. Across the canopy arch, down the side trees,
+   along the path edges. Each star has its own delay/duration so the
+   field never blinks in unison — true firefly chaos. */
+.wi-forest-stars span:nth-child(1)  { left: 18%; top: 12%; --star-delay: 0.0s; --star-dur: 3.4s; }
+.wi-forest-stars span:nth-child(2)  { left: 28%; top: 18%; --star-delay: 0.6s; --star-dur: 4.2s; }
+.wi-forest-stars span:nth-child(3)  { left: 40%; top: 9%;  --star-delay: 1.2s; --star-dur: 3.8s; }
+.wi-forest-stars span:nth-child(4)  { left: 52%; top: 14%; --star-delay: 0.3s; --star-dur: 4.6s; width: 4px; height: 4px; }
+.wi-forest-stars span:nth-child(5)  { left: 64%; top: 11%; --star-delay: 2.1s; --star-dur: 3.2s; }
+.wi-forest-stars span:nth-child(6)  { left: 76%; top: 17%; --star-delay: 1.4s; --star-dur: 3.7s; }
+.wi-forest-stars span:nth-child(7)  { left: 14%; top: 28%; --star-delay: 0.9s; --star-dur: 4.1s; }
+.wi-forest-stars span:nth-child(8)  { left: 24%; top: 32%; --star-delay: 2.4s; --star-dur: 3.5s; }
+.wi-forest-stars span:nth-child(9)  { left: 36%; top: 26%; --star-delay: 0.4s; --star-dur: 4.4s; }
+.wi-forest-stars span:nth-child(10) { left: 50%; top: 30%; --star-delay: 1.8s; --star-dur: 3.0s; width: 4px; height: 4px; }
+.wi-forest-stars span:nth-child(11) { left: 68%; top: 28%; --star-delay: 0.7s; --star-dur: 4.3s; }
+.wi-forest-stars span:nth-child(12) { left: 82%; top: 33%; --star-delay: 1.5s; --star-dur: 3.6s; }
+.wi-forest-stars span:nth-child(13) { left: 10%; top: 46%; --star-delay: 2.2s; --star-dur: 3.9s; }
+.wi-forest-stars span:nth-child(14) { left: 22%; top: 50%; --star-delay: 0.5s; --star-dur: 4.5s; }
+.wi-forest-stars span:nth-child(15) { left: 34%; top: 45%; --star-delay: 1.7s; --star-dur: 3.3s; }
+.wi-forest-stars span:nth-child(16) { left: 66%; top: 48%; --star-delay: 0.2s; --star-dur: 4.0s; }
+.wi-forest-stars span:nth-child(17) { left: 78%; top: 52%; --star-delay: 1.1s; --star-dur: 3.7s; }
+.wi-forest-stars span:nth-child(18) { left: 88%; top: 46%; --star-delay: 2.5s; --star-dur: 3.4s; }
+.wi-forest-stars span:nth-child(19) { left: 14%; top: 66%; --star-delay: 0.8s; --star-dur: 4.6s; }
+.wi-forest-stars span:nth-child(20) { left: 28%; top: 72%; --star-delay: 1.9s; --star-dur: 3.1s; }
+.wi-forest-stars span:nth-child(21) { left: 44%; top: 68%; --star-delay: 0.1s; --star-dur: 4.2s; width: 4px; height: 4px; }
+.wi-forest-stars span:nth-child(22) { left: 60%; top: 74%; --star-delay: 1.3s; --star-dur: 3.8s; }
+.wi-forest-stars span:nth-child(23) { left: 74%; top: 68%; --star-delay: 2.0s; --star-dur: 3.5s; }
+.wi-forest-stars span:nth-child(24) { left: 86%; top: 75%; --star-delay: 0.7s; --star-dur: 4.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .wi-forest-stars span { animation: none; opacity: 0.55; }
+}
+
+
+/* ──────────────────────── CATHEDRAL ATMOSPHERE (Beat 9) ──────────────────────── */
+/* Four layered effects for the gothic-hall close-out beat:
+     .cath-candle    × 10 — amber flickers along wall lines
+     .cath-figure          — violet pulse on the lone silhouette
+     .cath-lightning       — distant flash through the arches
+     .cath-mote      × 6  — slow dust particles drifting upward
+   All gated on .wi-bg-layer.is-cathedral.is-active so they only
+   activate for Beat 9. Each uses mix-blend-mode:screen so they
+   brighten the existing image, not paint over it. */
+
+.wi-cathedral-fx {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+#world-intro-bg:has(.wi-bg-layer.is-cathedral.is-active) .wi-cathedral-fx {
+    opacity: 1;
+}
+
+/* Candle flickers removed Jun 2026 per owner direction —
+   positioning never aligned cleanly with the source image's
+   sconces and the rendered dots read as floating glitches. The
+   existing candles in the image carry the warmth on their own. */
+
+/* ─── Lone figure — soft violet pulse ───────────────────────── */
+.cath-figure {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    width: 80px;
+    height: 110px;
+    transform: translate(-50%, -50%);
+    background:
+        radial-gradient(ellipse 60% 75% at 50% 50%,
+            rgba(200, 140, 255, 0.50) 0%,
+            rgba(160, 90, 240, 0.30) 35%,
+            rgba(100, 50, 180, 0.12) 65%,
+            rgba(0, 0, 0, 0) 85%
+        );
+    mix-blend-mode: screen;
+    animation: cath-figure-pulse 4.2s ease-in-out infinite;
+    will-change: opacity, transform;
+}
+
+@keyframes cath-figure-pulse {
+    0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(0.94); }
+    50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* ─── Lightning behind the silhouette ─────────────────────────
+   Brief backlight flash centred on the figure's position so the
+   silhouette pops as a true shadow against a sudden bright wash.
+   Fires every 14s, double-flashes (the canonical lightning pattern). */
+.cath-lightning {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 35% 38% at 50% 48%,
+            rgba(230, 215, 255, 0.85) 0%,
+            rgba(190, 160, 245, 0.55) 22%,
+            rgba(140, 100, 220, 0.25) 45%,
+            rgba(0, 0, 0, 0) 72%
+        );
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: cath-lightning 14s ease-in infinite;
+    will-change: opacity;
+}
+
+@keyframes cath-lightning {
+    /* Most of the cycle dark; brief double-flash near the end —
+       silhouettes the figure for one beat then again, like real
+       distant lightning forking. */
+    0%, 75%      { opacity: 0; }
+    77%          { opacity: 1; }
+    79%          { opacity: 0.15; }
+    81%          { opacity: 0.85; }
+    84%, 100%    { opacity: 0; }
+}
+
+/* Dust motes removed Jun 2026 per owner direction — a lone visible
+   particle drifting through the hall read as a glitch rather than
+   atmospheric dust. Candle flicker + figure pulse + occasional
+   lightning carry the scene. */
+
+@media (prefers-reduced-motion: reduce) {
+    .cath-figure    { animation: none; opacity: 0.7;  }
+    .cath-lightning { animation: none; opacity: 0;    }
+}
+
+/* Dark vignette/scrim — keeps the prayer text legible over the busy
+   atmospheric images. Layered radial so the centre is slightly
+   brighter than the corners. */
+.wi-bg-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 50% 45%,
+            rgba(0, 0, 0, 0.45) 0%,
+            rgba(0, 0, 0, 0.78) 70%,
+            rgba(0, 0, 0, 0.92) 100%
+        );
+    pointer-events: none;
+}
+
+/* Text and hint must sit above the bg layers.
+   - #world-intro-text: position:relative is safe (it's centred via the
+     parent flex layout, no absolute anchoring to preserve).
+   - #world-intro-hint: keep its position:absolute (from style.css line
+     476) so bottom:60px continues to anchor it at the bottom of the
+     screen. Only bump z-index, do NOT change position. */
+#world-intro-text {
+    position: relative;
+    z-index: 1;
+}
+#world-intro-hint {
+    z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wi-bg-layer { transition: opacity 0.4s ease; animation: none; }
+}
+
+
+/* ──────────────────────── BACK BUTTON ──────────────────────── */
+/* Circular ‹ back arrow in the top-left of the prologue overlay.
+   Aborts the prologue (via PPWorldIntro.abort) and returns to the
+   chapter list. Hidden by default; PPWorldIntro shows it via the
+   `.show-back` class when prologue is invoked from the menu (not on
+   first-launch where the prologue is mandatory). */
+
+#world-intro-back {
+    position: absolute;
+    top: calc(var(--s-5) + env(safe-area-inset-top, 0));
+    left: var(--s-5);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    z-index: 3;                /* above bg + text + hint */
+    background: rgba(0, 0, 0, 0.55);
+    color: rgba(244, 235, 220, 0.85);
+    border: 1px solid rgba(244, 235, 220, 0.30);
+    border-radius: 50%;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+    display: none;             /* shown via .show-back when applicable */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition:
+        background var(--dur-quick) var(--ease-tender),
+        border-color var(--dur-quick) var(--ease-tender),
+        transform var(--dur-quick) var(--ease-tender);
+}
+#world-intro.show-back #world-intro-back {
+    display: inline-flex;
+}
+#world-intro-back:hover {
+    background: rgba(0, 0, 0, 0.75);
+    border-color: rgba(232, 200, 138, 0.55);
+    color: #FFF6FA;
+    transform: translateX(-2px);
+}
+#world-intro-back:active {
+    transform: scale(0.94);
+}
+
+
+/* ──────────────────────── CHRONICLE BLEED-THROUGH FIX ──────────────────────── */
+/* When the prologue replays from the Main Story menu, body becomes
+   .pp-screen-world-intro (via scene-state.js). The Companion Chronicle
+   sits beneath the world-intro overlay and was bleeding through during
+   the 0.8s opacity fade-in. Hide it (and the chapter-list modal that
+   spawned the replay) so the prologue mounts onto pure black. They
+   come back automatically when scene-state flips away from
+   world-intro at the end of the prologue. */
+body.pp-screen-world-intro #select-screen,
+body.pp-screen-world-intro #chp-page {
+    display: none !important;
 }
 
 

@@ -114,7 +114,11 @@
         markDone(0); setCurrent(nextIdAfter(0));
         if (window.PPWorldIntro && typeof window.PPWorldIntro.play === 'function') {
           await new Promise(function (resolve) {
-            window.PPWorldIntro.play(resolve);
+            // showBack:true — replays from the Main Story menu get
+            // the ‹ back arrow so the player can return mid-prologue.
+            // First-launch path (game.js startBtn flow) calls play()
+            // WITHOUT this flag, so the prologue stays mandatory.
+            window.PPWorldIntro.play(resolve, { showBack: true });
           });
         }
         if (onDone) onDone();
@@ -1794,24 +1798,35 @@
         color: var(--c-ink-emphasis);
       }
       #${PAGE_ID} .chp-close {
+        /* Back-arrow icon button (replaces the old "close" pill).
+           Square, centered, larger glyph for clear back affordance. */
         flex-shrink: 0;
+        width: 44px;
+        height: 44px;
         min-height: 44px;
-        padding: var(--s-2) var(--s-4);
+        padding: 0;
         background: transparent;
         color: var(--c-ink-mute);
         border: 1px solid var(--c-line-fine);
-        border-radius: var(--r-pill);
-        font-family: var(--font-sans);
-        font-weight: 500;
-        font-size: var(--text-xs);
-        letter-spacing: var(--ls-wider);
-        text-transform: uppercase;
+        border-radius: 50%;
+        font-family: var(--font-serif);
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1;
+        text-transform: none;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         transition: all var(--dur-quick) var(--ease-tender);
       }
       #${PAGE_ID} .chp-close:hover {
         color: var(--c-ink-body);
         border-color: var(--c-accent-gold);
+        transform: translateX(-2px);
+      }
+      #${PAGE_ID} .chp-close:active {
+        transform: scale(0.94);
       }
 
       /* ──────────────────────── PROGRESS ──────────────────────── */
@@ -2071,17 +2086,13 @@
   }
 
   // ---------------------------------------------------------------
-  // ORB (persistent button on character select)
+  // ORB — DELETED Jun 2026 per owner direction.
+  // The floating "✦ MAIN x/y" gold pill is superseded by the
+  // "CONTINUE STORY" card on the Companion Chronicle. The orb is no
+  // longer rendered. ensureOrb() returns null; refreshOrb() handles
+  // null gracefully (early return on line "if (!orb) return;").
   function ensureOrb() {
-    let b = document.getElementById(ORB_ID);
-    if (b) return b;
-    injectStyles();
-    b = document.createElement('button');
-    b.id = ORB_ID;
-    b.innerHTML = '✦ Main';
-    b.addEventListener('click', openPage);
-    document.body.appendChild(b);
-    return b;
+    return null;
   }
 
   function refreshOrb() {
@@ -2098,7 +2109,19 @@
     const inCare = game && !game.classList.contains('hidden')
       && (!gameCS || (gameCS.display !== 'none' && gameCS.visibility !== 'hidden'));
     const pageOpen = !!document.getElementById(PAGE_ID);
-    const should = isEnabled() && onSelect && !inCare && !pageOpen;
+    // ── Bleed guards (Jun 2026) ────────────────────────────────────
+    // The orb must NEVER appear during the title→select cinematic
+    // transition, while the title screen is still up, or during the
+    // world-intro sequence. Without these guards, refreshOrb()'s 900ms
+    // interval can fire mid-transition and the gold pill flashes
+    // through the black overlay.
+    const inTransition = document.body.classList.contains('cinematic-transition');
+    const title = document.getElementById('title-screen');
+    const titleVisible = title && !title.classList.contains('hidden');
+    const intro = document.getElementById('world-intro');
+    const introVisible = intro && !intro.classList.contains('hidden');
+    const should = isEnabled() && onSelect && !inCare && !pageOpen
+      && !inTransition && !titleVisible && !introVisible;
     const orb = should ? ensureOrb() : document.getElementById(ORB_ID);
     if (!orb) return;
     if (should) {
@@ -2140,12 +2163,17 @@
 
     const head = document.createElement('div');
     head.className = 'chp-head';
-    head.innerHTML = '<div><div class="chp-title">✦ MAIN STORY</div><div class="chp-sub">Aethermoor</div></div>';
+    // Back arrow first (left), then title block (right).
     const close = document.createElement('button');
     close.className = 'chp-close';
-    close.textContent = 'close';
+    close.setAttribute('aria-label', 'Back');
+    close.setAttribute('title', 'Back');
+    close.textContent = '‹';
     close.addEventListener('click', closePage);
     head.appendChild(close);
+    const titleBlock = document.createElement('div');
+    titleBlock.innerHTML = '<div class="chp-title">✦ MAIN STORY</div><div class="chp-sub">Aethermoor</div>';
+    head.appendChild(titleBlock);
     root.appendChild(head);
 
     // Progress section (token-based — see injectStyles)

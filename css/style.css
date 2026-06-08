@@ -433,7 +433,10 @@ button,
 #world-intro {
     position: fixed;
     inset: 0;
-    background: url('../assets/bg-world.png') center center / cover no-repeat, linear-gradient(135deg, #141432 0%, #1e1e4a 50%, #141432 100%);
+    /* Background owned by world-intro.css — pure #000 for the Prologue
+       per owner direction Jun 2026. bg-world.png reference removed so
+       the asset isn't requested. */
+    background: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -707,10 +710,14 @@ button,
 }
 
 /* ===== LOADING SCREEN ===== */
+/* Owner direction Jun 2026: pure black. The previous navy + kingdom
+   image backdrop (bg-world.png) made the loading state feel like a
+   different screen aesthetic from the title/prologue/transition
+   black. One consistent black across all between-screen moments. */
 #loading-screen {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: url('../assets/bg-world.png') center center / cover no-repeat, linear-gradient(135deg, #141432 0%, #1e1e4a 40%, #2a1a42 100%);
+    background: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -990,15 +997,12 @@ body::-webkit-scrollbar,
 }
 
 body {
-    /* Dark-fantasy backdrop. Was a candy-pink gradient; replaced because
-       every transition between scenes (chain steps, modal close → next
-       screen open, post-bridge handoffs) briefly exposed the body bg
-       and the pink flash broke the dark-fantasy tone. The active
-       screens (#title-screen, #world-intro, #loading-screen,
-       #select-screen, #game-container) all set their own backgrounds,
-       so this is only visible during the in-between moments — where
-       a navy gradient continues the cinematic feel from MSCard scenes. */
-    background: linear-gradient(180deg, #06080f 0%, #0a0c1a 50%, #06080f 100%);
+    /* Owner direction Jun 2026: pure black between every screen
+       transition. The previous navy gradient (#06080f → #0a0c1a →
+       #06080f) flashed during opacity fades between scenes — owner
+       wants all in-between moments to feel like the cinematic
+       title→care fade-to-black, not a slightly different navy. */
+    background: #000;
     font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -1014,7 +1018,10 @@ body {
     max-width: 420px;
     height: 100vh;
     height: 100dvh;
-    background-color: #141432;
+    /* Owner direction Jun 2026: pure black fallback (was #141432
+       navy). Per-character bg images are set via JS on top — black
+       only shows for the brief moment before the image loads. */
+    background-color: #000;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1046,7 +1053,11 @@ body {
         box-shadow: 0 0 80px rgba(233, 30, 99, 0.35), 0 0 160px rgba(150, 50, 180, 0.2);
     }
     body {
-        background: radial-gradient(ellipse at center, #1e1e4a 0%, #141432 60%, #0e0e28 100%);
+        /* Owner direction Jun 2026: pure black at all widths.
+           Was overriding the base #000 with a navy radial gradient
+           — that navy was leaking into every screen transition on
+           desktop / wide preview. */
+        background: #000;
         align-items: center;
     }
 }

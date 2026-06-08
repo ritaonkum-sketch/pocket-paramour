@@ -25,6 +25,25 @@
     scrollbar-width: none;        /* Firefox */
     -ms-overflow-style: none;     /* IE/Edge legacy */
 }
+
+/* ─── HIDE LEGACY OVERLAYS on Companion Chronicle ───
+   Suppress the old floating elements that pre-date the new layout.
+   CONTINUE STORY in the Current Story card + COMPANIONS in the
+   bottom nav fully replace these legacy floaters. */
+body:has(#select-screen:not(.hidden)) #chp-orb,
+body:has(#select-screen:not(.hidden)) #pp-today-btn,
+body:has(#select-screen:not(.hidden)) #stats-bar,
+body:has(#select-screen:not(.hidden)) #day-progress,
+body:has(#select-screen:not(.hidden)) .day-hint,
+body:has(#select-screen:not(.hidden)) .pp-today-dot {
+    display: none !important;
+}
+/* Fallback for browsers without :has() — sibling selector approach. */
+@supports not selector(:has(*)) {
+    #select-screen:not(.hidden) ~ #chp-orb,
+    #select-screen:not(.hidden) ~ #pp-today-btn,
+    #select-screen:not(.hidden) ~ #stats-bar { display: none !important; }
+}
 #select-screen::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
 
 
@@ -91,83 +110,12 @@
 /* Always visible above the character grid so players can find Main Story
    without scanning for a small floating orb. */
 
-.select-main-story-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--s-2);
-    width: 100%;
-    max-width: 360px;
-    min-height: 44px;
-    margin: 0 auto var(--s-3);
-    padding: var(--s-2) var(--s-5);
-    background: linear-gradient(180deg, #D4B26E 0%, #B8923E 100%);
-    color: #1F140B;
-    border: 1.5px solid #D4B26E;
-    border-radius: var(--r-pill);
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: var(--text-base);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.30),
-        0 6px 22px -4px rgba(184, 146, 62, 0.55),
-        0 0 36px rgba(184, 146, 62, 0.18);
-    transition: all var(--dur-base) var(--ease-tender);
-    animation: selectMsBtnPulse 2.4s var(--ease-tender) infinite;
-}
-
-.select-main-story-btn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.36),
-        0 10px 30px -4px rgba(184, 146, 62, 0.75),
-        0 0 56px rgba(184, 146, 62, 0.30);
-}
-
-.select-main-story-btn:active {
-    transform: scale(0.98);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
-}
-
-.select-main-story-btn .ms-btn-icon {
-    font-size: var(--text-lg);
-    line-height: 1;
-    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3));
-}
-
-.select-main-story-btn .ms-btn-label {
-    flex: 0 1 auto;
-}
-
-.select-main-story-btn .ms-btn-count {
-    display: inline-block;
-    margin-left: var(--s-2);
-    padding: 2px 10px;
-    background: rgba(31, 20, 11, 0.25);
-    border-radius: var(--r-pill);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #1F140B;
-}
-
-@keyframes selectMsBtnPulse {
-    0%, 100% {
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.30),
-            0 6px 22px -4px rgba(184, 146, 62, 0.55),
-            0 0 36px rgba(184, 146, 62, 0.18);
-    }
-    50% {
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.36),
-            0 10px 32px -2px rgba(184, 146, 62, 0.80),
-            0 0 64px rgba(184, 146, 62, 0.35);
-    }
-}
+/* DEAD CSS REMOVED (Jun 2026 audit) — the legacy gold-pill
+   .select-main-story-btn class block + selectMsBtnPulse keyframes
+   were orphaned when the live HTML migrated to
+   id="select-main-story-btn" class="cc-continue-btn". The class
+   selector matched nothing, but the gold styling could have leaked
+   in via cascade tricks during transitions. Removed entirely. */
 
 
 /* ──────────────────────── GRID ──────────────────────── */
@@ -741,13 +689,10 @@
 }
 .cc-action-btn:hover { background: linear-gradient(180deg, rgba(74, 30, 60, 0.85) 0%, rgba(31, 14, 38, 0.9) 100%); }
 .cc-action-btn:active { transform: scale(0.96); }
-.cc-action-btn.cc-action-visit {
-    background: linear-gradient(180deg, rgba(122, 18, 36, 0.55) 0%, rgba(74, 10, 26, 0.7) 100%);
-    border-color: rgba(232, 200, 138, 0.7);
-}
+/* DEAD: .cc-action-visit + .cc-action-story (VISIT/STORY buttons
+   removed task #111). Only .cc-action-care remains in HTML. */
 .cc-action-icon { color: var(--c-rose, #E84C8C); font-size: 12px; line-height: 1; }
 .cc-action-btn.cc-action-care .cc-action-icon { color: #E84C8C; }
-.cc-action-btn.cc-action-story .cc-action-icon { color: #F2D690; }
 .cc-favorite-btn {
     position: absolute;
     top: 10px;

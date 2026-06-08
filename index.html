@@ -85,6 +85,14 @@
     </script>
 </head>
 <body>
+    <!-- Cinematic transition overlay — used when START is pressed -->
+    <div id="title-transition-overlay" aria-hidden="true"></div>
+
+    <!-- Ambient BGM on title screen — preloaded but autoplay-blocked
+         until the first user gesture. The script below starts it on
+         first tap/click anywhere. -->
+    <audio id="title-ambient-audio" src="assets/audio/bgm-night.mp3" loop preload="auto"></audio>
+
     <!-- TITLE SCREEN -->
     <div id="title-screen">
         <div id="title-particles"></div>
@@ -200,6 +208,52 @@
 
     <!-- WORLD INTRO (plays once) -->
     <div id="world-intro" class="hidden">
+        <!-- Per-beat background image layer (managed by PPWorldIntro).
+             Two stacked divs for smooth crossfade between images. -->
+        <div id="world-intro-bg" aria-hidden="true">
+            <div class="wi-bg-layer wi-bg-a"></div>
+            <div class="wi-bg-layer wi-bg-b"></div>
+            <!-- Portal sparkles — only visible when a .wi-bg-layer
+                 .is-portal.is-active exists (CSS :has gate). 16 dots
+                 scattered around the portal ellipse, each twinkling
+                 on its own rhythm for an electrical-arc feel. -->
+            <div class="wi-portal-sparkles" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <!-- Forest stars — Beat 8 magical-thread firefly stars.
+                 Only visible when .wi-bg-layer.is-forest.is-active.
+                 24 small dots scattered along bright thread paths in
+                 the source image, each blinking on a slow rhythm. -->
+            <div class="wi-forest-stars" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <!-- Cathedral atmospheric effects (Beat 9). Gated via
+                 :has(.is-cathedral.is-active). Four sub-systems:
+                   .cath-candle   — amber wall candles (10x, flicker)
+                   .cath-figure   — violet pulse on lone figure
+                   .cath-lightning — distant arch flash (long-cycle)
+                   .cath-mote     — slow drifting dust particles (6x) -->
+            <div class="wi-cathedral-fx" aria-hidden="true">
+                <!-- Candle flickers + dust motes both removed Jun 2026
+                     per owner direction. Only the violet figure pulse
+                     and distant lightning flash remain. -->
+                <div class="cath-figure"></div>
+                <div class="cath-lightning"></div>
+            </div>
+            <div class="wi-bg-scrim"></div>
+        </div>
+        <!-- Back arrow: aborts the prologue and returns to the
+             Main Story menu. Hidden on first-launch (when prologue
+             is mandatory) — only visible when replaying via menu. -->
+        <button id="world-intro-back" type="button" aria-label="Back" title="Back">‹</button>
         <div id="world-intro-text"></div>
         <div id="world-intro-hint">tap to continue</div>
     </div>
@@ -404,13 +458,19 @@
 
         <!-- Bottom Nav -->
         <nav class="cc-bottom-nav" aria-label="Primary">
-            <button class="cc-nav-tab" type="button" data-tab="home">
+            <button class="cc-nav-tab" type="button" data-tab="daily">
                 <span class="cc-nav-icon" aria-hidden="true">
+                    <!-- Calendar with check — opens the daily-task hub
+                         (window.PPTodayHub.open()). Replaced the HOME
+                         house icon June 2026 per owner direction. -->
                     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
-                        <path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>
+                        <rect x="4" y="5" width="16" height="16" rx="2"/>
+                        <path d="M4 10h16"/>
+                        <path d="M8 3v4M16 3v4"/>
+                        <path d="M9 15l2 2 4-4"/>
                     </svg>
                 </span>
-                <span class="cc-nav-label">HOME</span>
+                <span class="cc-nav-label">DAILY</span>
             </button>
             <button class="cc-nav-tab is-active" type="button" data-tab="companions">
                 <span class="cc-nav-icon" aria-hidden="true">
@@ -904,6 +964,10 @@
     <script defer src="js/stories.js"></script>
     <script defer src="js/gallery.js"></script>
     <script defer src="js/intro.js"></script>
+    <!-- Scene-state authority — observes screen visibility, sets
+         body.pp-screen-X for the CSS gate (Jun 2026). Must load
+         BEFORE game.js so the body class is set on first paint. -->
+    <script defer src="js/scene-state.js"></script>
     <script defer src="js/game.js"></script>
     <script defer src="js/ui.js"></script>
     <script defer src="js/letter.js"></script>
@@ -1207,9 +1271,16 @@
             });
         }
 
-        // Click on a Thread of Fate card → set active. For locked cards
-        // we block the active swap and don't route — silent block, no
-        // popup. (Removed the per-card popup in v595 per owner direction.)
+        // Click on a Thread of Fate card → set active ONLY. Per owner
+        // direction (Jun 2026): tapping a thread card must never route
+        // into the care game. The CARE button on the Active Companion
+        // card is the sole entry point to the care route.
+        //
+        // Locked: silent block (no popup).
+        // Unlocked direct tap: setActive + STOP propagation so game.js's
+        //   selectScreen handler can't fire and route into care.
+        // Synthetic click from CARE button: bypass flag tells us to let
+        //   propagation continue so game.js routes into the care game.
         function wireThreadClicks() {
             document.querySelectorAll('.cc-thread-card[data-character]').forEach(function (card) {
                 if (card.__ccBound) return; card.__ccBound = true;
@@ -1227,13 +1298,29 @@
                         return;
                     }
 
+                    // CARE-button bypass: synthetic click set this flag.
+                    // Clear it and let propagation continue so game.js
+                    // routes into the care game.
+                    if (card.__ccCareBypass) {
+                        card.__ccCareBypass = false;
+                        return;
+                    }
+
                     if (!CHARS[c]) return;
+                    // Direct user tap: only swap Active Companion. STOP
+                    // propagation so game.js's selectScreen click handler
+                    // can't route this into the care game.
                     setActive(c);
+                    e.stopPropagation();
+                    e.preventDefault();
                 }, true);  // capture phase, runs before game.js handler
             });
         }
 
-        // CARE / VISIT / STORY action buttons
+        // CARE / STORY action buttons on the Active Companion card.
+        // CARE is the ONLY path into the care game route — it routes by
+        // setting a bypass flag on the hidden thread card then firing a
+        // synthetic click so game.js's existing route logic runs.
         function wireActionButtons() {
             document.querySelectorAll('.cc-action-btn').forEach(function (btn) {
                 if (btn.__ccBound) return; btn.__ccBound = true;
@@ -1248,10 +1335,14 @@
                         }
                         return;
                     }
-                    // CARE and VISIT both fire the existing character-select
-                    // click on this character's hidden card in the row.
+                    // CARE: set bypass flag so the wireThreadClicks
+                    // handler lets the click bubble into game.js (which
+                    // routes into the care game).
                     var card = document.querySelector('.cc-thread-card[data-character="' + c + '"]');
-                    if (card) card.click();
+                    if (card) {
+                        card.__ccCareBypass = true;
+                        card.click();
+                    }
                 });
             });
         }
@@ -1268,7 +1359,11 @@
             applyLockedTextOverrides();
         }
 
-        // Wire bottom nav tab toggles (visual feedback only for placeholder tabs)
+        // Wire bottom nav tab toggles. Active routes:
+        //   daily      → window.PPTodayHub.open()  (daily-task panel)
+        //   companions → this screen (no-op)
+        //   journal    → window.PPLettersArchive.open()
+        //   shop / more → placeholders for now
         function wireBottomNav() {
             document.querySelectorAll('.cc-nav-tab').forEach(function (tab) {
                 if (tab.__ccBound) return; tab.__ccBound = true;
@@ -1278,7 +1373,11 @@
                     });
                     tab.classList.add('is-active');
                     var which = tab.getAttribute('data-tab');
-                    // Companions = the current screen. Others are placeholders for now.
+                    if (which === 'daily' && window.PPTodayHub
+                        && typeof window.PPTodayHub.open === 'function') {
+                        window.PPTodayHub.open();
+                        return;
+                    }
                     if (which === 'journal' && window.PPLettersArchive
                         && typeof window.PPLettersArchive.open === 'function') {
                         window.PPLettersArchive.open();
@@ -1297,8 +1396,10 @@
             setTimeout(function () { maybeRefresh(); wireBottomNav(); }, 0);
         }
 
-        // Re-run periodically so stat changes (affection ticks) reflect
-        var __ccTimer = setInterval(maybeRefresh, 2500);
+        // Re-run periodically so stat changes (affection ticks) reflect.
+        // 4000ms (was 2500) — maybeRefresh early-returns when the screen
+        // is hidden but the layout queries still cost. Bumped per audit.
+        var __ccTimer = setInterval(maybeRefresh, 4000);
 
         // Expose for debugging / external triggers
         window.PPCompanionChronicle = {

@@ -16,13 +16,133 @@ window.PPWorldIntro = (function () {
     var worldBeats = [
         "The Kingdom of Aethermoor is dying.",
         "Its magic was sustained by bonds\nbetween its people.\nThose bonds are breaking.",
-        "The last Soul Weaver:\n\n“BY WHOSE LOOM THE LIVING WORLD IS BOUND.\nBY WHOSE HANDS THE BONDS ARE WOVEN WHOLE.\nBY WHOSE WEAVING THE DEEP IS TURNED TO LIGHT.”",
+        // Split per owner direction (Jun 2026): the introduction and
+        // the prayer now read as two separate beats, each with its own
+        // fade-in/out. Lets the prayer land on its own silence.
+        "The last Soul Weaver:",
+        // Prayer (Beat 4) — Jun 2026 rewrite: mixed case for literary
+        // register, stanzas separated by blank lines, ellipses to let
+        // each stanza trail into the next. Rendered line-by-line via
+        // per-beat cascade (beatCascadeFlags[3] = true) so each
+        // stanza arrives with breath, not all-at-once.
+        "By whose loom\nthe living world is bound…\n\nBy whose hands\nthe bonds are woven whole…\n\nBy whose weaving\nthe Deep is turned to light.",
         "...is gone.",
-        "In desperation, the kingdom’s magic\nreached across worlds\nand found you.",
+        // Beat 6 — rewritten Jun 2026: two-stanza fading reveal with
+        // a pause between the setup ("reached across worlds…") and
+        // the discovery ("...and found you."). Cascaded via
+        // beatCascadeFlags[5] = true.
+        "In desperation,\nthe kingdom reached across worlds…\n\n...and found you.",
         "You arrived through the portal\nwith no memory.\nOnly an instinct to connect.",
         "Where you walk, the magic returns.\nWhere you care, the Fading retreats.",
         "They found you.\nNow they won’t let go."
     ];
+
+    // Per-beat cascade flags — TRUE means the beat reveals
+    // line-by-line with a stagger (ceremonial pace) instead of the
+    // default all-at-once fade. Used for the prayer (Beat 4) so
+    // each stanza arrives with its own breath.
+    var beatCascadeFlags = [
+        false,  // Beat 1
+        false,  // Beat 2
+        false,  // Beat 3 — "The last Soul Weaver:"
+        true,   // Beat 4 — the prayer (cascades stanza-by-stanza)
+        false,  // Beat 5 — "...is gone." (lands as gut-punch)
+        true,   // Beat 6 — "In desperation, ... and found you." (cascades)
+        false,  // Beat 7
+        true,   // Beat 8 — "Where you walk... / Where you care..." (cascades)
+        false   // Beat 9
+    ];
+
+    // Per-beat background image (owner direction Jun 2026).
+    // Index matches worldBeats. null = pure black backdrop (default).
+    //   Beat 2 (index 1) → kingdom castle gate
+    //   Beats 3-4 (index 2 & 3) → soul weaver ritual chamber
+    //   Beats 6-7 (index 5 & 6) → portal in forest (with pulsing glow)
+    //   Beat 8 (index 7) → magic forest path with bioluminescent threads
+    //                       (with blinking firefly-stars overlay)
+    //   Beat 9 (index 8) → gothic cathedral hall, lone figure waiting
+    //                       ("They found you. Now they won't let go.")
+    var beatBackgrounds = [
+        null,                                       // Beat 1
+        'assets/prologue/beat-2-kingdom.png',       // Beat 2
+        'assets/prologue/beat-3-4-ritual.png',      // Beat 3
+        'assets/prologue/beat-3-4-ritual.png',      // Beat 4
+        null,                                       // Beat 5
+        'assets/prologue/beat-6-portal.png',        // Beat 6
+        'assets/prologue/beat-6-portal.png',        // Beat 7
+        'assets/prologue/beat-8-magic-forest.png',  // Beat 8
+        'assets/prologue/beat-9-cathedral.png'      // Beat 9
+    ];
+
+    // ── Background layer-swap state ────────────────────────────────
+    // Two .wi-bg-layer divs crossfade. We track which one is
+    // currently active and which src is loaded on each, so when we
+    // want a new image we set it on the INACTIVE layer (preloaded
+    // and ready), then swap .is-active to fade it in.
+    var bgLayers = null;                  // [layerA, layerB]
+    var bgActiveIndex = -1;               // 0 or 1
+    var bgCurrentSrc = null;              // src on whichever layer is active
+
+    function setBeatBackground(beatIndex) {
+        if (!bgLayers) {
+            bgLayers = [
+                document.querySelector('#world-intro-bg .wi-bg-a'),
+                document.querySelector('#world-intro-bg .wi-bg-b')
+            ];
+            if (!bgLayers[0] || !bgLayers[1]) { bgLayers = null; return; }
+        }
+        var nextSrc = beatBackgrounds[beatIndex] || null;
+        // No change → do nothing (avoids restarting the breathe anim)
+        if (nextSrc === bgCurrentSrc) return;
+
+        if (!nextSrc) {
+            // Fade ALL layers out (return to pure black)
+            bgLayers.forEach(function (l) { l.classList.remove('is-active'); });
+            bgActiveIndex = -1;
+            bgCurrentSrc = null;
+            return;
+        }
+
+        // Pick the inactive layer, load the new image on it, then swap.
+        var nextIdx = bgActiveIndex === 0 ? 1 : 0;
+        var nextLayer = bgLayers[nextIdx];
+        var prevLayer = bgActiveIndex >= 0 ? bgLayers[bgActiveIndex] : null;
+        nextLayer.style.backgroundImage = "url('" + nextSrc + "')";
+        // Tag layers with per-image classes so their dedicated glow
+        // pulse fires only on that image:
+        //   .is-ritual    → ritual-chamber magic circle (Beats 3-4)
+        //   .is-portal    → portal-in-forest violet swirl (Beats 6-7)
+        //   .is-forest    → magic-thread forest path (Beat 8)
+        //   .is-cathedral → gothic hall + lone figure (Beat 9)
+        nextLayer.classList.toggle('is-ritual',    nextSrc.indexOf('ritual') >= 0);
+        nextLayer.classList.toggle('is-portal',    nextSrc.indexOf('portal') >= 0);
+        nextLayer.classList.toggle('is-forest',    nextSrc.indexOf('forest') >= 0);
+        nextLayer.classList.toggle('is-cathedral', nextSrc.indexOf('cathedral') >= 0);
+        // requestAnimationFrame so the src is applied before opacity transition
+        requestAnimationFrame(function () {
+            nextLayer.classList.add('is-active');
+            if (prevLayer) prevLayer.classList.remove('is-active');
+        });
+        bgActiveIndex = nextIdx;
+        bgCurrentSrc = nextSrc;
+    }
+
+    // Reset the bg layers when intro starts fresh
+    function clearBackground() {
+        if (!bgLayers) return;
+        bgLayers.forEach(function (l) {
+            l.classList.remove('is-active', 'is-ritual', 'is-portal', 'is-forest', 'is-cathedral');
+            l.style.backgroundImage = '';
+        });
+        bgActiveIndex = -1;
+        bgCurrentSrc = null;
+    }
+
+    // ── Abort state (module-level so abort() can reach internals) ──
+    // Active teardown function set during play(), cleared when play
+    // completes naturally OR when abort() is called. Wired to the
+    // back button (‹) on the world-intro overlay.
+    var activeAbort = null;
 
     // play(onComplete, options)
     //   onComplete — fired when all beats are done and the overlay has hidden.
@@ -37,6 +157,10 @@ window.PPWorldIntro = (function () {
     //                       fades in one at a time with a breath-pause.
     //   options.type      — if true, type each beat character-by-character.
     //   options.cps       — chars per second for typing mode (default 26).
+    //   options.showBack  — if true, render the ‹ back arrow so the player
+    //                       can abort the prologue and return to the menu.
+    //                       Used for replays from the Main Story page; not
+    //                       used on first-launch (prologue is mandatory).
     //
     // Default (no options): per-beat fade-in (first-launch behaviour).
     //
@@ -63,9 +187,11 @@ window.PPWorldIntro = (function () {
         var msPerChar = Math.max(10, Math.round(1000 / cps));
 
         // Cascade tuning — ceremonial line-by-line reveal.
-        var cascadeStaggerMs   = 850;   // gap between successive line fades
-        var cascadeFadeMs      = 700;   // per-line fade-in duration
-        var cascadeFinalHoldMs = 200;   // breath after last line settles
+        // Owner direction Jun 2026 (revised): even slower per-line
+        // fade so the prayer truly materialises rather than pops.
+        var cascadeStaggerMs   = 1500;  // gap between successive line fades
+        var cascadeFadeMs      = 1900;  // per-line fade-in duration (+0.5s)
+        var cascadeFinalHoldMs = 500;   // breath after last line settles
 
         // Title-card tuning — cinematic opening shot.
         var tcTitleFadeMs    = 1500;   // title fade-in duration
@@ -86,20 +212,25 @@ window.PPWorldIntro = (function () {
         var lastTap = 0;
         var advanceHandler = null;
 
+        // Inject cascade CSS if EITHER global cascade is on OR any
+        // beat individually opts into cascade (per-beat flags).
+        var anyCascade = cascadeMode || beatCascadeFlags.indexOf(true) >= 0;
+
         // Inject cascade CSS once per session (idempotent via the style id).
-        if (cascadeMode && !document.getElementById('pp-cascade-style')) {
+        // Pure opacity fade — no translateY motion. The lines
+        // materialise in place; no slide, no pop. Owner direction
+        // Jun 2026.
+        if (anyCascade && !document.getElementById('pp-cascade-style')) {
             var style = document.createElement('style');
             style.id = 'pp-cascade-style';
             style.textContent =
                 '#world-intro-text .cascade-line {' +
                 '  display: block;' +
                 '  opacity: 0;' +
-                '  transform: translateY(8px);' +
-                '  transition: opacity ' + cascadeFadeMs + 'ms ease, transform ' + cascadeFadeMs + 'ms ease;' +
+                '  transition: opacity ' + cascadeFadeMs + 'ms ease-in-out;' +
                 '}' +
                 '#world-intro-text .cascade-line.show {' +
                 '  opacity: 1;' +
-                '  transform: translateY(0);' +
                 '}';
             document.head.appendChild(style);
         }
@@ -165,15 +296,70 @@ window.PPWorldIntro = (function () {
         }
 
         worldIntro.classList.remove('hidden');
+        // Show/hide the back arrow based on the replay context.
+        if (options && options.showBack) {
+            worldIntro.classList.add('show-back');
+        } else {
+            worldIntro.classList.remove('show-back');
+        }
         requestAnimationFrame(function () { worldIntro.classList.add('visible'); });
+
+        // Wire the back arrow once (idempotent). Tapping aborts the
+        // prologue cleanly via the activeAbort function set below.
+        var backBtn = document.getElementById('world-intro-back');
+        if (backBtn && !backBtn.__ppBound) {
+            backBtn.__ppBound = true;
+            backBtn.addEventListener('click', function (ev) {
+                if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+                if (typeof activeAbort === 'function') activeAbort();
+            });
+        }
+
+        // Register abort hook for this play() invocation. Fires the
+        // same teardown path as natural completion: kill timers,
+        // remove click handler, fade overlay out, clear bg, callback.
+        activeAbort = function () {
+            try {
+                if (typingTimer) { clearInterval(typingTimer); typingTimer = null; }
+                if (cascadeFinalTimer) { clearTimeout(cascadeFinalTimer); cascadeFinalTimer = null; }
+                if (titleCardTimer) { clearTimeout(titleCardTimer); titleCardTimer = null; }
+                titleCardTimers.forEach(function (t) { clearTimeout(t); });
+                titleCardTimers = [];
+                cascadeLines = null;
+                titleCardActive = false;
+            } catch (_) {}
+            if (advanceHandler) {
+                worldIntro.removeEventListener('click', advanceHandler);
+                advanceHandler = null;
+            }
+            worldIntro.classList.remove('visible');
+            worldIntro.classList.remove('show-back');
+            try { setBeatBackground(-1); } catch (_) {}
+            var localOnComplete = onComplete;
+            onComplete = null;            // prevent natural-end double-fire
+            activeAbort = null;
+            setTimeout(function () {
+                worldIntro.classList.add('hidden');
+                try { clearBackground(); } catch (_) {}
+                if (typeof localOnComplete === 'function') localOnComplete();
+            }, 800);
+        };
 
         function showBeat() {
             if (worldIndex < worldBeats.length) {
                 var fullText = worldBeats[worldIndex];
                 transitioning = true;
                 worldText.classList.remove('show');
+                // Crossfade the per-beat atmospheric background.
+                // Owner direction Jun 2026: Beat 2 kingdom, Beats 3-4
+                // ritual chamber, others stay on pure black.
+                try { setBeatBackground(worldIndex); } catch (_) {}
 
-                if (cascadeMode) {
+                // Cascade for THIS beat if global cascade is on OR
+                // the per-beat flag is set (e.g. the prayer at idx 3).
+                var thisCascade = cascadeMode || !!beatCascadeFlags[worldIndex];
+
+                if (thisCascade) {
                     // Line cascade: parent visible immediately, each line
                     // appended as a div, lines fade in one at a time with
                     // a breath-pause between.
@@ -194,8 +380,16 @@ window.PPWorldIntro = (function () {
                             div.textContent = lineText.length > 0 ? lineText : ' ';
                             worldText.appendChild(div);
                             cascadeLines.push(div);
+                            // CRITICAL: force layout commit so the initial
+                            // opacity:0 paints BEFORE .show triggers the
+                            // transition. Without this, the browser batches
+                            // both states in one frame and skips the fade
+                            // entirely — the line "pops" into existence.
+                            void div.offsetWidth;
                             setTimeout(function () {
-                                div.classList.add('show');
+                                requestAnimationFrame(function () {
+                                    div.classList.add('show');
+                                });
                             }, idx * cascadeStaggerMs);
                         });
 
@@ -262,13 +456,23 @@ window.PPWorldIntro = (function () {
                 }
             } else {
                 worldIntro.classList.remove('visible');
+                worldIntro.classList.remove('show-back');
                 if (advanceHandler) {
                     worldIntro.removeEventListener('click', advanceHandler);
                     advanceHandler = null;
                 }
+                // Fade background out as the prologue ends so the
+                // image doesn't linger behind the final fade.
+                try { setBeatBackground(-1); } catch (_) {}
+                // Clear abort hook so a late tap can't double-fire.
+                activeAbort = null;
+                var localOnComplete = onComplete;
+                onComplete = null;
                 setTimeout(function () {
                     worldIntro.classList.add('hidden');
-                    if (typeof onComplete === 'function') onComplete();
+                    // Clean reset for a possible replay
+                    try { clearBackground(); } catch (_) {}
+                    if (typeof localOnComplete === 'function') localOnComplete();
                 }, 800);
             }
         }
@@ -377,7 +581,13 @@ window.PPWorldIntro = (function () {
         worldIntro.addEventListener('click', advanceHandler);
     }
 
-    return { play: play };
+    // Public API. abort() = same teardown as natural completion; used
+    // by the back button in the world-intro overlay.
+    function abort() {
+        if (typeof activeAbort === 'function') activeAbort();
+    }
+
+    return { play: play, abort: abort };
 })();
 
 class PocketLoveGame {
@@ -10924,6 +11134,32 @@ let selectedCharacter = 'alistair';
     };
     // tips are selected dynamically when loading screen shows (selectedCharacter is set by then)
 
+    // ── AMBIENT BGM on title screen (autoplay-safe) ──
+    // The <audio id="title-ambient-audio"> element lives in index.html.
+    // We can't autoplay it on page load (browsers block) — instead we
+    // try on the FIRST user interaction with the page.
+    (function () {
+        var ambient = document.getElementById('title-ambient-audio');
+        if (!ambient) return;
+        ambient.volume = 0.15;  // very quiet — under-the-conversation level
+        var started = false;
+        function tryStart() {
+            if (started) return;
+            started = true;
+            try {
+                var p = ambient.play();
+                if (p && typeof p.catch === 'function') {
+                    p.catch(function () { started = false; }); // user gesture not granted yet, retry on next
+                }
+            } catch (_) { started = false; }
+        }
+        // Listen for ANY interaction (single shot would be ideal but capture
+        // is safer — once it starts, the early-return blocks further calls)
+        ['pointerdown', 'touchstart', 'keydown'].forEach(function (ev) {
+            document.addEventListener(ev, tryStart, { once: false, passive: true });
+        });
+    })();
+
     // Title → World Intro → Character Select
     startBtn.onclick = function() {
         sounds.init();
@@ -10931,7 +11167,95 @@ let selectedCharacter = 'alistair';
         sounds.enabled = true;
         sounds.chime();
 
+        // ── HEARTBEAT thud on START click — emotional / tactile cue ──
+        try {
+            if (typeof sounds._playFile === 'function') {
+                sounds._playFile('assets/audio/heartbeat.mp3', 0.55);
+            } else {
+                var hb = new Audio('assets/audio/heartbeat.mp3');
+                hb.volume = 0.55;
+                hb.play().catch(function () {});
+            }
+        } catch (_) {}
+
+        // ── CINEMATIC TRANSITION v2 — premium burst ──
+        // Per owner-supplied spec (Jun 2026):
+        //   t=0      → button press, heartbeat thud, logo dissolve begins,
+        //              45 burst petals spawn at button centre
+        //   t=700ms  → black overlay starts fading in over 1.8s
+        //   t=2500ms → screen is dark, hand off to existing flow
+        titleScreen.classList.add('is-starting');
+        document.body.classList.add('cinematic-transition');
+
+        // ── SPAWN 45 BURST PETALS from the START button centre ──
+        try {
+            var startRect = startBtn.getBoundingClientRect();
+            var centerX = startRect.left + startRect.width / 2;
+            var centerY = startRect.top + startRect.height / 2;
+            var variants = ['bp-v1', 'bp-v2', 'bp-v3'];
+            var blurs    = ['bp-blur-0', 'bp-blur-0', 'bp-blur-1', 'bp-blur-1', 'bp-blur-2', 'bp-blur-3'];
+            for (var i = 0; i < 45; i++) {
+                var p = document.createElement('div');
+                p.className = 'cc-burst-petal '
+                    + variants[i % 3] + ' '
+                    + blurs[i % blurs.length];
+                p.style.left = (centerX - 13) + 'px';
+                p.style.top  = (centerY - 13) + 'px';
+                // Random scatter direction & distance
+                var rx = (Math.random() - 0.5) * 1400;
+                var ry = (Math.random() - 0.5) * 1100;
+                p.style.setProperty('--x', Math.round(rx) + 'px');
+                p.style.setProperty('--y', Math.round(ry) + 'px');
+                // Random size variance (18–32px) so they read as varied depth
+                var sz = 18 + Math.floor(Math.random() * 14);
+                p.style.width  = sz + 'px';
+                p.style.height = sz + 'px';
+                document.body.appendChild(p);
+                // Cleanup after the 2s animation completes
+                (function (el) { setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 2100); })(p);
+            }
+        } catch (_) {}
+
+        // Fade in the black overlay after 700ms (lets the burst start first)
+        var overlay = document.getElementById('title-transition-overlay');
+        setTimeout(function () {
+            if (overlay) overlay.classList.add('is-firing');
+        }, 700);
+
+        // Fade out the ambient BGM as the screen darkens
+        try {
+            var ambient = document.getElementById('title-ambient-audio');
+            if (ambient) {
+                var fadeOut = setInterval(function () {
+                    if (!ambient || ambient.volume <= 0.01) {
+                        clearInterval(fadeOut);
+                        if (ambient) { try { ambient.pause(); } catch (_) {} }
+                        return;
+                    }
+                    ambient.volume = Math.max(0, ambient.volume - 0.015);
+                }, 60);
+            }
+        } catch (_) {}
+
+        // After the full cinematic finishes (2.5s), hide title and proceed
+        setTimeout(function () { runTitleStartFlow(); }, 2500);
+    };
+
+    function runTitleStartFlow() {
         titleScreen.classList.add('hidden');
+        titleScreen.classList.remove('is-starting');
+        // Keep cinematic-transition class long enough for the next
+        // screen (select / world-intro) to mount AND for the chapters
+        // orb's 900ms refresh tick to pass without the orb being
+        // promoted to visible. 1500ms covers both windows safely.
+        setTimeout(function () {
+            document.body.classList.remove('cinematic-transition');
+        }, 1500);
+        var overlay = document.getElementById('title-transition-overlay');
+        if (overlay) {
+            // Fade the overlay back out while the next screen mounts
+            overlay.classList.remove('is-firing');
+        }
 
         // Decide whether to play the OLD world intro.
         //

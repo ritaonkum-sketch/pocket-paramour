@@ -406,19 +406,12 @@
     let _hub = null;
     let _dot = null;
 
+    // Floating ✰ button DELETED Jun 2026 per owner direction.
+    // The daily-task hub is now reached via the bottom-nav DAILY tab
+    // (see index.html wireBottomNav → window.PPTodayHub.open()).
+    // ensureButton() returns null; refresh() guards on null below.
     function ensureButton() {
-        if (_btn) return _btn;
-        injectStyles();
-        _btn = document.createElement('div');
-        _btn.id = 'pp-today-btn';
-        _btn.setAttribute('role', 'button');
-        _btn.setAttribute('aria-label', 'Today');
-        _btn.title = 'Today';
-        _btn.innerHTML = '✰<span class="pp-today-dot hidden"></span>';  // ✰
-        _btn.addEventListener('click', openOverlay);
-        document.body.appendChild(_btn);
-        _dot = _btn.querySelector('.pp-today-dot');
-        return _btn;
+        return null;
     }
 
     function ensureOverlay() {
@@ -506,32 +499,9 @@
     // Actual row rendering happens lazily in renderHubContents() when the
     // overlay opens — no point computing rows that aren't displayed.
     function refresh() {
-        const btn = ensureButton();
-        const sel = document.getElementById('select-screen');
-        const onSelect = sel && !sel.classList.contains('hidden')
-                         && getComputedStyle(sel).display !== 'none';
-        if (!onSelect) {
-            btn.classList.remove('show');
-            return;
-        }
-        const anyMet = CHARS.some(hasMet);
-        if (!anyMet) {
-            btn.classList.remove('show');
-            return;
-        }
-        btn.classList.add('show');
-        const count = pendingRowCount();
-        btn.classList.toggle('glow', count > 0);
-        if (_dot) {
-            if (count > 1) {
-                _dot.textContent = String(count);
-                _dot.classList.remove('hidden');
-            } else {
-                _dot.classList.add('hidden');
-            }
-        }
-        // If overlay is currently open, refresh its contents in place too
-        // so that polled state changes (timer ticks, etc.) update live.
+        // Floating button is deleted (Jun 2026). Skip all button-state
+        // updates. Only re-render the overlay contents if it's open
+        // (so DAILY-tab-opened panels still update live with timers).
         if (_overlay && _overlay.classList.contains('show')) {
             renderHubContents();
         }

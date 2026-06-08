@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v603';
+const CACHE_NAME = 'pocket-love-v645';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -19,9 +19,16 @@ const CORE_ASSETS = [
     '/assets/title-seal.png',
     '/assets/title-wordmark.png',
     '/assets/title-silver-thread.png',
+    '/assets/prologue/beat-2-kingdom.png',
+    '/assets/prologue/beat-3-4-ritual.png',
+    '/assets/prologue/beat-6-portal.png',
+    '/assets/prologue/beat-8-magic-forest.png',
+    '/assets/prologue/beat-9-cathedral.png',
     '/assets/petals/petal-1.png',
     '/assets/petals/petal-2.png',
     '/assets/petals/petal-3.png',
+    '/assets/audio/heartbeat.mp3',
+    '/assets/audio/bgm-night.mp3',
     '/manifest.json',
 
     // Core engine
@@ -47,6 +54,7 @@ const CORE_ASSETS = [
     '/js/stories.js',
     '/js/gallery.js',
     '/js/intro.js',
+    '/js/scene-state.js',
     '/js/game.js',
     '/js/ui.js',
 
