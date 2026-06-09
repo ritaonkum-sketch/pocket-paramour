@@ -224,126 +224,126 @@ const CHARACTER_ELIAN = {
 
     trainingDialogue: {
         herbs: [
-            "That one's poisonous. Good eye for noticing before I said anything.",
-            "Yarrow for wounds. Valerian for sleep. You're learning.",
+            "That one’s poisonous. Good eye for noticing before I said anything.",
+            "Yarrow for wounds. Valerian for sleep. You’re learning.",
             "The forest provides. You just have to know where to look.",
             "You picked the right one. Faster than last time.",
-            "Most people can't tell foxglove from lavender. You can now."
+            "Most people can’t tell foxglove from lavender. You can now."
         ],
         tracking: [
             "Deer. Two hours old. Heading east. You saw the broken branch?",
-            "You're reading the ground now. Not just walking on it.",
+            "You’re reading the ground now. Not just walking on it.",
             "Patience. The trail tells you everything if you listen.",
-            "That print isn't a wolf. It's a dog. The difference matters.",
-            "You tracked that in half the time. I'm running out of things to teach you."
+            "That print isn’t a wolf. It’s a dog. The difference matters.",
+            "You tracked that in half the time. I’m running out of things to teach you."
         ],
         meditation: [
-            "Breathe. The forest doesn't rush. Neither should you.",
+            "Breathe. The forest doesn’t rush. Neither should you.",
             "You held still longer this time. The birds came closer.",
-            "The mind is the loudest thing in the forest. You're learning to quiet it.",
-            "You felt it, didn't you? The pulse beneath the roots.",
-            "Stillness isn't weakness. It's the strongest thing you can do."
+            "The mind is the loudest thing in the forest. You’re learning to quiet it.",
+            "You felt it, didn’t you? The pulse beneath the roots.",
+            "Stillness isn’t weakness. It’s the strongest thing you can do."
         ]
     },
 
     personalities: {
         shy: {     // stoic
             talk: [
-                "I don't talk much. You've probably noticed.",
+                "I don’t talk much. You’ve probably noticed.",
                 "Words are overrated. Actions tell me more.",
                 "I said what I needed to. Was there more?",
-                "You're patient with my silence. That's... noted.",
-                "I'll say more when there's more to say."
+                "You’re patient with my silence. That’s... noted.",
+                "I’ll say more when there’s more to say."
             ],
             feed: [
                 "You foraged this? Or bought it. ... You bought it.",
                 "Efficient. Thank you.",
                 "I eat what the land provides. This works too.",
-                "... That's better than anything I've cooked in weeks."
+                "... That’s better than anything I’ve cooked in weeks."
             ],
             wash: [
                 "The river handles this. But... fine.",
-                "Dirt is natural. Filth isn't. You're right.",
+                "Dirt is natural. Filth isn’t. You’re right.",
                 "I forget sometimes. Thanks for noticing.",
-                "Clean enough. Let's move."
+                "Clean enough. Let’s move."
             ],
             gift: [
-                "... You're giving me something. Why.",
-                "I don't need things. But I'll keep this.",
+                "... You’re giving me something. Why.",
+                "I don’t need things. But I’ll keep this.",
                 "Practical. Good choice.",
                 "This is... more than I expected. From anyone."
             ],
             train: [
-                "You listen. That's half the battle.",
+                "You listen. That’s half the battle.",
                 "Good. Again.",
                 "Less thinking. More doing.",
-                "You're getting it. Don't stop now."
+                "You’re getting it. Don’t stop now."
             ]
         },
         clingy: {   // protective
             talk: [
-                "Stay close. The trail isn't safe at dusk.",
+                "Stay close. The trail isn’t safe at dusk.",
                 "I scanned the area before you arrived. Habit.",
-                "You're my responsibility now. Whether you like it or not.",
-                "I don't let people close easily. You're close.",
-                "If anything happened to you out here... I can't think about that."
+                "You’re my responsibility now. Whether you like it or not.",
+                "I don’t let people close easily. You’re close.",
+                "If anything happened to you out here... I can’t think about that."
             ],
             feed: [
-                "Eat first. I already ate. ... I'll eat later.",
+                "Eat first. I already ate. ... I’ll eat later.",
                 "You need your strength more than I need mine.",
                 "I set traps this morning. This is from the best one.",
-                "You're not eating enough. I can tell."
+                "You’re not eating enough. I can tell."
             ],
             wash: [
                 "Let me check for leeches first. Seriously.",
                 "The stream is clean. I checked upstream.",
                 "You look better already. Good.",
-                "I packed extra soap. Don't ask why."
+                "I packed extra soap. Don’t ask why."
             ],
             gift: [
                 "I carved this. Last night. While you were sleeping.",
-                "It's not much. But it's from here. From this place. From us.",
-                "I don't give things. I give this.",
+                "It’s not much. But it’s from here. From this place. From us.",
+                "I don’t give things. I give this.",
                 "Keep it close. For... practical reasons."
             ],
             train: [
                 "Again. I need to know you can do this alone.",
-                "You're getting stronger. That helps me sleep.",
-                "If we get separated, you'll survive. That's the goal.",
-                "I'm hard on you because the forest is harder."
+                "You’re getting stronger. That helps me sleep.",
+                "If we get separated, you’ll survive. That’s the goal.",
+                "I’m hard on you because the forest is harder."
             ]
         },
         tsundere: {   // blunt
             talk: [
                 "You talk a lot. Do you act the same way?",
                 "Get to the point.",
-                "I'm listening. That doesn't mean I agree.",
-                "If I wanted conversation, I'd talk to the trees.",
-                "... Fine. You made a fair point. Don't let it go to your head."
+                "I’m listening. That doesn’t mean I agree.",
+                "If I wanted conversation, I’d talk to the trees.",
+                "... Fine. You made a fair point. Don’t let it go to your head."
             ],
             feed: [
-                "I don't need you to feed me. ... What is it.",
-                "Adequate. Don't expect praise.",
+                "I don’t need you to feed me. ... What is it.",
+                "Adequate. Don’t expect praise.",
                 "I survived ten years alone. But... this is better.",
                 "Stop hovering. And leave the rest."
             ],
             wash: [
                 "I bathe when I need to. I need to.",
-                "Don't look at me like that. I'm aware.",
-                "The forest doesn't judge appearance. You do.",
-                "... Thank you. Don't make it a thing."
+                "Don’t look at me like that. I’m aware.",
+                "The forest doesn’t judge appearance. You do.",
+                "... Thank you. Don’t make it a thing."
             ],
             gift: [
-                "I don't want... what is that.",
-                "You wasted resources on sentiment. ... I'm keeping it.",
-                "This is impractical. And I like it. Don't tell anyone.",
+                "I don’t want... what is that.",
+                "You wasted resources on sentiment. ... I’m keeping it.",
+                "This is impractical. And I like it. Don’t tell anyone.",
                 "The thought counts more than the thing. The thing is also good."
             ],
             train: [
                 "Wrong. Do it again.",
                 "Better. Still not good. Again.",
                 "You want praise? Survive first.",
-                "... That was actually impressive. Don't expect me to say it twice."
+                "... That was actually impressive. Don’t expect me to say it twice."
             ]
         }
     },
@@ -378,20 +378,20 @@ const CHARACTER_ELIAN = {
         hungry: [
             "The traps were empty this morning. It happens.",
             "Hunger sharpens the senses. Up to a point.",
-            "I've gone longer without. But I'd rather not.",
-            "The berries on the east trail are ripe. If you're offering.",
-            "My stomach is making demands my pride won't.",
+            "I’ve gone longer without. But I’d rather not.",
+            "The berries on the east trail are ripe. If you’re offering.",
+            "My stomach is making demands my pride won’t.",
             "Even druids eat. Shocking.",
             "I could hunt. Or you could bring me something. Faster.",
             "Three days on jerky. I need something real."
         ],
         dirty: [
-            "Dirt washes off. Weakness doesn't.",
-            "I'm aware. The river is close.",
-            "The moss doesn't care how I look. Neither do I. Usually.",
-            "... Fine. I'll clean up. For you. Not the moss.",
-            "There's mud in places mud shouldn't be.",
-            "I've been worse. But not by much."
+            "Dirt washes off. Weakness doesn’t.",
+            "I’m aware. The river is close.",
+            "The moss doesn’t care how I look. Neither do I. Usually.",
+            "... Fine. I’ll clean up. For you. Not the moss.",
+            "There’s mud in places mud shouldn’t be.",
+            "I’ve been worse. But not by much."
         ],
         happy: [
             "This is \u2026 good. I do not say that often.",
@@ -407,21 +407,21 @@ const CHARACTER_ELIAN = {
         ],
         annoyed: [
             "Stop. Think. Then act. In that order.",
-            "The forest doesn't tolerate carelessness. Neither do I.",
-            "You're making noise. Everything heard that.",
-            "I have patience. You're testing it.",
-            "If I'm quiet, it's because I'm choosing words carefully.",
-            "Frustration is wasted energy. I'm wasting energy."
+            "The forest doesn’t tolerate carelessness. Neither do I.",
+            "You’re making noise. Everything heard that.",
+            "I have patience. You’re testing it.",
+            "If I’m quiet, it’s because I’m choosing words carefully.",
+            "Frustration is wasted energy. I’m wasting energy."
         ],
         neutral: [
             "The wind shifted. Rain by evening.",
             "*Checks a snare, retensions the wire*",
-            "There's a hawk circling. Third time today.",
+            "There’s a hawk circling. Third time today.",
             "The moss grows thicker on the north side. Always.",
             "...",
             "I sharpened the knife. Twice. Habit.",
             "The fire needs another log. Not yet. Soon.",
-            "*Listens to something you can't hear*",
+            "*Listens to something you can’t hear*",
             "The trail is clear. For now.",
             "I mapped a new path yesterday. Shorter. Steeper.",
             "The creek is higher than usual. Snowmelt.",
@@ -430,10 +430,10 @@ const CHARACTER_ELIAN = {
         corrupted: [
             "The forest is dying. I can feel it in the roots.",
             "Everything rots. I used to fight it. Now I watch.",
-            "Nature doesn't care about us. I'm starting to agree.",
+            "Nature doesn’t care about us. I’m starting to agree.",
             "The wolves are closer than they should be. They smell weakness.",
             "I built this shelter. Now it feels like a cage.",
-            "You can't save everything. I learned that the hard way."
+            "You can’t save everything. I learned that the hard way."
         ],
         neglected: [
             "The fire went out. I let it.",
@@ -496,78 +496,78 @@ const CHARACTER_ELIAN = {
 
     hungryLines: [
         "The traps were empty.", "Hunger sharpens the senses. To a point.",
-        "I've gone longer. I'd rather not.", "Even druids eat.",
+        "I’ve gone longer. I’d rather not.", "Even druids eat.",
         "My stomach is making demands.", "I could hunt. Or you could help.",
         "Three days on jerky. Need something real."
     ],
     happyLines: [
         "This is good.", "The forest is calm. So am I.",
         "I almost smiled.", "The birds are closer today.",
-        "You make the silence comfortable.", "I don't need much. This is enough."
+        "You make the silence comfortable.", "I don’t need much. This is enough."
     ],
     dirtyLines: [
-        "Dirt washes off.", "I'm aware. The river is close.",
-        "... Fine. For you.", "There's mud in places it shouldn't be."
+        "Dirt washes off.", "I’m aware. The river is close.",
+        "... Fine. For you.", "There’s mud in places it shouldn’t be."
     ],
     annoyedLines: [
-        "Stop. Think. Then act.", "You're making noise.",
-        "I have patience. You're testing it.", "Frustration is wasted energy."
+        "Stop. Think. Then act.", "You’re making noise.",
+        "I have patience. You’re testing it.", "Frustration is wasted energy."
     ],
     neutralLines: [
-        "The wind shifted.", "*Checks a snare*", "There's a hawk circling.",
+        "The wind shifted.", "*Checks a snare*", "There’s a hawk circling.",
         "...", "The fire needs another log.", "*Listens*",
         "The trail is clear.", "Something moved. Fox. Harmless."
     ],
 
     feedDialogue: [
-        "Efficient. Thank you.", "... That's better than my cooking.",
-        "You remembered what I like. I didn't say what I like.",
+        "Efficient. Thank you.", "... That’s better than my cooking.",
+        "You remembered what I like. I didn’t say what I like.",
         "Simple. Good. Like the best things.",
         "The land provides. So do you, apparently.",
         "I eat to function. This I ate to enjoy."
     ],
     washDialogue: [
-        "Better. Thank you.", "I forget sometimes. You don't.",
+        "Better. Thank you.", "I forget sometimes. You don’t.",
         "Clean enough to think straight.", "The river does this. But your way is warmer.",
         "... I feel human again. Partly."
     ],
     giftDialogue: {
         apple:    ["From the wild trees? Good instinct.", "Simple. Useful. Like you."],
-        rose:     ["Roses don't grow here. You went far for this.", "... Beautiful. And impractical. I'll keep it."],
-        sword:    ["Good steel. Balanced. You know what you're doing.", "A blade is honest. So is this gift."],
-        cake:     ["Sweet things don't last in the forest. I'll make an exception.", "... This is excessive. And delicious."],
-        ring:     ["Rings catch on branches. I'll wear it anyway.", "You know what this means in druid tradition? ... Good."],
-        book:     ["Field guide? Useful. I'll study it tonight.", "Knowledge is the lightest thing to carry."],
-        herbs:    ["You found wild sage? That's rare this season.", "These are medicinal. You're learning."],
-        stone:    ["River stone. Smooth. You held this and thought of me.", "I collect these. You didn't know that. But you chose right."]
+        rose:     ["Roses don’t grow here. You went far for this.", "... Beautiful. And impractical. I’ll keep it."],
+        sword:    ["Good steel. Balanced. You know what you’re doing.", "A blade is honest. So is this gift."],
+        cake:     ["Sweet things don’t last in the forest. I’ll make an exception.", "... This is excessive. And delicious."],
+        ring:     ["Rings catch on branches. I’ll wear it anyway.", "You know what this means in druid tradition? ... Good."],
+        book:     ["Field guide? Useful. I’ll study it tonight.", "Knowledge is the lightest thing to carry."],
+        herbs:    ["You found wild sage? That’s rare this season.", "These are medicinal. You’re learning."],
+        stone:    ["River stone. Smooth. You held this and thought of me.", "I collect these. You didn’t know that. But you chose right."]
     },
 
     affectionDialogue: [
-        "I don't say things[guarded] unless I mean them...",
-        "You've become part of this place[warm]. Part of me.",
+        "I don’t say things[guarded] unless I mean them...",
+        "You’ve become part of this place[warm]. Part of me.",
         "The forest chose you[calm]. So did I.",
         "*Sets the wood down between you, then sits[warm]*. The fire is on this side. Stay there. Stay close."
     ],
 
     departureDialogue: [
         "The trail goes two ways. You picked the one leading away.",
-        "I'll keep the fire lit. In case.",
+        "I’ll keep the fire lit. In case.",
         "The forest survives loss. So will I. Probably.",
         "Go. But remember the way back."
     ],
 
     idleDialogue: {
         hungry: ["...", "The snares need checking.", "I can smell the campfire smoke. My stomach hears it too."],
-        dirty: ["...", "*Brushes dirt from sleeve, gives up*", "The river's fifty paces east."],
-        lonely: ["...", "The fire talks when you're not here. Crackling.", "I kept busy. That's not the same as not noticing."],
+        dirty: ["...", "*Brushes dirt from sleeve, gives up*", "The river’s fifty paces east."],
+        lonely: ["...", "The fire talks when you’re not here. Crackling.", "I kept busy. That’s not the same as not noticing."],
         loving: [
-            "I carved something for you. It's not finished.",
-            "The way light hits your face right now is... I'm documenting it. Mentally.",
-            "I planted something where we first sat. It's growing.",
-            "You're the only sound I don't want to silence.",
+            "I carved something for you. It’s not finished.",
+            "The way light hits your face right now is... I’m documenting it. Mentally.",
+            "I planted something where we first sat. It’s growing.",
+            "You’re the only sound I don’t want to silence.",
             "I found a clearing. The stars are visible. I thought of you first.",
             "The forest accepted you. That takes years. Or one look from you, apparently.",
-            "*Watches you from across the fire, doesn't look away*"
+            "*Watches you from across the fire, doesn’t look away*"
         ],
         night: [
             "The owls are hunting. Stay close to the fire.",
@@ -579,42 +579,42 @@ const CHARACTER_ELIAN = {
         general: [
             "...", "*Whittles something small and precise*",
             "*Sniffs the air, nods once*", "Hmm.",
-            "The weather's turning.", "*Examines a leaf, puts it back*",
-            "I had a thought. It'll keep.",
+            "The weather’s turning.", "*Examines a leaf, puts it back*",
+            "I had a thought. It’ll keep.",
             "*Stacks firewood in perfect rows*",
-            "Something's different about the soil today.",
+            "Something’s different about the soil today.",
             "The deer are migrating early. That means something.",
             "*Sits perfectly still for an unnervingly long time*",
             "The trees whisper about the tower. The mage is pushing too hard.",
-            "The kingdom's wards are thinning. I can feel it in the soil.",
-            "The siren's song reached the forest last night. Even the wolves listened.",
-            "The prince's castle glows warm. The forest stays cold. That's as it should be.",
+            "The kingdom’s wards are thinning. I can feel it in the soil.",
+            "The siren’s song reached the forest last night. Even the wolves listened.",
+            "The prince’s castle glows warm. The forest stays cold. That’s as it should be.",
             "The trees were losing their roots before you arrived. Pulling up from the soil.",
             "Thornwood is healing. Slowly. It started the day you came to the forest.",
-            "The animals returned last week. They'd been gone for months.",
-            "You're not from here. The forest knows. It accepted you anyway. That's rare.",
+            "The animals returned last week. They’d been gone for months.",
+            "You’re not from here. The forest knows. It accepted you anyway. That’s rare.",
             "Something underground is poisoning the roots. Your presence pushes it back.",
             "The druids called this the Fading. When bonds break, the land follows.",
-            "The old druids served Soul Weavers. Protectors of the protectors. That's what I am now.",
-            "Your roots run deeper than the forest's. You connect everything. Everyone.",
-            "When the last Weaver died, the oldest tree in Thornwood split in half. It's healing now."
+            "The old druids served Soul Weavers. Protectors of the protectors. That’s what I am now.",
+            "Your roots run deeper than the forest’s. You connect everything. Everyone.",
+            "When the last Weaver died, the oldest tree in Thornwood split in half. It’s healing now."
         ]
     },
 
     personalityDialogue: {
-        shy: ["I don't talk much. You've noticed.", "Words are overrated.", "I said what I needed to.", "Silence isn't empty. It's full."],
-        clingy: ["Stay close. It's not safe.", "I scanned the area. Habit.", "You're my responsibility.", "If anything happened to you..."],
-        tsundere: ["Get to the point.", "I'm listening. Not agreeing.", "... Fine. Fair point.", "Don't let it go to your head."]
+        shy: ["I don’t talk much. You’ve noticed.", "Words are overrated.", "I said what I needed to.", "Silence isn’t empty. It’s full."],
+        clingy: ["Stay close. It’s not safe.", "I scanned the area. Habit.", "You’re my responsibility.", "If anything happened to you..."],
+        tsundere: ["Get to the point.", "I’m listening. Not agreeing.", "... Fine. Fair point.", "Don’t let it go to your head."]
     },
 
     storyMilestones: {
         affection1: {
             title: "Shared Fire",
-            text: "Elian moves his bedroll closer to yours. Not touching. Just... closer. 'The wind is cold from the north tonight. That's all.'"
+            text: "Elian moves his bedroll closer to yours. Not touching. Just... closer. 'The wind is cold from the north tonight. That’s all.'"
         },
         affection2: {
             title: "The Carved Token",
-            text: "He presses something into your hand. A small wooden figure, carved with impossible precision. 'It's a fox. They mate for life.'"
+            text: "He presses something into your hand. A small wooden figure, carved with impossible precision. 'It’s a fox. They mate for life.'"
         },
         affection3: {
             title: "No Words Needed",
@@ -622,11 +622,11 @@ const CHARACTER_ELIAN = {
         },
         affection4: {
             title: "The Clearing",
-            text: "'I found this place years ago. Never showed anyone.' Stars above. Forest below. His hand in yours. 'Now it's ours.'"
+            text: "'I found this place years ago. Never showed anyone.' Stars above. Forest below. His hand in yours. 'Now it’s ours.'"
         },
         corruption1: {
             title: "Scorched Earth",
-            text: "The trees around the camp are dead. Elian stares at them. 'I stopped caring for the forest. It stopped caring for me. We're even.'"
+            text: "The trees around the camp are dead. Elian stares at them. 'I stopped caring for the forest. It stopped caring for me. We’re even.'"
         }
     }
 };

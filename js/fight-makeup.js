@@ -132,7 +132,7 @@
     caspian: {
       pose: 'assets/caspian/body/formal.png',
       withdrawal: {
-        setup: '*The throne room. Daylight. He is dressed for court, the gold band on, no candles lit. The Sunday treaty has not been honored at the moment. He does not stand when you arrive.* I had been writing a contract. I am not finishing it this week. The court has been told to schedule meetings for the hour I had reserved for you.',
+        setup: '*The throne room. Daylight. He is dressed for court, the gold band on, no candles lit. The Sunday treaty has not been honoured at the moment. He does not stand when you arrive.* I had been writing a contract. I am not finishing it this week. The court has been told to schedule meetings for the hour I had reserved for you.',
         prompt: 'What do you say?',
         options: [
           { id: 'name',

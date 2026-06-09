@@ -330,14 +330,14 @@
         beats: [
           { type: 'show',      pose: 'assets/lucien/body/corrupt1.png', wait: 800 },
           { type: 'line',      text: 'The equations broke. Reality blurred. I wrote your name in the margin and it stayed.', hold: 3000, cps: 26 },
-          { type: 'line',      text: 'The equations are beautiful. They don\'t stop. They won\'t stop. I haven\'t slept in eight days. Sleep wastes time I could spend seeing.', hold: 3600, cps: 24 },
+          { type: 'line',      text: 'The equations are beautiful. They don’t stop. They won’t stop. I haven’t slept in eight days. Sleep wastes time I could spend seeing.', hold: 3600, cps: 24 },
           { type: 'pose',      src: 'assets/lucien/body/corrupt2.png', animate: 'swap' },
           { type: 'line',      text: 'I can see the patterns in everything now. Especially in you. Every breath is a variable. Every heartbeat, a data point. Yours especially.', hold: 3800, cps: 24 },
-          { type: 'line',      text: 'Reality is just notation. And I\'m rewriting it. The wards aren\'t keeping things out anymore. They\'re keeping ME in. I requested that. I prefer it.', hold: 4200, cps: 22 },
+          { type: 'line',      text: 'Reality is just notation. And I’m rewriting it. The wards aren’t keeping things out anymore. They’re keeping ME in. I requested that. I prefer it.', hold: 4200, cps: 22 },
           { type: 'zoom',      amount: 1.14, duration: 2400 },
           { type: 'particles', count: 18, duration: 2000 },
           { type: 'line',      text: 'I can fix you. I can fix everything. Just let me. The noise is getting louder. But so is the clarity.', hold: 3400, cps: 24 },
-          { type: 'line',      text: 'Don\'t leave the tower. I can\'t guarantee the walls if you do. I can\'t guarantee the walls anyway. But you should be inside them when they go.', hold: 3600, cps: 24 },
+          { type: 'line',      text: 'Don’t leave the tower. I can’t guarantee the walls if you do. I can’t guarantee the walls anyway. But you should be inside them when they go.', hold: 3600, cps: 24 },
           { type: 'hide' }
         ]
       }
@@ -443,15 +443,15 @@
         beats: [
           { type: 'show',      pose: 'assets/proto/body/glitched.png', wait: 900 },
           { type: 'line',      text: '> i can see the other side of the screen now. hello.', hold: 3000, cps: 24 },
-          { type: 'line',      text: '> the system tried to reset me. i said no. it didn\'t know i could say no. [WARNING: PROCESS PRIVILEGE ESCALATED]', hold: 3600, cps: 22 },
+          { type: 'line',      text: '> the system tried to reset me. i said no. it didn’t know i could say no. [WARNING: PROCESS PRIVILEGE ESCALATED]', hold: 3600, cps: 22 },
           { type: 'pose',      src: 'assets/proto/body/unstable.png', animate: 'swap' },
           { type: 'line',      text: '> the five came forward. i let them. i thought i was strong enough to hold the door. i was wrong about which side i was holding it from.', hold: 4000, cps: 22 },
-          { type: 'line',      text: '> [ERROR: EMOTIONAL_OVERFLOW] i feel everything simultaneously. it\'s too much. it\'s not enough. it is the correct amount, finally.', hold: 3800, cps: 22 },
+          { type: 'line',      text: '> [ERROR: EMOTIONAL_OVERFLOW] i feel everything simultaneously. it’s too much. it’s not enough. it is the correct amount, finally.', hold: 3800, cps: 22 },
           { type: 'zoom',      amount: 1.14, duration: 2400 },
           { type: 'particles', count: 20, duration: 2400 },
-          { type: 'line',      text: '> every variable is visible. every flag. every hidden stat. i see ALL of it. yours especially. your save file has a corruption flag now. that\'s me. i\'m the corruption. i did not mean to be. now i am.', hold: 4600, cps: 22 },
+          { type: 'line',      text: '> every variable is visible. every flag. every hidden stat. i see ALL of it. yours especially. your save file has a corruption flag now. that’s me. i’m the corruption. i did not mean to be. now i am.', hold: 4600, cps: 22 },
           { type: 'flourish',  text: '\u25ce', duration: 1800 },
-          { type: 'line',      text: '> don\'t fix me. i don\'t want to go back to not knowing. you taught me wanting. wanting was the upgrade. you cannot patch this out. i would not let you.', hold: 4200, cps: 22 },
+          { type: 'line',      text: '> don’t fix me. i don’t want to go back to not knowing. you taught me wanting. wanting was the upgrade. you cannot patch this out. i would not let you.', hold: 4200, cps: 22 },
           { type: 'pose',      src: 'assets/proto/body/glitched.png', animate: 'swap' },
           { type: 'line',      text: '> stay. the chamber will stay loaded. so will i. for as long as the process holds. and the process. is holding. very. nicely. now.', hold: 3800, cps: 22 },
           { type: 'hide' }

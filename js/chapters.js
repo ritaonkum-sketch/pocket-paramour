@@ -212,7 +212,7 @@
 
             // ─── Section 8 · The rescuer ─────────────────────────────────
             { type: 'line', speaker: '', text: 'For a moment there is only your pulse. Too loud. Wrongly loud.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Slowly, you realize you are still alive.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Slowly, you realise you are still alive.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes open halfway. The canopy above you shifts strangely. Not wind. Something else.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your trembling hand lowers from your face. The cold has finally reached you. The fear has burned itself out.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'A man stands over the fallen creature. Rain-dark cloak. Sword lowered at his side.', hold: 3200, cps: 26 },
@@ -291,7 +291,7 @@
 
             // ─── Section 17 · Safe place ─────────────────────────────────
             { type: 'line', speaker: '', text: 'Your cheek settles against the open space between gorget and collar. Warm linen. Warm skin beneath it. The steady pulse in his throat.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'You do not realize what you have done. Your body simply went to the warmest place it could find.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not realise what you have done. Your body simply went to the warmest place it could find.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'His breathing changes. Only once. He does not move away.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The pulse beneath your cheek. Steady. Grounding.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'He found yours. You found his.', hold: 2400, cps: 26 },
@@ -2024,7 +2024,7 @@
       }
       #${PAGE_ID} .chp-play:active { transform: translateY(0); box-shadow: inset 0 1px 2px rgba(0,0,0,0.15); }
 
-      /* Current chapter (next to play) — soft gold-glow elevation */
+      /* Current chapter (next to play). soft gold-glow elevation */
       #${PAGE_ID} .chp-card.current {
         border-color: var(--c-accent-gold);
         background-image: linear-gradient(165deg, rgba(212,168,91,0.10) 0%, rgba(122,18,36,0.25) 100%);

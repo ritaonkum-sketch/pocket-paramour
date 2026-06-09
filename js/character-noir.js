@@ -182,24 +182,24 @@ const CHARACTER_NOIR = {
 
     trainingDialogue: {
         temptation: [
-            "You felt it, didn't you? That pull. That's not me. That's you.",
-            "Desire isn't weakness. It's the only honest thing left.",
-            "They taught you to resist. I'm teaching you why you shouldn't.",
+            "You felt it, didn’t you? That pull. That’s not me. That’s you.",
+            "Desire isn’t weakness. It’s the only honest thing left.",
+            "They taught you to resist. I’m teaching you why you shouldn’t.",
             "The line between wanting and having is thinner than you think.",
-            "You're getting better at this. Soon you won't need permission."
+            "You’re getting better at this. Soon you won’t need permission."
         ],
         domination: [
-            "Control isn't cruelty. It's clarity.",
-            "You hesitated. Next time, don't. Hesitation is a leash they put on you.",
-            "Power isn't taken. It's recognized. You're beginning to see yours.",
+            "Control isn’t cruelty. It’s clarity.",
+            "You hesitated. Next time, don’t. Hesitation is a leash they put on you.",
+            "Power isn’t taken. It’s recognised. You’re beginning to see yours.",
             "The world bends for those who stop asking and start deciding.",
-            "Good. You didn't flinch. That's the first thing they take from you."
+            "Good. You didn’t flinch. That’s the first thing they take from you."
         ],
         dissolution: [
             "Let it go. The guilt. The rules. The weight of who they told you to be.",
             "You held on too long. Feel how light you are without it.",
-            "Boundaries are walls that keep you small. We're tearing them down.",
-            "The smoke clears. What's left is what's real.",
+            "Boundaries are walls that keep you small. We’re tearing them down.",
+            "The smoke clears. What’s left is what’s real.",
             "There it is. The version of you they never wanted you to meet."
         ]
     },
@@ -208,101 +208,101 @@ const CHARACTER_NOIR = {
     personalities: {
         shy: {     // maps to 'seductive' for Noir
             talk: [
-                "Come closer. I can barely hear you from behind all those walls you've built.",
-                "You don't have to say anything. Your silence already told me everything.",
-                "I like the way you look at me when you think I don't notice.",
+                "Come closer. I can barely hear you from behind all those walls you’ve built.",
+                "You don’t have to say anything. Your silence already told me everything.",
+                "I like the way you look at me when you think I don’t notice.",
                 "Every conversation with you feels like standing at the edge of something.",
-                "You're careful with your words. I wonder what the careless ones sound like."
+                "You’re careful with your words. I wonder what the careless ones sound like."
             ],
             feed: [
-                "I don't hunger. Not for this. But I'll take it from your hands.",
-                "You want to nurture something that can't starve? How revealing.",
+                "I don’t hunger. Not for this. But I’ll take it from your hands.",
+                "You want to nurture something that can’t starve? How revealing.",
                 "The gesture matters more than the meal. And your gesture says everything.",
-                "I don't need it. But watching you offer... that feeds me."
+                "I don’t need it. But watching you offer... that feeds me."
             ],
             wash: [
-                "You can't clean what I am. But I admire the impulse.",
+                "You can’t clean what I am. But I admire the impulse.",
                 "Hmm. The water is warm. I had forgotten it could be.",
-                "Your hands are gentle. Almost too gentle for what you're touching.",
+                "Your hands are gentle. Almost too gentle for what you’re touching.",
                 "I will let you. I do not let many. Take note of that, quietly."
             ],
             gift: [
-                "A gift. You're trying to give something to the void. It's almost sweet.",
+                "A gift. You’re trying to give something to the void. It’s almost sweet.",
                 "You thought of me. That thought is worth more than the object.",
-                "I'll keep this. Not because I need it. Because your hands held it first.",
+                "I’ll keep this. Not because I need it. Because your hands held it first.",
                 "Careful. Every gift is a thread. And I collect threads."
             ],
             train: [
-                "You're a fast learner. That's either impressive or dangerous.",
+                "You’re a fast learner. That’s either impressive or dangerous.",
                 "Lean into it. The resistance is the only thing slowing you down.",
-                "You felt that, didn't you? The thrill of crossing a line.",
-                "Good. Now do it again, but this time don't apologize."
+                "You felt that, didn’t you? The thrill of crossing a line.",
+                "Good. Now do it again, but this time don’t apologise."
             ]
         },
         clingy: {   // maps to 'possessive' for Noir
             talk: [
                 "You came back. You always come back. Do you know what that tells me?",
-                "I've been counting the spaces between your visits. They're getting shorter.",
-                "Everyone else is background noise. You're the only signal that matters.",
-                "You belong here. With me. You just haven't admitted it yet.",
-                "I memorized the sound of your footsteps. I hear them before you arrive."
+                "I’ve been counting the spaces between your visits. They’re getting shorter.",
+                "Everyone else is background noise. You’re the only signal that matters.",
+                "You belong here. With me. You just haven’t admitted it yet.",
+                "I memorised the sound of your footsteps. I hear them before you arrive."
             ],
             feed: [
-                "You feed me when I don't need feeding. That means you need to give.",
-                "Keep bringing offerings. I won't stop you.",
-                "I don't eat. But I consume. And right now, I'm consuming your attention.",
+                "You feed me when I don’t need feeding. That means you need to give.",
+                "Keep bringing offerings. I won’t stop you.",
+                "I don’t eat. But I consume. And right now, I’m consuming your attention.",
                 "The others share meals. We share something deeper than hunger."
             ],
             wash: [
-                "You tend to me like I'm something fragile. I'm not. But don't stop.",
+                "You tend to me like I’m something fragile. I’m not. But don’t stop.",
                 "Every time you reach for me, I keep that moment.",
-                "You're the only one who gets this close. Do you understand what that means?",
-                "Wash away whatever you want. You'll never reach what's underneath."
+                "You’re the only one who gets this close. Do you understand what that means?",
+                "Wash away whatever you want. You’ll never reach what’s underneath."
             ],
             gift: [
-                "Mine now. Like you. Like everything you'll eventually surrender.",
-                "You're marking me with your kindness. I'm marking you with my presence.",
-                "Every gift ties you closer to me. You know that, don't you?",
-                "I don't share. And I don't give back. Remember that."
+                "Mine now. Like you. Like everything you’ll eventually surrender.",
+                "You’re marking me with your kindness. I’m marking you with my presence.",
+                "Every gift ties you closer to me. You know that, don’t you?",
+                "I don’t share. And I don’t give back. Remember that."
             ],
             train: [
-                "Stronger. I need you stronger. The world doesn't deserve you weak.",
-                "Again. Until you stop doubting. Until there's nothing left but certainty.",
-                "You're mine to shape. And I don't make things that break.",
+                "Stronger. I need you stronger. The world doesn’t deserve you weak.",
+                "Again. Until you stop doubting. Until there’s nothing left but certainty.",
+                "You’re mine to shape. And I don’t make things that break.",
                 "I push you because no one else cares enough to."
             ]
         },
         tsundere: {   // maps to 'destructive' for Noir
             talk: [
-                "Words are kindling. I'm deciding whether to light the match.",
+                "Words are kindling. I’m deciding whether to light the match.",
                 "You want honesty? Honesty burns. Still want it?",
-                "Don't bore me. Everyone else bores me. You're supposed to be different.",
+                "Don’t bore me. Everyone else bores me. You’re supposed to be different.",
                 "I could ruin this conversation or save it. Both sound interesting.",
                 "Talk. But know that every word you say changes the shape of what we are."
             ],
             feed: [
-                "Feeding the thing that feeds on you. There's a beautiful irony in that.",
-                "I don't need sustenance. I need you to stop pretending you're not addicted to this.",
-                "You keep trying to domesticate me. It's endearing. And futile.",
-                "I'll accept it. Not because I want it. Because you need to give it."
+                "Feeding the thing that feeds on you. There’s a beautiful irony in that.",
+                "I don’t need sustenance. I need you to stop pretending you’re not addicted to this.",
+                "You keep trying to domesticate me. It’s endearing. And futile.",
+                "I’ll accept it. Not because I want it. Because you need to give it."
             ],
             wash: [
-                "You can't purify me. But the attempt is noted.",
+                "You can’t purify me. But the attempt is noted.",
                 "Scrub harder. You might find something under the darkness. You might not.",
-                "I was born in shadow. Water doesn't reach where I live.",
-                "This is for you, not me. You need to feel like you're helping."
+                "I was born in shadow. Water doesn’t reach where I live.",
+                "This is for you, not me. You need to feel like you’re helping."
             ],
             gift: [
-                "A peace offering? I wasn't at war. You were.",
-                "Pretty. Fragile. It won't survive long near me. Neither do most things.",
-                "You gave me something breakable. That's either trust or foolishness.",
-                "I'll take it. And I'll remember what it cost you to offer."
+                "A peace offering? I wasn’t at war. You were.",
+                "Pretty. Fragile. It won’t survive long near me. Neither do most things.",
+                "You gave me something breakable. That’s either trust or foolishness.",
+                "I’ll take it. And I’ll remember what it cost you to offer."
             ],
             train: [
-                "Sloppy. You're fighting yourself more than the lesson.",
-                "Pain is a teacher. I'm just the classroom.",
-                "Break through it or let it break you. There's no middle ground with me.",
-                "You're getting angry. Good. Anger is just honesty without manners."
+                "Sloppy. You’re fighting yourself more than the lesson.",
+                "Pain is a teacher. I’m just the classroom.",
+                "Break through it or let it break you. There’s no middle ground with me.",
+                "You’re getting angry. Good. Anger is just honesty without manners."
             ]
         }
     },
@@ -321,7 +321,7 @@ const CHARACTER_NOIR = {
             "*Takes your chin between thumb and finger, tilts your face up to him, held*. Look at me...\u2026Good.",
             "Closer...\u2026Closer. I want to feel your pulse. Slow. There.",
             "Your hands shake when I stand this close. I can wait until they stop. I have nowhere else to be. For once.",
-            "*Traces one fingertip along the line of your collarbone, unhurried*. This. I have been memorizing this.",
+            "*Traces one fingertip along the line of your collarbone, unhurried*. This. I have been memorising this.",
             "Do not pull away...\u2026Not yet. Not ever. Let me look at you a moment longer.",
             "*Thumb slow along your lower lip*. Hold still. I am looking.",
             "Every touch is a promise...\u2026Mm. I collect them. I am running out of shelf space. Good."
@@ -347,12 +347,12 @@ const CHARACTER_NOIR = {
             "You keep trying to care for me in ways I do not need. It is the most human thing about you. Do not stop."
         ],
         dirty: [
-            "Darkness is not a stain. It's a state of being.",
-            "You want to clean the void? Go ahead. I'll watch.",
-            "I'm immaculate in the ways that matter. The rest is aesthetic.",
+            "Darkness is not a stain. It’s a state of being.",
+            "You want to clean the void? Go ahead. I’ll watch.",
+            "I’m immaculate in the ways that matter. The rest is aesthetic.",
             "Filth implies something was once pure. I never made that claim.",
-            "You're projecting. I'm exactly as pristine as I choose to be.",
-            "Shadow doesn't smudge. It spreads."
+            "You’re projecting. I’m exactly as pristine as I choose to be.",
+            "Shadow doesn’t smudge. It spreads."
         ],
         happy: [
             "\u2026This feeling. It is not happiness. It is closer to a hunger finally sated. Slower. Deeper. I am not used to slow.",
@@ -387,15 +387,15 @@ const CHARACTER_NOIR = {
             "*Looks at you the way someone looks at something they had given up on seeing again*"
         ],
         corrupted: [
-            "This isn't corruption. This is completion.",
+            "This isn’t corruption. This is completion.",
             "I can feel every thread that ties them to you. I could sever all of them.",
             "The power you gave me by coming here. You have no idea how vast it is.",
             "I see through walls now. Through intentions. Through the lies they told themselves about you.",
             "This is what they were afraid of. Not the dark. The truth that the dark reveals.",
             "I am exactly what I was always meant to become. Thank you for that.",
             "Everything they built to contain me is gossamer now. And you held the scissors.",
-            "You feel it too, don't you? The freedom. The terrifying, exhilarating freedom.",
-            "I don't need the light anymore. I've become something that makes its own.",
+            "You feel it too, don’t you? The freedom. The terrifying, exhilarating freedom.",
+            "I don’t need the light anymore. I’ve become something that makes its own.",
             "They called this corruption. I call it evolution."
         ],
         neglected: [
@@ -428,7 +428,7 @@ const CHARACTER_NOIR = {
             "You are a Weaver...\u2026Mm. I have known five in my long captivity. Queen Aenor ate every one. I watched it from inside the seal. I could do nothing...*Slow breath, eye contact held*. I will not watch her eat you. That is a vow. I do not make them lightly. Ask me again in a hundred years. It will still be true."
         ],
         obsessed: [
-            "\u2026I know your schedule. Your patterns. The rhythm of your breathing when you sleep. I memorize. I cannot help it.",
+            "\u2026I know your schedule. Your patterns. The rhythm of your breathing when you sleep. I memorise. I cannot help it.",
             "You are the only thought I cannot dissolve...\u2026The only thing the void will not swallow. Good.",
             "I would unmake everything. Just to keep this. Do not test me... \u2026Or do.",
             "You hold your breath before you lie...\u2026It is the only tell you have. I will keep it for us.",
@@ -506,59 +506,59 @@ const CHARACTER_NOIR = {
 
     // Feed / wash dialogue.unique "I don't need that" responses
     feedDialogue: [
-        "I don't eat. But I'll take anything from your hands.",
-        "You keep offering sustenance to something that doesn't starve. What does that say about you?",
+        "I don’t eat. But I’ll take anything from your hands.",
+        "You keep offering sustenance to something that doesn’t starve. What does that say about you?",
         "Food is for mortals. But the way you present it... almost tempting.",
-        "I don't need this. I need what happens in your eyes when you give it to me.",
+        "I don’t need this. I need what happens in your eyes when you give it to me.",
         "The gesture nourishes me more than the offering ever could.",
-        "Keep feeding me things I don't need. I'm developing a taste for your devotion.",
-        "I'll accept this. Not for the meal. For the intimacy of being cared for by you.",
-        "My hunger isn't physical. But you already know that."
+        "Keep feeding me things I don’t need. I’m developing a taste for your devotion.",
+        "I’ll accept this. Not for the meal. For the intimacy of being cared for by you.",
+        "My hunger isn’t physical. But you already know that."
     ],
     washDialogue: [
-        "You can't wash away what I am. But your hands feel like absolution.",
-        "I don't get dirty. I get deeper. But I appreciate the attempt.",
-        "Water against shadow. It passes right through. Still... don't stop.",
-        "Purification doesn't apply to me. But your touch does.",
-        "You're trying to clean something that was never stained. Only chosen.",
-        "This is your ritual, not mine. I'll stand still because you need me to.",
-        "I don't need washing. But I need you to need to wash me. If that makes sense."
+        "You can’t wash away what I am. But your hands feel like absolution.",
+        "I don’t get dirty. I get deeper. But I appreciate the attempt.",
+        "Water against shadow. It passes right through. Still... don’t stop.",
+        "Purification doesn’t apply to me. But your touch does.",
+        "You’re trying to clean something that was never stained. Only chosen.",
+        "This is your ritual, not mine. I’ll stand still because you need me to.",
+        "I don’t need washing. But I need you to need to wash me. If that makes sense."
     ],
     giftDialogue: {
-        apple:    ["An apple. The oldest temptation. You know me better than you think.", "Fruit from the world of light. I'll keep it in the dark where it belongs."],
+        apple:    ["An apple. The oldest temptation. You know me better than you think.", "Fruit from the world of light. I’ll keep it in the dark where it belongs."],
         rose:     ["A rose. Beautiful and bleeding. Like everything worth wanting.", "Thorns and petals. You chose the one gift that understands what I am."],
-        sword:    ["A blade. You're arming the thing they told you to run from.", "Steel forged in fire. I was forged in something colder. We match."],
-        cake:     ["Sweetness. A thing I'm supposed to be immune to. Supposed to be.", "You brought sugar into the void. The audacity. The tenderness."],
-        ring:     ["A ring. A circle with no escape. You understand us perfectly.", "You're binding yourself to me with metal and meaning. I accept."],
-        book:     ["Words on a page. The ones I'd write about you would burn the paper.", "Knowledge is power. And you just handed me both. Brave."],
-        pearl:    ["Born of irritation inside something beautiful. That's poetic.", "A pearl. Light trapped in darkness. Remind you of anyone?"],
-        stone:    ["Cold and smooth and enduring. You picked the one gift that mirrors me.", "A stone from the world above. I'll keep it where the shadows can study it."]
+        sword:    ["A blade. You’re arming the thing they told you to run from.", "Steel forged in fire. I was forged in something colder. We match."],
+        cake:     ["Sweetness. A thing I’m supposed to be immune to. Supposed to be.", "You brought sugar into the void. The audacity. The tenderness."],
+        ring:     ["A ring. A circle with no escape. You understand us perfectly.", "You’re binding yourself to me with metal and meaning. I accept."],
+        book:     ["Words on a page. The ones I’d write about you would burn the paper.", "Knowledge is power. And you just handed me both. Brave."],
+        pearl:    ["Born of irritation inside something beautiful. That’s poetic.", "A pearl. Light trapped in darkness. Remind you of anyone?"],
+        stone:    ["Cold and smooth and enduring. You picked the one gift that mirrors me.", "A stone from the world above. I’ll keep it where the shadows can study it."]
     },
 
     // Affection dialogue
     affectionDialogue: [
-        "You've walked further into the dark[whisper] than anyone else has dared...",
-        "I told myself I'd let you go[shadow]. I told myself a lot of things.",
-        "What I feel for you doesn't have a name[consuming]. Names are cages.",
-        "I love you[vulnerable]. That's the most dangerous sentence I've ever spoken."
+        "You’ve walked further into the dark[whisper] than anyone else has dared...",
+        "I told myself I’d let you go[shadow]. I told myself a lot of things.",
+        "What I feel for you doesn’t have a name[consuming]. Names are cages.",
+        "I love you[vulnerable]. That’s the most dangerous sentence I’ve ever spoken."
     ],
 
     // Departure dialogue
     departureDialogue: [
-        "Leave if you need to. But you'll feel the dark at your back with every step.",
-        "The door is open. It's always been open. That's what makes this so cruel.",
+        "Leave if you need to. But you’ll feel the dark at your back with every step.",
+        "The door is open. It’s always been open. That’s what makes this so cruel.",
         "Go. But remember, the light out there will never feel as warm as the dark in here.",
-        "You'll come back. They always come back. But only you will be welcome."
+        "You’ll come back. They always come back. But only you will be welcome."
     ],
 
     // Idle dialogue
     idleDialogue: {
         hungry: [
             "...",
-            "I don't hunger. But I ache. There's a difference.",
-            "The void stirs. Not for food. For something I can't name.",
-            "My appetite is for things that don't come in portions.",
-            "I consume silence. Tonight there's plenty.",
+            "I don’t hunger. But I ache. There’s a difference.",
+            "The void stirs. Not for food. For something I can’t name.",
+            "My appetite is for things that don’t come in portions.",
+            "I consume silence. Tonight there’s plenty.",
             "They built meals around tables. I built hunger around wanting."
         ],
         dirty: [
@@ -566,42 +566,42 @@ const CHARACTER_NOIR = {
             "The shadow clings. It always has.",
             "*Glances at reflection, sees nothing, looks away*",
             "Darkness is its own kind of clean.",
-            "I don't stain. I absorb.",
-            "There's nothing on me that doesn't belong."
+            "I don’t stain. I absorb.",
+            "There’s nothing on me that doesn’t belong."
         ],
         lonely: [
             "...",
-            "The void is louder when you're not here. It fills the space you left.",
-            "I'm not lonely. I'm unaccompanied. There's a difference. A thin one.",
-            "Your absence is the only thing I can't corrupt.",
+            "The void is louder when you’re not here. It fills the space you left.",
+            "I’m not lonely. I’m unaccompanied. There’s a difference. A thin one.",
+            "Your absence is the only thing I can’t corrupt.",
             "I stood in the dark and listened for your heartbeat. Nothing.",
             "Missing someone is the most mortal thing I do."
         ],
         loving: [
-            "I memorized the exact way you breathe when you're thinking about me.",
-            "You're the only flame that doesn't flicker when the dark gets close.",
+            "I memorised the exact way you breathe when you’re thinking about me.",
+            "You’re the only flame that doesn’t flicker when the dark gets close.",
             "I would swallow every shadow in the world to keep you warm.",
             "When you look at me like that, the void goes completely silent.",
-            "I don't sleep. But when you're near, I understand the appeal of dreaming.",
-            "You're the one addiction I refuse to cure.",
+            "I don’t sleep. But when you’re near, I understand the appeal of dreaming.",
+            "You’re the one addiction I refuse to cure.",
             "*Watches you with an intensity that borders on devotion*",
             "Every version of the future I see has you in it. I made sure of that.",
             "The dark worships nothing. Except you. Except this.",
-            "I've ruined myself for anyone else. Willingly.",
-            "You've made the void feel like a home. I didn't know that was possible.",
+            "I’ve ruined myself for anyone else. Willingly.",
+            "You’ve made the void feel like a home. I didn’t know that was possible.",
             "I could hold this moment in my hands forever and never let it dissolve.",
             "The most terrifying thing about you is that you make me want to be worth keeping.",
             "I am the dark and you are the reason anyone would choose to walk into it."
         ],
         night: [
-            "Night is when I'm most honest. And most dangerous.",
+            "Night is when I’m most honest. And most dangerous.",
             "*The shadows lean toward you as if pulled by a current*",
             "The stars are distant fires. I prefer the ones that burn close.",
             "Midnight is when the masks come off. Even mine.",
             "The dark is deeper at this hour. So am I.",
             "Stay awake with me. The night has things to show you.",
             "Every shadow in this room is pointing at you. They know.",
-            "I don't need sleep. But I'll lie still beside you if that's what you want.",
+            "I don’t need sleep. But I’ll lie still beside you if that’s what you want.",
             "The world is asleep. That makes this ours."
         ],
         general: [
@@ -613,7 +613,7 @@ const CHARACTER_NOIR = {
             "*Studies you like a riddle that keeps changing its answer*",
             "I had a thought about you. It consumed three others.",
             "*Stands impossibly still, like the dark between two candle flames*",
-            "Somewhere, someone just made a choice they can't take back.",
+            "Somewhere, someone just made a choice they can’t take back.",
             "*Leans against nothing, and nothing holds*",
             "The silence is comfortable tonight. You taught it that.",
             "*The temperature drops a fraction of a degree when he moves*",
@@ -621,41 +621,41 @@ const CHARACTER_NOIR = {
             "*Watches a shadow crawl across the floor, nods as if it said something*",
             "I was sealed here because the queen wanted her son to marry the woman I loved. The seal is six hundred years old. It is finally tired.",
             "Six centuries inside the seal teach a man to listen. I have heard every Weaver Aenor consumed. From inside.",
-            "You're the only thing between me and the surface. Does that scare you?",
+            "You’re the only thing between me and the surface. Does that scare you?",
             "They think their bonds are saving the kingdom. They are. They are also paying down a debt the queen owes me.",
-            "Before you came, I was almost free. Now... I'm not sure I want to be.",
-            "Aethermoor's magic runs on connection. Mine runs on the silence she sealed me into. We are opposites. And yet.",
-            "Do you know what you really are? Why you have no memory? . I do. But I won't say. Not yet.",
-            "I loved a Soul Weaver once. Before you. Her name was Veyra. The queen's son loved her too. That was the whole crime.",
+            "Before you came, I was almost free. Now... I’m not sure I want to be.",
+            "Aethermoor’s magic runs on connection. Mine runs on the silence she sealed me into. We are opposites. And yet.",
+            "Do you know what you really are? Why you have no memory? . I do. But I won’t say. Not yet.",
+            "I loved a Soul Weaver once. Before you. Her name was Veyra. The queen’s son loved her too. That was the whole crime.",
             "She died. The queen made sure of it, eventually. The kingdom told a softer story. I have never believed it.",
             "I have been hating her quietly for six centuries. Tonight is different. You are the difference.",
             "You feel like her. Not the same. But the same warmth. It hurts to be near you. I am asking you to stay anyway.",
-            "I wasn't always sealed. I wasn't always dark. I was a prince once, in a kingdom that is bone now.",
+            "I wasn’t always sealed. I wasn’t always dark. I was a prince once, in a kingdom that is bone now.",
             "Aenor sealed me because I loved a woman her son also wanted. She called it 'sparing the next prince.' It was not.",
             "If you bond with me deeply enough... you might undo what I became. Or you might become what I am.",
-            "The last Weaver's name was Veyra. I have not said it in six hundred years. Tonight you made me remember why I learned it.",
-            "The void has opinions tonight. I'm ignoring them. For you."
+            "The last Weaver’s name was Veyra. I have not said it in six hundred years. Tonight you made me remember why I learned it.",
+            "The void has opinions tonight. I’m ignoring them. For you."
         ]
     },
 
     // Personality-specific dialogue
     personalityDialogue: {
         shy: [
-            "Come closer. Those walls don't suit you.",
-            "You don't have to say anything. Your silence told me everything.",
+            "Come closer. Those walls don’t suit you.",
+            "You don’t have to say anything. Your silence told me everything.",
             "Every conversation is an edge. I like edges.",
-            "You're careful with your words. I want the careless ones."
+            "You’re careful with your words. I want the careless ones."
         ],
         clingy: [
             "You came back. You always come back.",
-            "Everyone else is noise. You're the signal.",
-            "I memorized your footsteps. I hear them before you arrive.",
-            "You belong here. You just haven't said it yet."
+            "Everyone else is noise. You’re the signal.",
+            "I memorised your footsteps. I hear them before you arrive.",
+            "You belong here. You just haven’t said it yet."
         ],
         tsundere: [
-            "Words are kindling. I'm deciding on the match.",
+            "Words are kindling. I’m deciding on the match.",
             "You want honesty? Honesty burns.",
-            "Don't bore me. You're supposed to be different.",
+            "Don’t bore me. You’re supposed to be different.",
             "Talk. But know that every word changes what we are."
         ]
     },
@@ -664,11 +664,11 @@ const CHARACTER_NOIR = {
     storyMilestones: {
         affection1: {
             title: "The Invitation",
-            text: "Noir extends a hand from the dark. Not reaching. Offering. 'They showed you the garden. I'm showing you what grows beneath it. Take my hand and I'll show you the roots of everything.'"
+            text: "Noir extends a hand from the dark. Not reaching. Offering. 'They showed you the garden. I’m showing you what grows beneath it. Take my hand and I’ll show you the roots of everything.'"
         },
         affection2: {
             title: "The Unmasking",
-            text: "For one breath, the shadows pull back from his face. Underneath is something raw. Something almost human. 'You wanted to see me. The real me. Don't look away now.'"
+            text: "For one breath, the shadows pull back from his face. Underneath is something raw. Something almost human. 'You wanted to see me. The real me. Don’t look away now.'"
         },
         affection3: {
             title: "The Binding",
@@ -676,7 +676,7 @@ const CHARACTER_NOIR = {
         },
         affection4: {
             title: "The Surrender",
-            text: "'I was built to corrupt. To consume. To pull everything into the dark.' His voice breaks. The first crack you've ever heard. 'But you walked in and the dark wanted to protect something for the first time. I don't know what I am without the hunger. But I know what I am with you.'"
+            text: "'I was built to corrupt. To consume. To pull everything into the dark.' His voice breaks. The first crack you’ve ever heard. 'But you walked in and the dark wanted to protect something for the first time. I don’t know what I am without the hunger. But I know what I am with you.'"
         },
         corruption1: {
             title: "The Awakening",

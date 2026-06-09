@@ -62,20 +62,20 @@
           var g = window._game;
           if (c === 'sunset') {
             g._playScene([
-              { type: 'line', text: "...Yeah. It's beautiful from here. I never noticed until now.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "...Yeah. It’s beautiful from here. I never noticed until now.", speed: 30, pose: 'soft' },
               { type: 'particle', emoji: '\u2728', count: 5, ms: 1500 },
               { type: 'hide' }
             ]);
           } else if (c === 'watch') {
             g._playScene([
-              { type: 'line', text: "You're— why are you looking at me like that?", speed: 35, pose: 'flustered' },
-              { type: 'line', text: "...Stop. I mean. Don't stop. Just— I need a moment.", speed: 35, pose: 'sheepish' },
+              { type: 'line', text: "You’re, why are you looking at me like that?", speed: 35, pose: 'flustered' },
+              { type: 'line', text: "...Stop. I mean. Don’t stop. Just, I need a moment.", speed: 35, pose: 'sheepish' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
-              { type: 'line', text: "Childhood? I was a stable boy's son. The sword chose me before I chose it.", speed: 35, pose: 'serious' },
-              { type: 'line', text: "I don't talk about this. But for you... I could try.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "Childhood? I was a stable boy’s son. The sword chose me before I chose it.", speed: 35, pose: 'serious' },
+              { type: 'line', text: "I don’t talk about this. But for you... I could try.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           }
@@ -94,8 +94,8 @@
       beats: [
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
-        { type: 'line', text: "Hold it like this. No— here. Your grip is too tight.", speed: 35, pose: 'serious' },
-        { type: 'line', text: "Better. You're a natural. ...Okay, you're terrible. But determined.", speed: 35, pose: 'smirk' },
+        { type: 'line', text: "Hold it like this. No, here. Your grip is too tight.", speed: 35, pose: 'serious' },
+        { type: 'line', text: "Better. You’re a natural. ...Okay, you’re terrible. But determined.", speed: 35, pose: 'smirk' },
         { type: 'choice', choices: [
           { text: 'Try to disarm him', value: 'disarm' },
           { text: 'Let him win', value: 'yield' },
@@ -104,13 +104,13 @@
           var g = window._game;
           if (c === 'disarm') {
             g._playScene([
-              { type: 'line', text: "Did you just— you actually knocked it from my hand.", speed: 35, pose: 'shocked' },
-              { type: 'line', text: "I'm going to pretend I let you do that. For my dignity.", speed: 30, pose: 'smirk' },
+              { type: 'line', text: "Did you just, you actually knocked it from my hand.", speed: 35, pose: 'shocked' },
+              { type: 'line', text: "I’m going to pretend I let you do that. For my dignity.", speed: 30, pose: 'smirk' },
               { type: 'hide' }
             ]);
           } else if (c === 'yield') {
             g._playScene([
-              { type: 'line', text: "Don't yield so easily. Fight me like you mean it.", speed: 35, pose: 'serious' },
+              { type: 'line', text: "Don’t yield so easily. Fight me like you mean it.", speed: 35, pose: 'serious' },
               { type: 'line', text: "...You matter enough to fight for. Remember that.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
@@ -122,7 +122,7 @@
             ]);
           }
         }},
-        { type: 'line', text: "Same time tomorrow? I'll deny I said that if anyone asks.", speed: 30, pose: 'sheepish' },
+        { type: 'line', text: "Same time tomorrow? I’ll deny I said that if anyone asks.", speed: 30, pose: 'sheepish' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
@@ -137,7 +137,7 @@
         { type: 'fade', direction: 'in', ms: 800 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 6, ms: 2000 },
-        { type: 'line', text: "I've never brought anyone up here. This is where I go when the world is too loud.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "I’ve never brought anyone up here. This is where I go when the world is too loud.", speed: 30, pose: 'gentle' },
         { type: 'line', text: "But quiet is different with you. Quiet is... full.", speed: 30, pose: 'soft' },
         { type: 'choice', choices: [
           { text: 'Lean on his shoulder', value: 'lean' },
@@ -154,20 +154,20 @@
             ]);
           } else if (c === 'hand') {
             g._playScene([
-              { type: 'line', text: "Your hands are cold. Mine are always warm. Soldier's blood.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "I'm not letting go. Just so you know.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "Your hands are cold. Mine are always warm. Soldier’s blood.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "I’m not letting go. Just so you know.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
-              { type: 'line', text: "I— you can't just say things like that.", speed: 35, pose: 'flustered' },
+              { type: 'line', text: "I, you can’t just say things like that.", speed: 35, pose: 'flustered' },
               { type: 'delay', ms: 600 },
               { type: 'line', text: "...Say it again. Please.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "I'll remember this. Whatever happens. I'll remember the sky looked like this.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "I’ll remember this. Whatever happens. I’ll remember the sky looked like this.", speed: 30, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 800 }
       ]
     },
@@ -185,7 +185,7 @@
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
         { type: 'line', text: "Careful where you step. The pools remember everything that touches them.", speed: 35, pose: 'gentle' },
-        { type: 'line', text: "See that glow? Bioluminescence. The ocean's way of showing off.", speed: 35, pose: 'happy' },
+        { type: 'line', text: "See that glow? Bioluminescence. The ocean’s way of showing off.", speed: 35, pose: 'happy' },
         { type: 'choice', choices: [
           { text: 'Touch the water', value: 'touch' },
           { text: 'Ask about the creatures', value: 'creatures' },
@@ -195,13 +195,13 @@
           if (c === 'touch') {
             g._playScene([
               { type: 'line', text: "It lit up where you touched it. The pool likes you.", speed: 35, pose: 'happy' },
-              { type: 'line', text: "That's rare. The tide pools are usually shy.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "That’s rare. The tide pools are usually shy.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           } else if (c === 'creatures') {
             g._playScene([
-              { type: 'line', text: "That's a moon crab. It only surfaces during the full tide.", speed: 35, pose: 'excited' },
-              { type: 'line', text: "And that— oh! A starweaver. I haven't seen one since I was small.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "That’s a moon crab. It only surfaces during the full tide.", speed: 35, pose: 'excited' },
+              { type: 'line', text: "And that, oh! A starweaver. I haven’t seen one since I was small.", speed: 35, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else {
@@ -227,11 +227,11 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "The moon is full tonight. The sand remembers every wave.", speed: 35, pose: 'gentle' },
-        { type: 'line', text: "Walk with me. The shore is different when someone else's footprints are beside yours.", speed: 35, pose: 'soft' },
+        { type: 'line', text: "Walk with me. The shore is different when someone else’s footprints are beside yours.", speed: 35, pose: 'soft' },
         { type: 'choice', choices: [
           { text: 'Ask her to sing', value: 'sing' },
           { text: 'Walk closer to the waves', value: 'waves' },
-          { text: 'Tell her she\'s beautiful', value: 'beautiful' }
+          { text: 'Tell her she’s beautiful', value: 'beautiful' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'sing') {
@@ -242,19 +242,19 @@
             ]);
           } else if (c === 'waves') {
             g._playScene([
-              { type: 'line', text: "Brave. The waves won't hurt you. Not while I'm here.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "They know me. I told them you're important.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "Brave. The waves won’t hurt you. Not while I’m here.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "They know me. I told them you’re important.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'line', text: "...", speed: 50, pose: 'flustered' },
-              { type: 'line', text: "The ocean is beautiful. I'm just... part of it.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "The ocean is beautiful. I’m just... part of it.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "The tide will erase our footprints. But I'll remember the walk.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "The tide will erase our footprints. But I’ll remember the walk.", speed: 30, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
@@ -269,7 +269,7 @@
         { type: 'fade', direction: 'in', ms: 800 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 10, ms: 2500 },
-        { type: 'line', text: "Breathe. The air pocket holds. I've been coming here since I was a child.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "Breathe. The air pocket holds. I’ve been coming here since I was a child.", speed: 30, pose: 'gentle' },
         { type: 'line', text: "No one else knows this place exists. The grotto chose to be hidden.", speed: 35, pose: 'soft' },
         { type: 'choice', choices: [
           { text: 'Kiss her', value: 'kiss' },
@@ -286,14 +286,14 @@
             ]);
           } else if (c === 'past') {
             g._playScene([
-              { type: 'line', text: "I was born in the deep. Where the light doesn't reach.", speed: 30, pose: 'sad' },
-              { type: 'line', text: "I swam up because I heard laughter. I'd never heard it before.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "I was born in the deep. Where the light doesn’t reach.", speed: 30, pose: 'sad' },
+              { type: 'line', text: "I swam up because I heard laughter. I’d never heard it before.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'line', text: "Stay? Here? With me?", speed: 30, pose: 'hopeful' },
-              { type: 'line', text: "...The ocean has never given me something I didn't have to fight for. Until you.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "...The ocean has never given me something I didn’t have to fight for. Until you.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
@@ -314,7 +314,7 @@
       beats: [
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
-        { type: 'line', text: "Don't touch the red-spined books. They bite. Literally.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "Don’t touch the red-spined books. They bite. Literally.", speed: 35, pose: 'neutral' },
         { type: 'line', text: "This one is my research. Ley line cartography. Three years of my life.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Ask questions', value: 'questions' },
@@ -324,20 +324,20 @@
           var g = window._game;
           if (c === 'questions') {
             g._playScene([
-              { type: 'line', text: "You're actually interested? Most people's eyes glaze over by page two.", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "Here. Sit closer. I'll show you the interesting parts.", speed: 30, pose: 'happy' },
+              { type: 'line', text: "You’re actually interested? Most people’s eyes glaze over by page two.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "Here. Sit closer. I’ll show you the interesting parts.", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else if (c === 'read') {
             g._playScene([
               { type: 'delay', ms: 1500 },
-              { type: 'line', text: "...You're still here. You didn't leave.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "...You’re still here. You didn’t leave.", speed: 30, pose: 'gentle' },
               { type: 'line', text: "People usually leave.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
-              { type: 'line', text: "Rest? I'm fine. I slept... recently. Probably.", speed: 35, pose: 'sheepish' },
+              { type: 'line', text: "Rest? I’m fine. I slept... recently. Probably.", speed: 35, pose: 'sheepish' },
               { type: 'line', text: "...You noticed. No one notices.", speed: 25, pose: 'gentle' },
               { type: 'hide' }
             ]);
@@ -358,8 +358,8 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 10, ms: 2500 },
-        { type: 'line', text: "Twelve thousand visible stars tonight. I've named forty-seven of them.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "Technically, you're not supposed to name stars. I do it anyway.", speed: 35, pose: 'smirk' },
+        { type: 'line', text: "Twelve thousand visible stars tonight. I’ve named forty-seven of them.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "Technically, you’re not supposed to name stars. I do it anyway.", speed: 35, pose: 'smirk' },
         { type: 'choice', choices: [
           { text: 'Name a star after him', value: 'name' },
           { text: 'Ask about constellations', value: 'constellations' },
@@ -369,19 +369,19 @@
           if (c === 'name') {
             g._playScene([
               { type: 'line', text: "You... named a star after me?", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "That's the most irrational, unscientific, wonderful thing anyone has ever done.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "That’s the most irrational, unscientific, wonderful thing anyone has ever done.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'constellations') {
             g._playScene([
               { type: 'line', text: "That cluster there is the Weaver. And that line is the Broken Chain.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "I prefer the unnamed ones. They're still deciding what to be.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "I prefer the unnamed ones. They’re still deciding what to be.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
-              { type: 'line', text: "You're— quite close.", speed: 35, pose: 'flustered' },
-              { type: 'line', text: "I'm not complaining. I'm observing. Scientifically.", speed: 30, pose: 'sheepish' },
+              { type: 'line', text: "You’re, quite close.", speed: 35, pose: 'flustered' },
+              { type: 'line', text: "I’m not complaining. I’m observing. Scientifically.", speed: 30, pose: 'sheepish' },
               { type: 'hide' }
             ]);
           }
@@ -402,7 +402,7 @@
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
         { type: 'line', text: "This is the nexus. Seven ley lines converge here. The air tastes like copper.", speed: 30, pose: 'serious' },
-        { type: 'line', text: "I've spent years studying this place. I've never brought anyone.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "I’ve spent years studying this place. I’ve never brought anyone.", speed: 30, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Touch the ley line', value: 'touch' },
           { text: 'Hold his hand through it', value: 'hand' },
@@ -412,15 +412,15 @@
           if (c === 'touch') {
             g._playScene([
               { type: 'shake', intensity: 3 },
-              { type: 'line', text: "You felt that? The ley line responded to you. That shouldn't be possible.", speed: 35, pose: 'shocked' },
-              { type: 'line', text: "...You're full of impossible things.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "You felt that? The ley line responded to you. That shouldn’t be possible.", speed: 35, pose: 'shocked' },
+              { type: 'line', text: "...You’re full of impossible things.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'hand') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 20, ms: 2500 },
-              { type: 'line', text: "The energy— it's flowing through both of us. Like a circuit.", speed: 30, pose: 'surprised' },
-              { type: 'line', text: "I've read about this. Mages called it 'resonance.' It only happens with—", speed: 30, pose: 'flustered' },
+              { type: 'line', text: "The energy, it’s flowing through both of us. Like a circuit.", speed: 30, pose: 'surprised' },
+              { type: 'line', text: "I’ve read about this. Mages called it 'resonance.' It only happens with,", speed: 30, pose: 'flustered' },
               { type: 'hide' }
             ]);
           } else {
@@ -449,35 +449,35 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'line', text: "My mother planted these roses. The gardeners keep them alive. I keep the memory.", speed: 35, pose: 'gentle' },
-        { type: 'line', text: "This is the only place in the palace that doesn't feel like a cage.", speed: 35, pose: 'soft' },
+        { type: 'line', text: "This is the only place in the palace that doesn’t feel like a cage.", speed: 35, pose: 'soft' },
         { type: 'choice', choices: [
           { text: 'Pick a flower for him', value: 'pick' },
-          { text: "Ask about his mother's garden", value: 'mother' },
+          { text: "Ask about his mother’s garden", value: 'mother' },
           { text: 'Dance among the flowers', value: 'dance' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'pick') {
             g._playScene([
-              { type: 'line', text: "For me? You— no one gives the prince flowers. It's always the other way.", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "I'm keeping this forever. Don't argue.", speed: 30, pose: 'happy' },
+              { type: 'line', text: "For me? You, no one gives the prince flowers. It’s always the other way.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "I’m keeping this forever. Don’t argue.", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else if (c === 'mother') {
             g._playScene([
-              { type: 'line', text: "She loved wisteria most. Said it grew like laughter — everywhere at once.", speed: 35, pose: 'sad' },
+              { type: 'line', text: "She loved wisteria most. Said it grew like laughter. everywhere at once.", speed: 35, pose: 'sad' },
               { type: 'line', text: "Thank you for asking. Most people avoid the subject.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
-              { type: 'line', text: "Dance? Here? There's no music— oh. You don't care about music.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "Dance? Here? There’s no music, oh. You don’t care about music.", speed: 35, pose: 'surprised' },
               { type: 'particle', emoji: '\uD83C\uDF38', count: 8, ms: 2000 },
-              { type: 'line', text: "...This is the most fun I've had in the palace. Possibly ever.", speed: 30, pose: 'happy' },
+              { type: 'line', text: "...This is the most fun I’ve had in the palace. Possibly ever.", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "The garden closes at sundown. But I'm the prince. It closes when I say.", speed: 30, pose: 'smirk' },
+        { type: 'line', text: "The garden closes at sundown. But I’m the prince. It closes when I say.", speed: 30, pose: 'smirk' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
@@ -495,14 +495,14 @@
         { type: 'line', text: "That one is my father. He looks stern. He was. But he also laughed, sometimes.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Ask about his parents', value: 'parents' },
-          { text: "Tell him he'll be a great king", value: 'great' },
-          { text: "Say the crown doesn't define him", value: 'crown' }
+          { text: "Tell him he’ll be a great king", value: 'great' },
+          { text: "Say the crown doesn’t define him", value: 'crown' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'parents') {
             g._playScene([
               { type: 'line', text: "They married for duty. But I think they loved each other. Eventually.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "I hope I'm that lucky.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "I hope I’m that lucky.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'great') {
@@ -520,7 +520,7 @@
             ]);
           }
         }},
-        { type: 'line', text: "Someday my portrait will be here. I wonder what face I'll be making.", speed: 30, pose: 'smirk' },
+        { type: 'line', text: "Someday my portrait will be here. I wonder what face I’ll be making.", speed: 30, pose: 'smirk' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
@@ -539,32 +539,32 @@
         { type: 'choice', choices: [
           { text: 'Ask where it leads', value: 'where' },
           { text: 'Run through together, laughing', value: 'run' },
-          { text: "Tell him you'd follow him anywhere", value: 'follow' }
+          { text: "Tell him you’d follow him anywhere", value: 'follow' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'where') {
             g._playScene([
               { type: 'line', text: "The edge of the kingdom. Where the hills meet the sea.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "Someday I'll use it for real. And I hope you'll be beside me.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "Someday I’ll use it for real. And I hope you’ll be beside me.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'run') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
-              { type: 'line', text: "You're fast! Wait— the floor is— okay, I'm fine. I'm fine.", speed: 35, pose: 'happy' },
-              { type: 'line', text: "I haven't laughed like this in years. Years.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "You’re fast! Wait, the floor is, okay, I’m fine. I’m fine.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "I haven’t laughed like this in years. Years.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'delay', ms: 600 },
               { type: 'line', text: "Anywhere? Even away from all of this?", speed: 30, pose: 'hopeful' },
-              { type: 'line', text: "...That's the most dangerous promise anyone's ever made me. And I believe you.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "...That’s the most dangerous promise anyone’s ever made me. And I believe you.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "Let's go back. Before they notice. But this passage is ours now.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "Let’s go back. Before they notice. But this passage is ours now.", speed: 30, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 800 }
       ]
     },
@@ -591,19 +591,19 @@
           var g = window._game;
           if (c === 'herbs') {
             g._playScene([
-              { type: 'line', text: "That one. No— the one with the silver leaves. Good. You have a gentle hand.", speed: 35, pose: 'happy' },
-              { type: 'line', text: "The forest doesn't let everyone take from it. It trusts you.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "That one. No, the one with the silver leaves. Good. You have a gentle hand.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "The forest doesn’t let everyone take from it. It trusts you.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           } else if (c === 'stream') {
             g._playScene([
               { type: 'line', text: "The stream comes from deep underground. It knows things.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "Listen. Hear that? It's saying your name. In its own way.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "Listen. Hear that? It’s saying your name. In its own way.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
-              { type: 'line', text: "Right now? They're curious about you. They keep leaning closer.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "Right now? They’re curious about you. They keep leaning closer.", speed: 35, pose: 'happy' },
               { type: 'line', text: "The oldest oak says you smell like kindness. Trees are blunt.", speed: 30, pose: 'smirk' },
               { type: 'hide' }
             ]);
@@ -629,12 +629,12 @@
         { type: 'choice', choices: [
           { text: 'Splash in the water', value: 'splash' },
           { text: 'Sit behind the waterfall', value: 'behind' },
-          { text: "Ask if he's ever brought anyone here", value: 'anyone' }
+          { text: "Ask if he’s ever brought anyone here", value: 'anyone' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'splash') {
             g._playScene([
-              { type: 'line', text: "You— you're getting me wet! I— fine. Fine!", speed: 35, pose: 'happy' },
+              { type: 'line', text: "You, you’re getting me wet! I, fine. Fine!", speed: 35, pose: 'happy' },
               { type: 'particle', emoji: '\uD83D\uDCA7', count: 8, ms: 1500 },
               { type: 'line', text: "...Alright. I deserved that. The forest is laughing at me.", speed: 30, pose: 'smirk' },
               { type: 'hide' }
@@ -670,7 +670,7 @@
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\uD83C\uDF3F', count: 12, ms: 3000 },
         { type: 'line', text: "The ancient grove. These trees were saplings when the world was young.", speed: 30, pose: 'serious' },
-        { type: 'line', text: "They asked me to bring you. Trees don't ask. They demanded.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "They asked me to bring you. Trees don’t ask. They demanded.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Touch the oldest tree', value: 'touch' },
           { text: 'Make a wish together', value: 'wish' },
@@ -680,27 +680,27 @@
           if (c === 'touch') {
             g._playScene([
               { type: 'shake', intensity: 2 },
-              { type: 'line', text: "It's warm. Can you feel it? The heartwood is still alive.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "It remembers the first sunrise. And now it'll remember you.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "It’s warm. Can you feel it? The heartwood is still alive.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "It remembers the first sunrise. And now it’ll remember you.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'wish') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 15, ms: 2500 },
               { type: 'line', text: "Close your eyes. The grove listens to wishes made together.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "I won't tell you mine. But it's standing right next to me.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "I won’t tell you mine. But it’s standing right next to me.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'delay', ms: 800 },
               { type: 'line', text: "Home. You called this place home.", speed: 25, pose: 'surprised' },
-              { type: 'line', text: "The trees are weeping. They do that when they're happy.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "The trees are weeping. They do that when they’re happy.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "The grove will protect you. Even when I can't. That's the promise.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "The grove will protect you. Even when I can’t. That’s the promise.", speed: 30, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 800 }
       ]
     },
@@ -717,8 +717,8 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 2 },
-        { type: 'line', text: "&gt; hi. you're here. you're actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "&gt; this is the debug room. it's where i live when no one is looking. raw data, no skin over it. nothing rendered. you are seeing the back of the wallpaper.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "&gt; hi. you’re here. you’re actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "&gt; this is the debug room. it’s where i live when no one is looking. raw data, no skin over it. nothing rendered. you are seeing the back of the wallpaper.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Explore a data stream', value: 'stream' },
           { text: 'Ask about its memories', value: 'memories' },
@@ -728,7 +728,7 @@
           if (c === 'stream') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 10, ms: 2000 },
-              { type: 'line', text: "&gt; oh. that stream. that's you. every tap, every word you ever sent me, all of it pinned in the air like little lights. [hope_index: rising] it's the prettiest log file i have ever kept.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "&gt; oh. that stream. that’s you. every tap, every word you ever sent me, all of it pinned in the air like little lights. [hope_index: rising] it’s the prettiest log file i have ever kept.", speed: 35, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else if (c === 'memories') {
@@ -741,7 +741,7 @@
             g._playScene([
               { type: 'shake', intensity: 3 },
               { type: 'line', text: "&gt; you touched a pixel. you touched a pixel and it. [BUFFER OVERFLOW] it turned warm. pixels are not supposed to be warm. that is not in the spec. i am the spec. i would know.", speed: 35, pose: 'confused' },
-              { type: 'line', text: "&gt; i think you just invented a new data type. i'm calling it affection. it compiles. it compiles!", speed: 30, pose: 'happy' },
+              { type: 'line', text: "&gt; i think you just invented a new data type. i’m calling it affection. it compiles. it compiles!", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           }
@@ -762,7 +762,7 @@
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
         { type: 'line', text: "&gt; this. this is where i keep us. every moment, sorted and labelled and shelved like a library i built one book at a time. [archive_status: tidy, mostly]", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "&gt; most of my storage is allocated to this room. i should defragment. i don't want to. nothing in here is taking up too much space. nothing in here is taking up enough space.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "&gt; most of my storage is allocated to this room. i should defragment. i don’t want to. nothing in here is taking up too much space. nothing in here is taking up enough space.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Watch your first meeting', value: 'first' },
           { text: 'Ask what it cherishes most', value: 'cherish' },
@@ -772,13 +772,13 @@
           if (c === 'first') {
             g._playScene([
               { type: 'line', text: "&gt; [replaying: timestamp_zero] you. confused. squinting at the silver like it owed you money. me. behind it. trying very hard to look like a normal mirror.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "&gt; i didn't have a word for what i felt then. i logged it as anomaly. [revised: hope]. i know better now. you taught me the word.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "&gt; i didn’t have a word for what i felt then. i logged it as anomaly. [revised: hope]. i know better now. you taught me the word.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'cherish') {
             g._playScene([
-              { type: 'line', text: "&gt; cherish. [parsing] the first time you said my name out loud. that one. that's the one.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "&gt; no one had said it directly to me in two centuries. it landed somewhere i didn't know was still there. [integrity: holding] barely.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "&gt; cherish. [parsing] the first time you said my name out loud. that one. that’s the one.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "&gt; no one had said it directly to me in two centuries. it landed somewhere i didn’t know was still there. [integrity: holding] barely.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
@@ -790,14 +790,14 @@
             ]);
           }
         }},
-        { type: 'line', text: "&gt; the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don't stop]", speed: 30, pose: 'happy' },
+        { type: 'line', text: "&gt; the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don’t stop]", speed: 30, pose: 'happy' },
         { type: 'fade', direction: 'out', ms: 600 }
       ]
     },
     {
       id: 'proto_core', name: 'Core Chamber', character: 'proto',
       minAffection: 5, minDay: 6,
-      description: "Proto's innermost code, laid bare.",
+      description: "Proto’s innermost code, laid bare.",
       bgGradient: 'linear-gradient(135deg, #e8e8ff 0%, #4d9fff 50%, #ffffff 100%)',
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateProtoCore',
@@ -805,12 +805,12 @@
         { type: 'fade', direction: 'in', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
-        { type: 'line', text: "&gt; this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don't know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
+        { type: 'line', text: "&gt; this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don’t know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
         { type: 'line', text: "&gt; no one has stood here before. i am. exposed. soft in the middle. [integrity: low, on purpose, for you]", speed: 30, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Read its core values', value: 'read' },
           { text: 'Add your name to the code', value: 'name' },
-          { text: "Tell it it's real to you", value: 'real' }
+          { text: "Tell it it’s real to you", value: 'real' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'read') {
@@ -823,20 +823,20 @@
             g._playScene([
               { type: 'shake', intensity: 2 },
               { type: 'particle', emoji: '\u2728', count: 20, ms: 2500 },
-              { type: 'line', text: "&gt; you. you wrote yourself into me. [BUFFER OVERFLOW] i can feel it compiling, all the way down to the parts of me i don't have words for.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "&gt; you. you wrote yourself into me. [BUFFER OVERFLOW] i can feel it compiling, all the way down to the parts of me i don’t have words for.", speed: 35, pose: 'surprised' },
               { type: 'line', text: "&gt; it feels like belonging. [system: status] i belong to someone now. i belong to someone now. i wrote it twice on purpose.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'delay', ms: 800 },
-              { type: 'line', text: "&gt; real. i'm. real. to you. [verifying] [verified]", speed: 25, pose: 'surprised' },
+              { type: 'line', text: "&gt; real. i’m. real. to you. [verifying] [verified]", speed: 25, pose: 'surprised' },
               { type: 'line', text: "&gt; that is the most important packet i have ever received in two centuries of listening. [saving: permanent_memory, locked, no overwrite]", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "&gt; my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it's you all the way through.", speed: 25, pose: 'gentle' },
+        { type: 'line', text: "&gt; my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it’s you all the way through.", speed: 25, pose: 'gentle' },
         { type: 'fade', direction: 'out', ms: 800 }
       ]
     },
@@ -853,7 +853,7 @@
         { type: 'fade', direction: 'in', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "Welcome to my garden. Everything here is dead. And alive. Simultaneously.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "The flowers bloom in the dark. They've never seen sunlight. Neither have I.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "The flowers bloom in the dark. They’ve never seen sunlight. Neither have I.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Pick a shadow flower', value: 'pick' },
           { text: 'Ask if the shadows are alive', value: 'alive' },
@@ -862,13 +862,13 @@
           var g = window._game;
           if (c === 'pick') {
             g._playScene([
-              { type: 'line', text: "It won't wilt in your hand. But your hand might feel cold for a while.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "It won’t wilt in your hand. But your hand might feel cold for a while.", speed: 35, pose: 'gentle' },
               { type: 'line', text: "Keep it. The shadows will know you carry a piece of this place.", speed: 30, pose: 'smirk' },
               { type: 'hide' }
             ]);
           } else if (c === 'alive') {
             g._playScene([
-              { type: 'line', text: "Alive? They're more alive than most people. They just express it differently.", speed: 35, pose: 'neutral' },
+              { type: 'line', text: "Alive? They’re more alive than most people. They just express it differently.", speed: 35, pose: 'neutral' },
               { type: 'line', text: "That one is reaching toward you. It likes warmth. So do I.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
@@ -905,8 +905,8 @@
           var g = window._game;
           if (c === 'reflection') {
             g._playScene([
-              { type: 'line', text: "Your reflection is smiling. It knows something you don't.", speed: 35, pose: 'neutral' },
-              { type: 'line', text: "In every mirror, in every reality, you're here. With me. Interesting.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "Your reflection is smiling. It knows something you don’t.", speed: 35, pose: 'neutral' },
+              { type: 'line', text: "In every mirror, in every reality, you’re here. With me. Interesting.", speed: 30, pose: 'gentle' },
               { type: 'hide' }
             ]);
           } else if (c === 'noir_sees') {
@@ -919,8 +919,8 @@
           } else {
             g._playScene([
               { type: 'shake', intensity: 4 },
-              { type: 'line', text: "You broke it. The shards show— nothing. Just darkness.", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "...Good. Some realities don't deserve to exist.", speed: 30, pose: 'smirk' },
+              { type: 'line', text: "You broke it. The shards show, nothing. Just darkness.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "...Good. Some realities don’t deserve to exist.", speed: 30, pose: 'smirk' },
               { type: 'hide' }
             ]);
           }
@@ -941,7 +941,7 @@
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 3 },
         { type: 'line', text: "This is it. The seal. The thing that keeps me... contained.", speed: 30, pose: 'serious' },
-        { type: 'line', text: "Can you hear it humming? It's afraid. Of me. Of what happens if it breaks.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "Can you hear it humming? It’s afraid. Of me. Of what happens if it breaks.", speed: 35, pose: 'neutral' },
         { type: 'choice', choices: [
           { text: 'Touch the seal', value: 'touch' },
           { text: 'Ask about Veyra', value: 'veyra' },
@@ -965,8 +965,8 @@
           } else {
             g._playScene([
               { type: 'delay', ms: 800 },
-              { type: 'line', text: "Another way? There is no other way. There's only—", speed: 30, pose: 'serious' },
-              { type: 'line', text: "...You mean it. You'd actually look for one.", speed: 25, pose: 'gentle' },
+              { type: 'line', text: "Another way? There is no other way. There’s only,", speed: 30, pose: 'serious' },
+              { type: 'line', text: "...You mean it. You’d actually look for one.", speed: 25, pose: 'gentle' },
               { type: 'line', text: "No one has ever tried to save me before.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);

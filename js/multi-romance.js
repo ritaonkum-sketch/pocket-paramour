@@ -125,7 +125,7 @@
       ],
       lucien: [
         'Caspian, lightly: "He climbed my stairs once. Then he climbed them twice. Now he writes me." A breath. "Twenty years of silence broken because of you. I owe you for that."',
-        'Caspian: "If he calls — go. Whatever the hour. He does not call easily. If he is calling it is for you."'
+        'Caspian: "If he calls. go. Whatever the hour. He does not call easily. If he is calling it is for you."'
       ],
       noir: [
         'Caspian, quiet: "He is the seal on the south flank now. I did not invite him onto the council. He walked on. I let him." A pause. "Because of you."',
@@ -140,7 +140,7 @@
     elian: {
       alistair: [
         'Elian, sharpening a knife: "The captain rode the south path yesterday. Not patrolling. Just looking." A breath. "He does not trust me yet. He is right not to. But he is trying. For you."',
-        'Elian: "If the watch comes here — let them in. He would not send a man unless it mattered. He understands the woods now." A pause. "Mostly."'
+        'Elian: "If the watch comes here. let them in. He would not send a man unless it mattered. He understands the woods now." A pause. "Mostly."'
       ],
       caspian: [
         'Elian, low: "The crown is writing me. I burn the letters. I read them first." A long quiet. "He is a good man. I am sorry I cannot say it to his face."',
@@ -148,7 +148,7 @@
       ],
       lyra: [
         'Elian, half a smile: "She left a shell at the south marker. With a note. The note was a song. Veyra knew the song. So she knows now."',
-        'Elian: "If she sings past the woods — listen. The trees lean. Even the dead trees lean. That is good for the trees. That is good for me."'
+        'Elian: "If she sings past the woods. listen. The trees lean. Even the dead trees lean. That is good for the trees. That is good for me."'
       ],
       lucien: [
         'Elian, holding a folded parchment: "The scholar sent a counter-ward for the markers. He wrote it twice. He wanted to be sure." A pause. "He cares about my dead, Weaver. That matters."',
@@ -194,7 +194,7 @@
     lucien: {
       alistair: [
         'Lucien, glancing up from a margin: "Your captain wrote me. A clean script. Asking how to layer his wards over mine." A pause. "He calls me \u2018master scholar.\u2019 I will allow it."',
-        'Lucien: "If he comes to the tower — let him in even if I am working. Especially if I am working. He never comes for a small thing."'
+        'Lucien: "If he comes to the tower. let him in even if I am working. Especially if I am working. He never comes for a small thing."'
       ],
       caspian: [
         'Lucien, the smallest smile: "His Highness climbed my stairs again. Twice in a year. After twenty years of nothing. The kingdom is changing. You are why."',
@@ -210,7 +210,7 @@
       ],
       noir: [
         'Lucien, dryly amused: "The shadow-king now leaves equations on my desk in the night. Solved equations. Correctly." A pause. "He is showing off. I respect it."',
-        'Lucien: "If you go to the dark half tonight — take this." (A small ward-stone.) "Not because you need it. Because he respects when you carry one of mine."'
+        'Lucien: "If you go to the dark half tonight. take this." (A small ward-stone.) "Not because you need it. Because he respects when you carry one of mine."'
       ],
       proto: [
         'Lucien, considering the screen as if it were a colleague: "Your construct sent me a corrected proof. I had been wrong for six years. I owe him a drink. He cannot drink. I am working on a workaround."',
@@ -232,12 +232,12 @@
         'Noir: "He let me walk the south woods at dawn. The deer slept. The trees did not flinch. That is not a small thing, Weaver. That is a treaty."'
       ],
       lyra: [
-        'Noir: "The witch sang a note I had not heard since before my exile. The cave accepted me when I sang it back. I was — moved. I do not say that often."',
+        'Noir: "The witch sang a note I had not heard since before my exile. The cave accepted me when I sang it back. I was. moved. I do not say that often."',
         'Noir, gently: "She left an offering at the south door. Salt. Three pearls. A song-thread. She is courting me on your behalf. I am charmed."'
       ],
       lucien: [
         'Noir, dryly: "The scholar leaves me theorems. I solve them. He pretends not to notice. I pretend not to notice him pretending. It is going well."',
-        'Noir: "If you take a ward-stone of his into my half tonight — I will respect it. Tell him I said so. He will pretend not to care. He cares."'
+        'Noir: "If you take a ward-stone of his into my half tonight. I will respect it. Tell him I said so. He will pretend not to care. He cares."'
       ],
       proto: [
         'Noir, with grave amusement: "The thinking light asked permission to enter my half of the kingdom. He WAITED. Six centuries of trespassers and he is the first who asked."',

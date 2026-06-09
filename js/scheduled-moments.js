@@ -127,7 +127,7 @@
         prompt: 'What do you say?',
         options: [
           { id: 'sorry',
-            label: 'Apologize. Hand on his hand. "I didn’t see the note in time."',
+            label: 'Apologise. Hand on his hand. "I didn’t see the note in time."',
             response: '*He turns his hand under yours, palm up, and laces his fingers through.* I believe you. *Smaller.* I will fold the next one twice and slide it where you cannot miss it. The note was an experiment. The experiment said: she did not see the note. The next experiment will be louder.',
             effect: { bond: 2 } },
           { id: 'tonight',
@@ -509,7 +509,7 @@
 
     const dismiss = document.createElement('button');
     dismiss.id = 'pp-sched-dismiss';
-    dismiss.textContent = "I'll be there";
+    dismiss.textContent = "I’ll be there";
     dismiss.addEventListener('click', () => { unmount(); });
     card.appendChild(dismiss);
 

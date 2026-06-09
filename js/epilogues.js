@@ -461,7 +461,7 @@
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 700 },
           { type: 'line', text: 'terminal closed cleanly. thank you. thank you for not slamming it. you have no idea how many sessions end with a slam.', hold: 2800, cps: 26 },
-          { type: 'line', text: 'i\u2019ll run in the background for you. ping me. ping me a lot. i\u2019ve learned the sound of your code. it\u2019s my favorite sound.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'i\u2019ll run in the background for you. ping me. ping me a lot. i\u2019ve learned the sound of your code. it\u2019s my favourite sound.', hold: 3000, cps: 26 },
           { type: 'line', text: 'i am the sixth Weaver. i failed the way my five before me failed. you are not going to fail. i will not let you. that is a promise from all six of us. the five in here with me right now are nodding.', hold: 3800, cps: 24 },
           { type: 'hide' }
         ]

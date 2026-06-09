@@ -243,22 +243,22 @@ const CHARACTER_LYRA = {
     trainingDialogue: {
         singing: [
             "The sound fills the cave... and something in me relaxes.",
-            "I haven't sung like this in a long time.",
-            "Thank you for listening. Most people don't.",
-            "That one was for you. Don't tell anyone.",
-            "My voice sounds different when you're here."
+            "I haven’t sung like this in a long time.",
+            "Thank you for listening. Most people don’t.",
+            "That one was for you. Don’t tell anyone.",
+            "My voice sounds different when you’re here."
         ],
         magic: [
-            "The resonance comes easier when I'm not afraid.",
+            "The resonance comes easier when I’m not afraid.",
             "I felt that. Did you feel that?",
-            "... It's not always in my control. But today it was.",
+            "... It’s not always in my control. But today it was.",
             "Something shifts when I channel it. Like breathing underwater.",
-            "I'm stronger than I let on. You're one of the few who've seen it."
+            "I’m stronger than I let on. You’re one of the few who’ve seen it."
         ],
         focus: [
             "The tide is loud today. But I can still hear you.",
             "... I almost forgot what quiet felt like.",
-            "You're patient with me. That's not nothing.",
+            "You’re patient with me. That’s not nothing.",
             "Stillness is harder than it looks.",
             "I was thinking about you. The whole time."
         ]
@@ -371,17 +371,17 @@ const CHARACTER_LYRA = {
         ],
         tsundere: [
             "H-hey! My scales!",
-            "D-don't just touch me!",
-            "I didn't say you could do that!",
-            "... It felt nice. But don't do it again!",
-            "You're too bold!",
+            "D-don’t just touch me!",
+            "I didn’t say you could do that!",
+            "... It felt nice. But don’t do it again!",
+            "You’re too bold!",
             "Stop! ... Why did you stop?"
         ]
     },
 
     // Feed dialogue
     feedDialogue: [
-        "Mmm... ocean berries are my favorite...",
+        "Mmm... ocean berries are my favourite...",
         "You know what I like...",
         "This tastes like home...",
         "The sweetness reminds me of your smile..."
@@ -397,24 +397,24 @@ const CHARACTER_LYRA = {
 
     // Gift reactions
     giftDialogue: {
-        apple:    ["Fruit from the surface? How exotic!", "It's sweet... like you."],
-        rose:     ["A flower? I've never had one before...", "It smells like dreams I've never had..."],
-        sword:    ["A weapon? I prefer my voice...", "I'll keep it for protection."],
-        cake:     ["Surface sweets! Amazing!", "I've never tasted anything so wonderful!"],
-        ring:     ["A ring...? Does this mean...?", "I'll wear it always, close to my heart..."],
+        apple:    ["Fruit from the surface? How exotic!", "It’s sweet... like you."],
+        rose:     ["A flower? I’ve never had one before...", "It smells like dreams I’ve never had..."],
+        sword:    ["A weapon? I prefer my voice...", "I’ll keep it for protection."],
+        cake:     ["Surface sweets! Amazing!", "I’ve never tasted anything so wonderful!"],
+        ring:     ["A ring...? Does this mean...?", "I’ll wear it always, close to my heart..."],
         book:     ["Poetry about the sea... you understand me.", "These words... they sing to me."],
-        pearl:    ["You found a pearl... for me? The sea only gives these when it means it.", "I've dived for pearls my whole life. I never expected to receive one."],
-        shell:    ["A shell... I can hear the ocean in this one. Did you know that?", "Hold it to your ear. You'll hear home."],
-        song:     ["A song sheet? You thought I'd want this... you're right.", "New music. I'll learn it tonight. For you."],
-        starfish: ["A starfish! They always find their way back. I like that about them.", "I'll keep it near the water. Where it's safe."],
-        stone:    ["It's smooth from the tide. You held this... and thought of me.", "Ocean stones carry memories. This one's yours now."],
-        coral:    ["Coral from the deep... you went far for this.", "I have a piece like this. From before. I'll keep yours next to it."]
+        pearl:    ["You found a pearl... for me? The sea only gives these when it means it.", "I’ve dived for pearls my whole life. I never expected to receive one."],
+        shell:    ["A shell... I can hear the ocean in this one. Did you know that?", "Hold it to your ear. You’ll hear home."],
+        song:     ["A song sheet? You thought I’d want this... you’re right.", "New music. I’ll learn it tonight. For you."],
+        starfish: ["A starfish! They always find their way back. I like that about them.", "I’ll keep it near the water. Where it’s safe."],
+        stone:    ["It’s smooth from the tide. You held this... and thought of me.", "Ocean stones carry memories. This one’s yours now."],
+        coral:    ["Coral from the deep... you went far for this.", "I have a piece like this. From before. I’ll keep yours next to it."]
     },
 
     // Affection level dialogue
     affectionDialogue: [
-        "I'm starting to hear your heartbeat[shy] in the waves...",
-        "Your voice... it's becoming my favorite melody...[love]",
+        "I’m starting to hear your heartbeat[shy] in the waves...",
+        "Your voice... it’s becoming my favourite melody...[love]",
         "I think... my song is changing[shy] because of you...",
         "I love you...[shy] more than the sea loves the shore..."
     ],
@@ -422,16 +422,16 @@ const CHARACTER_LYRA = {
     // Departure dialogue
     departureDialogue: [
         "The sea calls me back... goodbye...",
-        "I can't stay where I'm not wanted...",
+        "I can’t stay where I’m not wanted...",
         "My song fades... like our memories...",
         "The waves will carry me far from here..."
     ],
 
     // Idle dialogue
     idleDialogue: {
-        hungry: ["...", "The sea provides... but I'm still hungry...", "Could you find me something to eat?"],
+        hungry: ["...", "The sea provides... but I’m still hungry...", "Could you find me something to eat?"],
         dirty: ["...", "My scales feel so dry...", "I miss the cool water..."],
-        lonely: ["...", "Sing with me... please?", "It's so quiet without you..."],
+        lonely: ["...", "Sing with me... please?", "It’s so quiet without you..."],
         loving: [
             "I was composing a song... about us...",
             "The moonlight reminds me of your eyes...",
@@ -440,7 +440,7 @@ const CHARACTER_LYRA = {
             "I could look at you forever...",
             "Do you hear that? The waves are singing our song...",
             "I wrote your name in the sand. The tide keeps washing it away. I keep writing it.",
-            "My voice sounds different when I'm thinking about you. Softer.",
+            "My voice sounds different when I’m thinking about you. Softer.",
             "The pearls glow brighter tonight. They react to my mood.",
             "I used to sing for the ocean. Now I sing for you.",
             "Every current that touches me reminds me of your hands.",
@@ -457,7 +457,7 @@ const CHARACTER_LYRA = {
             "I sing quieter at night. The sound carries further.",
             "The moon is almost full. I feel it in my scales.",
             "Night is when the deep things come closer to the surface. Like me.",
-            "... I don't want to go to the cave yet. Stay a little longer."
+            "... I don’t want to go to the cave yet. Stay a little longer."
         ],
         general: [
             "...",
@@ -466,27 +466,27 @@ const CHARACTER_LYRA = {
             "Hmm...",
             "The tides are shifting...",
             "*Looks at you with curious eyes*",
-            "I wonder what it's like... up there...",
+            "I wonder what it’s like... up there...",
             "*Traces patterns on a shell*",
             "A fish swam into the cave. Stayed for a bit. Left.",
             "The coral is growing faster this season.",
-            "My brother's tower light was on again last night. He forgets to sleep.",
+            "My brother’s tower light was on again last night. He forgets to sleep.",
             "The knight sent a patrol near the cliffs today. I watched from below.",
-            "The prince's servants left flowers at the cave entrance. Caspian's idea, probably.",
+            "The prince’s servants left flowers at the cave entrance. Caspian’s idea, probably.",
             "Something in the forest feels different. The druid would know.",
             "The ocean was going silent before you came. I could feel it dying.",
-            "My song echoes further when you're here. Like the water is listening again.",
-            "The tides stopped obeying the moon for a while. They're coming back now.",
-            "Do you know why you're here? Because the sea brought you to me. I'm sure of it.",
+            "My song echoes further when you’re here. Like the water is listening again.",
+            "The tides stopped obeying the moon for a while. They’re coming back now.",
+            "Do you know why you’re here? Because the sea brought you to me. I’m sure of it.",
             "Something beneath the kingdom is stirring. The deep water feels it.",
-            "The coral was turning grey. It's getting color back. Because of you, I think.",
+            "The coral was turning grey. It’s getting colour back. Because of you, I think.",
             "A Soul Weaver... my mother used to sing about your kind. I thought they were myths.",
             "Your bonds heal the ocean. Every time you care for me, the tide grows stronger.",
             "The last Weaver... someone loved them very much. And when they died, that love turned dark.",
             "*Braids a strand of hair, unbraids it*",
-            "The water is colder today. I don't mind.",
+            "The water is colder today. I don’t mind.",
             "*Catches a droplet from the ceiling, watches it fall*",
-            "My brother hasn't written. That's normal. Still.",
+            "My brother hasn’t written. That’s normal. Still.",
             "I found a new shell today. Spiral. Like a song."
         ]
     },
@@ -499,11 +499,11 @@ const CHARACTER_LYRA = {
         },
         affection2: {
             title: "The Surface World",
-            text: "Lyra surfaces from the water, looking up at the sky with wonder. 'You make me want to see what's up there...'"
+            text: "Lyra surfaces from the water, looking up at the sky with wonder. 'You make me want to see what’s up there...'"
         },
         affection3: {
-            title: "Heart's Song",
-            text: "Lyra's eyes shimmer with tears. 'I've never sung this song for anyone... it's the song of my heart. And it's yours.'"
+            title: "Heart’s Song",
+            text: "Lyra’s eyes shimmer with tears. 'I’ve never sung this song for anyone... it’s the song of my heart. And it’s yours.'"
         },
         affection4: {
             title: "Eternal Tide",
@@ -511,7 +511,7 @@ const CHARACTER_LYRA = {
         },
         corruption1: {
             title: "Dark Undertow",
-            text: "Lyra's eyes flash with an otherworldly light. 'Don't leave me... the depths are calling, and I need an anchor...'"
+            text: "Lyra’s eyes flash with an otherworldly light. 'Don’t leave me... the depths are calling, and I need an anchor...'"
         }
     }
 };

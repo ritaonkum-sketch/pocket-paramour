@@ -27,14 +27,14 @@
     // Pool of unattributed whispers. Ordered so the first ones are curious,
     // later ones grow more specific — mirroring the player's investment curve.
     const LINES = [
-        "You weren't supposed to make it this far.",
+        "You weren’t supposed to make it this far.",
         "Careful. Something is listening.",
         "Keep going. I find you interesting.",
-        "Don't tell anyone about this feeling yet.",
+        "Don’t tell anyone about this feeling yet.",
         "Someone has been watching you sleep.",
         "The wind tastes different tonight. Did you notice?",
-        "You're the first thing in a long time worth remembering.",
-        "Turn around. Slowly. — No. I'm joking. Not yet.",
+        "You’re the first thing in a long time worth remembering.",
+        "Turn around. Slowly. No. I’m joking. Not yet.",
         "Every choice you make, a bell rings somewhere far away.",
         "If you stop now, I will have to find you.",
         "Whoever you love, love them honestly. It matters more than you think.",

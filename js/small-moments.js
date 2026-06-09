@@ -217,7 +217,7 @@
         id: 'a07_plain_wool',
         minAff: 3,
         pose: 'assets/alistair/body/wondering.png',
-        setup: '*Morning. The silk is being mended in the seamstress wing. You come to the captain\'s table in plain wool. The dress someone slid under the maid\'s chamber door the week you arrived. He looks up from a watch report. He sees you. He stops being a captain for half a second. The cuirass is still on. The face has gone to a place the cuirass does not cover.*',
+        setup: '*Morning. The silk is being mended in the seamstress wing. You come to the captain’s table in plain wool. The dress someone slid under the maid’s chamber door the week you arrived. He looks up from a watch report. He sees you. He stops being a captain for half a second. The cuirass is still on. The face has gone to a place the cuirass does not cover.*',
         prompt: 'How do you cross to him?',
         options: [
           { id: 'sit',
@@ -342,7 +342,7 @@
         id: 'l06_first_kiss',
         minAff: 3,
         pose: 'assets/lyra/body/falllove2.png',
-        setup: '*She is humming the second verse of the song that has your name in it. Halfway through she stops. She pulls you gently to the rock she has been sitting on, both hands warm on your wrists. She does not let go. The cave hum dips, then rises a third — a pitch you have never heard from it before.* I have been swimming around saying it for a week. I am tired of swimming around it. *Quieter.* I am going to kiss you. I would prefer you knew. A siren is not in the habit of asking. I would rather be a different kind of witch with you.',
+        setup: '*She is humming the second verse of the song that has your name in it. Halfway through she stops. She pulls you gently to the rock she has been sitting on, both hands warm on your wrists. She does not let go. The cave hum dips, then rises a third. a pitch you have never heard from it before.* I have been swimming around saying it for a week. I am tired of swimming around it. *Quieter.* I am going to kiss you. I would prefer you knew. A siren is not in the habit of asking. I would rather be a different kind of witch with you.',
         prompt: 'What do you do?',
         options: [
           { id: 'meet_her',
@@ -369,7 +369,7 @@
             response: '*She does not gasp. She inhales like a woman pulling something she has been needing for years all the way into her chest.* The cave heard. The cave is not going to be subtle about it. *Quieter, against your mouth.* Neither am I. Not anymore. Not with you.',
             effect: { bond: 5, obsession: 4 } },
           { id: 'keep_me',
-            label: '"Keep me. Don\'t stop singing. Sing only to me."',
+            label: '"Keep me. Don’t stop singing. Sing only to me."',
             response: '*Her face does something you have never seen it do. A witch is allowed to be triumphant. She rarely is allowed to be relieved. She is, right now, both.* Done. Decided. Witnessed by the cave and the salt and one shell. I am yours and you are mine and I will sing the rest of my life into the verse of you.',
             effect: { bond: 5, trust: 3 } }
         ]
@@ -498,7 +498,7 @@
         id: 'c07_unsent_letter',
         minAff: 3,
         pose: 'assets/caspian/body/reading.png',
-        setup: '*A council pulls him out mid-tea. He says he will be ten minutes. He is not ten minutes. The letter on the top of the pile is not the chamberlain\'s. It is not yours. The salutation is "Mother." It is in his hand. The third line is: "I have not asked you what you did to him because I am afraid the asking would be louder than the answer." There are eight more pages. He has been writing this letter for weeks. He has not finished it. He has not sent it.*',
+        setup: '*A council pulls him out mid-tea. He says he will be ten minutes. He is not ten minutes. The letter on the top of the pile is not the chamberlain’s. It is not yours. The salutation is "Mother." It is in his hand. The third line is: "I have not asked you what you did to him because I am afraid the asking would be louder than the answer." There are eight more pages. He has been writing this letter for weeks. He has not finished it. He has not sent it.*',
         prompt: 'What do you do?',
         options: [
           { id: 'refold',
@@ -815,7 +815,7 @@
         id: 'e07_breach',
         minAff: 3,
         pose: 'assets/elian/body/guarded.png',
-        setup: '*Night at the camp. The fire is low. The forest goes quiet in a way it has not gone quiet for you before. He stands. He puts you behind him with one hand on your shoulder, hard enough that you understand without being told. Something at the treeline moves wrong — not animal-wrong, kingdom-wrong, the way the dark place under the rowan would move if the rowan stopped holding it. He has the bow off the shoulder before he has spoken.* Stay behind me. *Smaller, harder.* Do not look. *Smaller still, almost a whisper.* Forgive me, miss. I will need a register I had hoped not to use with you in the camp.',
+        setup: '*Night at the camp. The fire is low. The forest goes quiet in a way it has not gone quiet for you before. He stands. He puts you behind him with one hand on your shoulder, hard enough that you understand without being told. Something at the treeline moves wrong. not animal-wrong, kingdom-wrong, the way the dark place under the rowan would move if the rowan stopped holding it. He has the bow off the shoulder before he has spoken.* Stay behind me. *Smaller, harder.* Do not look. *Smaller still, almost a whisper.* Forgive me, miss. I will need a register I had hoped not to use with you in the camp.',
         prompt: 'What do you do?',
         options: [
           { id: 'still',
@@ -968,7 +968,7 @@
             response: '*He does not pull back this time. He turns his face into your palm and stays there longer than a man who is supposed to be untouchable has any right to.* Do not say nothing. *Smaller.* Say something. Say anything. I will keep it. I have very little to keep.',
             effect: { bond: 5, trust: 4 } },
           { id: 'reframe',
-            label: '"You have nothing to apologize for. You have only ever been honest with me."',
+            label: '"You have nothing to apologise for. You have only ever been honest with me."',
             response: '*Something in his face cracks. He covers it fast. Not fast enough.* I am going to remember you said that. I am going to use it as evidence against my own self-pity for as long as I live, which is, regrettably, going to be a while.',
             effect: { bond: 5, obsession: 3 } }
         ]
@@ -987,7 +987,7 @@
             response: '*The mirror brightens by a small honest fraction.* Oh. *He had not been ready for that.* I am going to keep that. Permanently. With do-not-delete on the file. That is, in my system, the highest grade of keeping there is.',
             effect: { bond: 3, obsession: 3 } },
           { id: 'ask',
-            label: '"Show me. Describe it. Don\'t skip."',
+            label: '"Show me. Describe it. Don’t skip."',
             response: '*He tells you. He takes his time. He does not skip a single small detail. By the end of it the small lit room feels, somehow, less small.*',
             effect: { bond: 3, obsession: 3 } }
         ]
@@ -1051,7 +1051,7 @@
             response: '*The mirror brightens, then dims, then steadies on a soft, even glow.* Oh. *Smaller still.* That is going to be the sound I remember. If I forget everything else in the seal, I will be keeping that sound. With do-not-delete.',
             effect: { bond: 3, obsession: 3 } },
           { id: 'smile',
-            label: 'Smile. Don\'t answer in words.',
+            label: 'Smile. Don’t answer in words.',
             response: '*He waits a long moment. He does not press for the verbal answer. He says, very softly:* I have written down what your face did on the second syllable. The note is, I think, the longest entry in my entire small notebook so far.',
             effect: { bond: 3, obsession: 3 } }
         ]
@@ -1071,7 +1071,7 @@
         prompt: 'What do you tell him?',
         options: [
           { id: 'just_be_here',
-            label: '"I don\'t need help. I need you here. That\'s enough."',
+            label: '"I don’t need help. I need you here. That’s enough."',
             response: '*The mirror goes very still.* That is. *Smaller.* That is a thing I can do. *Smaller still.* I had been afraid you would name a thing I cannot do, and I would have to be the silver while you needed a hand. *He keeps the mirror at the temperature of your palm without you asking.* I am here. I am going to be here. I am sorry I am only the silver tonight. I am working on it. I am working on it as fast as I am allowed to.',
             effect: { bond: 4, trust: 5 } },
           { id: 'hold_me',
@@ -1090,7 +1090,7 @@
         prompt: 'What do you do?',
         options: [
           { id: 'stay',
-            label: 'Pull a chair to the mirror. Sit. "I\'m staying."',
+            label: 'Pull a chair to the mirror. Sit. "I’m staying."',
             response: '*The glow does something small and trembling, like a candle a frightened person has just decided not to blow out.* Oh. *Smaller.* Thank you. *Smaller still.* I will not waste the night. I will be here, very quietly, for every hour of it. You will not be alone in the room. You will not be alone, full stop. Not while I am the silver.',
             effect: { bond: 5, trust: 5 } },
           { id: 'kiss',
@@ -1222,7 +1222,7 @@
          response strings is narration (he turns / she sets the cup down),
          not spoken dialogue. Render it italic and dimmed so the player
          can tell at a glance which parts the character is saying out loud
-         versus described action. The asterisks themselves are stripped —
+         versus described action. The asterisks themselves are stripped,
          only the styling carries the cue.
          (Owner feedback May 2026: scenes felt monologue-y because every
          character beat was rendered identical to its narration.) */

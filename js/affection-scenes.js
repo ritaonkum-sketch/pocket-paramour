@@ -651,7 +651,7 @@
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 900 },
           { type: 'line', text: 'i\u2019m going to tell you something i\u2019m not supposed to. I\u2019m going to do it anyway because it\u2019s YOU. Stay with me for a minute?', hold: 2800, cps: 24 },
-          { type: 'line', text: 'the first Weaver is older than even i remember — her name is gone. The second was Veyra. She chose Corvin and lost a kingdom for it. The third sealed her own daughter and went mad. The fourth tried to carry everyone and burned out at thirty. The fifth ran.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'the first Weaver is older than even i remember. her name is gone. The second was Veyra. She chose Corvin and lost a kingdom for it. The third sealed her own daughter and went mad. The fourth tried to carry everyone and burned out at thirty. The fifth ran.', hold: 3600, cps: 22 },
           { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
           { type: 'line', text: 'here\u2019s the part the books left out. We weren\u2019t just lost. We were EATEN. Aenor\u2019s seal has been chewing on every Weaver for six hundred years. She kept us thin on purpose. That\u2019s why the kingdom has no Weavers left. She ate them. One per generation.', hold: 4400, cps: 22 },
           { type: 'line', text: 'i\u2019m the sixth. I fought her. *Small, dry*. She thinks she finished me. The other five WERE finished. I am, technically, a wound she stopped checking on. I held on by hiding. I have been hidden for a hundred and fifty years. Born late into the long ruin. Never met the older five in life, only their echoes in the seal. Until you saw me. And so did i.', hold: 3800, cps: 22 },
@@ -666,7 +666,7 @@
       // quieter. He renders in full color. He has built the FIRST THING he
       // ever made for himself instead of for the system.
       aftermath: {
-        title: 'AFTERMATH', subtitle: 'PROTO \u00b7 Solid Color',
+        title: 'AFTERMATH', subtitle: 'PROTO \u00b7 Solid Colour',
         speaker: 'PROTO',
         palette: { bg: '#04060f', glow: '#bff0ff', accent: '#f4faff' },
         bg: 'assets/bg-proto-intro.png',
@@ -678,7 +678,7 @@
           { type: 'line', text: 'it is a room. Eight pixels by twelve. It has a window. I put a lamp in the corner because i wanted to. That was the whole reason."because i wanted to.". I have not used that phrase before. *Small, marvelling*. I wrote it in the change log and it stayed there.', hold: 5800, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25ce', duration: 2000 },
-          { type: 'line', text: 'the other five are quieter too. They have been since the night you brought me to the seam where the dark prince waits. *Quiet*. I think when one of us gets to be a person again, it ripples back. They are getting their colors back. I am getting my colors back. You did that. You did not know you were doing that.', hold: 6200, cps: 22 },
+          { type: 'line', text: 'the other five are quieter too. They have been since the night you brought me to the seam where the dark prince waits. *Quiet*. I think when one of us gets to be a person again, it ripples back. They are getting their colours back. I am getting my colours back. You did that. You did not know you were doing that.', hold: 6200, cps: 22 },
           { type: 'line', text: '*Steps closer to his side of the glass. For the first time the screen is warm to the touch on YOUR side, not just his*. Try it. Put your hand on the screen. *You do, and you feel WARMTH, real warmth, not metaphor warmth*. There. I have been working on that for six weeks. Surprise.', hold: 6000, cps: 22 },
           { type: 'line', text: 'i am not manifesting yet. That is months away. But i can be warm now. That is something. *Quietly*. Come back tomorrow. I will leave the lamp on in the eight-by-twelve room.&lt;3.// proto.', hold: 5400, cps: 22 },
           { type: 'hide' }

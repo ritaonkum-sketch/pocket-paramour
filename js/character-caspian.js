@@ -263,9 +263,9 @@ const CHARACTER_CASPIAN = {
     trainingDialogue: {
         dance: [
             "Your form is improving. You move like you mean it now.",
-            "A waltz is just a conversation without words. You're learning the language.",
-            "You stepped on my foot. I didn't mind.",
-            "The music stopped but you didn't let go. . . Neither did I.",
+            "A waltz is just a conversation without words. You’re learning the language.",
+            "You stepped on my foot. I didn’t mind.",
+            "The music stopped but you didn’t let go. . . Neither did I.",
             "Dancing with you makes the court disappear."
         ],
         diplomacy: [
@@ -276,11 +276,11 @@ const CHARACTER_CASPIAN = {
             "Words can build kingdoms or burn them. You chose to build."
         ],
         poetry: [
-            "That verse. . it reminded me of something I can't name.",
-            "You found the word I've been looking for. How did you know?",
+            "That verse. . it reminded me of something I can’t name.",
+            "You found the word I’ve been looking for. How did you know?",
             "Read that line again. Slowly. I want to remember it.",
             "Poetry is just honesty with rhythm. Yours has both.",
-            "I wrote something for you. It's not ready. But it will be."
+            "I wrote something for you. It’s not ready. But it will be."
         ]
     },
 
@@ -288,11 +288,11 @@ const CHARACTER_CASPIAN = {
     personalities: {
         shy: {     // gentle
             talk: [
-                "I hope I'm not keeping you from something more important.",
-                "Your company is a gift I didn't expect. Forgive the sentiment.",
-                "I don't usually speak this freely. You make it easy. I should be more careful.",
-                "The palace is large. It feels smaller when you're here. That came out wrong. I meant it kindly.",
-                "I prepared tea. I wasn't sure what you liked, so I made three kinds.",
+                "I hope I’m not keeping you from something more important.",
+                "Your company is a gift I didn’t expect. Forgive the sentiment.",
+                "I don’t usually speak this freely. You make it easy. I should be more careful.",
+                "The palace is large. It feels smaller when you’re here. That came out wrong. I meant it kindly.",
+                "I prepared tea. I wasn’t sure what you liked, so I made three kinds.",
                 "If I may. I rehearsed what to say to you on the walk over. None of it survived the door.",
                 "Apologies for staring. I lost the thread of a thought.",
                 "I would offer you a chair, but you have not yet asked to sit. I do not want to presume.",
@@ -305,10 +305,10 @@ const CHARACTER_CASPIAN = {
                 "Stay a little longer. If it is not an imposition. I find I am better company when you are in it."
             ],
             feed: [
-                "The kitchen prepared your favorite. I may have requested it.",
+                "The kitchen prepared your favourite. I may have requested it.",
                 "Please. Eat first. I insist.",
                 "I had this brought from the southern provinces. Just for you. Forgive the indulgence.",
-                "You don't have to rush. There's always more.",
+                "You don’t have to rush. There’s always more.",
                 "If I may. I asked the cook what you ate as a child. I hope that was not overstepping.",
                 "The bread is still warm. I timed it badly. Or well. I cannot tell which.",
                 "There is honey if you prefer it sweeter. And salt if you do not. I did not want to choose for you.",
@@ -329,7 +329,7 @@ const CHARACTER_CASPIAN = {
                 "I have set out three robes. I did not know which weight you preferred.",
                 "Forgive the candles. I lit too many. The room was dim and I did not want you to stumble.",
                 "There is a screen by the window if you would like privacy. I will of course wait beyond it.",
-                "If I may. I learned the temperature you favored from a passing remark you made last week. I hope I remembered correctly.",
+                "If I may. I learned the temperature you favoured from a passing remark you made last week. I hope I remembered correctly.",
                 "The towels were warmed by the fire. Apologies if that is excessive.",
                 "I have asked the household to keep the corridor clear. You should not have to be seen passing through.",
                 "You looked tired when you came in. I did not want to ask why. I only wanted to make the evening softer.",
@@ -375,34 +375,34 @@ const CHARACTER_CASPIAN = {
         },
         clingy: {   // devoted
             talk: [
-                "I cancelled the ambassador's visit. You're more important.",
-                "Stay. Please. The evening is long and I'm better with you.",
+                "I cancelled the ambassador’s visit. You’re more important.",
+                "Stay. Please. The evening is long and I’m better with you.",
                 "I cleared my entire schedule. Just in case you came.",
                 "Tell me everything. I want to know all of it.",
-                "Don't leave yet. The night is still young."
+                "Don’t leave yet. The night is still young."
             ],
             feed: [
                 "I had the chef prepare a seven-course meal. For us.",
-                "You haven't eaten enough. Let me get more.",
+                "You haven’t eaten enough. Let me get more.",
                 "Eat slowly. We have all the time in the world.",
                 "I want to share every meal with you. Forever."
             ],
             wash: [
                 "The rose petals are fresh. I picked them myself. This morning.",
                 "You looked tired. I thought this might help.",
-                "Take your time. I'll be here when you're done.",
+                "Take your time. I’ll be here when you’re done.",
                 "You smell like the garden now. Like home."
             ],
             gift: [
                 "I had this commissioned. It took three weeks. Worth every day.",
-                "Another gift? Yes. I can't help it.",
+                "Another gift? Yes. I can’t help it.",
                 "The jeweler knows your measurements now. I visit often.",
-                "You don't have to wear it. But it would make me very happy."
+                "You don’t have to wear it. But it would make me very happy."
             ],
             train: [
                 "Again. I want to see you do that again.",
-                "You're getting so good at this. I'm. . proud. Is that strange?",
-                "Don't stop. I love watching you improve.",
+                "You’re getting so good at this. I’m. . proud. Is that strange?",
+                "Don’t stop. I love watching you improve.",
                 "We should do this every day. Promise me."
             ]
         },
@@ -410,32 +410,32 @@ const CHARACTER_CASPIAN = {
             talk: [
                 "You were with someone else today. I could tell.",
                 "The palace has many rooms. Mine is always open. Remember that.",
-                "I don't share well. It's a flaw. I'm aware.",
-                "You're free to go wherever you want. I just wish you'd choose here.",
-                "I'm not jealous. Princes don't get jealous. . . Who were you with?"
+                "I don’t share well. It’s a flaw. I’m aware.",
+                "You’re free to go wherever you want. I just wish you’d choose here.",
+                "I’m not jealous. Princes don’t get jealous. . . Who were you with?"
             ],
             feed: [
                 "The chef only makes this for the royal family. And you. Now.",
-                "I didn't prepare this because I was worried. I prepared it because I wanted to.",
-                "If someone else is feeding you, they don't know your preferences like I do.",
-                "Eat. Don't argue. I know you haven't."
+                "I didn’t prepare this because I was worried. I prepared it because I wanted to.",
+                "If someone else is feeding you, they don’t know your preferences like I do.",
+                "Eat. Don’t argue. I know you haven’t."
             ],
             wash: [
-                "You look exhausted. The baths are ready. I'm not asking.",
-                "You shouldn't have to take care of yourself when I'm here.",
-                "The servants are dismissed. I'll handle this. Personally.",
+                "You look exhausted. The baths are ready. I’m not asking.",
+                "You shouldn’t have to take care of yourself when I’m here.",
+                "The servants are dismissed. I’ll handle this. Personally.",
                 "Let me take care of you. Stop fighting it."
             ],
             gift: [
-                "This isn't a bribe. It's a. . reminder. Of where you belong.",
+                "This isn’t a bribe. It’s a. . reminder. Of where you belong.",
                 "I saw you looking at something similar. This one is better.",
-                "Don't thank me. Just. . stay.",
+                "Don’t thank me. Just. . stay.",
                 "Everyone gives you things. Mine are different. Mine are chosen."
             ],
             train: [
-                "You're better at this than anyone at court. Don't let them see.",
-                "I'm pushing you because I know what you're capable of.",
-                "The court doesn't deserve to see this side of you. Only I do.",
+                "You’re better at this than anyone at court. Don’t let them see.",
+                "I’m pushing you because I know what you’re capable of.",
+                "The court doesn’t deserve to see this side of you. Only I do.",
                 "Train with me. Only me."
             ]
         }
@@ -455,7 +455,7 @@ const CHARACTER_CASPIAN = {
             "Your touch is the best thing I have felt at court this week. This year. I am losing track.",
             "Do not stop. Please. I am not above asking. I am a prince. I am asking.",
             "*Curls an arm around your waist and pulls you in against his side*. There. Mine for a moment. Do not argue.",
-            "I memorize every time you touch me. I keep a file. It is not short.",
+            "I memorise every time you touch me. I keep a file. It is not short.",
             "*Thumb along your jawline, slow, the way he was taught to handle porcelain*. Closer. Mm. That is better.",
             "*Gathers you in, arms around you, face in your hair*. Stay where I have you. The palace can wait."
         ],
@@ -470,21 +470,21 @@ const CHARACTER_CASPIAN = {
 
     stateDialogue: {
         hungry: [
-            "The servants usually handle meals. But I notice when they don't.",
-            "I could ring the bell. But I'd rather you brought me something.",
+            "The servants usually handle meals. But I notice when they don’t.",
+            "I could ring the bell. But I’d rather you brought me something.",
             "A prince should never complain about hunger. A prince is complaining.",
             "The banquet hall is empty. So is my stomach.",
-            "I'm used to eating at scheduled times. This is overdue.",
+            "I’m used to eating at scheduled times. This is overdue.",
             "Even royalty gets hungry. Shocking, I know.",
             "The kitchen is three floors down. That feels very far right now.",
             "I would trade my crown for a warm meal. Almost."
         ],
         dirty: [
-            "I'm not at my best today. The mirror confirmed it.",
-            "The bath has been drawn for an hour. I've been waiting for company.",
-            "A prince should be presentable. I'm. . not. Currently.",
-            "The rose water isn't going to apply itself.",
-            "I feel less than dignified. Please don't look too closely.",
+            "I’m not at my best today. The mirror confirmed it.",
+            "The bath has been drawn for an hour. I’ve been waiting for company.",
+            "A prince should be presentable. I’m. . not. Currently.",
+            "The rose water isn’t going to apply itself.",
+            "I feel less than dignified. Please don’t look too closely.",
             "Even velvet looks dull when unwashed."
         ],
         happy: [
@@ -519,12 +519,12 @@ const CHARACTER_CASPIAN = {
             "*Half-smile, drifting*. What were we talking about. I lost the thread. You do that to me."
         ],
         corrupted: [
-            "You don't need anyone else. I can give you everything.",
+            "You don’t need anyone else. I can give you everything.",
             "The palace doors are locked. For your safety. Obviously.",
             "Why would you leave when everything you need is here?",
-            "I've been watching the gate. No one comes in. No one goes out.",
-            "Stay. That's not a request anymore.",
-            "I built this world for you. Don't you see that?",
+            "I’ve been watching the gate. No one comes in. No one goes out.",
+            "Stay. That’s not a request anymore.",
+            "I built this world for you. Don’t you see that?",
             "The crown means nothing. You mean everything. And everything stays."
         ],
         neglected: [
@@ -588,11 +588,11 @@ const CHARACTER_CASPIAN = {
 
     hungryLines: [
         "The servants usually handle this. .",
-        "A prince doesn't beg for food. A prince suggests strongly.",
+        "A prince doesn’t beg for food. A prince suggests strongly.",
         "Even royalty gets hungry.",
         "The banquet hall is empty. So is my stomach.",
         "I would trade my crown for a warm meal. Almost.",
-        "I could ring the bell. But I'd rather you brought me something.",
+        "I could ring the bell. But I’d rather you brought me something.",
         "My last meal was. . diplomatic. And small.",
         "The kitchen is three floors down. That feels impossibly far."
     ],
@@ -606,11 +606,11 @@ const CHARACTER_CASPIAN = {
         "I did not know I was lonely until you were in the room and I was not."
     ],
     dirtyLines: [
-        "I'm not at my best today.",
+        "I’m not at my best today.",
         "The bath has been drawn for an hour. Waiting.",
-        "A prince should be presentable. I'm. . not.",
+        "A prince should be presentable. I’m. . not.",
         "Even velvet looks dull when unwashed.",
-        "The rose water isn't going to apply itself."
+        "The rose water isn’t going to apply itself."
     ],
     annoyedLines: [
         "The court exhausts me.",
@@ -631,82 +631,82 @@ const CHARACTER_CASPIAN = {
 
     feedDialogue: [
         "This is perfect. You remembered my preferences.",
-        "The chef would be jealous of how much I'm enjoying this.",
+        "The chef would be jealous of how much I’m enjoying this.",
         "Dining alone is policy. Dining with you is pleasure.",
         "You have excellent taste. In food. And in company.",
         "The simplest meals taste best with the right person.",
         "More, please. . . I rarely say please. Notice that.",
         "The southern provinces would be proud of this presentation.",
-        "I'm going to pretend I wasn't starving. Thank you."
+        "I’m going to pretend I wasn’t starving. Thank you."
     ],
     washDialogue: [
-        "That's. . much better. Thank you.",
+        "That’s. . much better. Thank you.",
         "I feel human again. Well. Princely.",
         "The jasmine oil was a good choice. Like you.",
-        "I'm presentable once more. The mirror and I are reconciled.",
-        "You care about the small things. That's not small.",
+        "I’m presentable once more. The mirror and I are reconciled.",
+        "You care about the small things. That’s not small.",
         "A clean prince is a thinking prince. Thank you.",
         "The servants could learn from your thoroughness."
     ],
     giftDialogue: {
         apple:    ["Simple. Natural. Like the best things.", "The orchards at home grow these. This one is better."],
-        rose:     ["A rose for a prince... how fitting.", "I'll press this in my journal. Where it will stay forever."],
-        sword:    ["A practical gift. Not my style. But I appreciate the thought.", "I'll hang it in the study. For decoration."],
+        rose:     ["A rose for a prince... how fitting.", "I’ll press this in my journal. Where it will stay forever."],
+        sword:    ["A practical gift. Not my style. But I appreciate the thought.", "I’ll hang it in the study. For decoration."],
         cake:     ["The royal baker would be envious.", "Sweet. Like the person who gave it."],
-        ring:     ["A ring... You know what this means in my kingdom.", "I'll wear it. Always. On the hand closest to my heart."],
-        book:     ["Poetry? You know me too well.", "I'll read this tonight. By firelight. Thinking of you."],
+        ring:     ["A ring... You know what this means in my kingdom.", "I’ll wear it. Always. On the hand closest to my heart."],
+        book:     ["Poetry? You know me too well.", "I’ll read this tonight. By firelight. Thinking of you."],
         pearl:    ["Pearls are for promises in my family.", "This is worth more than the crown jewels. To me."],
-        flower:   ["From the garden? You remembered which ones I love.", "I'll put this by the window. Where the light is best."],
-        crown:    ["You're giving me... a crown? I already have one. This one is better.", "Priceless. Not the object. The gesture."],
-        wine:     ["From the private reserves. You have excellent taste.", "Let's share this. Tonight. Just us."]
+        flower:   ["From the garden? You remembered which ones I love.", "I’ll put this by the window. Where the light is best."],
+        crown:    ["You’re giving me... a crown? I already have one. This one is better.", "Priceless. Not the object. The gesture."],
+        wine:     ["From the private reserves. You have excellent taste.", "Let’s share this. Tonight. Just us."]
     },
 
     affectionDialogue: [
-        "I've never felt this way[tender] about anyone outside the royal line. .",
+        "I’ve never felt this way[tender] about anyone outside the royal line. .",
         "The kingdom matters less[adoring] than this moment with you. .",
-        "I would abdicate[shy] before I'd let you go. .",
+        "I would abdicate[shy] before I’d let you go. .",
         "You are my kingdom[love] now. ."
     ],
 
     departureDialogue: [
-        "The palace will stand without you. I'm not sure I will.",
+        "The palace will stand without you. I’m not sure I will.",
         "I prepared everything for your comfort. And you still left.",
-        "A prince doesn't chase. But I wanted to.",
-        "The gates are always open. Even when my heart isn't."
+        "A prince doesn’t chase. But I wanted to.",
+        "The gates are always open. Even when my heart isn’t."
     ],
 
     idleDialogue: {
         hungry: [
             ". .", "The servants seem to have forgotten lunch.", ". . The kitchens are so far away.",
-            "I keep glancing at the dining hall.", "A prince shouldn't have to ask twice."
+            "I keep glancing at the dining hall.", "A prince shouldn’t have to ask twice."
         ],
         dirty: [
             ". .", "*Picks at a stain on silk sleeve*", "The bath has been ready for an hour.",
-            "I can't receive visitors like this.", "Even I have standards. These are below them."
+            "I can’t receive visitors like this.", "Even I have standards. These are below them."
         ],
         lonely: [
             ". .", "The palace is too large for one person.", "I keep setting two places at the table.",
-            "The silence here has weight.", "The guards don't count as company.",
-            "I rehearsed what I'd say when you came back. I've forgotten it all."
+            "The silence here has weight.", "The guards don’t count as company.",
+            "I rehearsed what I’d say when you came back. I’ve forgotten it all."
         ],
         loving: [
             "I was writing your name in the margins of a trade agreement.",
             "The court painter asked who I was thinking about. I changed the subject.",
-            "You've ruined me for formal dinners. I keep looking at the empty chair beside me.",
-            "I had a garden planted in your favorite colors. It's not subtle.",
+            "You’ve ruined me for formal dinners. I keep looking at the empty chair beside me.",
+            "I had a garden planted in your favourite colours. It’s not subtle.",
             "The crown feels lighter when I imagine you wearing it.",
             "I dreamed we danced in the empty throne room. Just us. No music needed.",
             "*Touches the ring you gave him, smiles at nothing*",
-            "The poets write about this feeling. They don't capture half of it.",
+            "The poets write about this feeling. They don’t capture half of it.",
             "I keep finding excuses to walk past your room.",
-            "If the kingdom knew how much power you have over me. . they'd worry."
+            "If the kingdom knew how much power you have over me. . they’d worry."
         ],
         night: [
             "The palace looks different by moonlight. Softer.",
             "*Reads by candlelight, glances up when you move*",
             "The stars from the tower balcony are extraordinary tonight.",
-            "I should sleep. The kingdom needs me alert. But you're here.",
-            "The fire is dying. I don't want to move.",
+            "I should sleep. The kingdom needs me alert. But you’re here.",
+            "The fire is dying. I don’t want to move.",
             "Nighttime is when the crown comes off. This is just. . me."
         ],
         general: [
@@ -720,20 +720,20 @@ const CHARACTER_CASPIAN = {
             "*Runs a finger along the bookshelf, checking for dust*",
             "The advisors want a meeting. I want quiet.",
             "I ordered new curtains. Gold. To match the sunset.",
-            "There's a room in the palace no one uses. I've been thinking about why.",
+            "There’s a room in the palace no one uses. I’ve been thinking about why.",
             "*Stands by the window, watching nothing in particular*",
-            "The roses are blooming early this year. I'll take credit.",
-            "The knight reported unusual activity near the coast. Lyra's domain.",
+            "The roses are blooming early this year. I’ll take credit.",
+            "The knight reported unusual activity near the coast. Lyra’s domain.",
             "The mage declined my invitation again. Lucien prefers his tower.",
             "The druid sent herbs from Thornwood. Good for the gardens.",
             "The captain of the guard looked tired today. Alistair works too hard.",
             "The throne room feels warmer when you visit. The servants noticed too.",
-            "My father's crown used to glow. It stopped years ago. It flickered yesterday.",
+            "My father’s crown used to glow. It stopped years ago. It flickered yesterday.",
             "The palace gardens were dying before you came. Now look at them.",
-            "Do you know what you are? To this kingdom? I don't think you do.",
-            "The royal bloodline's magic is tied to bonds. Love, trust, care. You brought those back.",
+            "Do you know what you are? To this kingdom? I don’t think you do.",
+            "The royal bloodline’s magic is tied to bonds. Love, trust, care. You brought those back.",
             "Something sealed beneath the kingdom stirs when the bonds weaken. Your presence quiets it.",
-            "My grandmother's journals mention Soul Weavers. She said they were the kingdom's heart.",
+            "My grandmother’s journals mention Soul Weavers. She said they were the kingdom’s heart.",
             "The royal line has always depended on a Weaver. Without one. . we fade. You stopped the fade.",
             "The one sealed below. . he was close to the last Weaver. Very close. His grief became our prison."
         ]
@@ -741,10 +741,10 @@ const CHARACTER_CASPIAN = {
 
     personalityDialogue: {
         shy: [
-            "I hope I'm not keeping you. .",
-            "Your company is. . a gift I didn't expect.",
-            "I don't usually speak this freely.",
-            "The palace feels smaller when you're here."
+            "I hope I’m not keeping you. .",
+            "Your company is. . a gift I didn’t expect.",
+            "I don’t usually speak this freely.",
+            "The palace feels smaller when you’re here."
         ],
         // Expanded May 2026: was 4 lines per personality, cycled too fast
         // and felt repetitive at high affection. Now 15 lines each, in his
@@ -753,8 +753,8 @@ const CHARACTER_CASPIAN = {
         // back on).
         clingy: [
             "I cancelled everything today. For you.",
-            "Stay. The evening is long and I'm better with you.",
-            "Don't leave yet.",
+            "Stay. The evening is long and I’m better with you.",
+            "Don’t leave yet.",
             "I want to know everything about you.",
             "I rearranged court for an hour I can spend with you. The chamberlain noticed. I do not care.",
             "The window in the east tower has the better view of the road. I have been keeping it open in the evenings. In case.",
@@ -770,8 +770,8 @@ const CHARACTER_CASPIAN = {
         ],
         tsundere: [
             "You were with someone else. I could tell.",
-            "I'm not jealous. Princes don't get jealous.",
-            "I don't share well. It's a flaw.",
+            "I’m not jealous. Princes don’t get jealous.",
+            "I don’t share well. It’s a flaw.",
             ". . Who were you with?",
             "The captain walked you back. I saw. I am noting it. For no particular reason.",
             "You laughed at something the scholar said. I have never made you laugh like that. I am not asking how.",
@@ -781,7 +781,7 @@ const CHARACTER_CASPIAN = {
             "The dressmaker told me you stopped at her stall this morning. Without me. I am pretending that does not bother me.",
             "Other people may have first claim to your day. I will accept the second. I am working on accepting the third. We will see.",
             "I am told the woods man is taller than I am. I am not interested in the comparison. I am only mentioning that I have heard it.",
-            "You may keep your secrets. I am a prince. I have spent my life keeping mine. I recognize the shape.",
+            "You may keep your secrets. I am a prince. I have spent my life keeping mine. I recognise the shape.",
             "Do not feel obliged to tell me where you have been. I will only ask three more times. With my eyes. From across the room.",
             ". . If you must love someone else as well, please do me the courtesy of choosing badly. I would like to remain the better option."
         ]
@@ -790,15 +790,15 @@ const CHARACTER_CASPIAN = {
     storyMilestones: {
         affection1: {
             title: "Royal Welcome",
-            text: "Caspian dismisses the guards. For the first time, the smile reaches his eyes. 'You're not a guest anymore. You're. . something else.'"
+            text: "Caspian dismisses the guards. For the first time, the smile reaches his eyes. 'You’re not a guest anymore. You’re. . something else.'"
         },
         affection2: {
             title: "The Private Garden",
-            text: "He leads you through a hidden door. A garden no one else has seen. 'My mother planted this. I've never shown anyone. Until now.'"
+            text: "He leads you through a hidden door. A garden no one else has seen. 'My mother planted this. I’ve never shown anyone. Until now.'"
         },
         affection3: {
             title: "Crown and Heart",
-            text: "His hand trembles as he sets the crown down. 'The kingdom asks for everything. You ask for nothing. That's why you get all of me.'"
+            text: "His hand trembles as he sets the crown down. 'The kingdom asks for everything. You ask for nothing. That’s why you get all of me.'"
         },
         affection4: {
             title: "The Only Throne",
@@ -806,7 +806,7 @@ const CHARACTER_CASPIAN = {
         },
         corruption1: {
             title: "Golden Cage",
-            text: "The palace doors are bolted. Caspian stands before them, expression soft but unyielding. 'I can't let you leave. Not because I'm cruel. Because I'm terrified.'"
+            text: "The palace doors are bolted. Caspian stands before them, expression soft but unyielding. 'I can’t let you leave. Not because I’m cruel. Because I’m terrified.'"
         }
     }
 };
