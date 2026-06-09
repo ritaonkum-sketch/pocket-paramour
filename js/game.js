@@ -3055,6 +3055,19 @@ class PocketLoveGame {
             );
         });
 
+        // Care back button (‹) — top-left dedicated back pill. Visible
+        // affordance to leave the care screen and return to the
+        // Companion Chronicle. Same confirm + save path as the
+        // companions topbar button, so progress is never lost.
+        const careBackBtn = document.getElementById('care-back-btn');
+        if (careBackBtn) careBackBtn.addEventListener('click', () => {
+            this._ppConfirm(
+                'Return to the Chronicle?',
+                'Your progress with ' + CHARACTER.name + ' will be saved.',
+                () => this._switchToSelect(overlay)
+            );
+        });
+
         if (resetBtn) resetBtn.addEventListener('click', () => {
             this._ppConfirm(
                 'Reset this character?',

@@ -1302,6 +1302,57 @@ body {
     transition: width 0.5s ease;
 }
 
+/* ===== BACK BUTTON (top-left of care screen) =====
+   Jun 2026 — returns to Companion Chronicle. Same wine-velvet glass
+   pill language as the prologue back button (#world-intro-back).
+   Position absolute so it doesn't reflow the affection chip.
+
+   z-index 11600: must beat #affection-display (z:11500 !important —
+   that bar lives above all scene overlays so the player can always
+   reach topbar buttons). The back btn sits in the same plane. */
+#care-back-btn {
+    position: absolute;
+    top: calc(8px + env(safe-area-inset-top, 0));
+    left: 10px;
+    z-index: 11600;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: rgba(11, 4, 16, 0.82);
+    color: rgba(244, 235, 220, 0.95);
+    border: 1px solid rgba(232, 200, 138, 0.55);
+    border-radius: 50%;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.60),
+        0 0 14px rgba(232, 168, 91, 0.25);
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+#care-back-btn:hover {
+    background: rgba(11, 4, 16, 0.95);
+    border-color: rgba(232, 200, 138, 0.85);
+    color: #FFF6FA;
+    transform: translateX(-2px);
+}
+#care-back-btn:active {
+    transform: scale(0.92);
+}
+/* Hide outside care screen — scene-state.js drives body.pp-screen-X */
+body:not(.pp-screen-care) #care-back-btn { display: none !important; }
+
 /* ===== AFFECTION ===== */
 #affection-display {
     text-align: center;
@@ -6204,7 +6255,10 @@ body {
 
 /* ── Top bar collapsed: just affection + day/time + ☰ ─────────── */
 #affection-display {
-    padding: 8px 10px !important;
+    /* Jun 2026 — back button (#care-back-btn) lives in the top-left
+       corner. Reserve 54px on the left (36px btn + 10px left offset +
+       8px gap) so the affection chip text doesn't sit underneath it. */
+    padding: 8px 10px 8px 54px !important;
     gap: 6px;
     background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.05));
     backdrop-filter: blur(6px);
