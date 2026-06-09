@@ -270,6 +270,13 @@ body.cinematic-transition .shooting-star {
    reactive rules. Add a new floating care-widget? Just add its
    selector here. Add a new screen? Just add it to scene-state.js.
    ──────────────────────────────────────────────────────────────────── */
+/* CARE-PAGE-ONLY HUD WIDGETS (never appear outside care game).
+   Story-content overlays (#mscard-root, #tp-root, #pp-sched-root,
+   #pp-fm-root, #pp-sm-root, #ms-encounter-root, #date-overlay)
+   were REMOVED from this list Jun 2026 — they can legitimately
+   open from the Companion Chronicle (e.g. tapping Chapter 1
+   plays MSCard ON TOP of pp-screen-select). Over-suppressing them
+   was hiding Chapter 1 playback as an all-black screen. */
 body:not(.pp-screen-care) #pp-care-progress,
 body:not(.pp-screen-care) #dp-banner,
 body:not(.pp-screen-care) #pp-letters-btn,
@@ -286,16 +293,10 @@ body:not(.pp-screen-care) #adaptive-thought,
 body:not(.pp-screen-care) #pp-multirom-bubble,
 body:not(.pp-screen-care) #pp-care-thread-toast,
 body:not(.pp-screen-care) .pp-idle-thought,
-body:not(.pp-screen-care) #pp-sm-root,
-body:not(.pp-screen-care) #pp-fm-root,
-body:not(.pp-screen-care) #pp-sched-root,
-body:not(.pp-screen-care) #tp-root,
-body:not(.pp-screen-care) #mscard-root,
 body:not(.pp-screen-care) #mon-chip,
 body:not(.pp-screen-care) #mon-bundle-back,
 body:not(.pp-screen-care) #pg-notice,
 body:not(.pp-screen-care) #talk-choice-overlay,
-body:not(.pp-screen-care) #date-overlay,
 body:not(.pp-screen-care) #date-unlock-toast,
 body:not(.pp-screen-care) .action-unlock-toast,
 body:not(.pp-screen-care) #ad-toast,
