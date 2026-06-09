@@ -232,18 +232,11 @@
     animation: ppTitleTextFade 0.5s ease-out forwards !important;
 }
 
-/* Star + sparkle fade during transition. Shooting stars get a hard
-   display:none — otherwise one mid-arc reads as a stray white line
-   streaking across the cinematic. */
+/* Star + sparkle fade during transition. Shooting-star kill rule
+   removed Jun 2026 — those DOM nodes no longer exist. */
 #title-screen.is-starting #title-stars,
 #title-screen.is-starting .title-seal-spark {
     animation: ppTitleTextFade 0.4s ease-out forwards;
-}
-#title-screen.is-starting .shooting-star,
-body.cinematic-transition .shooting-star {
-    display: none !important;
-    animation: none !important;
-    opacity: 0 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
