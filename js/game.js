@@ -2490,6 +2490,9 @@ class PocketLoveGame {
 
     feed() {
         if (this.characterLeft) return;
+        // Action SFX (Jun 2026 polish pass) — every care tap now has
+        // an audible response. Was: 4 of 5 actions silent.
+        try { if (window.sounds && sounds.chime) sounds.chime(); } catch (_) {}
 
         this.hunger = Math.min(100, this.hunger + 25);
         this.clean = Math.max(0, this.clean - 3);
@@ -2536,6 +2539,8 @@ class PocketLoveGame {
 
     wash() {
         if (this.characterLeft) return;
+        // Action SFX — water splash. Was Lyra-only; now universal.
+        try { if (window.sounds && sounds.splash) sounds.splash(); } catch (_) {}
 
         this.clean = Math.min(100, this.clean + 25);
         this.bond = Math.max(0, this.bond - 3);
@@ -2578,6 +2583,8 @@ class PocketLoveGame {
 
     gift() {
         if (this.characterLeft) return;
+        // Action SFX — card-flip for the gift-reveal feel.
+        try { if (window.sounds && sounds.cardFlip) sounds.cardFlip(); } catch (_) {}
 
         this.bond = Math.min(100, this.bond + 15);
         this.affection = Math.min(100, this.affection + 5);
@@ -2633,6 +2640,9 @@ class PocketLoveGame {
     }
 
     _doTrain(type) {
+        // Action SFX — swoosh for the practice/swing/study feel.
+        try { if (window.sounds && sounds.swoosh) sounds.swoosh(); } catch (_) {}
+
         // Stat effects — focus rewards patience, strength costs more hunger
         this.bond      = Math.min(100, this.bond + (type === 'focus' ? 8 : 5));
         this.hunger    = Math.max(0,   this.hunger - (type === 'strength' ? 15 : 8));
@@ -2712,6 +2722,8 @@ class PocketLoveGame {
 
     talk() {
         if (this.characterLeft) return;
+        // Action SFX — soft pop for the conversation tick.
+        try { if (window.sounds && sounds.pop) sounds.pop(); } catch (_) {}
 
         // Lucien rival interruption — 15% chance when active, influence > 20, 5-min cooldown
         if (CHARACTER.name === 'Lyra' && this.lucienActive && this.lucienInfluence > 20 &&
@@ -11580,6 +11592,14 @@ let selectedCharacter = 'alistair';
                         }
                         gameContainer.classList.remove('character-alistair', 'character-lyra');
                         gameContainer.classList.add('character-' + selectedCharacter);
+                        // Wire data-character attr (Jun 2026 AAA polish pass).
+                        // Cascades the visual-system per-character glow tokens
+                        // (--vfx-glow-char, --vfx-accent-char) into every
+                        // child element via [data-character="X"] selectors.
+                        // Same convention the Companion Chronicle uses on
+                        // .cc-active-companion — now consumed by the care
+                        // loop too.
+                        gameContainer.setAttribute('data-character', selectedCharacter);
 
                         // Select character data and init game
                         selectCharacter(selectedCharacter);
