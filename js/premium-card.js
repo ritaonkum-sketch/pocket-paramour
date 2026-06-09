@@ -35,6 +35,68 @@
   const REGISTRY = {};
   let _activeRoot = null;
 
+  // ─────────────────────────────────────────────────────────────────
+  // STRANGER RULE (Jun 2026)
+  //
+  // Narrative principle: the player should not see a character's name
+  // until that character introduces themselves in dialogue. Before that,
+  // the speaker label reads "STRANGER".
+  //
+  // How it works:
+  //   1. KNOWN_CHARACTERS lists the 7 protagonist IDs.
+  //   2. resolveSpeakerForDisplay(speaker, beat) is called from the
+  //      'line' branch. It first checks beat.introduces — if present,
+  //      it flips a sticky localStorage flag (pp_introduced_<id>=1)
+  //      BEFORE rendering, so the line that contains the introduction
+  //      itself reads as the real name ("ALISTAIR: I'm Alistair…").
+  //   3. It then maps speaker → lowercased ID. If that ID is in
+  //      KNOWN_CHARACTERS and the introduced flag isn't set, return
+  //      "STRANGER". Otherwise return the original speaker untouched.
+  //
+  // Things that PASS THROUGH unchanged (never replaced with Stranger):
+  //   - Empty speaker (narration mode handles itself)
+  //   - 'YOU' (the player)
+  //   - Soul Weaver / The Innkeeper / any non-protagonist label
+  //   - A character whose pp_introduced_<id> flag is already set
+  // ─────────────────────────────────────────────────────────────────
+  const KNOWN_CHARACTERS = new Set([
+    'alistair', 'lyra', 'caspian', 'lucien', 'elian', 'noir', 'proto'
+  ]);
+
+  function isIntroduced(charId) {
+    try { return localStorage.getItem('pp_introduced_' + charId) === '1'; }
+    catch (_) { return false; }
+  }
+
+  function markIntroduced(charId) {
+    try { localStorage.setItem('pp_introduced_' + charId, '1'); } catch (_) {}
+  }
+
+  function speakerToCharId(speaker) {
+    if (!speaker || typeof speaker !== 'string') return null;
+    // Strip punctuation, lowercase, take first word — "ALISTAIR" → "alistair",
+    // "Lucien," → "lucien", "ALISTAIR (low)" → "alistair"
+    const id = String(speaker).toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
+    return id || null;
+  }
+
+  function resolveSpeakerForDisplay(speaker, beat) {
+    // (a) If this beat IS the introduction, flip the flag first so the
+    //     line shows the real name on the same beat it's introduced.
+    if (beat && beat.introduces && typeof beat.introduces === 'string') {
+      markIntroduced(beat.introduces);
+    }
+    // (b) Empty / falsy → narration. Pass through (the narration branch
+    //     hides the speaker label entirely).
+    if (!speaker) return speaker;
+    // (c) Map → charId. If it's not one of the 7 protagonists, pass
+    //     through (narrator names, player 'YOU', random NPCs).
+    const charId = speakerToCharId(speaker);
+    if (!charId || !KNOWN_CHARACTERS.has(charId)) return speaker;
+    // (d) Known character — show "STRANGER" until introduced.
+    return isIntroduced(charId) ? speaker : 'STRANGER';
+  }
+
   // ---------------------------------------------------------------
   function el(tag, css, text) {
     const e = document.createElement(tag);
@@ -467,9 +529,13 @@
             //     and the bubble would stay in whatever mode the previous
             //     beat left it — wrong for chapters that mix one narration
             //     beat into a long dialogue scene.
-            const resolvedSpeaker = (beat.speaker !== undefined)
+            const rawResolvedSpeaker = (beat.speaker !== undefined)
               ? beat.speaker
               : (card.speaker || '');
+            // STRANGER RULE — see header. If this beat introduces a
+            // character, the flag flips here so the line itself reads
+            // as the real name; subsequent beats inherit naturally.
+            const resolvedSpeaker = resolveSpeakerForDisplay(rawResolvedSpeaker, beat);
             if (n.speaker) {
               if (resolvedSpeaker === '') {
                 // ── NARRATION mode ──

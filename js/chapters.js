@@ -259,7 +259,11 @@
 
             // ─── Section 13 · The cloak, the lift ────────────────────────
             { type: 'line', speaker: '', text: 'He wipes the sword clean on dead grass. Sheathes it. Every motion deliberate. Then he removes his cloak and lays it across your lap before touching you again.', hold: 4400, cps: 24 },
-            { type: 'line', text: 'I’m Alistair. Captain of the dawn patrol. I’m going to lift you. Tell me if anything pulls wrong.', hold: 3800, cps: 26 },
+            // Introduction beat — flips the STRANGER → ALISTAIR label
+            // for this line and all subsequent ones (see Stranger Rule
+            // in premium-card.js). Before this beat fires, the speaker
+            // chip reads STRANGER.
+            { type: 'line', introduces: 'alistair', text: 'I’m Alistair. Captain of the dawn patrol. I’m going to lift you. Tell me if anything pulls wrong.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'He waits for permission. You nod.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'He lifts you carefully against his chest. Like someone long accustomed to carrying wounded people.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Over his shoulder you glimpse the creature. Already collapsing into grey ash. The earth beneath it stained black.', hold: 3400, cps: 26 },
@@ -1130,6 +1134,13 @@
         });
         try { localStorage.setItem('pp_ms_encounter_elian_seen','1'); } catch (_) {}
         try { localStorage.setItem('pp_met_elian','1'); } catch (_) {}
+        // Stranger Rule (Jun 2026): Elian never speaks the line "I'm
+        // Elian" — his name reaches the player through narration in
+        // Ch6. So we flip the introduced flag when Ch6 completes, as
+        // his speaker label stays STRANGER throughout his own chapter
+        // (correct — the player learns it from narrator beats), then
+        // reads ELIAN from Ch7 onwards. See premium-card.js.
+        try { localStorage.setItem('pp_introduced_elian','1'); } catch (_) {}
         markDone(6); setCurrent(nextIdAfter(6));
         if (onDone) onDone();
       }
