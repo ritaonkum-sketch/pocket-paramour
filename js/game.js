@@ -11320,6 +11320,18 @@ let selectedCharacter = 'alistair';
             // just resolves the play() promise and reopens the menu.
             window.PPWorldIntro.play(function () {
                 localStorage.setItem('pp_world_intro_seen', '1');
+                // CRITICAL (Jun 2026 owner-reported bug fix):
+                // Mark the Prologue (chapters.js id:0) as DONE so the
+                // Main Story menu advances to Chapter 1 instead of
+                // re-offering the Prologue. The manual-replay path in
+                // chapters.js prologue play() already does this, but
+                // the first-launch path here was missing it — players
+                // who saw the prologue auto-play could never reach
+                // Chapter 1 from the menu.
+                try {
+                    localStorage.setItem('pp_chapter_done_0', '1');
+                    localStorage.setItem('pp_chapter_current', '1');
+                } catch (_) {}
                 if (!localStorage.getItem('pp_main_story_enabled')) {
                     localStorage.setItem('pp_main_story_enabled', '1');
                 }
