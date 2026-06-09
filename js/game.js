@@ -3141,19 +3141,21 @@ class PocketLoveGame {
 
         const modal = document.createElement('div');
         modal.id = 'pp-confirm-modal';
-        modal.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);animation:pp-confirm-fade 0.2s ease-out;';
+        modal.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:pp-confirm-fade 0.2s ease-out;';
 
+        // Jun 2026 brand pass — wine-velvet card + rose-gold border +
+        // Cormorant italic title. Replaces dark-aubergine + pink CTA.
         const card = document.createElement('div');
-        card.style.cssText = 'background:linear-gradient(135deg,#2a1a3a,#1a0f28);border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:22px 20px;max-width:340px;width:88%;color:#fff;box-shadow:0 20px 60px rgba(0,0,0,0.6);';
+        card.style.cssText = 'background:radial-gradient(ellipse at 50% 0%, rgba(122,18,36,0.25) 0%, rgba(0,0,0,0) 60%),linear-gradient(180deg,rgba(43,17,51,0.97),rgba(21,8,26,0.99));border:1px solid rgba(232,200,138,0.45);border-radius:20px;padding:24px 22px;max-width:340px;width:88%;color:#fff;box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 50px rgba(122,18,36,0.25);';
 
         const h = document.createElement('h3');
         h.textContent = title;
-        h.style.cssText = 'margin:0 0 8px;font-size:18px;font-weight:700;color:#fff;';
+        h.style.cssText = 'margin:0 0 10px;font-family:"Cormorant Garamond","EB Garamond",serif;font-style:italic;font-size:22px;font-weight:500;color:rgba(244,235,220,0.96);text-shadow:0 1px 6px rgba(0,0,0,0.55);';
         card.appendChild(h);
 
         const p = document.createElement('p');
         p.textContent = body;
-        p.style.cssText = 'margin:0 0 20px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);';
+        p.style.cssText = 'margin:0 0 22px;font-family:"Cormorant Garamond","EB Garamond",serif;font-style:italic;font-size:16px;line-height:1.5;color:rgba(232,200,220,0.85);';
         card.appendChild(p);
 
         const btns = document.createElement('div');
@@ -3161,16 +3163,20 @@ class PocketLoveGame {
 
         const cancel = document.createElement('button');
         cancel.textContent = 'Cancel';
-        cancel.style.cssText = 'padding:10px 20px;border:1px solid rgba(255,255,255,0.25);background:transparent;color:#fff;border-radius:12px;font-size:14px;cursor:pointer;font-weight:600;';
+        cancel.style.cssText = 'padding:10px 22px;border:1px solid rgba(232,200,138,0.35);background:rgba(0,0,0,0.45);color:rgba(244,235,220,0.85);border-radius:999px;font-family:"Quicksand","Inter",sans-serif;font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;cursor:pointer;';
         cancel.onclick = () => modal.remove();
         btns.appendChild(cancel);
 
         const confirm = document.createElement('button');
         confirm.textContent = opts.danger ? 'Delete' : 'Confirm';
+        // Brand: danger = wine gradient with magenta border. Normal = magenta gradient (START button family) with gold border.
         const confirmBg = opts.danger
-            ? 'linear-gradient(135deg,#e74c3c,#c0392b)'
-            : 'linear-gradient(135deg,#ff8fa3,#ff5d8f)';
-        confirm.style.cssText = 'padding:10px 20px;border:none;background:' + confirmBg + ';color:#fff;border-radius:12px;font-size:14px;cursor:pointer;font-weight:700;box-shadow:0 3px 12px rgba(0,0,0,0.3);';
+            ? 'linear-gradient(180deg,#9A2F4E 0%,#7A1224 100%)'
+            : 'linear-gradient(180deg,#C46A8D 0%,#9A4567 38%,#7A2B4D 70%,#5A1A36 100%)';
+        const confirmBorder = opts.danger
+            ? 'rgba(232,76,140,0.65)'
+            : 'rgba(232,200,138,0.65)';
+        confirm.style.cssText = 'padding:10px 22px;border:1px solid ' + confirmBorder + ';background:' + confirmBg + ';color:#FFF6FA;border-radius:999px;font-family:"Cormorant Garamond","EB Garamond",serif;font-weight:500;font-size:14px;letter-spacing:0.18em;text-transform:uppercase;text-shadow:0 1px 0 rgba(74,10,26,0.55);cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,230,240,0.35),0 4px 14px rgba(74,10,26,0.55),0 0 24px rgba(154,69,103,0.35);';
         confirm.onclick = () => {
             modal.remove();
             try { onConfirm && onConfirm(); } catch (e) { console.error('[_ppConfirm]', e); }

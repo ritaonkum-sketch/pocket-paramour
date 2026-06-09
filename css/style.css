@@ -2225,19 +2225,34 @@ body {
 /* (Slide-up panel styles, May 2026: was #dress-panel + #gift-panel
    shared block; dress-panel removed with the outfit system, gift-panel
    selectors retained.) */
+/* Gift panel — Jun 2026 brand pass.
+   Was white sheet with candy-pink gift tiles (`#4a0e2e` text on
+   `rgba(248,187,208,0.3)` tile bg). Now wine-velvet slide-up with
+   rose-gold border + per-character glow ring, gift names in
+   Cormorant italic, effects in small Quicksand caps. */
 #gift-panel {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px 20px 0 0;
-    padding: 16px;
-    z-index: 40; /* above dialogue-box (35) so panels slide over it */
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.20) 0%, rgba(0, 0, 0, 0) 60%),
+        linear-gradient(180deg,
+            rgba(43, 17, 51, 0.96) 0%,
+            rgba(21, 8, 26, 0.98) 100%);
+    border-top: 1px solid var(--vfx-accent-char, rgba(232, 200, 138, 0.45));
+    border-radius: 22px 22px 0 0;
+    padding: 18px 16px 24px;
+    z-index: 40;
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: transform var(--vfx-motion-quick, 320ms) var(--vfx-ease-tender, ease);
     max-height: 60vh;
     overflow-y: auto;
     pointer-events: none;
     visibility: hidden;
+    box-shadow:
+        0 -8px 32px rgba(0, 0, 0, 0.65),
+        0 0 50px var(--vfx-glow-char, rgba(232, 76, 140, 0.18));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 #gift-panel.visible {
@@ -2254,20 +2269,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #4a0e2e;
+    margin-bottom: 14px;
+    /* "GIFTS" header — Quicksand small-caps gold, story-byline style */
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--vfx-accent-char, rgba(232, 200, 138, 0.85));
 }
 
 #gift-close {
-    background: none;
-    border: none;
-    font-size: 20px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(232, 200, 138, 0.30);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1;
     cursor: pointer;
-    color: #880e4f;
-    padding: 4px 8px;
+    color: rgba(244, 235, 220, 0.85);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--vfx-motion-tap, 180ms) var(--vfx-ease-tender, ease);
 }
+#gift-close:hover { color: #FFF6FA; border-color: var(--vfx-accent-char, #E8C88A); }
+#gift-close:active { transform: scale(0.94); }
 
 #gift-grid {
     display: grid;
@@ -2279,17 +2309,35 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 12px 8px;
-    background: rgba(248, 187, 208, 0.3);
-    border: 2px solid transparent;
+    gap: 6px;
+    padding: 14px 8px 12px;
+    /* Wine-velvet tile with rose-gold thin border */
+    background:
+        linear-gradient(180deg,
+            rgba(43, 17, 51, 0.55) 0%,
+            rgba(21, 8, 26, 0.75) 100%);
+    border: 1px solid rgba(232, 200, 138, 0.32);
     border-radius: 14px;
     cursor: pointer;
-    transition: all 0.15s;
+    transition:
+        transform var(--vfx-motion-tap, 180ms) var(--vfx-ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)),
+        border-color var(--vfx-motion-quick, 320ms) ease,
+        box-shadow var(--vfx-motion-quick, 320ms) ease;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 220, 235, 0.10),
+        0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.gift-item:hover {
+    border-color: var(--vfx-accent-char, #E8C88A);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 220, 235, 0.18),
+        0 4px 14px rgba(0, 0, 0, 0.55),
+        0 0 20px var(--vfx-glow-char, rgba(232, 76, 140, 0.30));
 }
 
 .gift-item:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
 .gift-item.locked {
@@ -2297,9 +2345,31 @@ body {
     pointer-events: none;
 }
 
-.gift-icon { font-size: 32px; }
-.gift-name { font-size: 11px; font-weight: 600; color: #4a0e2e; }
-.gift-effect { font-size: 9px; color: #880e4f; }
+.gift-icon {
+    font-size: 30px;
+    filter:
+        drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 6px var(--vfx-glow-char, rgba(232, 76, 140, 0.30)));
+}
+.gift-name {
+    font-family: 'Cormorant Garamond', 'EB Garamond', 'Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(244, 235, 220, 0.95);
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+.gift-effect {
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--vfx-accent-char, rgba(232, 200, 138, 0.75));
+    text-align: center;
+}
 
 /* ===== STORY SCENE ===== */
 #story-overlay {
@@ -2495,11 +2565,16 @@ body {
 #companions-btn:hover { transform: scale(1.2); }
 #companions-btn:active { transform: scale(0.9); }
 
-/* ===== SETTINGS OVERLAY ===== */
+/* ===== SETTINGS OVERLAY ===== (Jun 2026 brand pass)
+   Was indigo-magenta gradient (#1a0a2e → #2d1b4e → #4a1942) with
+   hot-pink section titles. Now wine-velvet base with rose-gold
+   hairline dividers + Cormorant italic title + brand-tinted sliders. */
 #settings-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 40%, #4a1942 100%);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.20) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.98) 0%, rgba(21, 8, 26, 0.99) 100%);
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -2513,56 +2588,71 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(232, 200, 138, 0.20);
 }
 
 #settings-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #f8bbd0;
-    letter-spacing: 2px;
+    /* Cormorant italic — story register, matches chronicle/title */
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 #settings-close {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.6);
-    font-size: 22px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(232, 200, 138, 0.30);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: rgba(244, 235, 220, 0.85);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1;
     cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+#settings-close:hover { color: #FFF6FA; border-color: rgba(232, 200, 138, 0.65); }
 
 #settings-content {
     padding: 20px;
 }
 
-/* ▸ Settings sections — grouped panels with visible titles. */
+/* ▸ Settings sections — grouped panels in dark velvet tiles */
 .settings-section {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(43, 17, 51, 0.50) 0%, rgba(21, 8, 26, 0.65) 100%);
+    border: 1px solid rgba(232, 200, 138, 0.22);
     border-radius: 14px;
-    padding: 14px 16px 12px;
+    padding: 16px 18px 14px;
     margin-bottom: 16px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 220, 235, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
 .settings-section-title {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 11px;
-    font-weight: 700;
-    color: #f8bbd0;
-    letter-spacing: 2px;
+    font-weight: 600;
+    color: rgba(232, 200, 138, 0.95);
+    letter-spacing: 2.2px;
     text-transform: uppercase;
-    margin-bottom: 12px;
-    opacity: 0.85;
+    margin-bottom: 14px;
 }
 
 .settings-section-danger {
-    background: rgba(180, 50, 90, 0.06);
-    border-color: rgba(220, 80, 110, 0.18);
+    background: linear-gradient(180deg, rgba(122, 18, 36, 0.35) 0%, rgba(74, 10, 26, 0.45) 100%);
+    border-color: rgba(232, 76, 140, 0.35);
 }
 .settings-section-danger .settings-section-title {
-    color: #ff8fa3;
+    color: rgba(248, 144, 184, 0.95);
 }
 
 .settings-group {
@@ -2573,10 +2663,11 @@ body {
 }
 
 .settings-label {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.7);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.85);
     display: block;
     margin-bottom: 8px;
 }
@@ -2586,8 +2677,9 @@ body {
     height: 6px;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(255,255,255,0.15);
-    border-radius: 3px;
+    background: linear-gradient(180deg, rgba(15, 8, 26, 0.85), rgba(43, 17, 51, 0.7));
+    border: 1px solid rgba(232, 200, 138, 0.20);
+    border-radius: 6px;
     outline: none;
 }
 
@@ -2596,58 +2688,62 @@ body {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #e91e63;
+    background: linear-gradient(180deg, #E8C88A 0%, #C4933F 100%);
+    border: 1px solid rgba(232, 200, 138, 0.65);
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(233,30,99,0.4);
+    box-shadow: 0 2px 8px rgba(212, 168, 91, 0.45), inset 0 1px 0 rgba(255, 230, 200, 0.55);
 }
 
 #settings-character-name, #settings-stats {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(232, 200, 220, 0.78);
     line-height: 1.6;
 }
 
 .settings-divider {
     height: 1px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(232, 200, 138, 0.18);
     margin: 20px 0;
 }
 
 .settings-switch-btn {
     width: 100%;
-    background: rgba(130, 100, 255, 0.15);
-    border: 1px solid rgba(130, 100, 255, 0.3);
-    color: #b39dff;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    background: linear-gradient(180deg, rgba(43, 17, 51, 0.55), rgba(21, 8, 26, 0.75));
+    border: 1px solid rgba(232, 200, 138, 0.45);
+    color: rgba(244, 235, 220, 0.92);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     padding: 12px;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
-.settings-switch-btn:active {
-    background: rgba(130, 100, 255, 0.3);
-}
+.settings-switch-btn:hover { border-color: rgba(232, 200, 138, 0.80); color: #FFF6FA; }
+.settings-switch-btn:active { transform: scale(0.98); }
 
 .settings-danger-btn {
     width: 100%;
-    background: rgba(244, 67, 54, 0.15);
-    border: 1px solid rgba(244, 67, 54, 0.3);
-    color: #ef5350;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    background: linear-gradient(180deg, rgba(122, 18, 36, 0.55), rgba(74, 10, 26, 0.75));
+    border: 1px solid rgba(232, 76, 140, 0.55);
+    color: rgba(248, 200, 220, 0.95);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     padding: 12px;
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.settings-danger-btn:active {
-    background: rgba(244, 67, 54, 0.3);
-}
+.settings-danger-btn:hover { border-color: rgba(232, 76, 140, 0.85); color: #FFF6FA; }
+.settings-danger-btn:active { transform: scale(0.98); }
 
 #settings-credits {
     text-align: center;
@@ -2655,17 +2751,19 @@ body {
 }
 
 .settings-credits-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: #f8bbd0;
-    margin-bottom: 4px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(232, 200, 138, 0.95);
+    margin-bottom: 6px;
 }
 
 .settings-credits-line {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 12px;
-    color: rgba(255,255,255,0.3);
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(232, 200, 220, 0.45);
+    letter-spacing: 0.5px;
     margin: 2px 0;
 }
 
@@ -3137,27 +3235,37 @@ body {
 /* #music-btn rules removed — button is hidden and moved to Settings.
    See the display:none override near the top of this file. */
 
-/* ===== ACHIEVEMENT POPUP ===== */
+/* ===== ACHIEVEMENT POPUP ===== (Jun 2026 brand pass)
+   Was yellow-cake palette (#fff9c4 → #fff176 with #ffc107 border).
+   Now wine-velvet glass pill with rose-gold border + warm gold glow.
+   Matches the gothic-romantasy brand instead of fortune-cookie. */
 .achievement-popup {
     position: absolute;
-    top: 120px;           /* clear of the topbar + day dots row */
+    top: 120px;
     right: 10px;
     left: auto;
     bottom: auto;
     transform: translateX(14px);
-    background: linear-gradient(135deg, #fff9c4 0%, #fff176 100%);
-    border-radius: 12px;
-    padding: 7px 12px;
+    background:
+        linear-gradient(180deg,
+            rgba(43, 17, 51, 0.95) 0%,
+            rgba(21, 8, 26, 0.97) 100%);
+    border-radius: 14px;
+    padding: 8px 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     z-index: 80;
-    max-width: 190px;
-    box-shadow: 0 3px 14px rgba(255, 193, 7, 0.4), 0 0 20px rgba(255, 193, 7, 0.1);
+    max-width: 210px;
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.55),
+        0 0 26px rgba(212, 168, 91, 0.35);
     opacity: 0;
     transition: opacity 0.35s ease, transform 0.35s ease;
     pointer-events: none;
-    border: 1.5px solid #ffc107;
+    border: 1px solid rgba(232, 200, 138, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .achievement-popup.visible {
@@ -3183,40 +3291,52 @@ body {
 }
 
 .achievement-popup-label {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 9px;
-    font-weight: 700;
-    color: #f57f17;
+    font-weight: 600;
+    color: rgba(232, 200, 138, 0.85);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1.8px;
 }
 
 .achievement-popup-name {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: #4a0e2e;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* ===== ACHIEVEMENT PANEL ===== */
+/* ===== ACHIEVEMENT PANEL ===== (Jun 2026 brand pass)
+   Was WHITE → candy-pink gradient (#fff → #fce4ec) — the single
+   worst brand violation in the game. Now wine-velvet slide-up with
+   rose-gold border + Cormorant italic, achievement cards in dark
+   velvet tiles with gold unlock glow. */
 #achievement-panel {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     max-height: 75%;
-    background: linear-gradient(135deg, #fff 0%, #fce4ec 100%);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.20) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.97) 0%, rgba(21, 8, 26, 0.98) 100%);
+    border-top: 1px solid rgba(232, 200, 138, 0.45);
     border-radius: 24px 24px 0 0;
     z-index: 60;
     overflow-y: auto;
-    box-shadow: 0 -4px 30px rgba(0,0,0,0.2);
+    box-shadow:
+        0 -8px 32px rgba(0, 0, 0, 0.65),
+        0 0 50px rgba(212, 168, 91, 0.15);
     transition: transform 0.3s ease, opacity 0.3s;
     transform: translateY(100%);
     opacity: 0;
-    /* Hide scrollbar (Firefox + WebKit). Owner asked — visually noisy. */
     scrollbar-width: none;
     -ms-overflow-style: none;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 #achievement-panel::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
@@ -3231,47 +3351,70 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 20px 8px;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    color: #4a0e2e;
+    padding: 18px 20px 10px;
+    /* Title in Cormorant italic — story register */
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    color: rgba(244, 235, 220, 0.96);
     position: sticky;
     top: 0;
-    background: linear-gradient(135deg, #fff 0%, #fce4ec 100%);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.20) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.97) 0%, rgba(43, 17, 51, 0.95) 100%);
     z-index: 1;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(232, 200, 138, 0.18);
 }
 
 #achievement-count {
-    font-size: 13px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11px;
     font-weight: 600;
-    color: #e91e63;
-    background: rgba(233, 30, 99, 0.1);
-    padding: 3px 10px;
-    border-radius: 12px;
+    color: rgba(232, 200, 138, 0.95);
+    background: rgba(15, 8, 26, 0.55);
+    border: 1px solid rgba(232, 200, 138, 0.40);
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 #achievement-close {
-    background: none;
-    border: none;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(232, 200, 138, 0.30);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-family: var(--font-serif);
     font-size: 18px;
-    color: #999;
+    line-height: 1;
+    color: rgba(244, 235, 220, 0.85);
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+#achievement-close:hover { color: #FFF6FA; border-color: rgba(232, 200, 138, 0.65); }
 
 #achievement-progress-bar {
-    margin: 0 20px 12px;
-    height: 6px;
-    background: rgba(233, 30, 99, 0.1);
-    border-radius: 3px;
+    margin: 0 20px 14px;
+    height: 8px;
+    background:
+        linear-gradient(180deg, rgba(15, 8, 26, 0.85), rgba(43, 17, 51, 0.75));
+    border: 1px solid rgba(232, 200, 138, 0.28);
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.55);
 }
 
 #achievement-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #f48fb1, #e91e63, #ffc107);
-    border-radius: 3px;
+    background: linear-gradient(90deg, #E8B86D 0%, #D4A85B 50%, #B89042 100%);
+    box-shadow: 0 0 8px rgba(212, 168, 91, 0.55), inset 0 1px 0 rgba(255, 230, 200, 0.45);
+    border-radius: 8px;
     transition: width 0.5s ease;
 }
 
@@ -3279,21 +3422,28 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    padding: 0 16px 20px;
+    padding: 4px 16px 24px;
 }
 
 .achievement-card {
-    background: white;
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.65) 0%, rgba(21, 8, 26, 0.85) 100%);
     border-radius: 14px;
     padding: 14px 12px;
     text-align: center;
-    border: 2px solid #f0f0f0;
+    border: 1px solid rgba(232, 200, 138, 0.22);
     transition: all 0.2s;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 220, 235, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
 .achievement-card.unlocked {
-    border-color: #ffc107;
-    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
+    border-color: rgba(232, 200, 138, 0.65);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 220, 235, 0.15),
+        0 4px 14px rgba(0, 0, 0, 0.55),
+        0 0 20px rgba(212, 168, 91, 0.35);
 }
 
 .achievement-card.locked {
@@ -3303,7 +3453,10 @@ body {
 
 .achievement-card-icon {
     font-size: 28px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    filter:
+        drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 6px rgba(212, 168, 91, 0.35));
 }
 
 .achievement-card.locked .achievement-card-icon {
@@ -3311,18 +3464,22 @@ body {
 }
 
 .achievement-card-name {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: #4a0e2e;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.95);
     margin-bottom: 4px;
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .achievement-card-desc {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 10px;
-    color: #888;
-    line-height: 1.3;
+    color: rgba(232, 200, 220, 0.65);
+    line-height: 1.35;
+    letter-spacing: 0.3px;
 }
 
 /* ===== RANDOM EVENT OVERLAY ===== */
