@@ -334,6 +334,21 @@
       return;
     }
 
+    // STRANGER RULE — Reset any introduction this card itself contains
+    // so the discovery moment re-plays on every replay. Cross-chapter
+    // flags stay sticky (e.g. replaying Ch3 does NOT regress Alistair
+    // back to STRANGER because Ch3 doesn't contain an `introduces:`
+    // beat for him).
+    try {
+      const cleared = new Set();
+      for (const b of card.beats) {
+        if (b && b.introduces && typeof b.introduces === 'string' && !cleared.has(b.introduces)) {
+          localStorage.removeItem('pp_introduced_' + b.introduces);
+          cleared.add(b.introduces);
+        }
+      }
+    } catch (_) {}
+
     const pal = card.palette || {};
     const n = buildShell(card);
     _activeRoot = n.root;
