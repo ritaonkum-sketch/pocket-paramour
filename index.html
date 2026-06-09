@@ -13,6 +13,22 @@
     <link rel="apple-touch-icon" href="assets/icon-192.png">
     <link rel="icon" type="image/png" href="assets/icon-192.png">
 
+    <!-- Preload the 7 character select-portraits used by the Companion
+         Chronicle (Active Companion card + Threads of Fate carousel).
+         Jun 2026 — user reported a visible delay on the Alistair
+         portrait when returning to the Chronicle after care. The
+         portrait is the same file in both slots, so a single preload
+         priming the browser cache eliminates the network/decode lag
+         on first paint. Other character portraits get the same
+         treatment so the carousel is instant when the player swipes. -->
+    <link rel="preload" as="image" href="assets/alistair/select-portrait.png">
+    <link rel="preload" as="image" href="assets/elian/select-portrait.png">
+    <link rel="preload" as="image" href="assets/lyra/select-portrait.png">
+    <link rel="preload" as="image" href="assets/caspian/select-portrait.png">
+    <link rel="preload" as="image" href="assets/lucien/select-portrait.png">
+    <link rel="preload" as="image" href="assets/noir/select-portrait.png">
+    <link rel="preload" as="image" href="assets/proto/select-portrait.png">
+
     <!-- Design tokens (A4 — single source of truth for visual values).
          Loaded BEFORE style.css so subsequent CSS can reference --tokens.
          See docs/design/DESIGN-SYSTEM.md for spec, BRAND-FOUNDATION.md

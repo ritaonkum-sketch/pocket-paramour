@@ -44,6 +44,27 @@ body:has(#select-screen:not(.hidden)) .pp-today-dot {
     #select-screen:not(.hidden) ~ #pp-today-btn,
     #select-screen:not(.hidden) ~ #stats-bar { display: none !important; }
 }
+
+/* ─── HIDE CHRONICLE BEHIND CHAPTER / MSCARD OVERLAYS (Jun 2026) ───
+   User reported "I can see this page overlay between changing chapter":
+   the Chronicle was bleeding through during MSCard playback, chapter
+   transitions, and encounter scenes. Cause: those overlays mount on
+   top of #select-screen without the screen ever being hidden, and
+   their bg isn't fully opaque (radial gradients, blur, etc.) so the
+   Chronicle's purple panel reads through.
+   Solution: a single CSS gate. Whenever a chapter / MSCard / encounter
+   overlay is on stage, the Chronicle DOM stays mounted but renders
+   invisible. The scene-state class system already drives body classes,
+   but those don't cover mscard-root (runtime-added overlay), so we
+   need an explicit :has() gate. */
+body:has(#mscard-root:not(:empty)) #select-screen,
+body:has(#ms-encounter-root:not(:empty)) #select-screen,
+body:has(#chp-page:not(.hidden)) #select-screen,
+body:has(#tp-root:not(:empty)) #select-screen,
+body:has(#cinematic-overlay.visible) #select-screen,
+body.cinematic-transition #select-screen {
+    visibility: hidden !important;
+}
 #select-screen::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
 
 
@@ -561,6 +582,13 @@ body:has(#select-screen:not(.hidden)) .pp-today-dot {
     filter:
         drop-shadow(0 0 14px var(--cc-char-glow, rgba(232, 76, 140, 0.5)))
         drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55));
+    /* Jun 2026 — user reported a visible delay on this image when
+       returning to the Chronicle from care. Cause: the two stacked
+       drop-shadow filters (14px blur each) are re-rasterised by the
+       GPU compositor every time #select-screen toggles out of
+       display:none. Hinting `will-change: filter` keeps the layer
+       composited even while hidden, so re-show is instantaneous. */
+    will-change: filter;
 }
 .cc-active-portrait-glow {
     /* Now used only as a faint upward backdrop glow behind the silhouette */
