@@ -12,25 +12,40 @@
    ============================================================================ */
 
 
-/* ──────────────────────── PURE DARK VELVET BACKDROP ──────────────────────── */
-/* bg-world.png removed. Pure gradient backdrop now. */
+/* ──────────────────────── TITLE BACKGROUND ──────────────────────── */
+/* Jun 2026 — new image-based backdrop (assets/title-bg.png):
+   gothic-romantasy chamber with gold mirror, candles, scattered roses,
+   a sealed letter and lockets on wine-velvet, gothic window onto a
+   purple-violet night sky. Brand-perfect.
 
+   Layered as a radial fallback BENEATH the image so first-paint (before
+   the PNG decodes) still shows the wine-velvet palette instead of a
+   black flash. background-position:center +
+   background-size:cover keeps the composition framed on both 9:16
+   mobile and wider preview windows. */
 #title-screen {
     background:
+        url('../../assets/title-bg.png') center center / cover no-repeat,
         radial-gradient(ellipse at 50% 30%, #2B1133 0%, #15081A 70%, #0B0410 100%);
+    background-color: #0B0410;
 }
 
+/* The #title-particles layer sits ABOVE the bg image. Old behaviour was
+   a heavy 78%-alpha wine veil that nearly blacked out the gradient
+   backdrop. With a real photo we want the image to read clearly, so the
+   veil drops to a much lighter wash — JUST enough darkening at top and
+   bottom edges to keep the wax-seal logo and START button legible
+   against the busiest parts of the image (lit candles top-left, roses
+   bottom-right). */
 #title-screen #title-particles {
     background:
         linear-gradient(180deg,
-            rgba(15, 8, 26, 0.78) 0%,
-            rgba(15, 8, 26, 0.60) 35%,
-            rgba(15, 8, 26, 0.78) 65%,
-            rgba(15, 8, 26, 0.94) 100%
+            rgba(11, 4, 16, 0.42) 0%,
+            rgba(11, 4, 16, 0.18) 28%,
+            rgba(11, 4, 16, 0.18) 60%,
+            rgba(11, 4, 16, 0.58) 100%
         ),
-        radial-gradient(ellipse at 50% 35%, rgba(122, 18, 36, 0.20) 0%, transparent 55%),
-        radial-gradient(ellipse at 20% 70%, rgba(80, 30, 110, 0.18) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 70%, rgba(212, 168, 91, 0.10) 0%, transparent 50%);
+        radial-gradient(ellipse at 50% 38%, rgba(122, 18, 36, 0.12) 0%, transparent 55%);
 }
 
 
