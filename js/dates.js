@@ -987,16 +987,36 @@
     if (overlayEl) return;
     overlayEl = document.createElement('div');
     overlayEl.id = 'date-overlay';
-    overlayEl.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.85);display:none;flex-direction:column;align-items:center;padding:20px;overflow-y:auto;font-family:inherit;';
+    // Jun 2026 brand pass — was pitch-black with pink subtitle + hot-pink
+    // "Back" pill. Now wine-velvet radial backdrop with Cormorant italic
+    // title and a serif-italic ghost "Back" link, matching the rest of
+    // the overlay family.
+    overlayEl.style.cssText = [
+      'position:fixed;inset:0;z-index:9999;',
+      'background:radial-gradient(ellipse at 50% 0%, rgba(122,18,36,0.18) 0%, rgba(0,0,0,0) 60%),' +
+        'linear-gradient(180deg, rgba(43,17,51,0.98) 0%, rgba(21,8,26,0.99) 100%);',
+      'display:none;flex-direction:column;align-items:center;padding:28px 20px 24px;overflow-y:auto;',
+      'font-family:inherit;',
+      'backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);'
+    ].join('');
 
     var title = document.createElement('h2');
     title.textContent = 'Choose a Destination';
-    title.style.cssText = 'color:#fff;margin:0 0 6px;font-size:20px;';
+    title.style.cssText = [
+      "font-family:'Cormorant Garamond','EB Garamond',serif;font-style:italic;",
+      'font-weight:500;font-size:26px;letter-spacing:0.02em;',
+      'color:rgba(244,235,220,0.96);margin:0 0 6px;',
+      'text-shadow:0 1px 6px rgba(0,0,0,0.55);'
+    ].join('');
     overlayEl.appendChild(title);
 
     var sub = document.createElement('p');
-    sub.style.cssText = 'color:#ffcce0;margin:0 0 16px;font-size:13px;';
-    sub.textContent = 'Costs: hunger -15, clean -10';
+    sub.style.cssText = [
+      "font-family:'Quicksand','Inter',sans-serif;",
+      'font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;',
+      'color:rgba(232,200,138,0.78);margin:0 0 20px;'
+    ].join('');
+    sub.textContent = 'Costs: Hunger −15  ·  Clean −10';
     overlayEl.appendChild(sub);
 
     var grid = document.createElement('div');
@@ -1006,7 +1026,15 @@
 
     var closeBtn = document.createElement('button');
     closeBtn.textContent = 'Back';
-    closeBtn.style.cssText = 'margin-top:18px;padding:10px 30px;border:none;border-radius:20px;background:#ff5d8f;color:#fff;font-size:15px;cursor:pointer;';
+    closeBtn.style.cssText = [
+      'margin-top:22px;padding:10px 32px;',
+      "font-family:'Cormorant Garamond','EB Garamond',serif;font-style:italic;",
+      'font-size:15px;font-weight:500;letter-spacing:0.08em;',
+      'background:rgba(0,0,0,0.45);',
+      'border:1px solid rgba(232,200,138,0.42);border-radius:999px;',
+      'color:rgba(244,235,220,0.92);cursor:pointer;',
+      'box-shadow:0 4px 16px rgba(0,0,0,0.50);'
+    ].join('');
     closeBtn.addEventListener('click', function () { hideOverlay(); });
     overlayEl.appendChild(closeBtn);
 
@@ -1026,7 +1054,18 @@
       var cooldown = isOnCooldown(loc.id);
 
       var card = document.createElement('div');
-      card.style.cssText = 'border-radius:14px;padding:16px;color:#fff;position:relative;overflow:hidden;min-height:90px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;transition:transform .15s;background:' + loc.bgGradient + ';';
+      // Jun 2026 \u2014 keep the location-specific bgGradient (it's part
+      // of the destination's identity) but layer a wine-velvet veil
+      // and rose-gold hairline so it sits inside the brand language.
+      card.style.cssText = [
+        'border-radius:14px;padding:16px;color:rgba(244,235,220,0.96);',
+        'position:relative;overflow:hidden;min-height:96px;',
+        'display:flex;flex-direction:column;justify-content:flex-end;',
+        'cursor:pointer;transition:transform .15s, box-shadow .15s;',
+        'border:1px solid rgba(232,200,138,0.32);',
+        'box-shadow:0 6px 22px rgba(0,0,0,0.55), inset 0 0 80px rgba(21,8,26,0.55);',
+        'background:linear-gradient(135deg, rgba(21,8,26,0.35) 0%, rgba(43,17,51,0.55) 100%),' + loc.bgGradient + ';'
+      ].join('');
 
       if (locked || cooldown) {
         card.style.opacity = '0.5';
@@ -1035,14 +1074,22 @@
       }
 
       var nameEl = document.createElement('div');
-      nameEl.style.cssText = 'font-size:16px;font-weight:700;margin-bottom:4px;text-shadow:0 1px 4px rgba(0,0,0,.6);';
+      nameEl.style.cssText = [
+        "font-family:'Cormorant Garamond','EB Garamond',serif;font-style:italic;",
+        'font-weight:500;font-size:18px;letter-spacing:0.02em;',
+        'margin-bottom:4px;text-shadow:0 1px 5px rgba(0,0,0,0.65);'
+      ].join('');
       nameEl.textContent = (locked ? '\uD83D\uDD12 ' : '') + loc.name;
       card.appendChild(nameEl);
 
       var descEl = document.createElement('div');
-      descEl.style.cssText = 'font-size:12px;opacity:0.9;text-shadow:0 1px 3px rgba(0,0,0,.5);';
+      descEl.style.cssText = [
+        "font-family:'Cormorant Garamond','EB Garamond',serif;font-style:italic;",
+        'font-size:13px;opacity:0.88;line-height:1.45;',
+        'text-shadow:0 1px 3px rgba(0,0,0,0.55);'
+      ].join('');
       descEl.textContent = locked
-        ? 'Aff ' + loc.minAffection + ' / Day ' + loc.minDay
+        ? 'Affection ' + loc.minAffection + '  \u00B7  Day ' + loc.minDay
         : cooldown
           ? 'Available again tomorrow'
           : loc.description;

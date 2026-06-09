@@ -1959,18 +1959,28 @@ body {
 
 /* ===== DRESS PANEL ===== */
 /* ── Training Picker Panel ────────────────────────────────── */
+/* Jun 2026 brand pass — was brown-orange "hut/forge" palette
+   (Alistair-default) with Quicksand headers. Now wine-velvet
+   base with rose-gold accents. Per-character override (Lyra)
+   below still wins. Header switched to Cormorant italic so
+   it matches gift-panel + settings + achievement-panel. */
 #training-panel {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    background: linear-gradient(180deg, #1a0c08 0%, #0d0604 100%);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.18) 0%, rgba(0,0,0,0) 55%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.98) 0%, rgba(21, 8, 26, 0.99) 100%);
     border-radius: 20px 20px 0 0;
-    border-top: 1px solid rgba(180, 80, 10, 0.35);
-    padding: 16px 16px 24px;
+    border-top: 1px solid rgba(232, 200, 138, 0.32);
+    padding: 18px 16px 26px;
     z-index: 40; /* above dialogue-box (35) so it slides over it */
     transform: translateY(100%);
     transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     visibility: hidden;
+    box-shadow:
+        0 -8px 32px rgba(0, 0, 0, 0.55),
+        0 0 26px rgba(232, 168, 91, 0.10);
 }
 
 #training-panel.visible {
@@ -1987,23 +1997,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    font-size: 15px;
-    font-weight: 700;
-    color: rgba(255, 200, 130, 0.85);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
 #training-close {
-    background: none;
-    border: none;
-    font-size: 20px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(232, 200, 138, 0.32);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1;
     cursor: pointer;
-    color: rgba(255, 180, 80, 0.6);
-    padding: 4px 8px;
+    color: rgba(244, 235, 220, 0.82);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     -webkit-tap-highlight-color: transparent;
 }
+#training-close:hover { color: #FFF6FA; border-color: rgba(232, 200, 138, 0.65); }
 
 #training-grid {
     display: grid;
@@ -2017,8 +2039,9 @@ body {
     align-items: center;
     gap: 6px;
     padding: 18px 8px 14px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1.5px solid rgba(180, 80, 10, 0.25);
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.45) 100%);
+    border: 1px solid rgba(232, 200, 138, 0.22);
     border-radius: 16px;
     cursor: pointer;
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
@@ -2027,8 +2050,9 @@ body {
 
 .training-option:active {
     transform: scale(0.94);
-    background: rgba(180, 80, 10, 0.18);
-    border-color: rgba(220, 120, 30, 0.6);
+    background:
+        linear-gradient(180deg, rgba(122, 18, 36, 0.30) 0%, rgba(43, 17, 51, 0.55) 100%);
+    border-color: rgba(232, 200, 138, 0.62);
 }
 
 .training-option-icon {
@@ -2037,19 +2061,22 @@ body {
 }
 
 .training-option-label {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: rgba(255, 220, 160, 0.95);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
     text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 
 .training-option-desc {
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 10px;
-    color: rgba(255, 180, 80, 0.45);
+    color: rgba(232, 200, 220, 0.62);
     text-align: center;
-    font-style: italic;
-    line-height: 1.3;
+    line-height: 1.35;
+    letter-spacing: 0.4px;
 }
 
 /* ── Lyra Training Panel Theme (ocean teal) ──────────────── */
@@ -2767,22 +2794,22 @@ body {
     margin: 2px 0;
 }
 
-/* ===== GALLERY OVERLAY ===== */
+/* ===== GALLERY OVERLAY ===== (Jun 2026 brand pass)
+   Was indigo-magenta gradient — now wine-velvet to match the
+   rest of the brand world. */
 #gallery-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 40%, #4a1942 100%);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.18) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.98) 0%, rgba(21, 8, 26, 0.99) 100%);
     z-index: 50;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     animation: fadeIn 0.3s ease;
-    /* Hide the chunky scrollbar — same treatment as letter-body. The
-       gallery still scrolls on touch / wheel; the scrollbar visual
-       just doesn't render, which fits the dark-fantasy Otome aesthetic
-       (L&DS / Mystic Messenger / Tears of Themis all hide scrollbars). */
-    scrollbar-width: none;        /* Firefox */
-    -ms-overflow-style: none;     /* old IE / Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 #gallery-overlay::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
@@ -2794,32 +2821,46 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(232, 200, 138, 0.20);
 }
 
 #gallery-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #f8bbd0;
-    letter-spacing: 2px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 #gallery-counter {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    color: rgba(248, 187, 208, 0.6);
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(232, 200, 138, 0.85);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
 #gallery-close {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.6);
-    font-size: 22px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(232, 200, 138, 0.30);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: rgba(244, 235, 220, 0.85);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+#gallery-close:hover { color: #FFF6FA; border-color: rgba(232, 200, 138, 0.65); }
 
 /* Cards / Stories mode toggle — sits above the per-character tabs.
    Two pill buttons; warm-gold gradient for the active mode (matches
@@ -2975,29 +3016,37 @@ body {
 }
 
 .gallery-card-info {
-    padding: 8px 10px;
-    background: rgba(0,0,0,0.3);
+    padding: 10px 12px;
+    background:
+        linear-gradient(180deg, rgba(43, 17, 51, 0.78) 0%, rgba(21, 8, 26, 0.92) 100%);
+    border-top: 1px solid rgba(232, 200, 138, 0.22);
     border-radius: 0 0 12px 12px;
 }
 
 .gallery-card-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: white;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
 .gallery-card-rarity {
-    font-size: 11px;
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
 }
 
 .gallery-card-condition {
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 10px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 2px;
+    color: rgba(232, 200, 220, 0.55);
+    margin-top: 4px;
+    letter-spacing: 0.5px;
 }
 
 /* ── Stories tab: per-entry card variant ──────────────────────────
@@ -3113,15 +3162,22 @@ body {
 .rarity-text-legendary { color: #ffd54f; }
 
 /* Card Viewer */
+/* Gallery viewer (lightbox) — Jun 2026 brand pass.
+   Was pitch-black + pink box-shadow + Quicksand white text.
+   Now pure black with wine radial behind + gold-tinted card glow
+   and Cormorant italic title. */
 #gallery-viewer {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.95);
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(43, 17, 51, 0.55) 0%, rgba(0, 0, 0, 0.96) 70%);
     z-index: 60;
     display: flex;
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 #gallery-viewer.hidden {
@@ -3137,57 +3193,70 @@ body {
 #gallery-viewer-img {
     max-width: 100%;
     max-height: 55vh;
-    border-radius: 12px;
-    box-shadow: 0 8px 40px rgba(233, 30, 99, 0.3);
+    border-radius: 14px;
+    border: 1px solid rgba(232, 200, 138, 0.45);
+    box-shadow:
+        0 8px 36px rgba(0, 0, 0, 0.75),
+        0 0 50px rgba(232, 168, 91, 0.30);
 }
 
 #gallery-viewer-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
-    margin-top: 16px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    margin-top: 18px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 #gallery-viewer-subtitle {
-    font-size: 14px;
-    color: rgba(255,255,255,0.5);
-    margin-top: 4px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
     font-style: italic;
+    font-size: 15px;
+    color: rgba(232, 200, 220, 0.78);
+    margin-top: 6px;
 }
 
 #gallery-viewer-rarity {
-    font-size: 12px;
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 8px;
+    letter-spacing: 2.5px;
+    margin-top: 10px;
 }
 
 #gallery-viewer-counter {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 11px;
-    color: rgba(255,255,255,0.4);
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 10px;
+    color: rgba(232, 200, 138, 0.55);
     margin-top: 8px;
+    letter-spacing: 1.5px;
 }
 #gallery-viewer-hint {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 10px;
-    color: rgba(255,255,255,0.25);
+    color: rgba(232, 200, 220, 0.35);
     margin-top: 4px;
+    letter-spacing: 1px;
+    font-style: italic;
 }
 #gallery-viewer-img {
     cursor: pointer;
     user-select: none;
 }
 #gallery-viewer-close {
-    margin-top: 12px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    font-family: 'Quicksand', sans-serif;
+    margin-top: 14px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(232, 200, 138, 0.45);
+    color: rgba(244, 235, 220, 0.92);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
     font-size: 14px;
+    letter-spacing: 0.08em;
     padding: 10px 40px;
-    border-radius: 25px;
+    border-radius: 999px;
     cursor: pointer;
 }
 
@@ -3503,22 +3572,24 @@ body {
 }
 
 #event-content {
-    /* Repaletted: was a white→pink gradient ("candy event modal") that
-       didn't fit the dark-fantasy story tone. Now matches the chain-toast
-       and ready-modal aesthetic — navy backdrop, warm gold border, gold
-       inner glow. Per-character border colors below override accent. */
-    background: linear-gradient(180deg, #0e1224 0%, #06080f 100%);
+    /* Repaletted Jun 2026 — was navy with hot-gold border, which read
+       as "chain-toast" but clashed with the wine-velvet brand world.
+       Now wine-velvet card with rose-gold hairline + inner glow.
+       Per-character border colors below override the accent. */
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.22) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.98) 0%, rgba(21, 8, 26, 0.99) 100%);
     border-radius: 14px;
     padding: 26px 24px 22px;
     text-align: center;
     max-width: 340px;
     width: 90%;
     box-shadow:
-      0 18px 60px rgba(0, 0, 0, 0.78),
-      0 0 38px #ffce6b inset,
-      0 0 0 1px rgba(255, 255, 255, 0.04);
+        0 18px 60px rgba(0, 0, 0, 0.78),
+        0 0 28px rgba(232, 168, 91, 0.20) inset,
+        0 0 0 1px rgba(232, 200, 138, 0.10);
     animation: eventSlideIn 0.5s ease;
-    border: 1px solid #ffce6b;
+    border: 1px solid rgba(232, 200, 138, 0.55);
 }
 /* Character-themed event borders */
 .character-alistair #event-content { border-color: rgba(180, 130, 40, 0.3); box-shadow: 0 8px 40px rgba(180, 130, 40, 0.2); }
@@ -3547,22 +3618,27 @@ body {
 }
 
 #event-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 17px;
-    font-weight: 700;
-    color: #ffce6b;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    background: linear-gradient(160deg, #F4DDA8 0%, #D4A85B 55%, #B7842F 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(232, 168, 91, 0.30));
+    letter-spacing: 0.02em;
     margin-bottom: 12px;
 }
 
 #event-description {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 14px;
-    color: #e8dec4;
-    line-height: 1.55;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
     font-style: italic;
-    margin-bottom: 20px;
+    font-size: 15px;
+    color: rgba(244, 235, 220, 0.92);
+    line-height: 1.6;
+    margin-bottom: 22px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 #event-choices {
@@ -3572,27 +3648,34 @@ body {
 }
 
 .event-choice-btn {
-    /* Repaletted to match ready-modal "stay" button: dark navy with
-       warm-gold border, hover/primary state with gold gradient. */
-    background: rgba(20, 24, 40, 0.78);
-    color: #e8dec4;
-    border: 1px solid rgba(255, 206, 107, 0.4);
+    /* Repaletted Jun 2026 — was navy with warm-gold border. Now
+       wine-velvet card with rose-gold hairline, hover state shifts
+       to a brand-magenta primary. */
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.48) 100%);
+    color: rgba(244, 235, 220, 0.95);
+    border: 1px solid rgba(232, 200, 138, 0.32);
     padding: 12px 16px;
-    border-radius: 10px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13.5px;
-    font-weight: 600;
+    border-radius: 12px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
 .event-choice-btn:hover {
-    background: linear-gradient(180deg, #ffce6b, #d4a04a);
-    color: #1a1208;
-    border-color: #ffce6b;
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(244, 221, 168, 0.18) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, #6E1733 0%, #4C0E22 100%);
+    color: rgba(244, 235, 220, 0.98);
+    border-color: rgba(232, 200, 138, 0.65);
     transform: translateX(2px);
+    box-shadow: 0 0 18px rgba(232, 168, 91, 0.22);
 }
 
 .event-choice-btn:active {
@@ -5098,25 +5181,39 @@ body {
     overflow: hidden;
 }
 
+/* Jun 2026 brand pass — was indigo-magenta gacha gradient.
+   Now wine-velvet with a rose-gold ornamental seal on the back
+   so it ties to the title screen's wax-seal language. The
+   gradient + heart-glyph reads as "secret letter" instead of
+   generic gacha pack. */
 #card-reveal-card-back {
-    background: linear-gradient(135deg, #2d1b4e 0%, #4a1942 50%, #1a0a2e 100%);
-    border: 2px solid rgba(255,255,255,0.15);
+    background:
+        radial-gradient(ellipse at 50% 35%, rgba(122, 18, 36, 0.28) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(160deg, #2B1133 0%, #15081A 55%, #0B0410 100%);
+    border: 1px solid rgba(232, 200, 138, 0.42);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.78),
+        inset 0 0 28px rgba(232, 168, 91, 0.18);
 }
 #card-reveal-card-back::after {
     content: '\2764';
     font-size: 48px;
-    opacity: 0.3;
+    background: linear-gradient(160deg, #F4DDA8 0%, #D4A85B 50%, #B7842F 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(232, 168, 91, 0.35));
+    opacity: 0.85;
 }
 
 #card-reveal-card-front {
     transform: rotateY(180deg);
-    background: #1a0a2e;
-    border: 2px solid rgba(255,255,255,0.2);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    background: #15081A;
+    border: 1px solid rgba(232, 200, 138, 0.35);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.78);
 }
 #card-reveal-img {
     width: 100%;
@@ -5222,24 +5319,31 @@ body {
 }
 #card-reveal-info.hidden { display: none; }
 
+/* Jun 2026 brand pass — Cormorant italic for the card title so
+   the unlock reads as a poetic beat ("A Stillness Between Words")
+   instead of a Quicksand UI label. Rarity badge stays in
+   Quicksand to keep its functional reading. */
 #card-reveal-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.97);
+    text-shadow:
+        0 1px 6px rgba(0, 0, 0, 0.65),
+        0 0 18px rgba(232, 168, 91, 0.18);
 }
 #card-reveal-subtitle {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    margin-top: 4px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
     font-style: italic;
+    font-size: 14px;
+    color: rgba(232, 200, 220, 0.75);
+    margin-top: 4px;
 }
 #card-reveal-rarity {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 11px;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
     margin-top: 8px;
     font-weight: 600;
@@ -5520,24 +5624,36 @@ body {
     background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(4px);
 }
+/* Jun 2026 brand pass — was indigo-magenta card with a hot-pink
+   "CLAIM" CTA. Now wine-velvet with a rose-gold hairline border,
+   Cormorant italic streak label, and a brand-magenta claim button
+   that matches the START family on the title screen. */
 .dr-card {
     position: relative;
-    background: linear-gradient(135deg, #2d1b4e 0%, #1a0a2e 100%);
-    border: 1px solid rgba(255,213,79,0.3);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.20) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(43, 17, 51, 0.98) 0%, rgba(21, 8, 26, 0.99) 100%);
+    border: 1px solid rgba(232, 200, 138, 0.42);
     border-radius: 20px;
-    padding: 24px 20px;
+    padding: 26px 22px 22px;
     width: 88%;
     max-width: 320px;
     text-align: center;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255,213,79,0.1);
+    box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.78),
+        0 0 32px rgba(232, 168, 91, 0.14),
+        inset 0 1px 0 rgba(232, 200, 138, 0.18);
     animation: fadeInUp 0.5s ease;
 }
 .dr-streak {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #ffd54f;
-    margin-bottom: 16px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    margin-bottom: 18px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    letter-spacing: 0.02em;
 }
 .dr-calendar {
     display: flex;
@@ -5549,8 +5665,8 @@ body {
     width: 36px;
     height: 46px;
     border-radius: 8px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(232, 200, 138, 0.18);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5558,62 +5674,84 @@ body {
     gap: 2px;
 }
 .dr-day-num {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 10px;
-    color: rgba(255,255,255,0.5);
+    color: rgba(232, 200, 220, 0.55);
+    letter-spacing: 0.5px;
 }
 .dr-day-icon { font-size: 14px; }
-.dr-claimed { background: rgba(102,187,106,0.15); border-color: rgba(102,187,106,0.3); }
+.dr-claimed {
+    background: rgba(232, 168, 91, 0.12);
+    border-color: rgba(232, 168, 91, 0.38);
+}
 .dr-today {
-    background: rgba(255,213,79,0.2);
-    border-color: rgba(255,213,79,0.5);
-    box-shadow: 0 0 12px rgba(255,213,79,0.2);
+    background: rgba(232, 168, 91, 0.18);
+    border-color: rgba(232, 200, 138, 0.65);
+    box-shadow: 0 0 12px rgba(232, 168, 91, 0.32);
 }
 .dr-locked { opacity: 0.4; }
 
 .dr-reward {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 .dr-reward-icon { font-size: 40px; margin-bottom: 8px; }
 .dr-reward-label {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(244, 235, 220, 0.96);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 .dr-reward-desc {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(232, 200, 220, 0.78);
     margin-top: 4px;
 }
 .dr-claim-btn {
-    background: linear-gradient(135deg, #e91e63, #c2185b);
-    color: #fff;
-    border: none;
-    border-radius: 25px;
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(244, 221, 168, 0.20) 0%, rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, #6E1733 0%, #4C0E22 100%);
+    color: rgba(244, 235, 220, 0.97);
+    border: 1px solid rgba(232, 200, 138, 0.55);
+    border-radius: 999px;
     padding: 12px 40px;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
+    letter-spacing: 0.10em;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    box-shadow: 0 4px 20px rgba(233,30,99,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    box-shadow:
+        0 6px 22px rgba(0, 0, 0, 0.50),
+        0 0 18px rgba(232, 168, 91, 0.22),
+        inset 0 1px 0 rgba(244, 221, 168, 0.18);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
+.dr-claim-btn:hover { filter: brightness(1.08); }
 .dr-claim-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
 }
 /* Milestone streak rewards */
 .dr-milestone {
-    border: 2px solid rgba(255,213,79,0.5) !important;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 40px rgba(255,213,79,0.2) !important;
+    border: 1px solid rgba(232, 200, 138, 0.72) !important;
+    box-shadow:
+        0 18px 60px rgba(0, 0, 0, 0.80),
+        0 0 48px rgba(232, 168, 91, 0.28) !important;
 }
 .dr-milestone-title {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: #ffd54f;
-    text-shadow: 0 2px 12px rgba(255,213,79,0.4);
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 500;
+    background: linear-gradient(160deg, #F4DDA8 0%, #D4A85B 55%, #B7842F 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 14px rgba(232, 168, 91, 0.38));
     margin-bottom: 8px;
     animation: pp-premium-heartbeat 1.2s ease-in-out infinite;
 }

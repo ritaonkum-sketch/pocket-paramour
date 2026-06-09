@@ -74,23 +74,37 @@
         50%      { box-shadow: 0 4px 14px rgba(0,0,0,0.55),
                                 0 0 0 6px rgba(240,200,140,0.0); }
       }
-      /* Small badge in the corner showing unread/unreplied count. */
+      /* Small badge in the corner showing unread/unreplied count.
+         Jun 2026 brand pass — was hot-pink #e94f7c; now wine-velvet
+         with a rose-gold hairline + soft gold halo. */
       #pp-letters-btn .pp-letters-dot {
         position: absolute; top: -3px; right: -3px;
-        background: #e94f7c; color: #fff;
+        background: linear-gradient(180deg, #6E1733 0%, #4C0E22 100%);
+        border: 1px solid rgba(232,200,138,0.55);
+        color: rgba(244,235,220,0.97);
+        font-family: 'Quicksand', 'Inter', sans-serif;
         font-size: 9px; font-weight: 700;
         min-width: 14px; height: 14px; padding: 0 4px;
-        border-radius: 8px;
+        border-radius: 999px;
         display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.45);
+        box-shadow:
+          0 1px 4px rgba(0,0,0,0.55),
+          0 0 8px rgba(232,168,91,0.30);
       }
       #pp-letters-btn .pp-letters-dot.hidden { display: none; }
 
-      /* Archive overlay */
+      /* Archive overlay — Jun 2026 brand pass.
+         Was a brown-gold "leather/parchment" palette that clashed with
+         the wine-velvet brand world. Now wine-velvet panel with
+         rose-gold hairlines, Cormorant italic title, and brand-tinted
+         badges (unread → brand magenta, replied → moss, response → lilac,
+         milestone → rose-gold). */
       #pp-letters-overlay {
         position: fixed; inset: 0; z-index: 9500;
-        background: rgba(20,12,4,0.80);
-        backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        background:
+          radial-gradient(ellipse at 50% 100%, rgba(122,18,36,0.25) 0%, rgba(0,0,0,0) 60%),
+          rgba(11, 4, 16, 0.82);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         display: flex; align-items: flex-end; justify-content: center;
         opacity: 0; pointer-events: none;
         transition: opacity 280ms ease;
@@ -98,12 +112,17 @@
       #pp-letters-overlay.show { opacity: 1; pointer-events: auto; }
       #pp-letters-panel {
         width: 100%; max-width: 460px; height: 86vh;
-        background: linear-gradient(180deg, #3a2818 0%, #1a1108 100%);
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(122,18,36,0.20) 0%, rgba(0,0,0,0) 55%),
+          linear-gradient(180deg, rgba(43,17,51,0.98) 0%, rgba(21,8,26,0.99) 100%);
         border-top-left-radius: 22px; border-top-right-radius: 22px;
-        border: 1px solid rgba(220,180,120,0.30);
-        box-shadow: 0 -10px 40px rgba(0,0,0,0.65);
+        border: 1px solid rgba(232,200,138,0.40);
+        border-bottom: none;
+        box-shadow:
+          0 -10px 40px rgba(0,0,0,0.65),
+          0 0 28px rgba(232,168,91,0.12);
         display: flex; flex-direction: column; overflow: hidden;
-        color: #f0d8a0;
+        color: rgba(244,235,220,0.96);
         transform: translateY(20px);
         transition: transform 320ms ease;
       }
@@ -111,17 +130,29 @@
 
       .pp-letters-header {
         display: flex; align-items: center; justify-content: space-between;
-        padding: 16px 18px;
-        border-bottom: 1px solid rgba(220,180,120,0.20);
+        padding: 18px 18px;
+        border-bottom: 1px solid rgba(232,200,138,0.22);
       }
       .pp-letters-header .title {
-        font-size: 14px; font-weight: 700; letter-spacing: 1.5px;
-        color: #f7e6c0;
+        font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+        font-style: italic; font-weight: 500;
+        font-size: 22px; letter-spacing: 0.04em;
+        color: rgba(244,235,220,0.96);
+        text-shadow: 0 1px 5px rgba(0,0,0,0.55);
+        text-transform: none;
       }
       .pp-letters-header .close {
-        cursor: pointer; padding: 4px 12px; opacity: 0.85;
-        font-size: 18px;
+        cursor: pointer; padding: 0;
+        width: 30px; height: 30px;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: rgba(0,0,0,0.45);
+        border: 1px solid rgba(232,200,138,0.32);
+        border-radius: 50%;
+        font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+        font-size: 18px; line-height: 1;
+        color: rgba(244,235,220,0.85); opacity: 1;
       }
+      .pp-letters-header .close:hover { color: #FFF6FA; border-color: rgba(232,200,138,0.65); }
 
       .pp-letters-body {
         flex: 1; overflow-y: auto;
@@ -129,25 +160,26 @@
       }
       .pp-letters-empty {
         text-align: center; padding: 80px 24px;
-        color: rgba(240,216,160,0.55);
-        font-style: italic; font-size: 13px;
+        color: rgba(232,200,220,0.62);
+        font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+        font-style: italic; font-size: 15px;
         line-height: 1.6;
       }
       .pp-letters-row {
         display: flex; align-items: center; gap: 12px;
         padding: 12px 10px;
-        border-bottom: 1px solid rgba(220,180,120,0.10);
+        border-bottom: 1px solid rgba(232,200,138,0.10);
         cursor: pointer;
         border-radius: 10px;
         transition: background 0.15s ease;
       }
-      .pp-letters-row:hover { background: rgba(220,180,120,0.07); }
+      .pp-letters-row:hover { background: rgba(232,200,138,0.07); }
       .pp-letters-row .avatar {
         width: 44px; height: 44px; border-radius: 50%;
         flex-shrink: 0;
-        background: rgba(20,12,4,0.6);
+        background: rgba(11,4,16,0.6);
         overflow: hidden;
-        border: 1px solid rgba(220,180,120,0.30);
+        border: 1px solid rgba(232,200,138,0.35);
       }
       .pp-letters-row .avatar img {
         width: 100%; height: 100%; object-fit: cover;
@@ -155,38 +187,59 @@
       }
       .pp-letters-row .meta { flex: 1; min-width: 0; }
       .pp-letters-row .meta .name {
-        font-size: 11.5px; letter-spacing: 1.2px;
-        color: rgba(240,216,160,0.65); margin-bottom: 2px;
+        font-family: 'Quicksand', 'Inter', sans-serif;
+        font-size: 10px; font-weight: 600;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        color: rgba(232,200,138,0.72); margin-bottom: 3px;
       }
       .pp-letters-row .meta .title {
-        font-size: 14px; font-weight: 600; color: #f7e6c0;
+        font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+        font-style: italic; font-weight: 500;
+        font-size: 16px; color: rgba(244,235,220,0.96);
         overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.55);
       }
       .pp-letters-row .meta .preview {
-        font-size: 11.5px; color: rgba(240,216,160,0.55);
-        margin-top: 3px; font-style: italic;
+        font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+        font-style: italic; font-size: 12.5px;
+        color: rgba(232,200,220,0.62);
+        margin-top: 3px;
         overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
       }
       .pp-letters-row .badge {
-        font-size: 10.5px; font-weight: 600;
-        padding: 4px 10px; border-radius: 10px;
+        font-family: 'Quicksand', 'Inter', sans-serif;
+        font-size: 9.5px; font-weight: 700;
+        letter-spacing: 1.2px; text-transform: uppercase;
+        padding: 4px 10px; border-radius: 999px;
         flex-shrink: 0;
+        border: 1px solid transparent;
       }
       .pp-letters-row .badge.unread {
-        background: #e94f7c; color: #fff;
+        background: linear-gradient(180deg, #6E1733 0%, #4C0E22 100%);
+        color: rgba(244,235,220,0.97);
+        border-color: rgba(232,200,138,0.55);
+        box-shadow: 0 0 12px rgba(232,168,91,0.20);
       }
       .pp-letters-row .badge.read {
-        background: rgba(220,180,120,0.18); color: rgba(240,216,160,0.7);
+        background: rgba(232,200,138,0.10);
+        border-color: rgba(232,200,138,0.22);
+        color: rgba(232,200,220,0.68);
       }
       .pp-letters-row .badge.replied {
-        background: rgba(160,200,140,0.22); color: #cfe8b8;
+        background: rgba(160,200,140,0.18);
+        border-color: rgba(160,200,140,0.32);
+        color: #cfe8b8;
       }
       .pp-letters-row .badge.response {
-        background: rgba(200,160,240,0.22); color: #e2cdf7;
+        background: rgba(200,160,240,0.18);
+        border-color: rgba(200,160,240,0.32);
+        color: #e2cdf7;
       }
       .pp-letters-row .badge.milestone {
-        background: rgba(246,165,192,0.22); color: #ffcfdd;
-        letter-spacing: 1.5px;
+        background: linear-gradient(160deg, rgba(244,221,168,0.25) 0%, rgba(212,168,91,0.15) 100%);
+        border-color: rgba(232,200,138,0.55);
+        color: #F4DDA8;
+        letter-spacing: 1.6px;
       }
 
       /* Grouped layout — character-section header + indented rows. */
@@ -194,24 +247,28 @@
         display: flex; align-items: center; gap: 10px;
         padding: 14px 16px 8px;
         margin-top: 4px;
-        border-bottom: 1px solid rgba(220,180,120,0.10);
+        border-bottom: 1px solid rgba(232,200,138,0.10);
       }
       .pp-letters-group-portrait {
         width: 36px; height: 36px;
         border-radius: 50%; overflow: hidden;
         flex-shrink: 0;
-        background: rgba(220,180,120,0.08);
-        border: 1px solid rgba(220,180,120,0.22);
+        background: rgba(232,200,138,0.08);
+        border: 1px solid rgba(232,200,138,0.28);
       }
       .pp-letters-group-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
       .pp-letters-group-meta { flex: 1; min-width: 0; }
       .pp-letters-group-name {
-        font-size: 12px; letter-spacing: 2px; font-weight: 700;
-        color: #f7e6c0;
+        font-family: 'Quicksand', 'Inter', sans-serif;
+        font-size: 11px; letter-spacing: 2px; font-weight: 700;
+        text-transform: uppercase;
+        color: rgba(232,200,138,0.92);
       }
       .pp-letters-group-count {
-        font-size: 10.5px; color: rgba(240,216,160,0.55);
-        margin-top: 2px; font-style: italic;
+        font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+        font-style: italic;
+        font-size: 12px; color: rgba(232,200,220,0.62);
+        margin-top: 2px;
       }
       /* When a row is grouped under a header, drop its own portrait
          and indent slightly so the visual hierarchy reads "section". */
