@@ -947,6 +947,18 @@ class PocketLoveGame {
         if (typeof sounds !== 'undefined' && !sounds.enabled) {
             sounds.init(); sounds.resume(); sounds.enabled = true;
         }
+        // Jun 2026 fix — every init() used to add a NEW TypewriterEffect
+        // (and a NEW click listener on dialogue-box) without cleaning up
+        // the prior one. When the player swapped companion and re-entered
+        // care, two typewriters would both type to the same element on
+        // the next dialogue line, producing doubled output ("Yoouu
+        // wwaannntt"). Cleanly tear down the previous instance first.
+        // window._game survives across swaps, so its `.typewriter` may
+        // already hold a live instance from the prior character.
+        try {
+            const _prev = window._game && window._game.typewriter;
+            if (_prev && typeof _prev.destroy === 'function') _prev.destroy();
+        } catch (_) {}
         this.typewriter = new TypewriterEffect(document.getElementById('dialogue-text'));
         // Set character name above dialogue
         try {

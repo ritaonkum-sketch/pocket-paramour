@@ -211,7 +211,15 @@ class TypewriterEffect {
         this._emotionTriggers  = [];
         this._autoShiftEmotion = null;
 
-        // Click to skip typing, or dismiss finished dialogue
+        // Click to skip typing, or dismiss finished dialogue.
+        // Jun 2026 fix: use AbortController so destroy() can yank this
+        // listener cleanly. Without removal, every game.init() (e.g.
+        // when the player swaps companion and re-enters care) stacked
+        // ANOTHER click listener on dialogue-box, and the orphaned
+        // typewriter instances kept writing to the same element via
+        // their own _type() chains — producing the "Yoouu wwaannntt"
+        // doubled-char output the user reported.
+        this._abortController = new AbortController();
         this.element.parentElement.addEventListener('click', () => {
             if (this.isTyping) {
                 this.skip();
@@ -221,7 +229,20 @@ class TypewriterEffect {
                 const hint = document.getElementById('dialogue-tap-hint');
                 if (hint) hint.classList.add('hidden');
             }
-        });
+        }, { signal: this._abortController.signal });
+    }
+
+    // Jun 2026 — yank click listener + kill any pending callbacks so
+    // an orphaned instance cannot keep writing to the dialogue box.
+    // Called by game.init() right before constructing a replacement.
+    destroy() {
+        try { this._abortController?.abort(); } catch (_) {}
+        if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+        this._gen++;       // every pending _type callback fails its gen check
+        this.isTyping = false;
+        this.onComplete = null;
+        // We deliberately do NOT clear this.element.textContent — the new
+        // typewriter will manage that. We just stop touching it ourselves.
     }
 
     show(text, callback) {
@@ -333,8 +354,16 @@ class TypewriterEffect {
         }
 
         if (this.currentIndex < this.fullText.length) {
-            this.element.textContent += this.fullText[this.currentIndex];
+            // Jun 2026 — was `textContent += this.fullText[this.currentIndex]`.
+            // That made `_type` non-idempotent: if two chains ever raced (e.g.
+            // an orphaned typewriter instance from a previous init() running
+            // alongside the current one), each call would APPEND a char,
+            // producing the "Yoouu wwaannntt" doubled-char output.
+            // Now we WRITE the full prefix every tick. Multiple racing calls
+            // at the same currentIndex all converge to the same textContent,
+            // so the worst case is the line types fast — never doubles.
             this.currentIndex++;
+            this.element.textContent = this.fullText.substring(0, this.currentIndex);
             this.timer = setTimeout(() => this._type(gen), this.speed);
         } else {
             this.isTyping = false;
