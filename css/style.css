@@ -6296,26 +6296,84 @@ body {
     100% { transform: scale(1)    translateY(0); }
 }
 
-/* Floating "+N Stat" label that rises from the character's chest. */
+/* Floating "+N Stat" label that rises from the character's chest.
+   Jun 2026 restyle: Cormorant Garamond italic + rose-gold gradient
+   text. Replaces the previous Quicksand 800-weight stat-color popup
+   which read as a generic mobile-game stat-up. Now reads as a
+   literary kilig beat in the same brand register as the dialogue
+   bubble + title screen. */
 .pp-stat-float {
     position: absolute;
     pointer-events: none;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
+    font-family: 'Cormorant Garamond', 'EB Garamond', 'Garamond', 'Georgia', serif;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    /* Rose-gold gradient text via background-clip:text */
+    background: linear-gradient(180deg,
+        #FFEED1 0%,
+        #F8C97A 35%,
+        #E0A45C 65%,
+        #C0813F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
     z-index: 4;
     transform: translate(-50%, 0);
     white-space: nowrap;
-    animation: stat-float-rise 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.75);
+    animation: stat-float-rise 1.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    /* Drop-shadow under the gradient text — text-shadow doesn't render
+       on background-clip:text, so use filter on the whole element. */
+    filter:
+        drop-shadow(0 0 12px rgba(232, 168, 91, 0.55))
+        drop-shadow(0 2px 5px rgba(0, 0, 0, 0.70));
 }
 @keyframes stat-float-rise {
-    0%   { opacity: 0; transform: translate(-50%, 10px) scale(0.8); }
-    15%  { opacity: 1; transform: translate(-50%, -6px) scale(1.12); }
-    30%  { opacity: 1; transform: translate(-50%, -18px) scale(1); }
-    85%  { opacity: 1; transform: translate(-50%, -60px) scale(1); }
-    100% { opacity: 0; transform: translate(-50%, -76px) scale(0.95); }
+    0%   { opacity: 0; transform: translate(-50%, 14px) scale(0.7); }
+    14%  { opacity: 1; transform: translate(-50%, -6px) scale(1.15); }
+    28%  { opacity: 1; transform: translate(-50%, -22px) scale(1);   }
+    80%  { opacity: 1; transform: translate(-50%, -68px) scale(1);   }
+    100% { opacity: 0; transform: translate(-50%, -84px) scale(0.92); }
+}
+
+/* Rose-petal burst — 3 petals exploding outward from the character
+   body in concert with the +N Stat text. Petals fade and rotate as
+   they fly, leaving a soft trail of rose glow on the way out. */
+.pp-action-petal {
+    position: absolute;
+    pointer-events: none;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    opacity: 0;
+    filter:
+        drop-shadow(0 0 6px rgba(232, 76, 140, 0.55))
+        drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
+    animation: pp-action-petal-fly 1.3s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+    will-change: opacity, transform;
+}
+@keyframes pp-action-petal-fly {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(0deg); }
+    18%  { opacity: 1; transform: translate(-50%, -50%) scale(1.3) rotate(80deg); }
+    60%  { opacity: 0.85; }
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--px, 60px)), calc(-50% + var(--py, -60px)))
+            scale(0.5)
+            rotate(var(--rot, 480deg));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pp-stat-float { animation: stat-float-rise 0.6s ease-out forwards; }
+    .pp-action-petal { display: none; }
 }
 
 /* Stat bar flash when its value changes. */

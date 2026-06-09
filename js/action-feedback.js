@@ -34,7 +34,11 @@
     }
 
     // Spawn a floating "+N Stat" element at the character's body center.
-    function spawnFloatingStat(delta, label, color) {
+    // Restyled Jun 2026: Cormorant Garamond italic + rose-gold gradient
+    // text instead of garish stat-color Quicksand 800-weight. The previous
+    // disable rationale ("felt cluttered") was correct — but the fix was
+    // typography, not removing the moment entirely.
+    function spawnFloatingStat(delta, label) {
         const container = document.getElementById('character-area');
         const body = document.getElementById('character-fullbody');
         if (!container || !body) return;
@@ -51,12 +55,52 @@
         el.textContent = '+' + Math.round(delta) + ' ' + label;
         el.style.left = x + 'px';
         el.style.top = y + 'px';
-        el.style.color = color;
-        el.style.textShadow = '0 0 8px ' + color + ', 0 2px 6px rgba(0,0,0,0.8)';
+        // No inline color — CSS handles the rose-gold gradient via
+        // background-clip:text. Inline color override would break it.
         container.appendChild(el);
 
         // Remove after animation completes.
-        setTimeout(() => { el.remove(); }, 1600);
+        setTimeout(() => { el.remove(); }, 1700);
+    }
+
+    // Spawn a 3-petal rose burst from the character's chest. Each petal
+    // scatters outward at a randomised angle, rotates, and fades.
+    // Uses the existing 3 PNG petal variants from the title-screen pool
+    // so the brand feels coherent.
+    const PETAL_SRC = [
+        'assets/petals/petal-1.png',
+        'assets/petals/petal-2.png',
+        'assets/petals/petal-3.png'
+    ];
+    function spawnPetalBurst() {
+        const container = document.getElementById('character-area');
+        const body = document.getElementById('character-fullbody');
+        if (!container || !body) return;
+        const bodyRect = body.getBoundingClientRect();
+        const areaRect = container.getBoundingClientRect();
+        const cx = (bodyRect.left - areaRect.left) + bodyRect.width / 2;
+        const cy = (bodyRect.top - areaRect.top) + bodyRect.height * 0.40;
+
+        for (let i = 0; i < 3; i++) {
+            const petal = document.createElement('span');
+            petal.className = 'pp-action-petal';
+            // Random fan: each petal flies at angle [-80, -45, -10] off
+            // straight-up plus small randomisation. Distance 55–85px.
+            const baseAngle = -100 + (i * 35);        // -100, -65, -30 degrees
+            const angle = baseAngle + (Math.random() * 20 - 10);
+            const dist = 55 + Math.random() * 30;
+            const dx = Math.cos(angle * Math.PI / 180) * dist;
+            const dy = Math.sin(angle * Math.PI / 180) * dist;
+            petal.style.left = cx + 'px';
+            petal.style.top = cy + 'px';
+            petal.style.setProperty('--px', dx.toFixed(0) + 'px');
+            petal.style.setProperty('--py', dy.toFixed(0) + 'px');
+            petal.style.setProperty('--rot', (Math.random() * 540 + 180).toFixed(0) + 'deg');
+            petal.style.backgroundImage = "url('" + PETAL_SRC[i % 3] + "')";
+            petal.style.animationDelay = (i * 60) + 'ms';
+            container.appendChild(petal);
+            setTimeout(() => { if (petal.parentNode) petal.remove(); }, 1400);
+        }
     }
 
     // Add a transient reaction class to the character body for a pulse.
@@ -120,12 +164,14 @@
                     }
                     const delta = deltas[chosen];
                     if (delta < 0.5) return; // Nothing meaningful happened.
-                    // Floating "+N Stat" text DISABLED per design call —
-                    // it was redundant with the stat-bar fill animation +
-                    // the character's dialogue reaction line. Two systems
-                    // showing the same data felt cluttered. Bar flash and
-                    // character pulse remain (those are subtle and helpful).
-                    // spawnFloatingStat(delta, labelForStat(chosen), BTN_STATS[btnId].color);
+                    // Celebration restored Jun 2026 — was disabled because
+                    // the typography (Quicksand 800-weight white per-stat
+                    // color) felt cluttered. Now Cormorant italic rose-gold
+                    // gradient + 3-petal rose burst from chest. Reads as
+                    // a literary kilig beat instead of a generic stat-up
+                    // popup.
+                    spawnFloatingStat(delta, labelForStat(chosen));
+                    spawnPetalBurst();
                     flashStatBar(chosen);
                 }, 180);
             }, true); // capture phase so we run before existing handlers
