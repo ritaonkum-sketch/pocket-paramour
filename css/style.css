@@ -580,21 +580,22 @@ button,
 }
 
 /* ═══ TAP TO CONTINUE HINTS ══════════════════════════════════════ */
+/* Jun 2026 legibility fix — was ridiculously faint (alpha 0.30 wine).
+   Now brand cream at 0.62 alpha against the wine-velvet bubble — still
+   reads as a secondary affordance hint, but actually visible. */
 #cinematic-tap-hint,
 #dialogue-tap-hint {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', 'Inter', sans-serif;
     font-size: 10px;
-    color: rgba(255,255,255,0.35);
+    color: rgba(244, 235, 220, 0.62);
     text-align: center;
     letter-spacing: 1.5px;
     margin-top: 6px;
     animation: fadeInOut 2.5s ease-in-out infinite;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 #cinematic-tap-hint.hidden,
 #dialogue-tap-hint.hidden { display: none; }
-#dialogue-tap-hint {
-    color: rgba(100,40,80,0.3);
-}
 
 /* ═══ CORRUPTION VISUAL VIGNETTE ═════════════════════════════════ */
 .corruption-low {
@@ -1542,34 +1543,28 @@ body {
     box-shadow: 0 2px 8px rgba(180, 130, 40, 0.3);
 }
 
-.character-alistair #dialogue-box {
-    background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255, 243, 210, 0.2));
-    border-color: rgba(180, 130, 40, 0.2);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 12px rgba(180, 130, 40, 0.06);
-}
+/* ─────────────────────────────────────────────────────────────────
+   LEGIBILITY FIX (Jun 2026 — user feedback)
+   The per-character action-btn / dialogue-box / btn-label overrides
+   below used to FORCE white-paper backgrounds + dark labels on top of
+   the wine-velvet brand pass. That made the labels and icons fade
+   into the paper backdrop ("I cannot see the icon. I cannot see the
+   writing."). Removed entirely.
 
-.character-alistair .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255, 248, 225, 0.92));
-    border-color: rgba(180, 130, 40, 0.25);
-}
-.character-alistair .action-btn:active {
-    background: linear-gradient(180deg, rgba(255, 243, 200, 0.6), rgba(255,255,255,0.97));
-}
-.character-alistair .btn-label {
-    color: #6d4c41;
-}
-
-/* ── Lucien theme ────────────────────────────────────────────── */
-.character-lucien .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(220, 225, 255, 0.92));
-    border-color: rgba(80, 60, 180, 0.25);
-}
-.character-lucien .action-btn:active {
-    background: linear-gradient(180deg, rgba(210, 215, 255, 0.6), rgba(255,255,255,0.97));
-}
-.character-lucien .btn-label {
-    color: #3d3270;
-}
+   What replaces them:
+     - .action-btn base (line ~1842) is wine-velvet with rose-gold
+       hairline. Per-character border + glow come from
+       var(--vfx-accent-char) + var(--vfx-glow-char), set by the
+       data-character cascade in visual-system.css.
+     - .btn-label is brand cream (rgba(244,235,220,0.92)) over the
+       dark tile — high contrast.
+     - .btn-icon is per-character accent (rose-gold for Alistair,
+       teal for Lyra, etc.) over the dark tile.
+     - #dialogue-box base (line ~1747) is wine-velvet glass; the
+       lucien/caspian/elian/proto/noir per-character border+shadow
+       tints (lines ~506) overlay correctly without fighting the bg.
+   ───────────────────────────────────────────────────────────────── */
+/* (legacy Alistair / Lucien overrides removed — see note above) */
 
 /* Lucien placeholder for missing chibi art */
 .lucien-placeholder {
@@ -1785,17 +1780,21 @@ body {
 }
 
 #dialogue-speaker {
-    /* Quicksand small-caps still (this IS a UI label — the character
-       name byline). Now rose-gold tinted to match the velvet card. */
+    /* Quicksand small-caps — character name byline.
+       Jun 2026 legibility fix: was rose-gold at low alpha, washed out
+       against the velvet bg. Now full-alpha rose-gold + 700 weight +
+       brighter shadow so the name reads at a glance. */
     font-family: 'Quicksand', 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: var(--vfx-accent-char, rgba(232, 200, 138, 0.78));
+    color: var(--vfx-accent-char, #F4DDA8);
     text-align: center;
-    margin-bottom: 4px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 5px;
+    text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.85),
+        0 0 8px var(--vfx-glow-char, rgba(232, 168, 91, 0.30));
 }
 /* Per-character byline tint — reads the data-character cascade
    from #game-container[data-character="X"]. Replaces the old
@@ -1805,16 +1804,21 @@ body {
     /* STORY REGISTER — Cormorant Garamond italic, warm parchment
        on the velvet bg. The character's voice should feel like
        it's coming off the page of a romantasy novel, not a chat
-       bubble. */
+       bubble.
+       Jun 2026 legibility fix: bumped to full alpha + 500 weight so
+       the body text reads cleanly. Was 0.95/400 — semi-faded under
+       backdrop-filter blur. */
     font-family: 'Cormorant Garamond', 'EB Garamond', 'Garamond', 'Georgia', serif;
     font-style: italic;
-    font-size: 16px;
-    color: rgba(244, 235, 220, 0.95);
+    font-size: 16.5px;
+    color: #F4EBDC;
     text-align: left;
-    line-height: 1.45;
-    font-weight: 400;
+    line-height: 1.48;
+    font-weight: 500;
     letter-spacing: 0.01em;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    text-shadow:
+        0 1px 6px rgba(0, 0, 0, 0.75),
+        0 0 10px rgba(0, 0, 0, 0.35);
 }
 
 /* ===== ACTION BUTTONS ===== */
@@ -1912,18 +1916,22 @@ body {
 .btn-icon {
     /* Custom SVG icons (Jun 2026) — replaced OS emoji. SVGs use
        currentColor stroke so they inherit from .btn-icon's color,
-       which we tint to the per-character accent. Drop-shadow gives
-       them depth + the brand wine/magenta glow halo. */
+       which we tint to the per-character accent.
+       Jun 2026 legibility fix: was 28px @ rose-gold; user couldn't
+       see them ("The icon is too fading"). Now 32px @ brand cream
+       with stronger glow halo so the glyph reads cleanly at game
+       distance. */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
-    color: var(--vfx-accent-char, #E8C88A);
+    width: 32px;
+    height: 32px;
+    color: #F4EBDC;
     transition: transform var(--vfx-motion-tap, 180ms) var(--vfx-ease-pop, cubic-bezier(0.34, 1.56, 0.64, 1)),
                 color var(--vfx-motion-quick, 320ms) ease;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55))
-            drop-shadow(0 0 6px var(--vfx-glow-char, rgba(232, 76, 140, 0.30)));
+    filter:
+        drop-shadow(0 1px 3px rgba(0, 0, 0, 0.85))
+        drop-shadow(0 0 8px var(--vfx-glow-char, rgba(232, 168, 91, 0.45)));
 }
 
 .action-btn:hover .btn-icon {
@@ -1947,14 +1955,20 @@ body {
 .btn-label {
     /* Cormorant Garamond italic — small-caps registered as ROMANTIC
        UI, not the chunky Quicksand 800-weight uppercase. Reads as
-       part of the story world, not generic mobile-game UI. */
+       part of the story world, not generic mobile-game UI.
+       Jun 2026 legibility fix: full alpha + bumped to 13.5px +
+       stronger shadow so labels survive the wine-velvet bg at a
+       glance. Was 0.92/12.5px — readable up close, faded at game
+       distance. */
     font-family: 'Cormorant Garamond', 'EB Garamond', 'Garamond', 'Georgia', serif;
     font-style: italic;
-    font-size: 12.5px;
+    font-size: 13.5px;
     font-weight: 500;
-    color: rgba(244, 235, 220, 0.92);
+    color: #F4EBDC;
     letter-spacing: 0.08em;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.80),
+        0 0 8px rgba(0, 0, 0, 0.40);
 }
 
 /* ===== DRESS PANEL ===== */
@@ -2127,28 +2141,14 @@ body {
     box-shadow: 0 2px 8px rgba(0, 200, 190, 0.3);
 }
 
-/* Dialogue box — soft ocean tint for Lyra */
+/* Lyra theme — bg/color forced-overrides removed Jun 2026 (legibility
+   fix). Wine-velvet base handles bg; --vfx-accent-char (teal C7D6E0)
+   handles per-character glow. Dialogue text inherits brand cream. */
 .character-lyra #dialogue-box {
-    background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(178, 235, 242, 0.2));
-    border-color: rgba(0, 200, 190, 0.25);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8), 0 0 12px rgba(0, 190, 180, 0.08);
-}
-
-/* Action buttons — teal accent for Lyra */
-.character-lyra .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(224, 247, 250, 0.92));
-    border-color: rgba(0, 200, 190, 0.3);
-}
-.character-lyra .action-btn:active {
-    background: linear-gradient(180deg, rgba(178, 235, 242, 0.6), rgba(255,255,255,0.97));
-}
-.character-lyra .btn-label {
-    color: #00796b;
-}
-
-/* Dialogue text — slightly deeper for ocean feel */
-.character-lyra #dialogue-text {
-    color: #1a3a3a;
+    border-color: rgba(199, 214, 224, 0.45);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(132, 180, 220, 0.18);
 }
 
 /* Subtle idle cursor pulse when dialogue is empty */
@@ -4568,17 +4568,10 @@ body {
             drop-shadow(0 -4px 24px rgba(200, 160, 40, 0.25));
 }
 
-/* Prince theme */
-.character-caspian .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(255, 245, 220, 0.92));
-    border-color: rgba(200, 160, 40, 0.25);
-}
-.character-caspian .action-btn:active {
-    background: linear-gradient(180deg, rgba(255, 240, 200, 0.6), rgba(255,255,255,0.97));
-}
-.character-caspian .btn-label {
-    color: #6d5c30;
-}
+/* Caspian/Elian/Proto/Noir action-btn + btn-label overrides removed
+   Jun 2026 (legibility fix). Wine-velvet base + per-character glow
+   via --vfx-accent-char handles everything. See note at the
+   Alistair/Lucien block above. */
 
 /* Druid tint: earthy green glow */
 .intro-bg-druid {
@@ -4612,12 +4605,7 @@ body {
             drop-shadow(0 -4px 24px rgba(180, 0, 40, 0.3));
 }
 
-/* Character themes */
-.character-elian .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(220, 240, 220, 0.92));
-    border-color: rgba(60, 140, 60, 0.25);
-}
-.character-elian .btn-label { color: #3d5c30; }
+/* Elian theme — legacy white-paper overrides removed (see note above). */
 /* Proto glitch effects on stat bars */
 .character-proto .stat-bar-fill {
     animation: pp-stat-glitch 3s ease-in-out infinite;
@@ -4641,11 +4629,7 @@ body {
     52% { opacity: 1; }
 }
 
-.character-proto .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(220, 240, 240, 0.92));
-    border-color: rgba(0, 180, 180, 0.25);
-}
-.character-proto .btn-label { color: #1a5050; }
+/* Proto theme — legacy white-paper overrides removed (see note above). */
 /* Noir dark tint on game container */
 .character-noir {
     position: relative;
@@ -4664,11 +4648,7 @@ body {
     50% { opacity: 1; }
 }
 
-.character-noir .action-btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(240, 220, 225, 0.92));
-    border-color: rgba(140, 20, 40, 0.25);
-}
-.character-noir .btn-label { color: #5c1a2a; }
+/* Noir theme — legacy white-paper overrides removed (see note above). */
 
 /* Per-character circle border colors — galaxy glow */
 [data-character="alistair"] .select-card-img-wrap { border-color: rgba(220, 190, 80, 0.6); box-shadow: 0 0 12px rgba(220, 190, 80, 0.2); }
