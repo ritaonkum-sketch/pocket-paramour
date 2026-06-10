@@ -562,6 +562,11 @@
                     </svg>
                 </span>
                 <span class="cc-nav-label">DAILY</span>
+                <!-- Notification dot — visible only when PPTodayHub
+                     reports pending rows. Hidden by default; JS toggles
+                     the .show class via wireDailyDotPolling in the
+                     inline script below. -->
+                <span class="cc-nav-dot" aria-hidden="true"></span>
             </button>
             <button class="cc-nav-tab is-active" type="button" data-tab="companions">
                 <span class="cc-nav-icon" aria-hidden="true">
@@ -604,7 +609,6 @@
                     </svg>
                 </span>
                 <span class="cc-nav-label">MORE</span>
-                <span class="cc-nav-dot" aria-hidden="true"></span>
             </button>
         </nav>
     </div>
@@ -1684,18 +1688,55 @@
             });
         }
 
+        // Daily nav dot — visible only when PPTodayHub has pending rows
+        // (invitations, urgent character, letters waiting, daily reward
+        // available, etc). Updates on a 3s poll, immediately on overlay
+        // close, and on any localStorage write to a pp_today_* key.
+        // Jun 2026 audit: was sitting on MORE for no reason; the user
+        // pointed at the screenshot and said "a notification dot has
+        // to mean something — put it on daily, off when done."
+        function updateDailyDot() {
+            var tab = document.querySelector('.cc-nav-tab[data-tab="daily"]');
+            if (!tab) return;
+            var dot = tab.querySelector('.cc-nav-dot');
+            if (!dot) return;
+            var pending = 0;
+            try {
+                if (window.PPTodayHub && typeof window.PPTodayHub.pendingRowCount === 'function') {
+                    pending = window.PPTodayHub.pendingRowCount() || 0;
+                }
+            } catch (_) {}
+            dot.classList.toggle('show', pending > 0);
+        }
+        function wireDailyDotPolling() {
+            updateDailyDot();
+            // Poll periodically. Cheap call — pendingRowCount() is a
+            // handful of localStorage reads + arithmetic.
+            setInterval(updateDailyDot, 3000);
+            // Re-check after any tab tap (overlay close path) and
+            // whenever the page becomes visible again.
+            document.addEventListener('click', function () {
+                setTimeout(updateDailyDot, 100);
+            }, true);
+            document.addEventListener('visibilitychange', function () {
+                if (!document.hidden) updateDailyDot();
+            });
+        }
+
         // Wire on DOM ready + whenever the select screen visibility changes
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function () {
                 maybeRefresh();
                 wireBottomNav();
                 wireScreenObserver();
+                wireDailyDotPolling();
             });
         } else {
             setTimeout(function () {
                 maybeRefresh();
                 wireBottomNav();
                 wireScreenObserver();
+                wireDailyDotPolling();
             }, 0);
         }
 

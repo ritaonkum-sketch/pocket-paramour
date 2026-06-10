@@ -1282,6 +1282,12 @@ body.cinematic-transition #select-screen {
 }
 
 .cc-nav-dot {
+    /* Jun 2026 — moved from MORE tab to DAILY tab and gated on
+       PPTodayHub.pendingRowCount(). User feedback: a notification
+       dot has to actually MEAN something. Hidden by default; the
+       inline wireDailyDotPolling script in index.html adds .show
+       when there are pending daily tasks, removes .show when the
+       player completes them. */
     position: absolute;
     top: 6px;
     right: 22%;
@@ -1293,7 +1299,9 @@ body.cinematic-transition #select-screen {
         0 0 6px rgba(232, 76, 140, 0.95),
         0 0 12px rgba(232, 76, 140, 0.5);
     animation: ppNavDotPulse 2s ease-in-out infinite;
+    display: none;
 }
+.cc-nav-dot.show { display: block; }
 @keyframes ppNavDotPulse {
     0%, 100% { transform: scale(1);    box-shadow: 0 0 6px rgba(232, 76, 140, 0.95), 0 0 12px rgba(232, 76, 140, 0.5); }
     50%      { transform: scale(1.18); box-shadow: 0 0 8px rgba(232, 76, 140, 1),    0 0 18px rgba(232, 76, 140, 0.65); }
