@@ -1136,22 +1136,9 @@ class PocketLoveGame {
         this._bgmStarted = false;
         this._startBGMOnInteraction();
 
-        // Music toggle button (legacy topbar button — hidden via CSS now)
-        const musicBtn = document.getElementById('music-btn');
-        if (musicBtn) {
-            musicBtn.addEventListener('click', () => {
-                if (!this._bgmStarted) {
-                    bgm.init();
-                    bgm.start();
-                    this._bgmStarted = true;
-                }
-                const muted = bgm.toggleMute();
-                musicBtn.textContent = muted ? '🔇' : '🎵';
-                musicBtn.style.opacity = muted ? '0.5' : '1';
-            });
-        }
-
-        // Music toggle button (new location: Settings overlay)
+        // Music toggle (Settings overlay — the legacy topbar music-btn
+        // was deleted Jun 2026 along with the companions-btn topbar
+        // shortcut, per owner direction. Settings is the single source.)
         const settingsMusicBtn = document.getElementById('settings-music-toggle');
         if (settingsMusicBtn) {
             settingsMusicBtn.addEventListener('click', () => {
@@ -3054,18 +3041,8 @@ class PocketLoveGame {
             );
         });
 
-        // Companions topbar button (💞) — one-tap shortcut to character
-        // select from anywhere in care. Owner asked for quicker access than
-        // settings → switch-character (3 taps). Same confirm + cleanup
-        // path so progress is never lost by accident.
-        const companionsBtn = document.getElementById('companions-btn');
-        if (companionsBtn) companionsBtn.addEventListener('click', () => {
-            this._ppConfirm(
-                'Choose another companion?',
-                'Your progress with ' + CHARACTER.name + ' will be saved.',
-                () => this._switchToSelect(overlay)
-            );
-        });
+        // (companions-btn 💞 topbar shortcut deleted Jun 2026 — the care
+        // back button ‹ and Settings → Switch Character cover this path.)
 
         // Care back button (‹) — top-left dedicated back pill. Visible
         // affordance to leave the care screen and return to the

@@ -1433,18 +1433,12 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
    expand rule lower in the file — class-level selectors lose
    specificity (1,2,0 vs 1,1,0) even with !important. #topbar-menu-btn
    (hamburger) is NOT in this list — it stays visible. */
-/* Jun 2026 — owner asked to drop the music note and the pink-heart
-   (companions) buttons from the care topbar. Trophy / gallery /
-   settings / letters stay. ID-level specificity (2,0,0) required
-   to beat the .topbar-collapsible expand rule (1,2,0) lower in the
-   file. #topbar-menu-btn (hamburger) is not in this list — it
-   stays visible. */
-#affection-display #music-btn,
-#affection-display #companions-btn,
-/* Jun 2026 — owner asked the long "ACQUAINTED → TRUSTED" tier label
-   moved off the topbar (it crowded the DAY chip and ate the milestone
-   hint). Same info now renders on the Active Companion card on the
-   Companion Chronicle (#cc-tier-progression). */
+/* Jun 2026 — the long "ACQUAINTED → TRUSTED" tier label moved off
+   the topbar (it crowded the DAY chip and ate the milestone hint).
+   Same info now renders on the Active Companion card on the
+   Companion Chronicle (#cc-tier-progression). The music-btn and
+   companions-btn HTML elements were also deleted Jun 2026 per
+   owner direction (no dead code) — see index.html / game.js. */
 #affection-display #affection-text {
     display: none !important;
 }
@@ -2592,21 +2586,6 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
     transition: transform 0.2s;
 }
 #settings-btn:hover { transform: scale(1.2); }
-
-/* Companions (💞) — same flat icon style as trophy/gallery/settings.
-   Without this reset, the browser default button background (gray pill +
-   black outset border) shows through. Owner caught the white square. */
-#companions-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 8px;
-    transition: transform 0.2s;
-}
-#companions-btn:hover { transform: scale(1.2); }
-#companions-btn:active { transform: scale(0.9); }
 
 /* ===== SETTINGS OVERLAY ===== (Jun 2026 brand pass)
    Was indigo-magenta gradient (#1a0a2e → #2d1b4e → #4a1942) with
