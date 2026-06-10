@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v705';
+const CACHE_NAME = 'pocket-love-v706';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -118,7 +118,8 @@ const CORE_ASSETS = [
     // slate) — they orchestrated meet-cutes that no longer exist. When the
     // new main story is written, a fresh orchestrator can be added back.
     '/js/today-hub.js',
-    '/js/main-story-gate.js'
+    '/js/main-story-gate.js',
+    '/js/first-care-hint.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.
