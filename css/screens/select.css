@@ -67,7 +67,34 @@ body.cinematic-transition #select-screen,
    chp-page mount (openPageSoftly delay). Without this rule, the
    Chronicle flashes visible during the chapter→Main-Story handoff.
    chapters.js sets/clears the body class around the full lifecycle. */
-body.pp-chapter-active #select-screen {
+body.pp-chapter-active #select-screen,
+/* Jun 2026 bleed-through sweep — every high-z-index overlay that
+   can mount on top of the Chronicle. Without these, any partially
+   transparent overlay would leak the Chronicle through it during
+   fade-in / fade-out windows. Cheap, additive, no regressions.
+   Universal helper hook (body.pp-overlay-active) catches every
+   future overlay routed through PPOverlay.show() — so new overlays
+   inherit the gate without touching this file. */
+body.pp-overlay-active #select-screen,
+body.pp-chain-in-progress #select-screen,
+body:has(#intro-overlay.visible) #select-screen,
+body:has(#letter-overlay:not(.hidden)) #select-screen,
+body:has(#pp-letters-overlay.show) #select-screen,
+body:has(#card-reveal-overlay:not(.hidden)) #select-screen,
+body:has(#pp-onboarding-overlay.show) #select-screen,
+body:has(#pp-day-one-overlay) #select-screen,
+body:has(#title-transition-overlay.is-firing) #select-screen,
+body:has(#event-overlay:not(.hidden)) #select-screen,
+body:has(#story-overlay:not(.hidden)) #select-screen,
+body:has(#pp-ready-overlay.show) #select-screen,
+body:has(#pp-chain-toast.show) #select-screen,
+body:has(#settings-overlay:not(.hidden)) #select-screen,
+body:has(#gallery-overlay:not(.hidden)) #select-screen,
+body:has(#gift-panel:not(.hidden)) #select-screen,
+body:has(#training-panel:not(.hidden)) #select-screen,
+body:has(#date-overlay:not(.hidden)) #select-screen,
+body:has(#achievement-panel:not(.hidden)) #select-screen,
+body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     visibility: hidden !important;
 }
 #select-screen::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
