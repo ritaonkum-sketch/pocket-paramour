@@ -11183,16 +11183,22 @@ let selectedCharacter = 'alistair';
     // try on the FIRST user interaction with the page.
     (function () {
         var ambient = document.getElementById('title-ambient-audio');
-        if (!ambient) return;
-        ambient.volume = 0.15;  // very quiet — under-the-conversation level
+        var fireplace = document.getElementById('title-fireplace-audio');
+        if (!ambient && !fireplace) return;
+        if (ambient)   ambient.volume   = 0.15;   // under-the-conversation level
+        if (fireplace) fireplace.volume = 0.06;   // texture only — barely there
         var started = false;
         function tryStart() {
             if (started) return;
             started = true;
             try {
-                var p = ambient.play();
-                if (p && typeof p.catch === 'function') {
-                    p.catch(function () { started = false; }); // user gesture not granted yet, retry on next
+                if (ambient) {
+                    var p1 = ambient.play();
+                    if (p1 && typeof p1.catch === 'function') p1.catch(function () { started = false; });
+                }
+                if (fireplace) {
+                    var p2 = fireplace.play();
+                    if (p2 && typeof p2.catch === 'function') p2.catch(function () {}); // tolerant; bgm is the priority layer
                 }
             } catch (_) { started = false; }
         }
@@ -11268,31 +11274,42 @@ let selectedCharacter = 'alistair';
             if (overlay) overlay.classList.add('is-firing');
         }, 1500);
 
-        // Fade out the ambient BGM as the screen darkens
+        // Fade out the ambient BGM + fireplace as the screen darkens
         try {
             var ambient = document.getElementById('title-ambient-audio');
-            if (ambient) {
-                var fadeOut = setInterval(function () {
-                    if (!ambient || ambient.volume <= 0.01) {
-                        clearInterval(fadeOut);
-                        if (ambient) { try { ambient.pause(); } catch (_) {} }
-                        return;
-                    }
+            var fireplace = document.getElementById('title-fireplace-audio');
+            var fadeOut = setInterval(function () {
+                var stillFading = false;
+                if (ambient && ambient.volume > 0.01) {
                     ambient.volume = Math.max(0, ambient.volume - 0.015);
-                }, 60);
-            }
+                    stillFading = true;
+                } else if (ambient) {
+                    try { ambient.pause(); } catch (_) {}
+                }
+                if (fireplace && fireplace.volume > 0.005) {
+                    fireplace.volume = Math.max(0, fireplace.volume - 0.008);
+                    stillFading = true;
+                } else if (fireplace) {
+                    try { fireplace.pause(); } catch (_) {}
+                }
+                if (!stillFading) clearInterval(fadeOut);
+            }, 60);
         } catch (_) {}
 
         // After the full cinematic finishes, hide title and proceed.
-        // Timing breakdown (Jun 2026, revised):
+        // Timing breakdown (Jun 2026, tightened):
         //   t=0       petals spawn (3s animation, opacity held to 70%)
         //   t=1500    overlay fade-in begins (1.4s)
         //   t=2100    petals start fading (70% of 3s)
-        //   t=2900    overlay reaches full black
-        //   t=3000    petal animation fully complete
-        //   t=3200    petals removed from DOM
-        //   t=3800    runTitleStartFlow — 900ms full-black buffer
-        setTimeout(function () { runTitleStartFlow(); }, 3800);
+        //   t=2900    overlay reaches full black → IMMEDIATELY hand off
+        //   t=3000+   world-intro mounts and fades its first beat in over the
+        //             already-black screen, which IS the transition.
+        // Previously held a 900ms full-black buffer (t=2900→3800) before
+        // handing off. User audit Jun 2026: that gap read as a "load
+        // freeze" — pure black with nothing happening. Now we hand off
+        // the instant the overlay is fully black, and the world-intro
+        // beat 1 fade-in becomes the next thing the player sees.
+        setTimeout(function () { runTitleStartFlow(); }, 2900);
     };
 
     function runTitleStartFlow() {
@@ -11526,6 +11543,19 @@ let selectedCharacter = 'alistair';
                     if (noirImg) noirImg.alt = 'Noir';
                 }
                 applyCeremony(noirCard, 'noir');
+            }
+
+            // Alistair — first-character ceremony when Chapter 1 unlocks
+            // him. The thread card already exists in HTML by default; we
+            // just need to play the celebration if chapters.js stamped
+            // pp_select_just_unlocked='alistair' at Ch1 done. Sprint 1
+            // of the First-10-Minutes audit (Jun 2026) — without this,
+            // returning from Ch1 to the Chronicle shows the unlocked
+            // Alistair card as if he was always there, with no emotional
+            // payoff for the just-finished chapter.
+            if (justUnlocked === 'alistair') {
+                var alistairCard = document.querySelector('.cc-thread-card[data-character="alistair"], #alistair-card');
+                if (alistairCard) applyCeremony(alistairCard, 'alistair');
             }
         } catch(e) {}
     }

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v682';
+const CACHE_NAME = 'pocket-love-v683';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -30,6 +30,7 @@ const CORE_ASSETS = [
     '/assets/petals/petal-3.png',
     '/assets/audio/heartbeat.mp3',
     '/assets/audio/bgm-night.mp3',
+    '/assets/audio/fireplace-crackle.mp3',
     '/manifest.json',
 
     // Core engine

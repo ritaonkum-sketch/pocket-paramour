@@ -311,6 +311,12 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_alistair_seen','1'); } catch (_) {}
+        // Trigger the unlock-celebration ceremony on the Chronicle's
+        // Alistair card. applyCeremony in game.js reads this one-shot
+        // flag on the next select-screen render — gold glow + NEWLY
+        // OPEN badge for 8 seconds, then auto-dismiss. Mirrors the
+        // existing Proto/Noir bridge-unlock ceremony pattern.
+        try { localStorage.setItem('pp_select_just_unlocked', 'alistair'); } catch (_) {}
         markDone(1); setCurrent(nextIdAfter(1));
         if (onDone) onDone();
       }
