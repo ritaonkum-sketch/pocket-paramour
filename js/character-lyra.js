@@ -538,6 +538,15 @@ const CHARACTER_LYRA = {
 //     the same final state.
 // ════════════════════════════════════════════════════════════════════════════
 (function applyLyraMergePatch() {
+    // Idempotency guard (Jun 2026 QA audit). This script was running its
+    // merge patch ~12 times per page load, producing ~336 console-warn
+    // lines that buried any real errors. The patch IS idempotent (final
+    // state is identical) but the warning fires every run, so the noise
+    // grew with each invocation. We now hard-gate the patch to a single
+    // execution per page load.
+    if (window.__ppLyraMergeApplied) return;
+    window.__ppLyraMergeApplied = true;
+
     if (typeof CHARACTER_LYRA_FULL === 'undefined') {
         console.warn(
             '[character-lyra.js] CHARACTER_LYRA_FULL is not defined when this ' +
