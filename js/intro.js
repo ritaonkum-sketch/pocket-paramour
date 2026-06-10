@@ -17,6 +17,13 @@ const INTRO_SCENES = {
     alistair: {
         bgClass: 'intro-bg-knight',
         beats: [
+            // ── Tightened Jun 2026 (First 10 Min audit Sprint 2) ──
+            // Was 5 pre-name beats. Cut Beat 2 (formal apology about
+            // not introducing himself properly — too redundant with
+            // Ch1's "I'm Alistair. Captain of the dawn patrol" beat).
+            // Merged Beats 3+4 into a single beat that covers the
+            // proper introduction AND the mi'lady setup in one breath.
+            // Final: 3 pre-name beats (relief → identity+mi'lady → ask).
             {
                 // Beat 1."He has been waiting" (the relief of seeing her up)
                 body: 'assets/alistair/body/softshy-love1.png',
@@ -24,35 +31,15 @@ const INTRO_SCENES = {
                 line: "You're awake. You're walking. Both at once. That is a good morning."
             },
             {
-                // Beat 2."Apology for the bad introduction" (formal, embarrassed)
-                // (Rewrite May 2026 — owner pushback: original said "introduced
-                //  myself properly yesterday" which (a) contradicted the bridge
-                //  where he already gave his name, and (b) broke timing because
-                //  the intro can fire after Ch2/Ch3, not just the morning after.
-                //  Reframed as: he gave the brief version in the chamber; he
-                //  wants to do the full version now. Timing-flexible.)
-                body: 'assets/alistair/body/crossarms.png',
-                direction: 'He clasps his hands behind him, parade-rest, the way knights do when they want to seem composed and don’t quite manage.',
-                line: "I gave you my name briefly, in that small chamber. That is not the same as introducing myself. I would like to do this properly. With you on your feet, and the water in you, not in a cup in my hand."
-            },
-            {
-                // Beat 3."Doing it properly" (formal half-bow)
-                // (Rewrite May 2026 — owner pushback: "forty-two of breath" was
-                //  ESL-confusing and awkward filigree. Dropped the age-riff and
-                //  replaced with "I came to the wall a boy and the wall has had
-                //  me ever since" — same meaning (career knight), clearer line.)
+                // Beat 2 (was Beats 3+4 merged). Identity + the mi'lady setup
+                // in one beat. The careful look from Beat 4's direction is
+                // preserved so the bridge-callback gaze still lands.
                 body: 'assets/alistair/body/casual.png',
-                direction: 'A small, formal half-bow. Not deep. Not theatrical. Just a knight remembering a rule of conduct.',
-                line: "Captain Alistair. South gate. Twenty years of service. I came to the wall a boy and the wall has had me ever since. That is the full introduction. There is not much else."
+                direction: 'A small, formal half-bow — the way knights remember a rule of conduct when they would rather not. Then he looks at you the way he looked at you in the woods. Careful, unhurried, as if afraid to misread what you are.',
+                line: "Captain Alistair. South gate. Twenty years of service. I came to the wall a boy and the wall has had me ever since. I have been calling you mi’lady in my head. It is an address, not a name."
             },
             {
-                // Beat 4."The careful look" (the bridge-callback gaze)
-                body: 'assets/alistair/body/wondering.png',
-                direction: 'He looks at you the way he looked at you in the woods. Careful, unhurried, as if he is afraid to misread what you are.',
-                line: "I have been calling you mi’lady in my head. I like it. But it is an address, not a name."
-            },
-            {
-                // Beat 5."The ask" (formality drops, just a man asking)
+                // Beat 3."The ask" (formality drops, just a man asking)
                 body: 'assets/alistair/body/shy3.png',
                 direction: 'His eyes drop. When they rise, the formality is gone. Just a man asking.',
                 line: "Tell me what to call you. Out loud, on purpose. So when you sleep here tonight I can say goodnight to a name."

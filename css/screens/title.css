@@ -48,6 +48,82 @@
         radial-gradient(ellipse at 50% 38%, rgba(122, 18, 36, 0.12) 0%, transparent 55%);
 }
 
+/* ──────────────────────── CANDLE FLICKER ────────────────────────
+   Jun 2026 — First 10 Min audit Sprint 2 item #10.
+   The title bg has two painted candles in the left margin (a
+   candelabra). They're static in the image. Pseudo-element radial
+   glows positioned over the candle flames give an "alive room"
+   feel with subtle warm-light flicker. CSS-only, no DOM additions.
+
+   Position calibrated against title-bg.png at 9:16 mobile aspect:
+   - Candle 1 flame: ~5% from left, ~30% from top
+   - Candle 2 flame: ~3% from left, ~36% from top (slightly lower)
+   Each pulses on an offset cycle so the flicker reads as natural,
+   not synchronised. */
+#title-screen::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    width: 36px;
+    height: 36px;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at center,
+        rgba(255, 198, 130, 0.55) 0%,
+        rgba(255, 168, 90, 0.30) 35%,
+        transparent 70%);
+    border-radius: 50%;
+    animation: ppCandleFlicker1 2.7s ease-in-out infinite;
+    will-change: opacity, transform;
+}
+#title-screen::after {
+    content: '';
+    position: absolute;
+    top: 36%;
+    left: 3%;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at center,
+        rgba(255, 198, 130, 0.50) 0%,
+        rgba(255, 168, 90, 0.28) 35%,
+        transparent 70%);
+    border-radius: 50%;
+    animation: ppCandleFlicker2 3.3s ease-in-out infinite;
+    will-change: opacity, transform;
+}
+@keyframes ppCandleFlicker1 {
+    0%, 100% { opacity: 0.85; transform: scale(1) translate(0, 0); }
+    18%      { opacity: 1.00; transform: scale(1.08) translate(0.4px, -0.6px); }
+    34%      { opacity: 0.72; transform: scale(0.95) translate(-0.3px, 0.4px); }
+    52%      { opacity: 0.95; transform: scale(1.04) translate(0.2px, -0.3px); }
+    71%      { opacity: 0.80; transform: scale(0.98) translate(-0.2px, 0.5px); }
+    86%      { opacity: 1.00; transform: scale(1.06) translate(0.3px, -0.4px); }
+}
+@keyframes ppCandleFlicker2 {
+    0%, 100% { opacity: 0.78; transform: scale(1) translate(0, 0); }
+    22%      { opacity: 0.92; transform: scale(1.05) translate(-0.4px, -0.5px); }
+    44%      { opacity: 0.68; transform: scale(0.94) translate(0.3px, 0.4px); }
+    66%      { opacity: 0.96; transform: scale(1.07) translate(-0.2px, -0.3px); }
+    82%      { opacity: 0.80; transform: scale(0.99) translate(0.2px, 0.4px); }
+}
+/* Respect reduced-motion — kill the flicker for users who don't want it. */
+@media (prefers-reduced-motion: reduce) {
+    #title-screen::before, #title-screen::after { animation: none; opacity: 0.85; }
+}
+/* Suppress during the START cinematic transition so the flicker doesn't
+   bleed through the fade-out overlay. */
+#title-screen.is-starting::before,
+#title-screen.is-starting::after,
+body.cinematic-transition #title-screen::before,
+body.cinematic-transition #title-screen::after {
+    animation: none;
+    opacity: 0;
+    transition: opacity 600ms ease;
+}
+
 
 /* ──────────────────────── HIDE OLD TEXT ELEMENTS ──────────────────────── */
 /* The images replace these visually; we keep the elements in the DOM so
