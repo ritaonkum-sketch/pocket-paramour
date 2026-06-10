@@ -528,6 +528,33 @@
             break;
           }
           case 'line': {
+            // Per-beat audio cue (Jun 2026 — First 10 Min audit Sprint 3
+            // item #8). Author can attach `sfx: 'chime'` or
+            // `sfx: 'crystal-resonance'` to any line beat to drop a
+            // single sound at the moment the line begins typing.
+            //   - String → looks for window.sounds[name]() first, then
+            //     falls back to playing assets/audio/<name>.mp3 directly
+            //     via sounds._playFile() at a moderate volume.
+            //   - Object → { name, volume } for finer control.
+            // Wrapped in try so a bad cue can never block the beat.
+            if (beat.sfx) {
+              try {
+                const _cue = (typeof beat.sfx === 'string')
+                  ? { name: beat.sfx, volume: 0.55 }
+                  : beat.sfx;
+                if (_cue && _cue.name) {
+                  if (window.sounds && typeof window.sounds[_cue.name] === 'function') {
+                    window.sounds[_cue.name]();
+                  } else if (window.sounds && typeof window.sounds._playFile === 'function') {
+                    window.sounds._playFile('assets/audio/' + _cue.name + '.mp3', _cue.volume ?? 0.55);
+                  } else {
+                    const _au = new Audio('assets/audio/' + _cue.name + '.mp3');
+                    _au.volume = _cue.volume ?? 0.55;
+                    _au.play().catch(function () {});
+                  }
+                }
+              } catch (_) {}
+            }
             // Per-beat speaker override. Used by bridges that mix narration
             // and character speech in the same card. When beat.speaker is
             // explicitly an empty string, render in italic narration mode

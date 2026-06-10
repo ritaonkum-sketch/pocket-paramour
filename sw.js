@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v684';
+const CACHE_NAME = 'pocket-love-v685';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -161,7 +161,8 @@ const BOOT_ASSETS = [
     '/assets/audio/gift-chime.mp3',
     '/assets/audio/card-flip.mp3',
     '/assets/audio/card-sparkle.mp3',
-    '/assets/audio/clash.mp3'
+    '/assets/audio/clash.mp3',
+    '/assets/audio/crystal-resonance.mp3'  // Sprint 3: Ch1 lift moment cue
 ];
 
 // Install — pre-cache core files, then boot assets (best-effort).

@@ -531,9 +531,28 @@ body.pp-screen-world-intro #chp-page {
     /* Slow cinematic fade — overrides style.css 0.8s.
        Paired with longer between-beat hold in game.js so fade-out
        FULLY completes before the next beat fades in. */
+    /* Jun 2026 — First 10 Min audit Sprint 3 item #7. Added a
+       filter:blur transition so each beat doesn't just fade — it
+       softens and re-focuses. Reads as a film cross-dissolve
+       instead of a flat opacity tween. Baseline blur(2.5px) when
+       hidden, blur(0) when showing. Same 1.6s duration as opacity
+       so they tween in sync. */
+    filter: blur(2.5px);
     transition:
         opacity 1.6s ease,
+        filter 1.6s ease,
         transform 1.6s ease;
+}
+#world-intro-text.show {
+    filter: blur(0);
+}
+/* Honor reduced-motion — kill the blur tween for users who don't want it. */
+@media (prefers-reduced-motion: reduce) {
+    #world-intro-text {
+        filter: none;
+        transition: opacity 0.4s ease;
+    }
+    #world-intro-text.show { filter: none; }
 }
 
 

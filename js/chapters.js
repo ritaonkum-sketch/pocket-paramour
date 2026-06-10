@@ -265,7 +265,10 @@
             // chip reads STRANGER.
             { type: 'line', introduces: 'alistair', text: 'I’m Alistair. Captain of the dawn patrol. I’m going to lift you. Tell me if anything pulls wrong.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'He waits for permission. You nod.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'He lifts you carefully against his chest. Like someone long accustomed to carrying wounded people.', hold: 3400, cps: 26 },
+            // Lift moment — one of Ch1's emotional peaks. Crystal-resonance
+            // cue drops a single soft harp-like note as the line begins
+            // typing. Sprint 3 audit item #8.
+            { type: 'line', speaker: '', sfx: { name: 'crystal-resonance', volume: 0.42 }, text: 'He lifts you carefully against his chest. Like someone long accustomed to carrying wounded people.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Over his shoulder you glimpse the creature. Already collapsing into grey ash. The earth beneath it stained black.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'That is not a wolf. That is not anything.', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'What was it?', hold: 1800, cps: 28 },
