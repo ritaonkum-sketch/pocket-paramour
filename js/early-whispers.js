@@ -64,6 +64,15 @@
 
     // Suppress whenever any overlay/scene/modal is up.
     function sceneActive() {
+        // Jun 2026 — canonical scene-state gate. The whisper is a
+        // care-loop atmospheric effect; it must never fire outside the
+        // care scene. PPScene.get() is the single source of truth set
+        // by scene-state.js. The legacy DOM checks below are kept as
+        // belt-and-braces for the title→care transition window where
+        // PPScene may briefly be null.
+        if (window.PPScene && typeof window.PPScene.get === 'function') {
+            if (window.PPScene.get() !== 'care') return true;
+        }
         if (document.getElementById('mscard-root')) return true;
         if (document.getElementById('tp-root')) return true;
         if (document.querySelector('.pp-modal, .overlay, .paywall, .puzzle-overlay, .dialogue-overlay, .encounter-overlay')) return true;
