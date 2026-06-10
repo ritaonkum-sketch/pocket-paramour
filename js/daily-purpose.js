@@ -57,7 +57,7 @@
   // themselves, not like the game telling the player what to do.
   const LABELS = {
     alistair: [
-      'Walk the gate with him \u2014 one Talk.',
+      'Walk the gate with him. One Talk.',
       'Bring food to the watch. He has not eaten.',
       'Steady is enough today \u2014 keep him level.',
       'Three times around the wall. Three times he hears you.',
