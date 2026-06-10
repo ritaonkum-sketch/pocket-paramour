@@ -1406,9 +1406,13 @@ body.cinematic-transition #select-screen {
     z-index: 0;
     overflow: hidden;
 }
+/* Stack content above the fixed starfield. Bottom nav INTENTIONALLY
+   left as position:fixed (per its base rule at line ~1172) — Jun 2026
+   user feedback: the nav MUST stay pinned to the viewport so it's
+   reachable during mobile play even when the player scrolls through
+   the Chronicle. Was a bug to override it here. */
 #select-content,
-.cc-header,
-.cc-bottom-nav { position: relative; z-index: 1; }
+.cc-header { position: relative; z-index: 1; }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
