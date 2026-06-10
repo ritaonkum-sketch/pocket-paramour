@@ -1422,11 +1422,18 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
     animation: date-btn-unlock-pulse 1.2s ease-out 2;
 }
 
-/* Music toggle moved into Settings overlay — hide the topbar shortcut */
-/* Use a high-specificity selector to beat the .topbar-collapsible expand rule */
-#affection-display #music-btn,
-#affection-display.topbar-collapsed #music-btn,
-#affection-display:not(.topbar-collapsed) #music-btn {
+/* Jun 2026 — owner removed the topbar action row (trophy / gallery /
+   music / companions / settings). Player has the ‹ back arrow on the
+   left and the ☰ menu on the right; the menu opens these actions
+   from a single place, so the row is redundant clutter on a small
+   mobile screen. The JS click handlers stay bound to the (now hidden)
+   buttons so nothing in game.js / ui.js needs to change. Three-way
+   selector beats the .topbar-collapsible expand rule in both
+   collapsed and expanded states. #topbar-menu-btn (hamburger) is NOT
+   a .topbar-collapsible — it stays visible. */
+#affection-display .topbar-collapsible,
+#affection-display.topbar-collapsed .topbar-collapsible,
+#affection-display:not(.topbar-collapsed) .topbar-collapsible {
     display: none !important;
 }
 
