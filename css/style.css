@@ -1438,7 +1438,13 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
 #affection-display #music-btn,
 #affection-display #companions-btn,
 #affection-display #settings-btn,
-#affection-display #pp-letters-btn {
+#affection-display #pp-letters-btn,
+/* Jun 2026 — owner asked the long "ACQUAINTED → TRUSTED" tier label
+   moved off the topbar (it crowded the DAY chip and ate the milestone
+   hint). Same info now renders on the Active Companion card on the
+   Companion Chronicle (#cc-tier-progression), so the topbar only has
+   ‹ back / day chip / ☰ menu — much cleaner on small mobile. */
+#affection-display #affection-text {
     display: none !important;
 }
 

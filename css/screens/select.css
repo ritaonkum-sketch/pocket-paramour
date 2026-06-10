@@ -663,6 +663,21 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     color: var(--c-gold-soft, #D4B26E);
     margin-bottom: 10px;
 }
+/* Jun 2026 — tier progression line (e.g. "ACQUAINTED → TRUSTED").
+   Moved off the topbar where it crowded the day chip; lives on the
+   Active Companion card now. Smaller and more muted than role so it
+   reads as a status footnote, not a headline. */
+.cc-tier-progression {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    color: rgba(244, 212, 156, 0.82);
+    text-shadow: 0 0 6px rgba(212, 168, 91, 0.25);
+    margin: -4px 0 10px 0;
+}
+.cc-tier-progression[hidden] { display: none; }
 .cc-bond-row {
     display: flex;
     align-items: center;

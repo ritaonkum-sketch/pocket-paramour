@@ -364,6 +364,7 @@
                     <div class="cc-active-label">✦ ACTIVE COMPANION ✦</div>
                     <h2 class="cc-active-name" id="cc-active-name">???</h2>
                     <div class="cc-active-role" id="cc-active-role">Unknown</div>
+                    <div class="cc-tier-progression" id="cc-tier-progression" hidden>STRANGER</div>
                     <div class="cc-bond-row">
                         <div class="cc-bond-badge" id="cc-bond-badge">–</div>
                         <div class="cc-bond-info">
@@ -1333,6 +1334,7 @@
             var quoteEl  = document.getElementById('cc-active-quote');
             var badgeEl  = document.getElementById('cc-bond-badge');
             var valueEl  = document.getElementById('cc-bond-value');
+            var tierEl   = document.getElementById('cc-tier-progression');
             var imgEl    = document.getElementById('cc-active-img');
             var rootEl   = document.getElementById('cc-active');
             var careBtn  = rootEl ? rootEl.querySelector('.cc-action-care') : null;
@@ -1353,6 +1355,7 @@
                 if (imgEl)   imgEl.src = 'assets/' + c + '/select-portrait.png';
                 if (badgeEl) badgeEl.textContent = '–';
                 if (valueEl) valueEl.textContent = '— / 9';
+                if (tierEl)  tierEl.hidden = true;
                 if (careBtn) {
                     careBtn.setAttribute('data-action', 'begin-ch1');
                     careBtn.innerHTML = '<span class="cc-action-icon">✦</span><span class="cc-action-label">BEGIN CHAPTER 1</span>';
@@ -1375,6 +1378,28 @@
             var bl = bondLevel(c);
             if (badgeEl) badgeEl.textContent = String(bl);
             if (valueEl) valueEl.textContent = bl + ' / 9';
+
+            // ── Tier progression (Jun 2026) ─────────────────────────
+            // Mirrors the old topbar "STRANGER → ACQUAINTED" line that
+            // was moved off the care screen so the DAY chip could
+            // breathe. We read affectionLevel from the live game
+            // instance if available; if not, default to STRANGER. The
+            // tier-name table is intentionally inline so this never
+            // breaks if ui.js refactors CHARACTER.affectionNames.
+            if (tierEl) {
+                var TIERS = ['STRANGER', 'ACQUAINTED', 'TRUSTED', 'DEVOTED', 'IN LOVE'];
+                var lvl = 0;
+                try {
+                    var g = window._game;
+                    if (g && g.characterId === c && typeof g.affectionLevel === 'number') {
+                        lvl = g.affectionLevel;
+                    }
+                } catch (_) {}
+                var current = TIERS[lvl] || 'STRANGER';
+                var next = TIERS[lvl + 1];
+                tierEl.textContent = next ? current + ' → ' + next : current + ' ❤';
+                tierEl.hidden = false;
+            }
         }
 
         // Mask the real name behind "???" for any locked Thread of Fate
