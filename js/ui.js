@@ -705,6 +705,18 @@ class GameUI {
         const scheduleNext = () => {
             const delay = 18000 + Math.random() * 14000; // 18–32 s
             this._ambientLoopTimer = setTimeout(() => {
+                // Jun 2026 — scene-state gate. The ambient loop self-
+                // reschedules forever; without this check, the per-
+                // character ambient (fireplaceCrackle for Alistair /
+                // Caspian, oceanWave for Lyra, etc.) keeps firing on
+                // Companion Chronicle and other screens after the
+                // player leaves care. Owner heard fireplace crackle on
+                // the Chronicle. Skip the play, but DO reschedule so
+                // the loop is ready again when care resumes.
+                if (!document.body.classList.contains('pp-screen-care')) {
+                    scheduleNext();
+                    return;
+                }
                 if (typeof sounds !== 'undefined' && sounds.enabled && !this._midnightSleeping) {
                     const g = this.game;
                     if (!g.characterLeft) {
