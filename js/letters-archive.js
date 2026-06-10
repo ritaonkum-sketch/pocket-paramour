@@ -299,12 +299,19 @@
     // the other secondary buttons (trophy/gallery/music/companions/
     // settings), so the character has the screen and the button is
     // discoverable via the ☰ menu — same pattern as Love and Deepspace.
+    // Jun 2026 — owner-specified topbar order: trophy / gallery /
+    // letters / settings / menu. Insert before settings-btn so letters
+    // lands between gallery and settings. Fall back to before menu if
+    // settings is missing for some reason, then to body.
     const display = document.getElementById('affection-display');
+    const settingsBtn = document.getElementById('settings-btn');
     const menuBtn = document.getElementById('topbar-menu-btn');
-    if (display && menuBtn) {
+    if (display && settingsBtn) {
+      display.insertBefore(_btn, settingsBtn);
+    } else if (display && menuBtn) {
       display.insertBefore(_btn, menuBtn);
     } else {
-      // Fallback: keep the legacy floating placement if topbar isn't there yet.
+      // Last-resort fallback: legacy floating placement if topbar isn't there yet.
       document.body.appendChild(_btn);
     }
     return _btn;
