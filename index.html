@@ -1669,11 +1669,21 @@
             document.querySelectorAll('.cc-nav-tab').forEach(function (tab) {
                 if (tab.__ccBound) return; tab.__ccBound = true;
                 tab.addEventListener('click', function () {
-                    document.querySelectorAll('.cc-nav-tab').forEach(function (t) {
-                        t.classList.remove('is-active');
-                    });
-                    tab.classList.add('is-active');
                     var which = tab.getAttribute('data-tab');
+                    // Jun 2026 — owner pointed out the COMPANIONS heart
+                    // wasn't pink on Chronicle. Cause: prior handler moved
+                    // is-active to whichever tab was tapped, but DAILY /
+                    // STORY / SHOP / MORE only open overlays on top of
+                    // Chronicle — they're action launchers, not page tabs.
+                    // The underlying page is still Chronicle, so the
+                    // COMPANIONS tab must stay active. We only transfer
+                    // is-active for tabs that represent actual pages.
+                    if (which === 'companions') {
+                        document.querySelectorAll('.cc-nav-tab').forEach(function (t) {
+                            t.classList.remove('is-active');
+                        });
+                        tab.classList.add('is-active');
+                    }
                     if (which === 'daily' && window.PPTodayHub
                         && typeof window.PPTodayHub.open === 'function') {
                         window.PPTodayHub.open();
