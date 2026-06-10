@@ -143,10 +143,10 @@
     },
     {
       eyebrow: 'BEGIN',
-      title: 'Start with Alistair.',
+      title: 'Start your story.',
       body: [
-        'He is the first thread in your weave. The only one open to you right now.',
-        'Care for him daily until your bond grows. Each bond you build unlocks the next character.',
+        'Read the first chapter to meet Alistair. His care route opens the moment that chapter ends.',
+        'Care for him until your bond is earned. Each bond you build opens the next chapter, and the next character walks in through it.',
         'The story unfolds one heart at a time. Take it slow.'
       ]
     }
