@@ -127,8 +127,11 @@
         document.head.appendChild(s);
     }
 
-    // ── Toast: shown once, dismissible on tap, auto-fades after 7s ──
-    var _toastTimer = null;
+    // ── Toast: shown once, dismissible on tap. NO auto-dismiss timer —
+    // the player just emerged from a 10+ minute chapter and might not
+    // look at the toast for 30+ seconds. The toast clears automatically
+    // when they tap CARE (the delegated listener in wireCareTapClear).
+    // They can also tap the toast itself to dismiss it manually. ─────
     function showToast() {
         if (document.getElementById(TOAST_ID)) return;
         injectStyles();
@@ -142,15 +145,12 @@
         // Force layout so the fade transition picks up
         void el.offsetHeight;
         el.classList.add('show');
-        if (_toastTimer) clearTimeout(_toastTimer);
-        _toastTimer = setTimeout(dismissToast, 7000);
     }
     function dismissToast() {
         var el = document.getElementById(TOAST_ID);
         if (!el) return;
         el.classList.remove('show');
         setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
-        if (_toastTimer) { clearTimeout(_toastTimer); _toastTimer = null; }
     }
 
     // ── Pulse management ────────────────────────────────────────────
@@ -252,17 +252,27 @@
     // armNow() is called explicitly by chapters.js when Ch1 finishes.
     // Why: Ch1 plays via MSCard ON TOP of the Chronicle — the underlying
     // scene-state never leaves 'select', so the pp:scene-change listener
-    // never fires when the chapter ends. armNow() bridges that gap by
-    // triggering the 'select' branch manually after a short delay (so
-    // the MSCard close animation can finish and the CARE button can
-    // refresh into its unlocked state).
+    // never fires when the chapter ends. armNow() bridges that gap.
+    //
+    // After Ch1, playChapter() calls openPageSoftly() which reopens
+    // chp-page (the chapter list) after 300ms — the player DOES NOT
+    // land on the Chronicle directly. So we need to:
+    //   1. Pulse the ‹ back arrow on chp-page (their visible next step)
+    //   2. Pulse the CARE button on Chronicle (for when they tap ‹)
+    //   3. Show the toast directing them back to Chronicle
+    //
+    // 800ms delay covers the 300ms openPageSoftly + a buffer for chp-page
+    // to fully mount. The chp-back pulse is the load-bearing affordance
+    // for the chapter-list path; the CARE pulse is what they see after
+    // tapping ‹.
     function armNow() {
         lsSet(FLAG, '1');
         setTimeout(function () {
             if (!isPending()) return;
-            pulseCareBtn();
+            pulseChpBack();   // chp-page is the immediate next screen
+            pulseCareBtn();   // Chronicle is where they're going
             showToast();
-        }, 600);
+        }, 800);
     }
 
     window.PPFirstCareHint = {
