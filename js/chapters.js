@@ -1692,6 +1692,22 @@
     // the player. Owner-reported visual bug. The fix is to remove the
     // chapter list synchronously here so there is zero overlap.
     closePage({ instant: true });
+
+    // Jun 2026 owner-reported bug: when a chapter ends, the mscard
+    // unmounts immediately but openPageSoftly() waits 300ms before
+    // re-mounting chp-page. During that gap the Chronicle (which sits
+    // beneath everything) flashes visible. Mark the body for the FULL
+    // chapter lifecycle — the existing select-screen hide rules in
+    // select.css now include body.pp-chapter-active so the Chronicle
+    // stays hidden through the entire seam. Class is cleared in
+    // openPage() (when chp-page actually mounts on the success path)
+    // OR after a safety-net 1.2s timer (when no chp-page reopens —
+    // e.g. external-onDone path, bridges, etc).
+    try { document.body.classList.add('pp-chapter-active'); } catch (_) {}
+    const clearChapterActive = () => {
+      try { document.body.classList.remove('pp-chapter-active'); } catch (_) {}
+    };
+
     // Detect bridges by id prefix. Bridges play out of chp-page taps too
     // (player advancing the story by tapping 'Begin' on the next bridge),
     // and after the bridge ends the bridge's own finish() fires the
@@ -1706,20 +1722,31 @@
           // happens after the chapter.typically: clear chain-in-progress
           // and let the player land on the select grid.
           try { onDone(); } catch (_) {}
+          // External-onDone path may not reopen chp-page. Clear the
+          // body flag after the 420ms close fade window.
+          setTimeout(clearChapterActive, 500);
         } else if (!isBridge) {
           // Manual-replay path from the chapter menu.restore the menu.
           // Bridges skip this so the route-open toast lands on a clean
-          // background.
+          // background. openPage() itself clears the body flag once
+          // chp-page is mounted — see its body below.
           refreshOrb();
           openPageSoftly();
+          // Safety net: clear after a longer-than-openPageSoftly delay
+          // in case openPage() short-circuits (e.g. chp-page already
+          // exists). Idempotent — openPage() also clears it.
+          setTimeout(clearChapterActive, 1200);
         } else {
           // Bridge tapped from chp-page.show the orb (so the player can
           // re-open the chapter list manually if they want), but don't
           // pop chp-page back over the toast.
           refreshOrb();
+          setTimeout(clearChapterActive, 500);
         }
       });
-    } catch (_) {}
+    } catch (_) {
+      clearChapterActive();
+    }
   }
 
   // ---------------------------------------------------------------
@@ -2174,6 +2201,11 @@
   function openPage() {
     if (document.getElementById(PAGE_ID)) return;
     injectStyles();
+    // The chapter→Main-Story handoff sets body.pp-chapter-active to
+    // suppress the Chronicle bleed-through during the 300ms openPageSoftly
+    // gap. Now that chp-page is actually mounting, the gap is closed —
+    // clear the flag. (See playChapter for the full lifecycle.)
+    try { document.body.classList.remove('pp-chapter-active'); } catch (_) {}
     const root = document.createElement('div');
     root.id = PAGE_ID;
     // Set Velvet Hour theme so all design tokens flip to dark-mode values

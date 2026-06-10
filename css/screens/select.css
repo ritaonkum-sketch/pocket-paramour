@@ -62,7 +62,12 @@ body:has(#ms-encounter-root:not(:empty)) #select-screen,
 body:has(#chp-page:not(.hidden)) #select-screen,
 body:has(#tp-root:not(:empty)) #select-screen,
 body:has(#cinematic-overlay.visible) #select-screen,
-body.cinematic-transition #select-screen {
+body.cinematic-transition #select-screen,
+/* Jun 2026 — covers the 300ms gap between mscard unmount and
+   chp-page mount (openPageSoftly delay). Without this rule, the
+   Chronicle flashes visible during the chapter→Main-Story handoff.
+   chapters.js sets/clears the body class around the full lifecycle. */
+body.pp-chapter-active #select-screen {
     visibility: hidden !important;
 }
 #select-screen::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
