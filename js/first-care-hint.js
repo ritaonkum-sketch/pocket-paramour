@@ -249,10 +249,29 @@
     }
 
     // Public surface for debugging / dev-tooling
+    // armNow() is called explicitly by chapters.js when Ch1 finishes.
+    // Why: Ch1 plays via MSCard ON TOP of the Chronicle — the underlying
+    // scene-state never leaves 'select', so the pp:scene-change listener
+    // never fires when the chapter ends. armNow() bridges that gap by
+    // triggering the 'select' branch manually after a short delay (so
+    // the MSCard close animation can finish and the CARE button can
+    // refresh into its unlocked state).
+    function armNow() {
+        lsSet(FLAG, '1');
+        setTimeout(function () {
+            if (!isPending()) return;
+            pulseCareBtn();
+            showToast();
+        }, 600);
+    }
+
     window.PPFirstCareHint = {
         isPending: isPending,
         // Force-arm the hint, e.g. for testing
         arm:    function () { lsSet(FLAG, '1'); },
+        // armNow: arm AND immediately fire the hint without waiting for
+        // a scene-change event (used by Ch1 done handler)
+        armNow: armNow,
         // Force-clear without needing a care-tap
         clear:  function () { lsDel(FLAG); unpulseCareBtn(); unpulseChpBack(); dismissToast(); },
         _flag:  FLAG

@@ -324,8 +324,18 @@
         // by first-care-hint.js to render a toast + pulse the ‹ back
         // arrow on chp-page and (after the player returns) the CARE
         // button on the Chronicle. Cleared on first care-tap so it
-        // never appears for returning players.
-        try { localStorage.setItem('pp_first_care_hint_pending', '1'); } catch (_) {}
+        // never appears for returning players. armNow() is called
+        // explicitly because Ch1 plays via MSCard ON TOP of the
+        // Chronicle — the underlying scene-state stays 'select' the
+        // whole time, so the scene-change listener never fires when
+        // the chapter ends. armNow() bridges that gap.
+        try {
+          if (window.PPFirstCareHint && typeof window.PPFirstCareHint.armNow === 'function') {
+            window.PPFirstCareHint.armNow();
+          } else {
+            localStorage.setItem('pp_first_care_hint_pending', '1');
+          }
+        } catch (_) {}
         markDone(1); setCurrent(nextIdAfter(1));
         if (onDone) onDone();
       }
