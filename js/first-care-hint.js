@@ -1,39 +1,37 @@
 // ============================================================================
-// FIRST-CARE HINT (Jun 2026)
+// FIRST-CARE HINT (Jun 2026, rewrite)
 // ----------------------------------------------------------------------------
-// First-time-player navigation flow. After Chapter 1 ends, three things
-// fire in sequence — guiding the new player from chapter-list back to
-// Chronicle, then from Chronicle into Alistair's care loop:
+// First-time-player navigation flow. After Chapter 1 ends, the player is
+// walked step-by-step from chapter-list back to Chronicle and into Alistair's
+// care loop. Each step waits for the player's tap before advancing — no
+// timing assumptions, no missed beats.
 //
-//   1. Toast notification    — "Alistair's care route is open. Return
-//                              to the Chronicle to begin."
-//   2. Pulse on chp-close ‹  — the back arrow on the chapter list page,
-//                              telling the player to leave the story
-//                              menu and return to Chronicle.
-//   3. Pulse on CARE button  — fires once the player lands on Chronicle.
-//                              Cleared on first care-tap, never appears
-//                              again for that player.
+// FLOW (owner-specified June 2026):
+//   1. Ch1 ends, openPageSoftly() reopens the chapter list (chp-page)
+//   2. armNow() fires after a short settle
+//   3. MODAL POPUP appears: "Care Route Open" + [Acknowledge] button
+//   4. Player taps Acknowledge — modal dismisses
+//   5. ‹ back arrow on chp-page STARTS pulsing
+//   6. Player taps ‹ — chp-page closes, Chronicle visible
+//   7. CARE button on Chronicle STARTS pulsing
+//   8. Player taps CARE — flag cleared, all pulses stop, care begins
 //
 // All gated by the one-shot localStorage flag pp_first_care_hint_pending,
-// which chapters.js sets when Ch1 done is recorded. Player-tap on CARE
-// clears the flag — so even if the player ignores the hint and wanders
-// off, it stays armed until they engage.
+// which chapters.js Ch1 done handler arms via PPFirstCareHint.armNow().
+// Care-tap clears the flag; the player never sees this flow again.
 //
 // SCOPE
-// Only fires for the FIRST chapter (Alistair). Other characters'
-// first-care moments can re-use the same flag pattern if/when they
-// need the same scaffolding — for now, only Alistair has the gate.
-//
-// Self-contained: injects its own CSS, listens for scene-state changes
-// via pp:scene-change, and gracefully no-ops if any wiring is missing.
+// Only fires for Ch1 (Alistair's first chapter). Other characters' care
+// routes don't need this scaffolding — Alistair is the first-time
+// onboarding moment specifically.
 // ============================================================================
 (function () {
     'use strict';
 
-    var FLAG = 'pp_first_care_hint_pending';
-    var TOAST_ID = 'pp-first-care-toast';
-    var STYLES_ID = 'pp-first-care-hint-styles';
-    var PULSE_CLASS = 'pp-hint-pulse';
+    var FLAG          = 'pp_first_care_hint_pending';
+    var MODAL_ID      = 'pp-first-care-modal';
+    var STYLES_ID     = 'pp-first-care-hint-styles';
+    var PULSE_CLASS   = 'pp-hint-pulse';
 
     function lsGet(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }
     function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (_) {} }
@@ -47,45 +45,69 @@
         var s = document.createElement('style');
         s.id = STYLES_ID;
         s.textContent =
-            // Toast: small Cormorant chip slides in from top, fades out on tap
-            '#' + TOAST_ID + ' {' +
-            '  position: fixed;' +
-            '  left: 50%; top: 70px;' +
-            '  transform: translate(-50%, -12px);' +
-            '  z-index: 12500;' +
-            '  max-width: 320px; width: calc(100vw - 32px);' +
-            '  padding: 12px 18px;' +
-            '  background: linear-gradient(180deg, rgba(43, 17, 51, 0.96) 0%, rgba(21, 8, 26, 0.96) 100%);' +
+            // ── Modal backdrop + panel ──────────────────────────────
+            '#' + MODAL_ID + '-backdrop {' +
+            '  position: fixed; inset: 0; z-index: 13500;' +
+            '  background: radial-gradient(ellipse at center,' +
+            '    rgba(11, 4, 16, 0.74) 0%, rgba(11, 4, 16, 0.92) 80%);' +
+            '  display: flex; align-items: center; justify-content: center;' +
+            '  padding: 24px;' +
+            '  opacity: 0; transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1);' +
+            '}' +
+            '#' + MODAL_ID + '-backdrop.show { opacity: 1; }' +
+            '#' + MODAL_ID + ' {' +
+            '  width: 100%; max-width: 340px;' +
+            '  background: linear-gradient(180deg,' +
+            '    rgba(43, 17, 51, 0.97) 0%, rgba(21, 8, 26, 0.97) 100%);' +
             '  border: 1px solid rgba(212, 168, 91, 0.45);' +
-            '  border-radius: 12px;' +
+            '  border-radius: 16px;' +
+            '  padding: 22px 22px 18px;' +
             '  box-shadow:' +
             '    inset 0 1px 0 rgba(212, 168, 91, 0.22),' +
-            '    0 14px 36px -12px rgba(0, 0, 0, 0.8),' +
-            '    0 0 32px rgba(122, 18, 36, 0.35);' +
-            '  font-family: "Cormorant Garamond", serif; font-style: italic;' +
-            '  font-size: 14px; line-height: 1.42;' +
-            '  color: rgba(244, 235, 220, 0.96);' +
+            '    0 18px 48px -14px rgba(0, 0, 0, 0.85),' +
+            '    0 0 56px rgba(232, 76, 140, 0.35);' +
+            '  transform: translateY(8px) scale(0.96);' +
+            '  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);' +
             '  text-align: center;' +
-            '  opacity: 0;' +
-            '  transition: opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),' +
-            '              transform 360ms cubic-bezier(0.22, 1, 0.36, 1);' +
+            '}' +
+            '#' + MODAL_ID + '-backdrop.show #' + MODAL_ID + ' {' +
+            '  transform: translateY(0) scale(1);' +
+            '}' +
+            '#' + MODAL_ID + '-eyebrow {' +
+            '  font-family: "Quicksand", "Inter", sans-serif;' +
+            '  font-size: 9px; letter-spacing: 0.22em; font-weight: 600;' +
+            '  color: rgba(232, 168, 91, 0.85); text-transform: uppercase;' +
+            '  margin: 0 0 8px;' +
+            '}' +
+            '#' + MODAL_ID + '-title {' +
+            '  font-family: "Cormorant Garamond", serif; font-style: italic;' +
+            '  font-size: 22px; font-weight: 500;' +
+            '  color: rgba(244, 235, 220, 0.97);' +
+            '  margin: 0 0 12px;' +
+            '}' +
+            '#' + MODAL_ID + '-body {' +
+            '  font-family: "Cormorant Garamond", serif; font-style: italic;' +
+            '  font-size: 14px; line-height: 1.5;' +
+            '  color: rgba(232, 200, 220, 0.82);' +
+            '  margin: 0 0 18px;' +
+            '}' +
+            '#' + MODAL_ID + '-ack {' +
+            '  display: inline-block; min-width: 120px;' +
+            '  background: linear-gradient(180deg,' +
+            '    rgba(232, 76, 140, 0.85) 0%, rgba(122, 18, 36, 0.95) 100%);' +
+            '  border: 1px solid rgba(232, 168, 91, 0.55);' +
+            '  border-radius: 10px;' +
+            '  padding: 10px 28px;' +
+            '  color: rgba(244, 235, 220, 0.98);' +
+            '  font-family: "Cormorant Garamond", serif; font-style: italic;' +
+            '  font-size: 14px; letter-spacing: 0.04em;' +
             '  cursor: pointer;' +
+            '  box-shadow: 0 4px 16px -4px rgba(232, 76, 140, 0.5);' +
+            '  transition: transform 140ms ease;' +
             '}' +
-            '#' + TOAST_ID + '.show {' +
-            '  opacity: 1; transform: translate(-50%, 0);' +
-            '}' +
-            '#' + TOAST_ID + ' .pp-fc-eyebrow {' +
-            '  display: block;' +
-            '  font-family: "Quicksand", "Inter", sans-serif; font-style: normal;' +
-            '  font-size: 9px; font-weight: 600;' +
-            '  letter-spacing: 0.22em; text-transform: uppercase;' +
-            '  color: rgba(232, 168, 91, 0.85);' +
-            '  margin-bottom: 4px;' +
-            '}' +
+            '#' + MODAL_ID + '-ack:active { transform: scale(0.96); }' +
 
-            // Pulse-hint: rose-gold breathing glow on the targeted element.
-            // Designed to read as "look here" without crowding the brand
-            // palette — same gold as the active companion's wax-seal halo.
+            // ── Pulse keyframes ─────────────────────────────────────
             '.' + PULSE_CLASS + ' {' +
             '  position: relative;' +
             '  animation: pp-hint-pulse 1.6s ease-in-out infinite;' +
@@ -104,9 +126,6 @@
             '    filter: drop-shadow(0 0 14px rgba(232, 168, 91, 0.65));' +
             '  }' +
             '}' +
-            // Soft inner pulse for the CARE pill (already has its own
-            // bg gradient, so we use border-glow only — no inset shadow
-            // that would muddy the existing wine-velvet panel).
             '.cc-action-care.' + PULSE_CLASS + ' {' +
             '  animation: pp-care-pulse 1.6s ease-in-out infinite;' +
             '}' +
@@ -127,30 +146,45 @@
         document.head.appendChild(s);
     }
 
-    // ── Toast: shown once, dismissible on tap. NO auto-dismiss timer —
-    // the player just emerged from a 10+ minute chapter and might not
-    // look at the toast for 30+ seconds. The toast clears automatically
-    // when they tap CARE (the delegated listener in wireCareTapClear).
-    // They can also tap the toast itself to dismiss it manually. ─────
-    function showToast() {
-        if (document.getElementById(TOAST_ID)) return;
-        injectStyles();
-        var el = document.createElement('div');
-        el.id = TOAST_ID;
-        el.innerHTML =
-            '<span class="pp-fc-eyebrow">Care Route Open</span>' +
-            'Alistair’s care route has opened. Return to the Chronicle to begin.';
-        el.addEventListener('click', dismissToast);
-        document.body.appendChild(el);
-        // Force layout so the fade transition picks up
-        void el.offsetHeight;
-        el.classList.add('show');
+    // ── Modal popup (Step 1) ──────────────────────────────────────
+    // Returns a Promise that resolves when the player taps Acknowledge.
+    function showModal() {
+        return new Promise(function (resolve) {
+            injectStyles();
+            // Don't double-mount
+            if (document.getElementById(MODAL_ID + '-backdrop')) {
+                resolve();
+                return;
+            }
+            var bd = document.createElement('div');
+            bd.id = MODAL_ID + '-backdrop';
+            bd.innerHTML =
+                '<div id="' + MODAL_ID + '" role="dialog" aria-modal="true">' +
+                '  <div id="' + MODAL_ID + '-eyebrow">Care Route Open</div>' +
+                '  <h2 id="' + MODAL_ID + '-title">A door has opened.</h2>' +
+                '  <p id="' + MODAL_ID + '-body">Alistair’s care route is yours to walk now. Tap below, then return to the Chronicle to begin.</p>' +
+                '  <button id="' + MODAL_ID + '-ack" type="button">Acknowledge</button>' +
+                '</div>';
+            document.body.appendChild(bd);
+
+            function close() {
+                bd.classList.remove('show');
+                setTimeout(function () { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 320);
+                resolve();
+            }
+            bd.querySelector('#' + MODAL_ID + '-ack').addEventListener('click', close);
+
+            // Force layout commit, then trigger fade-in
+            void bd.offsetHeight;
+            bd.classList.add('show');
+        });
     }
-    function dismissToast() {
-        var el = document.getElementById(TOAST_ID);
-        if (!el) return;
-        el.classList.remove('show');
-        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
+
+    function dismissModal() {
+        var bd = document.getElementById(MODAL_ID + '-backdrop');
+        if (!bd) return;
+        bd.classList.remove('show');
+        setTimeout(function () { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 320);
     }
 
     // ── Pulse management ────────────────────────────────────────────
@@ -171,72 +205,126 @@
         if (btn) btn.classList.remove(PULSE_CLASS);
     }
 
-    // ── Care-tap is the terminal event: clear flag, drop pulses ─────
+    // ── State machine ───────────────────────────────────────────────
+    // Tracks where in the sequence we are so the right affordance is
+    // active at each step. Stored in localStorage so a refresh mid-flow
+    // doesn't lose the position.
+    var STEP_KEY = 'pp_first_care_hint_step';
+    var STEP_MODAL    = 'modal';     // showing the modal
+    var STEP_CHP_BACK = 'chp-back';  // modal acknowledged, ‹ pulsing
+    var STEP_CARE     = 'care';      // on Chronicle, CARE pulsing
+
+    function setStep(s) { lsSet(STEP_KEY, s); }
+    function getStep() { return lsGet(STEP_KEY); }
+
+    // ── Care-tap terminates the entire flow ─────────────────────────
     function wireCareTapClear() {
-        // Bind once at script load. Listener stays armed forever; it
-        // simply does nothing if the flag isn't pending.
         document.addEventListener('click', function (e) {
             if (!isPending()) return;
             var btn = e.target && e.target.closest && e.target.closest('.cc-action-care');
             if (!btn) return;
             lsDel(FLAG);
+            lsDel(STEP_KEY);
             unpulseCareBtn();
-            dismissToast();
+            unpulseChpBack();
+            dismissModal();
+        }, true);
+    }
+
+    // ── chp-back tap advances to step CARE ─────────────────────────
+    // When the player taps the pulsing ‹ on chp-page, advance to the
+    // CARE step so the CARE button starts pulsing on Chronicle.
+    function wireChpBackTap() {
+        document.addEventListener('click', function (e) {
+            if (!isPending()) return;
+            if (getStep() !== STEP_CHP_BACK) return;
+            var btn = e.target && e.target.closest && e.target.closest('#chp-page .chp-close');
+            if (!btn) return;
+            unpulseChpBack();
+            setStep(STEP_CARE);
+            // Pulse the CARE button after the chp-page fade-out so the
+            // animation lands cleanly on a visible Chronicle.
+            setTimeout(function () {
+                if (!isPending()) return;
+                pulseCareBtn();
+            }, 500);
         }, true);
     }
 
     // ── Scene-state reactions ───────────────────────────────────────
-    // chp-page mounting is signalled by chapters.js when its DOM appears.
-    // We watch for it via MutationObserver as a backup. Select-screen
-    // transitions emit pp:scene-change via scene-state.js.
+    // When the player lands on the Chronicle while in the CARE step,
+    // make sure the CARE pulse is on (covers case where the scene
+    // change beat the chp-back tap handler).
     function onSceneChange(scene) {
         if (!isPending()) return;
-        if (scene === 'select') {
-            // Player has returned to Chronicle — pulse the CARE button
-            // and show the toast if it hasn't been shown yet this session.
-            // A tiny delay lets refreshActive() finish painting first so
-            // the .cc-action-care selector resolves to the unlocked button.
+        if (scene === 'select' && getStep() === STEP_CARE) {
             setTimeout(function () {
+                if (!isPending()) return;
                 pulseCareBtn();
-                showToast();
-            }, 350);
-        } else {
-            // Leaving Chronicle (entering care, chapter, etc.) — drop
-            // the toast so it doesn't linger on the wrong screen. The
-            // pulse will reappear automatically if the player wanders
-            // back to Chronicle before tapping CARE.
-            unpulseCareBtn();
-            dismissToast();
+            }, 400);
         }
     }
 
-    // chp-page back-arrow pulse: tag the moment the chp-close button
-    // mounts. We use MutationObserver instead of polling so this is
-    // cost-free when chp-page isn't in play.
+    // ── Chp-page mount observer ────────────────────────────────────
+    // When chp-page remounts after Ch1 (openPageSoftly's 300ms delay)
+    // AND we're already past the modal step, re-apply the ‹ pulse.
+    // Covers the case where the player refreshed mid-flow.
     function watchChpPage() {
         if (typeof MutationObserver !== 'function') return;
         var chp = document.getElementById('chp-page');
         if (!chp) return;
         var obs = new MutationObserver(function () {
             if (!isPending()) return;
-            // chp-page just gained content — pulse the back arrow if
-            // it's there. Cheap idempotent re-tag.
-            pulseChpBack();
+            if (getStep() === STEP_CHP_BACK) pulseChpBack();
         });
         obs.observe(chp, { childList: true, subtree: false });
     }
 
+    // ── armNow(): the public entry point chapters.js calls ─────────
+    // Starts the sequence: modal → on acknowledge → ‹ pulse.
+    function armNow() {
+        lsSet(FLAG, '1');
+        setStep(STEP_MODAL);
+        // Let chp-page finish its 300ms openPageSoftly remount + a buffer
+        // so the modal lands cleanly on a settled background.
+        setTimeout(function () {
+            if (!isPending()) return;
+            showModal().then(function () {
+                // Step 1 done. Player acknowledged. Advance to step 2.
+                if (!isPending()) return;
+                setStep(STEP_CHP_BACK);
+                pulseChpBack();
+            });
+        }, 700);
+    }
+
+    // ── Boot ────────────────────────────────────────────────────────
     function boot() {
         injectStyles();
         wireCareTapClear();
+        wireChpBackTap();
         watchChpPage();
-        // If the flag is already set at load (player navigated away and
-        // came back), apply the scene-appropriate hint immediately.
+        // If the flag is set at load (player refreshed mid-flow), pick
+        // up where they left off based on the saved step.
         if (isPending()) {
-            var scene = window.PPScene && window.PPScene.get && window.PPScene.get();
-            if (scene) onSceneChange(scene);
+            var step = getStep();
+            if (step === STEP_MODAL || !step) {
+                // Treat any orphan flag without a step as "needs modal"
+                setStep(STEP_MODAL);
+                setTimeout(function () {
+                    if (!isPending()) return;
+                    showModal().then(function () {
+                        if (!isPending()) return;
+                        setStep(STEP_CHP_BACK);
+                        pulseChpBack();
+                    });
+                }, 500);
+            } else if (step === STEP_CHP_BACK) {
+                setTimeout(pulseChpBack, 500);
+            } else if (step === STEP_CARE) {
+                setTimeout(pulseCareBtn, 500);
+            }
         }
-        // Subscribe to scene changes via the scene-state authority.
         document.addEventListener('pp:scene-change', function (e) {
             try { onSceneChange(e.detail && e.detail.scene); } catch (_) {}
         });
@@ -248,42 +336,19 @@
         boot();
     }
 
-    // Public surface for debugging / dev-tooling
-    // armNow() is called explicitly by chapters.js when Ch1 finishes.
-    // Why: Ch1 plays via MSCard ON TOP of the Chronicle — the underlying
-    // scene-state never leaves 'select', so the pp:scene-change listener
-    // never fires when the chapter ends. armNow() bridges that gap.
-    //
-    // After Ch1, playChapter() calls openPageSoftly() which reopens
-    // chp-page (the chapter list) after 300ms — the player DOES NOT
-    // land on the Chronicle directly. So we need to:
-    //   1. Pulse the ‹ back arrow on chp-page (their visible next step)
-    //   2. Pulse the CARE button on Chronicle (for when they tap ‹)
-    //   3. Show the toast directing them back to Chronicle
-    //
-    // 800ms delay covers the 300ms openPageSoftly + a buffer for chp-page
-    // to fully mount. The chp-back pulse is the load-bearing affordance
-    // for the chapter-list path; the CARE pulse is what they see after
-    // tapping ‹.
-    function armNow() {
-        lsSet(FLAG, '1');
-        setTimeout(function () {
-            if (!isPending()) return;
-            pulseChpBack();   // chp-page is the immediate next screen
-            pulseCareBtn();   // Chronicle is where they're going
-            showToast();
-        }, 800);
-    }
-
+    // Public API for chapters.js + dev tooling
     window.PPFirstCareHint = {
         isPending: isPending,
-        // Force-arm the hint, e.g. for testing
-        arm:    function () { lsSet(FLAG, '1'); },
-        // armNow: arm AND immediately fire the hint without waiting for
-        // a scene-change event (used by Ch1 done handler)
+        // Force-arm (testing only)
+        arm:    function () { lsSet(FLAG, '1'); setStep(STEP_MODAL); },
+        // The real entry point: called by chapters.js Ch1 done handler
         armNow: armNow,
         // Force-clear without needing a care-tap
-        clear:  function () { lsDel(FLAG); unpulseCareBtn(); unpulseChpBack(); dismissToast(); },
-        _flag:  FLAG
+        clear:  function () {
+            lsDel(FLAG); lsDel(STEP_KEY);
+            unpulseCareBtn(); unpulseChpBack(); dismissModal();
+        },
+        _flag:  FLAG,
+        _step:  STEP_KEY
     };
 })();
