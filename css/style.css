@@ -1433,17 +1433,19 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
    expand rule lower in the file — class-level selectors lose
    specificity (1,2,0 vs 1,1,0) even with !important. #topbar-menu-btn
    (hamburger) is NOT in this list — it stays visible. */
-#affection-display #trophy-btn,
-#affection-display #gallery-btn,
+/* Jun 2026 — owner asked to drop the music note and the pink-heart
+   (companions) buttons from the care topbar, and the letters scroll
+   was leftover clutter. Trophy / gallery / settings stay. ID-level
+   specificity (2,0,0) required to beat the .topbar-collapsible
+   expand rule (1,2,0) lower in the file. #topbar-menu-btn (hamburger)
+   is not in this list — it stays visible. */
 #affection-display #music-btn,
 #affection-display #companions-btn,
-#affection-display #settings-btn,
 #affection-display #pp-letters-btn,
 /* Jun 2026 — owner asked the long "ACQUAINTED → TRUSTED" tier label
    moved off the topbar (it crowded the DAY chip and ate the milestone
    hint). Same info now renders on the Active Companion card on the
-   Companion Chronicle (#cc-tier-progression), so the topbar only has
-   ‹ back / day chip / ☰ menu — much cleaner on small mobile. */
+   Companion Chronicle (#cc-tier-progression). */
 #affection-display #affection-text {
     display: none !important;
 }
