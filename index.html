@@ -1680,15 +1680,50 @@
             document.addEventListener('DOMContentLoaded', function () {
                 maybeRefresh();
                 wireBottomNav();
+                wireScreenObserver();
             });
         } else {
-            setTimeout(function () { maybeRefresh(); wireBottomNav(); }, 0);
+            setTimeout(function () {
+                maybeRefresh();
+                wireBottomNav();
+                wireScreenObserver();
+            }, 0);
         }
 
         // Re-run periodically so stat changes (affection ticks) reflect.
         // 4000ms (was 2500) — maybeRefresh early-returns when the screen
         // is hidden but the layout queries still cost. Bumped per audit.
         var __ccTimer = setInterval(maybeRefresh, 4000);
+
+        // Jun 2026 — user reported a visible flash where the Active
+        // Companion card rendered LOCKED ("???" / "BEGIN CHAPTER 1")
+        // for ~0.5s after navigating to the Chronicle, then flipped
+        // to ALISTAIR once the 4s poll fired. Root cause: refreshActive
+        // only ran from the periodic interval, so the gap between
+        // select-screen becoming visible and the next tick was visible.
+        // Now: a MutationObserver on #select-screen.classList fires
+        // refresh THE MOMENT the `hidden` class is removed — before
+        // the player's eye lands on the page. Same observer also
+        // catches changes via the scene-state system.
+        function wireScreenObserver() {
+            if (typeof MutationObserver !== 'function') return;
+            var screen = document.getElementById('select-screen');
+            if (!screen) return;
+            var wasHidden = screen.classList.contains('hidden');
+            var obs = new MutationObserver(function () {
+                var nowHidden = screen.classList.contains('hidden');
+                if (wasHidden && !nowHidden) {
+                    // hidden → visible transition. Run refresh
+                    // synchronously, then again on next animation
+                    // frame in case the unlock-flag write hasn't
+                    // hit localStorage yet on this micro-task.
+                    maybeRefresh();
+                    requestAnimationFrame(maybeRefresh);
+                }
+                wasHidden = nowHidden;
+            });
+            obs.observe(screen, { attributes: true, attributeFilter: ['class'] });
+        }
 
         // Expose for debugging / external triggers
         window.PPCompanionChronicle = {
