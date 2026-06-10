@@ -2823,7 +2823,26 @@ class PocketLoveGame {
                                 this.lucienInfluence >= 40 && Math.random() < 0.25)
                                ? this._getLucienInfluencedTalkLine() : null;
         const _talkCtx  = !_lucienPassive && Math.random() < 0.45 ? this._getContextLine("talk") : null;
-        const _talkLine = _lucienPassive || _talkCtx || this.dialogueSystem.getDialogue("talk", reactionType, emotionalState);
+        let _talkLine = _lucienPassive || _talkCtx || this.dialogueSystem.getDialogue("talk", reactionType, emotionalState);
+
+        // ── Trust-Earned beat (Jun 2026 main-story gate) ───────────────
+        // Once per playthrough, when Alistair's bond has reached Level 3
+        // (cumulative affection ≥ 20) AND the player has talked to him at
+        // least 7 times, his next talk surfaces a special line that names
+        // the player as Weaver. This is one of the three milestones that
+        // unlock Chapter 6 (Elian's first appearance). See main-story-gate.js.
+        try {
+            const _charId = (this.selectedCharacter || this.characterId);
+            if (_charId === 'alistair'
+                && window.PPMSGate
+                && !window.PPMSGate.evaluateCh6().milestones.find(m => m.key === 'trust').done
+                && window.PPMSGate._bondLevelFor('alistair') >= 3
+                && (this.timesTalked || 0) >= 7) {
+                _talkLine = 'You came back again. Every time. You — Weaver. That stops mattering, eventually. It hasn’t yet.';
+                window.PPMSGate.markTrust();
+            }
+        } catch (_) { /* never break talk over a gate check */ }
+
         this.ui.showNotification("Talk");
         this.ui.preReact(
             { emotionalState: emotionalState, action: 'talk', reactionType: reactionType },

@@ -2309,7 +2309,22 @@
           lockedByCare = true;
         }
       }
-      const locked = (lockedByGate || lockedByCare) && !done;
+
+      // ── Main-story gate (Jun 2026) ────────────────────────────────
+      // Ch6 (Elian's first appearance) has a richer 3-milestone gate
+      // driven by PPMSGate. The player has to earn Bond Level 3 with
+      // Alistair, balance his care once, and hear his "Trust Earned"
+      // line before Ch6 unlocks. When all three tick, the gate opens
+      // and the popup turns into a milestone checklist. See main-
+      // story-gate.js for the evaluator + balanced-care latch.
+      let lockedByMSGate = false;
+      let msGateState = null;
+      if (ch.id === 6 && window.PPMSGate && typeof window.PPMSGate.evaluateCh6 === 'function') {
+        msGateState = window.PPMSGate.evaluateCh6();
+        if (msGateState.locked) lockedByMSGate = true;
+      }
+
+      const locked = (lockedByGate || lockedByCare || lockedByMSGate) && !done;
       // Per-character left-border tint via .char-<id> class (design-tokens A4)
       const charClass = ch.charId ? ' char-' + ch.charId : '';
       row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '') + charClass;
@@ -2358,6 +2373,15 @@
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (locked) {
+          // Jun 2026 — Ch6 has a milestone checklist instead of the
+          // generic message. Other locks fall through to PPChain (which
+          // is no-op now, but kept defensive in case it's revived).
+          if (lockedByMSGate && window.PPMSGate && window.PPMSGate.showCh6Checklist) {
+            window.PPMSGate.showCh6Checklist({
+              title: ch.title + (ch.subtitle ? ' · ' + ch.subtitle : '')
+            });
+            return;
+          }
           if (window.PPChain && window.PPChain.showLockPopup) {
             window.PPChain.showLockPopup({
               title: ch.title + (ch.subtitle ? ' · ' + ch.subtitle : ''),
