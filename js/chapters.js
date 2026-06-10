@@ -2317,14 +2317,25 @@
       // line before Ch6 unlocks. When all three tick, the gate opens
       // and the popup turns into a milestone checklist. See main-
       // story-gate.js for the evaluator + balanced-care latch.
+      //
+      // IMPORTANT: for Ch6 specifically, the MS gate REPLACES the
+      // linear chapter-pointer lock — not stacks on top of it. The
+      // whole point of the loop (Care → Story) is that the player
+      // doesn't progress to Ch6 by binge-reading Ch2-5; they progress
+      // by living with Alistair. So when the chapter has its own
+      // MSGate verdict we use ONLY that.
       let lockedByMSGate = false;
+      let usesMSGate = false;
       let msGateState = null;
       if (ch.id === 6 && window.PPMSGate && typeof window.PPMSGate.evaluateCh6 === 'function') {
         msGateState = window.PPMSGate.evaluateCh6();
+        usesMSGate = true;
         if (msGateState.locked) lockedByMSGate = true;
       }
 
-      const locked = (lockedByGate || lockedByCare || lockedByMSGate) && !done;
+      const locked = usesMSGate
+        ? (lockedByMSGate && !done)
+        : ((lockedByGate || lockedByCare) && !done);
       // Per-character left-border tint via .char-<id> class (design-tokens A4)
       const charClass = ch.charId ? ' char-' + ch.charId : '';
       row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '') + charClass;
@@ -2368,7 +2379,13 @@
 
       const btn = document.createElement('button');
       btn.className = 'chp-play';
-      btn.textContent = done ? 'Replay' : ((isCurrent && !locked) ? 'Begin' : 'Locked');
+      // MS-gated chapters (Ch6) read "Begin" the moment their custom
+      // gate opens, even if the linear chapter-pointer hasn't reached
+      // them — the linear pointer is intentionally bypassed for these.
+      const msReady = usesMSGate && !lockedByMSGate;
+      btn.textContent = done
+        ? 'Replay'
+        : ((!locked && (isCurrent || msReady)) ? 'Begin' : 'Locked');
       // Tappable even when locked.opens a warning popup explaining why.
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
