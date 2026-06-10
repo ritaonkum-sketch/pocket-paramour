@@ -59,77 +59,77 @@
     alistair: [
       'Walk the gate with him. One Talk.',
       'Bring food to the watch. He has not eaten.',
-      'Steady is enough today \u2014 keep him level.',
+      'Steady is enough today. Keep him level.',
       'Three times around the wall. Three times he hears you.',
       'Trust earned, slowly. Bond past sixty.',
-      'A round at the captain\u2019s table \u2014 fed, mended, heard.',
+      'A round at the captain\u2019s table: fed, mended, heard.',
       'A small gift. A knight does not expect.'
     ],
     elian: [
       'Step into the Thornwood. One word counts.',
       'Bring him something edible. The forest does not.',
-      'Match the woods today \u2014 nothing under forty.',
+      'Match the woods today. Nothing under forty.',
       'Three exchanges by the fire. He counts them.',
       'A bond the cabin learns. Past sixty.',
-      'A full circuit \u2014 fed, cleaned, spoken to.',
+      'A full circuit: fed, cleaned, spoken to.',
       'Carve something small. Leave it on the doorstep.'
     ],
     lyra: [
       'Sit at the cave-mouth. One word back.',
       'Bring her a tide-warm meal. Sirens forget.',
-      'Tide-balance \u2014 keep all three above forty.',
+      'Tide-balance. Keep all three above forty.',
       'Three verses, three answers. Sing back.',
-      'Bond past sixty \u2014 the pool will rest.',
-      'A whole evening \u2014 fed, washed, spoken to.',
+      'Bond past sixty. The pool will rest.',
+      'A whole evening: fed, washed, spoken to.',
       'Drop something in the third pool from the left.'
     ],
     caspian: [
       'Court hours. One private word.',
       'Eat with him at the small table. No retainers.',
-      'Composure today \u2014 every stat above forty.',
-      'Three real exchanges. Not charm \u2014 the other thing.',
+      'Composure today. Every stat above forty.',
+      'Three real exchanges. Not charm. The other thing.',
       'Past sixty bond. The crown notices.',
-      'A full evening \u2014 fed, dressed, listened to.',
+      'A full evening: fed, dressed, listened to.',
       'A gift not from the treasury. From you.'
     ],
     lucien: [
       'A footnote in his margin. One word.',
       'Bring him bread. He forgets.',
-      'Stable variables \u2014 every stat above forty.',
+      'Stable variables. Every stat above forty.',
       'Three observations. The catalogue grows.',
       'Bond past sixty. The maths will permit it.',
-      'A full session \u2014 fed, washed, spoken to.',
+      'A full session: fed, washed, spoken to.',
       'A book he has not read. Mark the page.'
     ],
     noir: [
       'Go to the seam. One word, gentle.',
       'Bring something warm. He has been cold longer than you have been alive.',
-      'Hold the line \u2014 nothing under forty today.',
+      'Hold the line. Nothing under forty today.',
       'Three exchanges in his old script. Slowly.',
       'Bond past sixty. The dark will permit you.',
-      'A full evening \u2014 fed, cleaned, spoken to. Once.',
+      'A full evening: fed, cleaned, spoken to. Once.',
       'A gift made by hand. He keeps everything.'
     ],
     proto: [
       '&gt; ping him. one talk.',
       '&gt; he eats data. give it kindly. one feed.',
-      '&gt; keep the system stable \u2014 all stats above 40.',
+      '&gt; keep the system stable. all stats above 40.',
       '&gt; three exchanges. logged. archived. kept.',
       '&gt; bond_index &gt; 60. he will render in color.',
-      '&gt; full diagnostic \u2014 fed, cleaned, spoken to.',
+      '&gt; full diagnostic: fed, cleaned, spoken to.',
       '&gt; one gift. file it under \u201ckept by you.\u201d'
     ]
   };
 
   // Generic fallback for any future character not yet in LABELS.
   const FALLBACK = [
-    'Spend a moment \u2014 one Talk.',
-    'Feed them once \u2014 they\u2019re watching.',
+    'Spend a moment. One Talk.',
+    'Feed them once. They\u2019re watching.',
     'Keep every stat above 40 today.',
     'Talk three times. Let them feel heard.',
     'Bond above 60 today.',
-    'A full round \u2014 Feed, Wash, and Talk.',
-    'Give them a gift \u2014 make it count.'
+    'A full round: Feed, Wash, and Talk.',
+    'Give them a gift. Make it count.'
   ];
 
   function isEnabled() {
