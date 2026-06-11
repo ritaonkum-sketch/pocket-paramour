@@ -149,13 +149,28 @@
                 font-size: 14px; line-height: 1.4;
             }
             #ew-whisper .ew-from {
-                margin-top: 6px;
+                position: relative;
+                margin-top: 8px;
+                padding-top: 6px;
                 font-size: 10px;
                 font-style: italic;
                 font-weight: 400;
                 letter-spacing: 0.4px;
                 color: rgba(243, 216, 255, 0.62);
                 text-shadow: none;
+            }
+            /* Quiet rose-gold hairline above the attribution.
+               Replaces the em-dash prefix per brand voice rule. */
+            #ew-whisper .ew-from::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 28px;
+                height: 1px;
+                background: linear-gradient(90deg,
+                    transparent, rgba(212, 168, 91, 0.5), transparent);
             }
             #ew-whisper::after {
                 content: 'tap to dismiss';
@@ -190,14 +205,17 @@
         const el = document.createElement('div');
         el.id = 'ew-whisper';
         // Jun 2026 — owner asked for attribution. Each whisper now
-        // shows a small "— from: <source>" line below the text so the
-        // player isn't guessing where the voice came from.
+        // shows a small italic line below the text so the player isn't
+        // guessing where the voice came from. No em-dash prefix per
+        // brand voice rule (em-dashes read AI-generated); italic +
+        // smaller + lower-opacity styling carries the attribution feel
+        // on its own, plus a CSS pseudo-hairline as a quiet separator.
         const lineEl = document.createElement('div');
         lineEl.className = 'ew-line';
         lineEl.textContent = entry.text || entry;  // tolerate raw strings (legacy callers)
         const fromEl = document.createElement('div');
         fromEl.className = 'ew-from';
-        fromEl.textContent = '— ' + (entry.from || 'a voice');
+        fromEl.textContent = entry.from || 'a voice';
         el.appendChild(lineEl);
         el.appendChild(fromEl);
         document.body.appendChild(el);
