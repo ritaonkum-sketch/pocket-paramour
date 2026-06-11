@@ -233,6 +233,13 @@
         var pop = document.getElementById(POPUP_ID);
         if (!pop) { document.removeEventListener('click', closePopupOnOutside, true); return; }
         if (pop.contains(e.target)) return;
+        // Jun 2026 — bug fix: if the tap is on the chip itself, leave it
+        // to the chip's own toggle handler (which fires on the bubble
+        // phase right after this). Closing here AND in togglePopup
+        // would race and the toggle's "else openPopup" branch would
+        // re-fire, making a re-tap look like it doesn't dismiss.
+        var chip = document.getElementById(CHIP_ID);
+        if (chip && chip.contains(e.target)) return;
         closePopup();
     }
     function closePopup() {
@@ -267,11 +274,42 @@
     }
 
     // ── Eligibility check + mount/unmount ──────────────────────────
+    // The chip is for the IDLE care loop only — the moment the player
+    // is reading a chapter, an intro cinematic, a date, an event, or
+    // any other full-screen story moment, the chip vanishes. It comes
+    // back the instant the player is on the bare care screen again.
+    function chapterOrIntroActive() {
+        // Any of these = a story scene is on top of the care screen.
+        // Owner reported the chip showing during Alistair's first
+        // intro (#intro-overlay.visible). Gate it out of every story
+        // moment, not just MSCard.
+        return !!document.querySelector(
+            '#mscard-root:not(:empty), ' +
+            '#ms-encounter-root:not(:empty), ' +
+            '#chp-page:not(.hidden):not(:empty), ' +
+            '#tp-root:not(:empty), ' +
+            '#cinematic-overlay.visible, ' +
+            '#intro-overlay.visible, ' +
+            '#story-overlay:not(.hidden), ' +
+            '#event-overlay:not(.hidden), ' +
+            '#date-overlay:not(.hidden), ' +
+            '#pp-sm-root:not(:empty), ' +
+            '#pp-sched-root:not(:empty), ' +
+            '#pp-fm-root:not(:empty), ' +
+            '#gift-panel:not(.hidden), ' +
+            '#training-panel:not(.hidden), ' +
+            '#gallery-overlay:not(.hidden), ' +
+            '#letter-overlay:not(.hidden), ' +
+            '#settings-overlay:not(.hidden), ' +
+            '#pp-day-one-overlay'
+        );
+    }
     function shouldShow() {
         if (!document.body.classList.contains('pp-screen-care')) return false;
         if (activeChar() !== 'alistair') return false;
         if (ch6Done()) return false;
         if (!window.PPMSGate) return false;
+        if (chapterOrIntroActive()) return false;
         return true;
     }
 
