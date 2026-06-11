@@ -26,19 +26,26 @@
 
     // Pool of unattributed whispers. Ordered so the first ones are curious,
     // later ones grow more specific — mirroring the player's investment curve.
+    // Jun 2026 — owner asked for attribution so the player isn't left
+    // guessing where the voice came from. The "from" field is small italic
+    // label rendered below each line. Most lines stay anonymous ("a voice
+    // in the wall", "something listening") to preserve the mystery; later
+    // lines start to hint at the source. Noir's identity is revealed in
+    // Chapter 6 — after that, early-whispers self-disables and Noir's
+    // own whisper system takes over.
     const LINES = [
-        "You weren’t supposed to make it this far.",
-        "Careful. Something is listening.",
-        "Keep going. I find you interesting.",
-        "Don’t tell anyone about this feeling yet.",
-        "Someone has been watching you sleep.",
-        "The wind tastes different tonight. Did you notice?",
-        "You’re the first thing in a long time worth remembering.",
-        "Turn around. Slowly. No. I’m joking. Not yet.",
-        "Every choice you make, a bell rings somewhere far away.",
-        "If you stop now, I will have to find you.",
-        "Whoever you love, love them honestly. It matters more than you think.",
-        "A door that was closed for a hundred years just creaked open."
+        { text: "You weren’t supposed to make it this far.",                                from: "a voice in the wall" },
+        { text: "Careful. Something is listening.",                                          from: "a voice you don’t recognise" },
+        { text: "Keep going. I find you interesting.",                                       from: "someone, somewhere" },
+        { text: "Don’t tell anyone about this feeling yet.",                                  from: "a voice in the wall" },
+        { text: "Someone has been watching you sleep.",                                       from: "a voice you don’t recognise" },
+        { text: "The wind tastes different tonight. Did you notice?",                         from: "the wind, almost" },
+        { text: "You’re the first thing in a long time worth remembering.",                   from: "someone older than the kingdom" },
+        { text: "Turn around. Slowly. No. I’m joking. Not yet.",                              from: "someone behind the door" },
+        { text: "Every choice you make, a bell rings somewhere far away.",                    from: "someone older than the kingdom" },
+        { text: "If you stop now, I will have to find you.",                                  from: "someone behind the door" },
+        { text: "Whoever you love, love them honestly. It matters more than you think.",      from: "the dark, gentler than expected" },
+        { text: "A door that was closed for a hundred years just creaked open.",              from: "the dark, gentler than expected" }
     ];
 
     const STORAGE_LAST = 'pp_ew_last';
@@ -138,6 +145,29 @@
                 0%, 100% { opacity: 0.25; }
                 50%      { opacity: 0.6; }
             }
+            #ew-whisper .ew-line {
+                font-size: 14px; line-height: 1.4;
+            }
+            #ew-whisper .ew-from {
+                margin-top: 6px;
+                font-size: 10px;
+                font-style: italic;
+                font-weight: 400;
+                letter-spacing: 0.4px;
+                color: rgba(243, 216, 255, 0.62);
+                text-shadow: none;
+            }
+            #ew-whisper::after {
+                content: 'tap to dismiss';
+                display: block;
+                margin-top: 6px;
+                font-family: 'Quicksand', 'Inter', sans-serif;
+                font-style: normal;
+                font-size: 8px;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: rgba(190, 120, 220, 0.55);
+            }
         `;
         document.head.appendChild(s);
     }
@@ -145,21 +175,31 @@
     function pickLine() {
         let idx = parseInt(localStorage.getItem(STORAGE_IDX) || '0', 10);
         if (isNaN(idx) || idx < 0) idx = 0;
-        const line = LINES[idx % LINES.length];
+        const entry = LINES[idx % LINES.length];
         localStorage.setItem(STORAGE_IDX, String(idx + 1));
-        return line;
+        return entry;
     }
 
     let showing = false;
 
-    function showWhisper(line) {
+    function showWhisper(entry) {
         if (showing) return;
         showing = true;
         injectStyles();
 
         const el = document.createElement('div');
         el.id = 'ew-whisper';
-        el.textContent = line;
+        // Jun 2026 — owner asked for attribution. Each whisper now
+        // shows a small "— from: <source>" line below the text so the
+        // player isn't guessing where the voice came from.
+        const lineEl = document.createElement('div');
+        lineEl.className = 'ew-line';
+        lineEl.textContent = entry.text || entry;  // tolerate raw strings (legacy callers)
+        const fromEl = document.createElement('div');
+        fromEl.className = 'ew-from';
+        fromEl.textContent = '— ' + (entry.from || 'a voice');
+        el.appendChild(lineEl);
+        el.appendChild(fromEl);
         document.body.appendChild(el);
 
         // force reflow then animate in
@@ -167,10 +207,11 @@
         el.offsetHeight;
         el.classList.add('ew-show');
 
-        let autoCloseId = setTimeout(close, 6200);
+        // Jun 2026 — owner asked for the whisper to PERSIST until the
+        // player taps it. No auto-close timer. The tap handler below
+        // still wires click/touchstart for dismissal.
 
         function close() {
-            clearTimeout(autoCloseId);
             el.classList.remove('ew-show');
             setTimeout(() => {
                 if (el.parentNode) el.parentNode.removeChild(el);

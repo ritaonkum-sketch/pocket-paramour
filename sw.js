@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v712';
+const CACHE_NAME = 'pocket-love-v713';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -119,7 +119,8 @@ const CORE_ASSETS = [
     // new main story is written, a fresh orchestrator can be added back.
     '/js/today-hub.js',
     '/js/main-story-gate.js',
-    '/js/first-care-hint.js'
+    '/js/first-care-hint.js',
+    '/js/care-target-chip.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.

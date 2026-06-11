@@ -137,7 +137,7 @@
       title: 'Two ways to spend time here.',
       body: [
         'Care for them every day. Feed, wash, talk, listen.',
-        'When you are ready for the bigger story, tap the pink chip in the lower-left.',
+        'When you are ready for the bigger story, tap STORY in the bottom menu.',
         'Both modes run together. Take your time. They notice everything.'
       ]
     },
