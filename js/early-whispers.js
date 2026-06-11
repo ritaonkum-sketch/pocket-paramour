@@ -172,17 +172,10 @@
                 background: linear-gradient(90deg,
                     transparent, rgba(212, 168, 91, 0.5), transparent);
             }
-            #ew-whisper::after {
-                content: 'tap to dismiss';
-                display: block;
-                margin-top: 6px;
-                font-family: 'Quicksand', 'Inter', sans-serif;
-                font-style: normal;
-                font-size: 8px;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-                color: rgba(190, 120, 220, 0.55);
-            }
+            /* No "tap to dismiss" label — owner direction Jun 2026.
+               The whisper reads as a presence, not a UI element. The
+               cursor:pointer + the shimmer animation already signal
+               interactivity; an explicit label breaks the mood. */
         `;
         document.head.appendChild(s);
     }
