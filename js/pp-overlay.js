@@ -35,6 +35,138 @@
     const _stack = new Set();
     const BODY_CLASS = 'pp-overlay-active';
 
+    // ── Canonical overlay registry (Jun 2026 — SINGLE SOURCE OF TRUTH) ────
+    // Historically "is an overlay open?" was answered by THREE lists that
+    // drifted apart — the :has() enumeration in style.css, this file's
+    // watchdog, and per-module selector strings — which is the root cause of
+    // the recurring "topbar/chip bleeds through an overlay" bugs. (They HAD
+    // drifted: the watchdog suppressed #date-overlay / #tp-root but the CSS
+    // did not, so those scenes could bleed.) Now there is ONE list. The
+    // chip-hiding CSS is GENERATED from it, and the watchdog reads it too. To
+    // make a new overlay hide the floating care chips, add its selector HERE
+    // and nowhere else.
+    //
+    // Each selector matches ONLY while that overlay is genuinely open:
+    // class-toggled overlays use :not(.hidden)/.visible/.show; containers left
+    // mounted-but-empty after a scene use :not(:empty).
+    const OVERLAY_SELECTORS = [
+        '#gallery-overlay:not(.hidden)',
+        '#letter-overlay:not(.hidden)',
+        '#settings-overlay:not(.hidden)',
+        '#event-overlay:not(.hidden)',
+        '#gift-panel:not(.hidden)',
+        '#training-panel:not(.hidden)',
+        '#date-overlay:not(.hidden)',
+        '#story-overlay:not(.hidden)',
+        '#cinematic-overlay.visible',
+        '#intro-overlay.visible',
+        '#pp-ready-overlay.show',
+        '#pp-chain-toast.show',
+        '#chp-page:not(:empty)',
+        '#mscard-root:not(:empty)',
+        '#ms-encounter-root:not(:empty)',
+        '#tp-root:not(:empty)',
+        // The Letters ARCHIVE page (NOT #letter-overlay, which is a single
+        // letter being read). It was missing here AND from the coordinator's
+        // beat-gate, so an ambient beat fired on top of the open archive.
+        '#pp-letters-overlay.show',
+        // The Heart Threads "Bonds & Rewards" economy panel (economy.js).
+        '#pp-economy-overlay.show',
+        // The "TODAY" / Daily page (today-hub.js #pp-today-overlay). It calls
+        // PPOverlay.show('today-hub') so body.pp-overlay-active is set, but it was
+        // missing from THIS list — so anyOpen() couldn't see it and an auto-firing
+        // story card (alistair-arc "THE FAILURE") bled over the Daily page.
+        '#pp-today-overlay.show'
+    ];
+    // Floating care-screen chips that must hide while any overlay is up.
+    const HIDDEN_CHIPS = ['#pp-care-progress', '#dp-banner', '#pp-letters-btn', '#chp-orb',
+        // The care-target / "NEXT route" chip stays MOUNTED on the care screen
+        // (care-target-chip.js no longer unmounts it for overlays); CSS hides it
+        // instantly whenever any registered overlay is open and reveals it again
+        // on close — no flash on other pages, no reappear-lag on return.
+        '#pp-care-target-chip'];
+
+    // Generate + inject the per-overlay :has() chip-hide CSS from the list
+    // above, ONCE. This replaces the long hand-maintained :has() enumeration
+    // that used to live in style.css (now reduced to the static class-based
+    // fallback rules). The class triggers (pp-overlay-active /
+    // pp-chain-in-progress) stay in the stylesheet so chip-hiding still works
+    // even if this injection ever fails.
+    function injectChipHideCSS() {
+        try {
+            if (document.getElementById('pp-overlay-chip-hide')) return;
+            const sels = [];
+            OVERLAY_SELECTORS.forEach(function (s) {
+                HIDDEN_CHIPS.forEach(function (chip) { sels.push('body:has(' + s + ') ' + chip); });
+            });
+            const style = document.createElement('style');
+            style.id = 'pp-overlay-chip-hide';
+            style.textContent = sels.join(',\n') + ' { display: none !important; }';
+            (document.head || document.documentElement).appendChild(style);
+        } catch (_) { /* injection failed — static CSS fallback still covers the common cases */ }
+    }
+    injectChipHideCSS();
+
+    // ── Care-content bleed guard (Jun 2026) ──────────────────────────────
+    // The ambient / auto care-content overlays (small-moments, idle thoughts,
+    // whispers, scheduled-moment cards, the Living Bond anchor, care chips)
+    // gate on "are we on the care screen?" — but the Main Story page (#chp-page)
+    // and other story surfaces open AS AN OVERLAY while body.pp-screen-care is
+    // still set, so that content rendered ON TOP of the Main Story (owner bug:
+    // "Elian's care content bled onto the Main Story page — every care route
+    // must not bleed here"). This hides ALL of it whenever a covering story /
+    // page surface is open — one rule, every route. (Player-initiated care
+    // panels like gift/training are deliberately NOT in this list.)
+    var CARE_CONTENT_SELECTORS = [
+        '#pp-sm-root', '#pp-sched-root', '#pp-invite-anchor',
+        '#cc-bubble', '#noir-whisper', '#ew-whisper', '#adaptive-thought',
+        '#pp-aenor-bubble', '#pp-multirom-bubble', '#pp-care-thread-toast',
+        '.pp-idle-thought', '#pp-care-target-chip', '#pp-memory-pill', '#pp-letter-notify',
+        '#pp-letters-overlay', '#pp-letter-arrival', '#pp-env-overlay'
+    ];
+    // The care SCREEN itself (not an ambient overlay) — its base art + HUD also
+    // bleeds through the gap BETWEEN chapters (cinematic unmounted, list not yet
+    // remounted) while body.pp-screen-care is still set. Hidden under the same
+    // conditions as care content.
+    var CARE_SURFACE_SELECTORS = ['#game-container'];
+    var COVERING_SURFACES = [
+        '#chp-page:not(:empty)', '#main-story-page:not(.hidden)',
+        '#story-overlay:not(.hidden)', '#mscard-root:not(:empty)',
+        '#ms-encounter-root:not(:empty)', '#tp-root:not(:empty)',
+        '#cinematic-overlay.visible'
+    ];
+    function injectCareBleedGuardCSS() {
+        try {
+            if (document.getElementById('pp-care-bleed-guard')) return;
+            var sels = [];
+            CARE_CONTENT_SELECTORS.forEach(function (care) {
+                COVERING_SURFACES.forEach(function (surf) {
+                    sels.push('body:has(' + surf + ') ' + care);
+                });
+                // Also hide care content for the WHOLE chapter lifecycle —
+                // including the between-chapter SEAM, when the cinematic has
+                // unmounted and the list hasn't remounted yet, so no covering
+                // surface is in the DOM but body.pp-chapter-active is still set.
+                sels.push('body.pp-chapter-active ' + care);
+            });
+            // The care SCREEN itself (base art + HUD, #game-container) bleeds in
+            // that same seam while body.pp-screen-care stays set. Key it ONLY on
+            // pp-chapter-active — the same signal select.css already trusts to
+            // hide #select-screen, reliably set across the chapter lifecycle and
+            // cleared when the list remounts (or via the 1.2s safety net).
+            // Deliberately NOT keyed on :has(#chp-page): a lingering chp-page
+            // would then wrongly hide the care screen after returning to care.
+            CARE_SURFACE_SELECTORS.forEach(function (surf) {
+                sels.push('body.pp-chapter-active ' + surf);
+            });
+            var style = document.createElement('style');
+            style.id = 'pp-care-bleed-guard';
+            style.textContent = sels.join(',\n') + ' { display: none !important; }';
+            (document.head || document.documentElement).appendChild(style);
+        } catch (_) { /* :has() unsupported or DOM not ready — trigger guards still apply */ }
+    }
+    injectCareBleedGuardCSS();
+
     function _refresh() {
         try {
             if (_stack.size > 0) {
@@ -81,24 +213,8 @@
             if (hasClass && _stack.size === 0) {
                 // Don't clear if a legacy overlay is still up — check
                 // the same overlay-presence conditions style.css uses.
-                const legacyUp = !!(
-                    document.querySelector('#intro-overlay.visible') ||
-                    (document.getElementById('mscard-root')?.children.length > 0) ||
-                    (document.getElementById('ms-encounter-root')?.children.length > 0) ||
-                    (document.getElementById('chp-page')?.children.length > 0) ||
-                    document.querySelector('#story-overlay:not(.hidden)') ||
-                    document.querySelector('#cinematic-overlay.visible') ||
-                    document.querySelector('#pp-ready-overlay.show') ||
-                    document.querySelector('#gallery-overlay:not(.hidden)') ||
-                    document.querySelector('#letter-overlay:not(.hidden)') ||
-                    document.querySelector('#settings-overlay:not(.hidden)') ||
-                    document.querySelector('#event-overlay:not(.hidden)') ||
-                    document.querySelector('#gift-panel:not(.hidden)') ||
-                    document.querySelector('#training-panel:not(.hidden)') ||
-                    document.querySelector('#date-overlay:not(.hidden)') ||
-                    (document.getElementById('tp-root')?.children.length > 0) ||
-                    document.body.classList.contains('pp-chain-in-progress')
-                );
+                const legacyUp = OVERLAY_SELECTORS.some(function (s) { return document.querySelector(s); })
+                    || document.body.classList.contains('pp-chain-in-progress');
                 if (!legacyUp) {
                     document.body.classList.remove(BODY_CLASS);
                     try { console.warn('[pp-overlay] watchdog cleared stale pp-overlay-active class'); } catch (_) {}
@@ -107,7 +223,13 @@
         } catch (_) { /* swallow */ }
     }, 2000);
 
-    window.PPOverlay = { show, hide, clear, active };
+    window.PPOverlay = {
+        show, hide, clear, active,
+        // Exposed so other modules can stop maintaining their own copies of
+        // "is an overlay open" — use PPOverlay.anyOpen() / .selectors instead.
+        selectors: OVERLAY_SELECTORS,
+        anyOpen: function () { return OVERLAY_SELECTORS.some(function (s) { return document.querySelector(s); }); }
+    };
 
     // ============================================================
     //  PPTapWait — shared "wait for player tap" helper

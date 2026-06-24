@@ -685,7 +685,10 @@
     }
 
     function getCharKey() {
-        const ch = window.CHARACTER;
+        // window.CHARACTER is ALWAYS undefined (CHARACTER is a top-level `let` in
+        // character.js — a global lexical binding, not a window property). Reading
+        // it here is why the Talk choice UI was dormant. Read the real global.
+        const ch = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : (window.CHARACTER || null);
         if (!ch) return null;
         return (ch.name || '').toLowerCase();
     }
@@ -856,6 +859,8 @@
         talkBtn.addEventListener('click', function (e) {
             const game = window._game;
             if (!game || game.sceneActive || game.characterLeft) return;
+            // Never open the choice panel over another overlay (gallery, gift, etc.).
+            if (window.PPOverlay && window.PPOverlay.anyOpen()) return;
 
             // 30% chance to show choice overlay (CHOICE_CHANCE = 0.30).
             // Fires if random is LESS than chance.previously inverted (> meant 70%).

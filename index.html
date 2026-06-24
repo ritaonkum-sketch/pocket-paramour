@@ -36,6 +36,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Cormorant+Unicase:wght@400;500;600&family=Marcellus&family=Marcellus+SC&family=Inter:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap">
+    <!-- Handwriting scripts for per-character letter signatures (Letters feature). -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Tangerine:wght@400;700&display=swap">
     <link rel="stylesheet" href="css/tokens.css">
 
     <link rel="stylesheet" href="css/style.css">
@@ -1119,6 +1121,7 @@
     <script defer src="js/game.js"></script>
     <script defer src="js/ui.js"></script>
     <script defer src="js/letter.js"></script>
+    <script defer src="js/letter-arrival.js"></script>
     <script defer src="js/letters-archive.js"></script>
     <script defer src="js/ui-feel.js"></script>
     <script defer src="js/day-progress.js"></script>
@@ -1126,6 +1129,8 @@
     <script defer src="js/first-session.js"></script>
     <script defer src="js/day-one-overlay.js"></script>
     <script defer src="js/idle-life.js"></script>
+    <script defer src="js/care-blink.js"></script>
+    <script defer src="js/care-ambiance.js"></script>
     <script defer src="js/greetings.js"></script>
     <script defer src="js/touch.js"></script>
     <script defer src="js/talk-choices.js"></script>
@@ -1187,6 +1192,14 @@
          care route opens. The other links (Lyra, Caspian, etc.) will be
          added once the Alistair → Elian prototype is validated. -->
     <script defer src="js/main-story-gate.js"></script>
+    <!-- Route gates (Aug 2026): extends the gate concept from Ch6-only
+         to every chapter. Each chapter declares a bond floor against
+         its primary suitor; tapping a locked chapter opens a popup
+         with a "Care for <name>" action that swaps Active Companion.
+         Also awards a modest bond bump on first-play completion via
+         markDone() hook. Loads AFTER main-story-gate.js so PPMSGate
+         takes precedence on Ch6. -->
+    <script defer src="js/route-gates.js"></script>
     <!-- First-time-player navigation hint after Ch1 — toast + pulse on
          ‹ back arrow + pulse on CARE button. Self-contained, gated by
          pp_first_care_hint_pending flag chapters.js sets on Ch1 done. -->
@@ -1197,9 +1210,36 @@
          PPMSGate state, only renders while caring for Alistair pre-Ch6. -->
     <script defer src="js/care-target-chip.js"></script>
 
+    <!-- Memory Album hunger layer — care-screen left-edge progress affordance
+         ("✦ Memories 8/14" + fill bar + next-locked teaser) reading the
+         existing GallerySystem, plus a per-character album-complete celebration.
+         Turns the collection into a felt daily compulsion. Care-screen only. -->
+    <script defer src="js/memory-album.js"></script>
+
+    <!-- Affinity Reward Ladder / "Bond Journey" REMOVED (Jun 2026, owner call):
+         it doubled the Gallery's memory cards, and its tap-to-open lived on the
+         whole #affection-display top bar, so it hijacked the icon-button taps.
+         File js/affinity-ladder.js kept on disk (unloaded) for easy restore. -->
+
+    <!-- Alistair care-route welcome carousel — one-shot 3-panel intro
+         fires on first care entry after Ch1: how to play, how the bond
+         works, what unlocks Ch6 + Elian. Gated by pp_alistair_care_intro_seen. -->
+    <script defer src="js/alistair-care-intro.js"></script>
+
+    <!-- Ch6 unlock celebration — one-shot modal + chime when both gate
+         milestones are reached. Brand-aligned, rose-gold particles, CTA
+         to read Chapter 6 immediately. Gated by pp_alistair_ch6_unlock_celebrated. -->
+    <script defer src="js/ch6-unlock-celebration.js"></script>
+
     <!-- TODAY hub — Love-and-Deepspace-style daily lobby panel on select
          screen. Shows urgent character, waiting letters, daily reward. -->
     <script defer src="js/today-hub.js"></script>
+
+    <!-- HEART THREADS economy — the daily-return loop. Earnable currency from
+         daily check-in + 4 daily care tasks + chapter completion; claim-by-tap
+         in a Bonds & Rewards panel opened from the top-bar counter. Spend on
+         gifts (gift costs wired in ui.js, increment 2). window.PPCurrency. -->
+    <script defer src="js/economy.js"></script>
 
     <script>
         // Register service worker for PWA
@@ -1290,14 +1330,38 @@
             progressEl.textContent = done + ' / ' + list.length;
         }
 
-        // ACTIVE COMPANION — last selected, default alistair
+        // ACTIVE COMPANION — last selected, default alistair.
+        // Ladder order, used to pick a sensible fallback active companion.
+        var LADDER_ORDER = ['alistair', 'elian', 'lyra', 'caspian', 'lucien', 'noir', 'proto'];
         function getActive() {
             var stored = lsGet('pp_cc_active_companion');
-            if (stored && CHARS[stored]) return stored;
-            return 'alistair';
+            // Aug 2026 — only honor the stored companion if it is actually
+            // UNLOCKED. Otherwise the Chronicle showed a broken "???/locked"
+            // active card with a wrong "Begin Chapter 1" button (this is what
+            // happened after a "Care for <locked char>" tap left the active
+            // companion stuck on, e.g., Elian). Fall back to the furthest
+            // unlocked companion so the active card always shows someone the
+            // player can actually tend — and repair the stale stored value.
+            if (stored && CHARS[stored] && !isCharLocked(stored)) return stored;
+            var furthest = null;
+            for (var i = 0; i < LADDER_ORDER.length; i++) {
+                if (CHARS[LADDER_ORDER[i]] && !isCharLocked(LADDER_ORDER[i])) furthest = LADDER_ORDER[i];
+            }
+            var result = furthest || 'alistair';
+            if (stored !== result) { try { lsSet('pp_cc_active_companion', result); } catch (e) {} }
+            return result;
         }
         function setActive(c) {
             if (!CHARS[c]) return;
+            // Aug 2026 — never make a LOCKED companion the active card. A
+            // "Care for <char>" action (gate popup, route-open popup) that
+            // targets a still-locked companion must NOT swap to a broken
+            // locked card; instead surface the unlock requirement and leave
+            // the active card on the current, tendable companion.
+            if (isCharLocked(c)) {
+                try { if (typeof showCardLockHint === 'function') showCardLockHint(c); } catch (e) {}
+                return;
+            }
             lsSet('pp_cc_active_companion', c);
             // Smooth fade-swap: fade out → swap DOM → fade in
             var rootEl = document.getElementById('cc-active');
@@ -1314,6 +1378,13 @@
                 refreshActive();
             }
         }
+        // Aug 2026 — expose to window so route-gates.js switchActiveCompanion()
+        // uses this smooth in-place swap. Previously window.setActive was
+        // undefined, so every "Care for <name>" button fell through to its
+        // fallback (`localStorage + location.reload()`) — which BOOTED THE
+        // PLAYER TO THE START PAGE and left the active companion stuck on the
+        // locked character. Exposing it fixes the kick-to-start outright.
+        try { window.setActive = setActive; window.getActive = getActive; } catch (e) {}
 
         // Per owner direction Jun 2026: Alistair is locked until the
         // player completes Chapter 1 ("Gauntlet Off", id:1). Same gate
@@ -1332,7 +1403,19 @@
             // gating system — no per-character chapter gate here yet.
             return null;
         }
+        // Aug 2026 — care-route LADDER. A character's care route is open
+        // only once the PREVIOUS character's care target (Bond 3 +
+        // balanced care) is met: Elian ← Alistair, Lyra ← Elian, … This
+        // is the "force play the care route" spine. PPRouteGates.careRouteOpen
+        // is the single authority (it also handles Alistair = Ch1-done and
+        // the legacy Proto/Noir unlock flags). Falls back to the old
+        // first-chapter gate only if route-gates hasn't loaded.
         function isCharLocked(c) {
+            try {
+                if (window.PPRouteGates && typeof window.PPRouteGates.careRouteOpen === 'function') {
+                    return !window.PPRouteGates.careRouteOpen(c);
+                }
+            } catch (e) {}
             var ch = firstChapterFor(c);
             return ch !== null && !isChapterDone(ch);
         }
@@ -1423,21 +1506,24 @@
                 if (!nameEl) return;
                 var charId = card.getAttribute('data-character');
 
-                // Per-character first-chapter gate (Jun 2026).
-                // - Locked: force cc-thread-locked class so the card uses
-                //   the silhouette + dim treatment.
-                // - Unlocked-and-has-a-gate: strip cc-thread-locked so
-                //   the card returns to its normal visual.
-                // Character-generic so future chars wired into
-                // firstChapterFor() (Elian's ch2, Lyra's ch3, etc) auto-
-                // unlock when their chapter is done.
-                // Noir/Proto have no chapter gate (firstChapterFor returns
-                // null) AND carry select-card-locked from legacy HTML, so
-                // they stay locked via that path — never touched here.
+                // Care-route LADDER lock (Aug 2026, supersedes the old
+                // first-chapter gate). isCharLocked() = !careRouteOpen(),
+                // the single authority for whether a thread is tendable.
+                // - Locked: force cc-thread-locked so the card uses the
+                //   silhouette + dim treatment.
+                // - Unlocked: strip ALL lock classes — including the legacy
+                //   ms-locked / select-card-locked baked into the static
+                //   HTML for Elian…Proto. (All lock decor is CSS-gated on
+                //   these classes, so removing them also hides the
+                //   silhouette veil, 🔒 pill, thread SVG and LOCKED badge.)
+                //   This is what lets every laddered character reveal in
+                //   turn as the previous one reaches their care target.
                 if (charId && isCharLocked(charId)) {
                     card.classList.add('cc-thread-locked');
-                } else if (charId && firstChapterFor(charId) !== null) {
+                } else if (charId) {
                     card.classList.remove('cc-thread-locked');
+                    card.classList.remove('ms-locked');
+                    card.classList.remove('select-card-locked');
                 }
 
                 var isLocked = card.classList.contains('cc-thread-locked')
@@ -1557,6 +1643,25 @@
         };
         function showCardLockHint(charId) {
             var msg = LOCK_HINTS[charId] || 'Not yet.';
+            // Ladder nudge (Aug 2026): if this locked thread is the very
+            // NEXT rung — its prerequisite companion is already met and
+            // being tended, but not yet brought to their care target —
+            // replace the atmospheric teaser with a plain instruction.
+            // Naming the prerequisite is safe here: the player has already
+            // met them. Cards further down the ladder keep their teaser so
+            // the order of arrivals stays a mystery.
+            try {
+                var rg = window.PPRouteGates;
+                if (rg && typeof rg.routePrereq === 'function') {
+                    var pre = rg.routePrereq(charId);
+                    if (pre && pre.type === 'care' &&
+                        rg.careRouteOpen(pre.prev) && !rg.careTargetMet(pre.prev)) {
+                        var pdef = CHARS[pre.prev];
+                        var pname = (pdef && pdef.name) || pre.prev;
+                        msg = 'Deepen your bond with ' + pname + ', and this thread will open to you.';
+                    }
+                }
+            } catch (e) {}
             var el = document.getElementById('cc-card-lock-hint');
             if (!el) {
                 el = document.createElement('div');
@@ -1729,6 +1834,45 @@
                     if (which === 'story' && window.MSChapters
                         && typeof window.MSChapters.open === 'function') {
                         window.MSChapters.open();
+                        return;
+                    }
+                    // Aug 2026 — SHOP is still a placeholder. Tapping it used
+                    // to be a dead no-op (no panel, no toast, the tab didn't
+                    // even highlight) which reads as broken. Acknowledge the
+                    // tap with a brief branded "coming soon" toast instead.
+                    if (which === 'shop') {
+                        var stid = 'cc-nav-toast';
+                        var st = document.getElementById(stid);
+                        if (!st) {
+                            st = document.createElement('div');
+                            st.id = stid;
+                            st.style.cssText = [
+                                'position:fixed', 'left:50%', 'bottom:86px',
+                                'transform:translateX(-50%) translateY(10px)',
+                                'background:linear-gradient(180deg, rgba(43,17,51,0.96), rgba(21,8,26,0.98))',
+                                'border:1px solid rgba(232,200,138,0.45)',
+                                'color:rgba(244,235,220,0.92)',
+                                'padding:12px 22px', 'border-radius:18px',
+                                'font-family:"Cormorant Garamond","EB Garamond","Georgia",serif',
+                                'font-style:italic', 'font-size:15px', 'line-height:1.4',
+                                'letter-spacing:0.02em', 'text-align:center', 'max-width:80%',
+                                'box-shadow:0 8px 28px rgba(0,0,0,0.65), 0 0 30px rgba(122,18,36,0.28)',
+                                'backdrop-filter:blur(8px)', '-webkit-backdrop-filter:blur(8px)',
+                                'opacity:0', 'pointer-events:none', 'z-index:9700',
+                                'transition:opacity 300ms ease, transform 300ms ease'
+                            ].join(';');
+                            document.body.appendChild(st);
+                        }
+                        st.textContent = 'The shop opens soon.';
+                        requestAnimationFrame(function () {
+                            st.style.opacity = '1';
+                            st.style.transform = 'translateX(-50%) translateY(0)';
+                        });
+                        clearTimeout(st.__t);
+                        st.__t = setTimeout(function () {
+                            st.style.opacity = '0';
+                            st.style.transform = 'translateX(-50%) translateY(10px)';
+                        }, 2200);
                         return;
                     }
                 });

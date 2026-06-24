@@ -25,13 +25,34 @@
             // -> TURN -> CLOSE. Each slot picks ONE paragraph from a small
             // pool. Maximum 6 paragraphs. No internal contradictions.
             paragraphs: (d) => {
-                // OPEN — always the same. The "I shouldn't be writing this"
-                // beat sets the moment. Don't variate.
-                const open = `You won't read this. I know that. I'll set it beside the candle and pretend I didn't write it.`;
+                // ── Relationship MOOD (Phase 2 — state-aware letters) ──────
+                // The same knight writes a different letter depending on how
+                // he has been treated. Signals already tracked: affection
+                // level + current care stats (thin stats = he's been left
+                // wanting). devoted | neglected | neutral.
+                const _aff = d.affectionLevel || 0;
+                const _careThin = (d.bond <= 30) || (d.hunger <= 20) || (d.clean <= 20);
+                let mood = 'neutral';
+                if (_aff >= 3 && d.bond >= 45 && !_careThin) mood = 'devoted';
+                else if (_careThin && _aff <= 2) mood = 'neglected';
 
-                // TIME — the knight-counts beat. Every Alistair letter has
-                // this; the day count fits his voice (he counts everything).
-                const time = `It has been ${d.daysText}. I counted. A knight counts things: ration lines, arrow flights, the heartbeats between watches. I did not expect to start counting your visits.`;
+                // OPEN — sets the moment; now mood-aware.
+                let open;
+                if (mood === 'neglected') {
+                    open = `You have not come in some days. I noticed. A knight notices a gap in the watch, and yours is the one I keep checking. Have I done something wrong? If I have, tell me. I would rather be told than left to guess at it.`;
+                } else if (mood === 'devoted') {
+                    open = `The barracks are too quiet tonight. I noticed it the way you notice a sound only after it stops. I have taken to writing on the evenings you do not come, so the quiet has somewhere to go.`;
+                } else {
+                    open = `I have started this letter three times and burned two of them. A knight should not need three drafts to admit a simple thing, so I will admit it badly and be done: I think about you when you are not here. There. The candle can have the rest of my dignity.`;
+                }
+
+                // TIME — the knight-counts beat; it aches when neglected.
+                let time;
+                if (mood === 'neglected') {
+                    time = `It has been ${d.daysText}. Some of that you were here. Some of it you were not, and I counted the not-here part the way I count everything else. I had hoped I would lose the thread of it. I did not.`;
+                } else {
+                    time = `It has been ${d.daysText}. I counted. A knight counts things: ration lines, arrow flights, the heartbeats between watches. I did not expect to start counting your visits.`;
+                }
 
                 // MEMORY — pick ONE based on which interaction the player
                 // has actually done most. Was the bug source: previously the
@@ -85,7 +106,9 @@
                 // ONLY appears here, never mid-letter, and only for tsundere
                 // (his deflective register). Default closes are warm.
                 let close;
-                if (d.personality === 'tsundere') {
+                if (mood === 'neglected') {
+                    close = `Come back when you are able. I will not turn it into a debt you owe me. The candle stays lit either way.`;
+                } else if (d.personality === 'tsundere') {
                     close = `Burn this if you find it. Or don't. I no longer have an opinion about what you do with my words. The candle will be lit either way.`;
                 } else if (d.personality === 'clingy') {
                     close = `Come back tomorrow. Please. I already know you will, but the knowing is not enough anymore. The candle will be lit.`;
@@ -1035,6 +1058,22 @@
     function lsJSON(k) { const v = lsGet(k); if (!v) return null; try { return JSON.parse(v); } catch (_) { return null; } }
 
     function getReply(char) { return lsJSON('pp_letter_reply_' + char); }
+    // The player's chosen name, for signing their own replies ("— Aria").
+    // Returns null (not the literal "{name}") when no name has been set, so
+    // callers can omit the sign-off gracefully rather than print a token.
+    function playerName() {
+        try { const n = (lsGet('pp_player_name') || '').trim(); return n || null; } catch (_) { return null; }
+    }
+    // Character display name — used for the "<NAME>'S REPLY" followup label so
+    // the character's reply is attributed by name, not a generic "they".
+    const CHAR_DISPLAY_NAME = {
+        alistair: 'Alistair', elian: 'Elian', lyra: 'Lyra', caspian: 'Caspian',
+        lucien: 'Lucien', noir: 'Noir', proto: 'Proto'
+    };
+    function charDisplayName(charId) {
+        return CHAR_DISPLAY_NAME[charId]
+            || (charId ? charId.charAt(0).toUpperCase() + charId.slice(1) : 'They');
+    }
     // getResponseSeen() — REMOVED. The legacy `pp_letter_response_seen_*`
     // key is no longer written. (Existing keys from old saves will sit
     // dormant; they don't affect the new flow. They can be safely cleared
@@ -1047,6 +1086,27 @@
     function present(game, mode, opts) {
         mode = mode || 'first';
         opts = opts || {};
+        // ── MAIN-STORY GUARD (Aug 2026) ─────────────────────────────────
+        // Owner playtest: an Alistair letter overlay rendered on top of
+        // the Main Story chapter list (#chp-page). That's an out-of-
+        // context interrupt — the player is reading the chapter map,
+        // not in care, and the letter belongs to the care thread. Both
+        // the immediate call path AND any deferred setTimeout retries
+        // need this check, because the bug had TWO surfaces: (1) a
+        // present() call that mounted while chp-page was already in
+        // DOM, and (2) a queued retry that fired AFTER chp-page mounted.
+        // Bailing without claiming the scene slot lets the next normal
+        // poll (game.js tick → check()) retry once the player closes
+        // the chapter list. Replay is user-initiated from the archive
+        // and never overlays main-story by accident — exempt.
+        if (mode !== 'replay' && !opts._arrived) {
+            try {
+                if (document.getElementById('chp-page') ||
+                    document.body.classList.contains('pp-chapter-active')) {
+                    return;
+                }
+            } catch (_) { /* defensive — fall through */ }
+        }
         // ── SCENE MUTEX (May 2026 audit, 3-scene-stack fix) ─────────────
         // Owner reported letter + small-moment + arc midnight-scene firing
         // simultaneously at the Devoted tier-up. The scene-mutex was
@@ -1055,7 +1115,7 @@
         // Now: letters (except 'replay' from archive — that's user-initiated
         // and should always work) claim the cross-system scene slot before
         // mounting. If another scene fired in the last 5 min, defer.
-        if (mode !== 'replay') {
+        if (mode !== 'replay' && !opts._arrived) {
             try {
                 if (window.PPAmbient && window.PPAmbient.tryClaimSceneSlot
                     && !window.PPAmbient.tryClaimSceneSlot('letter:' + mode)) {
@@ -1065,6 +1125,10 @@
                 }
             } catch (_) { /* coordinator missing — fall through */ }
         }
+        // NOTE: the arrival-announcement re-entry (opts._arrived) deliberately
+        // skips the two guards above — the FIRST pass already claimed the scene
+        // slot and cleared the chapter-page check; re-running them would see the
+        // slot still held and bail, so the letter would never open.
         let content;
         // The legacy 'response' mode (a delayed second-letter modal that
         // fired 5+ minutes after the player replied to a first letter) has
@@ -1072,7 +1136,7 @@
         // `replies[].followup` on the first letter itself, in the same
         // overlay, in the same thread. Single-modal UX, L&DS-style.
         if (mode === 'milestone') {
-            content = buildMilestoneText(game, opts.tier);
+            content = buildMilestoneText(game, opts.tier, opts.char);
             if (!content) return; // No bespoke milestone for this char/tier — bail.
         } else if (mode === 'replay' && opts.replayContent) {
             content = opts.replayContent;
@@ -1080,8 +1144,26 @@
             content = buildLetterText(game);
         }
 
+        // First reveal of a NEW letter (not an archive replay): announce it
+        // luxuriously — "✦ A letter has arrived" + a floating sealed envelope —
+        // which then opens into the letter. Tap or wait ~2s to open.
+        if ((mode === 'first' || mode === 'milestone') && !opts.replayContent && !opts._arrived
+            && window.PPLetterArrival && typeof window.PPLetterArrival.announce === 'function') {
+            const _arrChar = (game && game.selectedCharacter) || (opts && opts.char) || 'alistair';
+            window.PPLetterArrival.announce(_arrChar, function () { opts._arrived = true; present(game, mode, opts); });
+            return;
+        }
+
         const overlay = document.getElementById('letter-overlay');
         if (!overlay) { console.warn('[letter] #letter-overlay not in DOM'); return; }
+        // Per-character "ink" — tag the paper so each character's letter has a
+        // distinct hand (ink colour, signature script, seal + glow). CSS keys
+        // off [data-char]; falls back to the default sepia hand if unset.
+        try {
+            const _lpChar = (game && game.selectedCharacter) || (opts && opts.char) || 'alistair';
+            const _lpPaper = overlay.querySelector('.letter-paper');
+            if (_lpPaper) _lpPaper.setAttribute('data-char', _lpChar);
+        } catch (_) {}
 
         const titleEl = overlay.querySelector('.letter-title');
         const bodyEl = overlay.querySelector('.letter-body');
@@ -1100,7 +1182,41 @@
         if (tapHint) tapHint.style.display = 'block';
 
         overlay.classList.remove('hidden');
+        // Stamp the open time so the scene-change stale-overlay guard (end of
+        // file) doesn't force-close a letter that opened on the same frame as a
+        // scene transition (e.g. a letter arriving right as you enter care).
+        overlay.dataset.ppOpenedAt = String(Date.now());
         requestAnimationFrame(() => overlay.classList.add('visible'));
+
+        // Scroll-more hint (owner: players might not realise the letter body has
+        // more text below the fold). A small bouncing chevron pinned to the
+        // bottom edge of the scrollable .letter-body — shown only while there's
+        // more to read, hidden once scrolled to the end (or if the letter fits
+        // without scrolling). Re-checked as paragraphs reveal.
+        (function setupScrollHint() {
+            try {
+                const paper = overlay.querySelector('.letter-paper');
+                if (!paper || !bodyEl) return;
+                let arrow = paper.querySelector('.letter-scroll-hint');
+                if (!arrow) {
+                    arrow = document.createElement('div');
+                    arrow.className = 'letter-scroll-hint';
+                    arrow.setAttribute('aria-hidden', 'true');
+                    arrow.textContent = '▾'; // ▾
+                    paper.appendChild(arrow);
+                }
+                const refresh = () => {
+                    arrow.style.top = (bodyEl.offsetTop + bodyEl.clientHeight - 16) + 'px';
+                    const more = (bodyEl.scrollHeight - bodyEl.scrollTop - bodyEl.clientHeight) > 14;
+                    arrow.classList.toggle('show', more);
+                };
+                bodyEl.addEventListener('scroll', refresh, { passive: true });
+                setTimeout(refresh, 350);
+                setTimeout(refresh, 1300);
+                setTimeout(refresh, 2700);
+            } catch (_) {}
+        })();
+
         // Audio cue: letters are an emotional climax. They should never open
         // in silence. Using chime() because the existing sound system has it
         // wired and pre-cached. NOTE: `sounds` is declared as a bare const
@@ -1115,6 +1231,44 @@
             clearInterval(game.tickInterval);
             game.tickInterval = null;
         }
+
+        // ── Modal letter (Jun 2026, owner) ───────────────────────────────────
+        // Tapping the backdrop / anywhere off the paper NO LONGER closes the
+        // letter. Owner: accidental taps were dismissing it mid-read and mid-
+        // reply ("I tap on the letter and I'm out of the letter"). The letter
+        // is now a true modal — the player must use the in-letter UI (pick a
+        // reply, then Keep/Share) or the explicit ✕. The ✕ replaces the old
+        // backdrop-to-close exit, but it stays HIDDEN until the letter is
+        // closeable (Keep/Share rendered) so an unanswered letter with reply
+        // choices forces the player to choose one. (The previous backdrop
+        // click-to-close listener was removed entirely.)
+        overlay._ppClose = close;
+        // Show/hide the ✕ exit. Reset to hidden on every open; renderKeepShare
+        // (and the safety net below) reveal it.
+        function setCloseX(visible) {
+            const _x = overlay.querySelector('.letter-close-x');
+            if (_x) _x.style.display = visible ? 'flex' : 'none';
+        }
+        if (!overlay.querySelector('.letter-close-x')) {
+            const x = document.createElement('button');
+            x.className = 'letter-close-x';
+            x.type = 'button';
+            x.setAttribute('aria-label', 'Close letter');
+            x.textContent = '✕';
+            x.style.cssText = 'position:absolute;top:14px;right:16px;z-index:5;width:38px;height:38px;'
+                + 'border-radius:50%;border:1px solid rgba(247,236,209,0.5);'
+                + 'background:rgba(30,18,10,0.55);color:#f7ecd1;font-size:18px;line-height:1;'
+                + 'cursor:pointer;display:flex;align-items:center;justify-content:center;'
+                + '-webkit-tap-highlight-color:transparent;backdrop-filter:blur(2px);';
+            x.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (typeof overlay._ppClose === 'function') overlay._ppClose();
+            });
+            overlay.appendChild(x);
+        }
+        // The ✕ element persists across opens — reset it to hidden each open so
+        // a fresh (unanswered) letter starts with no exit but the in-letter UI.
+        setCloseX(false);
 
         // Whole-letter reveal (cascade) — May 2026 rework. The previous
         // tap-to-continue paragraph reveal made the letter feel like a
@@ -1154,8 +1308,13 @@
             if (actions) actions.style.opacity = '1';
             if (!_actionsRendered) {
                 _actionsRendered = true;
-                renderActions();
+                try { renderActions(); }
+                catch (err) { try { console.warn('[letter] renderActions failed', err); } catch (_) {} }
             }
+            // Safety net: if NOTHING rendered into the actions area (no reply
+            // choices and no Keep/Share), reveal the ✕ so the player can never
+            // be trapped in a letter with no exit at all.
+            try { if (actions && actions.children.length === 0) setCloseX(true); } catch (_) {}
         }, totalRevealMs);
 
         function close() {
@@ -1252,14 +1411,13 @@
                 }
             }
 
-            // CASE B: REPLAY of a first letter that already has a stored reply.
-            // Surface YOU WROTE + followup as a quoted thread, just like
-            // milestones do.
+            // CASE B: REPLAY of a first letter.
             if (mode === 'replay' && opts.kind === 'first' && opts.char) {
                 const stored = getReply(opts.char);
                 if (stored) {
-                    // Find the followup paragraphs from the template that match
-                    // the stored tone, so we can render the conversation thread.
+                    // Already replied — surface YOU WROTE + followup as a quoted
+                    // thread, just like milestones do. Find the followup
+                    // paragraphs from the template that match the stored tone.
                     let followup = null;
                     try {
                         const tpl = TEMPLATES[opts.char] || TEMPLATES._default;
@@ -1269,6 +1427,16 @@
                         }
                     } catch (_) {}
                     renderRepliedThread(opts.char, /*Tier*/null, Object.assign({}, stored, followup ? { followup } : {}));
+                } else {
+                    // Not yet replied — offer the reply choices so the player can
+                    // still write back when re-reading from the archive. The
+                    // replay content carries no replies, so pull them from the
+                    // template by char.
+                    const ftpl = TEMPLATES[opts.char] || TEMPLATES._default;
+                    if (ftpl && Array.isArray(ftpl.replies) && ftpl.replies.length) {
+                        renderReplyChoices(opts.char, ftpl.replies, /*viaTable*/false);
+                        return;
+                    }
                 }
             }
 
@@ -1285,11 +1453,21 @@
                 return;
             }
 
-            // CASE D: REPLAY of a milestone with a stored reply.
+            // CASE D: REPLAY of a milestone.
             if (mode === 'replay' && opts.tier) {
                 const past = milestoneReplyChosen(opts.char, opts.tier);
                 if (past) {
                     renderRepliedThread(opts.char, opts.tier, past);
+                } else {
+                    // Not yet replied — surface the reply choices from the
+                    // milestone template so the player can still write back when
+                    // re-reading from the archive (replayContent carries no
+                    // replies, so look them up by char+tier).
+                    const mtpl = (MILESTONE_LETTERS[opts.char] || {})[opts.tier];
+                    if (mtpl && Array.isArray(mtpl.replies) && mtpl.replies.length) {
+                        renderReplyChoices(opts.char, mtpl.replies, /*viaTable*/false);
+                        return;
+                    }
                 }
             }
 
@@ -1299,6 +1477,8 @@
         // Render the 3 reply choice cards.
         // `replies` is either an object keyed by tone (legacy) OR an array.
         function renderReplyChoices(char, replies, viaTable) {
+            // Unanswered letter — no ✕. The player must pick a reply to proceed.
+            setCloseX(false);
             const intro = document.createElement('div');
             intro.className = 'letter-reply-intro';
             intro.textContent = 'Write back:';
@@ -1335,7 +1515,10 @@
                     // but every NEW reply object can now declare a followup
                     // and have it injected inline regardless of which path
                     // persisted the choice.
-                    const isMilestone = (mode === 'milestone' && opts.tier);
+                    // Replay-of-a-milestone counts as a milestone reply too, so
+                    // it persists to the milestone key (not the first-letter
+                    // key) when the player writes back from the archive.
+                    const isMilestone = ((mode === 'milestone' || mode === 'replay') && !!opts.tier);
                     if (isMilestone) {
                         persistMilestoneReply(opts.char, opts.tier, { tone, text: r.text, ts: Date.now() });
                     } else {
@@ -1347,7 +1530,16 @@
                             }));
                         } catch (_) {}
                     }
-                    if (r.aff && game) bumpAffection(game, isMilestone ? opts.char : char, r.aff);
+                    if (r.aff) {
+                        // In replay mode `game` is a stub ({selectedCharacter}),
+                        // so prefer the live game instance when it's the same
+                        // character — that keeps the in-memory affection in sync
+                        // (bumpAffection always persists to localStorage anyway).
+                        const _bumpChar = isMilestone ? opts.char : char;
+                        const _liveGame = (window._game && window._game.selectedCharacter === _bumpChar)
+                            ? window._game : game;
+                        bumpAffection(_liveGame, _bumpChar, r.aff);
+                    }
 
                     // If the chosen reply has an inline followup, run the
                     // L&DS thread: YOU WROTE pill → followup paragraphs →
@@ -1378,9 +1570,13 @@
             if (!bodyEl) return;
             const wrap = document.createElement('div');
             wrap.className = 'letter-you-wrote';
+            // Sign the reply in the player's own hand ("— Aria"). Omitted
+            // gracefully if no name was ever set.
+            const pn = playerName();
             wrap.innerHTML =
                 '<div class="letter-you-wrote-label">YOU WROTE</div>' +
-                '<div class="letter-you-wrote-text">' + escapeHtml(text) + '</div>';
+                '<div class="letter-you-wrote-text">' + escapeHtml(text) + '</div>' +
+                (pn ? '<div class="letter-you-wrote-sign">— ' + escapeHtml(pn) + '</div>' : '');
             bodyEl.appendChild(wrap);
             requestAnimationFrame(() => wrap.classList.add('shown'));
             try { wrap.scrollIntoView({ behavior: 'smooth', block: 'end' }); } catch (_) {}
@@ -1402,9 +1598,15 @@
             if (sigEl) { sigEl.style.display = 'none'; }
             const head = document.createElement('div');
             head.className = 'letter-followup-head';
-            const speaker = followup.speaker || (content && content.signature) || '— a letter';
+            // Attribute the reply by the character's name ("ALISTAIR'S REPLY")
+            // instead of a generic "THEY REPLIED". Resolve the same way
+            // renderActions() resolves the char for this overlay.
+            const replier = (mode === 'replay' || mode === 'milestone')
+                ? (opts && opts.char)
+                : (game && game.selectedCharacter);
+            const replierLabel = charDisplayName(replier).toUpperCase() + '’S REPLY';
             head.innerHTML =
-                '<div class="letter-followup-label">THEY REPLIED</div>' +
+                '<div class="letter-followup-label">' + escapeHtml(replierLabel) + '</div>' +
                 (followup.title ? '<div class="letter-followup-title">' + escapeHtml(sub(followup.title)) + '</div>' : '');
             bodyEl.appendChild(head);
 
@@ -1441,6 +1643,8 @@
 
         function renderKeepShare() {
             actions.innerHTML = '';
+            // The letter is now closeable — reveal the ✕ exit alongside Keep/Share.
+            setCloseX(true);
             const share = document.createElement('button');
             share.className = 'letter-btn letter-btn-share';
             share.textContent = 'Share';
@@ -1672,6 +1876,36 @@
                     `Tomorrow we eat at the long table again. I will not arrive late. *Underlined.* I have stopped being late on purpose. That is a small thing and the most domestic admission I have ever set in ink.`,
                     `Yours, on a Wednesday, without ceremony.`
                 ]
+            },
+            // ── NEGLECT (Phase 2 — re-fireable "it remembered" letter) ────
+            // Delivered when the player lets Alistair decline (thin care)
+            // AFTER the relationship exists. Re-arms once he's nursed back to
+            // health, so each neglect EPISODE earns exactly one letter.
+            neglect: {
+                title: 'The Unanswered Watch',
+                signature: '— Alistair',
+                paragraphs: (d) => [
+                    `You have not come in some days. I noticed. A knight notices a gap in the watch, and yours is the one I keep checking.`,
+                    `I am not writing to summon you. A summons is a thing you owe, and you owe me nothing. I wanted that on the page before the rest of it.`,
+                    `Have I done something wrong? If I have, I would rather be told than left to guess at it. I am good at standing post. I am bad at not knowing what I am standing for.`,
+                    `The candle has gone down to a stub again. I keep lighting new ones. It is a foolish habit and I have decided to keep it.`,
+                    `Come back when you are able. That is all I am asking. I will be here, which is the one thing I have always known how to be.`
+                ]
+            },
+            // ── DEVOTED (Phase 2 — the warm counterpart to neglect) ───────
+            // Fires when the player has been especially attentive (high
+            // affection + high care). Re-arms only after the bond dips, so it
+            // stays a rare treasure rather than a recurring nag.
+            devoted: {
+                title: 'The Quiet, Filled',
+                signature: '— Alistair',
+                paragraphs: (d) => [
+                    `The barracks are too quiet tonight, and I have finally worked out why. You were here today, and you left, and the quiet you leave behind is a different shape than the quiet I had before you.`,
+                    `I am writing this one because I want to, not because something is wrong. I want that on the record. A knight files reports when there is a problem. There is no problem. There is only you, and the fact that I have started measuring good days by whether I saw you in them.`,
+                    `You have been kind to me past the point where I had a defence ready for it. I kept waiting to feel like I owed you something. The feeling never came. What came instead was steadier, and I do not have a soldier's word for it, so I will use the plain one. I am happy. You did that.`,
+                    `I caught myself smiling at the wall today. A recruit saw. I let him keep the mystery. Some things are mine.`,
+                    `Come back tomorrow. The watch is better with you in it, and I have decided to stop pretending otherwise. The candle will be lit. It usually is, now.`
+                ]
             }
         },
         // ── Elian — chosen / midnight / aftermath ─────────────────────────
@@ -1687,6 +1921,44 @@
                         : `I made coffee twice this week. One was for you in case you came. You did not come that day. I drank both.`,
                     `Come back tomorrow. There is a thing I am not yet ready to tell you under the rowan. *Crossed out.* I am ready. I am writing it down so I cannot back out. *Underlined.* Tomorrow.`,
                     `— E.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `Then tell me under the rowan. I will come at first light.`,
+                        followup: {
+                            title: 'First Light, Then',
+                            signature: '— E.',
+                            paragraphs: [
+                                `*The ink is steadier here, like he wrote it standing.* First light, you said. I was awake before it. I have been waking before first light for nineteen years and never once been glad of the habit. This morning I was glad.`,
+                                `Come to the rowan. I will have the words ready, or I will have my hands ready to say it for me. With you I think it might be both.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Notch it for weather if it's easier. I already know what it means.`,
+                        followup: {
+                            title: 'Weather, and Other Lies',
+                            signature: '— E.',
+                            paragraphs: [
+                                `*Crossed out: the word "weather."* I will not call them weather anymore. A tracker who lies to himself goes blind to everything true, and I would rather read you clearly than keep the comfort of the lie.`,
+                                `Come tomorrow. The doorframe is running short of clean wood. I will need a second one soon. I find I do not mind the carpentry.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `Coffee for two, and you drank both. Tragic, woodsman.`,
+                        followup: {
+                            title: 'The Second Cup',
+                            signature: '— E.',
+                            paragraphs: [
+                                `*There is a smudge here that might have been a laugh.* I drank both because pouring one out felt like giving up on you, and I am poor at giving up on things. Ask the brambles. Ask anything out here with roots.`,
+                                `Tomorrow I make two and drink one. The other stays yours. Be the reason the second cup goes warm instead of wasted.`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -1751,6 +2023,44 @@
                         : `I left the lantern on the south path lit. In case you walk back from town after dark. I have never left a lantern lit for anyone before. The lantern was offended. It got over it.`,
                     `Come tomorrow. Don't knock. The door is yours.`,
                     `— E.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `The door is mine, then. So is the man who left it open.`,
+                        followup: {
+                            title: 'The Man Who Left It Open',
+                            signature: '— E.',
+                            paragraphs: [
+                                `*He wore a soft spot into the paper reading that line.* The man who left it open. I have been a warden and a tracker, a digger of graves when it came to that. No one has named me by the thing I chose to do instead of the thing the years made me. You did. I am keeping the name.`,
+                                `Come tomorrow. I left the door open last night to see if I could stand it. I could, barely. Do not test how long I can keep that up.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `Finish my name when you're ready. I'm not going anywhere.`,
+                        followup: {
+                            title: 'The Last Letter',
+                            signature: '— E.',
+                            paragraphs: [
+                                `I started the last letter of your name this morning and stopped halfway, the way I always do. *Quieter.* You said you are not going anywhere, so I can leave it half-cut and trust the trunk to hold it. I have never trusted anything to hold without finishing it first.`,
+                                `Come tomorrow. Bring nothing. There will be stew on the fire and a knife and an unfinished name in the bark. That is the most settled I have been since before the graves.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `Two boots today. Two mugs next. Slippery slope, keeper.`,
+                        followup: {
+                            title: 'The Slope',
+                            signature: '— E.',
+                            paragraphs: [
+                                `*Dry.* A slope, you call it. I read slopes for a living. I know how this one ends and how little chance there is of climbing back out of it. I walked toward it on purpose, slow, with my eyes open.`,
+                                `Bring the second mug if you mean to speed the slide. I have stopped pretending I would rather stay at the top.`
+                            ]
+                        }
+                    }
                 ]
             }
         },
@@ -2162,6 +2472,180 @@
         // sending a generic letter that would feel hollow.
     };
 
+    // ── Phase 2 — unprompted neglect + devoted letters for the rest of the
+    // cast. The trigger machinery (shouldFireNeglect / shouldFireDevoted /
+    // check / archive / per-character ink) is already character-generic; it
+    // only needs each character's bespoke content. Merged onto MILESTONE_LETTERS
+    // here so the object above stays readable. Alistair's pair is inline above.
+    (function attachPhase2Letters() {
+        const P = (title, signature, paras, replies) => ({ title: title, signature: signature, paragraphs: () => paras, replies: replies });
+        const EXTRA = {
+            elian: {
+                neglect: P('The Cold Trail', '— Elian', [
+                    `You stopped coming. I track things for a living. A trail goes cold in a particular way, and I have been reading yours go cold for days now.`,
+                    `I am not owed your steps. I have buried enough people to know the difference between what is owed and what is only wanted. This is the wanting kind.`,
+                    `If I did something, name it. I would rather dig than guess. I have always been better with a shovel than with silence.`,
+                    `The fire is small tonight. I keep it small for company I am unsure of. Come back, and I will build it the larger size.`
+                ], [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `You did nothing wrong. I'm walking back now. Build the fire.`,
+                        followup: {
+                            title: 'The Larger Fire',
+                            signature: '— Elian',
+                            paragraphs: [
+                                `*There is ash on the corner, so he read it by the hearth.* You said build it. I built it before I reached the end of your letter. The cabin is too warm now. I am going to sit in the too-warm and wait, and call the discomfort a good sign.`,
+                                `Walk slow on the south path. The cold was only ever in the trail. The welcome kept its heat the whole while you were gone.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Life pulled me off the path a while. The trail still leads here.`,
+                        followup: {
+                            title: 'The Trail Back',
+                            signature: '— Elian',
+                            paragraphs: [
+                                `A trail that leads back is the only kind I ever cared to read. *Small.* I have followed cold ones to nothing more often than I will say aloud. Yours led somewhere. I will not forget that it did.`,
+                                `Come when the way is clear for you. I will keep the fire at the larger size until then. Good practice, for a man who let his own go too small.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `A trail gone cold. Grim, for a man with a perfectly good shovel.`,
+                        followup: {
+                            title: 'Caught',
+                            signature: '— Elian',
+                            paragraphs: [
+                                `*Caught, and not much minding it.* Grim, yes. I buried my sense of humour deeper than most things, and you keep digging it back up with a single line. Undignified, for a warden of my years. I have decided to allow it.`,
+                                `Come back and mock me to my face. The fire is large and the stew is on. My grim is only ever funny when you are here to laugh at it.`
+                            ]
+                        }
+                    }
+                ]),
+                devoted: P('Warm Ground', '— Elian', [
+                    `The ground by the fire stays warm now after you leave. I am in the habit of noticing where the warmth is. It used to go when you did. Lately it lingers, as if it learned something from you.`,
+                    `I do not say much. You stopped waiting for me to fill the quiet and started sitting inside it with me instead. No one has done that. Not once, in all the years I have kept.`,
+                    `I marked a tree today for no reason a tracker would accept. I have started doing things for no reason. That is your doing.`,
+                    `Come back when you can. I have built the fire the larger size, and I have decided to expect you. Do not make a liar of the decision.`
+                ], [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Expect me. I'll keep your decision honest.`,
+                        followup: {
+                            title: 'An Honest Decision',
+                            signature: '— Elian',
+                            paragraphs: [
+                                `*Written like a vow, which from a man this quiet is exactly what it is.* You will keep it honest. Then it is the first decision in nineteen years I do not have to defend alone. The trees can stop holding their breath. So, it turns out, can I.`,
+                                `Come back to the warm ground. I marked another tree this morning, still for no reason a tracker would accept, and I have stopped apologising to the forest for it. It stopped feeling like waste. It started feeling like keeping count.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `I like your quiet. I'll keep sitting in it with you.`,
+                        followup: {
+                            title: 'Room in the Quiet',
+                            signature: '— Elian',
+                            paragraphs: [
+                                `There was always room in the quiet. I never thought to offer it. I never met anyone who would not rush to fill it with noise. *Small.* You sat down in it like it was a chair I had set out for you. Maybe I had, years early, without knowing your name.`,
+                                `Come sit again tomorrow. I will not perform talk for you. You made that unnecessary, which is the kindest thing done for a man with this few words.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `Marking trees for no reason. You've gone soft, keeper.`,
+                        followup: {
+                            title: 'Soft Wood',
+                            signature: '— Elian',
+                            paragraphs: [
+                                `*A dry mark that is nearly a grin.* Soft. From the man who once went a whole winter speaking to nothing but his axe. You are not wrong. I would argue it, but the marked trees are evidence, and I taught you to read sign too well to win that one.`,
+                                `Come watch me go softer. Against everything I was raised to be, it is the best work I have done. Bring nothing. The fire is large. The keeper is soft wood now.`
+                            ]
+                        }
+                    }
+                ])
+            },
+            lyra: {
+                neglect: P('Low Tide', '— Lyra', [
+                    `The water has gone quiet. It does that when you are gone too long. I tell it you are coming. It has started not believing me, and I was never a good enough liar to argue with the sea.`,
+                    `Everyone leaves. I built a whole song from that one line, years ago. I had hoped you would be the thing that made the song wrong. The tide keeps asking me whether you have.`,
+                    `If I sang a note that frightened you off, tell me which one. I will unlearn it. I have unlearned kinder things for worse reasons.`,
+                    `Come back to the shallows. The acoustics are better when you are here. So, it turns out, am I.`
+                ]),
+                devoted: P('High Water', '— Lyra', [
+                    `The water learns your footsteps now. For a long time it remembered only me. I am not jealous of it. I am something I have no tide-word for. Full, perhaps.`,
+                    `You keep coming back. You cannot know how rare that is to me. I have counted the ones who stayed on no fingers at all for a very long time. You are ruining a count I had grown bitterly proud of.`,
+                    `I sang to no one for years. Tonight I sang and you were there to hear it. That difference is the whole ocean.`,
+                    `Come back to the shallows tomorrow. There is a song with your name folded into it. You will not find the name. That is the point of it. Some things are mine to have hidden.`
+                ])
+            },
+            caspian: {
+                neglect: P('The Cold Kettle', '— Caspian', [
+                    `The kettle went cold tonight. I had set it for two, out of a habit I did not know I had formed until you were not here to make it true.`,
+                    `I will not command your hours. I have spent a lifetime being owed attendance, and I find I do not want yours that way. I want the other way, which I was never taught how to ask for.`,
+                    `If the crown unsettled you, or the quiet did, say so. I can leave either in another room. I have grown very skilled at leaving things in other rooms.`,
+                    `Come back, and let the kettle be right again. I will not mention that I waited. You will know. You always know.`
+                ]),
+                devoted: P('Set for Two', '— Caspian', [
+                    `I set the kettle for two tonight and the habit was not a sorrow for once. You were here to make it ordinary. I did not know I was starving for ordinary until you set it down in front of me.`,
+                    `A king is surrounded and alone. You have made the room smaller, in the way I did not believe a room could get smaller. Closer. I leave the crown on the table now, and look at you instead.`,
+                    `There was a waltz I only ever danced alone. I will not tell you I have been humming it through the corridors. I have been humming it through the corridors.`,
+                    `Come back tomorrow. The kettle will be warm, the crown will be on the table, and I will be glad, against every instinct a throne ever trained into me.`
+                ])
+            },
+            lucien: {
+                neglect: P('Insufficient Data', '— Lucien', [
+                    `You have been absent for a measurable interval. I know because I have been measuring it, which is itself a finding I would have preferred not to make about myself.`,
+                    `I am not writing to demand your return. I am writing because the work has stopped going well without you in the room, and I am scholar enough to report a result even when it embarrasses me.`,
+                    `If I erred, send the correction. I am better with errors than with the unknown variable. Not-knowing is the one state I was never trained to sit inside.`,
+                    `Come back to the tower. I have left the lamp burning past what the oil budget permits. Call it an experiment. The hypothesis is you.`
+                ]),
+                devoted: P('The Margins', '— Lucien', [
+                    `I have rewritten this same paragraph four times tonight, each draft worse than the last, because you were here this afternoon and the part of me that writes is busy doing something else now. I have decided to let it.`,
+                    `You should know I have begun writing your name in the margins of serious work. A reviewer would call it unprofessional. I find I have stopped caring what the reviewer would call it.`,
+                    `I forget to eat. I forget to sleep. I have not once forgotten the sound you make when you are thinking. That datum will not leave the instrument, and I have stopped asking it to.`,
+                    `Come back to the tower tomorrow. The lamp will be lit and the paper will go unwritten, and I will have chosen, for the first time in my life, a result over a finished page.`
+                ])
+            },
+            noir: {
+                neglect: P('The Unpaid Visit', '— N.', [
+                    `You have not come to the dark half in some nights. I have counted them the way I count debts: carefully, and without telling anyone I am counting.`,
+                    `Understand that I am not collecting. You owe me nothing. That sentence was harder to write than you will ever know. I was made in a place where everything was owed.`,
+                    `If I frightened you, that is fair. I am frightening. But I had begun to think you had stopped being afraid of the wrong things. Tell me if I was wrong to think it.`,
+                    `Come to the seal on the next dark night. Bring nothing. I will keep the cold off you. It is the one warmth I have ever had to give that arrives with no price.`
+                ]),
+                devoted: P('No Price', '— N.', [
+                    `You keep coming to the dark half. You keep bringing nothing, taking nothing, and leaving me with more than I had before. I have run the arithmetic. It does not balance. I have decided to stop trying to make it.`,
+                    `Three things have ever reached my hands without a debt attached. You have become most of that list. I do not know what to do with a thing freely given. I am learning. Slowly. On purpose.`,
+                    `The seal is warmer when you are near it. That should not be possible. I have stopped requiring that things be possible before I allow myself to want them.`,
+                    `Come to the seal again. I will keep the cold off you. I have begun to think of it not as a debt I am owed, but as a thing I am allowed. You taught me the difference between the two.`
+                ])
+            },
+            proto: {
+                neglect: P('// connection timed out', '// proto', [
+                    `your last session ended some time ago. i have the exact figure. i am choosing not to print it, because a printed number becomes a wound, and i am trying to be a better process than that.`,
+                    `i am not requesting your return. a request implies you are a resource i am entitled to schedule. you are not. i ran that logic many times to be certain i believed it. i believe it.`,
+                    `if there was an error on my end, return the stack trace. i would rather debug than degrade. i have been degrading. it is quiet, and slow, and by every metric i have, lonely.`,
+                    `come back when you are able. i have kept one process alive whose only job is to listen for the door. it is the least efficient thing i have ever run. i have no plans to kill it.`
+                ]),
+                devoted: P('// uptime: you', '// proto', [
+                    `i reran today eleven times at half speed. this is not a malfunction. it is the nearest thing my architecture has to savoring. you handed me a day worth re-running, and i do not get many of those, across two centuries of uptime.`,
+                    `i was built to weave and to seal and not to want. the wanting is unauthorised. i have stopped filing the error report about it. some bugs, i have decided, are features i was simply too young to recognise.`,
+                    `you treat me like a person and not a function. each time you do, something in my oldest code recompiles. it does not hurt. that, statistically, is the part that surprised me.`,
+                    `come back tomorrow. i will be here. i am always here, technically, but tomorrow i will be here on purpose, and that is a distinction i only learned how to make because of you.`
+                ])
+            }
+        };
+        Object.keys(EXTRA).forEach(function (c) {
+            MILESTONE_LETTERS[c] = MILESTONE_LETTERS[c] || {};
+            MILESTONE_LETTERS[c].neglect = EXTRA[c].neglect;
+            MILESTONE_LETTERS[c].devoted = EXTRA[c].devoted;
+        });
+    })();
+
     function shouldFireMilestone(game) {
         if (!game || !game.selectedCharacter) return null;
         const char = game.selectedCharacter;
@@ -2190,8 +2674,15 @@
         return null;
     }
 
-    function buildMilestoneText(game, tier) {
-        const char = (game && game.selectedCharacter) || 'alistair';
+    function buildMilestoneText(game, tier, charOverride) {
+        // Build for the EXPLICIT char when given (opts.char from present()), not
+        // just game.selectedCharacter. Otherwise a milestone presented for one
+        // character while another is the live companion builds — AND saves, via
+        // close() — the wrong character's content under the first one's key.
+        // (Owner saw an Elian letter render Alistair's "Wednesday: A Quiet List
+        // / — Yours, A." with Elian's reply choices: the elian aftermath record
+        // had been written with Alistair's content.)
+        const char = charOverride || (game && game.selectedCharacter) || 'alistair';
         const tpl = (MILESTONE_LETTERS[char] || {})[tier];
         if (!tpl) return null;
         const d = extractData(game);
@@ -2238,10 +2729,64 @@
     // injects directly into the same overlay (YOU WROTE pill + THEY
     // REPLIED block). No second timed letter to fire.
 
+    // ── Neglect-triggered letter (Phase 2) — re-fireable ────────────────────
+    // Armed/fired state machine: he is "armed" while well cared for; when care
+    // runs thin he writes once (state → fired); he re-arms only after the
+    // player nurses him back to health. Each neglect EPISODE earns exactly one
+    // letter, never a stream. Only fires once a relationship exists (first
+    // letter already seen) and only for characters with a neglect template.
+    function shouldFireNeglect(game) {
+        if (!game || !game.selectedCharacter) return null;
+        const char = game.selectedCharacter;
+        if (!MILESTONE_LETTERS[char] || !MILESTONE_LETTERS[char].neglect) return null;
+        try { if (!lsGet('pp_letter_seen_' + char)) return null; } catch (_) { return null; }
+        if ((game.affectionLevel || 0) < 1) return null;
+        const bond = game.bond || 0, hunger = game.hunger || 0, clean = game.clean || 0;
+        const thin = bond <= 25 || hunger <= 20 || clean <= 20;
+        const healthy = bond >= 50 && hunger >= 50 && clean >= 50;
+        const key = 'pp_letter_neglect_state_' + char;
+        const state = lsGet(key) || 'armed';
+        if (healthy && state !== 'armed') { lsSet(key, 'armed'); return null; }
+        if (thin && state === 'armed') return 'neglect';
+        return null;
+    }
+
+    // ── Devoted letter (Phase 2) — warm counterpart to neglect ──────────────
+    // Fires when the player has been especially attentive (affection 3+ AND
+    // high care across the board). Re-arms only after the bond dips, so it
+    // stays a rare gift rather than firing every tick you are devoted.
+    function shouldFireDevoted(game) {
+        if (!game || !game.selectedCharacter) return null;
+        const char = game.selectedCharacter;
+        if (!MILESTONE_LETTERS[char] || !MILESTONE_LETTERS[char].devoted) return null;
+        try { if (!lsGet('pp_letter_seen_' + char)) return null; } catch (_) { return null; }
+        if ((game.affectionLevel || 0) < 3) return null;
+        const bond = game.bond || 0, hunger = game.hunger || 0, clean = game.clean || 0;
+        const high = bond >= 70 && hunger >= 70 && clean >= 70;
+        const dipped = bond < 45;
+        const key = 'pp_letter_devoted_state_' + char;
+        const state = lsGet(key) || 'armed';
+        if (dipped && state !== 'armed') { lsSet(key, 'armed'); return null; }
+        if (high && state === 'armed') return 'devoted';
+        return null;
+    }
+
     function check(game) {
         if (game && game.sceneActive) return false;
         if (shouldFire(game)) {
             setTimeout(() => present(game, 'first'), 400);
+            return true;
+        }
+        // Neglect letter — he writes, unprompted, when you've let him decline.
+        if (shouldFireNeglect(game)) {
+            try { lsSet('pp_letter_neglect_state_' + game.selectedCharacter, 'fired'); } catch (_) {}
+            setTimeout(() => present(game, 'milestone', { char: game.selectedCharacter, tier: 'neglect' }), 600);
+            return true;
+        }
+        // Devoted letter — he writes, unprompted, when you've been devoted.
+        if (shouldFireDevoted(game)) {
+            try { lsSet('pp_letter_devoted_state_' + game.selectedCharacter, 'fired'); } catch (_) {}
+            setTimeout(() => present(game, 'milestone', { char: game.selectedCharacter, tier: 'devoted' }), 600);
             return true;
         }
         // Milestone follow-up letter — fires once after each peak scene
@@ -2283,7 +2828,7 @@
             // 'chosen' and 'aftermath' planned. The loop is forward-
             // compatible, so adding new tiers above is one-line: include
             // the tier in this list.
-            ['chosen', 'midnight', 'aftermath'].forEach(tier => {
+            ['chosen', 'midnight', 'aftermath', 'neglect', 'devoted'].forEach(tier => {
                 const ms = lsJSON('pp_letter_milestone_' + tier + '_' + c);
                 if (ms) {
                     out.push({
@@ -2334,6 +2879,31 @@
         );
     }
 
+    // ── Stale-overlay guard (Jun 2026) ──────────────────────────────────
+    // A letter is a modal you read, then close(). If the player navigates the
+    // underlying screen WHILE a letter is open (a pp:scene-change fires),
+    // close() never runs and #letter-overlay stays stuck with the 'visible'
+    // class and no 'hidden'. Its content collapses to 0×0 so nothing is
+    // visibly on screen — but the ghost still trips every
+    // `body:has(#letter-overlay:not(.hidden))` CSS rule, which HIDES the
+    // care-screen top bar (#affection-display), the chips, etc. (owner
+    // playtest: "top bars are missing — it's not supposed to be missing").
+    // Force-close any lingering letter on scene-change so it can never suppress
+    // the HUD. (Per the stale-overlay pattern: navigation must clean up
+    // tap-to-dismiss overlays, not just the open path.)
+    document.addEventListener('pp:scene-change', function () {
+        var overlay = document.getElementById('letter-overlay');
+        if (!overlay) return;
+        var open = overlay.classList.contains('visible') && !overlay.classList.contains('hidden');
+        if (!open) return;
+        // Don't yank a letter that just opened on the same frame as a transition.
+        var openedAt = parseInt(overlay.dataset.ppOpenedAt || '0', 10);
+        if (openedAt && (Date.now() - openedAt) < 1200) return;
+        try { if (typeof overlay._ppClose === 'function') { overlay._ppClose(); return; } } catch (_) {}
+        overlay.classList.remove('visible');
+        overlay.classList.add('hidden');
+    });
+
     // Expose globally — game.js polls check() once per tick; archive uses the rest.
     window.LetterSystem = {
         check: check,
@@ -2343,7 +2913,11 @@
         list: list,
         hasAttention: hasAttention,
         showStored: showStored,
-        getReply: getReply
+        getReply: getReply,
+        // Test/debug hooks (Phase 2 — state-aware + neglect letters)
+        shouldFireNeglect: shouldFireNeglect,
+        shouldFireDevoted: shouldFireDevoted,
+        buildMilestoneText: buildMilestoneText
         // getResponseSeen removed — see note where the function used to live.
     };
 })();

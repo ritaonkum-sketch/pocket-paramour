@@ -384,6 +384,14 @@ body:not(.pp-screen-care) #talk-choice-overlay,
 body:not(.pp-screen-care) #date-unlock-toast,
 body:not(.pp-screen-care) .action-unlock-toast,
 body:not(.pp-screen-care) #ad-toast,
+/* Jun 2026 — owner reported the care-target chip bleeding through during
+   START → Chronicle transition. The chip's own injectStyles() only adds
+   its bleed-suppression CSS once it has been built — so before its first
+   mount, or if the chip module hasn't loaded yet, there is NO suppression.
+   Adding the canonical rule HERE means the chip + its popup are hidden
+   outside care from the very first paint, regardless of JS state. */
+body:not(.pp-screen-care) #pp-care-target-chip,
+body:not(.pp-screen-care) #pp-care-target-popup,
 /* Defensive (factories now return null, but keep the rules in case
    anything ever re-introduces these IDs accidentally): */
 body:not(.pp-screen-care) #chp-orb,

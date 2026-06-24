@@ -13,10 +13,10 @@
     function init() {
         wireTopbarMenu();
         startLowestStatPoller();
-        startCinematicWatchdog();
+        startTopbarOverlayReaper();
     }
 
-    // ── Cinematic overlay watchdog ─────────────────────────────
+    // ── Top-bar overlay reaper (self-healing invariant) ────────
     // The cinematic-overlay's .visible class drives a body:has() rule
     // in style.css that hides the topbar, day-progress, and other
     // home-screen chrome. There are 20+ scene-end paths in game.js,
@@ -33,23 +33,94 @@
     // it back to hidden. This is a safety net, not a substitute for
     // proper per-path cleanup, but it prevents the player from ever
     // being stranded in a no-topbar state.
-    function startCinematicWatchdog() {
+    //
+    // The fix has had to be applied TWICE per-overlay before generalizing:
+    // #cinematic-overlay (task #59 — .hidden + .visible stamped together)
+    // and #intro-overlay (task #67 — .visible left on after the fade while
+    // computed display went none). Per-overlay patching is whack-a-mole, so
+    // this reaper enforces ONE invariant centrally for EVERY overlay in the
+    // topbar-hide rule (style.css ~848):
+    //
+    //   if an overlay carries an "open" class but its COMPUTED display is
+    //   'none', it is not actually on screen → strip the open class.
+    //
+    // Reality = computed display, so a stale class can never fool it, and the
+    // correction is a visual no-op (the element is already display:none) that
+    // only fixes the body:has() rule. Covers every current + future
+    // class-toggled overlay. The roots are ALSO hardened at source (e.g.
+    // intro.js start() normalizes stale state) — this is the safety net.
+    function startTopbarOverlayReaper() {
+        // open === '.visible'   → close via -.visible +.hidden
+        const VISIBLE_OVERLAYS   = ['intro-overlay', 'cinematic-overlay'];
+        // open === ':not(.hidden)' → close via +.hidden
+        const NOTHIDDEN_OVERLAYS = ['story-overlay', 'gallery-overlay', 'letter-overlay',
+            'settings-overlay', 'event-overlay', 'gift-panel', 'training-panel', 'date-overlay'];
+        // open === '.show'      → close via -.show
+        const SHOW_OVERLAYS      = ['pp-ready-overlay', 'pp-chain-toast'];
+
         const co = document.getElementById('cinematic-overlay');
-        if (!co) return;
         let stuckSince = 0;
         const STUCK_MS = 1500;
 
+        // An overlay is a "ghost" if it is not actually painted. computed
+        // display:none is the unambiguous signal — a presenting overlay is
+        // never display:none — so acting on it is always safe.
+        const isGhost = (el) => {
+            try { return getComputedStyle(el).display === 'none'; } catch (_) { return false; }
+        };
+
         setInterval(() => {
+            let healed = false;
+
+            VISIBLE_OVERLAYS.forEach((id) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const openByClass = el.classList.contains('visible') ||
+                                    el.classList.contains('char-visible') ||
+                                    el.classList.contains('dialogue-visible');
+                if (openByClass && isGhost(el)) {
+                    el.classList.remove('visible', 'char-visible', 'dialogue-visible');
+                    el.classList.add('hidden');
+                    // wipe any inline fade leftovers (opacity/transition/display)
+                    el.style.opacity = '';
+                    el.style.transition = '';
+                    el.style.display = '';
+                    healed = true;
+                }
+            });
+            NOTHIDDEN_OVERLAYS.forEach((id) => {
+                const el = document.getElementById(id);
+                if (el && !el.classList.contains('hidden') && isGhost(el)) {
+                    el.classList.add('hidden');
+                    healed = true;
+                }
+            });
+            SHOW_OVERLAYS.forEach((id) => {
+                const el = document.getElementById(id);
+                if (el && el.classList.contains('show') && isGhost(el)) {
+                    el.classList.remove('show');
+                    healed = true;
+                }
+            });
+            if (healed) {
+                try { console.warn('[ui-feel] topbar overlay-reaper: cleared a stale open-class (self-heal)'); } catch (_) {}
+            }
+
+            // ── cinematic-overlay "scene ended but still painted" net ──
+            // The reaper above only fires on display:none. The OTHER way the
+            // cinematic strands the top bar is staying genuinely painted
+            // (.visible, display NOT none) after sceneActive flips false. Only
+            // the cinematic exposes sceneActive, so this stays cinematic-specific
+            // and keeps its grace period before force-hiding.
+            if (!co) return;
             const g = window._game;
-            if (!g) return;
-            const hasVisible = co.classList.contains('visible')
-                || co.classList.contains('char-visible')
-                || co.classList.contains('dialogue-visible');
-            if (!hasVisible) { stuckSince = 0; return; }
-            // A scene IS up — fine, leave it.
+            if (!g) { stuckSince = 0; return; }
+            const stillPainted = (co.classList.contains('visible') ||
+                                  co.classList.contains('char-visible') ||
+                                  co.classList.contains('dialogue-visible')) &&
+                                 !isGhost(co);
+            if (!stillPainted) { stuckSince = 0; return; }
             if (g.sceneActive) { stuckSince = 0; return; }
-            // Scene flag is false but overlay still marked visible.
-            // Start the stuck timer; clear if it persists past STUCK_MS.
             if (stuckSince === 0) { stuckSince = Date.now(); return; }
             if (Date.now() - stuckSince >= STUCK_MS) {
                 co.classList.remove('visible', 'char-visible', 'dialogue-visible',

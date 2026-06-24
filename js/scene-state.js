@@ -127,18 +127,25 @@
             var obs = new MutationObserver(detect);
             obs.observe(el, { attributes: true, attributeFilter: ['class', 'style'] });
         });
-        // Also catch any unexpected body-class toggles that might
-        // override us — re-detect on next macrotask.
+        // Also re-detect on ANY body-class change. Transient guard classes
+        // (cinematic-transition, pp-chapter-active, pp-overlay-active, …)
+        // change which screen is actually visible WITHOUT toggling a screen
+        // container's own class — so watching the containers alone misses
+        // them. The old guard only re-detected when the screen-class count
+        // was off, which left the scene stale after, e.g., cinematic-
+        // transition cleared on the title→select hand-off (the screen was
+        // hidden when detect last ran, so it had defaulted to 'title' and
+        // never re-checked). Aug 2026: this surfaced once the bleed fix made
+        // #select-screen hide INSTANTLY under those guards instead of
+        // lingering visible for 0.8s, which detect() had been relying on.
+        // Re-entrancy guard: our own setActiveScreen() toggles body classes;
+        // it no-ops when the scene is unchanged, and _detecting suppresses
+        // the self-induced mutation, so there is no loop.
+        var _detecting = false;
         var bodyObs = new MutationObserver(function () {
-            // Only re-detect if a screen-class is missing or duplicated,
-            // not on every body class change (would loop with our own
-            // setter). Cheap guard:
-            var classes = document.body.className;
-            var screenClassCount = 0;
-            SCREENS.forEach(function (s) {
-                if (classes.indexOf(CLASS_PREFIX + s.name) >= 0) screenClassCount++;
-            });
-            if (screenClassCount !== 1) detect();
+            if (_detecting) return;
+            _detecting = true;
+            try { detect(); } finally { _detecting = false; }
         });
         bodyObs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     }
@@ -146,6 +153,16 @@
     function boot() {
         wireObservers();
         detect();
+        // Safety-net re-detect. Several guards hide/reveal the base screens
+        // through computed style or element add/remove — e.g. the onboarding
+        // overlay (body:has(#pp-onboarding-overlay)) and chapter overlays —
+        // which MutationObservers on the screen containers can't see. When
+        // such a guard clears, nothing fires detect(), so the scene label
+        // could otherwise stay stale (e.g. stuck on 'title' after the title
+        // cinematic + onboarding, which suppressed the announce popup and the
+        // first-care hint). A cheap 1s tick keeps it correct no matter how a
+        // guard clears. detect() no-ops when the scene is unchanged.
+        try { setInterval(detect, 1000); } catch (_) {}
     }
 
     if (document.readyState === 'loading') {

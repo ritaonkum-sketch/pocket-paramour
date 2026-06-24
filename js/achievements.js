@@ -639,11 +639,17 @@ class AchievementSystem {
         // Animate in
         requestAnimationFrame(() => popup.classList.add('visible'));
 
-        // Remove after 3.5 seconds
-        setTimeout(() => {
+        // Tap to dismiss (owner rule: reward notices wait for the player); the
+        // long fallback only clears it if ignored, so it never just flashes past.
+        let done = false;
+        const close = () => {
+            if (done) return; done = true;
             popup.classList.remove('visible');
-            setTimeout(() => popup.remove(), 500);
-        }, 3500);
+            setTimeout(() => { try { popup.remove(); } catch (e) {} }, 500);
+        };
+        popup.style.cursor = 'pointer';
+        popup.addEventListener('click', close);
+        setTimeout(close, 8000);
     }
 
     // Get stats for gallery

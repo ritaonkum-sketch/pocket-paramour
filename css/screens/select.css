@@ -61,7 +61,7 @@ body:has(#mscard-root:not(:empty)) #select-screen,
 body:has(#ms-encounter-root:not(:empty)) #select-screen,
 body:has(#chp-page:not(.hidden)) #select-screen,
 body:has(#tp-root:not(:empty)) #select-screen,
-body:has(#cinematic-overlay.visible) #select-screen,
+body:has(#cinematic-overlay.visible:not(.hidden)) #select-screen,
 body.cinematic-transition #select-screen,
 /* Jun 2026 — covers the 300ms gap between mscard unmount and
    chp-page mount (openPageSoftly delay). Without this rule, the
@@ -77,7 +77,7 @@ body.pp-chapter-active #select-screen,
    inherit the gate without touching this file. */
 body.pp-overlay-active #select-screen,
 body.pp-chain-in-progress #select-screen,
-body:has(#intro-overlay.visible) #select-screen,
+body:has(#intro-overlay.visible:not(.hidden)) #select-screen,
 body:has(#letter-overlay:not(.hidden)) #select-screen,
 body:has(#pp-letters-overlay.show) #select-screen,
 body:has(#card-reveal-overlay:not(.hidden)) #select-screen,
@@ -95,7 +95,22 @@ body:has(#training-panel:not(.hidden)) #select-screen,
 body:has(#date-overlay:not(.hidden)) #select-screen,
 body:has(#achievement-panel:not(.hidden)) #select-screen,
 body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
+    /* Aug 2026 BLEED FIX — #select-screen carries `transition: opacity
+       0.8s, visibility 0.8s` for its fade-in/out. That visibility
+       transition was delaying THIS guard: when a chapter/overlay mounted,
+       `visibility:hidden` did not take effect for the full 0.8s, during
+       which the Chronicle stayed painted (opacity:1) and bled through the
+       fading-in overlay. (Newly obvious once the care-route ladder began
+       revealing vivid portraits instead of dark "???" silhouettes.)
+       `transition:none` makes the hide instant, so transitions read as the
+       intended clean fade-to-black. opacity:0 is belt-and-suspenders for
+       any overlay that relies on this rule alone (no display:none backup,
+       e.g. pp-chapter-active / cinematic-transition). The base transition
+       resumes the moment the guard releases, so the Chronicle's normal
+       fade is untouched. */
     visibility: hidden !important;
+    opacity: 0 !important;
+    transition: none !important;
 }
 #select-screen::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
 
@@ -999,14 +1014,24 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 }
 
 /* ── LOCKED CARDS ── silhouette + silver thread + lock pill ──
-   The decorative locked-state elements (.cc-locked-thread, .cc-locked-pill,
-   .cc-locked-badge) are HIDDEN by default and only render when the
-   parent card has .cc-thread-locked. This way game.js can remove the
-   locked class on Proto / Noir unlock and the card cleanly transitions
-   to the standard unlocked appearance with no leftover lock visuals. */
+   The decorative locked-state elements are HIDDEN by default and only
+   render when the parent card has .cc-thread-locked (or the legacy
+   .ms-locked / .select-card-locked). This way game.js can remove the
+   locked class on unlock and the card cleanly transitions to the
+   standard unlocked appearance with no leftover lock visuals.
+
+   Aug 2026 — owner playtest: the unlocked Alistair card read as
+   "too transparent". Root cause: .cc-locked-shadow-overlay (a
+   mix-blend-mode:multiply dark veil) and .cc-locked-particle were
+   NOT in this default-hide list, so they rendered over EVERY card,
+   locked or not. The multiply veil washed the unlocked portrait out.
+   Both are now hidden by default and re-shown only on locked cards
+   alongside the thread/pill/badge below. */
 .cc-locked-thread,
 .cc-locked-pill,
-.cc-locked-badge { display: none; }
+.cc-locked-badge,
+.cc-locked-shadow-overlay,
+.cc-locked-particle { display: none; }
 
 /* Lock-state selector — matches BOTH our new cc-thread-locked class AND
    the legacy ms-locked / select-card-locked classes that main-story.js
@@ -1065,6 +1090,17 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     pointer-events: none;
     z-index: 2;
 }
+
+/* Aug 2026 — re-show the veil + particles ONLY on locked cards (they
+   are now display:none by default, see the hide rule above). The base
+   styling for both lives further down; this just restores display so
+   the locked look is unchanged while unlocked cards stay clean. */
+.cc-thread-locked .cc-locked-shadow-overlay,
+.cc-thread-card.ms-locked .cc-locked-shadow-overlay,
+.cc-thread-card.select-card-locked .cc-locked-shadow-overlay { display: block; }
+.cc-thread-locked .cc-locked-particle,
+.cc-thread-card.ms-locked .cc-locked-particle,
+.cc-thread-card.select-card-locked .cc-locked-particle { display: block; }
 
 /* Apply the pulse to the path strokes THEMSELVES (not the container)
    so the threads shimmer in and out independently of the card.

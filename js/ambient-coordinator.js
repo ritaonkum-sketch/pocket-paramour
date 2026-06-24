@@ -186,7 +186,16 @@
         //  small-moments, etc.) must not fire when the player isn't actively
         //  in the care loop. Treating them as blockers is the cleanest gate.)
         '#title-screen:not(.hidden)',      // title / splash screen
-        '#select-screen:not(.hidden)'      // character-select grid
+        '#select-screen:not(.hidden)',     // character-select grid
+        // (Jun 2026) the ambient-beat ROOTS — a beat must not fire over another
+        // beat. :not(:empty) so a lingering-but-empty root can never permanently
+        // block ambient content. (Full-screen OVERLAYS like the Letters archive
+        // are handled reliably by the PPOverlay.anyOpen() check in
+        // firstHourBusy() above — class-based, no hit-test — so they don't need
+        // an entry here.)
+        '#pp-sm-root:not(:empty)',         // a small-moment beat already showing
+        '#pp-sched-root:not(:empty)',      // a scheduled-invitation beat showing
+        '#pp-fm-root:not(:empty)'          // a fight / make-up beat showing
     ];
 
     // Helper: is this element ACTUALLY visible to the user (not just
@@ -230,6 +239,13 @@
     function firstHourBusy() {
         try {
             if (document.body && document.body.classList.contains('pp-chain-in-progress')) return true;
+            // ORGANIZE (Jun 2026): honour pp-overlay.js's SINGLE class-based
+            // overlay list directly. This is the canonical "is an overlay open?"
+            // source — using it here means this beat-gate can never drift from
+            // the chip-hide list again (the bug that let a beat fire over the
+            // open Letters archive). It's also class-based, so unlike the
+            // hit-test below it stays correct even when the tab isn't painting.
+            if (window.PPOverlay && typeof window.PPOverlay.anyOpen === 'function' && window.PPOverlay.anyOpen()) return true;
             for (const sel of HARD_BLOCKERS) {
                 const matches = document.querySelectorAll(sel);
                 for (const el of matches) {

@@ -814,7 +814,7 @@ const CHARACTER_ALISTAIR = {
         },
         confession: {
             trigger: { affectionLevel: 4 },
-            dialogue: "I’ve sworn oaths to crowns and codes and causes. This is the first time I’ve meant every single word: I love you, {name}.",
+            dialogue: "I’ve sworn oaths to crowns and codes and causes. This is the first time I’ve wanted to swear one to a person. To you, {name}. Whatever this is, I am not walking away from it.",
             emotion: "love"
         },
         fedTenTimes: {
@@ -1143,6 +1143,10 @@ const CHARACTER_LYRA_FULL = {
     },
 
     faceSprites: {
+        // Dedicated face-portrait blink ("Lyra close eyes" crop). Her sleeping.png
+        // is the same close-eyes frame, so she already blinked via the sleeping
+        // fallback — this makes it explicit + decoupled (parity with the others).
+        blink: ["assets/lyra/face/blink.png"],
         happy: ["assets/lyra/face/happy.png"],
         love: ["assets/lyra/face/love.png", "assets/lyra/face/wink-love.png"],
         neutral: ["assets/lyra/face/neutral.png"],

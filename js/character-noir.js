@@ -54,6 +54,7 @@ const CHARACTER_NOIR = {
         happy:     ["assets/noir/face/seductive.png"],
         love:      ["assets/noir/face/consuming.png"],
         neutral:   ["assets/noir/face/neutral.png"],
+        blink:     ["assets/noir/face/blink.png"],   // clean eye-close (casual w/ eyes shut) for the idle face-blink
         gentle:    ["assets/noir/face/whisper.png"],
         sad:       ["assets/noir/face/shadow.png"],
         crying:    ["assets/noir/face/vulnerable.png"],
@@ -355,7 +356,7 @@ const CHARACTER_NOIR = {
             "Shadow doesn’t smudge. It spreads."
         ],
         happy: [
-            "\u2026This feeling. It is not happiness. It is closer to a hunger finally sated. Slower. Deeper. I am not used to slow.",
+            "\u2026This feeling. The nearest word is a hunger finally fed, and even that one is wrong. It is slow. I have never been allowed slow.",
             "You are dangerous...\u2026You make me feel things that do not serve my nature. Say that again.",
             "If this is what they call joy.\u2026I understand why they guard it so fiercely.",
             "I could drown in this...\u2026In you. Mm. I might let myself. Do not save me.",
@@ -387,16 +388,16 @@ const CHARACTER_NOIR = {
             "*Looks at you the way someone looks at something they had given up on seeing again*"
         ],
         corrupted: [
-            "This isn’t corruption. This is completion.",
+            "Completion. That is the honest word for the thing they taught you to call corruption.",
             "I can feel every thread that ties them to you. I could sever all of them.",
             "The power you gave me by coming here. You have no idea how vast it is.",
             "I see through walls now. Through intentions. Through the lies they told themselves about you.",
             "This is what they were afraid of. Not the dark. The truth that the dark reveals.",
-            "I am exactly what I was always meant to become. Thank you for that.",
+            "I am what I was before they buried me under six hundred years of warnings. You did the unburying. Thank you for that.",
             "Everything they built to contain me is gossamer now. And you held the scissors.",
             "You feel it too, don’t you? The freedom. The terrifying, exhilarating freedom.",
             "I don’t need the light anymore. I’ve become something that makes its own.",
-            "They called this corruption. I call it evolution."
+            "Corruption is the word frightened people use for a door they did not dare open. I stopped being frightened the night you arrived."
         ],
         neglected: [
             "You left. The void noticed. So did I.",
@@ -572,7 +573,7 @@ const CHARACTER_NOIR = {
         lonely: [
             "...",
             "The void is louder when you’re not here. It fills the space you left.",
-            "I’m not lonely. I’m unaccompanied. There’s a difference. A thin one.",
+            "Unaccompanied. Lonely is the mortal word, and I have never cared for it. The difference is thin tonight.",
             "Your absence is the only thing I can’t corrupt.",
             "I stood in the dark and listened for your heartbeat. Nothing.",
             "Missing someone is the most mortal thing I do."

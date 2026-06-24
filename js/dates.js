@@ -31,9 +31,11 @@
   }
 
   function currentChar () {
-    return window.CHARACTER && window.CHARACTER.name
-      ? window.CHARACTER.name.toLowerCase()
-      : null;
+    // window.CHARACTER is ALWAYS undefined (CHARACTER is a top-level `let` in
+    // character.js — not a window property), which kept the date grid empty.
+    // Read the real global.
+    var ch = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : (window.CHARACTER || null);
+    return ch && ch.name ? ch.name.toLowerCase() : null;
   }
 
   /* ================================================================
@@ -1248,6 +1250,7 @@
     btn.addEventListener('click', function () {
       var g = window._game;
       if (!g || g.sceneActive || g.characterLeft) return;
+      if (window.PPOverlay && window.PPOverlay.anyOpen()) return; // not over another overlay
       if (!isUnlocked(g)) {
         // Gentle shake + "locked" hint instead of opening the picker
         btn.classList.remove('date-btn-shake');

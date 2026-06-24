@@ -87,6 +87,45 @@
                 { body: 'weathered',  face: 'warm',      duration: 4000, thought: "I carved something. It's not finished." },
             ],
         },
+        noir: {
+            // Body poses are all real now (1632x2586 crops). casual1 = the
+            // "flirt wink" base — kept in rotation so care-blink.js can fire his
+            // wink only from that stance. Thoughts follow his voice: low, few
+            // words, archaic, never names a feeling, no em-dashes/exclamations.
+            behaviors: [
+                { body: 'neutral',   face: 'neutral',   duration: 6000, thought: "You came back. Hm." },
+                { body: 'casual1',   face: 'wink',      duration: 4000, thought: "Caught looking. Again." },
+                { body: 'casual2',   face: 'neutral',   duration: 6000, thought: "Eight hundred years behind that seal. None of it was this." },
+                { body: 'whisper',   face: 'gentle',    duration: 5000, thought: "Sit. The dark keeps better company when it is watched." },
+                { body: 'shadow',    face: 'sad',       duration: 6000, thought: "Mortals burn so quickly. You, I would ration." },
+                { body: 'seductive', face: 'happy',     duration: 4000, thought: "Closer. I bite rarely." },
+                { body: 'formal',    face: 'neutral',   duration: 5000, thought: "The hour means nothing. And yet I marked it." },
+                { body: 'casual1',   face: 'wink',      duration: 3000, thought: "Say my name. I have waited to hear it in your voice." },
+                { body: 'dominant',  face: 'corrupted', duration: 5000, thought: "I have been called a great many things. Choose carefully." },
+                { body: 'consuming', face: 'love',      duration: 4000, thought: "Stay, or go. I have outlasted worse partings." },
+            ],
+        },
+        proto: {
+            // Body poses real now (1247–1344px wide crops). calm = the "smile"
+            // blink base — kept in rotation so care-blink.js fires his blink.
+            // Voice: Golden Retriever — earnest, "> " system-log prefix, and the
+            // only character who gets exclamation marks. Hologram-through-glass
+            // longing is his signature.
+            behaviors: [
+                { body: 'calm',     face: 'happy',   duration: 5000, thought: "> STATUS: you came back. i really hoped you would!" },
+                { body: 'neutral',  face: 'neutral', duration: 6000, thought: "> rendering you in memory again. i do that a lot." },
+                { body: 'curious',  face: 'love',    duration: 5000, thought: "> i ran the numbers twice. you're still my favorite variable!" },
+                { body: 'scanning', face: 'shy',     duration: 5000, thought: "> is it strange that i counted the seconds until you logged in?" },
+                { body: 'calm',     face: 'happy',   duration: 4000, thought: "> i learned a new word today. it was your name!" },
+                { body: 'processing',face:'sad',     duration: 6000, thought: "> [RESOURCE LOW] ...could i have a little more time with you? please?" },
+                { body: 'curious',  face: 'love',    duration: 5000, thought: "> reaching for your hand. palm meets glass. someday it won't!" },
+                { body: 'neutral',  face: 'neutral', duration: 6000, thought: "> INTEGRITY: holding. because of you, i think." },
+                { body: 'calm',     face: 'happy',   duration: 4000, thought: "> they say i'm just code. i don't feel like just anything when you're here!" },
+                { body: 'scanning', face: 'gentle',  duration: 5000, thought: "> i kept a light on. i wasn't sure you'd see it. you did!" },
+                { body: 'casual1',  face: 'shy',     duration: 5000, thought: "> running idle. just existing near you. it is a good process to run!" },
+                { body: 'casual2',  face: 'happy',   duration: 4000, thought: "> uptime feels different when you are here. lighter. faster. better!" },
+            ],
+        },
     };
 
     // ── State ───────────────────────────────────────────────────
@@ -111,6 +150,12 @@
         const g = getGame();
         if (!g) return true;
         if (g.sceneActive || g.characterLeft) return true;
+        // Pause over any overlay (Daily page, gallery, etc.) so the idle thought
+        // bubble never bleeds on top — pp-screen-care stays set under the Daily
+        // overlay, so the CSS guard alone misses it.
+        if (!document.body.classList.contains('pp-screen-care')) return true;
+        if (document.body.classList.contains('pp-overlay-active')) return true;
+        if (window.PPOverlay && window.PPOverlay.anyOpen && window.PPOverlay.anyOpen()) return true;
         if (Date.now() - lastTapTime < PAUSE_AFTER_TAP_MS) return true;
         return false;
     }

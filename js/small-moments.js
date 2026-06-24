@@ -1418,7 +1418,11 @@
     // (Gallery/Card-reveal/Achievements/Settings/Game-over added May 2026 —
     //  owner reported a small-moment firing INSIDE an open Gallery view.
     //  These fullscreen UIs take the player out of care-loop attention.)
-    if (document.querySelector('#pp-sm-root, #mscard-root, #tp-root, #ms-encounter-root, #cinematic-overlay.visible, #event-overlay:not(.hidden), #gift-panel:not(.hidden), #training-panel:not(.hidden), #story-overlay:not(.hidden), #letter-overlay:not(.hidden), #intro-overlay:not(.hidden), #gallery-overlay:not(.hidden), #gallery-viewer:not(.hidden), #card-reveal-overlay:not(.hidden), #achievement-panel:not(.hidden), #settings-overlay:not(.hidden), #game-over-overlay:not(.hidden)')) return false;
+    // NOTE: #chp-page (Main Story chapter list) + #main-story-page added Jun
+    // 2026 — they open as overlays while body.pp-screen-care is still set, so
+    // without them a small-moment fired ON TOP of the Main Story (owner bug:
+    // "Elian's care content bled onto the Main Story page").
+    if (document.querySelector('#pp-sm-root, #chp-page:not(:empty), #main-story-page:not(.hidden), #mscard-root, #tp-root, #ms-encounter-root, #cinematic-overlay.visible, #event-overlay:not(.hidden), #gift-panel:not(.hidden), #training-panel:not(.hidden), #story-overlay:not(.hidden), #letter-overlay:not(.hidden), #intro-overlay:not(.hidden), #gallery-overlay:not(.hidden), #gallery-viewer:not(.hidden), #card-reveal-overlay:not(.hidden), #achievement-panel:not(.hidden), #settings-overlay:not(.hidden), #game-over-overlay:not(.hidden)')) return false;
     if (document.body.classList.contains('pp-chain-in-progress')) return false;
     // Game state
     const g = window._game;
@@ -1484,7 +1488,10 @@
       '#intro-overlay:not(.hidden), #gallery-overlay:not(.hidden), #gallery-viewer:not(.hidden), ' +
       '#card-reveal-overlay:not(.hidden), #achievement-panel:not(.hidden), #settings-overlay:not(.hidden), ' +
       '#game-over-overlay:not(.hidden), #cinematic-overlay.visible'
-    );
+    // ORGANIZE (Jun 2026): also defer to pp-overlay.js's single overlay list so
+    // a mounted moment is scrubbed when ANY registered overlay opens over it
+    // (incl. the Letters archive) — no separate list to keep in sync here.
+    ) || !!(window.PPOverlay && window.PPOverlay.anyOpen && window.PPOverlay.anyOpen());
     if (!gcVisible || chainBusy || charMismatch || fullscreenUiOpen) {
       try { root.remove(); } catch (_) {}
       _mountedFor = null;

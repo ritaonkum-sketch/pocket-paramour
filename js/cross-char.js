@@ -97,6 +97,11 @@
     if (!g) return false;
     if (g.sceneActive) return false;
     if (g.characterLeft) return false;
+    // Care screen only, never over an overlay (Daily page, gallery, etc.).
+    // Authoritative signals — the hand-list below missed the Daily page and bled.
+    if (!document.body.classList.contains('pp-screen-care')) return false;
+    if (document.body.classList.contains('pp-overlay-active')) return false;
+    if (window.PPOverlay && window.PPOverlay.anyOpen && window.PPOverlay.anyOpen()) return false;
     const block = document.querySelector([
       '#ms-encounter-root', '#mscard-root', '#chp-page', '#chp-finale-choice',
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
@@ -146,7 +151,7 @@
       'padding:10px 16px', 'border-radius:16px',
       'border:1px solid rgba(255,255,255,0.12)', 'text-align:center',
       'box-shadow:0 6px 20px rgba(0,0,0,0.55)',
-      'z-index:6800', 'pointer-events:none', 'opacity:0', 'font-style:italic',
+      'z-index:6800', 'pointer-events:auto', 'cursor:pointer', 'opacity:0', 'font-style:italic',
       'transition:opacity 500ms ease, transform 500ms ease'
     ].join(';');
     const speaker = document.createElement('div');
@@ -156,12 +161,35 @@
     line.innerHTML = text;
     b.appendChild(speaker);
     b.appendChild(line);
+    // A subtle "tap" affordance so the player knows it waits for them.
+    const hint = document.createElement('div');
+    hint.style.cssText = 'font-size:9px;letter-spacing:1.5px;opacity:0;margin-top:6px;font-style:normal;transition:opacity 400ms ease;';
+    hint.textContent = 'tap to dismiss';
+    b.appendChild(hint);
     document.body.appendChild(b);
     requestAnimationFrame(() => { b.style.opacity = '1'; b.style.transform = 'translateX(-50%) translateY(0)'; });
-    setTimeout(() => {
+    setTimeout(() => { hint.style.opacity = '0.5'; }, 700);
+
+    // Owner direction (Jun 2026): WAIT FOR A TAP — do NOT auto-vanish. It used
+    // to fade itself out after 6s, so it disappeared mid-read. Now it stays
+    // until the player taps it. A leave-care cleanup + a long safety backstop
+    // keep it from ever stranding; a fresh notice already replaces this one
+    // (see prev.remove() above), so it never stacks.
+    let _done = false;
+    function dismiss() {
+      if (_done) return; _done = true;
+      try { document.removeEventListener('pp:scene-change', onScene); } catch (_) {}
       b.style.opacity = '0';
       setTimeout(() => { try { b.remove(); } catch (_) {} }, 520);
-    }, 6000);
+    }
+    b.addEventListener('click', dismiss);
+    b.addEventListener('touchstart', dismiss, { passive: true });
+    // NO timed auto-dismiss (owner: it must wait for the tap, never vanish on
+    // its own). It still clears when the player LEAVES care (context exit, not a
+    // timer) and a fresh notice replaces it (prev.remove above) — but on the
+    // care screen it waits for the player's tap indefinitely.
+    function onScene(e) { var s = e && e.detail && e.detail.scene; if (s && s !== 'care') dismiss(); }
+    document.addEventListener('pp:scene-change', onScene);
   }
 
   function boot() {

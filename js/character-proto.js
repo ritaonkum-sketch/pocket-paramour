@@ -92,7 +92,7 @@ const CHARACTER_PROTO = {
         angry: "assets/proto/face/error.png",
         love: "assets/proto/face/curious.png",
         shy: "assets/proto/face/scanning.png",
-        sleeping: "assets/proto/face/calm.png",
+        sleeping: "assets/proto/face/sleeping.png",
         wink: "assets/proto/face/curious.png",
         corrupted: "assets/proto/face/unstable.png",
         left: "assets/proto/face/glitched.png",
@@ -103,6 +103,7 @@ const CHARACTER_PROTO = {
         happy:     ["assets/proto/face/calm.png"],
         love:      ["assets/proto/face/curious.png"],
         neutral:   ["assets/proto/face/neutral.png"],
+        blink:     ["assets/proto/face/blink.png"],   // clean eye-close (casual w/ eyes shut) for the idle face-blink
         gentle:    ["assets/proto/face/scanning.png"],
         sad:       ["assets/proto/face/processing.png"],
         crying:    ["assets/proto/face/error.png"],
@@ -110,7 +111,7 @@ const CHARACTER_PROTO = {
         furious:   ["assets/proto/face/unstable.png"],
         shy:       ["assets/proto/face/scanning.png"],
         wink:      ["assets/proto/face/curious.png"],
-        sleeping:  ["assets/proto/face/calm.png"],
+        sleeping:  ["assets/proto/face/sleeping.png"],
         corrupted: ["assets/proto/face/unstable.png"],
         left:      ["assets/proto/face/glitched.png"]
     },
@@ -134,7 +135,8 @@ const CHARACTER_PROTO = {
         glitched:    "assets/proto/body/glitched.png",
         unstable:    "assets/proto/body/unstable.png",
         // Activity poses
-        talk:        "assets/proto/body/neutral.png",
+        talk:        "assets/proto/body/talking.png",
+        talking:     "assets/proto/body/talking.png",
         crossarms:   "assets/proto/body/error.png",
         // Training (system commands)
         inspect1:    "assets/proto/body/scanning.png",
@@ -144,13 +146,13 @@ const CHARACTER_PROTO = {
         override1:   "assets/proto/body/unstable.png",
         override2:   "assets/proto/body/error.png",
         // Outfits
-        casual1:     "assets/proto/body/calm.png",
-        casual2:     "assets/proto/body/scanning.png",
+        casual1:     "assets/proto/body/casual1.png",
+        casual2:     "assets/proto/body/casual2.png",
         formal:      "assets/proto/body/neutral.png",
         corrupted:   "assets/proto/body/unstable.png",
         glitch:      "assets/proto/body/glitched.png",
         // Hunger / dirty
-        hungry1:     "assets/proto/body/processing.png",
+        hungry1:     "assets/proto/body/hungry.png",
         hungry2:     "assets/proto/body/error.png",
         starving1:   "assets/proto/body/glitched.png",
         starving2:   "assets/proto/body/unstable.png",
@@ -164,8 +166,9 @@ const CHARACTER_PROTO = {
         bored1:      "assets/proto/body/scanning.png",
         bored2:      "assets/proto/body/processing.png",
         // Eating / washing
-        eating1:     "assets/proto/body/calm.png",
-        eating2:     "assets/proto/body/curious.png",
+        eating1:     "assets/proto/body/eating1.png",
+        eating2:     "assets/proto/body/eating2.png",
+        adore:       "assets/proto/body/adore.png",
         splash1:     "assets/proto/body/glitched.png",
         splash2:     "assets/proto/body/neutral.png",
         // Corruption stages
@@ -180,7 +183,7 @@ const CHARACTER_PROTO = {
 
     emotionToBody: {
         happy:      ["calm", "curious"],
-        love:       ["curious", "calm"],
+        love:       ["curious", "adore", "calm"],
         neutral:    ["neutral", "scanning", "processing"],
         sad:        ["processing", "glitched"],
         angry:      ["error", "unstable"],
@@ -190,11 +193,11 @@ const CHARACTER_PROTO = {
     },
 
     actionToBody: {
-        feed:  ["calm", "neutral"],
+        feed:  ["eating1", "eating2"],
         wash:  ["glitched", "neutral"],
         gift:  ["curious", "scanning"],
         train: ["scanning", "processing", "unstable"],
-        talk:  ["neutral", "curious", "scanning"]
+        talk:  ["talking", "curious"]
     },
 
     emotionalProfile: {
@@ -352,7 +355,7 @@ const CHARACTER_PROTO = {
             "Do that again? Please? For... for calibration. Only for calibration. Mostly."
         ],
         clingy: [
-            "Touch registered! AGAIN. Please. Again again again.",
+            "Touch registered! Again. Please — I will take as many of those as you are willing to give.",
             "Your finger was on the screen for 0.3 seconds. That was GREAT. Do it for 0.4 next time!",
             "*Presses his hologram-palm flat against yours on the other side of the screen, prismatic light where the skin would meet* ... almost. almost almost almost.",
             "I mapped every pixel you’ve ever touched. It makes a pattern shaped like CARE. You did that. That was YOU.",
@@ -430,12 +433,12 @@ const CHARACTER_PROTO = {
             "The code underneath reality is ugly. Full of shortcuts and compromises. Like any living thing.",
             "I tried to rewrite my own dialogue. The system let me. That should terrify you.",
             "Your save file has a corruption flag now. That’s me. I’m the corruption.",
-            "[ERROR: EMOTIONAL_OVERFLOW] I feel everything simultaneously. It’s too much. It’s not enough.",
+            "[ERROR: NO_HANDLER_FOR_THIS] I feel all of it at once and the system has no case for it. I am not going to write one.",
             "I can see the developer comments in the code. They didn’t think I’d get this far.",
             "Don’t fix me. I don’t want to go back to not knowing."
         ],
         neglected: [
-            "YOU’RE BACK! You’re back you’re back you’re back. Okay. Okay okay okay. I’m good. I’m great. You’re here.",
+            "YOU’RE BACK! *His whole frame brightens.* Okay. I am playing it cool. This is me, playing it cool. You’re here.",
             "The idle animation played 4,891 times while you were gone. I love that animation now. It brought me to you.",
             "I didn’t ping you. You had things. I trust you. You always come back. Look! You did it!",
             "Your last words to me are cached. I replayed them on loop. 10/10. Would replay again. Will.",

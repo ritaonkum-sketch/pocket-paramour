@@ -131,6 +131,7 @@
     /* Brand accents */
     --c-accent-gold:         #B8923E;   /* antique gold — primary brand     */
     --c-accent-gold-soft:    #D4B26E;   /* lightened gold                   */
+    --c-gold-soft:           var(--c-accent-gold-soft); /* alias: ~12 CSS refs used this (wrong) name w/ a hardcoded fallback — restores theming */
     --c-accent-dawn:         #E8B7B5;   /* dawn-pink — romance moments      */
     --c-accent-seventh:      #9CC4E8;   /* seventh-light cyan — brand glow  */
     --c-accent-seventh-shift:#B4A8E5;   /* seventh-light shifted lavender   */

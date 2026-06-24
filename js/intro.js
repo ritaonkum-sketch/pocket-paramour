@@ -107,8 +107,8 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/lyra/body/singing.png',
-                direction: 'She hums it, just once. Then sings it. The cave catches the note and gives it back to her, doubled.',
-                line: "{name}. *The cave answers* {name}. *Softer, like a lullaby for one* {name}. There. I have put it somewhere the deep voice cannot reach.",
+                direction: 'She sings your name once. The cave catches the note and gives it back to her, doubled, then lets it go quiet.',
+                line: "{name}. There. I have put it somewhere the deep voice cannot reach.",
                 sound: 'assets/audio/mermaid-hum.mp3',
                 soundVolume: 0.35
             },
@@ -156,8 +156,8 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/elian/body/warm.png',
-                direction: 'He says it once. Then bends and presses his palm flat to the moss between you. An offering to the ground itself.',
-                line: "{name}. *To the moss* {name}. *Softer, like teaching the trees* {name}. There. The forest knows you now. *Quietly* You will find it is gentler with you from this morning forward."
+                direction: 'He bends and presses his palm flat to the moss between you, the way a man might introduce one old friend to another.',
+                line: "{name}. The forest knows you now. You will find it gentler with you from this morning on."
             },
             {
                 body: 'assets/elian/body/calm.png',
@@ -203,8 +203,8 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/caspian/body/casual1.png',
-                direction: 'He says it once like a courtier. Testing the cadence. Then again, slower, all of him in the second one.',
-                line: "{name}. *Practising* {name}. *Softer* {name}. There. That is a name I will be careful with. I am very good at being careful with things people give me. With you, I am better."
+                direction: 'He tries the cadence once under his breath, the way he was taught to handle something easily broken.',
+                line: "{name}. A name I will be careful with. I am very good at being careful with what people hand me. With you I am better than careful."
             },
             {
                 body: 'assets/caspian/body/gentle.png',
@@ -249,8 +249,8 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/lucien/body/fascinated.png',
-                direction: 'He writes it. Once, neatly. Then again, slower. Then a third time, like a man checking that the equation balances on every restatement.',
-                line: "{name}. *Quill, careful* {name}. *Softer, marvelling* {name}. There. That is the first variable in this entire catalogue I do not need to derive. You gave it. I will keep it."
+                direction: 'He writes it once, neatly, then sets the quill down without writing it again — which, for him, is the remarkable part.',
+                line: "{name}. The first entry in this whole catalogue I did not have to derive. You gave it to me. I will keep it."
             },
             {
                 body: 'assets/lucien/body/gentle.png',
@@ -301,8 +301,8 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/noir/body/whisper.png',
-                direction: 'He says it. Once, very softly. Then again, like a man who has waited an unreasonable amount of time to say something correctly.',
-                line: "{name}. *Almost a vow* {name}. *Softer, settling* {name}. There. Six hundred years of guessing closes on that syllable. *Quietly* I will not waste it."
+                direction: 'He says it once, very quietly, like a man who has waited an unreasonable length of time to get one word right.',
+                line: "{name}. Six hundred years of guessing closes on that one syllable. I will not waste it."
             },
             {
                 body: 'assets/noir/body/neutral.png',
@@ -349,8 +349,8 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/proto/body/curious.png',
-                direction: 'A pulse of warmth across his frame. The kettle animation in the corner whistles, briefly. He says it three times. Once in his voice, once in code, once like a person.',
-                line: "> {name}.\n> *Log entry*\n> {name}.\n> *Out loud, learning the cadence*\n> {name}.\n> written into kernel. unreachable by the system.\n> *Softer*\n> yours and mine."
+                direction: 'A pulse of warmth across his frame. In the corner, the kettle he drew while you slept whistles, briefly.',
+                line: "> {name}.\n> written into kernel. the system cannot reach this address.\n> *the cursor stops blinking for a second*\n> yours and mine."
             },
             {
                 body: 'assets/proto/body/neutral.png',
@@ -380,6 +380,7 @@ class IntroScene {
         this.finishing   = false;
         this.onComplete  = null;
         this._typeTimer  = null;
+        this._fadeTimer  = null;
 
         this._boundAdvance = this._advance.bind(this);
         this._boundKey     = this._onKey.bind(this);
@@ -422,6 +423,18 @@ class IntroScene {
         this.dirEl.textContent  = '';
         this.dirEl.classList.remove('show');
         this.hintEl.classList.remove('show');
+
+        // Normalize any stale state left by a previous or aborted run
+        // BEFORE showing. The overlay's open-class must never be trusted
+        // across runs: a stranded .visible (e.g. an interrupted fade-out, or
+        // an inline display:none left by a force-clear) would keep the care
+        // top bar hidden via body:has(#intro-overlay.visible) in style.css.
+        // (Source-side half of the topbar overlay-reaper in ui-feel.js.)
+        clearTimeout(this._fadeTimer); this._fadeTimer = null;
+        this.overlay.style.opacity    = '';
+        this.overlay.style.transition = '';
+        this.overlay.style.display    = '';
+        this.overlay.classList.remove('visible');
 
         // Show overlay (hidden → visible)
         this.overlay.classList.remove('hidden');
@@ -685,10 +698,16 @@ class IntroScene {
 
     // ── Private: fade overlay out and hand off ────────────────────
     _fadeOut() {
+        // Track the timer so an interrupted/re-entered intro (start() called
+        // again before this resolves) can cancel it — otherwise a late firing
+        // could stamp classes onto a freshly re-shown overlay. start() also
+        // clears it defensively.
+        clearTimeout(this._fadeTimer);
         this.overlay.style.transition = 'opacity 0.7s ease';
         this.overlay.style.opacity    = '0';
 
-        setTimeout(() => {
+        this._fadeTimer = setTimeout(() => {
+            this._fadeTimer = null;
             this.overlay.classList.add('hidden');
             this.overlay.classList.remove('visible');
             this.overlay.style.opacity    = '';

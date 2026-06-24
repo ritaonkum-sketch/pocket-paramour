@@ -250,7 +250,10 @@
     }
 
     function getCharKey() {
-        const ch = window.CHARACTER;
+        // window.CHARACTER is ALWAYS undefined (CHARACTER is a top-level `let` in
+        // character.js — not a window property), which is why greetings never
+        // fired. Read the real global.
+        const ch = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : (window.CHARACTER || null);
         if (!ch) return null;
         return (ch.name || '').toLowerCase();
     }
@@ -297,6 +300,13 @@
         const tryFire = (attempt) => {
             const g = window._game;
             if (!g || g.sceneActive || g.characterLeft) return;
+            // Only land the greeting when the care screen is actually visible —
+            // not buried under an overlay (gallery, Daily page, the intro, etc.).
+            if (!document.body.classList.contains('pp-screen-care') ||
+                (window.PPOverlay && window.PPOverlay.anyOpen())) {
+                if (attempt < 1) setTimeout(() => tryFire(attempt + 1), 3000);
+                return;
+            }
             // Don't talk over an active line.
             const tw = g.typewriter;
             if (tw && typeof tw.busy === 'function' && tw.busy()) {

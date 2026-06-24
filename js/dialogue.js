@@ -413,6 +413,20 @@ class TypewriterEffect {
         if (this.element && this.element.textContent && this.element.textContent.length > 0) return true;
         return false;
     }
+
+    // Jun 2026 — passive callers (tick-driven comfort lines, idle thoughts,
+    // ambient greetings) must use THIS, not show(). It silently bails if a
+    // line is currently being read by the player. Owner complaint: "this
+    // speech sometime it glitching... it does not wait for the player to
+    // tap... It change by itself" — caused by background tick logic firing
+    // show() over a line the player hadn't dismissed yet. show() stays as
+    // the override entry-point for player-triggered actions (talk/feed/
+    // wash/gift/train responses) where the new line MUST appear.
+    showIfIdle(text, callback) {
+        if (this.busy()) return false;
+        this.show(text, callback);
+        return true;
+    }
 }
 
 class DialogueSystem {

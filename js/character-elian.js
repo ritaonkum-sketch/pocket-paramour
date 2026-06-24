@@ -131,6 +131,7 @@ const CHARACTER_ELIAN = {
         happy:     ["assets/elian/face/calm.png"],
         love:      ["assets/elian/face/warm.png"],
         neutral:   ["assets/elian/face/neutral.png"],
+        blink:     ["assets/elian/face/blink.png"],   // clean eye-close (Casual w/ eyes shut) for the idle face-blink
         gentle:    ["assets/elian/face/warm.png"],
         sad:       ["assets/elian/face/weathered.png"],
         crying:    ["assets/elian/face/weathered.png"],
@@ -150,7 +151,7 @@ const CHARACTER_ELIAN = {
         calm:        "assets/elian/body/calm.png",
         sad:         "assets/elian/body/weathered.png",
         weathered:   "assets/elian/body/weathered.png",
-        angry:       "assets/elian/body/stern.png",
+        angry:       "assets/elian/body/angry.png",
         stern:       "assets/elian/body/stern.png",
         love:        "assets/elian/body/warm.png",
         warm:        "assets/elian/body/warm.png",
@@ -160,12 +161,12 @@ const CHARACTER_ELIAN = {
         foraging:    "assets/elian/body/foraging.png",
         tracking:    "assets/elian/body/tracking.png",
         meditating:  "assets/elian/body/meditating.png",
-        talk:        "assets/elian/body/neutral.png",
+        talk:        "assets/elian/body/talk.png",
         crossarms:   "assets/elian/body/stern.png",
         formal:      "assets/elian/body/neutral.png",
         casual1:     "assets/elian/body/casual1.png",
         casual2:     "assets/elian/body/casual2.png",
-        corrupted:   "assets/elian/body/stern.png",
+        corrupted:   "assets/elian/body/corrupted.png",
         // Sprite-pool variety remap May 2026: was many emotion keys
         // collapsing to weathered/neutral — feeding-Elian and seeing-sad-
         // Elian looked identical, dirty1/dirty2 looked identical, etc.
@@ -178,12 +179,13 @@ const CHARACTER_ELIAN = {
         sleepy1:     "assets/elian/body/meditating.png",  // restful calm
         yawn1:       "assets/elian/body/calm.png",
         bored1:      "assets/elian/body/casual2.png",     // slouchy bored, not just neutral
-        eating1:     "assets/elian/body/calm.png",
-        eating2:     "assets/elian/body/casual1.png",     // relaxed eating
-        splash1:     "assets/elian/body/warm.png",        // bath happiness
-        fighting:    "assets/elian/body/stern.png",
-        fighting1:   "assets/elian/body/stern.png",
-        corrupt1:    "assets/elian/body/stern.png"
+        eating1:     "assets/elian/body/eating.png",
+        eating2:     "assets/elian/body/eating2.png",     // second eating pose
+        splash1:     "assets/elian/body/washing.png",     // bath / wash
+        washing:     "assets/elian/body/washing.png",     // wash action pose
+        fighting:    "assets/elian/body/fighting.png",
+        fighting1:   "assets/elian/body/fighting.png",
+        corrupt1:    "assets/elian/body/corrupted.png"
     },
 
     emotionToBody: {
@@ -191,18 +193,18 @@ const CHARACTER_ELIAN = {
         love:       ["warm"],
         neutral:    ["neutral", "foraging"],
         sad:        ["weathered"],
-        angry:      ["stern"],
+        angry:      ["angry"],
         shy:        ["guarded"],
-        corrupted:  ["stern"],
+        corrupted:  ["corrupted"],
         sleeping:   ["calm"]
     },
 
     actionToBody: {
-        feed:  ["calm", "neutral"],
-        wash:  ["neutral"],
+        feed:  ["eating1", "eating2"],
+        wash:  ["washing", "neutral"],
         gift:  ["guarded", "warm"],
         train: ["foraging", "tracking", "meditating"],
-        talk:  ["neutral", "calm"]
+        talk:  ["talk", "calm"]
     },
 
     emotionalProfile: {
@@ -557,9 +559,9 @@ const CHARACTER_ELIAN = {
     ],
 
     idleDialogue: {
-        hungry: ["...", "The snares need checking.", "I can smell the campfire smoke. My stomach hears it too."],
-        dirty: ["...", "*Brushes dirt from sleeve, gives up*", "The river’s fifty paces east."],
-        lonely: ["...", "The fire talks when you’re not here. Crackling.", "I kept busy. That’s not the same as not noticing."],
+        hungry: ["...", "The snares need checking.", "I can smell the campfire smoke. My stomach hears it too.", "I have gone longer on less. You are here, so I will mention it.", "*Glances at the snare line, then back at you.* Later. This is better."],
+        dirty: ["...", "*Brushes dirt from sleeve, gives up*", "The river’s fifty paces east.", "Mud washes off. I have worn worse and called it camouflage.", "Walk to the river with me. I do not like leaving you behind, even for clean water."],
+        lonely: ["...", "The fire talks when you’re not here. Crackling.", "I kept busy. That’s not the same as not noticing.", "I kept turning to tell you things. You were not there to tell.", "The forest is never quiet. It was, somehow, without you. I have not worked out how."],
         loving: [
             "I carved something for you. It’s not finished.",
             "The way light hits your face right now is... I’m documenting it. Mentally.",

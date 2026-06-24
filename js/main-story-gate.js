@@ -7,24 +7,30 @@
 // Chapter 6 (Elian's first appearance). After Ch6 plays, Elian's care
 // route opens via the existing chapters.js done-handler path.
 //
-// THE THREE MILESTONES (Alistair → Ch6)
+// THE TWO MILESTONES (Alistair → Ch6)
 //   1. Bond Level >= 3            (cumulative affection >= 20)
 //   2. Balanced care once         (hunger + clean + bond all > 50
 //                                  simultaneously — latched once true)
-//   3. Trust earned beat          (special talk-line fired by the
-//                                  in-care talk handler — see
-//                                  character.js / game.js hook)
 //
-// All three are tracked via localStorage. The gate is "open" only when
-// every milestone returns true. Once open, it stays open even if stats
-// drop again (player has earned the reveal).
+// Jun 2026 — owner removed the "trust earned" / "A moment he names you
+// Weaver" milestone: Alistair never uses the word "Weaver" in his
+// voice register, so the in-care talk hook that fired the line was
+// out-of-voice. markTrust() and the KEY_TRUST localStorage key are
+// kept as no-ops so any in-flight save with the latch set still loads
+// cleanly. game.js's talk-handler hook was removed (no longer wired).
+//
+// Both milestones tracked via localStorage. The gate is "open" only when
+// both return true. Once open, it stays open even if stats drop again
+// (player has earned the reveal).
 //
 // PUBLIC API
 //   window.PPMSGate.evaluateCh6()   → {locked, milestones[], opened}
 //   window.PPMSGate.checkBalanced() → call after stat change; latches
 //                                     pp_alistair_balanced_care if hit
-//   window.PPMSGate.markTrust()     → call from the talk handler when
-//                                     the trust-earned beat fires
+//   window.PPMSGate.markTrust()     → kept as no-op (was wired to a
+//                                     removed talk-beat; keep the
+//                                     export so older builds don't
+//                                     throw if they call it)
 // ============================================================================
 (function () {
     'use strict';
@@ -40,11 +46,35 @@
         try { localStorage.setItem(k, v); } catch (_) { /* swallow */ }
     }
 
+    // Jun 2026 — owner playtest: chip said "0 / 20 affection" even
+    // though the player had been actively caring for Alistair. Root
+    // cause: pp_affection_<char> is only written by the letter
+    // system (letter.js) and affection-drift.js soft-cap. The in-care
+    // affection gains (Feed +2, Wash +2, Gift +5, Train +5, Talk +N)
+    // live in _game.affection and never sync to localStorage. The
+    // gate was reading the stale localStorage value.
+    //
+    // Fix: prefer the live _game.affection value when the active
+    // companion is the char being asked about. Fall back to
+    // localStorage for off-character reads (e.g. checking Alistair's
+    // bond while playing Lyra) so the legacy letter/drift writes
+    // remain valid.
+    function affectionFor(charId) {
+        try {
+            var g = window._game;
+            if (g && typeof g.affection === 'number') {
+                var live = (g.selectedCharacter || g.characterId);
+                if (live === charId) return Math.max(0, g.affection);
+            }
+        } catch (_) { /* fall through */ }
+        var raw = parseInt(lsGet('pp_affection_' + charId) || '0', 10) || 0;
+        return raw < 0 ? 0 : raw;
+    }
+
     // Mirror of index.html's bondLevel() so the gate works without
     // having to reach into select-screen scope.
     function bondLevelFor(charId) {
-        var raw = parseInt(lsGet('pp_affection_' + charId) || '0', 10) || 0;
-        if (raw < 0) raw = 0;
+        var raw = affectionFor(charId);
         if (raw === 0)  return 0;
         if (raw < 10)   return 1;
         if (raw < 20)   return 2;
@@ -68,25 +98,32 @@
         return lsGet(KEY_TRUST) === '1';
     }
 
-    // ── Stat watcher: latches pp_alistair_balanced_care once all
-    // three care stats exceed 50 at the same time. Reads from the
-    // live game instance if one is mounted and is playing Alistair.
-    // Called: once on script load (in case stats are already balanced
-    // from a prior session), then on a 4s poll while game is active,
-    // and also exposed for external explicit calls. ────────────────
+    // ── Stat watcher: latches pp_<char>_balanced_care once all three
+    // care stats exceed 50 at the same time, for WHICHEVER character is
+    // the active care session.
+    //
+    // Aug 2026 — generalized from Alistair-only. The care-route LADDER
+    // (route-gates.js) uses "Bond Level 3 + balanced care" as every
+    // character's unlock target, so the balanced-care latch must work
+    // for all 7, not just Alistair. We write the per-character key
+    // pp_<char>_balanced_care; for Alistair that is exactly the legacy
+    // KEY_BALANCED, so evaluateCh6() keeps reading the same flag.
+    //
+    // Called: once on load, on a 4s poll while a game is active, and
+    // exposed for external explicit calls.
     function checkBalanced() {
-        if (hasBalancedCare()) return true; // already latched
         var g = (typeof window !== 'undefined') ? window._game : null;
         if (!g) return false;
-        if (g.characterId !== 'alistair' && g.selectedCharacter !== 'alistair') {
-            return false;
-        }
+        var ch = g.characterId || g.selectedCharacter;
+        if (!ch) return false;
+        var key = 'pp_' + ch + '_balanced_care';
+        if (lsGet(key) === '1') return true; // already latched for this char
         var h = g.hunger, c = g.clean, b = g.bond;
         if (typeof h !== 'number' || typeof c !== 'number' || typeof b !== 'number') {
             return false;
         }
         if (h > 50 && c > 50 && b > 50) {
-            lsSet(KEY_BALANCED, '1');
+            lsSet(key, '1');
             return true;
         }
         return false;
@@ -103,31 +140,61 @@
     // Returns the full gate state for Ch6. UI reads this to render
     // the checklist popup and to decide if Ch6 button shows Locked
     // vs Begin.
+    //
+    // Jun 2026 — two-milestone gate now (trust beat removed). The
+    // bond3 milestone exposes both a textual progress and a 0-1
+    // `pct` field so the UI can render a visual bar. The threshold
+    // for Bond Level 3 is 20 cumulative affection (see bondLevelFor).
     function evaluateCh6() {
         var m1 = hasBondLevel3();
         var m2 = hasBalancedCare();
-        var m3 = hasTrustEarned();
+        // Aug 2026 — third milestone: the linear story gate. Ch6 needs BOTH
+        // the care target AND Alistair's chapters read through Ch5 (see the
+        // stacked-gates model in chapters.js). Owner playtest: with only the
+        // two care milestones shown, finishing them looked "complete" but no
+        // "Elian's route opens" popup fired (Ch5 wasn't read) — the
+        // requirement was invisible. Surfacing it as a visible task removes
+        // the confusion. NOTE: opened/locked deliberately stay care-only so
+        // the existing Ch6 gate logic in chapters.js is untouched; the
+        // chip + celebration already AND this with pp_chapter_done_5.
+        var m3 = lsGet('pp_chapter_done_5') === '1';
+        var readCount = 0;
+        ['2', '3', '4', '5'].forEach(function (n) {
+            if (lsGet('pp_chapter_done_' + n) === '1') readCount++;
+        });
         var bl = bondLevelFor('alistair');
+        // Jun 2026 — read via affectionFor() so the progress reflects
+        // live in-game gains (Feed/Wash/Gift/Train/Talk) instead of
+        // the stale localStorage key that only the letter system
+        // writes to.
+        var rawAff = affectionFor('alistair');
+        var BOND3_THRESHOLD = 20;
+        var bondPct = m1 ? 1 : Math.max(0, Math.min(1, rawAff / BOND3_THRESHOLD));
         return {
-            opened: m1 && m2 && m3,
-            locked: !(m1 && m2 && m3),
+            opened: m1 && m2,
+            locked: !(m1 && m2),
             milestones: [
                 {
                     key: 'bond3',
                     label: 'Bond Level 3 with Alistair',
-                    progress: bl + ' / 3',
+                    progress: m1
+                        ? 'Reached'
+                        : (rawAff + ' / ' + BOND3_THRESHOLD + ' affection'),
+                    pct: bondPct,
                     done: m1
                 },
                 {
                     key: 'balanced',
                     label: 'Care for him in balance (every stat above 50)',
                     progress: m2 ? 'Once' : 'Not yet',
+                    pct: m2 ? 1 : 0,
                     done: m2
                 },
                 {
-                    key: 'trust',
-                    label: 'A moment he names you Weaver',
-                    progress: m3 ? 'Heard' : 'Not yet',
+                    key: 'sequence',
+                    label: 'Read his story through Chapter 5',
+                    progress: m3 ? 'Reached' : (readCount + ' / 4 chapters'),
+                    pct: m3 ? 1 : (readCount / 4),
                     done: m3
                 }
             ]
@@ -244,6 +311,28 @@
             '  color: rgba(232, 168, 91, 0.72);' +
             '  margin-top: 3px;' +
             '}' +
+            // Jun 2026 — visual progress bar for milestones with a
+            // gradual numeric progression (currently only the bond3
+            // milestone). Binary milestones get pct: 0 or 1 and the
+            // bar still renders for visual consistency.
+            '.pp-ms-gate-bar {' +
+            '  margin-top: 6px;' +
+            '  width: 100%; height: 4px;' +
+            '  background: rgba(15, 8, 26, 0.85);' +
+            '  border: 1px solid rgba(212, 168, 91, 0.18);' +
+            '  border-radius: 999px;' +
+            '  overflow: hidden;' +
+            '}' +
+            '.pp-ms-gate-bar-fill {' +
+            '  display: block; height: 100%;' +
+            '  background: linear-gradient(90deg, #B8923E 0%, #F2D690 100%);' +
+            '  border-radius: 999px;' +
+            '  transition: width 280ms ease;' +
+            '  box-shadow: 0 0 6px rgba(232, 168, 91, 0.55);' +
+            '}' +
+            '.pp-ms-gate-row.is-done .pp-ms-gate-bar-fill {' +
+            '  background: linear-gradient(90deg, #F2D690 0%, #FFE9B8 100%);' +
+            '}' +
             '#pp-ms-gate-close {' +
             '  display: block; margin: 16px auto 0;' +
             '  background: linear-gradient(180deg, rgba(122, 18, 36, 0.65), rgba(76, 14, 34, 0.85));' +
@@ -272,7 +361,7 @@
             '<div id="pp-ms-gate-panel" role="dialog" aria-modal="true">' +
             '  <div id="pp-ms-gate-eyebrow">Locked</div>' +
             '  <h3 id="pp-ms-gate-title">' + (opts.title || 'Chapter 6') + '</h3>' +
-            '  <p id="pp-ms-gate-hint">Three threads still to walk before the smoke at the treeline finds you.</p>' +
+            '  <p id="pp-ms-gate-hint">Two threads still to walk before the smoke at the treeline finds you.</p>' +
             '  <div id="pp-ms-gate-list"></div>' +
             '  <button id="pp-ms-gate-close" type="button">close</button>' +
             '</div>';
@@ -282,11 +371,13 @@
         state.milestones.forEach(function (m) {
             var row = document.createElement('div');
             row.className = 'pp-ms-gate-row' + (m.done ? ' is-done' : '');
+            var pct = (typeof m.pct === 'number') ? Math.round(m.pct * 100) : (m.done ? 100 : 0);
             row.innerHTML =
                 '<span class="pp-ms-gate-check">' + (m.done ? '✓' : '') + '</span>' +
                 '<span class="pp-ms-gate-text">' +
                 '  <div class="pp-ms-gate-label">' + m.label + '</div>' +
                 '  <div class="pp-ms-gate-progress">' + m.progress + '</div>' +
+                '  <div class="pp-ms-gate-bar"><span class="pp-ms-gate-bar-fill" style="width:' + pct + '%"></span></div>' +
                 '</span>';
             list.appendChild(row);
         });

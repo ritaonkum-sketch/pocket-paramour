@@ -1071,7 +1071,6 @@ class PocketLoveGame {
             '#event-overlay:not(.hidden)',
             '#gift-panel:not(.hidden)',
             '#training-panel:not(.hidden)',
-            ,
             '#story-overlay:not(.hidden)',
             '#main-story-page:not(.hidden)',
             '#settings-overlay:not(.hidden)',
@@ -1557,6 +1556,16 @@ class PocketLoveGame {
         // Was: hardcoded "It's okay... you're here now." regardless of who.
         // Owner reported the line breaking voice on Alistair — knight register
         // doesn't say "It's okay" like that. Now per-character.
+        //
+        // Jun 2026 — owner reported the bubble glitching: "this speech sometime
+        // it glitching... it does not wait for the player to tap... It change
+        // by itself". Root cause: this tick-driven comfort line was calling
+        // show() over a bubble the player hadn't dismissed yet, replacing the
+        // text in mid-read. Now uses showIfIdle() which silently bails if a
+        // prior line is on screen. The fear -= 5 only applies if the line
+        // actually rendered, so passive comfort is tied to actually delivering
+        // a comfort line (no free fear reduction when the player isn't paying
+        // attention).
         if (timeSinceInteraction < 30000 && this.emotion.fear > 40 && Math.random() < 0.004) {
             const charName = (CHARACTER && CHARACTER.name) || '';
             const COMFORT = {
@@ -1569,8 +1578,9 @@ class PocketLoveGame {
                 Proto:    "> fear.flag cleared. you came back. ...thank you."
             };
             const line = COMFORT[charName] || "...You're here. That helps.";
-            this.typewriter.show(line);
-            this.emotion.fear -= 5;
+            if (this.typewriter.showIfIdle(line)) {
+                this.emotion.fear -= 5;
+            }
         }
 
         // ── Pressure build-up (obsessive profile trap) ───────────────────
@@ -2825,23 +2835,12 @@ class PocketLoveGame {
         const _talkCtx  = !_lucienPassive && Math.random() < 0.45 ? this._getContextLine("talk") : null;
         let _talkLine = _lucienPassive || _talkCtx || this.dialogueSystem.getDialogue("talk", reactionType, emotionalState);
 
-        // ── Trust-Earned beat (Jun 2026 main-story gate) ───────────────
-        // Once per playthrough, when Alistair's bond has reached Level 3
-        // (cumulative affection ≥ 20) AND the player has talked to him at
-        // least 7 times, his next talk surfaces a special line that names
-        // the player as Weaver. This is one of the three milestones that
-        // unlock Chapter 6 (Elian's first appearance). See main-story-gate.js.
-        try {
-            const _charId = (this.selectedCharacter || this.characterId);
-            if (_charId === 'alistair'
-                && window.PPMSGate
-                && !window.PPMSGate.evaluateCh6().milestones.find(m => m.key === 'trust').done
-                && window.PPMSGate._bondLevelFor('alistair') >= 3
-                && (this.timesTalked || 0) >= 7) {
-                _talkLine = 'You came back again. Every time. You — Weaver. That stops mattering, eventually. It hasn’t yet.';
-                window.PPMSGate.markTrust();
-            }
-        } catch (_) { /* never break talk over a gate check */ }
+        // Jun 2026 — the trust-earned beat that fired here ("You — Weaver…")
+        // was removed. Owner caught that Alistair never uses the word
+        // "Weaver" in his voice register; the line was forcing meta-lore
+        // into his mouth. The main-story gate now requires only two
+        // milestones (bond3 + balanced care), and the trust beat is no
+        // longer wired. See main-story-gate.js evaluateCh6().
 
         this.ui.showNotification("Talk");
         this.ui.preReact(
@@ -2973,7 +2972,11 @@ class PocketLoveGame {
         const pool = (dialogue[type] && dialogue[type].length) ? dialogue[type] : defaults[type];
         const line = pool[Math.floor(Math.random() * pool.length)];
 
-        this.typewriter.show(line);
+        // Jun 2026 — tick-driven event: use showIfIdle so it doesn't overwrite
+        // a line the player is still reading. Emotion side-effects only apply
+        // when the line actually delivered, so the player sees the cause AND
+        // the effect together (and the system rolls again next tick).
+        if (!this.typewriter.showIfIdle(line)) return;
 
         if (type === "comfort") {
             this.ui.flashEmotion("happy", 3000);
@@ -3012,7 +3015,14 @@ class PocketLoveGame {
         };
 
         const pool = pools[type];
-        this.typewriter.show(pool[Math.floor(Math.random() * pool.length)]);
+        // Jun 2026 — tick-driven shock event: showIfIdle so it doesn't
+        // overwrite an unread line. Shock side-effects only apply if the
+        // line actually delivered; if a prior line is still on screen, we
+        // bail and the next tick may re-roll the shock.
+        if (!this.typewriter.showIfIdle(pool[Math.floor(Math.random() * pool.length)])) {
+            this.shockState.active = false; // release the latch so next tick can retry
+            return;
+        }
         this.ui.flashEmotion("crying", 5000);
         this.emotion.fear  += 10;
         this.emotion.trust -= 5;
@@ -3215,7 +3225,7 @@ class PocketLoveGame {
     // when it wasn't.
     _switchToSelect(settingsOverlay) {
         this.save();
-        if (this.tickInterval) clearInterval(this.tickInterval);
+        if (this.tickInterval) { clearInterval(this.tickInterval); this.tickInterval = null; }
         // Clear watchdog + auto-save handles too. Without this, every
         // character switch stacks live intervals from old game instances.
         if (this._watchdogInterval) { clearInterval(this._watchdogInterval); this._watchdogInterval = null; }
@@ -3598,8 +3608,18 @@ class PocketLoveGame {
         // unhandled promise rejection. Fail soft instead — fire onComplete with no
         // scene shown so the calling flow doesn't deadlock waiting on us.
         if (!Array.isArray(beats) || beats.length === 0) {
-            this.sceneActive = false;
             if (onComplete) try { onComplete(); } catch (_) {}
+            return;
+        }
+        // ── RE-ENTRANCY GUARD (Jun 2026) ─────────────────────────────────
+        // _playScene renders into the SHARED #cinematic-* DOM (one #cinematic-
+        // text element). If a second scene starts while one is still running,
+        // BOTH type into that element in lockstep → DOUBLED text (owner saw
+        // "AA bboonndd tthhiiss ddeeeepp…", i.e. every char typed twice by two
+        // concurrent typewriters). Queue an overlapping scene instead of letting
+        // it race; the queue drains when the current scene finishes.
+        if (this.sceneActive) {
+            (this._sceneQueue = this._sceneQueue || []).push({ beats: beats, onComplete: onComplete });
             return;
         }
         this.sceneActive = true;
@@ -3628,7 +3648,12 @@ class PocketLoveGame {
             await this._runBeat(beat);
         }
         this.sceneActive = false;
-        if (onComplete) onComplete();
+        if (onComplete) { try { onComplete(); } catch (_) {} }
+        // Drain any scene that was queued while this one was running.
+        if (this._sceneQueue && this._sceneQueue.length) {
+            const nx = this._sceneQueue.shift();
+            this._playScene(nx.beats, nx.onComplete);
+        }
     }
 
     _runBeat(beat) {
@@ -3699,7 +3724,12 @@ class PocketLoveGame {
                         const type = () => {
                             if (_cancelled) return;  // kill the recursive chain
                             if (i < beat.text.length) {
-                                text.textContent += beat.text[i++];
+                                i++;
+                                // Set the whole prefix (idempotent) rather than
+                                // append a char — so if two type loops ever race
+                                // the same element they CONVERGE instead of
+                                // doubling ("AA bboonndd…").
+                                text.textContent = beat.text.substring(0, i);
                                 setTimeout(type, speed);
                             } else {
                                 _typing = false;
@@ -4100,7 +4130,7 @@ class PocketLoveGame {
                   // Stay in corrupted state — redemption arc begins
                   this.cinematicFlags.redemptionUnlocked = true;
                   document.getElementById('cinematic-overlay').classList.remove('visible');
-                  setTimeout(() => document.getElementById('cinematic-overlay').classList.add('hidden'), 900);
+                  setTimeout(() => { var _co = document.getElementById('cinematic-overlay'); if (_co && !_co.classList.contains('visible')) _co.classList.add('hidden'); }, 900);
                   this.typewriter.show("You're still here… that's new.");
                   this.ui.applyTensionStage(3);
               }
@@ -4222,7 +4252,7 @@ class PocketLoveGame {
               },
               onStay: () => {
                   document.getElementById('cinematic-overlay').classList.remove('visible');
-                  setTimeout(() => document.getElementById('cinematic-overlay').classList.add('hidden'), 900);
+                  setTimeout(() => { var _co = document.getElementById('cinematic-overlay'); if (_co && !_co.classList.contains('visible')) _co.classList.add('hidden'); }, 900);
                   this.typewriter.show("You're still here… so am I.");
               }
             }
@@ -8875,7 +8905,7 @@ class PocketLoveGame {
               },
               onStay: () => {
                   document.getElementById('cinematic-overlay').classList.remove('visible');
-                  setTimeout(() => document.getElementById('cinematic-overlay').classList.add('hidden'), 900);
+                  setTimeout(() => { var _co = document.getElementById('cinematic-overlay'); if (_co && !_co.classList.contains('visible')) _co.classList.add('hidden'); }, 900);
                   this.typewriter.show("…The road is long. But you're still here.");
               }
             }
@@ -8921,7 +8951,7 @@ class PocketLoveGame {
               },
               onStay: () => {
                   document.getElementById('cinematic-overlay').classList.remove('visible');
-                  setTimeout(() => document.getElementById('cinematic-overlay').classList.add('hidden'), 900);
+                  setTimeout(() => { var _co = document.getElementById('cinematic-overlay'); if (_co && !_co.classList.contains('visible')) _co.classList.add('hidden'); }, 900);
                   this.typewriter.show("The oath is broken. The choice isn't.");
               }
             }
@@ -8974,7 +9004,7 @@ class PocketLoveGame {
               },
               onStay: () => {
                   document.getElementById('cinematic-overlay').classList.remove('visible');
-                  setTimeout(() => document.getElementById('cinematic-overlay').classList.add('hidden'), 900);
+                  setTimeout(() => { var _co = document.getElementById('cinematic-overlay'); if (_co && !_co.classList.contains('visible')) _co.classList.add('hidden'); }, 900);
                   this.typewriter.show("Some questions don't need answers. Just time.");
               }
             }
@@ -9077,7 +9107,7 @@ class PocketLoveGame {
               },
               onStay: () => {
                   document.getElementById('cinematic-overlay').classList.remove('visible');
-                  setTimeout(() => document.getElementById('cinematic-overlay').classList.add('hidden'), 900);
+                  setTimeout(() => { var _co = document.getElementById('cinematic-overlay'); if (_co && !_co.classList.contains('visible')) _co.classList.add('hidden'); }, 900);
                   this.typewriter.show("You're still here. So am I.");
               }
             }
@@ -10786,7 +10816,29 @@ class PocketLoveGame {
             lastSaveTime: Date.now()
         };
         const saveKey = 'pocketLoveSave_' + (this.selectedCharacter || 'alistair');
-        localStorage.setItem(saveKey, JSON.stringify(data));
+        // Guard the write — localStorage.setItem throws on quota-full AND in
+        // iOS Safari Private Mode. Unguarded, that exception propagated out of
+        // every care action (each ends in save()), so a tap looked like a crash.
+        try {
+            localStorage.setItem(saveKey, JSON.stringify(data));
+        } catch (e) {
+            try { console.warn('[save] localStorage write failed (storage full or private mode):', e); } catch (_) {}
+        }
+        // Keep the route-gates affection counter (pp_affection_<char>) in sync
+        // with CARE-earned affection. BUG (Jun 2026): pp_affection_<char> was
+        // only ever written by STORY-chapter awards (route-gates onChapterDone),
+        // so the "Bond Level X/9" meter AND the care-route unlock gate ignored
+        // everything the player earned by CARING. The meter sat at a false low
+        // (e.g. "0/9") while real affection climbed, then the next route
+        // unlocked off the hidden live value — Lyra opened while Elian's meter
+        // still read 0/9. Syncing here makes the meter honest and the unlock
+        // visible/earned, and removes the live-vs-stale flicker in affectionFor().
+        try {
+            const _ppCh = this.selectedCharacter || 'alistair';
+            if (typeof this.affection === 'number' && isFinite(this.affection)) {
+                localStorage.setItem('pp_affection_' + _ppCh, String(Math.max(0, Math.round(this.affection))));
+            }
+        } catch (_) {}
     }
 
     load() {
@@ -10797,12 +10849,18 @@ class PocketLoveGame {
         try {
             const data = JSON.parse(raw);
 
-            this.hunger = data.hunger ?? 100;
-            this.clean = data.clean ?? 100;
-            this.bond = data.bond ?? 50;
-            this.corruption = data.corruption ?? 0;
-            this.affection = data.affection ?? 0;
-            this.affectionLevel = data.affectionLevel ?? 0;
+            // Coerce + clamp core stats so a corrupt/edited save (NaN, Infinity,
+            // a string, or out-of-range) can't permanently break the engine.
+            // `??` only replaces null/undefined — a NaN would survive and lock
+            // things up (NaN<=0 is false, so the character can neither recover
+            // nor leave, and the bars render width:NaN%).
+            const _num = (v, d, lo, hi) => { const n = Number(v); return Number.isFinite(n) ? Math.max(lo, Math.min(hi, n)) : d; };
+            this.hunger = _num(data.hunger, 100, 0, 100);
+            this.clean = _num(data.clean, 100, 0, 100);
+            this.bond = _num(data.bond, 50, 0, 100);
+            this.corruption = _num(data.corruption, 0, 0, 100);
+            this.affection = _num(data.affection, 0, 0, 100);
+            this.affectionLevel = _num(data.affectionLevel, 0, 0, 4);
             this.timesFed = data.timesFed ?? 0;
             this.timesWashed = data.timesWashed ?? 0;
             this.timesTalked = data.timesTalked ?? 0;
@@ -11409,22 +11467,16 @@ let selectedCharacter = 'alistair';
         }
     };
 
-    // Show save indicators on character cards
+    // Aug 2026 \u2014 owner removed the \u2764\uFE0F "Save data exists" indicator from
+    // the Active Companion / character cards (it read as visual clutter on
+    // the Companion Chronicle). This function is now cleanup-only: it
+    // strips any existing .save-indicator dots and never creates new ones.
+    // Kept as a live function (not deleted) so the existing call sites
+    // don't throw, and so a stale dot from an older cached build gets
+    // removed on the next refresh.
     function updateSaveIndicators() {
-        ['alistair','lyra','lucien','caspian','elian','proto','noir'].forEach(function(c) {
-            var card = document.querySelector('[data-character="' + c + '"]');
-            if (!card) return;
-            var hasSave = !!localStorage.getItem('pocketLoveSave_' + c);
-            var existing = card.querySelector('.save-indicator');
-            if (hasSave && !existing) {
-                var dot = document.createElement('div');
-                dot.className = 'save-indicator';
-                dot.textContent = '\u2764\uFE0F';
-                dot.title = 'Save data exists';
-                card.appendChild(dot);
-            } else if (!hasSave && existing) {
-                existing.remove();
-            }
+        document.querySelectorAll('.save-indicator').forEach(function (el) {
+            if (el && el.parentNode) el.parentNode.removeChild(el);
         });
     }
     // Reveal Proto / Noir select-screen cards if their unlock conditions are met.

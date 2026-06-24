@@ -44,10 +44,16 @@
         toast.textContent = '✨ ' + label + ' unlocked!';
         document.body.appendChild(toast);
         requestAnimationFrame(() => toast.classList.add('visible'));
-        setTimeout(() => {
+        // Tap to dismiss (owner rule); the long fallback only clears it if ignored.
+        let done = false;
+        const close = () => {
+            if (done) return; done = true;
             toast.classList.remove('visible');
             setTimeout(() => { try { toast.remove(); } catch (e) {} }, 500);
-        }, 2400);
+        };
+        toast.style.cursor = 'pointer';
+        toast.addEventListener('click', close);
+        setTimeout(close, 8000);
 
         // Pulse the button itself
         btn.classList.add('action-btn-unlock-pulse');

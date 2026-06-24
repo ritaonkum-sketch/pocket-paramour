@@ -12,6 +12,59 @@ const GALLERY_CARDS = [
         unlock: { type: "scene", condition: "Begin her story" },
         unlocked: true
     },
+    // ── Lyra CARE-LOOP reward cards (Jun 2026) ────────────────────────────
+    // Lyra had ZERO care-unlockable cards — every other card was story-choice
+    // or premium, so her care route never popped a reveal. These mirror the
+    // other characters' cadence (an early "keep showing up" reward + the
+    // affection-tier climb at Bond 1/3/4) so tending Lyra feels rewarding too.
+    {
+        id: "lyra-care-tide",
+        title: "Tide-Learned",
+        subtitle: "The cave knows your footsteps now",
+        image: "assets/lyra/body/neutral.png",
+        rarity: "uncommon",
+        unlock: { type: "interactions", count: 8, condition: "Care for her 8 times" }
+    },
+    {
+        id: "lyra-care-note",
+        title: "A Note, For You",
+        subtitle: "She hummed it — and meant it",
+        image: "assets/lyra/body/singing.png",
+        rarity: "uncommon",
+        unlock: { type: "affection", level: 1, condition: "Reach Familiar affection" }
+    },
+    {
+        id: "lyra-care-unsung",
+        title: "The Unsung Verse",
+        subtitle: "The one she kept from the sailors",
+        image: "assets/lyra/body/power.png",
+        rarity: "rare",
+        unlock: { type: "affection", level: 3, condition: "Reach Close affection" }
+    },
+    {
+        id: "lyra-care-saltname",
+        title: "Your Name in Salt",
+        subtitle: "She wrote it where the tide can’t reach",
+        image: "assets/lyra/body/singing.png",
+        rarity: "legendary",
+        unlock: { type: "affection", level: 4, condition: "Reach In Love affection" }
+    },
+    {
+        id: "lyra-care-deep",
+        title: "What the Deep Taught Her",
+        subtitle: "A note only you have heard her hold",
+        image: "assets/lyra/body/power.png",
+        rarity: "rare",
+        unlock: { type: "bond", value: 70, condition: "Reach a deep bond" }
+    },
+    {
+        id: "lyra-care-tongue",
+        title: "A Word of the Old Tongue",
+        subtitle: "She taught you a word her people are the last to know",
+        image: "assets/lyra/body/singing.png",
+        rarity: "uncommon",
+        unlock: { type: "train", value: 20, condition: "Train with her 20 times" }
+    },
     {
         id: "lyra-cracked",
         title: "The Crack",
@@ -162,7 +215,7 @@ const GALLERY_CARDS = [
         id: "first-meeting",
         title: "First Meeting",
         subtitle: "The day it all began",
-        image: "assets/gallery/card-knight.png",
+        image: "assets/gallery/card-first-meeting.png",
         rarity: "common",
         unlock: { type: "auto", condition: "Start the game" },
         unlocked: true // Always unlocked
@@ -171,7 +224,7 @@ const GALLERY_CARDS = [
         id: "loyal-knight",
         title: "The Loyal Knight",
         subtitle: "A knight of unwavering duty",
-        image: "assets/gallery/card-portrait.png",
+        image: "assets/gallery/card-loyal-knight.png",
         rarity: "common",
         unlock: { type: "affection", level: 1, condition: "Reach Familiar affection" }
     },
@@ -395,6 +448,8 @@ const GALLERY_CARDS = [
     { id: "proto-aware", title: "Self-Aware", subtitle: "The code looked back", image: "assets/proto/body/scanning.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },
     { id: "proto-pattern", title: "Pattern Lock", subtitle: "He knows you better than you do", image: "assets/proto/body/processing.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
     { id: "proto-beyond", title: "Beyond the Edge", subtitle: "Where the map ends", image: "assets/proto/body/curious.png", rarity: "legendary", unlock: { type: "affection", level: 4, condition: "Reach In Love" } },
+    { id: "proto-reach", title: "Palm to the Glass", subtitle: "Reaching for your hand. Someday it won't pass through.", image: "assets/proto/body/calm.png", rarity: "uncommon", unlock: { type: "interactions", count: 6, condition: "Spend time with him 6 times" } },
+    { id: "proto-name", title: "He Learned Your Name", subtitle: "A new word today — it was your name.", image: "assets/proto/body/scanning.png", rarity: "rare", unlock: { type: "bond", value: 65, condition: "Reach a deep bond" } },
     { id: "proto-break", title: "System Break", subtitle: "He rewrote reality", image: "assets/proto/body/glitched.png", rarity: "legendary", unlock: { type: "scene", condition: "Break the system" } },
     { id: "proto-void", title: "The Void Speaks", subtitle: "What's beyond the code", image: "assets/proto/body/unstable.png", rarity: "premium", unlock: { type: "premium", sceneId: "proto_void", condition: "Unlock the void scene" } },
     // ── Noir cards ──────────────────────────────────────────────
@@ -402,6 +457,8 @@ const GALLERY_CARDS = [
     { id: "noir-seductive", title: "The Invitation", subtitle: "You couldn't look away", image: "assets/noir/body/seductive.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },
     { id: "noir-consuming", title: "Consumed", subtitle: "The darkness feels like home", image: "assets/noir/body/consuming.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
     { id: "noir-merged", title: "One With Shadow", subtitle: "You became what he promised", image: "assets/noir/body/dominant.png", rarity: "legendary", unlock: { type: "affection", level: 4, condition: "Reach In Love" } },
+    { id: "noir-namelow", title: "Said Low", subtitle: "He spoke your name once. You felt it for hours.", image: "assets/noir/body/whisper.png", rarity: "uncommon", unlock: { type: "interactions", count: 6, condition: "Spend time with him 6 times" } },
+    { id: "noir-ration", title: "Unhurried", subtitle: "Mortals burn so quickly. You, he would ration.", image: "assets/noir/body/casual2.png", rarity: "rare", unlock: { type: "bond", value: 65, condition: "Reach a deep bond" } },
     { id: "noir-vulnerable", title: "The Crack", subtitle: "Light where there shouldn't be", image: "assets/noir/body/vulnerable.png", rarity: "legendary", unlock: { type: "scene", condition: "See behind the darkness" } },
     { id: "noir-unmasked", title: "Unmasked", subtitle: "Without the armor of shadow", image: "assets/noir/body/vulnerable.png", rarity: "premium", unlock: { type: "premium", sceneId: "noir_unmasked", condition: "Unlock the unmasked scene" } },
     { id: "noir-whisper", title: "Midnight Whisper", subtitle: "What he said when no one heard", image: "assets/noir/body/whisper.png", rarity: "premium", unlock: { type: "premium", sceneId: "noir_whisper", condition: "Unlock the whisper scene" } },
@@ -425,6 +482,16 @@ const GALLERY_CARDS = [
         id: "elian-clearing", title: "The Clearing", subtitle: "Stars above. Forest below. Yours.",
         image: "assets/elian/body/calm.png", rarity: "legendary",
         unlock: { type: "affection", level: 4, condition: "Reach In Love affection" }
+    },
+    {
+        id: "elian-cloak", title: "The Cloak-Drape", subtitle: "He dropped it round your shoulders. “Better. Don’t argue.”",
+        image: "assets/elian/body/warm.png", rarity: "uncommon",
+        unlock: { type: "interactions", count: 6, condition: "Spend time with him 6 times" }
+    },
+    {
+        id: "elian-rowan", title: "Beneath the Rowan", subtitle: "He showed you the place he tends alone.",
+        image: "assets/elian/body/meditating.png", rarity: "rare",
+        unlock: { type: "bond", value: 65, condition: "Reach a deep bond" }
     },
     {
         id: "elian-scorched", title: "Scorched Earth", subtitle: "He stopped caring. It showed.",
@@ -479,6 +546,22 @@ const GALLERY_CARDS = [
         unlock: { type: "affection", level: 4, condition: "Reach In Love affection" }
     },
     {
+        id: "caspian-devoted",
+        title: "The Crown He Set Down",
+        subtitle: "He chose the quiet wing, and you, over the court",
+        image: "assets/caspian/body/tender.png",
+        rarity: "rare",
+        unlock: { type: "bond", value: 70, condition: "Reach a deep bond" }
+    },
+    {
+        id: "caspian-everyday",
+        title: "The Everyday Cup",
+        subtitle: "Not court porcelain — the cup he keeps only for you",
+        image: "assets/caspian/body/gentle.png",
+        rarity: "uncommon",
+        unlock: { type: "interactions", value: 90, condition: "Care for him 90 times" }
+    },
+    {
         id: "caspian-cage",
         title: "Golden Cage",
         subtitle: "The doors are locked. For your safety.",
@@ -509,7 +592,11 @@ const GALLERY_CARDS = [
         subtitle: "14 days without missing one",
         image: "assets/gallery/card-portrait.png",
         rarity: "legendary",
-        unlock: { type: "bond", value: 95, condition: "Reach 95+ bond" }
+        // Was { type:'bond', value:95 } — that's the Bond CARE STAT, which the
+        // player can max in a single session, so this legendary "14 days"
+        // card fired almost immediately. It now gates on the real consecutive
+        // daily-check-in streak (game.dailyStreak), matching the subtitle.
+        unlock: { type: "streak", value: 14, condition: "Care 14 days without missing one" }
     }
 ];
 
@@ -529,7 +616,7 @@ class GallerySystem {
         this.unlockedCards.add(id);
         this.newCards.add(id);
         this.save();
-        this.showNewCardNotification();
+        this._enqueueReveals([id]);
     }
 
     // Check if any new cards should unlock
@@ -561,6 +648,7 @@ class GallerySystem {
                       (g.timesTrained || 0) + (g.timesGifted || 0);
         const activeChar = (g.selectedCharacter || g.characterId || 'alistair');
         let newUnlock = false;
+        const justUnlocked = []; // every card unlocked THIS pass — each gets its own reveal
 
         GALLERY_CARDS.forEach(card => {
             if (this.unlockedCards.has(card.id)) return;
@@ -569,7 +657,11 @@ class GallerySystem {
             // card unlocks for every character on first load (the player
             // ends up with Caspian's "Royal Welcome" and Elian's "Shared
             // Fire" while playing Alistair's route).
-            if (this.cardCharacter(card) !== activeChar) return;
+            // Streak / commitment cards are player-wide, not character-specific
+            // (they reward showing up over time, not any one route) — so they
+            // unlock regardless of who's being cared for. Everything else stays
+            // scoped to the active character.
+            if (card.unlock.type !== 'streak' && this.cardCharacter(card) !== activeChar) return;
 
             let shouldUnlock = false;
             const u = card.unlock;
@@ -590,6 +682,12 @@ class GallerySystem {
                 case "bond":
                     shouldUnlock = g.bond >= u.value;
                     break;
+                case "streak":
+                    // Consecutive daily check-ins — the SAME counter the
+                    // daily-rewards milestones use. This is what "14 days
+                    // without missing one" actually means (not the Bond stat).
+                    shouldUnlock = (g.dailyStreak || 0) >= u.value;
+                    break;
                 case "premium":
                     shouldUnlock = !!(g.premiumScenes && g.premiumScenes[u.sceneId]);
                     break;
@@ -598,28 +696,89 @@ class GallerySystem {
             if (shouldUnlock) {
                 this.unlockedCards.add(card.id);
                 this.newCards.add(card.id);
+                justUnlocked.push(card.id);
                 newUnlock = true;
             }
         });
 
         if (newUnlock) {
             this.save();
-            this.showNewCardNotification();
+            // Reveal EVERY newly-unlocked card in turn — not just the last one.
+            this._enqueueReveals(justUnlocked);
         }
     }
 
-    showNewCardNotification() {
-        // Find last new card
-        const lastNew = [...this.newCards].pop();
-        const card = GALLERY_CARDS.find(c => c.id === lastNew);
-        if (!card) return;
+    // ── Sequential reveal queue ───────────────────────────────────────
+    // Multiple cards can unlock in ONE checkUnlocks pass (entering a route
+    // with affection already built, a chapter award that jumps two levels,
+    // etc.). The old code revealed only the LAST of them and silently
+    // swallowed the rest — so the player saw one popup, or NONE when it
+    // deferred over a busy screen (owner: "I don't get any card popups").
+    // Now every unlocked card is queued and revealed one after another,
+    // tap-paced. The queue is separate from newCards, so opening the gallery
+    // (which clears the "new" badge) can't lose a pending reveal.
+    _enqueueReveals(ids) {
+        if (!ids || !ids.length) return;
+        this._revealQueue = (this._revealQueue || []).concat(ids);
+        this._flushRevealQueue();
+    }
 
-        // Use gacha reveal for rare+ cards, simple toast for common/uncommon
+    _flushRevealQueue() {
+        if (this._revealActive) return;            // a reveal is already on screen
+        if (!this._revealQueue || !this._revealQueue.length) return;
+        // NEVER reveal over a story beat / chapter / blocking overlay — defer
+        // the WHOLE queue until the screen is calm, then resume from where it
+        // left off.
+        if (this._screenBusyForReveal()) { this._scheduleRevealRetry(); return; }
+        const id = this._revealQueue.shift();
+        const card = GALLERY_CARDS.find(c => c.id === id);
+        if (!card) { this._flushRevealQueue(); return; }   // skip unknown id, keep going
+        this._revealActive = true;
+        const next = () => { this._revealActive = false; this._flushRevealQueue(); };
+        // Gacha reveal for rare+ (next fires when the player taps to continue);
+        // simple corner toast for common/uncommon (auto-fades, then continue).
         if (card.rarity === 'rare' || card.rarity === 'legendary' || card.rarity === 'premium') {
-            this.playReveal(card);
+            this.playReveal(card, next);
         } else {
             this._showSimpleNotification(card);
+            setTimeout(next, 3800);
         }
+    }
+
+    // Back-compat shim — any remaining caller routes through the queue so a
+    // reveal still surfaces (and still respects the busy-screen defer).
+    showNewCardNotification() {
+        const last = [...this.newCards].pop();
+        if (last) this._enqueueReveals([last]);
+    }
+
+    // True when a story scene / chapter / blocking overlay is up — a card
+    // reveal must not cover it.
+    _screenBusyForReveal() {
+        try {
+            if (document.body.classList.contains('pp-chapter-active')) return true;
+            return !!document.querySelector(
+                '#mscard-root:not(:empty), #chp-page:not(:empty),' +
+                '#cinematic-overlay.visible, #intro-overlay.visible,' +
+                '#story-overlay:not(.hidden), #ms-encounter-root:not(:empty),' +
+                '#tp-root:not(:empty), #date-overlay:not(.hidden),' +
+                '#event-overlay:not(.hidden), #gallery-overlay:not(.hidden),' +
+                '#settings-overlay:not(.hidden), #card-reveal-overlay.visible'
+            );
+        } catch (_) { return false; }
+    }
+
+    // Poll until the screen is calm, then flush the deferred reveal. newCards
+    // still holds the unlocked card(s) (it's only cleared when the gallery
+    // opens), so re-calling showNewCardNotification reveals the pending one.
+    _scheduleRevealRetry() {
+        if (this._revealRetryTimer) return;
+        this._revealRetryTimer = setInterval(() => {
+            if (this._screenBusyForReveal()) return;
+            clearInterval(this._revealRetryTimer);
+            this._revealRetryTimer = null;
+            this._flushRevealQueue();
+        }, 1200);
     }
 
     // Simple toast notification for common/uncommon cards
@@ -636,7 +795,13 @@ class GallerySystem {
         document.body.appendChild(notif);
         if (typeof sounds !== 'undefined' && sounds.enabled) sounds.rarityChime(card.rarity);
         setTimeout(() => notif.classList.add('show'), 50);
-        setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 500); }, 3500);
+        // Tap to dismiss (owner rule: reward notices wait for the player); the
+        // long fallback only clears it if ignored, so it never just flashes past.
+        let _done = false;
+        const _close = () => { if (_done) return; _done = true; notif.classList.remove('show'); setTimeout(() => { try { notif.remove(); } catch (e) {} }, 500); };
+        notif.style.cursor = 'pointer';
+        notif.addEventListener('click', _close);
+        setTimeout(_close, 8000);
     }
 
     // ── Gacha-quality card reveal overlay ─────────────────────────
@@ -656,6 +821,9 @@ class GallerySystem {
         info.classList.add('hidden');
         info.classList.remove('visible');
         particles.innerHTML = '';
+        // If the card art is missing or a placeholder, fall back to the owner's
+        // select-portrait so the marquee reveal never shows a broken-image glyph.
+        img.onerror = () => { img.onerror = null; img.src = 'assets/' + this.cardCharacter(card) + '/select-portrait.png'; };
         img.src = card.image;
 
         // Apply rarity class
@@ -752,13 +920,21 @@ class GallerySystem {
             setTimeout(() => self._dismissReveal(overlay, onComplete), 5500);
         }
 
-        // Tap to dismiss early
+        // Tap (or touch) anywhere to dismiss — now the ONLY way the reveal
+        // closes (the per-rarity auto-dismiss timers are neutralized in
+        // _dismissReveal). Enabled once the reveal animation has settled so a
+        // stray tap doesn't skip it, and a soft "tap to continue" hint appears
+        // with it so the player knows it's waiting for them.
         const dismissHandler = () => {
             overlay.removeEventListener('click', dismissHandler);
-            self._dismissReveal(overlay, onComplete);
+            overlay.removeEventListener('touchstart', dismissHandler);
+            self._dismissReveal(overlay, onComplete, true);
         };
-        // Allow early dismiss after initial reveal
-        setTimeout(() => overlay.addEventListener('click', dismissHandler), rarity === 'common' ? 800 : 1500);
+        setTimeout(() => {
+            overlay.addEventListener('click', dismissHandler);
+            overlay.addEventListener('touchstart', dismissHandler, { passive: true });
+            self._showRevealHint(overlay);
+        }, rarity === 'common' ? 800 : 1600);
     }
 
     _showRevealInfo(info) {
@@ -766,16 +942,39 @@ class GallerySystem {
         requestAnimationFrame(() => info.classList.add('visible'));
     }
 
-    _dismissReveal(overlay, onComplete) {
+    _dismissReveal(overlay, onComplete, viaTap) {
+        // Owner direction (Jun 2026): the card reveal must WAIT FOR A TAP — it no
+        // longer auto-vanishes. The per-rarity setTimeout(...) calls above pass no
+        // viaTap and are deliberately neutralized here; ONLY a player tap/touch
+        // (viaTap === true) closes the reveal, so they can admire the card as long
+        // as they like.
+        if (!viaTap) return;
         if (overlay.classList.contains('dismissing')) return;
         overlay.classList.add('dismissing');
         overlay.classList.remove('visible');
+        const hint = overlay.querySelector('.card-reveal-hint');
+        if (hint) hint.remove();
         setTimeout(() => {
             overlay.classList.add('hidden');
             overlay.classList.remove('dismissing');
             overlay.querySelectorAll('.pp-light-beam').forEach(b => b.remove());
             if (onComplete) onComplete();
         }, 500);
+    }
+
+    // Soft "tap to continue" affordance so the player knows the reveal waits for
+    // them (it no longer closes on its own).
+    _showRevealHint(overlay) {
+        if (!overlay || overlay.querySelector('.card-reveal-hint')) return;
+        const hint = document.createElement('div');
+        hint.className = 'card-reveal-hint';
+        hint.textContent = 'tap to continue';
+        hint.style.cssText = 'position:absolute;left:50%;bottom:6%;transform:translateX(-50%);' +
+            'font-family:"Quicksand","Inter",sans-serif;font-size:11px;letter-spacing:0.18em;' +
+            'text-transform:uppercase;color:rgba(255,255,255,0.5);opacity:0;' +
+            'transition:opacity 700ms ease;pointer-events:none;z-index:5;white-space:nowrap;';
+        overlay.appendChild(hint);
+        requestAnimationFrame(() => { hint.style.opacity = '1'; });
     }
 
     _spawnRevealParticles(container, count, color) {
@@ -961,8 +1160,14 @@ class GallerySystem {
         // Section labels per category. Order matters — this is also the
         // order of headers in the rendered grid. Memories is curated to
         // multi-beat cinematic scenes only.
-        const CATEGORY_ORDER = ['beginning', 'affection', 'arc', 'shared', 'card', 'date', 'surprise', 'crossover', 'ending', 'epilogue'];
+        // Jun 2026 — Soul Weaver fragments added at the top of every
+        // character's tab: they're the meta-narrative spine of the
+        // whole game, so a player visiting Memories should see them
+        // FIRST (whether unlocked yet or not — locked ones become
+        // the chase).
+        const CATEGORY_ORDER = ['fragment', 'beginning', 'affection', 'arc', 'shared', 'card', 'date', 'surprise', 'crossover', 'ending', 'epilogue'];
         const CATEGORY_LABELS = {
+            fragment:  'Soul Weaver Memories',
             beginning: 'Beginnings',
             affection: 'Affection Scenes',
             arc:       'Decisions & Devotion',
@@ -1188,6 +1393,8 @@ class GallerySystem {
 
     _showViewerCard(card) {
         const img = document.getElementById('gallery-viewer-img');
+        // Same broken-image guard as the reveal: fall back to the select-portrait.
+        img.onerror = () => { img.onerror = null; img.src = 'assets/' + this.cardCharacter(card) + '/select-portrait.png'; };
         img.src = card.image;
         img.style.transform = 'scale(1)';
         document.getElementById('gallery-viewer-title').textContent = card.title;
@@ -1208,13 +1415,23 @@ class GallerySystem {
 
     load() {
         try {
-            const key = 'pocketlove_gallery_' + (this.game.selectedCharacter || 'alistair');
+            const active = this.game.selectedCharacter || 'alistair';
+            const key = 'pocketlove_gallery_' + active;
             const data = localStorage.getItem(key);
-            if (data) {
-                const arr = JSON.parse(data);
-                this.unlockedCards = new Set(arr);
-                this.unlockedCards.add("first-meeting"); // Always
-            }
+            this.unlockedCards = new Set(data ? JSON.parse(data) : []);
+            // Seed the catalog's freebies (cards flagged unlocked:true — one
+            // "first" memory per character) for the ACTIVE character, so every
+            // route's album opens at >=1 instead of a broken-looking 0. Before
+            // this, load() only ever re-added Alistair's "first-meeting", so a
+            // character with no saved gallery yet (e.g. caring for Lyra for the
+            // first time) showed 0/N and the collection felt empty/dead — fatal
+            // for the collect-them-all loop. Scoped to the active char because
+            // the save is per-character (pocketlove_gallery_<char>); seeding all
+            // routes' freebies here would leak other characters' cards into this
+            // character's tab counts.
+            GALLERY_CARDS.forEach(c => {
+                if (c.unlocked && this.cardCharacter(c) === active) this.unlockedCards.add(c.id);
+            });
         } catch (e) {}
     }
 }

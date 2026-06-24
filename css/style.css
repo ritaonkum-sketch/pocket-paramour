@@ -304,7 +304,9 @@ button,
     padding-top: 40px;
     z-index: 9500;
     transition: opacity 0.8s ease, visibility 0.8s;
-    overflow-y: auto;
+    /* overflow is owned by css/screens/select.css (#select-screen there sets
+       overflow-y:auto !important + overflow-x:hidden + scrollbar-hide). A second
+       overflow declaration here was dead + contradictory, so it was removed. */
 }
 
 /* Sparkle decorations on select screen — CSS dots instead of emoji */
@@ -766,80 +768,21 @@ html {
    The :has() pseudo-class is supported by all modern browsers (Chrome
    105+, Safari 15.4+, Firefox 121+); since this PWA targets mobile-web
    2024+, that's safe to rely on. */
-/* SHIP-WIDE FALLBACK (May 2026): single class hook so ANY new overlay
-   that calls PPOverlay.show() also hides these floating chips. The
-   long enumeration below is preserved for legacy overlays that haven't
-   been migrated to the helper. */
+/* Floating care-screen chips (#pp-care-progress, #dp-banner, #pp-letters-btn,
+   #chp-orb) hide while an overlay is open.
+
+   ORGANIZED (Jun 2026): the per-overlay `body:has(...)` rules that used to be
+   hand-listed here are now GENERATED from the SINGLE canonical
+   OVERLAY_SELECTORS list in js/pp-overlay.js (injected as the
+   #pp-overlay-chip-hide <style>). That list is the ONE place to register a new
+   overlay — this hand-maintained enumeration had drifted from the JS watchdog
+   (missing #date-overlay / #tp-root), which is the root cause of the recurring
+   chip-bleed bugs. The class-based triggers below stay STATIC here as an
+   always-present fallback so chip-hiding works even if the JS injection fails. */
 body.pp-overlay-active #pp-care-progress,
 body.pp-overlay-active #dp-banner,
 body.pp-overlay-active #pp-letters-btn,
 body.pp-overlay-active #chp-orb,
-body:has(#gallery-overlay:not(.hidden)) #pp-care-progress,
-body:has(#gallery-overlay:not(.hidden)) #dp-banner,
-body:has(#gallery-overlay:not(.hidden)) #pp-letters-btn,
-body:has(#gallery-overlay:not(.hidden)) #chp-orb,
-body:has(#letter-overlay:not(.hidden)) #pp-care-progress,
-body:has(#letter-overlay:not(.hidden)) #dp-banner,
-body:has(#letter-overlay:not(.hidden)) #pp-letters-btn,
-body:has(#letter-overlay:not(.hidden)) #chp-orb,
-body:has(#settings-overlay:not(.hidden)) #pp-care-progress,
-body:has(#settings-overlay:not(.hidden)) #dp-banner,
-body:has(#settings-overlay:not(.hidden)) #pp-letters-btn,
-body:has(#settings-overlay:not(.hidden)) #chp-orb,
-body:has(#cinematic-overlay.visible) #pp-care-progress,
-body:has(#cinematic-overlay.visible) #dp-banner,
-body:has(#cinematic-overlay.visible) #pp-letters-btn,
-body:has(#cinematic-overlay.visible) #chp-orb,
-body:has(#story-overlay:not(.hidden)) #pp-care-progress,
-body:has(#story-overlay:not(.hidden)) #dp-banner,
-body:has(#story-overlay:not(.hidden)) #pp-letters-btn,
-body:has(#story-overlay:not(.hidden)) #chp-orb,
-body:has(#event-overlay:not(.hidden)) #pp-care-progress,
-body:has(#event-overlay:not(.hidden)) #dp-banner,
-body:has(#event-overlay:not(.hidden)) #pp-letters-btn,
-body:has(#event-overlay:not(.hidden)) #chp-orb,
-/* (dress-panel hide-rule branches removed May 2026 — outfit system removed) */
-body:has(#gift-panel:not(.hidden)) #pp-care-progress,
-body:has(#gift-panel:not(.hidden)) #dp-banner,
-body:has(#gift-panel:not(.hidden)) #pp-letters-btn,
-body:has(#gift-panel:not(.hidden)) #chp-orb,
-body:has(#training-panel:not(.hidden)) #pp-care-progress,
-body:has(#training-panel:not(.hidden)) #dp-banner,
-body:has(#training-panel:not(.hidden)) #pp-letters-btn,
-body:has(#training-panel:not(.hidden)) #chp-orb,
-/* For these three dynamic containers, just having the element in DOM
-   isn't enough — they're left mounted (empty) after a scene plays. Only
-   suppress when they actually contain content (an open chapter list or
-   active scene card). */
-body:has(#chp-page:not(:empty)) #pp-care-progress,
-body:has(#chp-page:not(:empty)) #dp-banner,
-body:has(#chp-page:not(:empty)) #pp-letters-btn,
-body:has(#chp-page:not(:empty)) #chp-orb,
-body:has(#mscard-root:not(:empty)) #pp-care-progress,
-body:has(#mscard-root:not(:empty)) #dp-banner,
-body:has(#mscard-root:not(:empty)) #pp-letters-btn,
-body:has(#mscard-root:not(:empty)) #chp-orb,
-body:has(#ms-encounter-root:not(:empty)) #pp-care-progress,
-body:has(#ms-encounter-root:not(:empty)) #dp-banner,
-body:has(#ms-encounter-root:not(:empty)) #pp-letters-btn,
-body:has(#ms-encounter-root:not(:empty)) #chp-orb,
-body:has(#pp-ready-overlay.show) #pp-care-progress,
-body:has(#pp-ready-overlay.show) #dp-banner,
-body:has(#pp-ready-overlay.show) #pp-letters-btn,
-body:has(#pp-ready-overlay.show) #chp-orb,
-body:has(#pp-chain-toast.show) #pp-care-progress,
-body:has(#pp-chain-toast.show) #dp-banner,
-body:has(#pp-chain-toast.show) #pp-letters-btn,
-body:has(#pp-chain-toast.show) #chp-orb,
-/* Per-character intro scenes (intro.js — IntroScene). The intro
-   overlay has its own Skip button + tap-to-continue; the floating
-   Letters icon and chapters orb don't belong on top of a cinematic
-   first-impression scene. They reappear the moment the intro fades
-   out into the care loop. */
-body:has(#intro-overlay.visible) #pp-care-progress,
-body:has(#intro-overlay.visible) #dp-banner,
-body:has(#intro-overlay.visible) #pp-letters-btn,
-body:has(#intro-overlay.visible) #chp-orb,
 body.pp-chain-in-progress #pp-care-progress,
 body.pp-chain-in-progress #dp-banner,
 body.pp-chain-in-progress #pp-letters-btn,
@@ -897,13 +840,20 @@ body:has(#pp-care-thread-toast) #dp-banner {
    topbar-hide behavior automatically. The legacy enumeration is kept
    so existing overlays don't regress; new overlays should use the
    helper. See js/pp-overlay.js. */
+/* NOTE: the .visible-driven overlays (intro/cinematic) MUST also require
+   :not(.hidden). A late scene-hide timer can stamp .hidden onto an overlay
+   that a newer scene already re-showed, leaving BOTH .hidden + .visible. The
+   overlay is then display:none (truly gone) but its stale .visible used to
+   keep this rule matching → the care top bar stayed hidden forever. Gating on
+   :not(.hidden) makes .hidden authoritative: if the overlay isn't displayed,
+   the top bar shows, no matter what stale classes linger. (Jun 2026) */
 body.pp-overlay-active #affection-display,
-body:has(#intro-overlay.visible) #affection-display,
+body:has(#intro-overlay.visible:not(.hidden)) #affection-display,
 body:has(#mscard-root:not(:empty)) #affection-display,
 body:has(#ms-encounter-root:not(:empty)) #affection-display,
 body:has(#chp-page:not(:empty)) #affection-display,
 body:has(#story-overlay:not(.hidden)) #affection-display,
-body:has(#cinematic-overlay.visible) #affection-display,
+body:has(#cinematic-overlay.visible:not(.hidden)) #affection-display,
 body:has(#pp-ready-overlay.show) #affection-display,
 body:has(#pp-chain-toast.show) #affection-display,
 body:has(#gallery-overlay:not(.hidden)) #affection-display,
@@ -930,9 +880,9 @@ body:has(#mscard-root:not(:empty)) #select-screen,
 body:has(#ms-encounter-root:not(:empty)) #select-screen,
 body:has(#chp-page:not(:empty)) #select-screen,
 body:has(#tp-root:not(:empty)) #select-screen,
-body:has(#cinematic-overlay.visible) #select-screen,
+body:has(#cinematic-overlay.visible:not(.hidden)) #select-screen,
 body:has(#story-overlay:not(.hidden)) #select-screen,
-body:has(#intro-overlay.visible) #select-screen,
+body:has(#intro-overlay.visible:not(.hidden)) #select-screen,
 body.pp-chain-in-progress #select-screen {
     display: none !important;
 }
@@ -1064,7 +1014,14 @@ body {
 
     #dialogue-box { padding: 10px 12px; font-size: 13px; }
 
-    #character-fullbody { max-width: 160px; }
+    /* Aug 2026 — REMOVED `#character-fullbody { max-width: 160px }`. On
+       phones ≤360px wide it capped the full-body portrait at 160px (under
+       half the screen) AND, because #character-fullbody is absolutely
+       positioned with left:0;right:0 and no auto-margins, pinned the
+       shrunken sprite to the LEFT instead of centred. Owner reported
+       "Alistair is smaller". The high-res 1600×2626 sprites are meant to
+       fill the character area like on wider screens, so small phones now
+       fall through to the base rule (height:95%, width:auto, centred). */
 }
 
 /* ===== MOBILE — SHORT SCREENS (≤650px height) ===== */
@@ -1298,6 +1255,31 @@ body {
 }
 /* Hide outside care screen — scene-state.js drives body.pp-screen-X */
 body:not(.pp-screen-care) #care-back-btn { display: none !important; }
+
+/* Jun 2026 — owner reported the ‹ back arrow showing on top of every
+   overlay opened from the care screen (gallery, letter archive, single
+   letter, settings, MSCard story beats, chapters page). Root cause:
+   #care-back-btn is z-index:11600 and every overlay has a lower stacking
+   value, so the back arrow renders ON TOP of their headers and obscures
+   the title. Each overlay already has its own close (X button, tap-
+   anywhere, or the chapters page's own ‹). Suppress the care-back-btn
+   while any of these overlays is mounted. */
+body:has(#settings-overlay:not(.hidden)) #care-back-btn,
+body:has(#gallery-overlay:not(.hidden)) #care-back-btn,
+body:has(#letter-overlay:not(.hidden)) #care-back-btn,
+body:has(#pp-letters-overlay.show) #care-back-btn,
+body:has(#mscard-root:not(:empty)) #care-back-btn,
+body:has(#chp-page:not(.hidden)) #care-back-btn,
+body:has(#tp-root:not(:empty)) #care-back-btn,
+body:has(#date-overlay:not(.hidden)) #care-back-btn,
+body:has(#event-overlay:not(.hidden)) #care-back-btn,
+body:has(#training-panel:not(.hidden)) #care-back-btn,
+body:has(#gift-panel:not(.hidden)) #care-back-btn,
+body:has(#story-overlay:not(.hidden)) #care-back-btn,
+body:has(#intro-overlay.visible:not(.hidden)) #care-back-btn,
+body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
+    display: none !important;
+}
 
 /* ===== AFFECTION ===== */
 #affection-display {
@@ -1782,8 +1764,13 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     transition: transform var(--vfx-motion-tap, 180ms) var(--vfx-ease-tender, ease);
-    overflow: hidden;
+    /* Long lines SCROLL (no words clipped) with the scrollbar hidden — honors
+       both "never clip dialogue" and the owner's no-visible-scrollbars rule.
+       (Was `overflow:hidden`, which silently clipped text past max-height.) */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+#dialogue-box::-webkit-scrollbar { display: none; }
 
 #dialogue-box:active {
     transform: scale(0.985);
@@ -2290,7 +2277,10 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
         0 0 50px var(--vfx-glow-char, rgba(232, 76, 140, 0.18));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    scrollbar-width: none;        /* Firefox — owner: never show a scrollbar */
+    -ms-overflow-style: none;     /* old Edge/IE */
 }
+#gift-panel::-webkit-scrollbar { display: none; }   /* WebKit/Blink */
 
 #gift-panel.visible {
     transform: translateY(0);
@@ -3326,7 +3316,8 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
         0 0 26px rgba(212, 168, 91, 0.35);
     opacity: 0;
     transition: opacity 0.35s ease, transform 0.35s ease;
-    pointer-events: none;
+    pointer-events: auto;   /* tap-to-dismiss (was none) */
+    cursor: pointer;
     border: 1px solid rgba(232, 200, 138, 0.55);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -4570,7 +4561,9 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
 
 /* Druid tint: earthy green glow */
 .intro-bg-druid {
-    background: url('../assets/bg-elian-intro.png') center center / cover no-repeat;
+    /* bg-elian-intro.png is a blank placeholder — use an earthy-green gradient
+       (matching the glitch/corruptor intro pattern) until real forest art lands. */
+    background: linear-gradient(180deg, #06120a 0%, #0e2415 50%, #06120a 100%);
 }
 .intro-bg-druid ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
@@ -5842,10 +5835,17 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
        protrude; if the body content needs to scroll, that's the job of the
        letter-body's max-height + its own overflow (it already has one). */
     overflow: visible;
-    background:
-        linear-gradient(180deg, #f7ecd1 0%, #ead8ad 100%);
+    /* Flex column so the body flexes/scrolls and the title + signature are
+       STRUCTURALLY pinned inside the paper at any content length — no fragile
+       height math, the signature can never overflow onto the backdrop. */
+    display: flex;
+    flex-direction: column;
+    background: url('../assets/letter-paper.jpg');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     color: #2b1a08;
-    padding: 44px 36px 32px;
+    padding: 58px 48px 64px;
     box-shadow:
         0 30px 80px rgba(0, 0, 0, 0.7),
         0 0 60px rgba(255, 200, 140, 0.15),
@@ -5864,7 +5864,12 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
    wheel, keyboard arrows still work). The letter still feels like a single
    piece of paper, not a web page. */
 .letter-body {
-    max-height: 70vh;
+    /* Flex child: takes the remaining space inside the paper's 92vh box and
+       scrolls internally, so the title + signature stay inside the border at
+       ANY content length (replaces the old fragile max-height px math that let
+       the signature overflow onto the backdrop). */
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
     /* Firefox */
     scrollbar-width: none;
@@ -5915,7 +5920,48 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
     box-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 -3px 6px rgba(0,0,0,0.3);
 }
 
+/* Per-character WAX SEAL IMAGES (Jun 2026) — replace the default red-circle +
+   ♥ glyph with each character's pressed-wax sigil. Keyed on [data-char] (set by
+   letter.js present()). Characters without a seal image (e.g. Elian) keep the
+   default circle above. background-size:contain keeps the art crisp at any
+   aspect; the ♥ glyph is hidden via transparent colour + 0 font-size; the flat
+   circle's box-shadow/border-radius are dropped in favour of a drop-shadow that
+   follows the sigil's actual silhouette. */
+.letter-paper[data-char="alistair"] .letter-seal,
+.letter-paper[data-char="elian"]    .letter-seal,
+.letter-paper[data-char="caspian"]  .letter-seal,
+.letter-paper[data-char="lyra"]     .letter-seal,
+.letter-paper[data-char="lucien"]   .letter-seal,
+.letter-paper[data-char="noir"]     .letter-seal,
+.letter-paper[data-char="proto"]    .letter-seal {
+    width: 58px;
+    height: 58px;
+    top: -22px;
+    /* The source art is a 2:3 portrait with a baked gold-gradient background
+       (not a transparent cut-out). background-size:100% fits the whole round
+       seal inside the slot (was 150%, which zoomed in and CUT the wax edges off
+       — owner: "the seal is cut off, make it smaller"); a centred-on-the-seal
+       position + circular clip read it as a round pressed-wax stamp, and the
+       gradient is gold like the seal so the clipped ring blends rather than jars. */
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: 100%;
+    border-radius: 50%;
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.5));
+    color: transparent;
+    font-size: 0;
+}
+.letter-paper[data-char="alistair"] .letter-seal { background-image: url('../assets/seals/alistair.png'); }
+.letter-paper[data-char="caspian"]  .letter-seal { background-image: url('../assets/seals/caspian.png'); }
+.letter-paper[data-char="lyra"]     .letter-seal { background-image: url('../assets/seals/lyra.png'); }
+.letter-paper[data-char="lucien"]   .letter-seal { background-image: url('../assets/seals/lucien.png'); }
+.letter-paper[data-char="noir"]     .letter-seal { background-image: url('../assets/seals/noir.png'); }
+.letter-paper[data-char="proto"]    .letter-seal { background-image: url('../assets/seals/proto.png'); }
+.letter-paper[data-char="elian"]    .letter-seal { background-image: url('../assets/seals/elian.png'); }
+
 .letter-title {
+    flex-shrink: 0;
     font-size: 26px;
     text-align: center;
     margin: 8px 0 24px;
@@ -5944,15 +5990,128 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
 }
 
 .letter-signature {
-    text-align: right;
+    /* Centred, not right-aligned — the stationery's rose flourish sits in the
+       bottom-RIGHT corner, so a right-aligned signature lands on top of it.
+       Centre-bottom is the clear zone between the corner ornaments. */
+    text-align: center;
+    flex-shrink: 0;
     font-style: italic;
     font-size: 18px;
-    margin-top: 24px;
-    padding-right: 10px;
+    margin-top: 26px;
+    margin-bottom: 10px;
+    padding-right: 0;
     color: #3b220a;
     opacity: 0;
     transition: opacity 1.2s ease;
+    /* Soft parchment halo so the script always lifts cleanly off the paper. */
+    text-shadow: 0 1px 2px rgba(247,236,209,0.96), 0 0 9px rgba(247,236,209,0.88), 0 0 20px rgba(247,236,209,0.6);
 }
+
+/* "More below" scroll hint — a small bouncing chevron pinned to the bottom edge
+   of the scrollable .letter-body (top set in JS). Shown only while there's more
+   letter to read; fades out at the end or when the letter fits without scroll. */
+.letter-scroll-hint {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; line-height: 1; font-weight: 700;
+    color: rgba(95, 52, 18, 0.6);
+    background: radial-gradient(ellipse at center, rgba(247,236,209,0.95) 35%, rgba(247,236,209,0) 78%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 350ms ease;
+    pointer-events: none;
+    z-index: 6;
+    animation: letter-scroll-bounce 1.5s ease-in-out infinite;
+}
+.letter-scroll-hint.show { opacity: 1; }
+@keyframes letter-scroll-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(3px); }
+}
+
+/* ── PER-CHARACTER "INK" (Letters Phase 1b) ──────────────────────────
+   Each character writes in a distinct hand: ink colour, a signature
+   script, a tinted wax seal, and (Lucien) a faint arcane glow. CSS keys
+   off [data-char] set by letter.js present(); unset → default sepia. */
+.letter-paper[data-char="alistair"] { --ink: #3a2410; }   /* neat sepia */
+.letter-paper[data-char="lyra"]     { --ink: #163f3f; }   /* sea-teal */
+.letter-paper[data-char="caspian"]  { --ink: #232352; }   /* royal indigo */
+.letter-paper[data-char="lucien"]   { --ink: #3f3a64; }   /* silver-violet */
+.letter-paper[data-char="elian"]    { --ink: #283a1f; }   /* forest */
+.letter-paper[data-char="noir"]     { --ink: #16100f; }   /* near-black */
+.letter-paper[data-char="proto"]    { --ink: #141414; }   /* stark black */
+
+.letter-paper[data-char] .letter-title,
+.letter-paper[data-char] .letter-body,
+.letter-paper[data-char] .letter-paragraph,
+.letter-paper[data-char] .letter-signature,
+.letter-paper[data-char] .letter-followup-signature { color: var(--ink, #2b1a08); }
+
+/* Signature hands — neat (Pinyon) for the formal characters, flowing
+   (Tangerine) for the looser ones. The followup signature (the character's
+   reply sign-off, e.g. "— E.") gets the SAME hand + size as the main letter
+   signature so it doesn't render tiny next to it. */
+.letter-paper[data-char="alistair"] .letter-signature,
+.letter-paper[data-char="alistair"] .letter-followup-signature,
+.letter-paper[data-char="caspian"] .letter-signature,
+.letter-paper[data-char="caspian"] .letter-followup-signature,
+.letter-paper[data-char="lucien"] .letter-signature,
+.letter-paper[data-char="lucien"] .letter-followup-signature,
+.letter-paper[data-char="lyra"] .letter-signature,
+.letter-paper[data-char="lyra"] .letter-followup-signature {
+    font-family: 'Pinyon Script', 'Cormorant Garamond', cursive;
+    font-style: normal; font-size: 36px; line-height: 1.1;
+}
+.letter-paper[data-char="noir"] .letter-signature,
+.letter-paper[data-char="noir"] .letter-followup-signature,
+.letter-paper[data-char="elian"] .letter-signature,
+.letter-paper[data-char="elian"] .letter-followup-signature,
+.letter-paper[data-char="proto"] .letter-signature,
+.letter-paper[data-char="proto"] .letter-followup-signature {
+    font-family: 'Tangerine', 'Cormorant Garamond', cursive;
+    font-style: normal; font-weight: 700; font-size: 34px; line-height: 1;
+}
+.letter-paper[data-char="noir"] .letter-signature { transform: rotate(-1.5deg); color: #0e0a0a; }
+
+/* Lucien — silver ink that glows faintly. */
+.letter-paper[data-char="lucien"] .letter-title,
+.letter-paper[data-char="lucien"] .letter-body,
+.letter-paper[data-char="lucien"] .letter-paragraph {
+    text-shadow: 0 0 5px rgba(150,150,220,0.35);
+}
+
+/* Per-character wax seal tint (Alistair keeps the default red). */
+/* Lyra now uses her pressed-wax seal IMAGE (assets/seals/lyra.png) — gradient
+   tint removed so the `background:` shorthand can't override her seal art. */
+/* Caspian now uses his pressed-wax seal IMAGE (assets/seals/caspian.png) —
+   gradient tint removed so the `background:` shorthand can't override it. */
+/* Lucien now uses his pressed-wax seal IMAGE (assets/seals/lucien.png) —
+   gradient tint + glow removed so the `background:` shorthand can't override it. */
+/* Elian now uses a pressed-wax seal IMAGE (assets/seals/elian.png), wired into
+   the image-seal group above — the old green gradient tint is removed so the
+   `background:` shorthand can't override his seal art. */
+/* Noir now uses his pressed-wax seal IMAGE (assets/seals/noir.png) — gradient
+   tint removed so the `background:` shorthand can't override it. */
+/* Proto now uses his pressed-wax seal IMAGE (assets/seals/proto.png) — gradient
+   tint removed so the `background:` shorthand can't override it. */
+
+/* Proto writes in machine, not calligraphy — his whole letter renders as
+   terminal text on the parchment (fits his lowercase, code-prefixed voice).
+   Overrides the Tangerine signature group above. */
+.letter-paper[data-char="proto"] .letter-title,
+.letter-paper[data-char="proto"] .letter-body,
+.letter-paper[data-char="proto"] .letter-paragraph,
+.letter-paper[data-char="proto"] .letter-signature,
+.letter-paper[data-char="proto"] .letter-followup-signature {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-style: normal;
+}
+.letter-paper[data-char="proto"] .letter-title { font-size: 20px; letter-spacing: 0.02em; }
+.letter-paper[data-char="proto"] .letter-signature,
+.letter-paper[data-char="proto"] .letter-followup-signature { font-weight: 400; font-size: 14px; letter-spacing: 0.06em; transform: none; }
 
 .letter-tap-hint {
     text-align: center;
@@ -6131,6 +6290,16 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
 .letter-you-wrote-text {
     font-size: 14.5px;
 }
+/* The player's own sign-off inside their reply bubble — a handwritten hand,
+   so the reply reads as a signed note back, not a chat bubble. */
+.letter-you-wrote-sign {
+    margin-top: 6px;
+    text-align: right;
+    font-family: 'Pinyon Script', 'Cormorant Garamond', cursive;
+    font-size: 23px;
+    line-height: 1;
+    color: rgba(247, 236, 209, 0.95);
+}
 
 /* "THEY REPLIED" — header that introduces the followup paragraphs. */
 .letter-followup-head {
@@ -6159,10 +6328,15 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
     color: #4a2e10;
 }
 .letter-followup-signature {
-    margin-top: 14px;
-    text-align: right;
-    font-style: italic;
-    font-family: 'Georgia', serif;
+    margin-top: 16px;
+    /* Centered like the main signature (clears the corner rose ornament) and a
+       big script hand — per-character font/size come from the signature groups
+       above so it matches that character's main "— A." / "— E." sign-off. */
+    text-align: center;
+    font-family: 'Pinyon Script', 'Cormorant Garamond', cursive;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 1.1;
     color: #5a3210;
 }
 
@@ -6338,28 +6512,35 @@ body:not(.pp-screen-care) #care-back-btn { display: none !important; }
    all the bar?"). When healthy it just shrinks: thinner bars, smaller
    icons, less padding — keeps the at-a-glance status without dominating
    the screen. When any stat drops below 60 it returns to its full
-   treatment so attention-needed reads loud. */
+   treatment so attention-needed reads loud.
+   ----------------------------------------------------------------------
+   Jun 2026 — owner feedback "Why this keep changing size? now it
+   smaller/thinner...?" The original 5px compact bar was unreadable.
+   Held the smaller padding and icons (good signal that all is well),
+   but raised the bar itself back to a legible 9px so the player can
+   still read the fill level at a glance. Compact stays a hint that
+   things are healthy, not an unreadable hairline. */
 #game-container > #stats-bar {
     transition:
         padding 0.35s ease,
         gap 0.35s ease;
 }
 #game-container > #stats-bar.stats-compact {
-    padding-top: 2px !important;
-    padding-bottom: 4px !important;
-    gap: 8px !important;
+    padding-top: 4px !important;
+    padding-bottom: 6px !important;
+    gap: 10px !important;
 }
 #game-container > #stats-bar.stats-compact .stat-bar-bg {
-    height: 5px !important;
+    height: 9px !important;
     transition: height 0.35s ease;
 }
 #game-container > #stats-bar.stats-compact .stat-icon {
-    font-size: 13px !important;
+    font-size: 14px !important;
     transition: font-size 0.35s ease;
 }
 #game-container > #stats-bar.stats-compact .stat-label {
-    font-size: 8px !important;
-    opacity: 0.55 !important;
+    font-size: 9px !important;
+    opacity: 0.68 !important;
     transition: font-size 0.35s ease, opacity 0.35s ease;
 }
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v716';
+const CACHE_NAME = 'pocket-love-v914';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -62,6 +62,7 @@ const CORE_ASSETS = [
 
     // UX layers
     '/js/letter.js',
+    '/js/letter-arrival.js',
     '/js/letters-archive.js',
     '/js/ui-feel.js',
     '/js/day-progress.js',
@@ -69,6 +70,8 @@ const CORE_ASSETS = [
     '/js/first-session.js',
     '/js/day-one-overlay.js',
     '/js/idle-life.js',
+    '/js/care-blink.js',
+    '/js/care-ambiance.js',
     '/js/greetings.js',
     '/js/touch.js',
     '/js/talk-choices.js',
@@ -118,9 +121,14 @@ const CORE_ASSETS = [
     // slate) — they orchestrated meet-cutes that no longer exist. When the
     // new main story is written, a fresh orchestrator can be added back.
     '/js/today-hub.js',
+    '/js/economy.js',
     '/js/main-story-gate.js',
+    '/js/route-gates.js',
     '/js/first-care-hint.js',
-    '/js/care-target-chip.js'
+    '/js/care-target-chip.js',
+    '/js/memory-album.js',
+    '/js/alistair-care-intro.js',
+    '/js/ch6-unlock-celebration.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.

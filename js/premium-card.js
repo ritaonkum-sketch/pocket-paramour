@@ -34,6 +34,21 @@
 
   const REGISTRY = {};
   let _activeRoot = null;
+  // Aug 2026 — clean early-exit support (for the chapter player's "‹" back
+  // button). abort() sets _aborted; the beat loop checks it and breaks,
+  // running the normal finally{} teardown exactly once (root removed,
+  // _activeRoot cleared, onDone fired). _wakeSkip resolves the in-flight
+  // beat's tap-to-skip race so the exit is near-instant, not after the
+  // current beat's natural hold. Purely additive — no effect unless
+  // abort() is called, so other MSCard consumers are untouched.
+  let _aborted = false;
+  let _wakeSkip = null;
+  // When abort(true) is used (the chapter "‹" back button), the card tears
+  // down WITHOUT firing onDone — so the chapter's `await runCard()` never
+  // resolves and its completion logic (markDone, bond reward, setCurrent,
+  // ceremonies) is skipped. Exiting a chapter must never count as finishing
+  // it. The engine itself is still left clean for the next show().
+  let _suppressOnDone = false;
 
   // ─────────────────────────────────────────────────────────────────
   // STRANGER RULE (Jun 2026)
@@ -184,7 +199,14 @@
     bg.id = 'mscard-bg';
     if (card.bg) {
       const img = new Image();
-      img.onload = () => { bg.style.backgroundImage = `url(${card.bg})`; bg.style.opacity = '0.6'; };
+      img.onload = () => {
+        // A 150-byte / 1×1 placeholder loads OK (onload fires, NOT onerror) but
+        // renders blank. Treat it as a miss and keep the themed palette gradient
+        // rather than laying an empty image over the scene.
+        if (img.naturalWidth <= 4 || img.naturalHeight <= 4) { bg.style.opacity = '1'; return; }
+        bg.style.backgroundImage = `url(${card.bg})`;
+        bg.style.opacity = '0.6';
+      };
       img.onerror = () => { bg.style.opacity = '1'; };
       img.src = card.bg;
     } else {
@@ -352,6 +374,8 @@
     const pal = card.palette || {};
     const n = buildShell(card);
     _activeRoot = n.root;
+    _aborted = false;
+    _suppressOnDone = false;
     document.body.appendChild(n.root);
 
     // Tap-to-skip: each beat gets a fresh "skip" promise that resolves the
@@ -363,11 +387,13 @@
     const onSkip = () => { if (skipResolve) { const r = skipResolve; skipResolve = null; r(); } };
     n.root.addEventListener('click', onSkip);
     n.root.addEventListener('touchstart', onSkip, { passive: true });
+    _wakeSkip = onSkip; // lets abort() resolve the current beat's skip race
 
     // Race helpers: returns immediately when either the timer or a tap
     // fires. After each beat we reset the skip promise so the next tap
     // can fire again.
     const waitS = async (ms) => {
+      if (_aborted) return;
       await Promise.race([wait(ms), skipPromise]);
       resetSkip();
     };
@@ -461,6 +487,7 @@
 
     try {
       for (const beat of card.beats) {
+        if (_aborted) break;
         switch (beat.type) {
           case 'show': {
             if (beat.pose) {
@@ -830,8 +857,10 @@
             break;
         }
       }
-      // Ensure we fade out even if the card didn't include a 'hide' beat
-      if (n.root.style.opacity !== '0') {
+      // Ensure we fade out even if the card didn't include a 'hide' beat.
+      // On abort (back button) skip the 560ms fade so the exit is instant
+      // and the card doesn't linger over the reopening chapter list.
+      if (!_aborted && n.root.style.opacity !== '0') {
         n.root.style.pointerEvents = 'none';
         n.root.style.opacity = '0';
         await wait(560);
@@ -840,9 +869,37 @@
       console.warn('[premium-card] aborted:', e);
     } finally {
       try { n.root.remove(); } catch (_) {}
+      const suppressed = _suppressOnDone;
       _activeRoot = null;
-      try { onDone && onDone(); } catch (_) {}
+      _aborted = false;
+      _suppressOnDone = false;
+      _wakeSkip = null;
+      if (onDone && !suppressed) { try { onDone(); } catch (_) {} }
     }
+  }
+
+  // End the card that is currently playing. The beat loop breaks and the
+  // finally{} teardown runs once (root removed, engine reset).
+  //   abort()      → fires onDone (as if the card finished naturally)
+  //   abort(true)  → SILENT: does NOT fire onDone. Used by the chapter
+  //                  player's "‹" back button so exiting never counts as
+  //                  completing the chapter. No-op when idle.
+  function abort(silent) {
+    if (!_activeRoot) return false;
+    _aborted = true;
+    _suppressOnDone = !!silent;
+    const root = _activeRoot;
+    // Wake a waitS/typeToS-based beat...
+    try { if (_wakeSkip) _wakeSkip(); } catch (_) {}
+    // ...and force the card out of the DOM. The 'line' beat parks the loop
+    // on a tap-to-advance Promise that resolves ONLY on a tap inside the
+    // card or on the root being removed (its MutationObserver). The back
+    // button lives outside the card, so removal is what unblocks the loop —
+    // it then hits `if (_aborted) break` and the finally{} teardown runs
+    // (onDone suppressed when silent). Removing here also makes the exit
+    // instant rather than waiting out the current beat's hold.
+    try { if (root && root.parentNode) root.remove(); } catch (_) {}
+    return true;
   }
 
   // ---------------------------------------------------------------
@@ -875,5 +932,5 @@
     show(c, onDone);
   }
 
-  window.MSCard = { show, register, playSample, _registry: REGISTRY };
+  window.MSCard = { show, register, playSample, abort, _registry: REGISTRY };
 })();

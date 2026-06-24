@@ -310,6 +310,8 @@
             #pp-today-overlay.show { opacity: 1; pointer-events: auto; }
             #pp-today-hub {
                 width: 100%; max-width: 460px;
+                max-height: 86vh; overflow-y: auto;
+                scrollbar-width: none; -ms-overflow-style: none; /* owner: no visible scrollbar */
                 background: linear-gradient(180deg, #2a1840 0%, #110820 100%);
                 border-top-left-radius: 22px; border-top-right-radius: 22px;
                 border: 1px solid rgba(200,170,240,0.30);
@@ -320,6 +322,14 @@
                 transform: translateY(40px);
                 transition: transform 320ms cubic-bezier(0.2,0.9,0.3,1.2);
             }
+            #pp-today-hub::-webkit-scrollbar { width: 0; height: 0; display: none; }
+            /* Heart Threads wallet line above the embedded economy sections */
+            .pp-today-threads-wallet {
+                display: flex; align-items: center; gap: 6px;
+                margin: 0 4px 8px; font-weight: 700; font-size: 14px; color: #F4E4B8;
+            }
+            .pp-today-threads-wallet .ico { font-size: 15px; }
+            .pp-today-threads-wallet .lbl { font-weight: 600; opacity: 0.85; font-size: 12px; }
             #pp-today-overlay.show #pp-today-hub {
                 transform: translateY(0);
             }
@@ -510,6 +520,9 @@
     // ── Heavy render: build all the rows inside the overlay panel ────────
     function renderHubContents() {
         ensureOverlay();
+        // Preserve scroll across the 4s live re-render (the panel scrolls now
+        // that the Heart Threads economy is embedded below).
+        var _savedScroll = _hub.scrollTop || 0;
         // Build content
         _hub.innerHTML = '';
         const title = document.createElement('div');
@@ -614,10 +627,9 @@
             rowCount++;
         }
 
-        // If nothing to show, render a quiet empty-state row instead of an
-        // empty panel. Player tapped the button expecting something — give
-        // them a soft "all caught up" message rather than a void.
-        if (rowCount === 0) {
+        // Quiet empty-state for the SHORTCUT rows — only when there's also no
+        // Heart Threads economy to show below (otherwise the page is full).
+        if (rowCount === 0 && !(window.PPCurrency && window.PPCurrency.renderInto)) {
             const empty = document.createElement('div');
             empty.className = 'pp-today-row';
             empty.style.justifyContent = 'center';
@@ -626,12 +638,36 @@
             hub.appendChild(empty);
         }
 
+        // ── Bonds & Rewards — the Heart Threads economy lives here so the Daily
+        // tab is the single home for daily tasks; claiming them earns 🧵. The
+        // economy module renders its own check-in / daily / weekly sections. ──
+        try {
+            if (window.PPCurrency && typeof window.PPCurrency.renderInto === 'function') {
+                const thTitle = document.createElement('div');
+                thTitle.className = 'pp-today-title';
+                thTitle.style.marginTop = '14px';
+                thTitle.textContent = 'Bonds & Rewards';
+                hub.appendChild(thTitle);
+                const wallet = document.createElement('div');
+                wallet.className = 'pp-today-threads-wallet';
+                wallet.innerHTML = '<span class="ico">' + (window.PPCurrency.icon || '🧵') + '</span> <b class="ht-wallet-amt">' + window.PPCurrency.get() + '</b> <span class="lbl">' + (window.PPCurrency.name || 'Heart Threads') + '</span>';
+                hub.appendChild(wallet);
+                const threads = document.createElement('div');
+                threads.className = 'pp-today-threads';
+                hub.appendChild(threads);
+                window.PPCurrency.renderInto(threads);
+            }
+        } catch (_) {}
+
         // Close button — always present, anchors the panel
         const close = document.createElement('button');
         close.id = 'pp-today-close';
         close.textContent = 'Close';
         close.addEventListener('click', closeOverlay);
         hub.appendChild(close);
+
+        // restore scroll (refresh() rebuilds this panel every 4s while open)
+        try { _hub.scrollTop = _savedScroll; } catch (_) {}
     }
 
     function boot() {

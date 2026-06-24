@@ -70,19 +70,33 @@
     const grid = document.getElementById('select-grid');
     if (!grid) return;
     const unlocked = unlockedSet();
+    // Aug 2026: the care-route ladder (PPRouteGates.careRouteOpen) is now the
+    // single authority for select-grid lock state — Elian opens when Alistair
+    // reaches his care target, Lyra when Elian does, and so on. When it's
+    // loaded we DEFER to it, so this legacy storyDay-3 stage gate stops
+    // fighting the ladder (both were toggling ms-locked on the same cards on
+    // separate poll cycles, making cards flicker locked↔unlocked). We also
+    // skip our own click-hint binding in that case so the ladder's richer,
+    // prerequisite-naming hint (index.html showCardLockHint) is what shows.
+    // Falls back to the old pp_ms_stage gate only if route-gates didn't load.
+    const ladder = (window.PPRouteGates && typeof window.PPRouteGates.careRouteOpen === 'function')
+      ? window.PPRouteGates : null;
     grid.querySelectorAll('.select-card').forEach((card) => {
       const id = card.getAttribute('data-character');
       if (!id) return;
 
       // Don't fight with existing silhouette logic for proto/noir if they're
       // already hidden/locked — only override for the main-story-locked ones.
-      const msLocked = !unlocked.has(id);
+      let msLocked;
+      try {
+        msLocked = ladder ? !ladder.careRouteOpen(id) : !unlocked.has(id);
+      } catch (_) { msLocked = !unlocked.has(id); }
 
       // We use our own class + attribute so we never clobber existing classes.
       card.classList.toggle('ms-locked', msLocked);
       card.setAttribute('data-ms-locked', msLocked ? '1' : '0');
 
-      // When main-story has unlocked Proto or Noir, override the game's own
+      // When the gate has unlocked Proto or Noir, override the game's own
       // silhouette lock so the player can actually pick them. The game will
       // re-apply `.select-card-locked` on its own refresh cycle, so we just
       // keep yanking it back off — the MutationObserver + poll in
@@ -93,8 +107,9 @@
         }
       }
 
-      // Keep the click-intercept idempotent.
-      if (msLocked && !card._msClickBound) {
+      // Keep the click-intercept idempotent. Skip entirely when the ladder
+      // is the authority — its own handler owns locked-card taps.
+      if (!ladder && msLocked && !card._msClickBound) {
         card._msClickHandler = function (e) {
           if (card.getAttribute('data-ms-locked') === '1') {
             e.stopPropagation();

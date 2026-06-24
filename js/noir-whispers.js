@@ -68,6 +68,11 @@
     if (!g) return false;
     if (g.sceneActive) return false;
     if (g.characterLeft) return false;
+    // Care screen only, never over an overlay (Daily page, gallery, etc.).
+    // Authoritative signals — the hand-list below missed the Daily page and bled.
+    if (!document.body.classList.contains('pp-screen-care')) return false;
+    if (document.body.classList.contains('pp-overlay-active')) return false;
+    if (window.PPOverlay && window.PPOverlay.anyOpen && window.PPOverlay.anyOpen()) return false;
     const block = document.querySelector([
       '#ms-encounter-root', '#mscard-root', '#chp-page', '#chp-finale-choice',
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',

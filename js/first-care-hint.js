@@ -290,10 +290,25 @@
         setTimeout(function () {
             if (!isPending()) return;
             showModal().then(function () {
-                // Step 1 done. Player acknowledged. Advance to step 2.
+                // Step 1 done. Player tapped "Got it".
                 if (!isPending()) return;
-                setStep(STEP_CHP_BACK);
-                pulseChpBack();
+                // Aug 2026 — the modal says "return to the Chronicle to
+                // begin", so DO it for them instead of pulsing the ‹ back
+                // arrow and making them find their own way. Close the
+                // chapter list, jump to the CARE step, and pulse the CARE
+                // button once the Chronicle settles. (The old chp-back
+                // pulse step is kept wired as a fallback for refresh-mid-
+                // flow, but the happy path no longer needs a manual tap.)
+                setStep(STEP_CARE);
+                try {
+                    if (window.MSChapters && typeof window.MSChapters.close === 'function') {
+                        window.MSChapters.close();
+                    }
+                } catch (_) {}
+                setTimeout(function () {
+                    if (!isPending()) return;
+                    pulseCareBtn();
+                }, 650);
             });
         }, 700);
     }

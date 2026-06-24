@@ -619,7 +619,7 @@ const CHARACTER_LUCIEN = {
         "The wards are humming. That means I am too, apparently.",
         "Today the equations sang instead of screamed.",
         "If I could bottle this feeling, I’d win every alchemical prize.",
-        "Everything aligns today. The stars. The math. You.",
+        "Everything aligns today. The stars agree with the math for once, and both of them agree with you.",
         "My hypothesis was that you are a Weaver. I have been collecting evidence for months. I have not published it. I was hoping I was wrong. I was hoping you were safer than I suspected.\u2026You are not safer. But I am here, and so is the tower, and so is the door I moved for you."
     ],
     dirtyLines: [

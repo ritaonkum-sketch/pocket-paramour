@@ -1044,8 +1044,125 @@
 
     function buildSurprisesFor(char) { return SURPRISES.filter(s => s.character === char); }
 
+    // ── Soul Weaver memory fragments ───────────────────────────────
+    // Jun 2026 — owner asked "Does it have in the memories card?"
+    // Each character's care arc eventually unlocks a fragment of the
+    // player's own forgotten past. game.js stores these on
+    // _game.memoryFragments[charId] and plays a one-shot cinematic
+    // when unlocked. Mirror the catalogue here so the gallery's
+    // Memories tab surfaces them — both as locked teasers (to give
+    // the player something to chase) and as replayable cards
+    // (to let the player re-read the fragment whenever).
+    const SOUL_FRAGMENTS = [
+        { char: 'alistair', title: 'The Shield',
+          text: "You remember… a feeling of duty. Protecting someone. The weight of armour that wasn’t yours.",
+          subtitle: 'A weight you carried before.',
+          thumb: 'assets/alistair/body/casual.png' },
+        { char: 'lyra', title: 'The Song',
+          text: "A melody surfaces. You hummed it in another life. Someone taught it to you… someone with ocean eyes.",
+          subtitle: 'A melody from before this life.',
+          thumb: 'assets/lyra/body/singing.png' },
+        { char: 'lucien', title: 'The Pattern',
+          text: "Equations flash behind your eyes. You understood magic once. Deeply. The symbols feel like a language you forgot.",
+          subtitle: 'A language you once knew.',
+          thumb: 'assets/lucien/body/casting.png' },
+        { char: 'caspian', title: 'The Crown',
+          text: "A throne room. Not this one. Somewhere warmer. You stood beside someone important. You were important too.",
+          subtitle: 'A throne room you stood beside.',
+          thumb: 'assets/caspian/body/adoring.png' },
+        { char: 'elian', title: 'The Root',
+          text: "Soil between your fingers. A forest that spoke to you. You healed something once — not a person. A place.",
+          subtitle: 'A forest that knew your name.',
+          thumb: 'assets/elian/body/calm.png' },
+        { char: 'proto', title: 'The Code',
+          text: "A flash of data. Your summoning wasn’t random. Someone — something — chose you specifically. The selection criteria: capacity for connection.",
+          subtitle: 'You were chosen, not summoned.',
+          thumb: 'assets/proto/body/curious.png' },
+        { char: 'noir', title: 'The Loss',
+          text: "A face in shadow. Someone who loved the last Soul Weaver. Someone who broke when they died. Someone who is still here… waiting.",
+          subtitle: 'Someone still waiting.',
+          thumb: 'assets/noir/body/casual1.png' }
+    ];
+
+    function fragmentUnlocked(char) {
+        try {
+            var g = window._game;
+            if (!g || !g.memoryFragments) return false;
+            return !!(g.memoryFragments[char] && g.memoryFragments[char].unlocked);
+        } catch (_) { return false; }
+    }
+
+    // Replay opens a brand-aligned modal showing the fragment text.
+    // We do NOT re-fire the original cinematic — that path lives in
+    // game.js _checkMemoryFragment() and is one-shot by design
+    // (it gates the Soul Weaver reveal beats on first-fragment).
+    function replayFragment(char) {
+        var frag = SOUL_FRAGMENTS.find(function (f) { return f.char === char; });
+        if (!frag) return;
+        if (document.getElementById('pp-soul-frag-overlay')) return;
+        var bd = document.createElement('div');
+        bd.id = 'pp-soul-frag-overlay';
+        bd.style.cssText =
+            'position:fixed;inset:0;z-index:14000;' +
+            'background:radial-gradient(ellipse at center,' +
+            '  rgba(11,4,16,0.74) 0%, rgba(11,4,16,0.94) 80%);' +
+            'display:flex;align-items:center;justify-content:center;padding:28px;' +
+            'opacity:0;transition:opacity 320ms ease;' +
+            'cursor:pointer;';
+        var panel = document.createElement('div');
+        panel.style.cssText =
+            'max-width:360px;text-align:center;' +
+            'background:linear-gradient(180deg,' +
+            '  rgba(43,17,51,0.97) 0%, rgba(21,8,26,0.97) 100%);' +
+            'border:1px solid rgba(212,168,91,0.45);border-radius:18px;' +
+            'padding:24px 24px 20px;' +
+            'box-shadow:0 18px 48px -14px rgba(0,0,0,0.85),' +
+            '  0 0 56px rgba(232,76,140,0.30);';
+        panel.innerHTML =
+            '<div style="font-family:Quicksand,Inter,sans-serif;font-size:9px;' +
+            'letter-spacing:0.22em;font-weight:600;color:rgba(232,168,91,0.85);' +
+            'text-transform:uppercase;margin:0 0 8px;">Soul Weaver Memory</div>' +
+            '<h2 style="font-family:\'Cormorant Garamond\',serif;font-style:italic;' +
+            'font-size:24px;font-weight:500;color:rgba(244,235,220,0.98);' +
+            'margin:0 0 16px;">∼ ' + frag.title + ' ∼</h2>' +
+            '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;' +
+            'font-size:15px;line-height:1.6;color:rgba(232,200,220,0.92);' +
+            'margin:0 0 18px;">' + frag.text + '</p>' +
+            '<div style="font-family:Quicksand,Inter,sans-serif;font-size:10px;' +
+            'letter-spacing:0.18em;color:rgba(212,168,91,0.55);' +
+            'text-transform:uppercase;">tap to close</div>';
+        bd.appendChild(panel);
+        bd.addEventListener('click', function () {
+            bd.style.opacity = '0';
+            setTimeout(function () { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 320);
+        });
+        document.body.appendChild(bd);
+        void bd.offsetHeight;
+        bd.style.opacity = '1';
+    }
+
+    const FRAGMENTS = SOUL_FRAGMENTS.map(function (f) {
+        return {
+            id: 'soul-fragment-' + f.char,
+            character: f.char,
+            category: 'fragment',
+            title: 'Memory: ' + f.title,
+            subtitle: f.subtitle,
+            lockHint: 'Unlock through deep care — a bond strong enough to wake the memory.',
+            rarity: 'legendary',
+            thumbnail: f.thumb,
+            isUnlocked: function () { return fragmentUnlocked(f.char); },
+            replay: function () { replayFragment(f.char); }
+        };
+    });
+
+    function buildFragmentsFor(char) {
+        return FRAGMENTS.filter(function (f) { return f.character === char; });
+    }
+
     function withExtras(char, base) {
         return base
+            .concat(buildFragmentsFor(char))
             .concat(buildSharedMoments(char))
             .concat(buildCardsFor(char))
             .concat(buildDatesFor(char))

@@ -381,28 +381,28 @@ const CHARACTER_LYRA = {
 
     // Feed dialogue
     feedDialogue: [
-        "Mmm... ocean berries are my favourite...",
-        "You know what I like...",
-        "This tastes like home...",
-        "The sweetness reminds me of your smile..."
+        "Surface food. It still surprises me that I am the kind of creature that needs it.",
+        "*Eats slowly, watching you the whole time.* You feed me like I am worth keeping. No one has, before.",
+        "My mother said hunger is only the body singing for something. You quiet the song.",
+        "Salt and sweetness in the same bite. That is the whole of me, if you were wondering."
     ],
 
     // Wash dialogue
     washDialogue: [
-        "Ahh... the water feels wonderful...",
-        "Like swimming in moonlight...",
-        "My scales are shimmering again!",
-        "Thank you... I feel alive again..."
+        "*Sinks into the water with a long breath.* Cold. Right. I am only ever the right temperature here.",
+        "You wash the salt from me like it is tender work. It is. No one ever told you, and still you knew.",
+        "The tide used to do this. It never asked if it hurt. You ask. *Quiet.* Keep asking.",
+        "*Tips her head back, eyes closed.* This is as close to the sea as I come without leaving you. Not yet."
     ],
 
     // Gift reactions
     giftDialogue: {
-        apple:    ["Fruit from the surface? How exotic!", "It’s sweet... like you."],
-        rose:     ["A flower? I’ve never had one before...", "It smells like dreams I’ve never had..."],
-        sword:    ["A weapon? I prefer my voice...", "I’ll keep it for protection."],
-        cake:     ["Surface sweets! Amazing!", "I’ve never tasted anything so wonderful!"],
-        ring:     ["A ring...? Does this mean...?", "I’ll wear it always, close to my heart..."],
-        book:     ["Poetry about the sea... you understand me.", "These words... they sing to me."],
+        apple:    ["A fruit that grew in the light. I have only ever eaten what the dark water gives. Thank you.", "It is sweet. Most things I am handed are not."],
+        rose:     ["It will not last the week. *She studies it.* Most beautiful things do not. I will love it anyway.", "No one brings flowers to a cave. You did. I have noted that."],
+        sword:    ["A blade. I keep people away with a held note, not steel. But I understand the gesture — you want me able to.", "You would arm the thing that could drown you. *Soft.* Reckless. I will keep it."],
+        cake:     ["You carried something this sweet all the way down to the water. *Quiet.* That is the gift. Not the cake.", "I will make it last. I make everything last down here."],
+        ring:     ["A circle has no end. You know that is what you are handing me. *She does not look away.* I accept it as such.", "I will wear it where my pulse is. So it learns the rhythm you already know."],
+        book:     ["Words that hold still on a page. Mine only ever lived in the air, and then were gone. This is a kindness I did not expect.", "Read one to me. I want to hear how the surface sounds when it is trying to be beautiful."],
         pearl:    ["You found a pearl... for me? The sea only gives these when it means it.", "I’ve dived for pearls my whole life. I never expected to receive one."],
         shell:    ["A shell... I can hear the ocean in this one. Did you know that?", "Hold it to your ear. You’ll hear home."],
         song:     ["A song sheet? You thought I’d want this... you’re right.", "New music. I’ll learn it tonight. For you."],
@@ -413,10 +413,10 @@ const CHARACTER_LYRA = {
 
     // Affection level dialogue
     affectionDialogue: [
-        "I’m starting to hear your heartbeat[shy] in the waves...",
-        "Your voice... it’s becoming my favourite melody...[love]",
-        "I think... my song is changing[shy] because of you...",
-        "I love you...[shy] more than the sea loves the shore..."
+        "Your pulse keeps a key.[shy] I have been humming in it without deciding to.",
+        "I am writing something that does not end with someone leaving.[love] It is about you. It is the hardest thing I have composed.",
+        "I love you.[love] I am saying it first, and aloud, because I have watched everyone else wait until it was too late.",
+        "Come closer.[shy] *Cold hand finds your warm one.* I would rather feel this than be safe. Safe was only ever very quiet."
     ],
 
     // Departure dialogue
@@ -585,13 +585,25 @@ const CHARACTER_LYRA = {
         'hungryLines', 'happyLines', 'dirtyLines', 'annoyedLines', 'neutralLines',
         'personalities', 'tapDialogue'
     ];
+    // Aug 2026 — the foot-gun warn below is a DEV aid, not a player
+    // issue: the overwrite is correct and intentional (wrapper = SSOT),
+    // it just fires once per patched key on every boot, spamming ~10
+    // lines that bury genuine warnings. Gated behind a debug flag so
+    // normal play + boot logs stay quiet. A maintainer who wants to
+    // hunt down the stale stubs still living in character.js can flip
+    //   localStorage.setItem('pp_debug','1')
+    // in DevTools and reload to surface the guidance again. (The real
+    // cleanup — emptying those dead stub keys in character.js — is
+    // deferred to a future character.js pass; runtime is unaffected.)
+    let _ssotDebug = false;
+    try { _ssotDebug = localStorage.getItem('pp_debug') === '1'; } catch (_) {}
     _PATCHED_KEYS.forEach((key) => {
         const existing = CHARACTER_LYRA_FULL[key];
         const incoming = CHARACTER_LYRA[key];
         if (incoming === undefined) return; // wrapper doesn't define this — leave LYRA_FULL alone
         const existingNonEmpty = existing && (Array.isArray(existing) ? existing.length > 0
             : (typeof existing === 'object' && Object.keys(existing).length > 0));
-        if (existingNonEmpty) {
+        if (existingNonEmpty && _ssotDebug) {
             console.warn(
                 '[character-lyra.js] Overwriting non-empty CHARACTER_LYRA_FULL.' + key + ' from character.js. ' +
                 'The wrapper file (character-lyra.js) is the SSOT for this field. ' +

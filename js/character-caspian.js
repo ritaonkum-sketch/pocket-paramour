@@ -134,6 +134,7 @@ const CHARACTER_CASPIAN = {
         happy:     ["assets/caspian/face/gentle.png"],
         love:      ["assets/caspian/face/adoring.png"],
         neutral:   ["assets/caspian/face/neutral.png"],
+        blink:     ["assets/caspian/face/blink.png"],   // clean eye-close (Casual w/ eyes shut) for the idle face-blink
         gentle:    ["assets/caspian/face/gentle.png"],
         sad:       ["assets/caspian/face/melancholy.png"],
         crying:    ["assets/caspian/face/melancholy.png"],
@@ -165,19 +166,19 @@ const CHARACTER_CASPIAN = {
         gentle:      "assets/caspian/body/gentle.png",
         sad:         "assets/caspian/body/melancholy.png",
         melancholy:  "assets/caspian/body/melancholy.png",
-        angry:       "assets/caspian/body/hurt.png",
+        angry:       "assets/caspian/body/furious.png",
         hurt:        "assets/caspian/body/hurt.png",
         love:        "assets/caspian/body/adoring.png",
         adoring:     "assets/caspian/body/adoring.png",
-        shy:         "assets/caspian/body/tender.png",
+        shy:         "assets/caspian/body/shy.png",
         tender:      "assets/caspian/body/tender.png",
         dancing:     "assets/caspian/body/dancing.png",
         reading:     "assets/caspian/body/reading.png",
         formal:      "assets/caspian/body/formal.png",
-        casual1:     "assets/caspian/body/casual1.png",
+        casual1:     "assets/caspian/body/winks1.png",
         casual2:     "assets/caspian/body/casual2.png",
         possessive:  "assets/caspian/body/possessive.png",
-        corrupted:   "assets/caspian/body/possessive.png",
+        corrupted:   "assets/caspian/body/corrupted.png",
         talk:        "assets/caspian/body/neutral.png",
         crossarms:   "assets/caspian/body/hurt.png",
         // Real art.talking poses (3 variants for talk action)
@@ -208,14 +209,14 @@ const CHARACTER_CASPIAN = {
         eating4:     "assets/caspian/body/eating4.png",
         eating5:     "assets/caspian/body/eating5.png",
         // Washing (still placeholder)
-        splash1:     "assets/caspian/body/neutral.png",
-        splash2:     "assets/caspian/body/gentle.png",
+        splash1:     "assets/caspian/body/washing1.png",
+        splash2:     "assets/caspian/body/washing2.png",
         // Fighting (for events)
         fighting:    "assets/caspian/body/formal.png",
         fighting1:   "assets/caspian/body/formal.png",
         // Corruption
-        corrupt1:    "assets/caspian/body/possessive.png",
-        corrupt2:    "assets/caspian/body/possessive.png"
+        corrupt1:    "assets/caspian/body/corrupted.png",
+        corrupt2:    "assets/caspian/body/corrupted.png"
     },
 
     emotionToBody: {
@@ -223,16 +224,16 @@ const CHARACTER_CASPIAN = {
         love:       ["adoring", "tender"],
         neutral:    ["neutral", "reading", "formal"],
         sad:        ["melancholy", "hurt"],
-        angry:      ["hurt"],
-        shy:        ["tender", "gentle"],
-        corrupted:  ["possessive"],
+        angry:      ["angry"],
+        shy:        ["shy", "tender"],
+        corrupted:  ["corrupted"],
         sleeping:   ["reading"]
     },
 
     actionToBody: {
         // Feed.real 5-frame eating animation (royal dining)
         feed:  ["eating1", "eating2", "eating3", "eating4", "eating5"],
-        wash:  ["neutral", "gentle"],
+        wash:  ["splash1", "splash2"],
         gift:  ["adoring", "tender"],
         train: ["dancing", "reading"],
         // Talk uses the new dedicated talking poses (royal, gesturing)
@@ -482,7 +483,7 @@ const CHARACTER_CASPIAN = {
         dirty: [
             "I’m not at my best today. The mirror confirmed it.",
             "The bath has been drawn for an hour. I’ve been waiting for company.",
-            "A prince should be presentable. I’m. . not. Currently.",
+            "I have been presentable since dawn, for people who do not matter. Make me presentable for the one who does.",
             "The rose water isn’t going to apply itself.",
             "I feel less than dignified. Please don’t look too closely.",
             "Even velvet looks dull when unwashed."
@@ -588,7 +589,7 @@ const CHARACTER_CASPIAN = {
 
     hungryLines: [
         "The servants usually handle this. .",
-        "A prince doesn’t beg for food. A prince suggests strongly.",
+        "I will not beg for a meal. I will, however, look pointedly at the kitchen, and then at you.",
         "Even royalty gets hungry.",
         "The banquet hall is empty. So is my stomach.",
         "I would trade my crown for a warm meal. Almost.",
@@ -608,7 +609,7 @@ const CHARACTER_CASPIAN = {
     dirtyLines: [
         "I’m not at my best today.",
         "The bath has been drawn for an hour. Waiting.",
-        "A prince should be presentable. I’m. . not.",
+        "The court only ever sees me polished. You get me before the polish. Lucky you. . truly.",
         "Even velvet looks dull when unwashed.",
         "The rose water isn’t going to apply itself."
     ],
@@ -678,7 +679,7 @@ const CHARACTER_CASPIAN = {
     idleDialogue: {
         hungry: [
             ". .", "The servants seem to have forgotten lunch.", ". . The kitchens are so far away.",
-            "I keep glancing at the dining hall.", "A prince shouldn’t have to ask twice."
+            "I keep glancing at the dining hall.", "I am too proud to ask twice, and too hungry to mean it."
         ],
         dirty: [
             ". .", "*Picks at a stain on silk sleeve*", "The bath has been ready for an hour.",

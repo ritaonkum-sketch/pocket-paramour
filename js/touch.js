@@ -168,13 +168,72 @@
     }
 
     function getCharKey() {
-        const ch = window.CHARACTER;
+        // CHARACTER is a top-level `let` in character.js — in a classic (non-module)
+        // script that is a global LEXICAL binding, NOT a property of window. So
+        // `window.CHARACTER` was always undefined and getCharKey always returned
+        // null → every tap on the head/face/hand zones silently no-op'd (the whole
+        // tap-zone feature was dead). Read the real global; fall back to window.
+        const ch = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : (window.CHARACTER || null);
         if (!ch) return null;
         return (ch.name || '').toLowerCase();
     }
 
     function clamp(val, min, max) {
         return Math.max(min, Math.min(max, val));
+    }
+
+    // ── Tap feedback (visual pulse + soft sound + tiny haptic) ──
+    // Petting applied real stat/affection changes but gave NO press feedback,
+    // and a cooldown tap silently no-op'd — which reads as "broken." These add
+    // a floating ♡/✦ on an accepted pet and a faint "resting" ring otherwise.
+    let _fxStyleInjected = false;
+    function injectFXStyles() {
+        if (_fxStyleInjected) return;
+        _fxStyleInjected = true;
+        const s = document.createElement('style');
+        s.id = 'pp-touch-fx-css';
+        s.textContent =
+            '@keyframes pp-tapfx-rise{0%{transform:translate(-50%,-50%) scale(0.4);opacity:0}18%{opacity:1}100%{transform:translate(-50%,-165%) scale(1.1);opacity:0}}' +
+            '@keyframes pp-tapfx-ring{0%{opacity:0.55;transform:translate(-50%,-50%) scale(0.5)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.7)}}' +
+            '.pp-tapfx{position:fixed;z-index:11400;pointer-events:none;font-size:26px;line-height:1;user-select:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.55));animation:pp-tapfx-rise 720ms cubic-bezier(0.2,0.8,0.3,1) forwards}' +
+            '.pp-tapfx-ring{position:fixed;z-index:11400;pointer-events:none;width:18px;height:18px;border-radius:50%;border:2px solid rgba(232,200,138,0.7);animation:pp-tapfx-ring 480ms ease-out forwards}' +
+            '@media (prefers-reduced-motion: reduce){.pp-tapfx,.pp-tapfx-ring{animation-duration:1ms !important}}';
+        document.head.appendChild(s);
+    }
+
+    function tapPoint(e) {
+        if (e && typeof e.clientX === 'number' && (e.clientX || e.clientY)) return { x: e.clientX, y: e.clientY };
+        const t = e && e.currentTarget;
+        if (t && t.getBoundingClientRect) { const r = t.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }
+        return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    }
+
+    function spawnRise(x, y, symbol) {
+        injectFXStyles();
+        const el = document.createElement('div');
+        el.className = 'pp-tapfx';
+        el.textContent = symbol;
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => { try { el.remove(); } catch (_) {} }, 820);
+    }
+
+    function spawnRing(x, y) {
+        injectFXStyles();
+        const el = document.createElement('div');
+        el.className = 'pp-tapfx-ring';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => { try { el.remove(); } catch (_) {} }, 520);
+    }
+
+    function feedbackAccepted(x, y, zone) {
+        spawnRise(x, y, zone === 'head' ? '✦' : '♡'); // ✦ for a head pat, ♡ for face/hand
+        try { if (typeof sounds !== 'undefined' && sounds.enabled) sounds.pop(); } catch (_) {}
+        // tiny haptic — gated by the same mute toggle as sound; no-ops where unsupported (iOS)
+        try { if (typeof sounds !== 'undefined' && sounds.enabled && navigator.vibrate) navigator.vibrate(10); } catch (_) {}
     }
 
     // ── Create Touch Zones ───────────────────────────────────
@@ -232,9 +291,11 @@
         const game = window._game;
         if (!game) return;
 
-        // Cooldown check
+        const pt = tapPoint(e); // tap coords for feedback fx (captured before any early return)
+
+        // Cooldown check — a faint "resting" pulse so the tap never feels dead.
         const now = Date.now();
-        if (now - lastTouchTime < COOLDOWN_MS) return;
+        if (now - lastTouchTime < COOLDOWN_MS) { spawnRing(pt.x, pt.y); return; }
 
         // Pause check
         if (game.sceneActive || game.characterLeft) return;
@@ -251,6 +312,7 @@
                 "I'd like that. ...Someday."
             ];
             game.typewriter.show(pick(rejects), () => {});
+            spawnRing(pt.x, pt.y);
             lastTouchTime = now;
             return;
         }
@@ -262,6 +324,9 @@
         if (!zoneData || zoneData.length === 0) return;
 
         lastTouchTime = now;
+
+        // Tap feedback — floating ♡/✦ + soft pop + tiny haptic (deliberate; cooldown keeps it from ever spamming).
+        feedbackAccepted(pt.x, pt.y, zone);
 
         // Dismiss idle pose if active
         if (window.IdleLife && window.IdleLife.revert) {

@@ -180,13 +180,18 @@
     if (!g) return false;
     if (g.sceneActive) return false;
     if (g.characterLeft) return false;
-    const block = document.querySelector([
-      '#ms-encounter-root', '#mscard-root', '#chp-page', '#chp-finale-choice',
-      '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',
-      '#cinematic-overlay.visible', '#event-overlay:not(.hidden)',
-      '#gift-panel:not(.hidden)', '#training-panel:not(.hidden)',
-      '#story-overlay:not(.hidden)'
-    ].join(','));
+    // Must be ON the care screen with NOTHING layered on top. The old hand-list
+    // missed the Daily page / Chronicle / gallery etc., so "THE FAILURE" bled over
+    // the Daily page (owner report). Gate on the authoritative signals instead:
+    // the care screen is current, no overlay is up, no chain in progress.
+    if (!document.body.classList.contains('pp-screen-care')) return false;
+    if (document.body.classList.contains('pp-overlay-active')) return false;
+    if (document.body.classList.contains('pp-chain-in-progress')) return false;
+    if (window.PPOverlay && window.PPOverlay.anyOpen && window.PPOverlay.anyOpen()) return false;
+    // Belt-and-suspenders for a couple of surfaces not in the overlay registry.
+    const block = document.querySelector(
+      '#ms-encounter-root:not(:empty), #mscard-root:not(:empty), #chp-finale-choice, #mg-overlay, #mon-bundle-back, #cinematic-overlay.visible'
+    );
     return !block;
   }
 

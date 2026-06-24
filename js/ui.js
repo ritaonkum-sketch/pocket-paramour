@@ -30,40 +30,38 @@ class GameUI {
         this.giftPanel = document.getElementById('gift-panel');
 
         // Wire up buttons — each gets haptic + particle feedback
-        document.getElementById('btn-feed').addEventListener('click', () => {
-            sounds.pop();
+        document.getElementById('btn-feed')?.addEventListener('click', () => {
+            sounds.munch();  // eating SFX for ALL characters (was a generic pop)
             this._actionFeedback('btn-feed', '\uD83C\uDF54');
             this._resetIdlePoseTimer();
             this._requestNotificationPermission(); // Feature 12: ask on first action
             if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lyra') {
-                sounds.munch();
-                this._lyraEatSequence();
+                this._lyraEatSequence();  // munch already played above for everyone
             }
             this.game.feed();
         });
-        document.getElementById('btn-wash').addEventListener('click', () => {
-            sounds.pop();
+        document.getElementById('btn-wash')?.addEventListener('click', () => {
+            sounds.splash();  // water SFX for ALL characters (was a generic pop)
             this._actionFeedback('btn-wash', '\uD83D\uDCA7');
             this._resetIdlePoseTimer();
             if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lyra') {
-                sounds.splash();
-                this._lyraWashSequence();
+                this._lyraWashSequence();  // splash already played above for everyone
             }
             this.game.wash();
         });
-        document.getElementById('btn-gift').addEventListener('click', () => {
+        document.getElementById('btn-gift')?.addEventListener('click', () => {
             sounds.chime();
             this._actionFeedback('btn-gift', '\uD83C\uDF81');
             this._resetIdlePoseTimer();
             this.toggleGiftPanel();
         });
-        document.getElementById('btn-train').addEventListener('click', () => {
+        document.getElementById('btn-train')?.addEventListener('click', () => {
             sounds.clash();
             this._actionFeedback('btn-train', '\u2728');
             this._resetIdlePoseTimer();
             this.game.train();
         });
-        document.getElementById('btn-talk').addEventListener('click', () => {
+        document.getElementById('btn-talk')?.addEventListener('click', () => {
             sounds.pop();
             this._actionFeedback('btn-talk', '\uD83D\uDCAC');
             this._resetIdlePoseTimer();
@@ -71,18 +69,18 @@ class GameUI {
             this.setCharacterSprite(this._lastEmotion || 'neutral', 'talk');
             this.game.talk();
         });
-        document.getElementById('revival-btn').addEventListener('click', () => this.game.revive());
+        document.getElementById('revival-btn')?.addEventListener('click', () => this.game.revive());
 
         // Close panels
         // (dress-close listener removed May 2026 — outfit system removed)
-        document.getElementById('gift-close').addEventListener('click', () => this.closeGiftPanel());
-        document.getElementById('achievement-close').addEventListener('click', () => this.closeAchievementPanel());
+        document.getElementById('gift-close')?.addEventListener('click', () => this.closeGiftPanel());
+        document.getElementById('achievement-close')?.addEventListener('click', () => this.closeAchievementPanel());
 
         // Trophy button
-        document.getElementById('trophy-btn').addEventListener('click', () => this.toggleAchievementPanel());
+        document.getElementById('trophy-btn')?.addEventListener('click', () => this.toggleAchievementPanel());
 
         // Story continue
-        document.getElementById('story-continue').addEventListener('click', () => this.closeStoryScene());
+        document.getElementById('story-continue')?.addEventListener('click', () => this.closeStoryScene());
 
         // Init subsystems
         // (initDressPanel removed May 2026 — outfit system removed)
@@ -582,8 +580,12 @@ class GameUI {
             const timeSinceInteraction = Date.now() - g.lastInteractionTime;
 
             // Only speak if player hasn't interacted for 15+ seconds
-            // AND the typewriter isn't already showing something
-            if (timeSinceInteraction > 15000 && !(g.typewriter && g.typewriter.isTyping)) {
+            // AND the typewriter isn't busy (typing OR a finished line is
+            // still on screen). Jun 2026 — the old check used isTyping
+            // only, so a finished line waiting for tap-dismissal would
+            // get overwritten by the idle scheduler. Use busy() which
+            // covers both states.
+            if (timeSinceInteraction > 15000 && !(g.typewriter && g.typewriter.busy())) {
 
                 // ── Lyra: tiered idle — short / medium / long ────────────────
                 // Routes to per-tier + per-personality-profile pools instead of
@@ -713,7 +715,16 @@ class GameUI {
                 // player leaves care. Owner heard fireplace crackle on
                 // the Chronicle. Skip the play, but DO reschedule so
                 // the loop is ready again when care resumes.
-                if (!document.body.classList.contains('pp-screen-care')) {
+                // Care-view gate (Jun 2026). Must match the BGM guard: skip not
+                // only when off-care, but also when a page COVERS care (Main
+                // Story / gallery / settings) or a chapter is playing — else the
+                // per-character ambient bleeds onto the Main Story etc. (body
+                // stays pp-screen-care while #chp-page overlays it). Falls back
+                // to the plain body check if the shared helper isn't loaded.
+                var _careOK = (typeof window.PPCareView === 'function')
+                    ? window.PPCareView()
+                    : document.body.classList.contains('pp-screen-care');
+                if (!_careOK) {
                     scheduleNext();
                     return;
                 }
@@ -1002,17 +1013,43 @@ class GameUI {
         const grid = document.getElementById('gift-grid');
         grid.innerHTML = '';
 
+        // Heart Threads spend side (increment 2): show a cost per gift + dim
+        // what the player can't afford yet. Free + unchanged when the economy
+        // is off (no PPCurrency / main story disabled).
+        const _econOn = (function () { try { return localStorage.getItem('pp_main_story_enabled') === '1' && !!window.PPCurrency; } catch (_) { return false; } })();
         gifts.forEach(gift => {
             const item = document.createElement('div');
             item.className = 'gift-item';
+            const cost = _econOn ? window.PPCurrency.giftCost(gift) : 0;
+            if (_econOn && !window.PPCurrency.canAfford(cost)) item.classList.add('gift-unaffordable');
             item.innerHTML = `
                 <span class="gift-icon">${gift.icon}</span>
                 <span class="gift-name">${gift.name}</span>
                 <span class="gift-effect">${gift.effect}</span>
+                ${_econOn ? `<span class="gift-cost">${window.PPCurrency.icon} ${cost}</span>` : ''}
             `;
             item.addEventListener('click', () => this.giveGift(gift));
             grid.appendChild(item);
         });
+
+        // Wallet balance in the gift-panel header (tap → Bonds & Rewards).
+        if (_econOn) {
+            try {
+                const hdr = document.getElementById('gift-panel-header');
+                if (hdr) {
+                    let bal = document.getElementById('gift-balance');
+                    if (!bal) {
+                        bal = document.createElement('span');
+                        bal.id = 'gift-balance';
+                        bal.title = 'Open Bonds & Rewards';
+                        bal.addEventListener('click', (e) => { e.stopPropagation(); try { window.PPCurrency.open(); } catch (_) {} });
+                        const closeBtn = document.getElementById('gift-close');
+                        if (closeBtn) hdr.insertBefore(bal, closeBtn); else hdr.appendChild(bal);
+                    }
+                    bal.innerHTML = window.PPCurrency.icon + ' <span>' + window.PPCurrency.get() + '</span>';
+                }
+            } catch (_) {}
+        }
 
         this.gifts = gifts;
     }
@@ -1020,6 +1057,24 @@ class GameUI {
     giveGift(gift) {
         const g = this.game;
         if (g.characterLeft) return;
+
+        // Heart Threads cost (spend side, increment 2). Only enforced when the
+        // economy is enabled; otherwise gifts stay free (backward compatible).
+        const _econOn = (function () { try { return localStorage.getItem('pp_main_story_enabled') === '1' && !!window.PPCurrency; } catch (_) { return false; } })();
+        if (_econOn) {
+            const _cost = window.PPCurrency.giftCost(gift);
+            if (!window.PPCurrency.canAfford(_cost)) {
+                this.showNotification('Not enough ' + window.PPCurrency.icon + ' — care daily to earn more');
+                try { (sounds.blip ? sounds.blip() : sounds.chime()); } catch (_) {}
+                try {
+                    const _gi = [...document.querySelectorAll('#gift-grid .gift-item')]
+                        .find(el => el.querySelector('.gift-name') && el.querySelector('.gift-name').textContent === gift.name);
+                    if (_gi) { _gi.classList.remove('ht-shake'); void _gi.offsetWidth; _gi.classList.add('ht-shake'); }
+                } catch (_) {}
+                return; // do NOT apply or close the panel — let them pick a cheaper gift
+            }
+            window.PPCurrency.spend(_cost);
+        }
 
         // Track gift memory — character remembers what you gave them
         if (!g._giftMemory) g._giftMemory = {};
@@ -1063,12 +1118,36 @@ class GameUI {
         const charDialogue = CHARACTER.giftDialogue && CHARACTER.giftDialogue[gift.id];
 
         const alistairDialogues = {
-            apple: ["An apple? Simple but thoughtful.", "Crunchy! I like it."],
-            rose:  ["A rose...? My heart is racing...", "It's beautiful... like you."],
-            sword: ["A whetstone! Now my blade will sing!", "You understand a knight's needs."],
-            cake:  ["Cake?! You spoil me!", "This is the most delicious thing I've ever tasted!"],
-            ring:  ["A ring...? Is this... a promise?", "I'll wear this always. Close to my heart."],
-            book:  ["Poetry... you know me well.", "I'll read this by candlelight tonight."]
+            apple: [
+                "Rations on patrol are worse than this. Far worse. *He eats it in three bites.* Thank you.",
+                "Practical. You thought about whether I had eaten. People usually do not. I noticed that you did.",
+                "An apple. I will not make a speech about an apple. *Pause.* But I will remember you brought it."
+            ],
+            rose: [
+                "A rose. *He holds it like it might give an order he has to obey.* I do not own a vase. I will find one.",
+                "Knights are handed medals, not flowers. I find I prefer the flower. Do not repeat that.",
+                "*Looks at it, then at you, then away.* I will press it in the watch-log. Where I will see it."
+            ],
+            sword: [
+                "A whetstone. *His whole posture eases.* This is the kindest thing anyone has handed me in years. You understand the work.",
+                "A blade goes dull and a man stops noticing. You noticed for me. That is what this is.",
+                "Good stone. I will keep an edge through the night watch with it. And think of who gave it. Every time."
+            ],
+            cake: [
+                "This is too much. *He eats it anyway.* It is very good. I am a simple man with one weakness, it seems.",
+                "We did not have cake at the wall. I am a grown man and I think this is my first. Do not laugh.",
+                "You went to trouble. For me. I am still learning what to do when someone does that. Thank you."
+            ],
+            ring: [
+                "*He goes very still.* I know what a ring means. I will not pretend I do not. Ask me the question and I will answer it.",
+                "I have sworn one oath in my life, to the realm. *He closes his hand around it.* I am prepared to swear a second.",
+                "I will wear it on my sword hand. So it is the last thing between you and any harm that comes."
+            ],
+            book: [
+                "Poetry. *He turns it over carefully.* I read slowly. I will read every line. That is a promise, not a courtesy.",
+                "You think I am the sort of man who reads poetry. *Quiet.* You are right. I simply never tell anyone.",
+                "I will read this on the night watch, when it is quiet enough to hear the words. Thank you for knowing I would."
+            ]
         };
 
         const lyraDialogues = {
@@ -1106,6 +1185,7 @@ class GameUI {
         } else {
             this.closeAllPanels('gift');
             clearTimeout(this._giftCloseTimer);
+            this.initGiftPanel(); // rebuild grid w/ current Heart Threads balance + affordability
             this.giftPanel.classList.remove('hidden');
             requestAnimationFrame(() => this.giftPanel.classList.add('visible'));
         }
@@ -1120,6 +1200,11 @@ class GameUI {
     // ===== STORY SCENES =====
 
     showStoryScene(dialogue, emotion) {
+        // {name} substitution — milestone-event lines (character.js
+        // milestoneEvents, e.g. deepFeeling) embed {name} tokens. Swap in the
+        // player's chosen name before typing it out. PPApplyName (dialogue.js)
+        // is a no-op when there's no token or no stored name.
+        dialogue = (dialogue && window.PPApplyName) ? window.PPApplyName(dialogue) : (dialogue || '');
         const faces = CHARACTER.faceSprites[emotion || 'love'];
         const fallback = CHARACTER.faceSprites.neutral ? CHARACTER.faceSprites.neutral[0] : 'assets/alistair/face/neutral.png';
         const src = faces ? faces[Math.floor(Math.random() * faces.length)] : fallback;
@@ -1136,9 +1221,20 @@ class GameUI {
 
         sounds.fanfare();
 
+        // Cancel any in-flight typewriter from a PREVIOUS milestone scene.
+        // Without this, crossing affection levels in quick succession (e.g. L2
+        // growingClose then L3 deepFeeling within ~1.5s) left the previous
+        // scene's typewriter setTimeout-chain running — it kept appending its
+        // tail into THIS scene's freshly-cleared box, so growingClose's
+        // "...I think it's you." bled in as a stray "'s you." prefix (owner-
+        // reported "missing words"). A generation token makes any stale
+        // typewriter stop on its next tick.
+        const _gen = (this._storyTypeGen = (this._storyTypeGen || 0) + 1);
+
         // Typewrite the story dialogue
         let i = 0;
         const typeStory = () => {
+            if (_gen !== this._storyTypeGen) return; // a newer scene took over — stop
             if (i < dialogue.length) {
                 this.storyDialogue.textContent += dialogue[i];
                 i++;
@@ -1604,13 +1700,41 @@ class GameUI {
         const faces = CHARACTER.faceSprites[emotion];
         if (faces && faces.length > 0) {
             const faceSrc = faces[Math.floor(Math.random() * faces.length)];
+            // Aug 2026 — same missing-art fallback as the body sprite: some
+            // characters ship 1×1 placeholder faces; swap to the select
+            // portrait so the dialogue avatar isn't a blank square.
+            var _fid = (faceSrc.match(/assets\/([^/]+)\//) || [])[1] || null;
+            var _faceFallback = _fid ? ('assets/' + _fid + '/select-portrait.png') : null;
+            var faceFallbackOnLoad = function () {
+                if (this.naturalWidth <= 1 && _faceFallback &&
+                    this.getAttribute('data-art-fellback') !== '1') {
+                    this.setAttribute('data-art-fellback', '1');
+                    this.src = _faceFallback;
+                }
+            };
+            var faceFallbackOnError = function () {
+                if (_faceFallback && this.getAttribute('data-art-fellback') !== '1') {
+                    this.setAttribute('data-art-fellback', '1');
+                    this.src = _faceFallback;
+                }
+            };
             const faceImg = document.getElementById('character-face-img');
             // Guard: only swap src when it actually changed. Prevents ERR_ABORTED
             // spam from the browser aborting in-flight fetches on rapid re-sets.
-            if (faceImg && faceImg.getAttribute('src') !== faceSrc) faceImg.src = faceSrc;
+            if (faceImg && faceImg.getAttribute('src') !== faceSrc) {
+                faceImg.removeAttribute('data-art-fellback');
+                faceImg.onload = faceFallbackOnLoad;
+                faceImg.onerror = faceFallbackOnError;
+                faceImg.src = faceSrc;
+            }
             // Sync dialogue face portrait
             const dlgFace = document.getElementById('dialogue-face-img');
-            if (dlgFace && dlgFace.getAttribute('src') !== faceSrc) dlgFace.src = faceSrc;
+            if (dlgFace && dlgFace.getAttribute('src') !== faceSrc) {
+                dlgFace.removeAttribute('data-art-fellback');
+                dlgFace.onload = faceFallbackOnLoad;
+                dlgFace.onerror = faceFallbackOnError;
+                dlgFace.src = faceSrc;
+            }
         }
 
         // Update full body pose — action-specific pose takes priority
@@ -1649,14 +1773,36 @@ class GameUI {
                 const bodyImg = document.getElementById('character-body-img');
                 // Guard: only swap src when it actually changed (prevents ERR_ABORTED spam).
                 if (bodyImg && bodyImg.getAttribute('src') !== bodySrc) {
+                    // Aug 2026 — graceful fallback for MISSING care art. Some
+                    // characters ship placeholder 1×1 body poses (Elian, Noir,
+                    // Proto today); without this the care screen renders a
+                    // blank character. Derive the character's select-portrait
+                    // from the pose path and swap to it if the pose loads as a
+                    // 1×1 stub (or fails). Clears the one-shot flag on every
+                    // real pose change so a later valid pose still shows.
+                    var _charId = (bodySrc.match(/assets\/([^/]+)\//) || [])[1] || null;
+                    var _fallbackSrc = _charId ? ('assets/' + _charId + '/select-portrait.png') : null;
+                    bodyImg.removeAttribute('data-art-fellback');
                     bodyImg.src = bodySrc;
                     // Detect aspect ratio on load and tag the element so the
                     // CSS can switch between landscape (cover) and portrait
                     // (contain) fitting. Matters for Alistair who mixes both.
                     bodyImg.onload = function() {
+                        if (this.naturalWidth <= 1 && _fallbackSrc &&
+                            this.getAttribute('data-art-fellback') !== '1') {
+                            this.setAttribute('data-art-fellback', '1');
+                            this.src = _fallbackSrc;   // re-fires onload with the portrait
+                            return;
+                        }
                         const ratio = this.naturalWidth / (this.naturalHeight || 1);
                         this.classList.toggle('is-landscape', ratio > 1.1);
                         this.classList.toggle('is-portrait', ratio < 0.95);
+                    };
+                    bodyImg.onerror = function() {
+                        if (_fallbackSrc && this.getAttribute('data-art-fellback') !== '1') {
+                            this.setAttribute('data-art-fellback', '1');
+                            this.src = _fallbackSrc;
+                        }
                     };
                 }
             }

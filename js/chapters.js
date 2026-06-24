@@ -60,7 +60,19 @@
     try { localStorage.setItem(CUR_KEY, String(n)); } catch (e) {}
   }
   function isDone(id) { try { return localStorage.getItem('pp_chapter_done_' + id) === '1'; } catch (e) { return false; } }
-  function markDone(id) { try { localStorage.setItem('pp_chapter_done_' + id, '1'); } catch (e) {} }
+  function markDone(id) {
+    try { localStorage.setItem('pp_chapter_done_' + id, '1'); } catch (e) {}
+    // Aug 2026 — chapter completion awards a modest bond bump to the
+    // chapter's primary suitor (route-gates.js). First-play only;
+    // replays don't re-award (latched in pp_chapter_bond_awarded_<id>).
+    // The award helper is the route system's "reward half" — locks
+    // ask the player to care, completions repay that care.
+    try {
+      if (window.PPRouteGates && typeof window.PPRouteGates.onChapterDone === 'function') {
+        window.PPRouteGates.onChapterDone(id);
+      }
+    } catch (_) {}
+  }
 
   // ---------------------------------------------------------------
   // MS encounter wrappers: run the existing meet-cute as the chapter opener.
@@ -1676,7 +1688,7105 @@
       }
     }
 
-    // ── CHAPTER 9 onward will be appended here.
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 9 · "The Short Way South"
+    // Owner PDF Ch9-16 V3. Elian continues — second morning at the hut,
+    // the road south to the coast, the first sight of the sea, and the
+    // first appearance of Lyra at her cave arch. Chapter introduces Lyra.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 9,
+      title: 'Chapter 9',
+      subtitle: 'The Short Way South',
+      teaser: 'He has packed for you to walk through. South. The coast. Someone he wants you to meet.',
+      charId: 'elian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_9_full',
+          title: 'Chapter 9',
+          subtitle: 'The Short Way South',
+          speaker: 'ELIAN',
+          palette: { bg: '#0e1815', glow: '#a5c2b5', accent: '#dde6d8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · Morning · he has decided ─────────────────────
+            { type: 'line', speaker: '', text: 'You wake to the sound of him moving quietly. The kettle. The bench. The door.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something is different this morning.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You sit up. The blanket the colour of moss falls away from your shoulders.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your ankle is wrapped fresh. He must have done it before you woke.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not look at you when he speaks.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"We leave at first light. There is someone you should meet."', hold: 3400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…where."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"South. The coast."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"How long."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Two days. If the leg holds. I know the short way."', hold: 3000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sets a small wrapped parcel on the table. Bread. Dried meat. Road food.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He still does not look at you.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look at the door he has packed for you to walk through.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…so. He has decided for me to go.*', hold: 2800, cps: 26 },
+
+            // ─── Section 2 · Two cloaks · one moss, one red ───────────────
+            { type: 'line', speaker: '', text: 'You stand. Test the ankle. It holds. You take the parcel from the table without saying anything.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Elian crosses to a peg by the door. Takes down a cloak. Soft grey-green wool. The colour of moss in winter. Worn at the hem.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He holds it out to you. Does not look at you when he does.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"Yours is gone. The captain’s is too heavy. And too red."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"Wear this."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The weight is right. Warm without being hot. The kind of cloak made to be lived in.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'On the inside collar — a small stitched leaf. Green thread. Old. Faded.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not ask what the mark is. You can feel the answer in the cloth.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You put it on. The hood is the right size. It settles around your shoulders like something that has been waiting.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has turned back to the hearth without watching you put it on.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'On the back of the chair by the bed — a red wool cloak folded over the rail. Heavy. Dust-marked at the hem from a walk through a wood.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The captain’s. You have not worn it since you came indoors. You have not put it away either.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not put it on. You fold it. Small. Tight.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take the small leather bag Elian has set by the door. You slide the folded cloak into the bottom of it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Elian sees. He does not speak. He turns back to his own door so you do not have to be watched while you do it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The bag goes over your shoulder. The captain’s cloak is at the bottom, under the bread.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He watches you a half-second too long. Then turns to the door.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…so the journey starts.*', hold: 2200, cps: 28 },
+
+            // ─── Section 3 · Into the wood ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The wood. Mid-morning. You walk behind him. He has shortened his stride for you.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You can tell he has done this before. For someone smaller than himself.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You pretend not to notice. He pretends you do not notice.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The wood is different on this side of the hut. Older trees. Light coming down in narrow shafts. The moss is thicker.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You walk for a long time without speaking. The pace becomes a rhythm.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pain in the ankle becomes background. Manageable. Present. Not in charge.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops, once, at a place that looks like nothing. Crouches. Lays his palm on the moss. Listens.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Stands. Walks on.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he is reading the wood as we walk.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You pass a tree that has fallen wrong. The bark is the wrong colour.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks at it one breath longer than he should. Then keeps walking.', hold: 3000, cps: 26 },
+
+            // ─── Section 4 · Three stones at the foot of an oak ───────────
+            { type: 'line', speaker: '', text: 'Later. You pass markers. Three small stones at the foot of a young oak.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'They are old. They are tended. The grass is greener at their base.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You slow.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He slows with you. He does not stop. His pace softens.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…whose."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not look at the stones.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"People who tried to reach my treeline once. Long ago."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"They did not make it as far as the hut."', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"I tended what I could."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look at the three stones. You think about the two stones by the creek.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…how many small stones are in this wood.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You keep your silence. You keep walking.', hold: 2400, cps: 28 },
+
+            // ─── Section 5 · The clearing at sundown ───────────────────────
+            { type: 'line', speaker: '', text: 'The sun starts going down. The light has begun to slant gold. The wood is thinning. The understory is shorter.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You can see the sky now, in pieces, between the canopy.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops at a small clearing. A fire-pit, old, blackened. A flat stone for sitting. A ring of trees that break the wind.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ELIAN', text: '"We stop here for the night."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He kneels at the fire-pit. His hands build it the way they boil the kettle. Without watching themselves.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You sit on the flat stone. Test the ankle. It is loud now.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You have walked further today than any day since you woke.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He notices.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He crosses to you. Kneels. Takes the boot off the bad foot without asking. Unwraps the binding. Looks at the swelling. Presses. Watches your face.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You wince. He nods. As if you have answered a question.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"You did well today. We go slower tomorrow."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He rewraps. Sets the boot beside you. Stands. Goes back to the fire.', hold: 3000, cps: 26 },
+
+            // ─── Section 6 · Tea, scars, staring ───────────────────────────
+            { type: 'line', speaker: '', text: 'He pulls a small pot from his pack. Sets it at the edge of the flames. Adds a pinch from one cloth bundle, a pinch from another.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smell of pine and bitter root rises with the steam.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The same herbs. The ones that worked on you the first night.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He hands you the cup. His fingers do not brush yours.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"For the ankle. And for sleep. You walked too far today."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take it. Wrap both hands around it. The warmth goes through your palms first.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You drink. He watches the fire.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pain in the ankle softens. Set down, the way a sound goes from the front of a room to the back.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His sleeves are rolled past his forearms tonight. Firelight catches pale scars crossing the skin. Old. Numerous.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Some of them look like the root-like ones at his wrist. Others do not. Other wounds. Other years.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You realise you are staring.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He notices.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"You are doing it again."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"You make it difficult not to."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Silence.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"That sounds dangerous."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"Is it."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Firelight shifts softly across his face.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Yes."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The answer comes too quickly to be teasing.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your pulse stumbles anyway.', hold: 2200, cps: 28 },
+
+            // ─── Section 7 · Her name is Lyra ──────────────────────────────
+            { type: 'line', speaker: '', text: 'You ask the question you have been carrying since morning.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"Who is she."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not answer right away. The fire crackles. He turns a stick in it.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"Her name is Lyra."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"She lives in a cave on the coast. The last of her kin. She has been there alone for a while now."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',   text: '"…the last of her kin."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…will she give me my answers, then?"', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Long beat. He looks into the fire.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Mostly."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"And the protection you will need."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…protection from what."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"The forest?"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not looked up.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"No."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Darker than that."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The page is warm at your wrist.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You know all of it already. And you will not tell me."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not answer. He turns the stick in the fire.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…he has known all along. And he refuses to tell me. Stubborn man.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You let the question go.', hold: 1800, cps: 28 },
+
+            // ─── Section 8 · Sleep in the ring of trees ────────────────────
+            { type: 'line', speaker: '', text: 'You drink the herbs. The fire warms your hands. The wood around you is quiet. For the first time in days.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Quiet the way a wood is quiet when it has stopped paying attention.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks up at you. Once. Across the fire. Green eyes tired.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"Sleep. I will keep watch."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"You did not sleep last night either."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"I have not slept in this wood for a very long time. One more night is nothing."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You lie down on the moss. His second cloak under your head. His knife within reach.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He is sitting with his back against a tree.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You start to doze off without realising.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fire burns low. The two cloaks. The wood very dark around the ring of trees.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Somewhere far off, an owl calls. Real. Ordinary.', hold: 2800, cps: 28 },
+
+            // ─── Section 9 · The second morning · salt in the air ─────────
+            { type: 'line', speaker: '', text: 'Second morning. The light is different. Salt in the air.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your body has not known this smell. Ever. Or has and forgot.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He notices you noticing.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"The sea. Another half-day."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…I have never seen it."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks at you.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"You will today."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wood ends faster than you expect. Trees. Then bracken. Then scrub. Then sea-grass.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The land slopes down. The light gets bigger. The sky widens.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You crest a low rise.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The sea. Pale grey-green in the late morning. Going on forever.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The sky over it not separate from it. The line where they meet a soft blur.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Below you, cliffs of dark stone. Below the cliffs, a beach of broken slate.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Below the slate, water moving in slow, vast breath.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stop walking.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes are wet. You do not know why.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…it is so big.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…how did I forget there was something this big.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Elian stands beside you. He does not speak. He gives you the moment.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"This way. Across the headland. The path curves left through the trees."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"You will know when we are there."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He starts along the path. You follow.', hold: 2200, cps: 28 },
+
+            // ─── Section 10 · The headland · the singing stones ────────────
+            { type: 'line', speaker: '', text: 'The headland path. The sea on your right. Gulls work the air.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The path is paved. Old slabs, soft at the edges with moss. Someone laid this road.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…this is older than the kingdom.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The path curves left into a stand of old trees. Mushrooms at the bases. Moss at the roots.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Small clusters of pale cyan crystal in the moss. Dim in the daylight. But there.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You smell something under the salt. Stone-damp. Older.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something singing, very faintly, at the edge of hearing.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stop. Listen.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…Elian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stops ahead of you on the path. Does not turn.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"Yes. You hear it."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"What is it."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Her place. The stone hums where her people sang."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"That is not a voice."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"No. That is not her voice."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…what is it then."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks at the trees ahead of him. Not at you.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"The stone remembers the singers who came before her. There were many."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"The hum is what is left of them."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"Do not listen to it too long. Not today."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You did not realise you had taken a step forward. Toward the sound. Toward the singing path.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A hand at your wrist. Firm.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Warm fingers. Tighter than necessary. Not for a breath longer than it needs to be.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stop moving.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He releases the moment your foot is still.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The grip remembered in the air.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He walks on. Does not look back.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You follow. The hum stays with you. It is very low. It is in the bones of the path.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Not in the air. You can feel it through the soles of your shoes.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the stone knows I am coming.*', hold: 2600, cps: 28 },
+
+            // ─── Section 11 · The ruined town ──────────────────────────────
+            { type: 'line', speaker: '', text: 'The trees end. You step out onto a wide green shelf between the cliff and the inland wood.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'On the shelf, sleeping in the morning sun, a city.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Pale stone columns half-standing. Arches with their keystones still in place.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'A long colonnade roofed in green vines and moss. Walls open to the sky.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The streets still laid in the same old slabs that brought you here.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stop. Elian did not warn you.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…Elian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"This was a town once."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"She takes care of it."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"The cave is on the far side. Set into the cliff."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk through the ruin together. Paving underfoot. Columns rising on either side.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Moss between the slabs. Flowers in the cracks.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'At the far side of the ruin, the path curves through a last stand of trees and rises toward the cliff.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hum is louder. The cyan in the moss brighter.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The trees part.', hold: 1600, cps: 28 },
+
+            // ─── Section 12 · The cave arch ────────────────────────────────
+            { type: 'line', speaker: '', text: 'A stone archway set into the cliff face. Old. Weather-rounded.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Carved at the keystone with a pattern you cannot quite read. Vines hang from it.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Cyan crystal grows from the cliff to either side. Larger clusters here. The arch is taller than two men.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Through the arch, the cave goes back into the cliff. Darker than the morning.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You can see larger crystals deeper in. Pale blue. Cyan. Catching what little light reaches them.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'On the paving before the threshold — a large pale conch shell. Beside it, a small heap of pearls.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smallest kind. The ones a singer gathers on a beach over a lifetime.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…offerings.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Smoke comes from inside the cave. A thread. White, not grey. Rising through the trees above the arch.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Elian stops twenty paces from the threshold. He does not call out. Hands loose at his sides. Hood down.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He waits.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something inside the cave moves.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'A figure steps to the edge of the dark. Just inside the arch.', hold: 2800, cps: 26 },
+
+            // ─── Section 13 · Lyra · the first sight ───────────────────────
+            { type: 'line', speaker: '', text: 'Bare feet on the wet stone.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Hair the colour of turquoise rinsed in seawater. Long. Loose. Moving in the wind off the water.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Pale skin. Faintly iridescent at the throat. At the inside of the wrists. The way the inside of a shell is.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Clear water-green eyes.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'A long pale dress of layered cloth and scale. The colour of cliff and sea both.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'A worn rope at her hip holds a conch shell at her waist.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'In her right hand, a tall staff of pale wood. The head crowned with a small crystal flower carved of bone or pearl.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Taller than she is. She holds it without weight.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She is younger than you expected. And older than her face.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She does not look at Elian first. She looks at you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Her gaze on yours. Steady. Not curious. Already-knowing.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"…the wood sent me a wrong note this morning."', introduces: 'lyra', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I thought it was the weather. It was you."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not know what to say. You do not say anything.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"You came in with the cave echoing wrong. I felt it before I saw you."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She tilts her head. The way a bird tilts.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You have a name."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You have forgotten it."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You are stunned by her words.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"We will find yours when you are ready to carry it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She steps toward you. Bare feet on the paving. Slow. Careful.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She raises her free hand. Reaches for your face.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her fingertips touch the side of your cheek. Cold. Cooler than the sea air.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She does not flinch from how warm you are. She presses her palm flat. Lightly. Her thumb at your cheekbone.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'She holds it there. Her eyes have closed. Half a breath.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…that feels nice.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She opens her eyes. The look in them is the look of someone who has just heard a song she had forgotten.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"There you are."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You are a long way from where you are going."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She lets her hand drop. Slowly.', hold: 2000, cps: 28 },
+
+            // ─── Section 14 · Lyra to Elian · forgiveness ──────────────────
+            { type: 'line', speaker: '', text: 'Only now does she look at Elian.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The half-sung softness goes out of her face.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not moved.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA',  text: '"You are the warden of Thornwood."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"I am."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'LYRA',  text: '"My mother spoke of you. Once."', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LYRA',  text: '"She said you had a treeline that was kinder than the wood it kept."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA',  text: '"She tried to reach it. She did not make it that far."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'His hand has gone to the side of his cloak. The way a man’s hand goes to the place a wound used to be.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Long beat.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He inclines his head. Once. Slow. Deep.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"I am sorry I was not faster."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra looks at him for a long moment.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Then she walks across the paving. Barefoot. Until she is in front of him.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She reaches up. Lays her cool hand flat against the side of his face.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The way her people greet. She does not press her forehead to his. She holds the gesture short.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"You hid the ones you could. My mother said so."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"That is not nothing."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You did not have to come this far. You did not have to bring her yourself."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Elian’s eyes have closed. He is letting her hand be where it is. He is not moving.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She drops her hand. Steps back.', hold: 2200, cps: 28 },
+
+            // ─── Section 15 · She takes you inside ─────────────────────────
+            { type: 'line', speaker: '', text: 'She turns to you again. The half-sung softness comes back into her voice. The way the tide comes back into a pool.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"Come. The cave is warm."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I have been waiting longer than I knew to know what for."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something in your chest moves. You have not been waited for before.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She holds out her hand to you. Palm up. Cold from the cave. Open.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look at the hand. You look at Elian.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He nods. Just once. Permission. Goodbye.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You take her hand.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her fingers close around yours. Cold finding warm. She holds on a half-second longer than she has to.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"You are very cold, little weft."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"We are going to make you warm."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She leads you toward the arch.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You glance back once, at Elian.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He is still where you left him. Hood still down. Hand still at the cloak.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He raises one hand to his chest. Not a wave. An acknowledgment.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not say goodbye. You do not either.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The arch swallows the light around you and Lyra.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The hum in the stone gets louder. But not unfriendly. Older.', hold: 3000, cps: 26 },
+
+            // ─── Section 16 · Elian alone · walking away ───────────────────
+            { type: 'line', speaker: '', text: 'Elian, alone on the paving in front of the arch. Looking at the place where you have just gone in.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He does not move for a long time.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wind moves through the columns of the ruin behind him. The sea breathes against the cliffs below.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Then he turns. Begins walking back the way you came.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The way a man walks away from a grave.', hold: 2800, cps: 26 },
+
+            { type: 'hide' }
+          ]
+        });
+        try { localStorage.setItem('pp_ms_encounter_lyra_seen','1'); } catch (_) {}
+        try { localStorage.setItem('pp_met_lyra','1'); } catch (_) {}
+        markDone(9); setCurrent(nextIdAfter(9));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 10 · "The Cave Hums"
+    // Owner PDF Ch9-16 V3. Lyra's first chapter as lead. Inside her
+    // cave — the broth, the Weaver reveal, the six who came before,
+    // the salt pool, hair brushed by firelight, sleep under furs.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 10,
+      title: 'Chapter 10',
+      subtitle: 'The Cave Hums',
+      teaser: 'The cave told her. The cave does not lie. You are the seventh.',
+      charId: 'lyra',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_10_full',
+          title: 'Chapter 10',
+          subtitle: 'The Cave Hums',
+          speaker: 'LYRA',
+          palette: { bg: '#0d1518', glow: '#90c8d8', accent: '#d5ecef' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The cave mouth recedes ────────────────────────
+            { type: 'line', speaker: '', text: 'The cave mouth recedes behind you. The light goes from the pale of the sea to a warmer, dimmer thing.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Stone veined with crystal. Clusters of pale cyan growing out of the rock. Three or five at a time. Faintly luminous.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cave is not one cave. It is a series of openings. One folding into the next.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra walks ahead of you. Barefoot. Her staff tapping a soft rhythm on the stone. She does not look back.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'As she passes, the cyan brightens one degree. Quiets again behind her.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The hum from outside is here too. Quieter inside. Held in the bones of the stone. You can feel it through the soles of your feet.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You pass a place where the wall opens to your right. A pool. Still. A pale stone bench beside it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"That one is for the salt. Later."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not know what *for the salt* means.', hold: 2400, cps: 28 },
+
+            // ─── Section 2 · The home cave · broth ─────────────────────────
+            { type: 'line', speaker: '', text: 'Around a turn. Another opening. Wider.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'A driftwood fire in a low ring of stone. Two flat stones for sitting. A clay pot at the edge of the embers.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Furs heaped in one corner. A row of small clay jars on a ledge. A folded woven blanket the colour of seaweed.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You realise, with a small shock. A home. A home for one. Lived in. Loved.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"This is where I sleep. This is where you will sleep tonight."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'She sets her staff against the wall. The crystal flower at its head dims as she lets it go.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stand at the edge of the firelight. You do not know what to do with your hands. She notices.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Sit. The stone is warm where the fire has been on it."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You sit. She is right.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She kneels at the fire. Stirs the pot with a long pale spoon. Tastes. Adds something from one of the jars.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Her hands — pale. Long. Faintly iridescent at the inside of the wrists. Nothing wasted. Nothing hurried.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She is humming. Half under her breath. Not a song you would recognise.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not have a memory of music. You realise it as you sit there.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…I do not know what songs I have heard.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…I do not know if I have sung.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Firelight at the angle of her cheek. The tip of one pointed ear catches the light. She is half-smiling at the pot.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'She ladles broth into a wooden bowl. Hands it to you. Her fingers brush the back of your hand. She does not pull her hand away.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"Slowly. It is hotter than it looks."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Steam comes up. Seaweed. White pepper. Something sweet you cannot place.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You sip. It is hot.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You close your eyes for a moment. You did not know you were that cold.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She watches you eat. She does not eat with you.', hold: 2600, cps: 28 },
+
+            // ─── Section 3 · The sea pays in answers ───────────────────────
+            { type: 'line', speaker: '', text: 'After your second sip. She speaks. Quiet.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The sea pays me in answers."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look up at her. She is still looking at the fire.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I sing for a living. That is the only honest way to put it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I sing to the cave. The cave sings to the sea. The sea, sometimes, sings back."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"It does not pay well. But it pays."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"For two nights now, the sea has been singing me an answer to a question I did not know I had asked."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'She turns her face. Looks at you now, full on. The firelight at one side of her.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"You are an answer the sea has been singing for two nights, little weft."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"And I did not know what I was singing."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You set the bowl down on the stone. Your hands have started to tremble.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what am I."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She tilts her head. The way a bird tilts.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I know your name."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Or part of it."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Weaver."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cyan along the walls flares brighter. Just for a breath. All of it at once.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Then quiets.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your hand has gone, without your permission, to your sleeve. To the page.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She watches the gesture. She does not name it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Yes. There. You felt it."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You are the seventh."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You listen to her carefully.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The cave told me. The cave does not lie."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small smile.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The cave is, at worst, dramatic."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You realise you are not breathing. You make yourself breathe.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU',  text: '"…the seventh."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"…of what."', hold: 1800, cps: 28 },
+
+            // ─── Section 4 · The kingdom was woven by them ─────────────────
+            { type: 'line', speaker: '', text: 'She picks up a small stick from the edge of the fire. Turns it in her fingers.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I am going to tell you what you are. Not all of it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"The cave will be jealous if I tell you all of it on the first night."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"But enough."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She sets the stick aside.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You are a Soul Weaver."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cyan brightens again. Holds.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"There have been six before you."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The kingdom was woven by them. Originally."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"The streets. The walls. The warmth between people. The magic that runs through the wards."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"All of it. Tied together by Weavers."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The kingdom is, in its bones, the work of their hands."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The page warm at your wrist.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"That is what Weavers do. They bond."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"With people. With places. With songs. With each other."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"The bonds become the bone-structure of the world."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"When there are enough Weavers, the world holds."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"When there are not, the world thins."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Long beat. The fire cracks once. The cyan dims one degree.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"There have been six."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"They are all dead."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stare at her.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You are the seventh."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"We have been waiting a long time."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I am very glad it is you."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"…oh. That is a lot to digest."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra smiles. Soft. Real.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She holds your eyes a beat too long.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something behind the smile briefly ages. Gone again.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…how old are you, Lyra.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not ask.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She does not say it either.', hold: 2000, cps: 28 },
+
+            // ─── Section 5 · The page · the hand stays under hers ──────────
+            { type: 'line', speaker: '', text: 'Your hand is still at your sleeve. You make yourself move it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra watches the hand move. Does not look at the sleeve. Does not have to.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cave hums one note. Low. Held. The cyan along the wall brightens with it. Holds. Then quiets.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lyra reaches over. Slowly. Lays her cool fingers very lightly on the back of your wrist.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"You keep it. You will know when."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Not tonight."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You let your hand stay under hers a moment longer than you would have, earlier.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She lets her fingers stay. Then lifts them. Goes back to the fire.', hold: 3000, cps: 26 },
+
+            // ─── Section 6 · The six · the singers outlived them ──────────
+            { type: 'line', speaker: '', text: 'You speak. Your voice is hoarse.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Tell me what happened to them. The six."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cyan along the walls dims. Slowly. In a wave.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She does not answer right away. She turns the spoon in the pot.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I will not lie to you tonight, little weft."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"The other six were also welcomed by a singer at this cave."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"The singers were glad."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The singers outlived them."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The half-smile is gone now.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"That is the part of the song I will not sing for you yet."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I will sing it for you when you are ready to hear it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Tonight you eat broth."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look at the bowl. You pick it up. You drink.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She watches you drink. Her face softens.', hold: 2400, cps: 28 },
+
+            // ─── Section 7 · Lyra of where ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'After a long quiet, you ask the smallest question.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"What is your name."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She smiles. A real smile this time.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Lyra."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"Lyra of where."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The smile softens. Goes a little sadder. Stays.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Lyra of the coastal town that is not here anymore."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"It used to be just past the headland. I will take you to walk it tomorrow."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"My mother sang there. Her mother also. Her mother’s mother too."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"As far back as the song goes, my line was at that town."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"And then it was not."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not know what to say.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I am sorry."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She looks at you. Surprised. A little.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Thank you, little weft."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'She looks at the fire again.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"That is the kindest sentence anyone has said to me in years."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The driftwood pops once. A small ember flares and dies.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Then she shakes herself a little. Comes back.', hold: 2400, cps: 28 },
+
+            // ─── Section 8 · The salt pool · wash the road off ─────────────
+            { type: 'line', speaker: 'LYRA', text: '"You are tired. The walk and the broth together do that."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I am going to wash the salt off you and put you in furs."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',  text: '"…wash the salt."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"That pool we passed. The bench."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I will not let you bring the wood into the bedding. The wood smells in here for days and the cave complains."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'She stands. Holds out her hand. Palm up.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You hesitate. You have not let anyone wash you. Or you have. You do not remember.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra waits. Does not push.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I will not look. I will hand you water. You will do it. I will be on the other side of the stone."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You take her hand. Cold finding warm again. You let her pull you up.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The salt pool. Smaller than you remembered. Pale stones around the edge. The water is clear. Steam rises faintly.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Something mineral in the water. Soft and metallic at once.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra hangs a piece of cloth over a low ledge. A screen. She steps behind it. Leaves you in the open with the pool.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"It is warm. I keep a stone in the fire and drop it in."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"There is salt in it from the sea cave below. It will pull the road out of you."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You undress slowly. Your hands are clumsy.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You ease into the pool. Your ankle goes silent the moment it goes under.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You did not know you had been carrying that much pain. You did not know your shoulders had been that tight.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You sit in the warm pool. You do not move for a long time.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'From the other side of the cloth, Lyra speaks. Very quiet. Half-singing, almost, to herself.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '*…salt for the road, salt for the body, salt for the part you do not yet remember…*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You listen. You do not know what the song is. You think you should not know it.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You know it.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Not the words. The shape.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes wet. You let the water hold you.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your reflection in the pool. A face you do not recognise. With eyes you almost do.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"You take your time, little weft. I am here."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',  text: '"…thank you, Lyra."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Thank you for coming."', hold: 2200, cps: 28 },
+
+            // ─── Section 9 · The brushing · sleep under furs ──────────────
+            { type: 'line', speaker: '', text: 'Back at the fire. You are in a long shift Lyra has given you. Soft. Pale. Old. Your hair is wet.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You sit on the warm stone. The furs are heaped beside you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra sits behind you on the stone. Starts brushing your hair. She did not ask. She also did not not-ask.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The brush. Bone. Each pull slow. Each pull undoes a little of the wood and the salt and the long road south.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your eyes are heavy.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I am going to tell you one more thing tonight. Then you sleep."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"There is no Weaver alive in this kingdom but you."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"There has not been one for a long time."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The wards have been getting thinner. The wood east of here is sick."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"The town past the headland is bones."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The kingdom has been slowly forgetting itself."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Long beat. Her hands have slowed.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"And then two nights ago the sea sang me an answer."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Her hands stop.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"You are the answer."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The weight of it.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"That is too much to hold on the first night."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"So you will hold it tomorrow. Tonight you sleep."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She finishes the brush stroke. Sets the brush aside. Lays the woven blanket the colour of seaweed over your shoulders.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She helps you into the furs. They smell of cedar and dried lavender and something faintly sea-foam.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You lie down. She kneels beside you. She does not lie down with you. She is staying up.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The firelight at the side. The turquoise of her hair very dark in this light.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Sleep, little weft. The cave will hum. That is its job."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"None of the voices are for you tonight."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Tomorrow we begin."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She lays her cool palm on your forehead. Briefly. The way a mother does.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You close your eyes.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cave hums. Low. Held. The crystals along the wall pulse slowly with it. Brighter. Dimmer. Like sleeping breath.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You sleep.', hold: 1600, cps: 28 },
+
+            // ─── Section 10 · Lyra alone · humming for the six ─────────────
+            { type: 'line', speaker: '', text: 'Lyra. Sitting beside you on the stone. Her staff in her lap. The crystal at its head faintly catching the firelight.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cyan along the walls keeps her time. Breath for breath.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She is humming. Very softly. A different song now.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The arch. The night beyond it. The ruin sleeping in moonlight. The stars over the trees.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra humming the song for the six who came before.', hold: 3000, cps: 26 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(10); setCurrent(nextIdAfter(10));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 11 · "The Prince Writes a Letter"
+    // Owner PDF Ch9-16 V3. Caspian-led, multi-POV: Alistair tracking in
+    // the wood, Caspian's study, Lucien's tower (his first appearance),
+    // Caspian seals the scroll, Alistair rides south. Introduces both
+    // Caspian and Lucien into the main-story spine.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 11,
+      title: 'Chapter 11',
+      subtitle: 'The Prince Writes a Letter',
+      teaser: 'The captain found ash. The prince spent his royal authority on a stranger. The scholar logged a sister.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_11_full',
+          title: 'Chapter 11',
+          subtitle: 'The Prince Writes a Letter',
+          speaker: 'CASPIAN',
+          palette: { bg: '#141022', glow: '#c8b890', accent: '#e8dec0' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The wood · ash in the moss ───────────────────
+            { type: 'line', speaker: '', text: 'The wood, deep in. Mid-morning. The light comes down in narrow shafts.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'A man on his knees in the moss. Patrol coat. Bright green eyes narrowed at something on the ground. Dark blond hair, damp at the temples.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two fingers pressed lightly against a small dark stain. Old. Rust-brown. Set into the leaf-litter days ago.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has been looking for five days.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stands. His shoulders are sore from sleeping wrong against tree roots.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not slept in a bed since the night the chamberlain came for his chamber and found her gone.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The stain is a line of small marks leading away from a fallen log. They become fainter. Disappear into rocky ground.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you tried to stand here."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You were not strong enough."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He follows the marks. Pace of a tracker. They end at a flat stretch of stone. The trail goes cold.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He walks the perimeter. Two passes. Looking not for tracks. For what would have caught her eye.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'On the second pass he finds it. Forty paces from the stone. Lower in a hollow. The moss has gone brittle in a circle.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He crouches. Touches it. The moss crumbles to ash under his glove.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The circle is the size of a body. There is no body.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two arrow shafts. Half-buried in the grey. The wood still good. The fletching torn but legible.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He knows it.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A patrol report from his father’s generation. A wood-creature put down by a Warden of Thornwood. The carcass going wrong before patrol could bring it back for the burning.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lifts one of the arrows. Turns it in his fingers. The fletching is warden-work.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…that is trouble."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He turns. By the time he hits the patrol road, he is running.', hold: 3000, cps: 26 },
+
+            // ─── Section 2 · The castle · Caspian at the window ───────────
+            { type: 'line', speaker: '', text: 'The castle. Late afternoon. That same day.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A high-ceilinged room with tall narrow windows. Light coming in at angles. Books on every wall.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Books of a man who was given them and never reads them.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian. At one of the narrow windows. Looking out.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Bright blond hair. Blue eyes. Court coat, but the collar unlaced. He has been at this window since first light.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A knock at the door. Not loud. A captain’s knock.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Come."', introduces: 'caspian', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The door opens. Alistair steps in. Cleaned up. Plate at the shoulders. Sword at his hip.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His face gaunter than it was a week ago.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He kneels. Not deeply.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Stand, Alistair. You look like a man who has not slept. Did you find what you were looking for?"', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair stands. He does not return the smile.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness. I need to make a report. And a request."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"Report first. The request afterward, if I will still want to give it to you."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair opens his mouth. Begins.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I have been tracking…"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He searches for the word and does not find one he is willing to use.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…a person. In the Thornwood. Since the tenth of the month. A patrol matter."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His eyes go down for half a breath. To the floor. Then back up. The smallest tell. The prince does not catch it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I brought this person to the castle once, briefly. This person left the maid’s room I had hidden them in."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"This person is not at the castle now. Is not at any of the villages along the wood-road."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I have walked the wood for five days. I found trail. I lost it. Then I found something else."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His thumb pressed hard against the side of his forefinger.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian’s small tired smile has gone. He is listening now. He has caught the word *person*. He has noted it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"What did you find."', hold: 2200, cps: 28 },
+
+            // ─── Section 3 · The ash · the warden's arrows ─────────────────
+            { type: 'line', speaker: '', text: 'Alistair pulls something from a pouch at his belt. A small wrapped bundle of cloth. Lays it on the desk. Unfolds it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A pinch of dark grey powder. The colour of moss that has decayed wrong. The colour of ash that was not made by a fire.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian looks at it. He does not touch it.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…where."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"In the Thornwood. East and a little south of where I lost the trail."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"A circle of dead moss the size of a body. No body."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The kind a creature leaves when a Warden has put it down."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian sits down on the edge of the desk. Slowly. He has gone pale.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are saying a wood-creature was hunting her."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something Alistair had been holding very tight lets go a fraction. The prince has placed the pronoun in the room.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I am saying a wood-creature was hunting her, your highness. There is a blood trail."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The boot-prints are her size. She was running. She fell at least once."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He hesitates. Adds the part he had not been going to say.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"It is not the first one, your highness. I put one down myself. The day I found her."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"She was on the ground in the moss when I reached her. The wound was on top of her."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I killed it before it could close the last pace."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian’s face does not move. His eyes do.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The second one, the one that drove her to fall, was not put down by me."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The arrow in its throat was a warden’s arrow. I have served beside that fletching once before. I recognised it."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The Warden of Thornwood does not loose an arrow at a wood-creature unless the wood-creature is between him and someone he has chosen to keep."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is making the calculation. Two wounds within a week. The Warden of Thornwood, who has not left the wood in eighty years, has chosen to keep her alive.', hold: 5600, cps: 22 },
+
+            // ─── Section 4 · Tell me about her ─────────────────────────────
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness. I have not been able to find her for five days."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"Tell me about her."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"She had no name. She had no memory of where she had come from."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"She had a torn page in her sleeve with a seal I did not recognise."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"She had walked into the wood from nowhere. I found her on the ground, half-dead from cold, an arm raised against a blow that had not landed."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I do not know what she is."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The crack widens.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I am afraid I do know what she is, your highness."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"And I am afraid that if the wounds keep finding her, the queen will eventually see them."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The queen is the only person alive who would know what she is looking at."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian stands up from the edge of the desk. Turns to the window again. Does not speak for a long time.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has been raised in this castle. He has watched his grandmother not age.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He knows there is a pattern. He has never said it aloud, even to himself, before today.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Today he says it inside his own head. He hears it. He does not flinch.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"You came to me, Alistair. You did not go to my grandmother."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"No, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"Why."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Because I am a captain of the dawn patrol and I do not understand court politics."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"But I understand wood-creatures. I understand things that should not have been hunting a woman alone in the Thornwood."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"And the woman I found has the shape of a thing that should be protected. Not announced."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"And I trust you, your highness. I have trusted you since you were sixteen."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I do not trust the court."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian’s shoulders drop slightly. Some part of him has been holding a breath he did not know he was holding.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He turns from the window. Faces the captain.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You did the right thing."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will not tell anyone in the castle what you have told me. Not the chamberlain. Not the wardens of the gate. Not your second. No one."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You and I are the only people who know this woman exists."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I am going to find out where she is. Then I am going to send you to bring her back."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Not to the patrol house. To the castle. As a guest. Under my seal. Untouchable."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness, that is a great deal of authority to spend on a woman with no name."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian looks at him for a long moment.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I know what she is, Alistair."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I think you do too."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"We do not say it aloud. Not yet. Perhaps not for a long time. But we both know."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair’s eyes close briefly. He nods, once.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Wait outside. I will be a while. I have to speak with someone who can find her."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair bows. Leaves. The door closes.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian stands alone. He looks at the pinch of dark ash on the desk. He does not touch it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He goes to a drawer. Takes out a small key. Goes to a second door at the back of the room. Unlocks it. Steps through.', hold: 4600, cps: 24 },
+
+            // ─── Section 5 · The tower · Lucien at the desk ────────────────
+            { type: 'line', speaker: '', text: 'The southwest corner of the castle. Taller than it should be. Older than the rest of the keep.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Walls entirely books. Ceiling two stories above the floor. Ladders. Very high windows. Cold afternoon light coming through the slits.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'At a long desk in the centre of the room. A man sits writing.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Long dark blue hair. Worn loose. Falling past his shoulders.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small gold monocle at his left eye. On a fine chain hooked behind his ear.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Pale skin. Robes the colour of deep purple and night-sky. Gold-edged at the seams.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Purple eyes, lowered, focused on the page. Long lashes.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He is writing in the margin of a book open beside him. A hand smaller and more precise than human hands usually achieve.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He does not look up when the prince enters. He always finishes the sentence.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pen finishes its line. Comes off the page. He sets it down. Turns the book facedown. Looks up.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Your highness."', introduces: 'lucien', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Lucien."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian does not sit. There are chairs. He has never used them in this room. The room makes him feel young.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I need to find someone."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Most people who walk into this tower need to find someone, your highness."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"The question is whether the someone wishes to be found."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"This one does not know yet whether she wishes to be found. I am going to find her first and ask afterward."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien tilts his head a fraction. The smallest possible recalibration.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"A woman."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Specifics."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian opens the small pouch at his belt. Takes out the pinch of ash on its cloth. Lays it on the desk.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lucien does not touch it. He looks at it for one long beat. Two.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The first faint shift in his expression in years. Not surprise. The cataloguing of surprise.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"That is wound-ash."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Recent."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Six days."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"And the woman."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"No memory. No name. A torn page in her sleeve with a seal Alistair did not recognise."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Found half-dead in the Thornwood. A wood-creature put down beside her by the Warden."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lucien does not move. His hands have folded themselves on the desk.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"You wish me to confirm what she is."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"No."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I know what she is. I am asking you to confirm where."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien looks at him. His purple eyes are very still.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Your highness understands what he is asking me to do."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I do."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Locating a Weaver is not a small magic. It will leave a print on the wards."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The kind of print that is read, eventually, by anyone who knows to read it."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Read by my grandmother, you mean."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lucien does not confirm it. Does not deny it.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"How much time will I have."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Hard to say. The wards are not what they were."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"My estimate is one week to one month before the print is noticed. Possibly longer if the queen is not currently attending."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That is enough."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Your highness understands also that I am about to know where she is. Which means I am about to be one of three people in this kingdom who knows."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I understand."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"You trust me with this."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I have to. There is no one else in this castle who can find her."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien looks at the prince for a long moment.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Very well."', hold: 1600, cps: 28 },
+
+            // ─── Section 6 · The staff · the locating ──────────────────────
+            { type: 'line', speaker: '', text: 'He stands. Crosses the room. Takes a long staff from a rack on the wall.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Pale wood. Polished smooth by years of his hand. The head twisted at the top into two curling branches.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Held between them, not touching either, a tall crystal shard of pale blue.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'It hangs in the air between the branches. In the same exact position. For forty years now.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He returns to the desk. Sets the staff into a slot carved in the wood that exactly fits its base. The staff stands upright on its own.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lays one hand on the desk. Closes his eyes.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The room does not change. The candles do not flicker. No wind comes through the windows.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He stands like that for a long while. Caspian does not interrupt.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Then Lucien opens his eyes. He does not move his hand from the desk.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"She is on the northern coast."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The third cove south of the long headland. The cave."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the singer’s cave."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"She is with the half-siren."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian whistles, very softly. Low.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That is. A lot of things in one location."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien does not answer that. He has gone somewhere. Internally.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'To Caspian, he looks exactly the same as he did a moment ago.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His hand on the desk has gone very still.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…she is alive. A stranger I have never met is the reason I have just been told.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He logs this. Files it. The folder marked *unsorted, type unknown*. Empty, until today.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He looks up at the prince. His face has not moved.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Anything else, your highness."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"No. Thank you, Lucien."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian turns. Pauses.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Lucien."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You and I have been in a room together perhaps forty times in our lives."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"We have rarely needed to say it aloud, but I am about to."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Whatever my grandmother becomes interested in, she takes."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I do not want her to become interested in this."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien looks at the prince. Then, slowly, he inclines his head. Just once.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The closest thing to a bow the tower has seen in a decade.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Understood, your highness."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian turns. Walks to the door. Pauses with his hand on it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…and Lucien."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The singer. The half-siren. You have known where she was for some time, have you not."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"I have suspected."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You did not tell me."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"You did not ask, your highness."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Will you tell anyone now."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"No, your highness. I will not."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian looks at him for a long moment. Whatever he sees, he accepts.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He leaves. The door closes.', hold: 2000, cps: 28 },
+
+            // ─── Section 7 · Lucien alone · marginalia ─────────────────────
+            { type: 'line', speaker: '', text: 'Lucien stands alone in the tower. He does not move for a long time.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He lifts his hand. Slowly. He looks at it as if it is equipment that has just produced an unexpected reading.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Then he sits down. Picks up the pen. Turns the book back over. Finds his place.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He writes one new line, very small, in the margin of the page he had been working on. In a hand that is not the hand of a scholar.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '*the singer has a sister, today.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He sets the pen down. Looks at the line for a long moment.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Then continues with the work he had been doing as if nothing had interrupted it.', hold: 3400, cps: 26 },
+
+            // ─── Section 8 · The scroll · Caspian writes ───────────────────
+            { type: 'line', speaker: '', text: 'Back to the prince’s room. Late afternoon. The light at the windows is gold.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian is at the desk. A blank scroll in front of him. He has taken his court coat off. He is in his shirt-sleeves.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He picks up the pen. Not slow. Careful. He has written orders before. He has not written one like this.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*By the hand of His Royal Highness Caspian, Crown Prince of Aethermoor —*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*The bearer of this scroll escorts a guest of the crown. She is to be granted safe passage on all roads of Aethermoor.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*She shall not be detained, questioned, or examined by any authority below the throne.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*She shall, upon arrival at the castle, be received as a noble guest of the royal household.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*Her name and origin shall not be required for hospitality.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*She shall be quartered, fed, clothed, and protected as a member of my own party.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*Any violation of this scroll’s protection shall answer to the prince directly.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He pauses with the pen at the end of his name.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not spent his royal authority on a private matter before. He has been crown prince for twelve years.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has never committed his name to a person he had not met.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He thinks of his grandfather. A man five centuries dead. Whose portrait in the long gallery is the one his father used to look at without speaking.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…Cassien.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He was named for him. Softened by a syllable. His father had insisted. His grandmother had not opposed it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I thought it was love when I was a child.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I think now it was something else.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He thinks of something his father said once, quietly, looking at the painting.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'AURELIUS', text: '*A prince of our line loves a woman. The kingdom burns for it. The prince does not light the fire. The prince only watches.*', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian had been nine. He had not understood.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He understands now.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I am not the prince in the story.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…no one will burn anything for her. Not on my watch.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He lifts the pen. Finishes the signature.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He takes the heavy wax stick. Holds it to the candle. Lets a thick blot of red drop onto the bottom of the scroll.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Presses his signet ring into the wax.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The seal cooling on the paper. Crown over a stag. The prince’s mark.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He rolls the scroll. Ties it with a length of dark cord.', hold: 2800, cps: 26 },
+
+            // ─── Section 9 · The orders · Alistair rides ──────────────────
+            { type: 'line', speaker: '', text: 'He rings a small bell at the edge of his desk.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The door opens. Alistair steps in.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian holds out the scroll.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Northern coast. Third cove south of the long headland. The cave."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Our guest is there. With a singer. A half-siren."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair’s eyes do something at the word *guest*. He does not let it show on his mouth.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The singer is the woman whose cave it is. You do not touch her. You do not move her."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You do not even let her feel that the castle has noticed her."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"If our guest does not wish to leave the cave, you wait. You do not press. You sleep on the beach if you must."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You bring her back when she is ready. Not before."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"This scroll travels in the inside of your coat. Not in a saddlebag. Not in a pouch. Against your chest."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"If you lose it, you bring it back to me before you bring our guest back."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The scroll is more dangerous than she is, right now."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Understood, your highness."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian looks at him a long moment.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Alistair."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You found her once. You will find her again."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, your highness."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He takes the scroll. Slides it inside his coat. Against his chest. Bows. Leaves.', hold: 4000, cps: 24 },
+
+            // ─── Section 10 · The queen pauses ─────────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian stands alone at the window. The light has gone amber.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He thinks about a woman he has not met. He thinks about his grandmother in the high tower of the keep.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Whether she has begun to walk.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Somewhere in the high tower, a woman six hundred years old has just paused.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Mid-sentence in a letter she was dictating.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She has not yet remembered why she paused.', hold: 2800, cps: 28 },
+
+            // ─── Section 11 · The south gate · Alistair rides ─────────────
+            { type: 'line', speaker: '', text: 'The south gate. Dusk. The torches at the gate-arches lit. The sky over the kingdom going from gold to deep blue.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair on his horse. The road open before him. The guards have already raised the portcullis.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'One hand on the reins. The other at his chest. Against the inside of his coat. Where the scroll has gone.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has not moved yet.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes are closed.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He breathes in. Once. Deeply. The first full breath he has taken since he found the dead moss in the wood.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He opens his eyes. The road ahead is dim.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…I am coming, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He rides hard.', hold: 1600, cps: 28 },
+
+            { type: 'hide' }
+          ]
+        });
+        try { localStorage.setItem('pp_ms_encounter_caspian_seen','1'); } catch (_) {}
+        try { localStorage.setItem('pp_met_caspian','1'); } catch (_) {}
+        try { localStorage.setItem('pp_ms_encounter_lucien_seen','1'); } catch (_) {}
+        try { localStorage.setItem('pp_met_lucien','1'); } catch (_) {}
+        markDone(11); setCurrent(nextIdAfter(11));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 12 · "Low Tide"
+    // Owner PDF Ch9-16 V3. Lyra-led. The loom lesson, the thirteen
+    // stones, Alistair arrives at the cave at night, Lyra confronts
+    // him with one phrase, the player intervenes and chooses to leave.
+    // The braid bracelet, the wishing kiss, first-light departure.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 12,
+      title: 'Chapter 12',
+      subtitle: 'Low Tide',
+      teaser: 'The cave has not heard a sentence like that in six hundred years.',
+      charId: 'lyra',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_12_full',
+          title: 'Chapter 12',
+          subtitle: 'Low Tide',
+          speaker: 'LYRA',
+          palette: { bg: '#0d1518', glow: '#90c8d8', accent: '#d5ecef' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · Morning · she is humming for the staff ────────
+            { type: 'line', speaker: '', text: 'Morning. Lyra is at the fire-pit, cross-legged on the stone. Her staff laid flat across her knees. She is humming for the staff.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'She looks up. The half-smile finds her face.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Good morning, little weft. Eat. Then we walk. There is something past the headland I want you to see while the morning is still cool."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You eat. The broth is good. She watches you the way someone attends a candle they have lit.', hold: 4000, cps: 24 },
+
+            // ─── Section 2 · The ruin · mother's city ──────────────────────
+            { type: 'line', speaker: '', text: 'You step out of the arch into the morning. Lyra ahead of you. Staff in hand. Barefoot still.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Gulls work the air over the cliff. The ruin sleeps in the sun.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You recognise this passage. You walked it yesterday with him. You did not realise what was really here.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Pale columns half-standing. Arches still keystone-true. Roofs collapsed inward. Vines holding the walls together. Flowers growing where the soldiers stood, once.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lyra waits at the edge of the colonnade. She does not enter ahead of you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"My mother’s city, little weft. Older than the kingdom that killed it. Come."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You are stunned.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…kingdom?"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra walks in. She does not answer.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'At the base of the first column, a cluster of cyan crystal grows out of the moss. The same cyan as the cave.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"The stone where my people sang remembers the longest. The cave is one of them. The columns are the others."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The fountain at the end of the square. Still trickling. Someone has been keeping the channel clean.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',  text: '"…you tend it."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Every day. The water sings through the stone if you let it. The stone has had a hard century. It deserves the song."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'She lays her free hand on the lip of the fountain. The cyan in the moss brightens a single degree at her touch.', hold: 4200, cps: 24 },
+
+            // ─── Section 3 · Thirteen stones ───────────────────────────────
+            { type: 'line', speaker: '', text: 'She moves on. Into the colonnade. The markers begin.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Set into the pale floor at intervals, stones the size of two hands together. Old, weather-worn, flat in the paving.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The grass between them is greener than the grass around them.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You count without meaning to. Twelve. No. Thirteen. The thirteenth is smaller and you almost miss it.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lyra walks among them barefoot. The way a person walks a graveyard they tend.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"My mother. My mother’s mother. As far back as the song goes."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She crouches. Lays her free hand on one of the stones.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Twelve singers and the children. They sang to keep the wards thin. The work paid in fish and storms turned aside."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"Then a kingdom inland decided the singing was the wrong kind of work."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"A song does not defend itself. If soldiers come with steel, the song stops the way any song stops when there is no one left to sing it."', hold: 6200, cps: 22 },
+            { type: 'line', speaker: '', text: 'You stand at the edge of the stones. You do not step among them.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"You may come in. The stones know what you are. They are not the kind of dead that turn strangers away."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step among them. The grass between is soft. Tended.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She names what she knows.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"A great-aunt who sang the storm of the long winter aside."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"A child who learned the rain-key at five."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"One who held the harbour mouth open for a year of bad nets."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'At the last stone, the small one, she crouches. Touches the moss at its base.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"That one was mine to keep."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She stands.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not ask. You think you know. A child small enough to need only a small stone.', hold: 3800, cps: 26 },
+
+            // ─── Section 4 · The loom · the first lesson ───────────────────
+            { type: 'line', speaker: '', text: 'She walks back to the fountain. Sits on the low wall of the basin. Pats the stone beside her. You come to her.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'From a satchel at her hip, she takes something wrapped in pale cloth. Unfolds it on her lap.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A small loom. The size of a cutting board. Carved bone for the frame, pale wood for the warp-bars. Strung with thread the colour of seawater. Half-finished. The pattern geometric, repeating.', hold: 6200, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"Mine. My mother’s before mine. Her mother’s before hers. I have been adding to it for as long as I have been here."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"You will not weave on it. You are not ready."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I will show you what weaving is. Not the cloth. The other thing. The thing a Weaver does that is not done with hands."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"Give me your hand."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You hesitate.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I will not pull. I will not take. You will be in my hand the way the cloth is in my other hand."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You place your hand in hers. Cold finding warm. Her thumb light across the back of yours.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Something happens. Very small. A thread. That is the word your body finds.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'It runs from her hand into yours. From yours into the cloth. From the cloth back into her. A small triangle.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The triangle is warm. The triangle is alive.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes have closed. You can feel the cloth. Not with your hand. The cloth has texture and colour and a small song in it you can almost make out.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"You felt the loom."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"…I felt the loom."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The smallest thing a Weaver does. A loom is a thing made of thread."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"A person is a thing made of bonds. The kingdom is a thing made of more bonds than you can count."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"You will, eventually, feel a kingdom the way you just felt the loom."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"That is what is meant by Weaver. Not metaphor. The work."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She lifts her hand from the cloth. The triangle goes quiet. The thread in your body lets go.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Tears at your lashes. You did not know they were coming.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You open your eyes.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…what was I before."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"I do not know, little weft. The cave does not tell me everything."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"It tells me the sea has been singing about you for two nights. That you are the seventh. That your bonds run easy."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"It does not tell me where you came from. I am not the right person to ask."', hold: 4200, cps: 24 },
+
+            // ─── Section 5 · The scholar in the tower ──────────────────────
+            { type: 'line', speaker: 'LYRA', text: '"The kingdom has a man who would know. A scholar in a tower in the capital."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"He has read the silent histories. If anyone alive can tell you what you were before, it is him."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"What is his name."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra’s smile does an unusual thing. Goes briefly distant. Then comes back.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"I do not know his name."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The cave hums about him sometimes. The way it hums about things connected to me that I have not been allowed to know."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The young-and-old thing you saw last night is back.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"My father had other children. The wife let them live in daylight. The cave will not tell me their names. I am not allowed yet."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"I think I will be, one day."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"…what do you mean?"', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra does not answer. She looks at you for a long moment. Her eyes go gentle.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"One day, little weft. Not today."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You think about the page in your sleeve. You think about a man in a tower with a hum that connects him to Lyra.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You tuck it in a corner of your mind.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra wraps the loom back in its cloth. Returns it to the satchel.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Enough for the morning. The cave does not like to be taught all at once."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"Come. There is salt in your hair from last night. I will brush it out before the wind dries it in."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She walks you back. Sits you on the warm stone outside the arch. Brushes your hair. The cave hums softly behind you. Friendly.', hold: 5000, cps: 22 },
+
+            // ─── Section 6 · Late night · someone coming through the trees
+            { type: 'line', speaker: '', text: 'The afternoon goes by. The sun crosses. The cave’s cyan dims to its evening softness.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The sun goes down. The moon comes up. The cliff goes silver.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Late night. You and Lyra at the fire-pit. Her staff across her knees again. The cave humming low. Quiet.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hum sharpens. A single hard pulse of the cyan along the walls.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"…someone is coming through the trees."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She picks up her staff. Stands. The crystal flower at the head is suddenly brighter.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Stay. Do not come to the mouth."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She walks past you toward the arch. Bare feet quick on the stone.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stand. The blanket falls from your shoulders. You do not stay. You follow her. Slower. The ankle holding.', hold: 4200, cps: 24 },
+
+            // ─── Section 7 · The captain at the trees ──────────────────────
+            { type: 'line', speaker: '', text: 'The ruin, late night. Moonlight on the columns. The cliff silver.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'At the inland edge of the ruin, where the trees end, a figure has just emerged. On foot. Leading a horse, exhausted.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Plate at the shoulders. Red cloak gone almost black in the moonlight. Dark blond hair, damp at the temples. Bright green eyes catching the cyan.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He sees Lyra. He stops. He is still ten paces from her, in the open between two columns.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Staff held at an angle that is not a fighting hold but is not a resting hold either. The crystal flower singing one low note.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair has frozen. He raises both hands slowly from his sides. Palms open. Hip-height. A captain showing he is not reaching.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cyan at the base of the nearest column pulses bright. The next column over answers. A chain of pulses runs around him, slow.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The paving under his boot has gone faintly cold.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stops moving entirely. The ground itself has noticed him.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"You are a long way from your patrol, captain."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair lowers his head a fraction. Court politeness. Does not bow. Acknowledges.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. I am not here as a patrol."', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LYRA',     text: '"I can see that. You are alone. Patrols do not come alone."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA',     text: '"Captains do not come alone unless they are bringing something they do not want a witness for."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I am bringing a royal decree."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA',     text: '"A royal decree."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He lifts one hand, slow, toward the inside of his coat. He does not reach in. He shows her the gesture before he makes it.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"It is sealed by the Crown Prince of Aethermoor. By his own hand. It concerns a guest."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"May I take it out and read it to you, mi’lady, where you can see my hands."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA',     text: '"Read it."', hold: 1400, cps: 28 },
+
+            // ─── Section 8 · The scroll · the song that answers ────────────
+            { type: 'line', speaker: '', text: 'Alistair very slowly takes the scroll out from inside his coat. It has been against his chest for two days and a night. It is warm.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He holds it up where she can see. Breaks the seal. Unrolls the scroll. His hand is not entirely steady.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*The bearer of this scroll escorts a guest of the crown.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*She shall not be detained, questioned, or examined by any authority below the throne.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*Her name and origin shall not be required for hospitality.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*She shall be quartered, fed, clothed, and protected as a member of my own party.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*Any violation of this scroll’s protection shall answer to the prince directly.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He lowers the scroll. Holds it loose in one hand. Looks at Lyra.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"A prince of Aethermoor seals a scroll to protect a woman in his castle."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"Her name and origin shall not be required for hospitality. That is not a hospitality clause, captain. That is a clause for hiding."', hold: 5600, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA',     text: '"You are bringing her into a castle that six like her have walked into and not walked out of."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair’s face changes. He has not heard the count before. He had thought the number was smaller.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…six."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LYRA',     text: '"Six."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I do not know what the kingdom has done to them, mi’lady. I have suspected. The prince has read silent histories."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"We know enough to be afraid for her. We do not know the whole."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The castle is the only place with walls high enough to hide her from the woman whose hand is on those six. The prince has made it possible."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'LYRA',     text: '"And what makes you think, captain, that I will let you take her."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair does not answer.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra raises the staff. One small movement. The point of it from the paving to a hand’s-width off the stone.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She opens her mouth.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She sings one phrase. Three notes. Not loud. Not long. Notes that come up out of her like they have been kept in her throat for years.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The ruin answers. Every cyan cluster in every column-base goes hot-bright in unison with her voice. The cliff itself hums.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The air around Alistair thickens.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He cannot breathe in. Not entirely. The air in his lungs has gone heavy. He does not move.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'From the trees, far back, his horse screams. The sound of a war-horse who has felt something a horse should not have to feel.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The blade is humming in its sheath. He has not touched it. It is humming on its own. Against his leg.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Pale. He is standing inside something he cannot fight.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra closes her mouth. The phrase ends. The pressure lifts. The sword hums one more breath and goes quiet.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"That was one phrase, captain. There are longer ones."', hold: 3400, cps: 26 },
+
+            // ─── Section 9 · You step onto the paving ──────────────────────
+            { type: 'line', speaker: '', text: 'From behind Lyra, you have come through the arch.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Lyra."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Stay back, little weft. I am not finished."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You step forward. Past the columns. Onto the paving where she stands.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk to her. The ankle holds. You stop at her shoulder.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You lay your hand, gently, on the staff at the place where her hand is. Cold finding warm.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',  text: '"Lyra. Please. Lower it."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Do not, little weft. Do not."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"I do not want anyone to get hurt. Not for me. Not yet. I have not earned that yet."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"I do not remember anything before the wood. There are answers in this kingdom and none of you can give them to me."', hold: 5200, cps: 22 },
+            { type: 'line', speaker: 'YOU',  text: '"You wanted me to know what I am. Now I know. A little. I will not forget the loom."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"If I stay here, you will fight. You will be hurt. The cave will be hurt. The kingdom will come anyway."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',  text: '"There will be more stones for you to add to a line that is already too long."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"I have decided. I am going with him, Lyra."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra opens her eyes. Looks at you for the first time since you stepped onto the paving.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The sovereign is gone. The thing underneath is the half-smile finding its way back. Tired and proud at once.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"You sound like a Weaver, little weft."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"The cave has not heard a sentence like that in six hundred years."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She lowers the staff. Slowly. The point of it to the paving. The cyan in the columns softens. The whole ruin lets out its breath.', hold: 5000, cps: 22 },
+
+            // ─── Section 10 · One more night ───────────────────────────────
+            { type: 'line', speaker: 'LYRA',     text: '"She has chosen. You will not hurry her. She is mine for one more night, captain."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA',     text: '"You will sleep on the paving. At first light, she goes with you."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…yes, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LYRA',     text: '"What is your name."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Alistair, mi’lady. Captain of the dawn patrol."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LYRA',     text: '"Alistair. If she does not arrive at the castle whole, you will not arrive either."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA',     text: '"The cave is patient. I am, on its behalf, less so."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Understood, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA',     text: '"There is a freshwater spring on the cliff above the arch. Drink. Water your horse. You have ridden a long way to be told to wait one more night."', hold: 6200, cps: 22 },
+            { type: 'line', speaker: 'LYRA',     text: '"Do not sleep with your back to the trees."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…thank you, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra turns back to you. Takes your hand. Cold finding warm.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Come, little weft. The cave wants you one more night."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'At the threshold, you look back once.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Alistair has not moved. He is watching you go.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He places his right hand flat over his heart. Lowers his head a single fraction. The acknowledgment he gave you in the moss.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You return it. Hand to chest. The smallest possible bow.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You go into the cave.', hold: 1800, cps: 28 },
+
+            // ─── Section 11 · The braid · the wishing kiss ─────────────────
+            { type: 'line', speaker: '', text: 'The fire. Lyra at the chest. She takes something out, brings it to you. A long thin braid of seaweed-coloured thread.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"From the loom. A piece I have been weaving for as long as I have been alone here. I will not finish it."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"It is yours now. You will wear it at your wrist. Under the sleeve."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"It will hum, faintly, when the cave is thinking about you."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"It will hum more loudly if I am thinking about you. You will know."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She ties the braid around your left wrist. Three loops. A small knot. Her cool fingers are sure.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Dull in the firelight. Quiet. But you feel something through it the way you felt the loom this morning. A small thread. A small triangle. It is warm.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',  text: '"…thank you, Lyra."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"Thank you for letting me sing again. The cave will be lonely tomorrow. It will get over it."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"The cave is, at worst, dramatic."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You both smile.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She wraps you in the seaweed-blanket. You lie down in the furs again. Last night.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She sits beside you on the stone. Hums softly. Not the song for the six who came before. A different song. A song for letting go.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You sleep.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Deep night. The fire has burned to embers. Lyra has not slept.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'She watches your face for a long while.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She leans down. Hums a song. Very quiet. Different from the others. A song for good luck on a road she will not walk with you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'She lowers her face. Presses her cool lips to yours. Soft. A wishing kiss. A blessing kiss.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She stays bent over you for a long moment.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She straightens. Returns to the stone beside the furs. Hums softly for the rest of the night.', hold: 4000, cps: 24 },
+
+            // ─── Section 12 · First light · departure ──────────────────────
+            { type: 'line', speaker: '', text: 'Outside the arch — late night. Moonlight on the columns. A low fire. Alistair sits cross-legged on his bedroll.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Sword across his knees, not in its sheath. His horse asleep beside him. He is not sleeping.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks up at the arch. The cyan inside has dimmed to sleeping breath. Brightening and dimming with two soft rhythms now.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two people asleep inside. He breathes out for the first time in two days. He stays awake until first light.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'First light. The cliff goes from silver to pale gold. The cave’s cyan brightens in answer. A wake-up note in the stone.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You open your eyes. Lyra has been awake longer. She is at the fire, hair brushed, a small bundle already packed beside her.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"Eat, little weft. The road is long."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You eat. Same broth as the first night. Salt for the road. Salt for the body. Salt for the part you do not yet remember.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She wraps you in the warden-cloak. The stitched leaf at the inside collar warm against the back of your neck.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist hums faintly. She walks you to the arch.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra stops at the threshold. She does not come out into the sun.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"My name is Lyra. The cave’s name is what you will find out one day."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LYRA', text: '"My brother’s name, when you bring it, will be the third name I have given you."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She lifts her cool hands. One to either side of your face. She has not done this with you before.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She presses her forehead to yours.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Cool against warm. Her breath at your mouth. The braid at your wrist hums faintly between you. A small song.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She does not speak. The cave does not hum. Even the gulls have gone quiet.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You close your eyes.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her thumb moves once across your cheekbone.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She steps back. The press ends.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something in your chest has been opened that you do not know how to close again.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"Go, little weft."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You step out from under the arch. The first sun on your face.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair is already standing. Horse saddled. The captain back in his coat.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He sees you. His face does not move. His eyes do. He catches himself. Looks away.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He helps you into the saddle. His hand at your elbow. Practical. Careful. He does not let it linger.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He takes the reins. Walks beside the horse the way Lyra told him to.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lyra in shadow at the threshold, watching you go. The cave hums softly behind her. A song for someone who is leaving.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'The road through the trees. The captain walking. The horse moving steady.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Inside the arch, a woman with turquoise hair and a staff that no longer sings.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The first light on the trees. The road inland begins.', hold: 2800, cps: 26 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(12); setCurrent(nextIdAfter(12));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 13 · "The Scroll He Was Given"
+    // Owner PDF Ch9-16 V3. Alistair-led. The road inland. The second
+    // scroll — a teleport. A day in the town. A meal at the inn. A
+    // hand that almost touched a sleeping captain. The teleport
+    // anchor in the castle's stone chamber. A kiss on the back of the
+    // hand. The captain becomes a captain again.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 13,
+      title: 'Chapter 13',
+      subtitle: 'The Scroll He Was Given',
+      teaser: 'A captain’s mouth on the back of a guest’s hand for two heartbeats longer than the captain who serves her could afford.',
+      charId: 'alistair',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_13_full',
+          title: 'Chapter 13',
+          subtitle: 'The Scroll He Was Given',
+          speaker: 'ALISTAIR',
+          palette: { bg: '#15101c', glow: '#c8a878', accent: '#e8d8b0' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The inland road · braid hums ──────────────────
+            { type: 'line', speaker: '', text: 'The inland road. Mid-morning. The ruin is a half-day behind you. The trees here are not the Thornwood. Sparser. Taller.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair walks beside the horse. Left hand on the reins. Right hand at his chest, where the scroll has been against his heart for two and a half days.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The seaweed-braid is at your wrist under the sleeve. It hummed once this morning, very faintly, when you crossed a small bridge. The cave was thinking about you.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is walking in the way of a man who is doing a thing he should be doing faster than he is doing it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have not been able to stop noticing him since the cave.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The line of his jaw. The pale at his temple where the cut almost healed. The way the sun catches the inside of his throat above the collar.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your breath does something you did not give it permission to do.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You put your hand on the saddle to steady it. Your hand is colder than the leather under it.', hold: 3800, cps: 26 },
+
+            // ─── Section 2 · The second scroll ─────────────────────────────
+            { type: 'line', speaker: '', text: 'He stops the horse.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He turns. Looks up at you on the horse.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I need to tell you something the prince did not put in the scroll."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You wait.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He reaches into the inside of his coat. Not the front, where the royal scroll is. The other side. The inside pocket against his ribs.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He pulls out a second scroll. Smaller. Tied with a thin silver cord. The wax seal on it is not a crown over a stag. Something stranger. A geometric mark.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: 'YOU',      text: '"…what is that."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"A teleport. The prince paid the tower for it."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"It will take us from where we stand to a place the scholar has marked inside the castle. The time it takes to read it aloud. No longer."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',      text: '"…that fast."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"That fast."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Why are you showing it to me. Why not just use it."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Because the prince gave me a scroll. He did not give me an order about when to read it."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"And because you have been walking and riding and bleeding for a long time, mi’lady, and you have not seen the kingdom you are about to enter."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You have one cloak, one shoe, and a cut at your lip."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"There is a town a short ride east on the fork. It has a market that runs until sundown. You could buy a cloak that fits you. Eat something at a table."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Sleep in a bed for the first time you remember. We could read the scroll outside town at sundown."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You would arrive at the castle in the dark, wearing something the kingdom will not stare at."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Either choice is yours, mi’lady. I only carry the scroll."', hold: 3600, cps: 26 },
+
+            // ─── Section 3 · The day is on the captain ─────────────────────
+            { type: 'line', speaker: 'YOU', text: '"…thank you. But I have no coin. Not for what you are describing."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smallest possible softening at the corner of his mouth.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You will not need any, mi’lady. The day is on the captain. The prince did not say it could not be."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU',      text: '"…so generous of you, sir knight."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You smile. Small. Real. The first one since the cave.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Alistair, mi’lady. Not knight. But the offer stands."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',      text: '"…and you are willing to risk your post. For our day."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"For one day with you, mi’lady. Yes."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes are not careful. His eyes are the eyes of a man who has decided he would like one day of this, and is making himself not say so.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…he would like the day.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…so would you.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You sit up straighter on the horse. The ankle is mostly healed. The cold is mostly gone. The braid at your wrist is quiet, warm.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"The town. Please."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The town, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He puts the small scroll back into his coat. Two scrolls now, one against each side of his ribs. Two kinds of careful.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He takes the east fork.', hold: 1800, cps: 28 },
+
+            // ─── Section 4 · The east road · the town ─────────────────────
+            { type: 'line', speaker: '', text: 'Midday. The land opens. Pasture on both sides. Sheep. A pair of children driving a goat down a side-path.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'They stop. They stare at the woman on the horse with the captain walking beside her. The goat takes the opportunity to escape.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The captain pretends not to notice. You smile, briefly.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your face has not done this since you woke in the moss.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair sees it from below. He does not comment. He does not look away either.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Beyond the pasture, a town wall. Low. White-washed. A wooden gate standing open.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two town-watch in plain leathers, not patrol coats, leaning on the gate-post.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'They see Alistair. Recognise the cut of his coat. Straighten. Salute, badly.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He nods them down. Walks the horse through the gate. Says nothing about who you are.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A wide main street. Stone houses. A market square at the far end, awnings of pale canvas, smells of bread and smoked fish and something hot that has cinnamon in it.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have not seen this many people since you woke. You do not know what to do with your eyes.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair feels you tense from beside the horse.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You are safe, mi’lady. They will not see you. They will see me."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You believe him. You let your shoulders down a fraction.', hold: 3000, cps: 26 },
+
+            // ─── Section 5 · The cloak shop · stitched leaf ────────────────
+            { type: 'line', speaker: '', text: 'He walks the horse to a hitching post outside a cloak-maker’s. Stops. Looks up at you.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Down, mi’lady. I will go in first. You wait by the door. You only come in if I come back for you."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You nod. He offers his hand. You take it. He helps you down. He does not let your hand go all the way.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His thumb brushes the back of your knuckles, once, as he lets go. He does not look at you when he does it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The skin is warm in a way it had not been a moment ago.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eye catches on something at your shoulder. He looks. Holds the look for half a heartbeat.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small marking at the inside of the collar of the cloak you are wearing. A single stitched leaf. Green thread. Old. Faded.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The maker’s mark of a craft no one in the kingdom puts on cloth anymore.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The bright green eyes have gone narrower. He recognises the mark. The warden’s mark.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The Warden of Thornwood does not loan his cloaks to people he intends to give back. He loans them to people he intends to keep.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair does not say it. Something at his jaw does.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He goes in.', hold: 1400, cps: 28 },
+
+            // ─── Section 6 · The street · the basket of flowers ───────────
+            { type: 'line', speaker: '', text: 'You wait. Across the way, a woman with a basket of cut flowers. A small child at her hip. The child reaches for a yellow bloom.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The woman is laughing.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something hot at your eyes. You do not know why.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…someone, somewhere, used to laugh like that with me.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*You do not remember her face.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cloak-shop door opens. Alistair steps out. He has a wrapped bundle under one arm. He has paid. He has not asked you to choose anything.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He sees your face. He does not ask. He hands you the bundle. His hand stays a moment on yours under the bundle. Warm.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"There is a room above the inn at the end of the square. The innkeeper does not ask questions of patrol officers."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You can change there. I will keep watch from the common room."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has noticed you were crying. He does not ask. You nod. He walks the horse. You walk beside him.', hold: 4400, cps: 24 },
+
+            // ─── Section 7 · The inn room · the bundle ─────────────────────
+            { type: 'line', speaker: '', text: 'Small. Clean. A bed with a quilt. A washbasin. A small window onto the square. The bundle on the bed.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'A cloak of soft dark green wool, the colour of moss in winter. A linen shift, white and plain.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A second shift in pale grey for sleeping. A pair of soft leather boots, the right size. Stockings.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A wide ribbon of deep red for your hair. A small folded cloth at the bottom of the bundle, tied with cord. You open it.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'A bar of soap. It smells of lavender and honey. The kind of small luxury a patrol captain does not buy for himself.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…he chose these for me.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You let out a small laugh. Still smiling.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he is quite thoughtful for a knight.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The red ribbon. The colour of his patrol cloak. The colour he wears on the road.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You go to the basin. You wash. The water is cool.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed-braid at your wrist is dark green like the cloak. Like he knew. He did not.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You change. The shift is soft. The boots fit. The cloak settles around your shoulders with a weight that is not yours but is going to be.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The ribbon you do not know how to wear yet. You put it in a pocket.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The small mirror over the basin. The reflection. Lashes wet. Eyes you almost recognise.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lyra was right. You have a face that is yours, if you can find it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You go downstairs.', hold: 1600, cps: 28 },
+
+            // ─── Section 8 · The common room · the meal ────────────────────
+            { type: 'line', speaker: '', text: 'Low ceiling. Heavy beams. A fire in a stone hearth. Two long tables. A few patrons.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair is at a small table near the hearth, his back to the wall, his line of sight on the door. He has not eaten yet. He has been waiting.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'He sees you come down.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes take in the cloak, the shift, the boots, the hair you have managed to pull back with your fingers.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He looks at you for one beat too long. Then catches himself. Looks away.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The man underneath the captain has briefly come to the surface. The captain has put him away again, but not as fast as he meant to.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He stands when you reach the table. The chair scrapes once on the stone.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cloak is hanging slightly wrong at your left shoulder. The wool has folded under itself near the collar.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His hand lifts. A small motion. Toward your shoulder.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops. The hand returns to his side. He clasps both hands behind his back.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You saw it. You would have let him.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You fix the cloak yourself. You sit across from him.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The cloak suits you, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Thank you. For the soap."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I did not know what kind you would like. I asked the woman at the shop what she would buy for a friend. She picked the lavender."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A friend. He said *a friend*. You both notice. Neither of you names it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The innkeeper comes. Alistair orders for both of you without asking. Fish soup. Dark bread. Butter. A pot of weak hot tea.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You watch him order for you. Something warm moves in your chest. You do not have a name for it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The food comes. The soup is hot. The bread is dense, fresh, still warm.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Hands that have held warm bread before. Some life ago. In a kitchen you cannot picture.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You reach for the butter at the same moment his hand reaches for it. The backs of your knuckles brush. Warm. Quick.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Both of you pull your hands back. Neither of you says anything. He pushes the butter dish toward your side of the table.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The warmth of his knuckles is still on the back of your hand. You butter your bread very carefully.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You look like you have not eaten at a table in a long time, mi’lady."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',      text: '"I do not remember the last time I did."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Will you tell me when you remember."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"You would like to know."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I would like to know."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not push. He goes back to his soup.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist hums, faintly. Warm. The cave is thinking about you again.', hold: 3400, cps: 26 },
+
+            // ─── Section 9 · The inn room · the hand that almost ──────────
+            { type: 'line', speaker: '', text: 'The inn room again. Late afternoon. The light is gold. Alistair has slept while the sun moved down, slumped in the wooden chair by the door.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He took the chair, not the floor. Not the bed. You watched him from where you sat on the windowsill until he closed his eyes, and then for a while longer.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He looks younger when he is asleep. The strain at his mouth is not there. Dark lashes against his cheeks.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'His hand rests loose at his side, palm half-up, the way a man’s hand falls when he stops bracing.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have not looked at his face like this before. He has looked at yours twice now. In the moss, and on the road. You are looking at his back.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You map it. Slowly. The way a person maps a face they are afraid they will not see again.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The line of his jaw. The pale cut at his lip that has nearly closed. A small scar at his temple you had not noticed before.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The way his throat moves once, slow, as he breathes.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your hand is on the windowsill beside you. You realise you have moved it. Halfway across the small space between the sill and the chair.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You return it to your lap. You sit very still. The fire makes a small noise to itself.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand moves again. Further this time. You do not remember telling it to.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stop it. You return it to your lap.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The third time your hand moves it does not ask permission. You let it. You watch it go.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Toward the line of his jaw. Toward the place where the dark lashes meet the cheek. You can feel the warmth coming off his skin.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You almost touch him.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stirs. A small breath. The way a captain shifts in sleep when his body remembers it is on watch.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You pull your hand back. Fast. As if you have been caught.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You return it to your lap and you hold it there with your other hand to make it stay.', hold: 3400, cps: 26 },
+
+            // ─── Section 10 · He wakes ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'He wakes the way a patrol captain wakes, in stages. First one eye. Then the awareness of where his sword is. Then the awareness of where you are.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He finds you at the window. Your hands are in your lap.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He sees something at the back of your eyes anyway, briefly. He does not ask. His shoulders soften a fraction.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"You slept."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I should not have."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"You needed to."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"It is late."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stands. Stretches once. Buckles the sword back at his hip. Checks the inside of his coat.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"We should walk outside the wall. The scroll wants open ground."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take one last look at the room. You do not know why.', hold: 2800, cps: 26 },
+
+            // ─── Section 11 · Outside the town · the teleport ──────────────
+            { type: 'line', speaker: '', text: 'Sundown. You and Alistair have walked the horse out the west gate.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are at the edge of a field, the town behind you, the inland trees ahead. The sky is the colour of a peach skin.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He takes the small scroll out of his coat. The silver cord. The wax seal. He holds it in both hands.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Last chance, mi’lady. We could sleep again. You could see another town tomorrow."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"There is a kingdom-fair two days east. It would not be hard for me to lose us in a market for a week."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',      text: '"You would lose your post."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I would."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"You would do that."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"For you, mi’lady. Yes."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something in you would like to say yes. Something in you knows yes would unmake him. You will not let him burn his life for a week of you.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Read the scroll, captain."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"As you wish, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He breaks the wax seal. The silver cord unties itself. The paper unrolls in his hands.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The script on it is not in any language you can read. The letters are angular. They glow faintly, as he holds them, a pale violet.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*By the hand of the tower, by the weave of the wards, this passage is granted. From open ground to the anchor. Now.*', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The scroll begins to glow brighter. The violet thickens. The air around you and Alistair and the horse goes still in a way air does not normally go still.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist has gone warm. Not hot. Warm. The cave is paying attention. From very far away, Lyra is noticing.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair reaches one hand toward you. Open palm. He does not say *take my hand*. He looks at you. His eyes ask.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You take it. His fingers close around yours. Slowly.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has been keeping you alive for two and a half days and has not been allowed to touch you for any of them. He is taking the small allowance carefully.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The warmth from his palm goes up your arm. You did not know a hand could be this warm.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed-braid at your wrist hums softly against the cuff of your sleeve, between his thumb and your pulse.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His thumb settles at your knuckle. Same place as the cloak shop. Same pressure. He does not let go.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He reads the rest of the scroll with his free hand. He is steady. You are not.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The world goes white.', hold: 1800, cps: 28 },
+
+            // ─── Section 12 · The chamber · the hand kiss ──────────────────
+            { type: 'line', speaker: '', text: 'A small chamber. Torchlight on grey walls. Dressed stone underfoot, smooth, old.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'A wooden door, banded with iron, at the far end. A geometric mark carved into the floor where you and Alistair are standing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The mark glows faintly violet, then fades to nothing.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are still holding his hand.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The horse is not with you. The teleport did not take it. Alistair’s left hand is closed where the reins should be.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I will send for the horse tomorrow."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Old. Faintly cold. Faintly stone-damp. Not the cave’s damp. A drier, older damp. The damp of a place that has been a castle for a very long time.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…we are inside."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"We are inside. This is a chamber under the southwest tower. The scholar’s."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Almost no one comes down here. He keeps it for things like this."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not let go of your hand. He realises it. He does not let go quickly.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The prince will be told we have arrived. Someone will come for us. Soon."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He looks at you. Really looks. The way a man looks when he is about to lose access to a thing he just had for an afternoon and knows it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You will be a guest of the crown, mi’lady. I will be a captain again."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I will see you in the castle. I will not see you the way I saw you in the town."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He lifts your hand. The one he has been holding. Brings it slowly to his mouth.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He kisses the back of your hand. Not court politeness. Held longer.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'A captain’s mouth on the back of a guest’s hand for two heartbeats longer than the captain who serves her could afford.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lowers your hand. He does not let go yet.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Thank you for the day, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You cannot speak. You squeeze his fingers, once. He understands.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He lets go.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The place where his fingers were is still warm. Already cooling.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something in your chest does a thing it has not done before. A small ache. Low.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You can still see him. You can no longer reach.', hold: 2800, cps: 26 },
+
+            // ─── Section 13 · The captain returns · the half-inch ──────────
+            { type: 'line', speaker: '', text: 'He turns to the door. Opens it. Calls quietly down the corridor.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Send for his highness. Tell him the captain has returned."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'A young guard, somewhere down the corridor, answers and runs.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair comes back to where you are. He stands at parade rest beside you. Hands clasped behind him.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The captain is in his coat again. The man underneath the captain has gone back behind the door.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He does not look at you.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'But your shoulder is closer to his shoulder than parade rest requires. By half an inch.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not moved to widen the gap. You have not moved to close it. Both of you are holding the half-inch.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist is humming softly. The cave is paying attention. The back of your hand still has the warmth of his mouth on it.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The small ache in your chest is not going away.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The two of you side by side. The violet of the anchor mark fading on the floor between you.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Somewhere above, the castle waking to your arrival.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Somewhere far inland, a queen six hundred years old has just felt something she will not yet remember.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The prince is being told.', hold: 1800, cps: 28 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(13); setCurrent(nextIdAfter(13));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 14 · "The Prince of Aethermoor"
+    // Owner PDF Ch9-16 V3. Caspian-led. Arrival at the castle. The
+    // chamberlain's formal reading. Tea in the study. Caspian's "play
+    // my lover" proposal. Acceptance on conditions. The hand-hold. End:
+    // Lucien noticing, the queen beginning to remember.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 14,
+      title: 'Chapter 14',
+      subtitle: 'The Prince of Aethermoor',
+      teaser: 'You said my name well, mi’lady. You may want to practice it.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_14_full',
+          title: 'Chapter 14',
+          subtitle: 'The Prince of Aethermoor',
+          speaker: 'CASPIAN',
+          palette: { bg: '#0f0e1c', glow: '#b88dcf', accent: '#e0c8e8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The stair up · the library door ──────────────
+            { type: 'line', speaker: '', text: 'The anchor mark has stopped glowing. The wooden door at the far end opens. A young guard in dark blue. He bows once. Not deep.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'GUARD', text: '"His royal highness sends his welcome, mi’lady. The captain is to come also."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Lead the way."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Spiral stair. Old stone worn smooth by centuries. Sconces every few turns.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair climbing behind you. His eyes are on you. Not where they should be. His eyes are on the way you set each foot.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has noticed the ankle is holding. You are not limping anymore.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has also noticed you still look weak. He will ask the prince for a physician.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The captain is back in his coat. The captain watches what the captain is allowed to watch.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist hums faintly. Then harder as you pass a small iron-banded door on the inside of the spiral.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Six lines and a circle carved into it. Cyan in the cracks of the stone around it.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…he is here.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The guard does not slow. Alistair does not turn his head. You walk on. The braid quiets once you are past.', hold: 4200, cps: 24 },
+
+            // ─── Section 2 · The corridor · they will not see you ─────────
+            { type: 'line', speaker: '', text: 'A wide corridor. Banners. Dark blue and silver. A stag on a field of stars.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Servants moving past with their heads down. Every face turning slightly away as you pass.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You realise they have been told not to see you.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The prince has given orders, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…alright."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corridor turns. A carved door at the end. Two guards in royal coat flanking it. An older man in black robes inside the threshold.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You stop. Three paces from the door. The chamberlain has not yet seen you arrive.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn. Look at Alistair.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes find yours. He is steady. He is also a half-step closer than the captain who walked the inland road would have allowed himself to be.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Will you be at my side, captain."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something does a small thing behind his eyes. He has been waiting for you to ask. He has also been hoping you would not.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"That is not my decision, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The sentence lands the way a stone lands in still water.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You did not know, until this moment, how much you had been counting on his answer being yes.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I will be where the prince places me, mi’lady. I will hope it is near you."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You make yourself nod. Small.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"Mi’lady. His royal highness awaits you."', hold: 2800, cps: 28 },
+
+            // ─── Section 3 · The study · the prince ────────────────────────
+            { type: 'line', speaker: '', text: 'The door opens. Late gold light comes out into the corridor before you do.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A long room. Three tall windows on the far wall. A fire on the left. Two high-backed chairs near the hearth. A low table between them.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two cups of tea already poured. A wall of books. The room smells of woodsmoke and warm paper.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He is at the desk.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Bright blond hair pushed back, careless on one side. Blue eyes the colour of a clear cold sea.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A deep wine-coloured court coat. Cream-coloured linen at the throat. Collar unlaced. A thin gold band on his brow.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He sets the pen down. Stands. Easy. Unhurried.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He walks out from behind the desk.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your breath does something you did not give it permission to do.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops three paces from you. Smiles, briefly. The small charming-prince smile.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Welcome to Aethermoor."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look up at him. Into his eyes. You hold the look. You do not look away first.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian breaks first. The corner of his mouth does something small and honest.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I am sorry. I had a speech."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"It has just left me."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He turns slightly. Acknowledges the captain without looking at him.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Captain. The crown thanks you."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+
+            // ─── Section 4 · The formal reading ────────────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"The chamberlain will give us the formal reading. Indulge it, please. The kingdom prefers its hospitalities formal."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He raises one hand. The chamberlain steps just inside the door. Unrolls the royal scroll. Reads it in the hollow voice of a man who has read many strange things into the record.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '*By the hand of His Royal Highness Caspian, Crown Prince of Aethermoor — be it known: the bearer is hereby received as a personal guest of the crown.*', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '*Her safety, her comfort, and her movements through the king’s house are placed under the prince’s protection.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '*She shall be the captain’s first and only charge until released to other duty by the prince’s hand.*', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The chamberlain rolls the scroll. Bows. Leaves. The door closes.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The room goes still.', hold: 1800, cps: 28 },
+
+            // ─── Section 5 · "I had a speech" · tea ────────────────────────
+            { type: 'line', speaker: 'YOU', text: '"Your highness. May I ask what I am doing here."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His shoulders drop a fraction. The court goes out of his face like a candle blown sideways. The young man underneath looks at you again.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He crosses to the hearth. Picks up one of the cups of tea. Holds it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Sit with me. The tea will go cold."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You obey the prince. You sit where the tea has been poured for you. He sits across from you.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I am sorry for the trick of it, mi’lady. The court must hear what the court must hear."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"This is the only way I can speak with you alone in this house."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns his head. Looks at you. Blue eyes. Steady. Tired underneath the steady.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Caspian. In private."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not said *I am Crown Prince Caspian* at you. He has handed you the name the way a man hands a woman a thing she may use if she chooses.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Caspian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He hears it. He looks down at the cup on the table for a beat.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He picks the cup up. Drinks. Sets it down. Looks at you again.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Drink. The man in this room poured it. The prince in this room did not."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You drink. The tea is good. Warm. Faintly floral.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He is watching you drink with the same attention he watched you walk in with.', hold: 3400, cps: 26 },
+
+            // ─── Section 6 · You are a Weaver · the role ──────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"I will be straight with you, mi’lady. The reason you are here. In this castle. In front of me."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are a Weaver. The scholar confirmed it. I believe you are the key to this kingdom."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The word lands on you. You sit up. Your eyes are wide.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…and what do you want of me, your highness."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"I do not even know what I truly am."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I know, mi’lady. The captain told me. That is the second reason you are in this castle with me."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I will help you find out who you are. I will not press it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"But for you to move freely in this house while we look — you will need to play a role. With me."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…what role."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian lets out a small laugh. A sly, cheeky smile at the corner of his mouth.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"My lover."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The captain at parade rest near the door. The hands clasped behind his back have gone white at the knuckles.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You almost choke on the tea.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…your lover."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not stopped smiling. He waits for you to finish the cough.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"This castle is full of eyes, mi’lady. A woman with no name, under the personal protection of the prince, would be the only thing the court talks about by midday tomorrow."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The talk would draw attention I have spent some trouble to deflect."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…that is a great deal of trouble to put on someone."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Indeed, mi’lady. It is also clean. With the title of my lover, you would move freely through this house."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The court is used to seeing me keep a woman near me from time to time. A favourite. It would not surprise them to see another."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"It would explain everything they would otherwise ask."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn your eyes, only your eyes, toward Alistair near the door.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He is looking at the corner where the wall meets the ceiling. He has decided not to be in the room with his face right now.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian sees you look. He has not missed it. He marks it. He does not name it.', hold: 3800, cps: 26 },
+
+            // ─── Section 7 · The bait · six centuries deep ─────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"With this title, mi’lady, you will have access to most of this castle. Especially the royal library."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The library here is six centuries deep."', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"There might be all the answers you seek."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Six centuries. He has set the bait gently. He does not press. He sits back.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You feel it land in your hands before your head has finished arguing.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…you would let me do that?"', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Yes, mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist is warm. The cave is paying attention.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…and in private. Between us."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"In private, mi’lady, you keep your hours. You keep your hand. I keep mine."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Nothing you do not freely offer."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"If I want it to end. It ends. At my word. You will not press."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"At your word, mi’lady. Always."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has answered too quickly. He hears himself. He does not take it back.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You note it. You do not name it.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…then yes. I will play the role."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Thank you, mi’lady."', hold: 2200, cps: 28 },
+
+            // ─── Section 8 · The rose suite · the orders ───────────────────
+            { type: 'line', speaker: '', text: 'He stands. Crosses to the door. Speaks to someone in the corridor.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The rose suite. The east wing. The captain will escort the lady and hold her key."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The physician will attend her at first bell tomorrow. The lady has not been seen to properly in some time."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The kitchen is to send a tray at the second bell tonight. And her breakfast at first light."', hold: 4600, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has thought of the physician. He has thought of the kitchen. He has thought of breakfast. He has done it without asking.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He returns. He stops in front of your chair. Offers his hand.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Long fingers. A pale ring on the smallest finger. No callus from a sword. The hand of a man who has spent his life signing.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You take it. He lifts you out of the chair. Easy. His palm is warmer than yours. He holds for one breath longer than he needs to.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'The faint smell of cedar from his coat. The collar still unlaced.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You said my name well, mi’lady. You may want to practice it."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your face does something you do not have a name for.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He sees it. Lets go of your hand. Looks away to spare you. The corner of his mouth, briefly, again.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Captain. The rose suite."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You walk to the door. At the threshold, you look back, once.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian has not moved. He is standing where he just let go of your hand.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He raises the same hand he held you up with. Just to the chest. Not a wave. An acknowledgment.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The same gesture you have seen twice now. Once from a captain at a cave-arch. Once from a prince at a fire.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You return it. Hand to chest. The smallest possible bow.', hold: 3000, cps: 26 },
+
+            // ─── Section 9 · The queen begins to remember ──────────────────
+            { type: 'line', speaker: '', text: 'The two empty cups. The empty chair you sat in. Caspian alone at the hearth.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not moved his hand from where it last held yours.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He lifts the hand. Looks at his own palm.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He breathes out, once.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The castle. The corridors. The captain walking the lady to her rooms.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Somewhere above the southwest tower, a man with a floating crystal staff sets his pen down.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns his head a fraction toward the east wing. He does not know yet why.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Somewhere in the high tower of the keep, a woman six hundred years old looks up from a black-bound book.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Today she has read it differently. She does not know yet why.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She sets the book down.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She has begun, very faintly, to remember.', hold: 2600, cps: 28 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(14); setCurrent(nextIdAfter(14));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 15 · "The Rose Suite"
+    // Owner PDF Ch9-16 V3. Caspian-led. The east wing suite. The bath,
+    // the three cloaks request, Caspian arrives through the connecting
+    // door, the wine-red gown. Morning in the great hall. The captain
+    // at the guard door. The court reads twice. Mirror at evening.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 15,
+      title: 'Chapter 15',
+      subtitle: 'The Rose Suite',
+      teaser: 'You will play this role. You will play it well. And then you are taking off the silk.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_15_full',
+          title: 'Chapter 15',
+          subtitle: 'The Rose Suite',
+          speaker: 'CASPIAN',
+          palette: { bg: '#1a1018', glow: '#d8a8b8', accent: '#e8c8d0' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The corridor · "if you have need" ────────────
+            { type: 'line', speaker: '', text: 'The door has just closed behind you. Alistair behind you. Caspian on the other side of that door, hand still on the chair-arm where yours had been.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The word he said is still in your mouth. You can taste it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. This way."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corridor is long. The light is going gold.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'His hand at his sword-hip. Bare. The gauntlets off. He has not put them back on since the study.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Servants pass. They lower their eyes. They look longer at him.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'A long window throws gold across the stone at the turn. Your foot hesitates. Half a step.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not know why you hesitated. Something in the angle of the light at this corner. You almost know what is around the next one.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The next corner is just another corridor. You keep walking.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A door. Pale wood. A single rose carved along the lintel. Two attendants in soft livery.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Captain. The suite is ready. The physician has sent her potion. The bath is drawn."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair nods. Steps back. Turns to you.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not looked at you in the eye since the study. He does now. The bright green holds for less than a heartbeat.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I will be near, mi’lady. If you have need."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: '*If you have need* lands somewhere it should not.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…captain."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He inclines his head. Turns. Walks the way you came.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You almost call him.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Come, mi’lady. The water will not stay warm."', hold: 3200, cps: 26 },
+
+            // ─── Section 2 · The suite · the balcony ──────────────────────
+            { type: 'line', speaker: '', text: 'The door opens. You step in.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Hearth low. The far wall is open, three tall arched doors with twin curtains drawn back, leading out to a stone balcony.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Beyond the balustrade, the royal gardens spread out below, and past them the city, and past the city the mountains.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'A wide four-posted bed against the inner wall, pale silver linens. A long couch in front of the hearth. A doorway to the bathing room. Steam rising from it.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You stop walking. The small room you remember in this castle was nothing like this one.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…this room.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You walk to the open arches. Out onto the balcony.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed braid at your wrist hums, faintly. It did not do that in the corridors. It is doing it here.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The wrong thing in your chest is sharper here. Standing at the open arches. Looking down at the gardens.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Something in your body knows where it is.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not name it.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You step back inside. Close the curtain at the centre arch. Leave the side arches open. The light is enough.', hold: 4400, cps: 24 },
+
+            // ─── Section 3 · The note · Aurel ─────────────────────────────
+            { type: 'line', speaker: '', text: 'A silver tray at the couch. A clay vial. A folded note.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'NOTE', text: '*The bath will heal what the road has opened. Drink the small cup with your meal. I will come at first prayer to look at the ankle. Be kind to your body tonight. Aurel.*', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The kindness is in the last sentence.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes go wet. You do not let it show.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"The water is good."', hold: 1800, cps: 28 },
+
+            // ─── Section 4 · The bath ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'Steam. Petals on green-tinged water. Two younger maids.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The senior attendant unwraps you. Cloak. Shift. The maids do not stare at the cuts.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Allow me, mi’lady. The potion knits better when the cloth comes off in the water."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She unwinds the braid. Looks at it. Lays it carefully on dry cloth at the tub’s edge.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She has not seen a braid like this. She pretends not to notice the faint hum.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The bandage at your ankle comes off. She helps you down into the water.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You have not been warm like this since the moss. Body-warm. Bath-warm.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The maids kneel at the tub’s edge. Begin to wash you. Wordless. Practiced.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'A maid passes the green-smelling cloth over a half-healed cut. The cut closes a degree. The pink fades.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…the potion is working.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The senior attendant takes a comb. Begins on your hair. The comb behind your ear. Slow.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…Lyra brushed my hair like this.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wet at your lashes does not fall. You keep your eyes closed. The attendant feels the change in your breathing. Does not ask.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The comb keeps moving.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The seaweed braid on its dry cloth, humming faintly. Lyra is thinking about you.', hold: 3800, cps: 26 },
+
+            // ─── Section 5 · The rose silk · three cloaks ─────────────────
+            { type: 'line', speaker: '', text: 'You step out in a thick robe. Two nightgowns on the bed. Cream high-necked. The palest dusty rose, silk like water.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Either, mi’lady. The rose is the suite’s own."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand goes out. Touches the silk. Cool.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"The rose."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She helps you into it. The silk slides over your shoulders. The sleeves at your upper arms. The neckline at your collarbone.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not recognise the woman in the mirror.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The attendant ties the seaweed braid back at your left wrist. Three loops. Small knot. The same way Lyra tied it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Dark green against dusty rose.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…there is something I would like."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You crouch slowly. The new ankle holds. You take three folded cloaks out of the bag, one at a time, and set them on the foot of the bed.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The first is heavy red wool. Dust-marked at the hem. A patrol-cloak.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The second is the soft grey of weathered green, a small stitched leaf at the inside collar. A warden’s mark.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The third is the green wool you arrived in, road-dusty and stiff.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"I would like these three cleaned. Carefully. The wool washed cold. The dust brushed."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"The mends, if there are mends, kept as they are. I do not want any of them mended further."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"Then folded onto the high shelf of the wardrobe. Where I can see them. Not stored away."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"It will be done, mi’lady. Cold wash. No new mends. The high shelf. They will be ready in the morning."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She gathers the three cloaks. Lays them across her own forearm. Carries them as if they are linens for a noble bride.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You hold the last cloak half a heartbeat longer than you have to. Then you let it go.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…I will give them back to you. One day. At the right time. Both of you.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"The cord at the bed if you need me."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The door closes. You are alone.', hold: 2000, cps: 28 },
+
+            // ─── Section 6 · The second door ──────────────────────────────
+            { type: 'line', speaker: '', text: 'You at the couch. Fire crackling. Bowl in your hands. Small cup beside it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You drink the small cup. Bitter at the back. Sweet behind it. The last small ache in your back lets go.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The room is too quiet. No cave hum. You touch the braid. It hums back. Friendly.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you are still here, little weft.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A sound. Very quiet. Not from the corridor.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The second door, the one near the bed. The one no one introduced.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…there is a second door.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Two fingers on the wood from the other side. A knock. Not a servant. Not the captain.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed braid at your wrist has not gone hostile. It has not gone bright either. The cave is paying attention but is not warning you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step toward the door. Slow. You set your hand near the kitchen knife without picking it up.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. It is only me. May I speak with you."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…your highness?"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Yes, mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"This door was not opened to me. I did not know it was there."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I know, mi’lady. That is why I did not come through it earlier today. I am telling you about it now."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"What is the hour, your highness."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Late, mi’lady. Past the long bell."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…this is a lady’s room, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…my apology, mi’lady. I have been on my feet since the gate. I should have sent word first. I am sorry."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I have come because there are things you need to know before tomorrow morning. I have a garment for you for tomorrow evening."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I will say what I have to say and I will leave. You may keep the door closed. I will speak through it. If that is what you prefer."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You turn the latch. Open the door a hand’s width. Look at him through the gap first.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has stepped back from the door. The garment bag is over his arm. A long dark robe over a soft shirt, no collar. The thin gold band still at his hair.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…what is on the other side of this door, your highness."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"A short corridor. The other end is a door in my own rooms. The corridor is mine alone."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"It was built for the prince of this house to come to the favourite’s suite without crossing the public halls."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The latch is yours. From your side it locks. From mine, it does not. You can lock it now if you wish."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has just handed you the only key.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…come in. But not far."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian inclines his head. Steps through. Closes the door behind him gently.', hold: 3600, cps: 26 },
+
+            // ─── Section 7 · The gown · the suite has done its work ────────
+            { type: 'line', speaker: '', text: 'He sees you. His eyes do something his face does not.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The rose silk. The seaweed at your wrist. The hair damp at the ends from the bath. The wet at the lashes you have not let fall.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has stopped breathing. Half a breath. He catches himself. Looks at the fire.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the suite has done its work, mi’lady."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You did not expect the catch in his voice.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sets the garment bag on the back of the couch. Careful. Not too close to you.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Tomorrow evening’s gown."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He folds back the cloth.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Deep wine-red silk. Gold thread at the neckline and the sleeves. The colour of his own house. The colour of the doublet he wore when you met him.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…that is your colour."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Yes, mi’lady. The court will see it before they see your face."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"May I sit. I will not stay long."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Sit."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sits. Not too close. You sit at the other end of the couch.', hold: 3000, cps: 26 },
+
+            // ─── Section 8 · The plan · once ───────────────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"Tomorrow morning. There will be a breakfast in the great hall. I will come for you. You will walk in on my arm. The court will rise."', hold: 6200, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…what do I say."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Nothing you are not asked. If asked, you are recovering from a fall. That is true. Aurel will have seen your ankle by then."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You sit at my right. The captain stands at the hall door."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…the captain."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He is your charge by the decree. He will not be at table. You may look at him once."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You may not look at him a second time. The court reads twice."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…once."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Once, mi’lady. I am sorry."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will not be alone tomorrow night. I will not leave your side unless the queen calls me."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…does she."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Not for this. The queen has decided the gathering is not worth her time. I stand in her place."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He stands. He has stayed longer than he said he would. He turns to the door. Pauses. Does not look at you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady. That rose silk suits you. I am going now. Sleep well, mi’lady."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The heat at your throat. The silk has gone warmer against your skin.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He opens the door. Goes through. Closes it. The small click of the latch.', hold: 3400, cps: 26 },
+
+            // ─── Section 9 · Sleep · four thoughts ─────────────────────────
+            { type: 'line', speaker: '', text: 'Later. Fire lower. You at the edge of the bed.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You lie down. The bed is wider than any bed you remember. The linens cool against the silk.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the prince noticed the silk.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the captain did not look at me twice.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…Lyra is asleep on a cliff.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…Elian must be in his hut.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you do not yet have a name.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist hums. Warm.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes close. You drift into slumber. Warm. Held.', hold: 2800, cps: 26 },
+
+            // ─── Section 10 · Morning · the great hall ─────────────────────
+            { type: 'line', speaker: '', text: 'Morning. Light through the east window above the bed. The maids in the suite before you wake.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'For half a heartbeat you think you are in the cave. Then you remember.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Aurel will come after breakfast, mi’lady. The prince arrives at your door in a half-hour."', hold: 4600, cps: 22 },
+            { type: 'line', speaker: '', text: 'Hair brushed. A pale day-gown the colour of dawn. The seaweed braid still at your wrist, under the sleeve.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The knock.', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian in the doorway. Doublet on now. Deep wine. Hair brushed back. The prince in his coat.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has not slept much either. He hides it better.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Shall we."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He offers his arm. You take it.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Walk a fraction slower than I do. Let them see you arrive."', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two attendants ahead. They open the great doors.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Long table. Pale linen. Silver. The court already seated. Faces turning at once.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Twenty faces. Then thirty. Then forty. All of them have stopped what they were doing.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A noblewoman in green at the table’s middle. Her wine cup paused at her mouth.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The door at the far end of the hall. The guard door.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair is there.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Full captain’s coat. Sword at hip. Hands clasped behind his back. Eyes on the room, not on you.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist hums. Warm.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Smile, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The small careful smile comes.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian walks you down the length of the hall. The court rises as you pass. Not all at once. In a slow wave.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He seats you at his right. Sits. The court sits.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A servant pours wine. Caspian touches the rim of your cup with one finger. The smallest sign. You leave it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The noblewoman in green has not stopped looking at you. The look is not friendly.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers have curled into the silk of your skirt without permission.', hold: 3000, cps: 26 },
+
+            // ─── Section 11 · The one look · the court reads twice ────────
+            { type: 'line', speaker: '', text: 'Caspian’s hand finds yours under the table. Just a touch. Warm. Steadies.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not look at you. The court must not see him look at you yet. The touch is for you only.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You let your hand uncurl.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Alistair has not moved. He is looking at the wall above your shoulder.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look at him. Once.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes shift. Find yours. Hold. One heartbeat.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Three things at once. The prince’s thumb against the back of your knuckle. The captain’s eyes at the door. The braid at your wrist, warm.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your body does not know which one to answer first. Your body answers all three.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look away. The court reads twice.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes close. Just for a moment. He opens them. The captain is back.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The meal. Bread. Fruit. Eggs in pale wine sauce. You eat what you can.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian speaks easily to the table. He laughs at something the older lord at his left says. The court laughs with him.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You let your face do what the role asks. Small. Tired. Polite.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady, you are tired. Allow me to send you back to your rooms before the bread is done."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you, your highness."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He rises. The court rises with him. He helps you stand. His hand at your elbow. Light. Public.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He lifts your hand. Kisses the back of it. The court sees.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His thumb brushes the inside of your wrist where the braid is. Once. He has felt the hum. He does not show it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Until this evening, mi’lady."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He lets go. Returns to the table. You walk out of the hall on the attendant’s arm.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair does not look at you. You do not look at him.', hold: 2800, cps: 28 },
+
+            // ─── Section 12 · The dressing · the mirror ────────────────────
+            { type: 'line', speaker: '', text: 'You sit on the couch. The attendant pours water.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your hand is shaking. You did not know it was shaking.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The attendant takes the cup. Sets it on the table. Sits beside you. Does not touch you. Does not ask.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Aurel will be here in a moment, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Aurel off-panel. Lunch in the suite. The afternoon goes by. The wine-red gown moves from the back of the couch to a stand by the bed.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'Early evening. The attendant and two maids working at once. You at the dressing table. Your hair being put up.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A small line of kohl at the lash. The lip touched with red. The hair gathered up off the neck. Gold pins.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'They bring the wine-red gown. Lift it over your head. The silk falls cool over your shoulders, your ribs, your hips.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The neckline is wider than the morning’s. The gold thread frames the line of your throat.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The attendant brings a thin gold chain. Sets it at your throat.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The woman in the mirror is not anyone you recognise. The woman in the mirror is the prince’s favourite.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The silk catching the firelight at the neckline. The gold thread bright against your throat. The seaweed braid hidden under the sleeve.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lyra is asleep on her cliff. Elian is somewhere in the woods. The captain is somewhere in the castle, in his coat, at his post.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You breathe in. Steady.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you ate almost nothing at the long table.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you did not know which fork to lift first. You watched him. You copied him.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…the court was watching you, and you were watching him.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…a real favourite would already know.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you have to ask someone. Aurel. The attendant. Not the prince.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you do not know her.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you have not known her since you woke in the moss.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you will play this role.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you will play it well.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you will find what you came to find.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…and then you are taking off the silk.*', hold: 3000, cps: 26 },
+
+            // ─── Section 13 · The footsteps ────────────────────────────────
+            { type: 'line', speaker: '', text: 'You hear the corridor outside. Footsteps. Too steady to be a servant. A man’s walk. Not running. Coming.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You know whose footsteps those are.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The footsteps stop at your door.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The light at the neckline. The footsteps in the silence outside. The moment before the knock.', hold: 4200, cps: 24 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(15); setCurrent(nextIdAfter(15));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 16 · "The Court Reads Twice"
+    // Owner PDF Ch9-16 V3. Caspian-led finale of the V3 arc. The court
+    // evening. The wine-red gown. The herald. The dance. Alistair is
+    // called away — a wound-creature at the south gate. Caspian
+    // trapped by Lady Eilwen in the garden — the player rescues with
+    // "my love." Unmasking in the suite. The body remembers.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 16,
+      title: 'Chapter 16',
+      subtitle: 'The Court Reads Twice',
+      teaser: 'You danced. Your body knew. The prince was trapped and you rescued him.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_16_full',
+          title: 'Chapter 16',
+          subtitle: 'The Court Reads Twice',
+          speaker: 'CASPIAN',
+          palette: { bg: '#1c1018', glow: '#d8a888', accent: '#e8d4b8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The knock · "you are going to ruin me" ───────
+            { type: 'line', speaker: '', text: 'A knock at the suite door. The corridor door. Not the private one.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The attendant looks at you. You nod. She opens the door.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Full court doublet. Deeper wine than the morning’s. Gold at the collar. The thin gold band at his hair.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has been smiling at the attendant. He looks past her. Into the suite. At you.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The smile does not leave his mouth. The smile is no longer in his eyes.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes have done something else. They are looking at you the way a man looks at a thing he was not prepared for.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince mode has flickered. For one breath the man underneath is at the front.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He swallows. Once.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has been at the threshold for two breaths longer than a prince should be at a threshold.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The attendant has noticed. She steps aside without being asked.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He steps in. Crosses the room. Stops a careful pace from you. Offers his arm. His eyes are not entirely steady yet.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are going to ruin me in front of the court, mi’lady."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…is that not the point, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You lay your hand on his arm.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Walk a fraction slower than I do, mi’lady. Let them see you arrive."', hold: 4000, cps: 24 },
+
+            // ─── Section 2 · The corridor · the herald ─────────────────────
+            { type: 'line', speaker: '', text: 'The corridor. The prince and his favourite walking toward the hall. The wine-red silk catching torchlight at the pleats.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walk a fraction slower than he does. He has shortened his stride for you without naming it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His profile. He is keeping his face for the corridor. The corner of his mouth is doing its honest thing at the inside, the part the corridor cannot read.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The great doors at the end of the corridor. Closed. Two royal guards in dark blue. A herald in cream and gold.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The herald has heard them coming. He turns. Bows.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'HERALD', text: '"His Royal Highness, Crown Prince of Aethermoor, and her ladyship the prince’s guest."', hold: 5000, cps: 22 },
+
+            // ─── Section 3 · The hall · the empty throne ──────────────────
+            { type: 'line', speaker: '', text: 'The great hall. Frescoed ceiling above. Eight chandeliers lit, the wax warm. Tables along the walls. The marble parquet dance floor swept clear at the centre.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'One throne on the dais at the far end. The queen’s. Empty.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A single high-backed chair at the right of the dais is set for the prince. A small lower chair, no arms, has been placed beside it. The favourite’s chair.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lesser nobles lean over the railing to look down. The faces in the gallery have all stopped what they were doing.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two hundred faces, then more. The court has turned to the doors. Caspian in deep wine. You in deeper wine.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The noblewoman in green from the morning. Her wine cup paused at her mouth again. Her face has gone the colour of calculation.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Beside her, an older lord with iron-grey hair and a wine-purple sash has not stopped looking at you. He is calculating too. A different calculation.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The great-door at the side of the hall. Alistair. Full captain’s coat. Sword at hip. Hands behind his back.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Eyes on the room. Not on you. He has not yet seen the silk.', hold: 3000, cps: 26 },
+
+            // ─── Section 4 · The processional · the silk ──────────────────
+            { type: 'line', speaker: '', text: 'Caspian lifts his free hand once. The string consort begins. A slow processional.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He walks you down the length of the hall. Slow. The court rises in a wave, the way it did in the morning, but slower this time.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bows are deeper. The eyes follow you longer.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed braid hums faintly at your wrist under the silk. The cave has felt the chandeliers.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You pass the great-door where the captain stands.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has, by now, seen the wine-red silk. He has seen the gold at your throat. He has seen the prince’s hand on your arm.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His face has not moved. His jaw has done what it has been trained to do.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk past him. You do not turn your head. The court reads twice.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes close as you pass behind his shoulder. One heartbeat. Open. The captain is back.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You and Caspian reach the dais. He hands you up the two low steps. Helps you into the favourite’s chair.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Two hundred bows in a hall that has gone briefly silent.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are seated at the right hand of the crown prince in front of the entire court of Aethermoor. You did not know your own name three weeks ago.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The small careful smile. The eyes politely lowered. The hands quiet in your lap.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The string consort holds the processional one more bar. Then breaks. The hall murmur begins. Wine pours.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have been received.', hold: 1800, cps: 28 },
+
+            // ─── Section 5 · The first hour · the rim ─────────────────────
+            { type: 'line', speaker: '', text: 'Caspian beside you, half-turned to a small group of lords at the dais-edge. He is performing the prince.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A servant pours. A pale wine the colour of straw. You touch the rim once with your finger, the way you saw Caspian do at the morning meal. The servant pauses. Steps back. You do not drink yet.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He sees the touch. The corner of his mouth, briefly.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are watching well, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"I am copying the prince. The prince is the only person here whose hands I trust."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere he was not expecting it to. He turns his head to the lord at his left, briefly. He is keeping his face. He is not entirely keeping it.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The captain at the door. He has not moved. On watch. His eyes pass the dais once, fast. They do not stop. He has not let them stop.', hold: 5400, cps: 22 },
+
+            // ─── Section 6 · The first dance · "I will never let you fall"
+            { type: 'line', speaker: '', text: 'The strings sharpen. A new measure. The dance-master at the edge of the floor signals.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'DANCE-MASTER', text: '"His Royal Highness opens the floor."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian stands. Holds out his hand to you.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Will you do me the honour."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You did not know there would be a dance. The composure returns. You lift your chin a fraction.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite’s sweetest smile finds your mouth. You did not have to invent it. It came.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You place your hand in his. The court rises.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He leads you down the steps. Onto the marble. The two of you at the centre of the parquet. The court ringed around.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Before the music starts the proper measure. You lean in. Closer than the dance requires. Your mouth at his ear.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…you did not mention this, your highness."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your breath has passed over his ear. Warm. He has not been this close to a woman who was not performing for him in a very long time.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'He brushes faintly at the side of the neck where your breath went. A small involuntary motion.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…just follow my lead, mi’lady. I will never let you fall."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The prince. The favourite. His hand at her back. Her hand in his.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'From the outside, the two of them look like a man and a woman having a private moment in the middle of two hundred people who are not them.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The noblewoman in green. Her wine cup has paused at her mouth a third time tonight. The face has gone past calculation. The face has gone jealous.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Three more women along the wall. The same look. Different shades.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He begins to lead. The first turn. Slow. Generous. He is dancing for you. Making the steps obvious.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your feet find the pattern. You did not know they would. You wonder, briefly, if you have danced before.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The captain at the door. His eyes have, finally, gone to the floor. The jaw. The set of it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The thumb pressed against the side of the forefinger behind his back.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are dancing, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"I am following you."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That is dancing."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The small honest smile finds its way out before you can stop it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The strings reach the closing phrase. The dance ends. The court applauds. A long quiet ripple.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian holds your hand a heartbeat longer than the dance required. The court reads it.', hold: 3800, cps: 26 },
+
+            // ─── Section 7 · A wound-creature at the south gate ────────────
+            { type: 'line', speaker: '', text: 'The captain at the door. About to turn.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'A young knight in dawn-patrol colours at his shoulder. Out of breath.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOUNG KNIGHT', text: '"Captain. A creature at the south gate. A wound-creature. The watch saw it from the wall."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR',     text: '"Stopped before the gate?"', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOUNG KNIGHT', text: '"Before the gate, sir. Three of ours brought it down on the outer field. It is dead. But, sir…"', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR',     text: '"Speak."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOUNG KNIGHT', text: '"They have not come this close to the kingdom, sir. Not in living memory. This one walked at the gate as if it knew where it was going."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…it came for her.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…she is in this castle and a wound-creature walked at the south gate tonight.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Show me. Outer field. Now."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The captain turns. Walks through the great-door. The young knight at his shoulder. The two royal guards do not stop him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The space the captain was standing in is empty. The court does not see. The court is watching the dance.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your eyes, lifting from the floor, find the great-door. The captain is not there.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The expression you have been wearing for the role does not move. The seaweed braid at your wrist has gone hot. Not warm. Hot.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lyra is paying attention to the change in you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian has seen the empty doorway in your eyes before he saw it himself. He does not show it. He has marked it.', hold: 5000, cps: 22 },
+
+            // ─── Section 8 · The floor opens · the body remembers ─────────
+            { type: 'line', speaker: 'DANCE-MASTER', text: '"The floor is open to the court."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Couples step onto the marble. The dance becomes social.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small group of noblewomen has gathered at the dais-edge. Three of them. The noblewoman in green at the front.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOBLEWOMAN IN GREEN', text: '"Your highness. If the prince would honour the rest of the hall with a measure."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Lady Eilwen. Of course. The hall has been patient."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The eyes do a small private thing toward you. *I am sorry. You see what this is.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'An older nobleman has stepped forward at the same moment. He bows to Caspian first. Not the favourite. Caspian.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOBLEMAN', text: '"Your highness. If the prince permits, would the lady grant the next measure to me."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"Mi’lord. You should ask the lady. I do not dance for her."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'NOBLEMAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Mi’lord. I would be glad."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian bows. Not deeply. The court watches the prince hand the favourite off to another man without losing the room.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He is a competent dancer. His feet know the floor. He leads cleanly.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your feet find the pattern. You do not have to think about it. The body remembers.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…I have done this before.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…my feet know.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The court-smile has done something on its own. It has become a real smile. The music has gone into you. The strings are bright.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOBLEMAN', text: '"The lady dances well."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"The lady is surprised, mi’lord."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian on the floor with Lady Eilwen. He is leading her cleanly. The smile is very public. The hand at her back is exactly the court-distance.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His eyes are not on Lady Eilwen. They have been on you since the dance began.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lady Eilwen is dancing with the body. The eyes are dancing with the favourite.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She has noticed. The court-smile she is wearing has gone the smallest fraction tight.', hold: 3400, cps: 26 },
+
+            // ─── Section 9 · Three measures · the brightening hall ─────────
+            { type: 'line', speaker: '', text: 'The dance ends. Another nobleman is already there. The next measure is starting.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You give your hand again. You are dancing again.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You are enjoying this. You did not expect to. The body that learned to dance somewhere you cannot remember is home on this floor.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your smile brightens the hall. The court has felt it. Even the prince cannot keep his eyes off you.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lady Eilwen with Pale Gold beside her. Their wine cups have paused. Their eyes have stopped being kind.', hold: 4000, cps: 24 },
+
+            // ─── Section 10 · The garden · the cyan fountain ───────────────
+            { type: 'line', speaker: '', text: 'Three measures later. You have danced with the nobleman in pale blue, the nobleman with the gold-trimmed sleeves, and a younger lord whose hands were nervous.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You curtsy. The young lord bows. Looks at you with eyes that say he will tell his friends about it tomorrow.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…you have been dancing for an hour. You need air.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your eyes scan the hall for Caspian. He is not on the floor. He is not at the dais.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The side-door at the far end of the hall. The one the servants use. The one that leads out toward the inner garden.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You walk toward it. The favourite is going to take air. The court does not read this as anything.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The side corridor. Cooler. Quieter. The chandelier-noise reduced to a hum through the stone.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The small iron-banded door at the end is unlocked. A guard at one side only. He has been told the favourite may pass.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The royal garden. Walled on all four sides. Hedges in geometric patterns. The central path of pale stone.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'At the heart of the garden, the fountain. The water at the basin faintly luminous. Pale cyan. The same cyan as Lyra’s cave.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You know this colour. You knew it before you saw it. The braid at your wrist has gone bright.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You walk halfway to the fountain. Your feet stop. You hear voices.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'A gap in the hedge to your right. Two figures past it. A man and a woman.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian. Lady Eilwen. She has stepped very close to him.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The court-smile is on. The eyes are doing the small flick they do when a man is trying to escape a conversation without making the woman feel he is escaping it.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LADY EILWEN', text: '"…your highness. I have not been able to say it inside. The hall is too full. I am saying it now."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN',     text: '"My lady Eilwen. We have danced. Let us not crowd the evening with sentiment."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LADY EILWEN', text: '"It is not sentiment, your highness. It is truth. I love you."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LADY EILWEN', text: '"I have loved you since we were children at the summer court. I do not know why you have taken in this stranger. I do not need to know."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'LADY EILWEN', text: '"I am only asking that you remember I am here. I have always been here."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN',     text: '"My lady. You have honoured me with the dance. We will speak of this another evening. The hour is late."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lady Eilwen has put a hand on his sleeve. Light. But there.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Her other hand reaches toward his face. She is leaning in. She means to kiss him.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He goes still. The court-smile flickers. He turns his cheek a fraction, the way a prince turns when he must take a kiss he has not asked for and cannot openly refuse.', hold: 6400, cps: 22 },
+
+            // ─── Section 11 · "My love" · the rescue ──────────────────────
+            { type: 'line', speaker: '', text: 'You behind the hedge. The favourite-smile is no longer on your face. The honest face is.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The heat goes up in your throat. Not jealousy. Something else. Decision.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The prince is being cornered by a noblewoman in his own garden. You are the favourite. The favourite has a role.', hold: 4600, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step out from behind the hedge. Into the central path. The cyan from the fountain throws moonlit blue at the wine-red silk.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-smile comes back. But brighter. Sweeter. Wider than the court has seen it tonight.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You walk toward them. Unhurried. The way a woman walks who has every right to walk where she is walking.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"My my…"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Both of them are now looking at you.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I was looking for you everywhere, my love."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The line has hit Caspian. He has not been called *my love* by a woman in many years.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His face has done a thing his face has not done all evening.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lady Eilwen. The hand on Caspian’s sleeve has frozen. So has her face.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You reach them. You do not look at her. You walk past her hand as if it is not there.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take Caspian’s arm. You lean against him. The silk against the wine of his coat. The gold at your throat almost touching the gold at his collar.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lady Eilwen’s hand has fallen off the sleeve.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You left me there alone."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The prince shifts into the lover instantly.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I should have been there, my sweet."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He lifts his free hand. The hand the court has not seen tonight. He touches the underside of your chin. Light. Two fingers.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lady Eilwen’s face has gone the colour of pale gold’s wine. Her eyes have gone wild. Not heartbroken. Furious.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LADY EILWEN', text: '"…your highness. Mi’lady. I will not keep you any longer."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'She curtsies. Stiff. Court-correct. The smile she has put on is not a smile.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'She turns. Walks back down the hedge-corridor. Fast. Her steps echo on the pale stone. Her footsteps fade.', hold: 4400, cps: 24 },
+
+            // ─── Section 12 · The moonlight · the laugh ────────────────────
+            { type: 'line', speaker: '', text: 'The two of you in the moonlight. Caspian’s fingers still under your chin.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The court has been removed from the garden.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He laughs. Once. Softly. A real laugh. Surprised. Almost helpless.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You giggle. You did not give yourself permission. The giggle came anyway.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are pressed against his arm. He is holding his face above yours. The garden is moonlit. The braid is humming.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have just called a crown prince *my love* in front of a noblewoman who loved him, and you do not regret it at all.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lowers his fingers from your chin. He is still laughing under his breath. He has not let go of your other hand on his arm.', hold: 4600, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady. Where did you learn to do that."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"I do not know, your highness. The body remembers."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The body. Of course. The body."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He shakes his head once. The court-smile is gone. The man’s smile is in its place.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…thank you, mi’lady. I owe you a great deal more than I can name."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"You looked trapped, your highness."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I was."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks at you for a long moment. The garden is very quiet around you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Caspian, mi’lady. In private."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…Caspian."', hold: 1800, cps: 28 },
+
+            // ─── Section 13 · The fountain pulses · walking back ──────────
+            { type: 'line', speaker: '', text: 'They walk. Slow. Around the central path. He has not let go of her hand on his arm.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cyan in the fountain throws gentle blue at their feet. Neither of them speaks for a while.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed braid at your wrist. Bright-warm. Lyra is with you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cyan in the basin pulses, very slightly, at your nearness. One pulse. Then quiet. The garden remembers you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. The court has had enough of you. I am taking you back to your suite."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"Yes, your highness."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Caspian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Caspian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He laughs again. Very quietly. The sound is small in the garden.', hold: 3000, cps: 26 },
+
+            // ─── Section 14 · The hand at the door ─────────────────────────
+            { type: 'line', speaker: '', text: 'They reach the iron-banded door. The side corridor. The main corridor. He has not let go of her hand.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The rose suite door. The attendant is at the threshold. Bows.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian stops three paces from the door. He turns to face you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He lifts your hand. The one that has been on his arm. Brings it slowly to his mouth.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He kisses the back of your hand. Court politeness on the surface. Held a long fraction longer than the surface.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His mouth is warm. The kiss lasts long enough that the attendant lowers her eyes.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His thumb passes once, slowly, across the inside of your wrist where the seaweed braid is. Under the silk. He felt it on the dance-floor. He is feeling it again.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lowers your hand. He does not let it go yet.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…thank you, mi’lady. For the dance. For the garden. For the lover."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…you owe me a better one next time, Caspian."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I will remember that, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He releases your hand. Bows. Small. Court-formal at the surface. Not at the inside.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Sleep well, mi’lady. Aurel will see you in the morning."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He turns. Walks away down the corridor with his attendants. He does not look back.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth is still doing the thing it should not be doing in a corridor.', hold: 3400, cps: 26 },
+
+            // ─── Section 15 · The unmasking · the three cloaks ─────────────
+            { type: 'line', speaker: '', text: 'The suite. You step inside. The attendant closes the door behind you. The favourite-mask is still on. You have not let it go.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Sit, mi’lady. I will bring water. You may unmask when the door is shut on the bedchamber."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You sit on the couch. The silk pooling at your feet. The attendant brings water. Withdraws to her own chamber. You are alone.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite’s polite hand uncurls. The fingers go to the seaweed at your wrist. They tighten around the braid through the silk.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cave is with you.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The favourite-mask has gone. Underneath, the woman from the mirror last night is there. Steady. Quieter than the favourite.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You are not crying. You are not sad. You are full. The evening has been more than you thought you could carry, and you carried it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you danced.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…your body knew.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the prince was trapped and you rescued him.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the captain left and you do not know where he went.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the braid is warm. Lyra is with you.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You walk to the wardrobe. Open it. The high shelf. The three cloaks. Folded. Clean. The dust brushed off. The mends kept.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The red wool at the back. The warden’s leaf in the middle. Your own green at the front.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your hand goes up. Rests on the green wool for one breath. The cloak you arrived in. Yours.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Then on the warden’s leaf. Then on the red.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…I am bringing you all into this house with me.*', hold: 3400, cps: 26 },
+
+            // ─── Section 16 · The balcony · what else does the body remember
+            { type: 'line', speaker: '', text: 'You close the wardrobe. Walk to the balcony arches. The middle curtain drawn. The side arches open. You step out.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The royal gardens below. The moon high. The night cold and clean. The braid at your wrist still humming.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A new smile. Not the favourite’s. Not the vow’s. The one that says you played the role well, and a part of you enjoyed it.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…the body remembers.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…what else does the body remember.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The silk at the balustrade. The seaweed braid at the wrist. The cyan in the royal-garden fountain far below, faint, the way a thing answers when it has been recognised.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The woman in the silk looking out at the kingdom that does not yet know her, and the kingdom looking back.', hold: 5000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(16); setCurrent(nextIdAfter(16));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 17 · "The Mage Tower"
+    // Owner PDF Ch17-20. Lucien-led. Physician Aurel checks the ankle
+    // and seeds the Mage Tower. Royal library has nothing. Player
+    // sneaks out at night, climbs the tower, finds a book with her
+    // own seal, meets the Mage. Wrist grab, lavender stone woven into
+    // the seaweed braid, "Weaver" said aloud for the first time.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 17,
+      title: 'Chapter 17',
+      subtitle: 'The Mage Tower',
+      teaser: 'No one in this castle has called you Weaver. Not the prince. Not the captain. Only him.',
+      charId: 'lucien',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_17_full',
+          title: 'Chapter 17',
+          subtitle: 'The Mage Tower',
+          speaker: 'LUCIEN',
+          palette: { bg: '#0e0a18', glow: '#b890d8', accent: '#d8c0e8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · Morning · Aurel ───────────────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite. The light is the pale gold of late spring through the three arched balcony doors.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You sit up in bed. Already washed. In a plain morning shift. The wine-red silk hanging on the dressing-frame across the room catches the morning light differently than it caught the chandeliers.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Last night feels far away.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'A knock at the outer door. Gentle. The attendant opens it. A woman steps in. Forty. Plain dark blue robe with the small cream embroidery of the castle’s physician guild.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Physician Aurel, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stand, curtsy small. Aurel returns it smaller. Physician’s bow.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'AUREL', text: '"Good morning, mi’lady. How is the ankle?"', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"It does not hurt, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"I am Physician Aurel, mi’lady. Not mi’lady. My title is enough. Roll it again, please."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',   text: '"…physician."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"Better. The ankle."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You roll the ankle. Forward. Backward. It moves clean.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'AUREL', text: '"Good. The wrist?"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You lift the wrist with the rope-burn. The mark is faded to a thin pink line.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two fingers at the inside. She feels for the pulse. Counts. Her face goes briefly still in the way of a person doing arithmetic.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'AUREL', text: '"You are healed, mi’lady. Properly healed. Faster than the average."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'AUREL', text: '"Whatever the captain put in his draught, you have more than enough of. I was told you danced last night for an hour."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',   text: '"I did, physician."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"A patient who danced is a patient who is well. I am leaving you two things."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She sets two small bottles and a small jar of cream on the bedside. Pale green liquid. The labels are written in her hand.', hold: 4600, cps: 22 },
+            { type: 'line', speaker: 'AUREL', text: '"Drink the first today. Save the second for the next time the ankle hurts, which it will not. The balm is for the skin."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',   text: '"…thank you, physician."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"You will see me every third morning, mi’lady. Until I have decided you no longer need to be seen."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'AUREL', text: '"That will be some weeks yet. Not for the ankle."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'AUREL', text: '"For the fall. The mind takes longer than the body. I will be here when it does."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU',   text: '"…thank you."', hold: 1600, cps: 28 },
+
+            // ─── Section 2 · "The Mage Tower is for the questions" ────────
+            { type: 'line', speaker: '', text: 'Aurel turns to close her satchel. Pauses.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"His highness asked me to tell you. He is leaving the castle this morning with the captain. They will not be back until after dark."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',   text: '"…where are they going."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"The captain had a report from his men last night. Something at the south gate."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'AUREL', text: '"The prince has gone with him to look at it. The kind of thing princes do on the morning after a long evening."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist has gone very warm. You let nothing of it show.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…I see. Thank you for telling me, physician."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. His highness also left word that you are welcome in the royal library today, while you rest."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The royal library. You did not realise, until you heard the words, how hungry you had been for one.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you. I will go."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Aurel has paused at the door. The corner of her mouth has done a small thing.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'AUREL', text: '"The royal library is quite impressive, mi’lady. Three floors. The histories of the kingdom going back to the founding."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'AUREL', text: '"…though, for the asking-kind of reading, the Mage Tower library is the more impressive of the two."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'AUREL', text: '"The royal one is for kings and chroniclers. The Mage Tower is for the questions."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The line lands. You do not let your eyes change. The braid at your wrist has gone warmer.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…I see. Thank you, physician."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"Good morning, mi’lady. Drink the green one before noon. Use the balm tonight."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'She goes. The attendant closes the door behind her.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the Mage Tower is for the questions.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…she did not have to tell me that.*', hold: 2400, cps: 28 },
+
+            // ─── Section 3 · The royal library · no answers ────────────────
+            { type: 'line', speaker: '', text: 'Noon. The royal library. Three floors. Dark wood shelving along the walls. Tall narrow windows throwing long bars of light onto marble.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The head archivist greets you. A small woman with grey hair pinned in a coronet. She has been told to expect you.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ARCHIVIST', text: '"Mi’lady. Anything specific you are looking for today?"', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU',       text: '"Histories, please. The early ones. The founding of the kingdom."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ARCHIVIST', text: '"Second floor. The eastern alcove. I will leave you to it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You climb the spiral stair. The eastern alcove. Dense shelves. Leather spines. You pull a volume. Pale leather, gold leaf at the title.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: '*A True History of Aethermoor in Three Volumes. Vol. I.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You sit at the small reading-table. Open the book. Begin to read. The afternoon goes by. The light at the window shifts.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The kingdom was founded. There was a king. There was a queen. There was a war. There were two more kings. There was peace.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'No mention of Weavers. No mention of cyan fountains. No mention of song-keepers at the sea. No mention of wardens in the wood.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'No mention of pages with the seal of two crossed branches and a moon in silver ink burned at the edge.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The royal history is the history of a kingdom. It is not the history of the world the kingdom is in.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You pull another. Then another. Three volumes deep, the light has gone warm gold. You have found nothing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…kings do not write what they do not understand. The answer is not here.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stand. Stretch. Close the books. Slot them back. Go down the spiral stair. Thank the archivist. You go.', hold: 4400, cps: 24 },
+
+            // ─── Section 4 · Evening · the pull ────────────────────────────
+            { type: 'line', speaker: '', text: 'Evening. The rose suite. The light is the soft amber of sunset through the three balcony arches.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You at the small writing-desk by the window. The seal-page is on the desk in front of you. Two crossed branches and a moon.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Burnt edge. Silver ink. Unchanged since the moss.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…whose mark is this.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The seaweed braid. Warm. Steady. Lyra would know the seal. She is a kingdom away.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You set the page back into the sleeve. You are restless. The library did not feed the hunger. The luxury of the suite has not fed it.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A pull. Not the wood-pull. Not the cave-pull. Something in the castle.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…something here is calling you. You do not know what.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The amber has gone to rose. The rose is going to indigo.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…Aurel was telling me where to go.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…should I?*', hold: 1600, cps: 28 },
+
+            // ─── Section 5 · Night · the wardrobe · the guard ──────────────
+            { type: 'line', speaker: '', text: 'Night. The lamps are lit. The attendant has finished turning down the bed.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. I will be in my chamber. Ring the bell if you need anything."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU',       text: '"…thank you. I am going to read a little longer. I will sleep when I am tired."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You wait three breaths. You walk to the wardrobe. Open it. Reach to the high shelf. Your hand rests on the green cloak.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You lift it down. Settle it around your shoulders. The hood comes up. Your face is mostly inside it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist hums against the inside of the sleeve. Lyra knows you are about to leave.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The corridor is dim. The two royal guards posted at the favourite’s suite turn at the sound of your latch.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'GUARD', text: '"Mi’lady. The corridor is yours."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"Thank you. I would like to ask the way to the Mage Tower, if I may."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'GUARD', text: '"The Mage Tower is at the southwest. The corridor turns left at the next junction. Down two flights. Across the inner court."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'GUARD', text: '"The tower has its own postern. The mage is often awake at this hour."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'GUARD', text: '"Shall I escort you, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"No, thank you. I would prefer to go alone. The night is cool."', hold: 3800, cps: 26 },
+
+            // ─── Section 6 · The inner court · the old guard ───────────────
+            { type: 'line', speaker: '', text: 'The lower corridor. Cooler. The lamps are far apart at this hour. The pull is leading you.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The inner court. Moonlit. A small fountain at the centre, no cyan.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'In the southwest corner, a tower rises from the wall. Pale stone. Narrow. Eight stories. A pair of long narrow windows lit warm at the top.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A small iron-banded door at the base. An old guard on a stool beside it, reading by lamplight.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'OLD GUARD', text: '"Evening, mi’lady. The Mage is in. Stair at the back. You go up."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',       text: '"…thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'OLD GUARD', text: '"Mind the third landing. Step is shorter than the others. People miss it."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',       text: '"…I will."', hold: 1600, cps: 28 },
+
+            // ─── Section 7 · The stair · the round room ────────────────────
+            { type: 'line', speaker: '', text: 'A spiral stair at the back. You climb. The stone is worn smooth at the centre of each step.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Third landing. You step over the short one. Fifth. Sixth. The lamps are further apart up here.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Seventh landing. A small antechamber. A single tall arched door of pale wood. Faintly carved with lines and circles, the same family as the seal on your page, but not the same mark.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The door is ajar. Lamplight inside.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You push. Slow.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A round room. The walls are shelves, floor to ceiling. Two more levels above, a wrought-iron spiral stair winding up to them.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Books. Scrolls. Glass jars. Small instruments of pale brass. In the centre, a long study-desk of dark wood. Lamps.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'An open ledger. A pen on it. A chair pushed back as if its occupant has just stepped away.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The room is empty. The pull has stopped at the doorway. You are where you have been called to be.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You step in. The wooden floor is silent. The smell is old paper and lavender.', hold: 3600, cps: 26 },
+
+            // ─── Section 8 · The book with the same seal ──────────────────
+            { type: 'line', speaker: '', text: 'Your hand at the shelf. It moves without your permission. The fingers walk across the spines. They stop. Pale leather. Plain. No title on the spine.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two crossed branches and a moon. The same as your page.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…it is here.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You take it down. Heavy. Old. You sit on the edge of the study-desk. Not the chair. The chair belongs to someone.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You open it. The pages are vellum. The script is older. You cannot read it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A drawing of two figures with their hands at each other’s throats. A figure at a fountain, light coming out of its mouth.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A diagram of two overlapping circles, words in older script at the corners. You can see the shape of what they mean.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You are crying. You did not give yourself permission. You did not know how heavy the not-knowing had been until you saw something that knew.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist. Bright. The brightest you have ever felt it.', hold: 3000, cps: 26 },
+
+            // ─── Section 9 · The Mage · "you are trespassing" ──────────────
+            { type: 'line', speaker: '', text: 'A sound behind you. A faint clearing of a throat.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You go very still. You turn. You did not hear him arrive. He is in the doorway. You jump, half a step.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…the Mage.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"You are trespassing, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He approaches. Slow. The lamplight catches him. Long dark blue hair, worn loose. A small gold monocle at his left eye.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Pale skin. Robes the colour of deep purple and night-sky, gold-edged at the seams.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Younger than the older clerks downstairs. Older than anyone in the castle in the way that matters.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He holds a small floating crystal staff. The crystal at its head is a pale lavender. The staff is humming faintly.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has looked at you once and looked at the book in your lap once. That is all he needs.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',    text: '"…I did not mean to. I only…"', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"You are not in the right place."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…I am sorry, Grand Mage."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The body has gone briefly still. The eyes behind the monocle have narrowed once at the book. He does not mention it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"You should leave, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…there was something that pulled me here."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"I insist you leave, mi’lady. Before I make you."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…please…"', hold: 1600, cps: 28 },
+
+            // ─── Section 10 · The wrist · the lavender stone ───────────────
+            { type: 'line', speaker: '', text: 'You lift your right hand. Reaching, maybe to gesture, maybe to plead. The seaweed braid catches the lamplight at your wrist.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hand closes around your wrist. Fast. He has not telegraphed the movement. He is suddenly close.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cold has gone slightly less cold.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…what are you doing."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Stay still. Where did you get this."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…from my dearest. The one who hums."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the singer."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You nod. You are confused. He has not let go of your wrist.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks down at the braid. He lifts his free hand. The palm faces up. He whispers something in the older script. The words are not for you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You look up at him. You see his eyes properly for the first time. Behind the small gold monocle, the pale of them is gone.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'They have gone purple. A sharp lavender. The same colour as the stone forming in his palm.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',    text: '"…what are you…"', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Stay still."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'A small stone forms in his palm. Smooth. Round. The size of a pea. Lavender. It is humming. Lower than the braid.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He brings the stone to your wrist. Sets it against the seaweed. Closes his palm over both. Whispers three more words.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid flares bright-bright. Then quiet. He lifts his hand. A single lavender stone is woven into the strands. It sits flush. As if it had always been there.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The purple has begun to fade from his eyes. By the time he speaks, the pale is back. You almost wonder if you imagined it.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"This stone will hide you. It will protect you from anyone seeking you. Weaver."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The word has hit you. *Weaver.* He has said it aloud. The first person in this castle to say it aloud.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…how."', hold: 1400, cps: 28 },
+
+            // ─── Section 11 · "Lucien" · "this is my bedchamber" ──────────
+            { type: 'line', speaker: '', text: 'He has released your wrist. Stepped back half a pace. The cold is back.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Go back to your room, mi’lady."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…but…"', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Where you stand now is not a private library. It is my private bed chamber."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"So please. Be out. It is not proper for the prince’s favourite to be in another man’s room."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The flush hits you hard. You go red to the throat.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…oh."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I… I am so sorry, Grand Mage."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The face has done one small thing the heroine does not see. He almost smiles. He does not.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Lucien. Call me Lucien. Now will you go back to your room."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…of course, Grand Mage."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Lucien."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…Lucien."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Good night, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You nod. Fast. You do not look at him. You turn and go.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien beside the desk. He watches you go. He waits until your footsteps have left the antechamber. Then he picks up the book. Puts it back on the shelf.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand stays at the spine for one breath. The smallest possible thing at the corner of his mouth.', hold: 3800, cps: 26 },
+
+            // ─── Section 12 · The stair down · flushed ─────────────────────
+            { type: 'line', speaker: '', text: 'You go fast. Too fast. The third landing comes up before you remember. You stumble on the short step. Catch yourself on the wall.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…his bed chamber.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…his bed chamber.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you walked into a man’s bed chamber. You sat on his desk. You read his book.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'OLD GUARD', text: '"Did you find what you came for, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',       text: '"…some of it, sir."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'OLD GUARD', text: '"Better than most who come here."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The inner court. Moonlit. Empty. You walk fast across it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist is humming the new hum. Lower. Quieter. The lavender stone catches one moonlit pulse and goes still again.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'GUARD', text: '"Mi’lady. Welcome back."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…thank you. Good night."', hold: 2200, cps: 28 },
+
+            // ─── Section 13 · The new stone · beginning ────────────────────
+            { type: 'line', speaker: '', text: 'You step inside. Close the door behind you. The attendant’s door is still closed. You lean back against the door. Breathe out. The heat is still on your face.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you called him Grand Mage twice after he told you not to.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you cannot return to that tower for a week.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You unfasten the cloak. Carry it back to the wardrobe. The green wool falls back to its place beside the red wool and the warden’s leaf.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walk to the bed. Sit on the edge.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You lift your wrist. Turn it in the lamplight. The braid is the same. The seaweed is the same.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lyra is the same warmth she has always been. The lavender stone sits at the inside of the wrist. Smooth. The size of a pea.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…he did not say he would not help you.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he did not say do not come back.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he gave you a stone.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You touch the lavender stone with one finger. The braid hums softly under the touch.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…he called you Weaver.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…no one in this castle has called you that. Not the prince. Not the captain. Only him.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…he was not warm. He was also not unkind.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…he could have called the guards. He gave you a stone instead.*', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The lavender stone. The smallest pulse. As if Lucien has, somewhere across the keep, set down his pen and looked toward you for half a second.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The green cloak in the wardrobe. The new stone at your wrist. The page in your sleeve. The smallest possible look on your face. Not relief. Not triumph. Beginning.', hold: 6000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(17); setCurrent(nextIdAfter(17));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 18 · "The Office, The Garden"
+    // Owner PDF Ch17-20. Caspian-led. Office summons re: Lucien's
+    // report. Lucien lies for the player. Caspian admits fear ("you
+    // frightened me"). Lady Marra training. Garden bench. Alistair
+    // sees them and turns back. Player decides to ask the captain.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 18,
+      title: 'Chapter 18',
+      subtitle: 'The Office, The Garden',
+      teaser: 'For one breath I did not know if he had come to report you or to bury you.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_18_full',
+          title: 'Chapter 18',
+          subtitle: 'The Office, The Garden',
+          speaker: 'CASPIAN',
+          palette: { bg: '#1a1018', glow: '#d8a8b8', accent: '#e8c8d0' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · Morning · the summons ─────────────────────────
+            { type: 'line', speaker: '', text: 'Morning. The rose suite. The light is pale gold through the three arched balcony doors.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"His highness has asked for you, mi’lady. The summons is for the second bell."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The seaweed braid at your wrist has gone cool overnight. The lavender stone catches the morning light.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…of course he knows.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the prince is going to be displeased.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Your day-gown for the morning, mi’lady. I will help you dress."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you."', hold: 1600, cps: 28 },
+
+            // ─── Section 2 · The office · Lucien at the window ────────────
+            { type: 'line', speaker: '', text: 'The corridor. Two attendants ahead. Two behind. The royal guards step aside at the office doors. The chamberlain opens them.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"Mi’lady. His royal highness will receive you."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian at the desk in deep wine. Gold at the collar.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A second man at the window. Hands clasped behind him. Long dark blue hair, loose. The small gold monocle.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You go still in the doorway.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…Lucien.*', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pale eyes meet yours once. He looks away.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The chamberlain bows. Withdraws. The door closes.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Thank you for coming. Please. Sit."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk to the chair. Sit. Hands fold in your lap.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your eyes have gone to Lucien at the window. Small. Careful.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…please.*', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has caught the look. He does not return it.', hold: 2800, cps: 28 },
+
+            // ─── Section 3 · The report · Lucien's lie ─────────────────────
+            { type: 'line', speaker: '', text: 'Caspian sits at the edge of the desk.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I will not keep you long, mi’lady. The Grand Mage came to me at first bell. A small report."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He tells me you visited his tower last night. Alone. After the long bell."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Under the warmth, the prince is not entirely pleased.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He tells me he gave you a stone. For your protection."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"For which I thank him."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You are waiting for the second sentence.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Was there something else."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Mi’lady was looking for the library, your highness. The tower is not well marked."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lucien has lied for you.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…an honest mistake. Of course. Thank you, Grand Mage."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. If you wish to visit the Mage Tower again, you will do so in the day. With an attendant or a knight."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Not alone. Not after long bell. The kingdom is not always a safe place at night. Even within these walls."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Especially the prince’s favourite."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, your highness."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Caspian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pale eyes have caught the name-exchange. The corner of his mouth has gone the smallest possible amount tighter.', hold: 4400, cps: 24 },
+
+            // ─── Section 4 · Lucien leaves · the stone holds ──────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"Grand Mage. May I ask how you knew the lady was alone last night."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"I saw the prince and the captain ride out together at dusk, your highness. From my tower window. I assumed the situation."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…thank you for assuming, Grand Mage."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He walks to the door. Pauses at the threshold. Turns half toward the room. Not to you. To the air above your head.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The stone will hold for as long as it is on her wrist, your highness. It does not need renewing."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He goes. The door closes.', hold: 2000, cps: 28 },
+
+            // ─── Section 5 · "You frightened me" ───────────────────────────
+            { type: 'line', speaker: '', text: 'You let out a slow breath. Your shoulders drop a fraction.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The Grand Mage is not given to small reports, mi’lady. When he calls them small, the small part is for the kingdom and the report is for me."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He has done you a favour."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I know."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…do you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The court-warmth has gone. The man is looking at you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You went to a man’s private rooms in the middle of the night. Alone. In disguise."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"After dancing with the prince in front of the whole court the evening before. Did you know that. Before this morning."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…I knew the disguise. I did not know the private rooms."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The Grand Mage’s tower is also his residence, mi’lady. The library is his library. The upper rooms are his rooms."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The tower has been his alone since before I was a prince."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You did not know. He has chosen not to humiliate you. That is the favour."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…thank you, Caspian. I will not go in the evening again."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…agh. Stop it already. I am dying over here."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not expected it. He lets out a small laugh. Real. Surprised.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Good."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not yet moved. The court-warmth has not entirely come back.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks down at his own hand on the back of the chair-arm. The hand has gone white at the knuckles.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you frightened me, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The Grand Mage came to my rooms at first bell. He said the lady went to my tower last night, your highness. Alone. In the green cloak."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"For one breath I did not know if he had come to report you or to bury you."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The wet has reached the corners of your eyes.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He lifts his hand off the chair-arm. The white in the knuckles fades. The blue eyes are tired and not unkind anywhere.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…do not frighten me again."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I will not, Caspian."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…thank you."', hold: 1600, cps: 28 },
+
+            // ─── Section 6 · "You have not been trained" ───────────────────
+            { type: 'line', speaker: '', text: 'Caspian rises. Walks to the windows. Looks out at the inner court. The prince mode has fully returned.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. There is another matter."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The court has not yet noticed something about the favourite, mi’lady. But they will."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You have not been trained."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…trained."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"A favourite of the crown prince has been trained, mi’lady. In curtsies. In the order of greeting."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"In which fork is lifted before which. In what is said and what is left politely unsaid."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"In which faces are looked at and which are looked past."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I have danced, your highness."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You have danced. The body remembered the steps. That is not training, mi’lady. That is luck."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The favourite does not survive on luck."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The court is reading the favourite every minute she is in the hall. They are watching the depth of her curtsy. The hand that lifts the cup."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The first time the favourite shows them she has not been trained, the court will begin to answer the question for itself."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The answers they would find are not answers I would have the kingdom hear."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…your highness. I am very tired. The morning… and I need to research, as well."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I know, mi’lady. The morning has been long. I am sorry for that."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The training begins this afternoon. Lady Marra of the Chamber will come to your suite at the second bell."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…this afternoon."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"This afternoon, mi’lady. And every third afternoon after, until Lady Marra tells me you no longer need her."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, your highness."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Caspian. Even when I am giving you instructions you do not want."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, Caspian."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Lady Marra is discreet. She has trained four favourites of my father’s line. She does not gossip. You will not be embarrassed."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"She will tire you. That is not unkind. It is the work."', hold: 3800, cps: 26 },
+
+            // ─── Section 7 · Lady Marra · curtsies, forks, phrases ────────
+            { type: 'line', speaker: '', text: 'Afternoon. The rose suite. The chairs along one wall. A long blue ribbon laid down the centre of the rug.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lady Marra, tall and thin and in her sixties, a silver chain across her chest. Two younger attendants behind her.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Mi’lady. I am Lady Marra of the Chamber. We will begin with the curtsy. There are five. We will learn them in order."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your feet on the ribbon. Mid-curtsy. The right foot back. The knee bent.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"A finger lower, mi’lady. The breath out, not in."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The dining-table set in the suite. Six forks. Five knives. Four spoons.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"From the outside in, mi’lady. The fish-fork before the salad-fork. The salad before the entrée. The entrée before the meat."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"The lord-mayor’s son has put his hand on your forearm. The court is watching."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"You will say, very lightly: forgive me, my lord, the captain’s hand alone may rest on his lady’s arm."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',        text: '"…forgive me, my lord. The captain’s hand alone may rest on his lady’s arm."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Good. The line about the captain is the prince’s own preferred phrasing. It carries weight. Use it."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have not seen the captain in two days.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lady Marra walks you through three court-measures. Your feet know the steps before your mind finds the names.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…you have danced, mi’lady. Properly. Somewhere."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',        text: '"…the prince taught me, my lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…the prince teaches well, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Sunset. You on the small couch by the hearth. The favourite-mask is still on. The body underneath has gone very tired.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Mi’lady. You have done well. A sharp ear. A willing back. The next session will be shorter. They become easier."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU',        text: '"…thank you, Lady Marra."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"The prince has asked me to return you to him at the evening bell. He is in his office still."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',        text: '"…please give the prince my deep regret, Lady Marra. The training was generous. I am very tired. I will see him tomorrow, if he will permit me."', hold: 7200, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"I will tell him, mi’lady. He will permit you."', hold: 3000, cps: 26 },
+
+            // ─── Section 8 · You did it well · you hated it ────────────────
+            { type: 'line', speaker: '', text: 'The lady-of-the-chamber and her attendants leave. The rose suite goes quiet. The light through the arches has gone amber.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You let the favourite-mask go. Your face goes with it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you did it well.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you hated it.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The seal-page in your hand again. Two crossed branches and a moon. Unchanged since the moss.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the answer is in the Mage Tower.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You set the page back. The pull is still there. The stone is hiding most of it from you.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk to the balcony arches. The garden below has gone evening-soft. The cyan fountain faintly luminous in the dusk.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…the garden.*', hold: 1800, cps: 28 },
+
+            // ─── Section 9 · The rose garden · the bench ──────────────────
+            { type: 'line', speaker: '', text: 'Night. The rose garden. Stone arches at the entrance. Climbing roses, red and pink. White jasmine.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Strings of warm lights across the arches with small purple and pink gems. Lantern posts. A pale stone bench. The cyan fountain straight ahead through the inner arch.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step under the first arch. Plain day-gown. A soft shawl. No silk. No gold.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk to the bench. Sit. Pull the shawl closer. Breathe.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…this feels so nice.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'A window in Caspian’s office, lit. A figure at the window. He has stopped writing. From the height of the office he has seen a figure in a shawl on the bench.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'He sets the pen down. Leaves the office.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Soft boots on the stone path. You know who it is before you turn.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian under the first arch. Plain doublet. No gold band tonight.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"May I."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sits at the far end. Hands on his knees. The bench is wide. There is a generous gap.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Lady Marra returned to me an hour ago. She used the word willing more than once. She used the word sharp three times."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You did well today, mi’lady. Better than she had hoped for."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I am glad. …I hated it."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I know. The first day is the heaviest. The body remembers the rest quickly enough."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…the body remembers."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…yes, mi’lady. The body remembers."', hold: 3000, cps: 28 },
+
+            // ─── Section 10 · Alistair turns back ──────────────────────────
+            { type: 'line', speaker: '', text: 'Movement at the outer wall. Alistair in full captain’s coat. Red wool. The patrol-cloak. He has come through the outer gate.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bright green eyes find the bench under the lamps. Two figures. The favourite. The prince.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The captain has gone very still. He decides. He turns. Walks back the way he came.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have not seen him. Caspian has.', hold: 2400, cps: 28 },
+
+            // ─── Section 11 · Tomorrow · the kiss at the door ──────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Have you eaten."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…not since noon."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Then come. Dinner. A small table in my private rooms. No court. No phrase-book."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…or another night, mi’lady. If you are tired."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I am tired, Caspian. Truly. Tomorrow."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…tomorrow, then. I will hold you to it."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…you may."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stands. Offers his arm. The shawl falls open at your wrist as you stand. The lavender stone catches the lamplight.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His eyes go to the stone. Just once.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He walks you out of the garden. Slowly. The arches over you. The string lights above. The cyan fountain at your back.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite’s suite door. Caspian stops three paces from the door. He lifts your hand. Court politeness. Brings it to his mouth.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The kiss is light. Quick. The corridor is not empty.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Sleep well, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He releases your hand. Bows. Turns. Walks away.', hold: 2800, cps: 26 },
+
+            // ─── Section 12 · The bath · the plan ──────────────────────────
+            { type: 'line', speaker: '', text: 'The bath has been drawn. Steam rising. Petals on green-tinged water.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. The herbal is ready. Aurel’s balm is on the tray."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are in the water. The tired body lets the water hold it. Eyes closed. Head tipped back.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The seaweed braid floats at the surface. The lavender stone bobs against your wrist.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…the answer is in his tower.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done the honest thing.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you will go in the day.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…it has been so long since you talked to him.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…did he sleep at least.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he would take you to the tower. If you asked.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the prince would know anyway.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…let him know, then.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The petals on the water. The two protections at your wrist. The plan in your chest, small and clean and yours.', hold: 4400, cps: 24 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(18); setCurrent(nextIdAfter(18));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 19 · "The Captain's Silence"
+    // Owner PDF Ch17-20. Alistair-led. Lady Marra reports "the body
+    // has been trained before". Player visits training yard, Mage
+    // Tower library, finds the "seventh has not yet been written"
+    // book. Dinner blow-up at Caspian. Corridor confrontation with
+    // the silent captain. Decision to sneak out beyond the wall.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 19,
+      title: 'Chapter 19',
+      subtitle: 'The Captain’s Silence',
+      teaser: 'You have not said one word to me in three days, captain.',
+      charId: 'alistair',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_19_full',
+          title: 'Chapter 19',
+          subtitle: 'The Captain’s Silence',
+          speaker: 'ALISTAIR',
+          palette: { bg: '#161220', glow: '#c8a878', accent: '#e8d4b8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · Training · the body remembers ─────────────────
+            { type: 'line', speaker: '', text: 'Morning light. The chairs along the wall. The long blue ribbon down the rug. Lady Marra at the centre of the room. Her two attendants behind her.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your feet on the ribbon. Mid-curtsy. Right foot back. The knee bent. The breath out.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Again."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You straighten. Reset. Drop into the next one.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"A finger lower, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You move before realising you already understood the correction.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…interesting."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Continue, mi’lady. The third position now."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The dining-table. The cutlery in proper order this time. You have not been told.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand moves. The right fork. The right knife. The salad-fork from outside the entrée. You do not have to count.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'She is watching the hand, not the face.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"The duchess of the high lands has commented on the cut of your gown. You will say."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',        text: '"…I have so much to learn from the wisdom of the lady’s eye."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'She closes the phrase-book.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',        text: '"…I am sorry, my lady. It came out."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…did it."', hold: 1600, cps: 28 },
+
+            // ─── Section 2 · The silver thread ─────────────────────────────
+            { type: 'line', speaker: '', text: 'The room has gone strange.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The far wall. Behind Lady Marra’s shoulder. The pale plaster between two of the tall candle sconces.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A single faint silver line. Like a thread caught in the morning light. Vertical. The length of a hand.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The thread is gone. The plaster is plaster.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…what was that.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…we will end the curtsy practice early today, mi’lady. The body has caught up with the mind."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"We will spend the rest of the morning on the greeting order. You may sit."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You sit. The silver thread has not come back.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The greeting order has not taken long either. You have caught the duke-before-the-duchess. The bishop-before-the-chamberlain.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The royal-favourite walks after the prince and is greeted last except by the queen. Lady Marra has tested you four times. You have not missed.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"We will close for the morning, mi’lady. You are well ahead of where I had planned to be at this hour."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',        text: '"…thank you, my lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"The afternoon is yours. I will give the prince my report at the second bell."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…rest, mi’lady. Or do whatever it is you intend to do with the time you have just earned."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'She bows. Turns. Her attendants follow. The door closes behind them.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…what else does the body remember.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…and what was that.*', hold: 2200, cps: 28 },
+
+            // ─── Section 3 · The training yard ─────────────────────────────
+            { type: 'line', speaker: 'YOU', text: '*…the prince said any knight. You have a captain.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The plain day-gown. The shawl. You leave the suite. The corridor-guard does not stop you.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Inner court. The training-yard is at the east side. Sand under the boot. Wooden swords stacked along the wall.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Five knights in patrol-leather paired off. The captain at the centre.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair has a wooden long-sword. Stripped to the shirt. Sleeves rolled at the elbows. Sweat at the hairline. He is sparring with a knight half a head taller than him.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He moves the way water moves. The opponent strikes. The captain is not there. The captain is to the right, the wooden blade already at the opponent’s throat.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Two more knights step in for the captain. He takes both at once. The shoulders. The hips. The wooden blades coming from two angles. He is not there for any of them.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have been watching for some time before you remember you came to ask him something.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The captain calls a rest. The knights step back. He turns to drink from a wooden cup. He has not seen you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The shirt is dark at the spine. You have changed your mind. He is in the middle of his work. You will not interrupt him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You turn. Walk back the way you came.', hold: 2200, cps: 28 },
+
+            // ─── Section 4 · He saw the green shawl ───────────────────────
+            { type: 'line', speaker: '', text: 'He lowers the cup. He has caught something at the edge of his eye. A shape. A green shawl moving past the gate.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…how long was she there."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"…some time, captain."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He takes one step toward the gate. The body has decided before the mind has caught up.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A wooden blade comes for his left shoulder. The knight he was sparring has not been told the rest is over.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair turns. Late. The blade catches the meat of his shoulder. He blocks the next one. He cannot follow her now.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The captain wins them. He always does. The knights bow. He bows back. The yard begins to clear.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The yard empty behind him. The green shawl is long gone.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His hand comes up. Rests against his own chest. Flat. The way a man holds a thing inside that has begun to hurt.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hand stays there for one long breath. He lowers it. The captain mask comes back. He turns toward the yard. There is still work.', hold: 4800, cps: 22 },
+
+            // ─── Section 5 · Lady Marra's report · "trained before" ───────
+            { type: 'line', speaker: '', text: 'Caspian’s office. Lady Marra in the room. Standing across the desk from the prince. The two attendants outside the door this time.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Lady Marra. The report."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Your highness. I will be brief. The lady is not a beginner."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Continue."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"The curtsies came back to her hands inside the first hour. The cutlery she did not need a second pass on. The greeting order she has by mid-morning."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"She gave me a line on page sixteen. I had not opened to page sixteen."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Your highness. The body of the lady has been trained before. Some of it she could have learned at the home of a magistrate or a wealthy guildmaster. Some of it she could not have."', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"The line on page sixteen is a duchess’s line. It is barely in the houses of barons."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"It is what a girl says when she has been taught how to live next to a duchess."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He sets the pen down. Very carefully.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are telling me she was a noble. Before her fall."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"I am telling you, your highness, that the body of the lady remembers being one. Whether the girl was one or was raised at the elbow of one, I cannot say. But she has been at the elbow."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Who else have you told."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"No one, your highness."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Keep it. For yourself."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand at his side has closed slowly into a fist. He releases it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That will be all, Lady Marra. Thank you."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She bows. Goes.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Alistair at the inner door. Captain’s coat. The shoulder-bruise from the training yard hidden under the cloth. He has been there for the report.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince keeps his captain near him at moments like this. The bright green eyes are very steady. He has heard every word.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Captain."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will not speak of this. Not to anyone. Not to her."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…your highness."', hold: 1800, cps: 28 },
+
+            // ─── Section 6 · The Mage Tower library ────────────────────────
+            { type: 'line', speaker: '', text: 'Afternoon. You at the small writing-desk. A folded square of cream paper.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"To the prince. Tell him I will join him for dinner at the evening bell as I promised. Tell him I am in the Mage Tower for the afternoon. With an attendant, as he asked."', hold: 7200, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. The Mage Tower."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The spiral stair. You climb. The senior attendant a step behind. The third landing comes. You step over the short one.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The fourth landing. A wide carved arch this time, not the small antechamber from last time. A pair of pale wood doors with brass fittings.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…the library was here all along.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"I will be at the antechamber, mi’lady. Send if you need."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The doors close behind you. You are alone in the room.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'A round chamber. The reader’s gallery runs the full circle, carved balustrade and pale stone, bookshelves rising along the walls from gallery height to a domed ceiling of gold leaf and dark wood.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You are at the top of a short flight of pale stone steps. The lower floor is dark veined marble.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'At its centre, set into the stone, a magic circle the size of a small fountain. Violet. Lit from below. Geometric. Runes around the rim you cannot read.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The circle is humming so quietly you feel it in your feet, not your ears.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'At the far end of the room, between two columns, a tall gothic window. The glass shows the night sky in colours you have not seen a sky take. Indigo. Streaks of cyan.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The lavender stone at your wrist has gone warm. Not bright. Just present. The way a small animal goes alert.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You step around the magic circle’s edge. The hum changes briefly under your boots as you pass it, then goes back.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The shelves run from the floor at this level to twice your height. The script on the spines is older than the morning’s training had room for.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You pull a volume. Pale leather. No title. Turn the page. Set it back. Another. Then another. You have not found the seal.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…agh. How can I find it.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stop. Lean your forehead against the cool wood of a shelf. Close your eyes for one breath.', hold: 3800, cps: 26 },
+
+            // ─── Section 7 · Lucien · the book on the case ────────────────
+            { type: 'line', speaker: '', text: 'A small sound behind you. The faint hum of the staff.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You spin. Your shoulder hits the shelf. A book tips off and lands on the marble at your feet.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…oh… my heart. You scared me!"', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien is standing two paces from you. He has not announced himself. One hand on the staff. The other holding a single book at his hip.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He walks past you. Bends. Picks up the fallen book. Slides it back into its place on the shelf with one careful hand.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Walks on. Sets the book he was holding on the empty corner of the nearest display case.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He taps the cover twice with one finger. Then walks back to the gallery door. Does not look at you again. Goes through.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…such a weird man. No courtesy at all.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…how does he move like that.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You walk to the case. Look at the book. Plain cover. The spine has a small embossed mark. Not your seal. The Grand Mage’s house-mark.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You open it. Sit on the case-top beside it. The lavender stone has gone a fraction warmer at your wrist.', hold: 4000, cps: 24 },
+
+            // ─── Section 8 · "The seventh has not yet been written" ───────
+            { type: 'line', speaker: '', text: 'The script is in a hand you can read this time. Newer. Maybe a century old. A title at the top of the chapter:', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: '*Of Soul Weavers, and the rarity of their arrival into the world.*', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: '*There have been seven, by the records the Mage Tower keeps. The first was Selene, who walked at the founding of the kingdom and at whose hand the first wards were set.*', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: '*The fifth fled before her gift could be named. The sixth was the wardwright Proto.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: '*The seventh has not yet been written into this page.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: '*A Weaver is not made. A Weaver is found. The world is not generous with them.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: '*There has been no Weaver in Aethermoor for a hundred and fifty years.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…the seventh has not yet been written.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You read further. The script speaks of the body knowing things the mind cannot. Of song. Of pages with seals.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Of the difficulty of a Weaver staying alive in a kingdom that has forgotten how to keep one.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have turned several pages. The light at the high window has gone golden. You have not noticed.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. The evening bell is half an hour. The prince will be at his table."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You close the book. Stand. Gather it carefully under your arm. The chapter you have just begun has not finished. You will take it with you.', hold: 5000, cps: 22 },
+
+            // ─── Section 9 · "If you insist, Grand Mage Lucien" ───────────
+            { type: 'line', speaker: '', text: 'You walk to the door. Lucien is in the doorway. You did not hear him.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…oh. Again, Grand Mage."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes have gone narrower. The startle is wearing off. You are about to be cross with him.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The books of this tower stay in this tower, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…you could have told me that, Grand Mage. When you set it down. Or before. Or at any moment in the last hour."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"Were you doing it on purpose."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He gestures with one finger at the case behind you. Polite. Mute. Final.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Leave the book here, mi’lady."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You walk past him to the case. Set the book down with more care than you wanted to. Smooth the cover with one hand because you cannot quite let it go.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You turn. Look at him directly. A different smile has begun. Smaller. Sharper.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…so. You want me to leave the book here. You are expecting me to come back."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The pale eyes have done a small thing the face has not. He has not been expecting the line.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He opens his mouth. Begins to say something.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…if you insist, Grand Mage Lucien, I shall be back."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The opened mouth has not yet produced a word. He closes it.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You incline your head. Small. Court-correct. You turn. Walk to the door.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pale eyes are still on the empty doorway after you have gone. The corner of his mouth is doing the smallest possible thing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…trouble."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…his eyes when I said it. You have not had a moment that good in three days.*', hold: 4200, cps: 24 },
+
+            // ─── Section 10 · The private dining · the silver thread ──────
+            { type: 'line', speaker: '', text: 'The private dining room. Three tall candles. A round table set for two. The royal stag carved into the back of the prince’s chair.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian standing by his chair. Deep wine doublet. Gold at the collar. Not the thin gold band tonight.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair at parade rest. Sword at hip. Full captain’s coat. He has been standing there for some time.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I had begun to think you would not come."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I am sorry, your highness. I did not see the time pass."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Caspian. And I forgive you. Sit."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He pulls the chair himself. You sit. He sits across from you. The wine has already been poured.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I am beginning to like this habit. The prince pouring wine for his favourite."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Then you should dine with me more often, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair at the door. His eyes are on the far wall.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The far wall behind Alistair. A single faint silver line. Vertical. The length of a hand.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Gone. The wall is wall.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…it is here again.*', hold: 2000, cps: 28 },
+
+            // ─── Section 11 · "150 years" · the blow-up ────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I have been thinking about you all afternoon."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…about me, your highness."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Caspian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"There has not been a Weaver in this kingdom in a hundred and fifty years, mi’lady."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The exact line. From the book this afternoon. He does not know.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"We do not know if anyone alive remembers how to keep one alive."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Including yourself."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wine has gone strange in your mouth. You set the cup down.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I am not saying this to frighten you, mi’lady. I am saying it to ask you to be patient with me. With the Grand Mage. With the kingdom. We are reading the books too. We are trying."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…I am not a Weaver to him. I am a problem he has been reading and not telling me about.*', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you have been helpful, indeed. You have been reading. Instead of telling me."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"You want me to stay still and not do my own research, your highness. Is that not it."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady…"', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…your highness. I am suddenly very tired. May I retire."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. We have not had the second course. Sit. Please."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stand anyway. Small. The favourite is standing without permission.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You curtsy. Small. Walk past the prince’s chair to the door. Past Alistair at parade rest. He has not moved.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The door closes behind you.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The captain is already through it. He has not waited for an order.', hold: 2800, cps: 28 },
+
+            // ─── Section 12 · The corridor · "how long do I have to play" ─
+            { type: 'line', speaker: '', text: 'You walking fast. The favourite-mask is gone. The face under it is set.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair behind you. He has caught up. He is at your half-pace behind. Not at your shoulder. The captain’s distance.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…do not follow me, captain."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You have no order from the prince this time, captain. I heard him say nothing."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…no, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line lands harder than an order would have. He has chosen to follow.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You reach a turn in the corridor. Stop. Turn. Face him.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"You have not said one word to me in three days, captain."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"You have been at every wall I have stood near and you have not had a sentence for me."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"You stood at the dinner. You stood at the report. You stood at the threshold. You stand here now."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"How long do you plan to stand and say nothing."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You knew, Alistair. Whatever it is. You knew."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"I have been playing this role since I walked into the great hall, and the captain who brought me here has been standing at every door and saying nothing."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"How long do I have to play the favourite to get the truth from the men who brought me into this castle."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady. I cannot."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wet has reached the edge of your eyes. You hold it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…go away, captain."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Go. Away."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He inclines his head. Small. Formal. The bright green eyes have closed for one heartbeat. Open. He turns. Walks back the way you came.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wet has fallen now. One. Then another. You wipe them with the back of your hand fast. The favourite cannot be seen crying.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walk to the suite. You do not look back.', hold: 2800, cps: 26 },
+
+            // ─── Section 13 · The balcony · the pull beyond the wall ──────
+            { type: 'line', speaker: 'ATTENDANT', text: '"…mi’lady. May I bring tea."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',       text: '"…no. Thank you. I will rest."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The sideboard. The carafe of red wine. You pour. Half a glass. You did not eat the second course.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You walk to the balcony. Open the centre curtain. Step out. The glass in your hand.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The royal gardens below. The cyan fountain faintly luminous. Past the gardens the wall. Past the wall the city. Past the city the open kingdom.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…there is a kingdom out there.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you have not seen it.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the captain rode you through it once. You were too tired to look.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you want to see it.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'A figure at the edge of the lamplight in the garden far below. Red wool patrol-cloak. The captain.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has stopped. He is looking up at the balcony. He counts. Five long breaths.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The hand at his side comes up. Rests against his own chest. Flat. The same gesture as the training-yard.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He lowers it. He turns. Walks into the dark of the garden. You have not seen him.', hold: 4000, cps: 24 },
+
+            // ─── Section 14 · The new pull · the decision ──────────────────
+            { type: 'line', speaker: '', text: 'The lavender stone catches one moonlit pulse. The pull. Not the wood-pull. Not the cave-pull. Not the Mage Tower-pull either. Something different. Lower.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Past the wall. Past the city. Out there.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…what is that.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…something out there is calling.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…and you have not been allowed out there.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done a thing that is not a smile and is not a frown. A decision.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The wardrobe open. The high shelf. Your hand on the green cloak.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You have already changed. A plain travelling shift. Soft boots. The green cloak on your shoulders. The hood up.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The seaweed braid hidden under the sleeve. The lavender stone tucked against your skin.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you are going to see it, whatever it is.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'At the side-door of the suite. The hand on the latch. The corridor on the other side. The kingdom past it. The pull running through your chest like a thread you have decided to follow.', hold: 7000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(19); setCurrent(nextIdAfter(19));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 20 · "The Stranger in the Alley"
+    // Owner PDF Ch17-20. Noir-led — the seventh’s first appearance.
+    // Player sneaks out through the kitchen passage into the city.
+    // Alistair spots her from the rooftops. She ducks him into an
+    // alley. The first wound moves on its own and almost takes her.
+    // A black-coated stranger with a red-rune sword cuts it in half.
+    // "People around here call me Noir." Alistair arrives. Noir
+    // bows mocking-court and disappears. Carried home, the physician,
+    // the kneeling at the bed, "I will be back." Coda — the queen at
+    // her west-wing window: "...she is here."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 20,
+      title: 'Chapter 20',
+      subtitle: 'The Stranger in the Alley',
+      teaser: 'People around here call me Noir.',
+      charId: 'noir',
+      play: async function (onDone) {
+        // First-encounter flag for Noir — flips speaker name reveal
+        // at the introduction beat in the same way prior chapters did
+        // for Elian, Caspian, Lucien, Proto.
+        try { localStorage.setItem('pp_ms_encounter_noir_seen', '1'); } catch (_) {}
+
+        await runCard({
+          id: 'chp_20_full',
+          title: 'Chapter 20',
+          subtitle: 'The Stranger in the Alley',
+          speaker: 'NOIR',
+          palette: { bg: '#160a0e', glow: '#b53a48', accent: '#e8a0a8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The sneak-out ────────────────────────────────
+            { type: 'line', speaker: '', text: 'The latch settles soft behind you. The corridor on the other side is dim. The long bell has rung. The night-attendants have gone to their chambers.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…the kitchens are beyond this hall. There is a passage there. Alistair told you about it once. If you remember it well.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lower corridor. The kitchens at the far north of the keep. You are moving fast. The hood low over your face.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Two scullery hands at the far end with a basket. Your heart is loud enough you are sure they will hear it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The older of the two lifts her head. Tired and past caring. She looks at you. Looks through you. Goes back to her basket.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The breath you have not been letting out comes out shaky.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The kitchen door. Iron-banded. You push and it does not open the first time. You push harder. It groans.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cook asleep at the smaller hearth on a stool. He shifts. Murmurs something into his sleeve. Does not open his eyes.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Three breaths. The cook does not wake. You step through. Close the door behind you slow. The latch settles.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…the body is wrong. You are moving like a woman who has never broken a rule and is breaking one.*', hold: 4800, cps: 22 },
+
+            // ─── Section 2 · The cellar passage ───────────────────────────
+            { type: 'line', speaker: '', text: 'The trapdoor at the far corner. You crouch. Lift it. The iron hinges, which have not been oiled in some time, groan against the silence.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You catch the trapdoor at the apex of the groan. Across the room the cook turns his head. Mumbles. Does not wake.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You lower the door against the floor. Go down the steps. The dark closes over your head.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cellar. Stone. Cool. Barrels along one wall. Salted hams on hooks. A small lamp at the far wall. A low arched passage waits in the stone.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your back has hit the cold wall behind you without permission. You are shaking.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…well. I will blame it on the wine for the courage I have tonight."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done its honest thing. You walk on.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The passage. Narrow. Dry. You walk hunched. The lavender stone at your wrist has gone warm. The pull is leading.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you do not know if it is the pull. You do not know if it is you.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The passage rises. A small iron grate at the end. You push. The hinges of this one have been oiled. The grate moves silent against your hand.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…someone uses this. Recently.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You climb out into a small market-square outside the castle’s outer wall. A flowerbox conceals the grate behind you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A lantern at the far corner. Two cats at the wall-base. One yawns at you. Finds you not worth waking up for.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The night air is clean and cold and outside.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pull is brighter here. East. Down. Into the city.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You pull the cloak closer. Begin to walk.', hold: 2400, cps: 28 },
+
+            // ─── Section 3 · The city at night ────────────────────────────
+            { type: 'line', speaker: '', text: 'The city at night. Lanterns at every corner. The cobblestones still warm from the day. A baker’s window catches the light.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A tavern’s door stands open with music inside. Two women laughing. A man at a fruit-cart packing his last apples.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The city is awake longer than you expected.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You are not used to being among people who do not look at you. You are also not used to people looking at you and looking away because the hood is enough.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…so this is the city.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pull is leading. East. Down. You let it.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A square. A musician at the corner with a small string-instrument. A few coins in his open case. Two children watching him.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…it is a shame I do not have any coin on me."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done its honest thing. The favourite of the prince of this kingdom does not own any. You walk on.', hold: 5000, cps: 22 },
+
+            // ─── Section 4 · Alistair on the rooftops ─────────────────────
+            { type: 'line', speaker: '', text: 'A tall rooftop in the next street. A figure in red wool. The patrol-cloak. The captain. He has come over the rooftops, not through the street.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bright green eyes scan the street below. He catches the green cloak two streets down. The hood up. The body inside the cloak walking.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has gone very still.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He swings down. Lands in the shadow of a doorway. Begins to follow.', hold: 3200, cps: 26 },
+
+            // ─── Section 5 · The glass-blower · the chase ─────────────────
+            { type: 'line', speaker: '', text: 'You have stopped at a glass-blower’s window. The shapes inside catch the lamplight. Small. Bright. Pretty.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…you did not know there were shops like this. You did not know there were nights like this.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your heart has stopped.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You turn slow. Alistair is at the mouth of the small street. Twenty paces back. The captain’s coat drawn close. His face set.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…no.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not stop to think. You run.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cloak streams behind you. Side alley. Another. The hood comes down off your head. You pull it back up without slowing.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pull is no longer pulling. The fear is.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair behind you. Keeping up. Faster than you on flat ground because he is the captain.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite has gone. The girl from the moss has come back to it. You ran from a wolf once. Your body remembers running.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A narrower alley. A turn. Another. You duck under a low arch where you can fit and he cannot.', hold: 4200, cps: 24 },
+
+            // ─── Section 6 · Lost him · the dark alley ────────────────────
+            { type: 'line', speaker: '', text: 'A long dark alley. No lamps. The cobblestones uneven. The smell of stone and damp.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stop. Lean against the wall. Hold the air in your chest. Try not to make a sound.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The mouth of the alley behind you. Empty. The captain has gone past. You can hear his boots, faint, two streets over.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…did I lose him."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You poke your head out of the alley. Slow. Careful. The street is empty. The boots are further now.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The dark is deeper here. The buildings on both sides have no windows on this level. The next lantern is at the far end, very small, very far.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You straighten. The breath has settled. The pull is back. Faint and steady. Pointing further into the dark.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…not now.*', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pull does not care what you think.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You walk slow with the wall on your right. The lavender stone at your wrist has gone warm. Warmer than it was a breath ago.', hold: 4800, cps: 22 },
+
+            // ─── Section 7 · The wound · three eyes ───────────────────────
+            { type: 'line', speaker: '', text: 'You stop. You did not mean to stop.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'A sound. Low. Wet. Like wood splitting under water. Behind you.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn. Slow.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'There is something at the far end of the alley.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'A shape. Roughly human. Standing on two. Arms longer than they should be. The body is wet. The flesh is wrong.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Not bark, like the wood-wound. Not animal. Something between. The skin dark and shining and split in places where light is leaking out.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Eyes. Three of them. Two where eyes go. One in the throat. All open. None blinking.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'It has seen you. The middle eye has fixed on you. The other two are still moving.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The lavender stone has gone very warm against your skin.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…RUN."', hold: 1400, cps: 28 },
+
+            // ─── Section 8 · The drag · "let go of me" ────────────────────
+            { type: 'line', speaker: '', text: 'You turn and you run. The cloak heavy behind you. The breath already wrong in your throat.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The wound is moving so fast that the legs unfold in the wrong order. In the space of a single breath it is at full speed on the cobblestones. Coming for you.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The third eye at the throat fixed on your back. The wet sound of its feet gaining with every stride.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your boot finds a loose cobblestone. Your ankle turns. Your hand strikes the wall to catch yourself. You keep running because there is nothing else to do.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'It is gaining. You can hear it behind you now. Almost at your shoulder. The wet sound of its feet so close that the cobblestones seem to shake.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Something catches your cloak. The pull of it jerks you back. Your shoulder twists. Your feet leave the stones. The cloak tears at the shoulder. You are falling.', hold: 6200, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cobblestones come up.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand has gone from the cloak to your ankle. The grip wet and cold. The fingers that are not fingers wrapping around the bone of your leg.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…no."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wound drags you across the stones. Three feet. Then five. Toward the dark end of the alley where there is no lamp at all.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'You claw at the cobblestones as you go. Your nails finding the gaps between them. Your fingers tearing on the rough edges. The stones giving nothing.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…let go of me."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wound, its mouth open as it drags you. No teeth in the mouth. Something behind the throat that is moving and is not teeth.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…HELP."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wet at your eyes. The lavender stone burning so hot against your wrist that you can feel it through the linen of your sleeve.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…someone, please…"', hold: 2200, cps: 28 },
+
+            // ─── Section 9 · The blade in the dark ────────────────────────
+            { type: 'line', speaker: '', text: 'A sound. Sharp and clean. The kind of sound a blade makes when it cuts air that has been waiting to be cut.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The middle eye splits. The body comes apart in two pieces. A spray of dark blood arcs across the cobblestones in the lamplight.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grip on your ankle goes slack. The fingers fall away from your leg.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two halves of the wound on the stones. You on the cobblestones, breathing. A tall figure standing over the body with a long sword in his hand.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Alistair?"', hold: 1800, cps: 28 },
+
+            // ─── Section 10 · The stranger ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The figure. Tall. A long black coat. Long black hair falling loose past the shoulders.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Dark armour under the coat. Plate-pieces with red gem-inlays catching the small lamplight. Black leather. Bronze buckles. Fingerless gloves.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The sword in his hand is long. Two-handed. The silver blade marked with red runes glowing faintly along the fuller. A red gem set into the crossguard.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He flicks the sword. The dark blood comes off in a clean arc. The blade catches the lantern-light. The red runes pulse once and go quiet.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale of him in the dark. Red eyes. Sharp.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns. Looks at you on the cobblestones.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pull has stopped being faint. The lavender stone at your wrist is humming. Not in warning. Something else.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+
+            // ─── Section 11 · "A damsel" ──────────────────────────────────
+            { type: 'line', speaker: 'STRANGER', text: '"…a damsel."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth has done a small thing. Not warm. Curious. The kind of curious that takes its time.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'STRANGER', text: '"I did not expect to have you here."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You are propped up on one elbow. The cloak is torn. Your ankle is wet with the wound’s blood. Your knees are scraped on the stones. The wet at your eyes has not gone away.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You try to sit up. The body protests.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not yet sheathed the sword. The red eyes have not left your face. He walks toward you. Slow. The boots quiet on the stone.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He does not look at you the way a man looks at a woman he has just saved. He looks at you the way a man looks at a question he has been asking for some time and has just been answered.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He stops beside the body of the wound. Crouches. Studies it for half a breath.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'STRANGER', text: '"This thing has been in this alley longer than you have been alive, damsel."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'STRANGER', text: '"This kind of wound usually does not move on its own."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks at you over the body. The red eyes are warmer in the lantern-light than they were in the dark. Not by much. By enough.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'STRANGER', text: '"Until you walked in."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"…what."', hold: 1400, cps: 28 },
+
+            // ─── Section 12 · "You do not know what you are" ──────────────
+            { type: 'line', speaker: '', text: 'He stands. Sheathes the sword in a long scabbard at his back. The movement is smooth. He has not stopped looking at you.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He walks the three paces to you. Crouches in front of you. The black coat falls around him. The red gems on the plate catch the lantern-light.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is close enough that you can see the pulse at the side of his throat. He is close enough that he can see yours.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The red eyes are not unkind. They are reading you the way Caspian reads people. The way Lucien reads people. The way Marra reads people. Each one different. His is the slowest.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He tilts your chin up. His bare fingers are warmer than they should be on a cold night. He does not press. He does not ask.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He turns your face into the small lantern-light. He takes his time turning it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The red eyes go to your mouth once. Your throat. Your cheek where the cobblestone scraped. The hood where it has slipped back. He has looked at all of you in three breaths. He looks at your eyes last.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'STRANGER', text: '"…you do not know what you are. Do you, damsel."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',      text: '"…let me go."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not let go of your chin. He closes his eyes. Tilts his head a fraction. Breathes in.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The heat that has gone up your throat is not the heat the prince gives you. Not the heat the mage gives you. Different. Slower. Unlike anything before. It has reached your ears.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…he is smelling me.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes open. The red is brighter. The corner of his mouth has moved.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'STRANGER', text: '"…that is quite troublesome. If you are what I think."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'STRANGER', text: '"It would explain why I came down this alley tonight."', hold: 3400, cps: 26 },
+
+            // ─── Section 13 · The push back · the laugh ───────────────────
+            { type: 'line', speaker: '', text: 'The heat has reached your face. He has not let go of your chin. His thumb has moved. Once. Along the line of your jaw. Slow. Like a man who has been thinking about doing it for some time.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The thumb is the only thing he has done that has touched you with intent. He has not done it harder than a breath. He does not do it twice.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You jerk your chin out of his hand. Plant a flat palm on his chest. Push.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…do not."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He laughs. Not loud. Real and low. Going with the push. Rocking back on his heels. He has wanted to laugh since he saw you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'STRANGER', text: '"…my apologies, damsel."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'STRANGER', text: '"It has been some time since I touched a face that pushed back."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stands. Offers a hand. He does not press it on you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not take the hand. You push up on the wall. The ankle protests. The body is shaking in a different register than it was shaking before.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'STRANGER', text: '"What are you doing here, damsel."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'STRANGER', text: '"Are you not supposed to be hidden."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line lands. He knows something.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…and who are you to be questioning me."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He laughs. Real again. Surprised this time. The kind of surprise that has not happened in a long time.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'STRANGER', text: '"…the damsel speaks back."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'STRANGER', text: '"I have been disappointed in damsels before. You are an improvement on the form."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You are not entirely sure if you have been complimented or insulted. The body has begun to register it as a compliment without your permission.', hold: 5400, cps: 22 },
+
+            // ─── Section 14 · "People call me Noir" ───────────────────────
+            { type: 'line', speaker: 'STRANGER', text: '"People around here call me Noir."', hold: 2800, cps: 26, introduces: 'noir' },
+            { type: 'line', speaker: '', text: 'He has not bowed. He has not extended the name as one extends one’s name to a noblewoman. He has dropped it the way one drops a stone into a pool to see what comes up. He is waiting for what comes up.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pull is steady against your chest. The lavender stone is still humming. You do not give him your name. The corner of your mouth has done a small private thing.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has seen the small private thing. The smile at his own mouth has gone quieter. He has registered it. Stored it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…keeping the name, damsel."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…all the better. Names are for the people you mean to come back to."', hold: 4400, cps: 24 },
+
+            // ─── Section 15 · Alistair arrives · Noir departs ─────────────
+            { type: 'line', speaker: '', text: 'A sound. Boots. Fast. The mouth of the alley.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of Noir’s mouth has done a small thing. The amusement has not left. It has gone underneath.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…well. That was fast."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He steps back. The black coat moves with him. He does not turn his back on you. The retreat of a man who has chosen to be elsewhere. Not of a man who has been chased away.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He bows. Not court-deep. Court-mocking. Half a head. Just enough.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'NOIR', text: '"…until next time, damsel."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"And there will be a next time. The pull does not strike the same place twice for no reason."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You did not realise you would mind the next time. You did not realise the next time was a thing he had also been counting.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has taken three more steps back. The dark of the alley has begun to close around him. He looks at you over his shoulder one more time. The lantern catches the red of his eyes once. Lets them go.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is gone. The far end of the alley is empty. The body of the wound on the stones. The blood. No Noir.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your hand has gone to your jaw. To the place his thumb passed. You did not give the hand permission. You take it back down.', hold: 4800, cps: 22 },
+
+            // ─── Section 16 · Alistair · "where are you hurt" ─────────────
+            { type: 'line', speaker: '', text: 'Alistair at the mouth of the alley. His sword half-drawn. He has seen the body. He has not yet seen anything else.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The bright green eyes find you on the stones. Cloak torn. Ankle wet. Knees scraped. Hand at the wall.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Something in his chest closes.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sheathes the sword. Crosses the alley fast. Crouches beside you without touching.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. Where are you hurt."', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You go quiet.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks at the body on the stones.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"What was here."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…a wound. Different. And then a man."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"A man."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…he killed it. Then he left."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not ask further questions. He looks at your ankle. The torn cloak. The blood on the stones that is not yours.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You cannot walk on that ankle, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…no."', hold: 1400, cps: 28 },
+
+            // ─── Section 17 · He carries her ──────────────────────────────
+            { type: 'line', speaker: '', text: 'He has come to a decision the captain does not enjoy.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He kneels properly. Slides one arm under your knees. The other behind your shoulders. Lifts.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You weigh almost nothing in his arms. He is the captain. He is also a man holding a woman who has just been bleeding.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Alistair."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The bright green eyes are on the alley mouth, not on you.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"You are quite injured, mi’lady. The physician will be needed."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has not used your title once since he picked you up. He has not used his title once either. Captain has not been on his mouth.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He takes a different route than the one you came on. Smaller streets and less light. The few people awake at this hour do not look at the man with the woman in his arms.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cloak is heavy with cooling wound-blood and the shoulder is torn. Your head is against the wool of his coat. The smell of red wool and clean sweat and the leather of the sword-belt is all around you.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you have not made him angry yet. You are waiting for it.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',      text: '"…Alistair. I am sorry. I…"', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Not now, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"We will speak when the physician has gone."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The walk goes on. The city quieting around you. The captain’s pace does not slow.', hold: 4000, cps: 24 },
+
+            // ─── Section 18 · Rose suite · Aurel ──────────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite. The attendant has opened the door. Her face does the small careful thing trained faces do. She is not asking. She is not reading anything in faces.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair carries you in. Sets you on the bed. The cloak is heavy with blood.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Send for the physician. The prince is not to be informed until I have made my report."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Yes, captain."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She goes. Fast.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The lamplight is warm. The pillows are soft. The body is finally not running. The body has begun to shake.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair beside the bed. He has not sat. He is standing. The captain’s distance.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He unfastens the cloak at your throat. Lifts it carefully away from you. Sets it on the chest at the foot of the bed.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…Alistair."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The physician will be here, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The bright green eyes have done a thing the face is not letting them keep doing. He looks away.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'AUREL', text: '"Mi’lady. Captain. I am here."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Aurel at the door. The leather satchel. The plain dark blue robe. She has been pulled from sleep. She does not show it.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Her face as she sees your ankle. Your knees. The cloak’s tear. The blood that is not yours. The bruise beginning at your wrist where the wound-grip went.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'AUREL', text: '"Out of the cloak. Out of the dress. Now, mi’lady. The attendant will help."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair steps back to the antechamber threshold. He does not leave the room.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The attendant works fast. The cloak coming off. The shoes. The cold cloak-blood lifted from your skin. Aurel’s hands already at your ankle.', hold: 5400, cps: 22 },
+
+            // ─── Section 19 · After the bath · the verdict ────────────────
+            { type: 'line', speaker: '', text: 'The bath has been drawn hot and you are in it. Aurel has cleaned the ankle, the knees, the shoulder, the wrist. Three small dressings in pale linen have gone on. A balm that smells like green leaves. The shake has gone down.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'AUREL', text: '"The ankle is not broken, mi’lady. Sprained. The knees will be tender for a week. The wrist will bruise. The shoulder is shallow. Whatever scored you did not go deep."', hold: 8200, cps: 22 },
+            { type: 'line', speaker: 'AUREL', text: '"You are very lucky, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You know how lucky.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you, physician."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"I will come back at first bell. You will not be on that ankle until I say so."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU',   text: '"…yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'AUREL', text: '"Captain. She is whole. She is shaken. She will need quiet."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, physician."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Aurel goes. The door closes.', hold: 2200, cps: 28 },
+
+            // ─── Section 20 · "I will be back" ────────────────────────────
+            { type: 'line', speaker: '', text: 'You in the bed now. The fresh shift the attendant has put you in. The covers drawn up. The lamplight low. The seaweed braid at your wrist. The lavender stone tucked against it. The braid is humming. The stone is quiet.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair has come to the bedside this time. He has not sat. The captain’s distance is still there. Less of it.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The professional has stayed on. Underneath it, something else has been holding for the last hour.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"…Alistair."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…you are going to make your report."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…please. Not tonight."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"It cannot be tomorrow, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The prince needs to know tonight."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You did not realise you were going to cry until you were crying. Quiet. The tears come down. You do not wipe them.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face has done a thing it has not let itself do all chapter.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He kneels beside the bed. Not at the bed, beside it. Close enough that his shoulder is at the edge of the lamplight.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. I will be back."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The bright green eyes are on yours now. He has not let them be on yours since the alley.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I have to."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…go."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stays one breath longer. Stands. Bows small and captain-correct. Walks to the door. Pauses at the threshold without turning. The door closes behind him.', hold: 6400, cps: 22 },
+
+            // ─── Section 21 · Alone · "he is going to be in trouble" ──────
+            { type: 'line', speaker: '', text: 'You alone in the bed. The covers up to your chin. The lamp low. The room quiet.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The lavender stone has gone warm again. Once. Then quiet.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…he is going to be in trouble.*', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…because of you.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your eyes close. The body is shaking still. Quiet on the inside now.', hold: 3800, cps: 26 },
+
+            // ─── Section 22 · The queen at the window ─────────────────────
+            { type: 'line', speaker: '', text: 'ELSEWHERE. The west wing of the castle. A high room behind a sealed door. Tall windows that have not been opened to court in some time.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The candles are not lit and the moonlight is enough.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A figure at the window in a dark robe. Long dark hair falling loose down her back. Standing very still. The queen.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The breath has caught. Her hand has gone to the windowsill. Something has just happened in the city that she felt in her chest.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…there."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her eyes have narrowed at the line of the city below. Looking toward an alley she does not have to be told the name of.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…someone has killed one of mine."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small thing has moved at the corner of her mouth. Not a smile. Recognition.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…and that means…"', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…she is here."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her hand on the windowsill, which has been shaking and now is not. The decision has been made.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…it is time."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have gone bright in a way that has nothing to do with the moonlight.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…interesting."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The moon on her face and the city stretched below her. Somewhere across that city, the body of the wound in an alley.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Somewhere closer, the favourite of her son in a bed with the lavender stone at her wrist.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Somewhere closer still, the door of the wing the queen has not crossed in some time, and her hand on the windowsill, and the small bright thing in her eyes that means she has decided to walk through it.', hold: 8800, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(20); setCurrent(nextIdAfter(20));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 21 · "The Truth At First Bell"
+    // Owner PDF Ch21-25. Caspian-led aftermath of the alley. Captain
+    // makes his full report, including the lie about the maid’s room
+    // three weeks ago. Stripped of the dawn-patrol captaincy. The
+    // queen sends a black-wax scroll calling a ball in her own hall.
+    // Caspian visits the rose suite. "You are caging me, Caspian."
+    // Evening — she lifts down his red wool, walks the lower corridor,
+    // knocks on the door at the end of the long barracks. "…come."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 21,
+      title: 'Chapter 21',
+      subtitle: 'The Truth At First Bell',
+      teaser: 'You are caging me, Caspian.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_21_full',
+          title: 'Chapter 21',
+          subtitle: 'The Truth At First Bell',
+          speaker: 'CASPIAN',
+          palette: { bg: '#1a0e12', glow: '#8a3a4a', accent: '#e8c8a8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · First bell · the office ───────────────────────
+            { type: 'line', speaker: '', text: 'First bell. Caspian’s office. Grey light through the tall windows. The fire in the hearth not yet built up.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian behind the desk. Wine doublet. No gold band. No collar laced. He has not slept.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has been at the desk since the third hour. A folded square of pale linen on the blotter in front of him. On top of it, the torn green cloak from the alley with its blood dried to brown.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A knock. Captain’s knock.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Come."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The door opens and Alistair steps in. Full captain’s coat. Sword at hip.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops three paces from the desk and does not kneel. Caspian has not invited him to.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian has set the pen down. He is looking at the captain properly now.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Captain. Your report."', hold: 2000, cps: 28 },
+
+            // ─── Section 2 · The report ────────────────────────────────────
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness. The favourite left the rose suite at the long bell. She went through the lower corridor and the kitchen postern, into the city."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"A wound-creature attacked her in an alley in the eastern quarter. She survived. She has been seen by the physician. She is in her bed."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"And the wound."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Dead, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"By your sword."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pause is one breath too long.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"No, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian lifts one finger. Just one.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"By whose."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"A man, your highness. She did not know him. He left before I reached her."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The blue eyes have gone very still.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"A man."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He absorbs it. Sets it aside. The face never moving.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Continue."', hold: 1400, cps: 28 },
+
+            // ─── Section 3 · The postern · "I told her" ────────────────────
+            { type: 'line', speaker: 'ALISTAIR', text: '"I carried her back, your highness. The kitchen postern was open when I returned and the grate hinges have been oiled, recently, not by me."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of Caspian’s mouth has done a small cold thing.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Captain."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"How did the favourite know the postern was there."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The breath. The bright green eyes lower for half a heartbeat and come back up.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I told her, your highness. The morning I walked her past the kitchens."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Three weeks ago."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You told a woman with no memory how to leave my castle without crossing a guarded gate."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Why."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"In case she needed it, your highness."', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The hand at the edge of the desk has gone white at the knuckles. He has not let it show yet.', hold: 4000, cps: 24 },
+
+            // ─── Section 4 · The chamber · "Mine, your highness" ──────────
+            { type: 'line', speaker: '', text: 'He stands. Walks slowly out from behind the desk. Comes around to the side where the captain is standing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He stops two paces from Alistair. Closer than a prince should stand to a captain about to be sanctioned.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Captain."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The night you came back from the wood with the ash on the cloth. You told me you had hidden the lady in a maid’s room."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face does not move. The breath behind it does.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Was it a maid’s room, captain."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Silence.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The bright green eyes close for one heartbeat and open.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"No, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Whose room."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mine, your highness."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The breath Caspian lets out is not loud. It is very long.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"How long."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Five days, your highness. Before she left."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The blue eyes have gone darker. The court-warm is gone. The man who said "you frightened me" is also gone. Something colder is in front of the captain now.', hold: 7000, cps: 22 },
+
+            // ─── Section 5 · "You lied to me, Alistair" ───────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"You lied to me, Alistair."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"To my face, in this room."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I gave you a royal seal on the strength of what you told me in this room. I spent my name on a woman because I trusted the man who found her."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has turned half away. Walking two slow steps to the window. His back to the captain now.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I am disappointed in you, captain."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I am furious that you lied."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line lands harder than the punishment will.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+
+            // ─── Section 6 · The sanction ──────────────────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"You are stripped of the captaincy of the dawn patrol, effective at the third bell. Your sword is returned to the armoury. Your coat is returned to the chamberlain."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will not enter the favourite’s wing, you will not enter the inner court, you will not approach her at the ball in two days."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are confined to the lower barracks. You will report to the new captain when he is named, and you will take any post he gives you."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are no longer a captain in this kingdom, Alistair. You are a knight again. You will be a knight at the gate, or a knight at the wall, or a knight in the stables. That is the new captain’s decision, not yours, not mine."', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He turns. Faces the man at the desk.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will keep your life, captain. The seal you carried for me bought you that much."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will not keep your post."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The breath Alistair lets out is the breath of a man who has been bracing for worse and has been given exactly what he can survive.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of Caspian’s mouth has done a thing it has not done all morning. Brief and gone.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Go to your chamber, Alistair. Aurel will see you at second bell. You took two cuts at the training yard you did not report."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Do not be at the door of my office again unless you are sent for."', hold: 3800, cps: 26 },
+
+            // ─── Section 7 · "Thank you for telling me the truth" ─────────
+            { type: 'line', speaker: '', text: 'He bows captain-deep. The last bow he will give in that coat. Turns to walk to the door.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Alistair."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The captain stops at the door. Does not turn.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Thank you for telling me the truth today."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The shoulders drop one fraction.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He goes. The door closes.', hold: 1800, cps: 28 },
+
+            // ─── Section 8 · The black wax seal ────────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian walks back to the desk. Sits. Picks up the pen. Sets it down. Picks it up again. He has not yet begun to write.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A second knock. Lighter. The chamberlain.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"Your highness. A messenger from the queen’s wing."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has gone very still.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Send him."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The chamberlain steps in with a young man behind him in the queen’s livery. Cream and silver. The boy is twelve. He has been crying.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He bows and holds out a small scroll. The wax on it is black. The seal the queen’s.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Speak, page. Then go."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'PAGE', text: '"Her majesty has set a ball, your highness. The day after tomorrow, in her own hall."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'PAGE', text: '"She will receive the court."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Her own hall."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'PAGE', text: '"Yes, your highness. She has ordered the long doors opened."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pen in his hand has gone still on the blotter.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That will be all, page. Tell her majesty I will attend."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The boy bows. The chamberlain takes him out. The door closes.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He sets the pen down carefully.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…she is walking, then."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks at the torn cloak on the desk.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…for her."', hold: 1600, cps: 28 },
+
+            // ─── Section 9 · Rose suite · the visit ────────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite. Late morning. The light through the three arched doors has gone pale gold.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You propped against the pillows in a fresh shift. The covers to your waist. The seaweed braid at your wrist. The lavender stone tucked against your skin.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The page is not in your sleeve anymore. The shift has no sleeve like the cloak did. The page is folded on the writing-desk where the attendant set it with last night’s notes. The page is warm. You are not looking at it.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A knock. Soft. The corridor door. The attendant opens it. Caspian.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Same wine doublet. No gold band still. The face not put back on.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The favourite-mask is not on. You do not put it on.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He crosses the room and sits at the edge of the bed. Not the chair. Closer than the chair would have been.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The blue eyes are tired.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"How is the ankle, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…mended. Aurel was at first bell."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Good."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…you have been with the captain."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Yes, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…is he…"', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He is alive. He will heal. He is in his chamber."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The breath you have been holding lets out.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…please. Do not punish him."', hold: 2600, cps: 28 },
+
+            // ─── Section 10 · "You are caging me, Caspian" ────────────────
+            { type: 'line', speaker: 'YOU', text: '"It was me, Caspian. He did not know I would go. He followed because he saw me leave. He did not even have orders to."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"I needed air. I needed to do something. I was furious."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The blue eyes come up.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"At him."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"At you."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not flinched.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…go on, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You are caging me, Caspian."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He absorbs it. Does not deny.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You promised me the library, Caspian. Before any of this. Before the silk, before the ball, before the favourite. That was why I said yes."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"You took it back last night at the dinner table. You said we have been reading the books too. That is your library now, not mine."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I did."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You said it like I was a problem you were solving. Not a woman you were helping."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I did, mi’lady. I am sorry."', hold: 2800, cps: 28 },
+
+            // ─── Section 11 · "the captain did not put me in the alley" ───
+            { type: 'line', speaker: '', text: 'The wet has reached the edge of your eyes. You hold it.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the captain did not put me in the alley, Caspian. You did."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…partly."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has gone very still.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Please. Do not punish him."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I have already, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wet falls. One. Then the second. You do not wipe them.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He is no longer captain of the dawn patrol. He will keep his life. He will not keep his post."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He lied to me, mi’lady. Three weeks ago, when he made his report. About where he had you. The first nights."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…what did he tell you."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That is not mine to tell, mi’lady. Ask him, if he will answer you. He has a habit of not answering you on this one."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hazy thing under your sternum has just become specific. You did not know it was there. You know now.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Caspian."', hold: 1600, cps: 28 },
+
+            // ─── Section 12 · The queen has called a ball ──────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"The queen has called a ball, mi’lady. Two days from now. In her own hall."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"She has not opened those doors in my lifetime."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cold reaches you before the meaning does.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…for what."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"To receive the court."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I think for you, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"We still do not know who you really are. The Mage Tower has read what it can read. The book the Grand Mage left for you is not finished. The body of the lady remembers things her mind does not. And the queen has decided to walk."', hold: 11200, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That is why I am caging you, mi’lady. Not because I do not trust you. Because she is now out of her quarters. And the rose suite is the safest room in this castle."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I am sorry about the captain, mi’lady. I am not sorry about the door."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Heal. Aurel will be at second bell again. The ball is in two days. I will need you whole."', hold: 5000, cps: 22 },
+
+            // ─── Section 13 · "Would you give him his post back" ──────────
+            { type: 'line', speaker: 'YOU', text: '"…would you consider giving him his post back."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not been ready for the question. He looks at you properly.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…he will have to prove himself first, mi’lady."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He has a great deal to prove."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You hold the line. You do not push. You do not answer.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stands. The court-warm has not come back on. He has not let it.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Rest, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…alright."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He goes to the door. Pauses with his hand on the latch. Does not turn.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…do not leave this suite today."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…no, Caspian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He goes. The door closes.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he hid me in his own chamber. He did not tell me. He did not tell the prince either.*', hold: 4800, cps: 22 },
+
+            // ─── Section 14 · The west wing · the silk room ───────────────
+            { type: 'line', speaker: '', text: 'ELSEWHERE. The west wing. The sealed door of the queen’s wing is open.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A long corridor, disused for years. The dust on the floor disturbed in one line. Bare feet. The line goes one way and does not yet come back.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The candles in the sconces have been newly lit. The smell of the wax still faint. The wing opening itself room by room since the long bell last night.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A figure at the far end of the corridor in a dark robe. Long dark hair. Standing at the threshold of a door she has not opened in a hundred years. Looking through it.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…the silk room is still here."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…interesting."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She walks on.', hold: 1400, cps: 28 },
+
+            // ─── Section 15 · Evening · "you cannot wait" ─────────────────
+            { type: 'line', speaker: '', text: 'Evening. The rose suite. The lamps are lit. The attendant has brought broth on a tray. You have eaten a little. You have not slept.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-mask has not been on all day.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done a thing it has not done since the alley.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you cannot wait. You have to see him.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. The cord at the bed if you need me. Aurel said you are to rest."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',        text: '"…thank you. I will sleep soon."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The attendant goes. The door of her chamber closing.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You wait three breaths. Stand. The ankle is wrapped. It holds if you do not push it.', hold: 3800, cps: 26 },
+
+            // ─── Section 16 · The wardrobe · the red wool ─────────────────
+            { type: 'line', speaker: '', text: 'The wardrobe open. The high shelf. Two cloaks now. The warden’s leaf-cloak folded at the back. The captain’s red wool at the front.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The green is gone. Torn and bloodied. Last seen on the prince’s desk this morning.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand on the red. The patrol cloak. Heavy. Dust-marked at the hem. His.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You lift it down. The wool is heavier than it looks. Carrying the smell of red wool and clean sweat and the leather of a sword-belt. You have not been near that smell since the alley.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You wrap it. The hood comes up. The shoulders are wide on you. You let them be wide.', hold: 4000, cps: 24 },
+
+            // ─── Section 17 · The lower corridor · directions ─────────────
+            { type: 'line', speaker: '', text: 'The lower corridor. The royal guards at the favourite’s wing have changed. The new senior bows.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'GUARD', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"The captain’s chamber. Where is it."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His face does not move. He has been told nothing about the morning’s order. The captain is still captain to him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'GUARD', text: '"The east barracks, mi’lady. Top floor. The door at the end of the long corridor. There is no name on it."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',   text: '"Thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'GUARD', text: '"Shall I escort you, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"No, thank you."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He steps aside. You walk past him. The red wool moves with you the way his coat moves on him.', hold: 4400, cps: 24 },
+
+            // ─── Section 18 · The east barracks · the door ────────────────
+            { type: 'line', speaker: '', text: 'The east barracks. Stone. Plain. Two knights at the long corridor look up as you pass. The hood low. The red unmistakable.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The younger knight. He recognises the cloak. He does not recognise the body inside it. He looks at the senior beside him.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The senior has been at the dawn patrol for twelve years. He has carried that cloak from a fallen post once. He does not stop you. He does not bow either. He looks at the wall.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You reach the door at the end. No name. You knock. Twice.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Silence.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Once more.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…come."', hold: 1800, cps: 28 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(21); setCurrent(nextIdAfter(21));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 22 · "The Captain’s Coat"
+    // Owner PDF Ch21-25. The visit in the east barracks. She gives
+    // him Aurel’s second vial. She lays the captain’s coat over the
+    // captain who is no longer captain. She walks back in his red
+    // wool and finds Caspian waiting at the balcony curtain. He
+    // unfastens the clasp himself, holds her without permission,
+    // catches himself, leaves with "I thought I had lost you again
+    // tonight." Coda — the queen reaches the second door of the
+    // sealed wing. The music room. Two days. The ball.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 22,
+      title: 'Chapter 22',
+      subtitle: 'The Captain’s Coat',
+      teaser: 'It was always yours.',
+      charId: 'alistair',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_22_full',
+          title: 'Chapter 22',
+          subtitle: 'The Captain’s Coat',
+          speaker: 'ALISTAIR',
+          palette: { bg: '#1a1410', glow: '#c8a878', accent: '#e8d4b8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The chamber ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'The chamber. Smaller than you remember. The same narrow bed. The same wooden stool. The same single window.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The captain’s coat folded over the stool. The sword in its sheath laid along the floor at the foot of the bed.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair sitting on the edge of the bed in a plain linen undershirt. Sleeves rolled to the elbow. The bandage at the shoulder fresh and the cut at his cheek cleaned. He has been still for some time.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He looks up. The bright green eyes find the red wool first. The body inside it second.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The face does something he does not let stay.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You push the hood back. The hair falls. The braid at your wrist hums softly.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…you are sitting up. That is something."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stands too quickly. The shoulder protests. He catches the bedpost.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. You are not to be here."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"I know."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"The prince…"', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"…the prince knows me by now."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. Please."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Sit down, Alistair."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He hesitates.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Sit down."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He obeys, slowly.', hold: 1800, cps: 28 },
+
+            // ─── Section 2 · The stool · the coat between ─────────────────
+            { type: 'line', speaker: '', text: 'You close the door behind you and cross the room. The ankle is loud now. You do not let it show.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You sit on the wooden stool. The captain’s coat folded between you. You set your hand on it carefully.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The bright green eyes are on your hand on his coat.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your eyes have drifted without your permission. The bandage at the inside of his arm. The split knuckles at the bedpost where his hand is still bracing him. The place where the linen sticks at the shoulder.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The rite did not stop at two cuts. You knew that. You did not let yourself know how much.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not say anything about it. He does not let you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look up. Slow.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Alistair."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"I am sorry."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you are sorry."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"For the alley. For running. For the anger I lashed out at you with. For making him punish you."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face has done a thing. He lets it stay this time.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. You did not make him do anything. I lied to him three weeks ago, and he found out today."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I have been waiting for him to find out for three weeks."', hold: 3800, cps: 26 },
+
+            // ─── Section 3 · "What did you tell him" ───────────────────────
+            { type: 'line', speaker: 'YOU', text: '"…he said you lied about where I slept. The first night."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He goes very still.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…he told you that much."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"He told me you lied. He did not tell me what you said."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…he said to ask you."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The bright green eyes close, open.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"What did you tell him, Alistair."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Silence.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks at his own hands.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I told him I had hidden you in a maid’s room, mi’lady. And that you had left it."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',      text: '"…a maid’s room."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The breath comes uneven.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the truth was your chamber. Five nights."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Yes, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wet has reached your eyes. You do not wipe.', hold: 2800, cps: 26 },
+
+            // ─── Section 4 · "I did not want him to know what it cost me" ─
+            { type: 'line', speaker: 'ALISTAIR', text: '"The chamberlain would have told the queen, mi’lady. The maid’s room is on the chamberlain’s roll. My chamber is not."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"By the time he asked me, you were gone. The truth would have cost you more than the lie."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"And I did not want him to know what it cost me to keep you in that chamber for five days."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The breath catches.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I am sorry, mi’lady. For the lie. For the postern. For not following you better at the dinner. For not catching up to you in the alley."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"For all of it."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wet falls.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…stop it, Alistair."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You are not allowed to be sorry to me. You carried me back twice."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The line lands.', hold: 1600, cps: 28 },
+
+            // ─── Section 5 · "You are wearing my coat" ────────────────────
+            { type: 'line', speaker: '', text: 'He looks at the red wool around your shoulders.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you are wearing my coat, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"I am."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Why."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…because I could not wear the green. The green is gone."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"And because the red is yours."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The face does a thing he has not let it do in three weeks. His heart has been doing things it was never allowed to do, and the line has reached it.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+
+            // ─── Section 6 · The vial · "drink it" ────────────────────────
+            { type: 'line', speaker: '', text: 'You reach into the inside of the cloak and pull out a small clay vial. Pale green liquid. Aurel’s second bottle, the one you were supposed to save for the next time the ankle hurt.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady. No."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"You just took the rite, did you not, Alistair. The one the knights give a captain when the crown takes his post."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Drink it."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady. It is yours."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Please do not become the eighth person to refuse it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere that has not been touched in three weeks.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth does the small honest thing he does not give it permission to do.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you remembered."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Every word."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He takes the vial. Your fingers brush. He does not pull back, having nothing left to be careful with.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He drinks. The shoulder and the cheek both close a degree under the linen.', hold: 4000, cps: 24 },
+
+            // ─── Section 7 · "Lie down" · the coat over him ───────────────
+            { type: 'line', speaker: '', text: 'The lamp has gone low. You have not stood up.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has settled back against the pillow. The eyes heavy. The body finally letting go.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…lie down, Alistair."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady…"', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Lie down. You like to argue with me, do you not, Alistair."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…and you are stubborn and disobedient, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A breath of laughter from him. A breath of laughter from you. Both soft. Both surprised.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He obeys, slowly. The arm folds over the eyes the way it did once on a stone floor.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stand carefully. The ankle holding.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You unfold the captain’s coat from the stool and lay it over him. The captain who is not the captain anymore. The man who is still the man.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hand at his shoulder. The fingers rest there one breath. They want to rest there longer. You do not let them.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Sleep, Alistair."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…thank you for the coat."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"It was always yours."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He is asleep before you reach the door.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look back once. The captain on the bed. The coat over him. The lamp low.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…finally, he can sleep.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You close the door.', hold: 1600, cps: 28 },
+
+            // ─── Section 8 · The corridors · welcome back ─────────────────
+            { type: 'line', speaker: '', text: 'The east corridor. The senior knight is still at his post. He does not bow. He does not look at the wall this time.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He looks at you. Briefly. The smallest nod a man gives a woman he will not name to his replacement.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You pass him. The red wool moves around you.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The lower corridor. The royal guards at the favourite’s wing. The new senior bows.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'GUARD', text: '"Mi’lady. Welcome back."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has noticed the cloak. He says nothing.', hold: 2400, cps: 28 },
+
+            // ─── Section 9 · The suite · "I came to check on you" ─────────
+            { type: 'line', speaker: '', text: 'The rose suite. You step inside and close the door behind you. The attendant’s chamber door is closed. The room lamplit. The fire low.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You let out the breath you have been holding since you left the captain.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hands have gone to the throat of the red wool. The clasp. You begin to untie.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fingers stop at the clasp. Your heart has hit the inside of your ribs once. Hard. The breath has caught at your throat. You did not know anyone was in the room.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You turn slowly.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian standing at the curtain of the balcony arch. Watching you in the lamplight. Not long enough to be patient with the waiting. Long enough to have seen your hand reach for the clasp at your throat.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Same wine doublet. Still no gold band. The eyes not the office eyes and not the dinner eyes. They are the eyes of a man who is furious and holding it in. The jaw set. The hand at his side closed.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I came to check on you, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You were not here."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hands have not left the clasp.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…Caspian. You had frightened me."', hold: 2800, cps: 28 },
+
+            // ─── Section 10 · "His coat" ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'His eyes drop. To the red wool at your shoulders. The blue has gone darker. The court-mask has not been on all day. He does not put it on now.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…his coat."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stay silent.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth has done a thing that is not honest and is not court. Something colder than either.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You went to him."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"In his coat."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…the green is gone, Caspian."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line lands. The cold flickers for one breath. It does not go away.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I told you not to leave the suite today."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I know."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The queen is walking, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I know."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…why."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"To say I was sorry."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"And to give him the second vial."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Aurel’s vial."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"That was for your ankle, mi’lady."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…he just took the rite, Caspian."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"From the men he used to lead. Because you took his post."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cold flickers again. Holds.', hold: 2000, cps: 28 },
+
+            // ─── Section 11 · "Mi'lady. I have spent the day…" ────────────
+            { type: 'line', speaker: '', text: 'He walks slowly. Comes around the couch. Stops a pace from you. Closer than the office and closer than the bedside.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I have spent the day stripping a man of his post for putting you in the alley."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"And you went to his chamber, in his coat, with the medicine the physician gave you for your own body."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wet is at the edge.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…he did not put me in the alley, Caspian. I did."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"You did. He carried me out."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The breath he lets out is very long.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cold has not gone. Something else has come up under it. He has not been ready for the something else.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady."', hold: 1800, cps: 28 },
+
+            // ─── Section 12 · The clasp · the hold ────────────────────────
+            { type: 'line', speaker: '', text: 'He reaches. Slowly. Both hands. The clasp of the red wool at your throat.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His fingers do not pull. They unfasten carefully. The way another man’s hands unfastened the green at your throat the night before.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cloak falls. He catches it before it hits the floor. Folds it once. Sets it on the back of the couch carefully. He does not throw it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The blue eyes come back to your face.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not answer. You do not move.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He crosses the last pace between you. Slow. The court-distance gone. The prince-distance gone.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He puts his arms around you. Not to claim. To hold. The way a man holds a thing he has been afraid of losing for a full day.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not step into them. You do not step out of them. You let him be there.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'His chin at the top of your hair. He does not press. Does not move.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…do not go, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…Caspian."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…do not go to him again. Not in his coat."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…not until I have time to be a man about it, mi’lady. Not a prince."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere it should not. You do not answer.', hold: 3400, cps: 26 },
+
+            // ─── Section 13 · The realisation · stepping back ─────────────
+            { type: 'line', speaker: '', text: 'His hand at the back of your shoulder. The fingers settle.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The breath he is letting into your hair has gone uneven. He has been holding longer than he meant to.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The realisation. He has been holding a woman who has not stepped into him and has not stepped out. The prince who has better composure than this has not noticed, for longer than he should have, that no permission was asked.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lets go and steps back. One pace. Then another.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The court-warm has not come back. Something else has. The heat rising at the side of his neck.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hand pushes his hair back. The way it does not in the great hall. The way it does not at the office desk. A tell the favourite has never been allowed to see.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…forgive me, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You say nothing. You watch him recover.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has chosen a subject. Anything.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I have ordered a new gown for you, mi’lady. For the queen’s hall. The colours are mine. The cut is yours. The seamstresses will come at first bell tomorrow."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You nod. Small and once.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He waits. You do not give him a word.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth has done a thing that is not honest and is not court. Something that has the shape of a wound he is not going to let you see. He turns toward the door.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He stops at the threshold. Does not turn.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…goodnight, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I thought I had lost you again tonight."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you frightened me."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The word *again* lands harder than the rest of the sentence. You do not let it show.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The door closes behind him. Soft. He does not slam it. The prince does not slam doors.', hold: 4400, cps: 24 },
+
+            // ─── Section 14 · The balcony · "what a mess" ─────────────────
+            { type: 'line', speaker: '', text: 'You alone in the centre of the rose suite. The red wool folded on the back of the couch. The page warm on the writing-desk. The lamp low. The fire lower.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You stand there one breath. Then you move.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The sideboard. The carafe. You pour. A full glass this time, not half. You did not eat the dinner he had ordered yesterday and you have not eaten tonight either. You do not care.', hold: 7200, cps: 22 },
+            { type: 'line', speaker: '', text: 'The glass at your mouth. Red against your throat. You drink.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You walk to the balcony. Pull the centre curtain open. Step out.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The royal gardens below. The cyan fountain faintly luminous. The city beyond. The mountains far past the city. The night air cold and clean.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The glass in one hand. The other on the cold stone. The braid at your wrist hums once. Soft. Lyra is paying attention. The lavender stone is warm. Lucien is paying attention.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done the honest thing. You let it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what a mess, tonight."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'A small laugh you do not give yourself permission to laugh. It comes out anyway. Quiet. Half breath.', hold: 4200, cps: 24 },
+
+            // ─── Section 15 · The four threads ────────────────────────────
+            { type: 'line', speaker: 'YOU', text: '*…you went to the captain. You laid his coat over him. You walked back in his cloak. The prince held you and did not realise he had no permission to.*', hold: 7800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you are not supposed to be enjoying this.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…two of them.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You drink again. The wine is good. You hate that the wine is good.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The mountains in the west. The dark is deeper there than over the city.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…somewhere out there, the warden has not asked about you for a long time.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…somewhere closer, the singer is paying attention.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…somewhere in this castle, the mage has been watching the stone glow at his desk.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smile has gone quieter. The body has begun to register what it has done tonight. The wine has not slowed the register.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…and somewhere in an alley two streets from here, a man with red eyes said until next time.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you do not know how many of them you are carrying now.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seaweed braid at your wrist. The lavender stone next to it. The two protections. The two threads.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You pull the shawl closer. Take another drink.', hold: 2400, cps: 28 },
+
+            // ─── Section 16 · Queen · the second door ─────────────────────
+            { type: 'line', speaker: '', text: 'ELSEWHERE. The west wing. The figure at the far end of the corridor has reached a second door now. Bare feet on the dust.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The candles ahead of her have begun to light themselves a half-pace before she arrives.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…the music room is still here."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'THE QUEEN', text: '"…interesting."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of her mouth has done a small thing. Recognition. Not pleasure. She has not been in this corridor in a long time, and the corridor has not forgotten her.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She walks on.', hold: 1400, cps: 28 },
+
+            // ─── Section 17 · End coda ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The heroine at the balcony. The wine. The two protections at her wrist. The smile she has not let go yet.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The page warm on the writing-desk behind her. The captain asleep under his coat across the keep. The prince in his office with his hair pushed back at a desk he has not sat down at.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The mage at the tower with one finger on a lavender stone in a saucer. The singer on her cliff. The warden in his wood.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen in the dark of her wing.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Two days. The ball is in two days.', hold: 2800, cps: 28 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(22); setCurrent(nextIdAfter(22));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 23 · "The First Fragment"
+    // Owner PDF Ch21-25. Lucien-led. She skips the prince’s table,
+    // climbs the spiral stair, opens the chamber, finds the book
+    // matching the page in her pocket. "Two years ago a lady touched
+    // it. It blew her across this room." A long afternoon at the
+    // gallery table — the bond diagram, "six, the seventh has not
+    // been written", "dies before their place is whole." Tea. The
+    // monocle comes off. He finishes the temple cut with a small
+    // working. Coda — the rift, "she is closer tonight." The bath.
+    // The secret door knock. Unanswered. The ball one day away.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 23,
+      title: 'Chapter 23',
+      subtitle: 'The First Fragment',
+      teaser: 'A bond is two people who could undo each other and choose not to.',
+      charId: 'lucien',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_23_full',
+          title: 'Chapter 23',
+          subtitle: 'The First Fragment',
+          speaker: 'LUCIEN',
+          palette: { bg: '#160e1c', glow: '#7c5cb0', accent: '#c8aedc' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · First bell · the body, the day ───────────────
+            { type: 'line', speaker: '', text: 'First bell. The rose suite. Pale morning light through the three arched balcony doors.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You sit up in the bed. The body has done what the body does after a wound-night and the herbal potion. You roll the ankle to test it.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pain is there if you stand on it wrong. The small pain of healing, not the bright pain of injury. The bruise at your wrist is yellow at the edges. The cut at your temple has closed to a thin pink line.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…Aurel’s draught was a small miracle.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'A soft knock at the corridor door. The attendant.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. Physician Aurel sends word she will not come until evening today. The training with Lady Marra has been cancelled until the ball. The seamstresses will come at second bell for the final fitting."', hold: 10400, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"His highness has asked you to dine with him at the evening bell. In his private rooms."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite-mask is not on. You do not put it on this morning.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you. Tell his highness I will not dine with him tonight."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Yes, mi’lady. Shall I bring breakfast."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',        text: '"Yes. Please."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The attendant bows and goes.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The body is healing. The mind is not. The mind has spent the night in three places at once. None of them are this bed.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…today you find out.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The seaweed braid at your wrist. The lavender stone next to it. Both quiet this morning. The page on the writing-desk warm.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done a small thing.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I will have to go back to the mage’s library, then. Was he not expecting me to be there."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A small chuckle escapes before you can stop it.', hold: 2400, cps: 28 },
+
+            // ─── Section 2 · Second bell · the fitting · the dress ────────
+            { type: 'line', speaker: '', text: 'Second bell. The seamstresses come. The fitting is brief and skilled.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stand on a low stool. The wine-and-gold silk pinned at your waist. The chief seamstress murmuring measurements to her assistant.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not look in the mirror. You answer the small questions about the cut and the colours. You are not in the room while it happens.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The dress on its frame as they leave. Wine-deep. Edged in gold at the seams. The prince’s colours. The cut is yours, as he said.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The dress is going to be beautiful. You do not let yourself feel anything about that yet.', hold: 4400, cps: 24 },
+
+            // ─── Section 3 · The page · the decision ──────────────────────
+            { type: 'line', speaker: '', text: 'Mid-morning. The rose suite. You at the writing-desk. The page in front of you. The seal of two crossed branches and a moon. Burned edge. Silver ink. Warm in your hand.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You turn it in the light. The seal does not change.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…I will play along, the favourite. But do not expect me to sit here caged. I need my answers."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you were told to rest. The queen has made her move. And now they want you to stay still and wait for the answers they will choose to give you.*', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you have not been told who you are.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You fold the page once and slip it into the hidden pocket in the lining of your day-gown. It settles flat against your hip.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You stand. The ankle holds.', hold: 2000, cps: 28 },
+
+            // ─── Section 4 · The corridor · the tower base ────────────────
+            { type: 'line', speaker: '', text: 'Corridor. You walking, in daylight, as the favourite is permitted to walk. Two attendants ahead. The senior beside you. No knight today.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…even the guards have stopped asking permission to let you pass.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The Mage Tower. The base. The old white-bearded guard at his stool, reading his book.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'OLD GUARD', text: '"Morning, mi’lady. Library is the fourth landing. The mage is out."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',       text: '"…thank you. The third step on the third landing."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'OLD GUARD', text: '"…you remember, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',       text: '"I remember."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The attendant stops at the threshold of the stair as she has been instructed. You climb alone.', hold: 4400, cps: 24 },
+
+            // ─── Section 5 · The library by daylight ──────────────────────
+            { type: 'line', speaker: '', text: 'The round chamber opens around you the way it could not at long bell.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Daylight pours down from windows you did not see the first night, set high in the dome above the third gallery. Long slanting bars across the marble floor and the violet glow of the magic circle at the centre.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The shelves climb three full galleries to the gold-leaf ceiling. Holding more books than you have ever seen in one place.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The gothic window at the far end still shows its impossible indigo even in the morning. The night-sky behind its glass refusing to brighten with the rest of the room.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The library you crept through by lamplight has become a cathedral by morning. The lavender stone at your wrist warm. The braid humming once. Soft.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…it is immense.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you saw a tenth of it the first night.*', hold: 3000, cps: 26 },
+
+            // ─── Section 6 · The lower shelves · nothing here ─────────────
+            { type: 'line', speaker: '', text: 'You walk the lower shelves. The same shelves you tried last time. You pull volumes. You set them back. You move methodically this morning. No pull. No hurry. The body is here on its own decision.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cases. The brass armillary. The three red and brown books on the fourth case. You read what you can read. The script that is older than the morning has stayed older.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A long stretch of careful reading. The chamber is patient. The chamber gives you nothing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…there is nothing here."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done a thing. Not a smile. A decision.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…it must still be upstairs.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you know exactly where you found it last time.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The page at your hip has gone warm. A daring idea takes shape behind your eyes.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…the old guard said the mage is out.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…why not, then.*', hold: 2000, cps: 28 },
+
+            // ─── Section 7 · The spiral stair · the chamber ───────────────
+            { type: 'line', speaker: '', text: 'The spiral stair inside the library. You climb. The wrought iron is cold under your hand. The second gallery. The third.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step through the carved arch you remember and into the antechamber. The pale wood doors at the far end are not open today. They are not locked either.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hand on the brass. You push. The door opens to lamplight and old paper and lavender.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The Mage’s chamber by daylight. The morning sun comes through three narrow windows you did not see the first night. Slanting across the round floor in long pale bars.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The shelves rise unbroken to the painted ceiling, where you can now see the faint gold work of a star-chart laid into the wood.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The study-desk at the centre has been pushed back. The ledger left open mid-line. A cup of cold tea forgotten beside it.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smell of old paper has gone warmer in the sun, and the lavender has gone sharper.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…it is beautiful.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you did not see this part of it the first time.*', hold: 3200, cps: 26 },
+
+            // ─── Section 8 · The book · the matching seal ─────────────────
+            { type: 'line', speaker: '', text: 'You walk to the section where you found the book the first night. Your hand moves before you think. The fingers walk across the spines.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'They stop on pale leather. No title. Two crossed branches and a moon.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…still here.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You take the book down. Heavy in your hands. Heavier than it should be. You sit on the edge of the study-desk the way you did the first night. You open the cover.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The script is in the older hand you cannot read. The diagrams are the diagrams. Two figures with their hands at each other’s throats. A figure at a fountain. Two overlapping circles.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You turn the page. Then another. Your fingers know where to stop before your eyes do. They stop at a page with a seal at the top.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two crossed branches. A moon. Silver ink. The same seal as the page at your hip.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…there. The same seal. The book and the page.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…you cannot read what it says about it.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The frustration has reached the back of your throat.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…why do I recognise this. Why."', hold: 2800, cps: 28 },
+
+            // ─── Section 9 · The hand at the wrist ────────────────────────
+            { type: 'line', speaker: '', text: 'Your hand reaches for the book on the desk next to it. Pale leather as well. No title. You want to know if it has the same seal. Your fingers are an inch from the cover.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien’s hand closes around your wrist so fast it startles you. The fingers cold and sure.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your heart has hit your ribs the way it did at the curtain last night. He is at your shoulder, and you did not hear him arrive.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale eyes. The small gold monocle. The over-robe still loose from morning work. He has crossed the room without a sound.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"It seems you really like being in a man’s chamber, favourite."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The flush goes up to your throat. The favourite-mask wants to come on. You do not let it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…such a foul mouth, Grand Mage. I am here because something pulled me to this book."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth has done the smallest thing.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…it seems so."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You remove his hand from your wrist. He lets it go.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"I did not come into a man’s chamber for the company. I came because the book was here."', hold: 4800, cps: 22 },
+
+            // ─── Section 10 · "It blew her across this room" ──────────────
+            { type: 'line', speaker: '', text: 'He has not moved. He is looking at the book in your lap now.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"That book is off-limits, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done a thing it has done twice in his presence now. Sharp.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"Well, is it not obvious. That is why it is in your chamber and not in any of the libraries below."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale eyes have gone a fraction less pale. He is reading you again. Properly.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Two years ago a lady touched it. It blew her across this room."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your eyes have gone wide. You did not expect that.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You set the book down on the desk with both hands and step back half a pace.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…you are joking."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"No."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The face has not moved. The voice has not changed. The indifference unchanged. He is telling you a fact about a stranger.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The body has gone cold a degree. The mind has not yet caught up.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what happened to her."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"She survived. Briefly."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The page at your hip has gone hot. You do not let your hand go to it.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…who was she."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not yet decided what he will tell you. He decides, this morning, to tell you almost nothing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Someone who should not have been in this chamber, mi’lady. As you should not."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has said *as you* the way a man names a pattern. You hear it as a pattern too. Even if you cannot yet name what is inside it.', hold: 5800, cps: 22 },
+
+            // ─── Section 11 · "Give me permission, Grand Mage Lucien" ─────
+            { type: 'line', speaker: 'YOU', text: '"…you said the library downstairs would have nothing for me, Grand Mage. I came looking. It had something."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"I did not say it would have nothing, mi’lady. I said the books I keep here are the ones the lower library does not."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Then I will need them."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pale eyes have done a thing that is almost the smallest smile. Gone before you see it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"You will need them with permission. Not by climbing my stair at first light and sitting on my desk."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-cheek has returned to your mouth.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Then give me permission, Grand Mage Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has heard *Lucien* properly this time. The name is no longer mortified. It is sharp.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He absorbs it. Decides.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"I will speak to the prince today, mi’lady. You will be permitted in the Mage Tower’s lower library without escort and without explanation."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"You will be permitted to take any book I have approved out into the gallery. You will not come into this chamber again."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Will you keep your word, Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"If you keep yours, mi’lady. That chamber is mine. Not the favourite’s."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You hold his eyes.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…alright. I promise."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"One more, Grand Mage. You will help me find the books I need."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pale eyes have gone a degree warmer than they have been at any point you have known him.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…promise."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The honest thing at the corner of your mouth.', hold: 2200, cps: 28 },
+
+            // ─── Section 12 · "You enjoy my company" · "...trouble" ───────
+            { type: 'line', speaker: '', text: 'You turn for the door. Pause at the threshold. Look back at him.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…it really does seem you enjoy my company, Grand Mage. You want me at this tower as much as you say you do not."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale eyes have widened the smallest possible amount. He has not been ready for the line.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smallest sliest smile he has shown a person in some long stretch of years.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You let out a quiet cheeky laugh, and then you go.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien alone in his chamber. The book on the desk. The door closing behind you. He shakes his head once. The corner of his mouth.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…trouble."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He walks to the door. Opens it. Follows.', hold: 2400, cps: 28 },
+
+            // ─── Section 13 · The library · the oak table ─────────────────
+            { type: 'line', speaker: '', text: 'You at the lower shelves. The attendant at the threshold of the room now. The mage walks down the spiral stair behind you. The attendant bows.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has put on a long deep purple over-robe somewhere on the stair. Gold at the cuffs. The mage at his post now. Not the man in his chamber.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Mi’lady will spend the afternoon here. I will be assisting her."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Yes, Grand Mage."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pale eyes are professional now. The corner of his mouth has gone level.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Sit, mi’lady. I will bring you the books that will not blow you across the room."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…promising."', hold: 1600, cps: 28 },
+
+            // ─── Section 14 · "Of the bond, the Weaver" ───────────────────
+            { type: 'line', speaker: '', text: 'Afternoon. The reader’s gallery. A long oak table you did not see this morning, brought out from one of the alcoves by Lucien himself with one polite gesture of the staff.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Three books in front of you. The mage at the chair opposite. His own ledger open. His own pen working.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The first book is a small black-leather thing the size of your palm. He has set it open at a chapter and turned it toward you.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Begin here, mi’lady. You can read this hand."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The script is the same hand as the book from the first night. Newer perhaps by a century. The chapter title at the top of the page, in a small careful hand:', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: '*Of the bond, and the work of the Weaver upon it.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: '*The world is held together by what holds the people in it together.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: '*We have a word for that holding. We do not have a name for those whose hands work the holding.*', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: '*We call them Weavers. There have been seven only. And none of them lived long enough to teach us what they were.*', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The breath has caught.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…how does this book know about a seventh. There were six. And then this gap. And then me."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…does it mean I have to die."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: '*A Weaver is not born in a place that did not need one. A Weaver does not finish their work. A Weaver dies before their place is whole.*', hold: 7800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…dies before their place is whole.*', hold: 2800, cps: 28 },
+
+            // ─── Section 15 · The bond diagram ────────────────────────────
+            { type: 'line', speaker: '', text: 'Lucien has not looked up. He has heard your breath catch. He is letting you read.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You turn the page. Two figures with their hands at each other’s throats. The same diagram as the bigger book. Underneath it, the same older script you cannot read.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Grand Mage. What is this diagram."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lucien sets his pen down. Comes around the table. Stands beside you, not too close. Looks at the diagram for a careful breath before he speaks.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Look at their hands, mi’lady. They are not killing each other. They are holding each other up."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"A bond is two people who could undo each other and choose not to."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The Weaver’s gift is not making bonds. It is making the kind of bond that holds even when both of them know what the other could do."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…two people who could undo each other."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"And do not."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The seaweed braid hums once. The lavender stone warm. Three faces behind your eyes for one breath that you do not let yourself name.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has seen the breath catch the second time. He does not press.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"That is what we know, mi’lady. There is a great deal we do not."', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…the dying before their place is whole."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"That is the pattern of the six before you. It is not a sentence. It is a record."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the six before me."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Six. The seventh has not been written into this book."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The line you already read in the bigger book this morning, set down a second time in his voice this afternoon. He is teaching you the shape of the question without giving you the rest. And he is letting you notice he is doing it.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"There is more, mi’lady. You will not get it all today."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…I did not expect to."', hold: 2200, cps: 28 },
+
+            // ─── Section 16 · Evening · "I will dine here" ────────────────
+            { type: 'line', speaker: '', text: 'Evening. The light at the gothic window has gone gold. You have read for hours while Lucien stayed at his ledger, setting a different book in front of you twice without speaking, answering your few quiet questions in three sentences each before going back to his pen.', hold: 10800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Five books open. The afternoon’s notes in your own hand, on a leaf of paper he silently placed beside you without being asked.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The body is tired. The ankle loud again. You have only just noticed.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The doors open. The attendant steps in. Bows.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. His highness has asked again if you will join him for the evening meal."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite-mask has not been on. You do not put it on.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you. Tell his highness I will dine here tonight. With the Grand Mage."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. The message will reach him within the hour."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',        text: '"I know."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The attendant goes. The doors close.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not looked up at the exchange. He has heard it.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pale eyes lift to yours for the first time in two hours. He lets out a small breath. Not a sigh exactly. The kind of breath a man lets out when a fact he had not predicted has just landed in his afternoon.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…Lucien."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"If the Grand Mage will permit it. The tower has tea, does it not."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The pale eyes have done the thing the mouth does not.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the tower has tea, mi’lady."', hold: 2400, cps: 28 },
+
+            // ─── Section 17 · Night · the tea · the monocle ───────────────
+            { type: 'line', speaker: '', text: 'Night. The reader’s gallery. The lamps lit. The five books closed and stacked. A small clay teapot between you at the table. Two cups. A plate of plain bread and white cheese the old guard has brought up without being asked.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Steam from the teapot. The reading lamps low.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lucien across from you. The over-robe is loosened at the throat. The gold monocle has been set on the table between the cups. The pale eyes are unshielded by the small lens for the first time you have seen.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Without the monocle they are paler. Tired. Younger than he carries himself.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…you take it off to eat."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"I take it off to read, mi’lady. Or to be read."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…which am I."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"I have not decided yet."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The smallest stretch of quiet you have had in any room in this castle since the inland road.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not press the question. He has answered enough for today.', hold: 3400, cps: 26 },
+
+            // ─── Section 18 · Later · the temple working ──────────────────
+            { type: 'line', speaker: '', text: 'Later. The teapot empty. Your notes folded. The first stars at the gothic window.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You are tired in the bone. The eyes dry from reading. The cut at your temple aching where the balm has not yet closed it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Go, mi’lady. You will not retain another sentence tonight."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stand slowly. The favourite-mask is not on, and the woman underneath it is tired.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',    text: '"…thank you, Lucien."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stands too. Walks around the table. Stops a careful pace from you.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"May I."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…what."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He lifts one hand. The pale fingers do not touch you. He gestures, careful and small, at your temple. The old cut at your hairline. The pink line Aurel said the balm would not fully take.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"It will scar if it is not finished. I can finish it. One small working. May I."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He raises the hand to your temple. The fingers do not touch the skin. They hover a breath above it. He whispers two words in the older script.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale of his eyes goes a sharp lavender for one breath. The same as the night he wove the stone into the seaweed. Then back.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pink line at your temple lifts and goes. The skin is the skin you had before the moss.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your hand drifts to your temple without your permission. The fingers find no line.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has lowered the hand. The pale eyes have come back to your face. He nods once.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Goodnight, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The smallest possible thing at the corner of his mouth.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…goodnight, Lucien."', hold: 1800, cps: 28 },
+
+            // ─── Section 19 · Walking back · the temple touch ─────────────
+            { type: 'line', speaker: '', text: 'The lower corridor. You walking with the attendant. The braid at your wrist hums once. The lavender stone is warm. Your hand has gone to your temple twice on the walk back, without your permission.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…the mage took off your scar and called it a working, the way another man might have called it nothing.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…do not let yourself think about that yet.*', hold: 2800, cps: 28 },
+
+            // ─── Section 20 · The rift · "she is closer tonight" ──────────
+            { type: 'line', speaker: '', text: 'ELSEWHERE. THE RIFT. A place that is not a place. Only the dark between two folds in the world.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Threads of silver moving through the dark. Fine as spider-silk. Drifting in a wind that does not exist.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'One thread. It is taut. It is humming the same note as the seaweed braid at your wrist. It has been humming that note for some long stretch of time.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'At its far end, in the dark, the suggestion of a figure. Not a shape exactly. The outline of where a shape would be if the dark allowed shapes.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The thread tightens. It has tightened by a small fraction tonight that it did not have last night.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'A VOICE', text: '"…closer."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'A VOICE', text: '"…she is closer tonight."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The thread hums. The dark does not answer back. The figure does not move.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The silver thread fades back into the dark.', hold: 2400, cps: 28 },
+
+            // ─── Section 21 · The bath · "dies before their place is whole" ─
+            { type: 'line', speaker: '', text: 'The rose suite. Steam rising off the surface of the water in slow curls. The herbal scent of the healing potion gone heavy and green in the warm air. The lamps burning low. The fire built up against the night cold.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You sinking into the water to your shoulders. The hair pinned high at the crown. The long length of it falling almost to the middle of your back when it is loose.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The heat reaches your spine first. Then your ribs. Then the part of you that has been carrying the day. Your shoulders lower for the first time since the morning bell.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid at your wrist drifts on the water. The lavender stone catches the lamplight under the surface. The skin at your temple is smooth where the cut was.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The scrape at your knee is fading under the herbs as you sit. The bruise at your wrist has gone the last shade of yellow it knows how to be. The smaller marks the alley left on you are leaving one by one in the heat.', hold: 8800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes closed. The water holds you the way nothing in this castle has held you in a season.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The line from the book this afternoon comes back without your permission.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…a Weaver dies before their place is whole.*', hold: 3000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…does it mean I have to die to protect this kingdom.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The water is no longer holding you the same way. The thought has gone into the warm with you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…do not think about any of them yet.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your hand drifting up out of the water, finding the place at your temple again without your permission. You set it back under the surface.', hold: 5400, cps: 22 },
+
+            // ─── Section 22 · The second door · the unanswered knock ──────
+            { type: 'line', speaker: '', text: 'A knock. Soft. Through the second door.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes open. The water has gone very still around you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The second door from your angle in the bath. The plain wood. The small brass latch. The door no one but the prince knows how to reach. You cannot see him on the other side.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You cannot move. The water is around your shoulders. The hair pinned. Your robe folded on the dressing-frame across the room. You have nothing on you but the steam.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid humming. The stone warm. The breath gone careful.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…he really does love coming here at night."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not knocked twice. He is waiting without calling your name. Leaving the choice to you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The steam rising off your shoulders. The water holding the rest of you. The corner of your mouth has done a thing you do not give it permission to do.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…what a mess.*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The second door. The favourite in the steam. The prince on the other side, knocking on the door whose key she alone holds. The knock unanswered. The ball one day away.', hold: 8400, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(23); setCurrent(nextIdAfter(23));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 24 · "The Second Door"
+    // Owner PDF Ch21-25. The prince visits at the second door. "Act
+    // as seductress favourite — the safer one." He closes the robe
+    // at her throat, retreats one pace, then another. Coda — his own
+    // rooms, hand pressed flat at his chest. Morning — Lady Marra’s
+    // final pass, the dress fitting, the slap of the young
+    // attendant, "the slap is the punishment, it is enough." Dusk —
+    // the prince at the corridor door in formal black and gold. He
+    // freezes at the threshold. "…it is time, my favourite." The
+    // great doors open. "His Royal Highness, the Crown Prince of
+    // Aethermoor. And the favourite of the rose."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 24,
+      title: 'Chapter 24',
+      subtitle: 'The Second Door',
+      teaser: '…it is time, my favourite.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_24_full',
+          title: 'Chapter 24',
+          subtitle: 'The Second Door',
+          speaker: 'CASPIAN',
+          palette: { bg: '#1a0e12', glow: '#8a3a4a', accent: '#e8c8a8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Section 1 · The bath, the robe, the key ──────────────────
+            { type: 'line', speaker: '', text: 'The same night. The bath behind you in the steam. The knock at the second door has not come a second time. It has not gone away either.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step out of the water. The herbs slide off your shoulders. The body pink from the heat and the damp catching the lamplight.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You reach for the bathrobe folded on the dressing-frame across the room and pull it around you. The silk is light against the wet of your skin.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walk to the writing-desk. Open the side drawer. Take out the small brass key the prince gave you the day you arrived. You weigh it once in your hand.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cheeky corner of your mouth has done its work today already.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You cross to the second door. The latch turns under the key. The door opens inward to the small corridor only the prince knows how to walk.', hold: 5800, cps: 22 },
+
+            // ─── Section 2 · The threshold ────────────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian on the other side in the same wine-deep doublet. A gold band at his collar this time. His hand still raised from the second knock he had not delivered.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corridor sconces behind him and the suite-light spilling onto him in front meet at the threshold between you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The polite smile he had ready for the door dies before it finds his mouth. He has not been prepared for you in a damp bathrobe with the hair pinned up and the skin still pink from the steam.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you really do love coming here at this godly hour, your highness."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"Come in."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The blue eyes have done a thing the face is trying not to let stay.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The hand at his side has closed at the knuckles. He has not yet stepped through.', hold: 3800, cps: 26 },
+
+            // ─── Section 3 · The candlelight · the silk ───────────────────
+            { type: 'line', speaker: '', text: 'You turn away from him to give him the threshold. You walk slowly to the candle on the small table near the couch and stop in its light.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The robe is silk and the silk is damp where the water did not finish leaving you. The cleavage at your throat is still beaded with bathwater. The bare line of your leg shows at the slit of the robe, half a step longer than the seamstress meant.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He swallows. The court-mask he came in with has gone. The man underneath has not yet decided what to put in its place.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He steps through and closes the door behind him with more care than he has closed any door in this castle.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…such a visit at this godly hour, your highness. Quick."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes come back up to your face with what looks like a small effort.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…my apology, mi’lady. Had I known you were doing your care, I would not have come."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"If your highness had come to the main door, you would have known."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are absolutely right, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He keeps his distance. He has chosen the chair by the cold hearth, not the couch near the candle. He does not sit.', hold: 5000, cps: 22 },
+
+            // ─── Section 4 · "Someone broke a promise first" ──────────────
+            { type: 'line', speaker: '', text: 'Caspian standing by the hearth. Both hands now clasped behind his back the way a prince stands at court.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You have refused dining with me twice today, mi’lady. Are you forgetting your role as my favourite."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not move from where you are.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"Someone broke a promise first, your highness. That has made me forget what my role is."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are still upset."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Yes. You meant to lie to me at first. To cage me."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You went to see the Grand Mage without my consent today, mi’lady."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"Yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The candle between you. The air gone heavy with the equal weight of what each of you is holding.', hold: 4400, cps: 24 },
+
+            // ─── Section 5 · "Act as seductress" ──────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian shifts. The prince has decided to set the argument down and pick up what he came here for.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I had invited you to dine tonight to tell you about the queen. You did not come. I have come here to tell you."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cheek goes out of your face. The favourite has stopped being playful.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…tell me, then. How is the prince’s favourite to behave in front of her. And how is the Weaver to save this kingdom."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will act in front of her as a seductress favourite, mi’lady. Not as a Weaver. You will stay low about it."', hold: 6200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Seductress."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will act as if you are really after me. As if the position you want is mistress, or concubine. As if the body of the prince is the only thing you are in this castle for."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…that is a bold idea, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"It is the safer one, mi’lady. Your real name must not be found at this ball."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"A favourite the queen reads as ambitious is a favourite she will not look at twice. A favourite the queen reads as anything else, she will."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…so I am to be ambitious."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You are to be ambitious in a way the court has seen before. Yes."', hold: 4000, cps: 24 },
+
+            // ─── Section 6 · "You have something you have not told me" ────
+            { type: 'line', speaker: '', text: 'The candle catches the damp at your collarbone again. You have not moved from the light.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…you have something you have not told me."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"The Grand Mage reported what he has found in his books, mi’lady. I do not yet know all of it."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"He has also forced me to grant you passage to his tower without escort, and that is very rare of him. The Grand Mage does not act out of his character."', hold: 7800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…I may have forced him to that, your highness."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Without doubt, mi’lady."', hold: 2000, cps: 28 },
+
+            // ─── Section 7 · "You leave good impressions" · the silk ──────
+            { type: 'line', speaker: '', text: 'Caspian steps forward. Slowly. The careful pace of a man crossing a room he has been holding himself out of for the full visit. He stops within a hand’s reach of you.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You leave good impressions on people, mi’lady. And disobey my orders. That is the first for me, in any favourite I have ever taken."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cleavage at your throat is still beaded with water. The skin under it has gone a little more pink under the candlelight than it was a moment ago.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Blame on the memory loss, your highness."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He chuckles. Real. Brief. The sound has not been let out of him in many days.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His hand lifts. The fingers do not touch your skin. They reach for the silk of the robe at your throat where it has parted. They close it back over the pink line of your cleavage.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He does not let his hand stay. He does not let his hand move further than the closing. The robe lies as it had been before the steam shifted it.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have not moved. The breath has gone careful in both of you. The candle stays steady between you.', hold: 4800, cps: 22 },
+
+            // ─── Section 8 · Stepping back · the writing at first bell ────
+            { type: 'line', speaker: '', text: 'Caspian steps back. One pace. Then another. The careful retreat of a man who has just measured himself and chosen not to lose.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I have said what I came to say, mi’lady. Stay safe. I do not want you harmed at this ball."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"I mean that for your safety. Not for my position."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look away from him. The favourite does not acknowledge the line.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has seen the look-away. He absorbs it without comment.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns toward the second door. Pauses with his hand on the latch. Does not turn.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I have granted your passage to the Grand Mage, mi’lady. You will have it in writing at first bell."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…thank you, Caspian."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The use of his name has reached him. He does not turn to show you what it did.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…goodnight, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You nod. He does not see the nod. He opens the door, steps through, closes it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The latch as it settles back. You hear the key turn from your side. Alone in the suite. Only because you walk to the door and turn it yourself.', hold: 5800, cps: 22 },
+
+            // ─── Section 9 · "Why is everything so tangled" ───────────────
+            { type: 'line', speaker: '', text: 'You alone again. The robe still damp at the collar. The candle still steady. The braid humming once at your wrist. The lavender stone quiet.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cheek is gone. The woman underneath is tired in a new way.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…why is everything so tangled.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You cross slowly to the dressing-frame. Dry the damp at your shoulders and throat with the soft cloth there. Pull the pale nightgown over your head. The robe falls beside the frame.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You climb under the covers. The lamp goes out under your hand.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The breath finding its way longer. The day will come at first bell. The ball is tonight.', hold: 4400, cps: 24 },
+
+            // ─── Section 10 · Caspian's rooms · "what was that" ───────────
+            { type: 'line', speaker: '', text: 'ELSEWHERE. The prince’s rooms. The corridor between your suite and his has not been long enough for him to finish what he was holding.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian closing the door of his own rooms behind him. His back against the door. His eyes closed.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hand at his chest. The palm pressed flat against the wine of his doublet. The breath coming uneven.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…what was that."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has had favourites before. Women in his rooms. A great many things in front of him at very many candlelights. And none of them have left him with his hand at his own chest in the dark.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…pull it together. You are the prince."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He crosses his rooms to the wide window. The royal gardens dark below. The cyan fountain faintly luminous. He stands at the glass and lets the cold of it reach him through the doublet.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His profile at the glass. The hand has not left his chest yet.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His breath on the cold glass, then gone.', hold: 2400, cps: 28 },
+
+            // ─── Section 11 · Morning · Lady Marra · curtsy ───────────────
+            { type: 'line', speaker: '', text: 'Morning. The rose suite. Pale light through the three arched balcony doors. The senior attendant at the bedside with a tray. Bread, fruit, hot tea, the small green vial Aurel sent at first bell.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'SENIOR ATTENDANT', text: '"Mi’lady. Lady Marra has come for the final touch. The fitting will be after the noon. The afternoon is to be quiet. The ball begins at the sixth bell."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lady Marra in the centre of the room. Behind her, three young attendants you have not seen before. The smallest of them perhaps your own age. Eyes lowered.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"Mi’lady. We will run the curtsy for the queen one time. Then the greeting order for her hall. Then the lines for the duchess. There will not be much I can add today."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-mask comes on smoothly. It has begun to fit.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"Begin, my lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You on the long blue ribbon. The deepest curtsy you have ever made. The breath out at the bottom of it. Lady Marra does not correct you.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Greeting order. The queen first and only. The prince already at her side. The chamberlain last.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lines. Your majesty does me a kindness merely by looking. Your majesty’s hall is as I have heard. Your majesty has been kind, with my prince’s leave I will withdraw.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You give back each line as Lady Marra hands it to you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The corner of her mouth has done the small thing it did the morning of the silver thread.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LADY MARRA', text: '"…you are ready, mi’lady. I will tell the prince so."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',         text: '"Thank you, my lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'She bows. Turns to leave. The three attendants follow.', hold: 2800, cps: 28 },
+
+            // ─── Section 12 · The dress · the recognition ─────────────────
+            { type: 'line', speaker: '', text: 'Noon. A small tray. Bread, soft cheese, a slice of cold meat, a glass of pale watered wine. You eat lightly. The body does not want food but knows it will need it tonight.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Afternoon. The seamstresses are back. The dress has been finished. The wine-deep silk edged in gold sits on its frame. A thin under-gown of cream on the dressing-board beside it.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cream under-gown first. Then the wine silk over it. Pinned at the waist. Adjusted at the bodice. The chief seamstress murmuring measurements to her assistant.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You stand still on the low stool the way you stood at second bell yesterday. You answer no questions today.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You in the mirror they have brought out. The dress is more beautiful than the morning made it sound. The cut is yours. The wine is his. The gold at the seams catches the afternoon light through the balcony doors. The pale of your hair down to the middle of your back.', hold: 10800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You let yourself feel something about it for the first time. Not pride. Not vanity. The closest word is recognition.', hold: 5400, cps: 22 },
+
+            // ─── Section 13 · The jewellery · the slap ────────────────────
+            { type: 'line', speaker: '', text: 'The seamstresses leave. The senior attendant remains with two of Lady Marra’s. The young one is one of them.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The senior attendant brings the hairdresser to you. The hair is brushed, pinned high at the crown, a single thin braid along one side worked through with small gold pins. The rest is left loose down your back.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The senior begins on the jewellery. A thin gold collar. Two small earrings. No bracelets except the seaweed braid, which she does not touch. The lavender stone tucked under the cuff of the sleeve.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have not asked her to keep them and she has not asked.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'SENIOR ATTENDANT', text: '"Mi’lady. The ball begins at the sixth bell. His highness will attend the opening alone. He will come to escort you at dusk."', hold: 7800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…he is a busy man."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The senior nods. The youngest attendant near the door cannot help herself.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOUNG ATTENDANT', text: '"…and he is all the ladies’ dreams, mi’lady. You are very lucky."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The senior’s eyes have gone hard.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mask has not gone. The woman underneath has lifted her chin.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn slowly. You walk the three paces to the young attendant. She does not look up.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…is that one of your dreams, then."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her face has gone bone-pale. She drops to a small curtsy that is not deep enough.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOUNG ATTENDANT', text: '"No, mi’lady. The noble ladies. They envy you. I only meant…"', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The senior crosses the room in two strides and slaps the young attendant once across the cheek. Sharp. The sound is small in the room and loud in the silence.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'SENIOR ATTENDANT', text: '"Your manners in front of the favourite. If his highness hears of this you will be punished severely."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cheek has gone bright red. The eyes have filled but not fallen.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You step between them. The favourite has decided something.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"That is enough. The slap is the punishment. It is enough."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'SENIOR ATTENDANT', text: '"Yes, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The young attendant bows. She does not raise her face. She moves to the back of the room and stands at the wall the way she has been trained.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The senior continues with the jewellery as if nothing has happened. The room is quiet in a way it was not before.', hold: 4400, cps: 24 },
+
+            // ─── Section 14 · Dusk · the captain's knock at the main door ─
+            { type: 'line', speaker: '', text: 'Dusk. The light through the balcony doors has gone the deep gold that comes just before the sun lets the kingdom go.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lamps in the suite are lit. The dress is on. The hair is up. The collar is at your throat. The favourite is ready.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You at the centre of the room. The senior attendant a careful pace behind you. You are not looking at the mirror. You are looking at the door.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Three knocks. Captain’s knock, the old form. Not the second door this time. The corridor door. The official entry of a prince come to fetch his favourite.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The senior attendant opens it.', hold: 2200, cps: 28 },
+
+            // ─── Section 15 · Black and gold · "it is time" ───────────────
+            { type: 'line', speaker: '', text: 'Caspian in the doorway. He has not come from his office. He has come from his rooms.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The deep wine doublet is gone. He is in formal black tonight. Gold at the collar in the band of a prince at a queen’s hall. The small silver chain of the heir at his shoulder.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hair has been brushed back the way it has not been brushed back since the first ball.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smile he has prepared for the staff has frozen at the threshold.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The blue eyes have done the thing they did at the second door last night. The man is not ready for it twice in two days.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He swallows. He has been preparing for the favourite. He has not been preparing for this.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He recovers. The prince comes back, one piece at a time. He steps into the suite.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'In front of you. He does not speak yet. The prince has come back on. The eyes have not finished telling the truth.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lifts one hand and offers it palm-up. The court gesture for the favourite.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…it is time, my favourite."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The favourite-mask is fully on. The honest thing at the corner of your mouth is hidden in the small lowering of your eyes that a court-trained woman gives a prince at a doorway.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You place your hand in his. Lightly. The court answer. You let him lift it, the way the favourite is led to a queen’s hall.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'As the back of your hand brushes the inside of his wrist. The cheek goes a fraction more red than the lamplight already had it. He does not let it show.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your favourite-smile is on. You do not let him see what the brush of his wrist has done to you either.', hold: 4400, cps: 24 },
+
+            // ─── Section 16 · The corridor · the gallery ──────────────────
+            { type: 'line', speaker: '', text: 'The corridor. Lamps lit at every sconce now. The royal guards have doubled at the favourite’s wing. They bow as you pass. The senior attendant is two paces behind you. The young attendant has not been allowed out of the suite.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walking with your hand in his. The wine of your dress moves with you. The pale of his black and gold moves beside it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cheek has not entirely cooled. He is concentrating on his pace.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The long gallery. The portraits. You pass the slashed one without looking. He does not look either.', hold: 4400, cps: 24 },
+
+            // ─── Section 17 · The great doors · "stay near me" ────────────
+            { type: 'line', speaker: '', text: 'The great doors. Closed. Tall as three men. Carved with the royal stag. Two heralds in cream and gold flank them. The chamberlain at the centre. List in hand.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has been told. He bows deep when he sees you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"Your highness. Mi’lady. Her majesty has been receiving since fifth bell. The court is gathered. The hall is full."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He looks at you. Not the favourite. You.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…whatever happens tonight, mi’lady. Stay near me."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, Caspian."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The use of his name has reached him a second time in two days.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns back to the chamberlain. He nods once.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The chamberlain signals the heralds. The great doors begin to open. Light from the hall spills out.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The murmur of a thousand voices that have been talking for the better part of an afternoon goes quiet, one section at a time, as the court realises the favourite has arrived.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wine of your dress. The black and gold of the prince. The lamplight of the queen’s hall ahead.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'HERALD', text: '"His Royal Highness, the Crown Prince of Aethermoor. And the favourite of the rose."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite on the prince’s arm. The court turned toward you in a single long wave of held breath.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen at the far end of the hall. On the throne that has not received in your lifetime. Watching.', hold: 4800, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(24); setCurrent(nextIdAfter(24));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 25 · "The Favourite of the Rose"
+    // Owner PDF Ch21-25. The eight-act ball. ARRIVAL: she goes after
+    // the gossiping lord at the fourth column. HUNTING GROUND: queen
+    // sends a man to the city while the pavane plays. TEMPTATION:
+    // Noir at her shoulder with a red rose, the thumb at the inside
+    // of her wrist. SCREAM: he kisses the back of her hand; the
+    // prince almost crosses the floor. CLAIM: Caspian takes the rose
+    // ("no rose at this ball that did not come from me") and dances
+    // with her. INTERCEPT: Lucien blocks the duke and dances the
+    // older form. QUEEN’S DEPARTURE: she leaves without speaking to
+    // her grandson. CLOSE: Alistair at the far door, "behave, you."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 25,
+      title: 'Chapter 25',
+      subtitle: 'The Favourite of the Rose',
+      teaser: 'There will be no rose at this ball that did not come from me.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_25_full',
+          title: 'Chapter 25',
+          subtitle: 'The Favourite of the Rose',
+          speaker: 'CASPIAN',
+          palette: { bg: '#150810', glow: '#a23a50', accent: '#ecd49a' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── ACT I · ARRIVAL ──────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The great doors open. The light of the queen’s hall pours out around you. The wine of your dress moves with the first step. The hand of the prince steady under yours.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two hundred masked faces turning at the same moment. The murmur dying out one section at a time. Mirrors at the far walls doubling the chandeliers. Doubling the crowd. Doubling the throne.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The second column near the door. A duchess in pale silver mid-sentence. The sentence stops.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The third column. A young lord in a wolf-mask forgets to lift his glass. The glass hangs at the level of his chin.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The room has registered you the way a room registers weather. You let your eyes lift at the third step the way Lady Marra did not teach you. The seductress-favourite has decided to look at the room before the room looks at her.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smile Caspian is wearing for the court is warm. He has felt the warmth in your hand. He brushes the inside of your wrist once with his thumb below the angle of the room’s view.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are very good at this already, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…you told me to be ambitious."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The corner of his mouth lifts the smallest amount under the court-smile. The prince acknowledging the line without giving it back to her in front of the room.', hold: 5400, cps: 22 },
+
+            // ─── The fourth column · "is your opinion one the prince asked for" ─
+            { type: 'line', speaker: '', text: 'The court parts the way it parted for every favourite the prince has presented at every public hall in his lifetime. But tonight the parting is slower.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two masked lords as you pass the fourth column. Inland house colours, green and gold. They do not lower their voices.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'FIRST LORD', text: '"…a year, perhaps two. The pretty ones never last with him."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The eyes have caught yours mid-comment. He does not adjust his face. He intends for you to keep walking.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not keep walking. The favourite stops on the seductress-favourite’s heel and turns. Caspian’s hand at your wrist tightens once. A warning. You do not heed it.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite of the rose steps half a pace closer than the floor would have asked of her. The wine of her dress moves with the step.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"My lord. Pray, the favourite would not interrupt a man whose opinion the prince values."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…is your opinion one the prince has asked for, my lord."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The face has gone pale by one degree under the gold half-mask. The mouth has opened the smallest amount and closed without speaking.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The second lord turns to look at his friend the way a man turns to look at a friend who has just lost a duel he had not realised he was fighting.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A woman in black lace at the column behind them. The first lord’s wife. Her hand has gone to her husband’s sleeve. She has decided to remember the favourite’s face.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court at the fourth has registered: the favourite of the rose has gone after a lord in front of the prince. The ripple crosses two columns before you turn back to Caspian.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court-smile has held the entire stretch. The eyes underneath have done a thing.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I have created something, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…you wanted ambitious, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He places his free hand briefly over yours at his wrist. The gesture of a prince claiming the woman who has just claimed his court.', hold: 5800, cps: 22 },
+
+            // ─── The throne dais · the queen ──────────────────────────────
+            { type: 'line', speaker: '', text: 'The throne dais. The black-and-gold throne uncovered tonight for the first time in your lifetime. Taller than a throne should be.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen. The crown of black branches and small red stones. The dress of deep black lace. The high choker at her throat. The blonde of her hair the same blonde as the prince’s. The blue of her eyes the same blue as his.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You only feel the line of inheritance and refuse to name it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Every masked noble has tilted a degree forward toward the throne without their knowing. The temperature of the room has dropped a fraction.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince stops three paces from the dais. He bows. Low and slow. The silver chain at his shoulder catching the light.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You curtsy. The deepest one. The wine of your dress pooling around you on the floor.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Your majesty."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'QUEEN',   text: '"…rise, my prince."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stand. You raise your eyes only to the height of her hands folded in her lap.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '"Come and dance with your grandmother. It has been a long stretch since I last had the floor with you."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have not rested on you for more than the shape of half a breath.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seductress under the mask is reading the room. The queen has not given you a sentence. The court has noticed the indifference toward the favourite.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…oh, the disguise works."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You hold your composure for the court. The favourite-mask does not move.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your wrist under the gold cuff. The seaweed braid hums once. Soft. The lavender stone next to it has gone warm against your pulse.', hold: 5000, cps: 22 },
+
+            // ─── ACT II · HUNTING GROUND ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'The queen rises. The court bows. The musicians on the upper gallery begin the slow opening pavane.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian taking the queen’s hand. The smile is warm. The eyes are on his grandmother’s face.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The queen and her grandson at the centre of the marble. No one else is on the floor.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Past her grandson’s shoulder, her eyes go to the side of the hall. The chamberlain has stepped to the back wall with a man in cream and silver livery you do not recognise. The man bows low and slips out a side door.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have come back to her grandson’s face. She continues the dance.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…she sent someone.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Across the hall. Past three columns. Past the duchess in pale silver whose fan has not moved since you walked in.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at the wall. Alone. Deep purple-and-black robe of the mage of state. Gold filigree at the cuffs. The small gold monocle on his left eye. The pale eyes have found you and have not let you go since you stopped at the fourth column.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…even the Grand Mage is here. That is quite something.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The far doors. Past the dancers, past the columns, past the masked sea.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair at the far door. Burnished armour over the dark under-tunic. A red cloak across his shoulder. A halberd in his right hand. No captain’s coat. The fresh line of a cut healing at the jaw.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bright green eyes find yours for one held breath. He does not bow. Does not nod. His eyes go back to scanning the hall.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…he is here. He seems to be doing well.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pavane ends. The queen gives Caspian her hand back. He bows low. She returns to her throne. The court bows in unison.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…thank you, my prince. You have done well tonight. I have high hope in you."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Whatever high hope means in his grandmother’s mouth, he has been hearing it his whole life.', hold: 4200, cps: 24 },
+
+            // ─── Caspian leaves · "your absence will be missed" ───────────
+            { type: 'line', speaker: '', text: 'Caspian steps off the floor. Moves through the masks. Arrives at your side. He takes your hand. Lifts it to his mouth in the small public gesture that is courtly without crossing into the private.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I will return shortly. There is a small matter the chamberlain requires of me."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The seductress-favourite lifts one hand and rests it lightly against his doublet at his chest. The court catches the gesture before he does.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your eyes find his and go soft in the way Lady Marra would not have taught you. The way the role wants.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Your absence will be missed, your highness. Mine, especially."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The smile holds. The blue underneath has done a thing the warmth is trying to hide. He lifts one hand and touches the underside of your chin lightly with the back of two fingers.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"You will always be in my heart, my favourite. I will come back."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Fans up at three columns. Eyes wide above the masks.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien at the wall. The monocle catches a chandelier briefly and goes dark again.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair at the far door. The green eyes have lowered to the halberd. The grip has gone the smallest amount whiter at the knuckles.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A side door at the back of the hall. The one no one has been watching. The masks part the smallest amount around something the masks have not registered yet. A black coat. A red gem catching the chandelier light wrong.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian has not seen the side door. He bows shallowly. Releases your hand. Turns toward the side-corridor behind the dais.', hold: 5400, cps: 22 },
+
+            // ─── ACT III · THE TEMPTATION ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The court has been released. Couples are forming. The hall has begun to breathe again.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You alone at the side table where a steward has set a glass of pale wine you have not drunk.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A voice at your shoulder. Low. Close enough that the breath of it reaches the bare skin at the side of your throat. You did not hear anyone arrive.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…you are quite an alluring damsel. And quite a show."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…it is him.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You turn slowly. He is at your right shoulder. Tall. In a black coat with red gem armour at the chest and shoulder. A black half-mask of black-and-gold filigree over the left side of his face. A single red rose in his black-gloved right hand.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Red, catching the chandelier light wrong. The way the alley wall caught it the night you ran.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"Mi’lady. The favourite of the rose."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He extends the rose. The bare ungloved fingers of the left hand offer it. The seductress-favourite takes it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…you look well in his colours, damsel. I had wondered how you would wear them."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',  text: '"…the colours were not my choice, my lord."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'NOIR', text: '"I know. The wine is his. The cut is yours."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'NOIR', text: '"…I prefer the cut."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere the favourite-mask is not covering.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'NOIR', text: '"A dance, mi’lady. If the favourite of the rose will permit it."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"…one dance, my lord."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The musicians have caught the new dance late. Three beats behind. Recovering in the fourth. The room reads it: the favourite has gone onto the floor with a man no one in this hall knows.', hold: 8000, cps: 22 },
+
+            // ─── The thumb at the wrist ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'He leads well. The three-step form. The man’s hand at the small of the woman’s back. The rose still in your right hand against his shoulder where his hand catches yours.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The black-gloved fingers settle against the wine silk. The pressure is light. The pressure is aware of itself.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…you recognise me."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',  text: '"…you make quite an impression when we first met, my lord."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'NOIR', text: '"…good."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…you are good at the seductress. I can see why the boy of bone gave you the role."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…the boy of bone. He knows what Caspian is.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what do you mean by that, my lord."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…interesting, is it not. There is more for you to learn, damsel."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The dance turns. He has turned you with the music. The hand at your back lets go for the half-beat of the turn the way the form requires.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His bare ungloved left hand catching yours from his shoulder. The open palm taking your wrist for the turn.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has slid the thumb under the gold cuff of your sleeve. The bare pad of it has found the inside of your wrist where the pulse jumps.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-mask has held. The body under it has not. The pulse under his thumb has answered him before you could refuse it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…you can feel that, can you not, damsel."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The court sees a man’s hand at her wrist in a courtly hold and reads a turn. The court does not see the thumb.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you are taking liberties, my lord."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…I am teaching you a thing the prince has not yet taught you. Your body answers before your mind. The prince is too kind to have shown you that. I am not too kind."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…it seems the prince has not put his hands on you yet, damsel."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…good. It means he means to protect you. Keep his protection. Wear his rose. Let me show you what you are under his protection while he is not in the room."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The body has answered him five times. The mind has stopped counting.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The dance turns again. The form requires the hand to go back. He releases the wrist. The thumb is gone. The pulse is still going.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…he will take this rose from you the moment he comes back."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"…I know."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…keep his. Keep mine in your mind. They are different colours of the same red."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…go carefully tonight, damsel. The queen has sent a man to the city while you dance. The queen has been setting wounds in this city for a long count of years. And one of those wounds is gone."', hold: 11400, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…you would know what made it gone."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You know exactly what he means. The favourite-mask does not move. The body does not let the recognition reach the face.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…those wounds are her traps for Weavers, then."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not answer. The smirk under the mask widens. The red eyes have gone soft with something the heroine has not yet been allowed to see in this castle.', hold: 6800, cps: 22 },
+
+            // ─── ACT IV · THE SCREAM ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The music has come around. Noir steps back. He bows. You curtsy with the rose still in your hand.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"Mi’lady. The favourite of the rose. I will not trespass on your evening longer."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He takes your hand. The bare ungloved left hand lifts yours toward his mouth in what the court reads as the courtly farewell.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His thumb at the inside of your wrist again. The same place he found mid-turn. The bare pad pressed against the pulse for the room to see this time because the cuff has slipped half an inch in the lift.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His mouth at the back of your hand. The kiss lands. The lips press against the skin and stay. One beat. Two. He has not released. He is holding the kiss the way a man holds a kiss he means.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Every fan in the second column has stopped. The duchess in pale silver has dropped her glass and the glass has not broken. The countess at the third column has covered her mouth with the back of her hand. A masked baron has gone forward at the shoulder as if to rise.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at the wall. He has taken one step forward. He stops. He chooses not to cross the hall. The pale eyes have gone the kind of cold the duke saw earlier turned twice over.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair at the far door. The halberd is no longer at attention. The shaft has gone forward a degree against his shoulder. The boot has moved one step toward the floor.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A side corridor behind the throne. The chamberlain is mid-bow as the prince comes back through it. The smile is on. The wine and gold of the over-coat catches the corridor lamp.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian as he steps back into the hall. His eyes find the floor before his feet finish the threshold. His eyes find the favourite. His eyes find the masked stranger’s mouth pressed to the back of her hand.', hold: 8400, cps: 22 },
+
+            // ─── Caspian almost crosses the floor ─────────────────────────
+            { type: 'line', speaker: '', text: 'The boot has stepped forward. Not the corridor stride. The crossing stride. The stride of a man who has decided to cross the floor.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The chamberlain at his elbow has reached for the prince’s sleeve. The hand has not landed yet. The prince has taken a second step.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smile has dropped for the shape of one breath. The blue underneath is on the masked stranger and nowhere else.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court has seen all of it. The step, the smile dropping, the eyes going cold across the floor for one breath. The masks in the third column have tilted toward the corridor. The duchess in pale silver has lifted her fan halfway and stopped.', hold: 10800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The chamberlain’s hand at the prince’s sleeve. The grip has caught. The prince has stopped.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smile is coming back on. The blue is coming back to court-level. The discipline of an heir reasserting itself the way the heir has been trained since he could walk. The recovery has taken the shape of three breaths.', hold: 9000, cps: 22 },
+
+            // ─── The queen sees · "he has chosen one" ─────────────────────
+            { type: 'line', speaker: '', text: 'The throne. The queen at her chair. The polite court-smile has held the entire stretch.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She has not looked away from her grandson since he came back through the corridor. She has seen everything the court has seen. And the half-breath of break the court did not.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'She is smiling, but not the court-smile. Something colder. Something interested. Something the chamberlain at the foot of the dais has not seen on her face in twenty years.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…so. He has chosen one.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Her hand on the throne arm. The fingers close once. A small black token she has not been holding before is in her palm. The token darkens. The smile has not moved.', hold: 7000, cps: 22 },
+
+            // ─── Noir's exit ──────────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'Noir’s mouth at the back of your hand. He has held the kiss long enough to make his point. The lips release. He lowers your hand the smallest amount with the courtly slowness of a man who has just done what he meant to do.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…next time, you may dance with me without the boy of bone watching the door."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',  text: '"…why are you here, my lord."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…observing, my damsel."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He steps back into the crowd. The masks close around him. He is gone in three breaths.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The court breathes again. Almost. Fans move. Whispers begin. The court does not look at the favourite the way it looked at her a breath ago.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court has just been shown two things it does not yet know how to talk about: a masked stranger who kissed the favourite of the rose, and a prince who almost crossed the floor.', hold: 9000, cps: 22 },
+
+            // ─── ACT V · THE CLAIM ────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'You alone at the side of the floor with the rose still in your hand. The pulse at your wrist has not quieted where his thumb pressed.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian arriving at your side. The court-smile is on. Warm and bright. The prince-charming who has come back for his favourite. The eyes underneath have gone to the rose in your hand.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. I have left you alone too long. Forgive me."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seductress-favourite lifts one hand and lays the palm flat against the wine of his over-coat at his chest. The gold filigree warm under your fingers. The eyes go soft for him in the way Lady Marra would not have taught.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"You have changed to match my colours, your highness. That is very thoughtful of you. I have missed you."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…whose rose, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Your highness was missed."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…a masked lord, Caspian. I did not see his face."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…did you see his eyes."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The court-smile does not falter. The jaw under it has set.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…give me the rose, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He takes it. He brings it to his face for a breath. Breathes in the scent. Smiles at you. The smile is the brightest he has worn all evening.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are kind to keep a courtly gift, mi’lady. May I keep it now."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"Your highness is gracious."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He turns. Finds a steward. Sets the rose on a silver tray. The steward bows. Takes it away.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…there will be no rose at this ball that did not come from me, mi’lady."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Dance with me, my favourite."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…if you insist, my prince."', hold: 2400, cps: 28 },
+
+            // ─── The prince's dance ───────────────────────────────────────
+            { type: 'line', speaker: '', text: 'He leads you to the centre of the floor. The court parts. The musicians shift to the third dance. The form reserved for the prince and his chosen.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…did he speak to you, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…that you would take the rose. That I should be careful tonight. That the queen sent a man to the city while we dance."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…we will speak of this later, mi’lady. Not here. Stay near me for the rest of the evening."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…isn’t this near enough, my prince."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…not enough, it seems."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I am quite enjoying this act, my prince. Shall we draw a gasp from the nobles."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…as if you have not done that several times already, mi’lady."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The seductress-smile widens. The body shifts inside the wine silk. The posture moving with the music in a way the form does not strictly call for. The wine of the dress flaring at the hem on the next turn the way it did not flare on the first.', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have gone dangerously close to him. Closer than the third dance has ever asked of a woman in this hall. The hand at his shoulder has slid the smallest amount up toward the collar. Your face has gone close enough to his that his breath finds your mouth between beats of the music.', hold: 12400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The heart has skipped a beat. The smile has held. Anyone in this hall reading him through the smile would not find it. You are not reading him through the smile.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite of the rose dances with the prince. The favourite is dancing with grace. The favourite is also dancing with something else.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A masked viscount near the column behind. The fan in his companion’s hand has gone still. The viscount’s own hand has gone to his collar.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A young lord in the third row of watchers. The mouth has opened the smallest amount. He has forgotten to bring his glass to his lips.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen at the throne. The eyes have moved from her grandson to the favourite. The polite court-smile has held.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at the wall. The pale eyes have gone steady on the floor. The monocle catches a chandelier and goes dark. He has chosen not to look away. He has chosen not to move either.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair at the far door. The halberd is no longer at attention. The shaft has tipped forward against his shoulder. The bright green eyes are on the dance. The chest has gone uneven inside the burnished armour.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A side balcony above the hall. The one no one is meant to see from the floor. A black coat. A red gem catching the chandelier light wrong. The masked lord did not leave the hall when the court thought he did. He has been watching from above.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The red eyes on the favourite. The smirk under the mask has gone wider than the half-mask can hide. The 600-year-sealed prince of bone is amused by what he is being shown.', hold: 7000, cps: 22 },
+
+            // ─── The hand at his throat · the rescue ──────────────────────
+            { type: 'line', speaker: '', text: 'The music has not quite come around. The dance has paused half a beat early. The two of you have stopped at the centre of the floor. His hand at the small of your back. Your hand at the collar of his over-coat. The breath between you both gone uneven.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your fingers leave his shoulder. Your palm slides down the wine of the over-coat. The palm finds the open V of the white shirt under the gold collar. The bare line of skin at his throat is under your fingers.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have closed for the shape of one breath. The favourite has gone past the line the prince had been holding the role at.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hand catching yours at his throat. He has caught you. Gently. Before your hand could stay there. He has lifted your hand off his skin with the small care of a man rescuing the favourite from her own performance.', hold: 8800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He brings the back of your hand to his mouth. The kiss lands. Not the courtly hover. The full kiss, the kind he has not given any favourite at any ball in his lifetime. The court catches the recovery and reads it as the prince matching his favourite’s heat.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lips on the back of your hand are warm. The pulse at your wrist where Noir’s thumb was earlier has just been answered.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The fans have gone still in three different columns. The viscount near the second column is now holding his companion’s hand. The young lord in the third row has set his glass down. A married duchess has not blinked in the last six breaths.', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court has not been shown a dance like the one it has just been shown in at least thirty years.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lucien at the wall. The pale eyes have not moved through the recovery. The hand against the column behind him has closed at the knuckles where no one can see it.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair at the far door. The grip on the halberd has gone whiter. The boot has not moved this time. The chest under the armour has stopped breathing for the count of three.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are going to be the end of me, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…I quite enjoy this act, my prince."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the court has stopped frightening me. I think I like this.*', hold: 4000, cps: 24 },
+
+            // ─── The queen's signal ───────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The queen at her throne. The polite smile has not dropped. The fingers on the throne arm have closed once around the black token. The token is still warm.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…it is in the city.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The queen looks up. Her eyes find the favourite of the rose at the centre of the floor in her grandson’s arms. The eyes rest there for half a breath longer than they rested before. Then they move on.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The dance ends. Caspian bows. You curtsy. He keeps your hand and walks you off the floor.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Stay at this side, mi’lady. I will speak to one man and come back."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, Caspian."', hold: 1800, cps: 28 },
+
+            // ─── ACT VI · THE INTERCEPT ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'You alone at the side of the floor. The body has cooled half a degree. The wrist has not.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A man approaches. Not masked. Court-formal black with a green sash. Gold at the cuffs. A thick gold chain at his throat. The duke of one of the inland houses. The face is heavy and the eyes are too pleased with what they have seen tonight.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'THE DUKE', text: '"Mi’lady. The favourite. May I have the next…"', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A shadow falls across the duke from the side. Long. Purple-and-black. Gold filigree at the cuffs. The duke’s sentence stops in the middle of the word.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"My lord. The favourite of the rose has been promised the next dance to the office of the Grand Mage. I had the prince’s word at the last bell."', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'THE DUKE', text: '"Grand Mage. Mi’lady. Another evening."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The duke steps back. The eyes have promised that *another evening* is a phrase he intends to keep.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…you had not been taught how to refuse him, mi’lady. Lady Marra will add the lesson tomorrow."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…thank you, Lucien."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Mi’lady. The dance."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"Grand Mage."', hold: 1600, cps: 28 },
+
+            // ─── The mage's dance ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The musicians have shifted to the fourth dance. The older form. Lucien knows it. You do not. He leads carefully. Half a beat slower than the music.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hand at your back. The fingers cooler than Caspian’s. The grip lighter. He is leading you, not claiming you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the masked lord. Did he frighten you, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…no, Lucien. I think that is the trouble."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His thumb at your back has shifted the smallest amount. Found the line of the lavender stone under the silk at your wrist where it sits beside the seaweed braid.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the stone, mi’lady. Wear it tonight. Wear it every night. Nothing in this hall will see you for what you are while you wear it."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…not even the queen, Lucien."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…not even the queen."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The body has just had a degree of cold removed from it that you did not know you had been carrying.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…relax, mi’lady. The Weaver behind the favourite is hidden from the room. The stone is steady so long as nothing happens to it. If it fails, you will know. Until then, breathe."', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The body breathes. The seductress-smile finds your mouth again. The register has gone softer with him. The cheek is up where the heat was.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you dance well, Grand Mage. I did not expect a man of your office to know the floor."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…and I had not expected to see you at a formal ball at all. The robe suits you, Grand Mage. Better than the tower light."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I did not have a choice, mi’lady. The queen called the hall. The office attends."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…so the queen called you to the hall. And then the favourite of the rose called you off the wall."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the favourite calls the Grand Mage off the wall whether the Grand Mage wishes to come or not, mi’lady. The office has nothing to do with it tonight."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere quieter than the lines Noir or Caspian have given you tonight. You do not answer.', hold: 4400, cps: 24 },
+
+            // ─── Caspian dancing with another · "he will come back" ───────
+            { type: 'line', speaker: '', text: 'The dance turns. Over Lucien’s shoulder, across the floor, you catch the prince.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian on the far side of the marble. He is dancing with a noble lady you do not know. Tall, dark hair, a pale-blue gown. He is smiling at her the way he smiled at the queen.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His eyes mid-dance. They have left the noble lady’s face. They have found yours across the floor in Lucien’s arms. The court-warm is still on his mouth. The blue underneath has gone somewhere else.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two dances at the same moment. The prince with a court lady. The favourite with the Grand Mage. The prince still smiling at the lady. The prince still watching the favourite.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Something at the bottom of your chest has gone the smallest amount tight.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…it is his work, mi’lady. He will come back to you."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…I had not asked, Grand Mage."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…you had not needed to."', hold: 2200, cps: 28 },
+
+            // ─── ACT VII · THE QUEEN'S DEPARTURE ──────────────────────────
+            { type: 'line', speaker: '', text: 'The dance ends. Lucien bows. You curtsy. He leads you back to the side of the floor where Caspian is waiting. The court-smile already back on.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Grand Mage. Mi’lady. You honour my favourite."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN',  text: '"Your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lucien steps back. Returns to his wall. Does not look behind him as he goes.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has scanned the hall through the dance. He has not found what he is looking for.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…he is gone."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"Yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…and the queen’s man…"', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The throne. The queen has risen. The court catches the rising one section at a time and bows.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"My court. I will take my rest. Continue without me. My prince will keep our company well in our absence."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Her eyes find the favourite of the rose at her grandson’s side for half a breath. The polite smile is still on. The colder smile from the throne lives just beneath it. She passes out of the hall.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court-smile drops at last. Only to you. Only for a breath.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…she went without speaking to me. That is the first time at any ball she has done that."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…she is busy tonight, Caspian."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…yes. She is."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the masked lord said the queen has sent a man to the city. The queen has just left her own ball for the city. And the masked lord said one of those wounds is gone, and you would know what made it gone.*', hold: 11400, cps: 22 },
+
+            // ─── ACT VIII · THE CLOSE ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The court still dancing under the queen’s empty throne. The chandeliers still shedding gold.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Another dance."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"If his highness will permit it."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The two of you taking the floor again. The court watches the favourite dance with her prince a second time and reads what it was meant to read.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The far door. Past the dancers. Past the columns. Past the masked sea.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair at the wall. The halberd is straight in his right hand again. The body has gone back to attention. The bright green eyes have not.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have followed you through every dance since you walked in. The masked stranger’s hand at your back. The prince’s hand at your back. The Grand Mage’s hand at your back. The masked stranger’s mouth at the back of your hand. And now the prince’s hand at your back a second time. He has watched all five.', hold: 14400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…behave, you.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The chest has not behaved. He looks down at his halberd for one breath. He looks back up at the floor. The man underneath has gone quiet in a way no one at this ball will see.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The chandeliers shedding gold. The wine of your dress turning on the prince’s arm at the centre of the floor. The Grand Mage at his wall. The captain who is not the captain at the far door. The body at attention. The heart not.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Somewhere beyond the masks, the masked lord who is not yet known to this hall. Observing.', hold: 4400, cps: 24 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(25); setCurrent(nextIdAfter(25));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 26 · "The Stranger at the Thread"
+    // Owner PDF Ch26-27. Nine-act payoff chapter. She slips into the
+    // garden between dances, finds a silver thread in the rose hedge
+    // ("I have seen you before"), Caspian catches her at it and
+    // does not name what he saw. The queen’s investigator returns
+    // empty-handed; the black token cracks. Bath, bracelet on the
+    // bedside table. Noir slips through the balcony latch and lifts
+    // a lock of her hair to his mouth — the silver thread on the
+    // rail speaks: "stop there, prince." Reveal — the sixth Weaver
+    // has come out of the rift to stop him. Coda — four rooms.
+    // Alistair with the green cloak. Caspian in the bath, hand at
+    // chest, "she made the heart skip." Lucien at his window,
+    // forehead to the glass. Noir at a six-hundred-year ruin under
+    // the constellations: "…I will not lose her this time."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 26,
+      title: 'Chapter 26',
+      subtitle: 'The Stranger at the Thread',
+      teaser: '…I have seen you before.',
+      charId: 'noir',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_26_full',
+          title: 'Chapter 26',
+          subtitle: 'The Stranger at the Thread',
+          speaker: 'NOIR',
+          palette: { bg: '#0c0e18', glow: '#9aa0d8', accent: '#dce0ec' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── ACT I · THE FAVOURITE RETIRES ────────────────────────────
+            { type: 'line', speaker: '', text: 'The chandeliers shedding gold the way they have been shedding gold for the count of nine bells. The court still dancing. The queen’s throne still empty.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the centre with a third noble lady. Tall, dark hair, a deep-green gown. The smile he is wearing for her the smile he wore for the queen. The court watches the heir of Aethermoor pay the houses their courtesies one by one.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You at the side gallery where Caspian left you after the second dance. The wine of your dress has settled around your chair. The favourite has been seated for the count of one bell.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court at the columns has not stopped looking at you for the last three bells. Fans up. Eyes above the masks. The court has been talking about the favourite of the rose since the moment Noir’s mouth left the back of your hand.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-smile is the smile of a woman who has done the work she was sent to do.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A masked lord at the column nearest your seat. Inland house, a different one from the lord at the fourth column earlier. He has been waiting for the prince’s third dance to begin.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'THE LORD', text: '"Mi’lady. The favourite of the rose. A dance, if you will permit it."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"My lord. The favourite is honoured. The favourite has, however, retired her shoes for the evening."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'THE LORD', text: '"Mi’lady. Another evening, then."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',      text: '"Another evening, my lord."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He bows and steps back. The mask of the man behind him has not moved. The next masked lord is already coming forward.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You rise from the chair before he can reach you. The seductress-favourite has decided she is done being approached.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You cross to the corridor mouth. The chamberlain at the threshold has watched the gallery for the last bell. He has been waiting for you to need him.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"Sir. The favourite would take the gardens for air, if his highness will not be cross."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"Mi’lady. His highness has asked that the favourite of the rose not leave the wing alone tonight."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…his highness is very thoughtful, sir. The favourite shall only be in the Royal Gardens. Within the lamps. Within sight of the windows. I shall be in the corridor again before his highness has finished his dance."', hold: 12000, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"…mi’lady. The garden door is open. I shall send word to his highness."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"I thank you, sir."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He bows. You pass him into the corridor. The lamps in the corridor are lower than the chandeliers. The wine of your dress has gone a shade darker in the lower light.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite of the rose walks the long stretch alone. No prince beside her. No mage at her shoulder. No captain at the door. The first time the favourite has walked any corridor in this castle without one of her men at her side.', hold: 10800, cps: 22 },
+
+            // ─── ACT II · THE GARDEN PATH ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The garden doors. Tall. Glass. Half-open. Cool air. The royal roses on either side. The inner garden lit by lamps on poles at regular distance along the gravel paths.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You step out. The wine silk moves around your ankles. The favourite has just walked into the first cool air she has felt in eight bells.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You close your eyes for the count of three breaths.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The boxwood hedges shaped in low lines along the gravel. The cyan fountain at the centre, faintly luminous, the water in it still. The lamps on poles catching the wine of your dress as you walk.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Gravel under the silk slippers. The sound has become the loudest sound in your hearing after a night of music.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Footsteps. Not your own. Coming up the path from the far side of the garden, away from the hall. Heavy. Even. The tread of a man in armour.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A figure rounding the boxwood. A halberd over a shoulder. A red cloak. The burnished armour catching the lamp.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bright green eyes finding yours across the lamp-light.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The captain who is not the captain. He has been on post at the far door of the hall for the count of nine bells. He is finished. He is walking home. He has not been expecting to find you in the Royal Gardens.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He stops on the path three paces from you. He does not bow. You do not curtsy. The two of you in the lamp-light.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"Mi’lady. You handled the court well tonight."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…that sounds painful coming from you, captain."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The bright green eyes have lowered for half a breath and come back up. He almost answers honestly. The mouth opens the smallest amount. The mouth does not let the honest answer through.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…it was not painful, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'A lie so disciplined it nearly survives becoming sound.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…Alistair. I had wished I could…"', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not let you finish. The mouth has gone the kind of careful a man’s mouth goes when he has decided he will not be reached tonight.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you owe me nothing, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"I have a post. You have a role. They do not need to be the same place."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere the favourite-mask is not covering. The eyes have gone wet. The favourite-smile is still on your mouth.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bright green eyes have lowered to the wet at the corner of your eye. The right hand at his side has shifted the smallest amount.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bare ungloved hand lifts the smallest amount from the line of his hip. The knuckles catch the lamp. The hand is rising the way a hand rises toward a wet cheek.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'It stops at the height of the favourite’s elbow and goes no further. The mouth above it has gone the kind of careful a man’s mouth goes when the discipline has nearly failed and the man has caught it the breath before it failed.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has come back to his side. The bright green eyes have come back to the middle distance. The captain who is not the captain has finished the half-second the captain who is not the captain was almost going to give the favourite of the rose.', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He bows the shallow bow a guard gives a favourite. He does not say goodnight. He passes you on the path. The red cloak moves once at his shoulder.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Gravel. Three steps. Four. The sound becomes the only sound again.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not turn to watch him go. You stand in the lamp-light until you can no longer hear the gravel.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your elbow under the wine silk. The skin under the cuff has gone the smallest amount warm where his hand stopped at the air half a breath ago. He has not touched you. The body remembers him not touching you the way the body remembers Noir’s mouth.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pulse has not returned to normal from the ballroom. The body has not yet decided whose hand left the warmth in the wrist, whose mouth left the warmth on the back of the hand, whose breath left the heat at the throat, whose almost-hand left the heat at the elbow. You are no longer certain which man caused which.', hold: 14000, cps: 22 },
+
+            // ─── ACT III · THE THREAD ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The favourite of the rose alone in the Royal Gardens for the first time in three days.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You let yourself breathe properly for the count of two slow breaths. The eyes have not closed. The wine of your dress is still around your ankles.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Something has changed in the air the favourite cannot yet name. The garden has gone too quiet. Not peaceful. Listening.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cyan fountain. The water at the centre has stopped moving the way the water at the centre has been moving all evening. The lamps along the gravel paths have not flickered. They have only steadied to a stillness that does not belong to lamplight.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Something through the hedge roses to your left. A line. Silver. The breath of a horse-hair in the lamp-light. Drawn straight.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'It trembles once. Not glowing. Pulling.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something inside the chest has answered. Not the mind. The body. The breath has caught at the third rib in a way the breath did not catch when Noir’s thumb found the wrist.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your feet have moved before the thought finishes forming. The body has taken a step before permission has arrived.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You have stepped off the gravel onto the soft earth at the edge of the path. You did not decide to step. You have stepped.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walk toward the hedge. Three paces. The wine of the dress catches once on a rose-cane and you do not stop. The body will not let you stop.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The silver line between two rose-canes. It vibrates at a pitch no ear can hear. The lamp-light catches it the way the lamp-light caught the gold thread of the masks tonight. Only thinner. Only colder.', hold: 8800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not feel afraid. You feel recognised.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'It is waiting for you.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…I have seen you before.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your fingers have lifted at the level of your chest before you knew you had lifted them. The favourite-mask has gone. The seductress is gone. The woman is reaching for a silver line in a hedge.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'One breath from the line. Two breaths.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The silver line trembles once and is gone the breath before your finger reaches it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers in the empty air between two rose-canes. The favourite-mask has not yet come back to your face.', hold: 4400, cps: 24 },
+
+            // ─── ACT IV · THE WALK BACK ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'You turn. Caspian on the gravel path behind you.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wine over-coat with the gold filigree still on. The gold of the collar catching the lamp. The white shirt at the V of his throat has gone one button looser than the chamberlain would have left it. The blond at the temple is not as smooth as the blond at the temple was at the centre of the floor.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smile arrives half a breath late. There. Gone again. Too fast for the windows of the queen’s hall above the garden to notice. Not fast enough for you.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smile has come back to court-warm. The blue underneath is very awake. The breath underneath the smile has gone the smallest amount unsteady at the sight of her on the path. He has been looking for her.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"What were you looking at, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…the roses, your highness."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The blue underneath the smile has gone careful. The corner of his mouth has done a thing the chamberlain at the corridor mouth would not have read.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has seen the silver line. He does not name it. He offers his arm.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"It is late, mi’lady. Let me walk you back."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"I had been told I should not stay long, your highness."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the chamberlain has done me a kindness in sending word."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take his arm. The favourite-smile is back on for the windows of the queen’s hall above the garden. The body under the silk is colder than the air.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince and his favourite walking through the Royal Gardens at the long hour. His hand at her elbow. The wine and gold of his coat matching the wine and gold of her dress in the lamp-light. The court at the windows above the garden would read what it was meant to read.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Neither of you speaks. The gravel under your feet is the only sound.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The blue has gone to the hedges where the silver line was. He has not let himself look back.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The first silent walk of the evening cost you Alistair. The second is the prince walking you away from something he will not name.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The seaweed braid hums once. Soft. The lavender stone set at its centre has gone warm.', hold: 3800, cps: 26 },
+
+            // ─── ACT V · THE DOOR ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The corridor outside the rose suite. The lamps low. The senior attendant at the door waiting with her hands folded.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian stops you outside your door. He lets your hand slip from his arm and turns to face you.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Goodnight. Sleep well."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…was your favourite convincing enough tonight, your highness."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The blue has done a thing. The smile is still on his face. The blue underneath has gone somewhere it has not gone all evening.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'For one breath he hates hearing the word *favourite* from your mouth.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He recovers. The court-warm is back. The blue is still under it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you were the favourite tonight, mi’lady. You will be the favourite tomorrow."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the role was convincing because you are the favourite."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has said the word three times back to you in the space of two breaths because the word will not let him go.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You hold his eyes a beat longer than the role would have asked of the favourite at a corridor door at the long hour.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…then keep your promise, Caspian. We had one."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I had not forgotten, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He takes your hand. Lifts it. The full kiss to the back of your hand. Slower than the one at the ball. The lamp catches the gold of his collar and the wine of his over-coat against the silk of your dress.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I will keep it. Goodnight, my favourite."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The kiss is warm. The line is colder than the kiss.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns and walks the corridor the way he came. The wine and gold of the over-coat catches the lamp once at the corner. He does not look back. The blue underneath the smile has gone with him.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The senior attendant opens the door of the suite. She bows. You step inside. The door closes behind you.', hold: 4400, cps: 24 },
+
+            // ─── ACT VI · THE QUEEN'S DESK ────────────────────────────────
+            { type: 'line', speaker: '', text: 'The queen’s wing. Far from the rose suite. The hour is later than the hour outside the favourite’s door. The lamps in the queen’s study burn very low.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Dark wood. Black ironwork at the lamps. A desk along the far wall covered in maps and books. A single black token sitting in the centre of the blotter where the queen has placed it.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen at the desk. She has changed out of the ball gown. The black dress she is wearing now is plainer. The crown of branches is gone. The high choker at her throat is still there. Her hair is loose.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The polite court-smile she wore through the ball is gone. The face underneath is neutral in a way no one in this kingdom has been allowed to see for many years.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A knock at the door. The investigator entering. The man in cream and silver from the ball. He kneels at the centre of the floor without being told to.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has come straight from the city. The cloak has not been brushed. The boots have not been changed.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'INVESTIGATOR', text: '"Your majesty. The report."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"Speak."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'INVESTIGATOR', text: '"The wound was fresh, your majesty. Less than four sun-cycles old. The Weaver was alone. The Weaver was injured when the ward struck. The Weaver did not stop walking."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'INVESTIGATOR', text: '"We have walked every quarter, your majesty. We have read every face. We have called in every watcher. The Weaver is not among the living of the city."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She does not react.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her fingers close once around the black token on the blotter.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The token cracks. Dry. Small. The sound of a thin shell breaking.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The eyes have narrowed the smallest amount. The investigator has heard the sound. He does not flinch.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…patient, then."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…it will come out. They always do."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She opens the palm. The two halves of the black token rest in her hand. The black of the token has gone the colour of cold ash where the crack runs.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"Continue the watch. The hunt has not ended. It has only changed shape."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The investigator bows out. The door closes.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The queen alone at the desk. The lamp catches the side of her face. The smile has not come back. The cracked token rests in her palm.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…what just moved.*', hold: 1800, cps: 28 },
+
+            // ─── ACT VII · THE SUITE ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite. The lamps in the bath chamber low. Steam in the air. Aurel’s herbs in the bowl by the tub the way Marra set them.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You in the bath. The seductress has gone with the wine dress. The favourite-mask has gone with the gold cuff. The seaweed braid has gone with the wine dress too, set carefully on the side of the tub where the water cannot reach the stone at its centre.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have closed. The breathing has gone even for the first time tonight.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your shoulder above the water. The line of the alley wound. Three days ago you could not move that arm. Tonight you danced the form reserved for the prince and his chosen on it. You did not feel it through any of the dances.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The line is barely there. The skin underneath has gone the colour of skin that has been healed for weeks, not days.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…what an intense night."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You rise from the tub. The attendant has set out the silk nightgown on the warming rack. Pale, the colour of fresh cream, the cuffs and hem trimmed in the smallest line of gold.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The silk is warm. The body under it is finally allowed to be tired.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You unpin the gold pins one by one and set them in the carved wooden bowl on the dressing table. The hair falls in one slow wave to the middle of your back.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You loosen the seaweed bracelet the smallest amount. The lavender stone at its centre catches the lamp. You take it off. You hold the bracelet in your hand for the count of three breaths.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…wear it tonight. Wear it every night. Lucien did not mean while you sleep. He meant keep it near.*', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You set the bracelet carefully on the bedside table. The lamp catches the stone for the smallest moment and goes dark again.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You pass the balcony doors once. They have been latched by the attendant. You look out at the garden you walked through.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cyan fountain still faintly luminous. The boxwoods. The path where Alistair walked away. The hedge roses where the silver line was.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of your mouth has done a small honest thing. The first honest sound of the night finds your mouth.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…he saw the line. He lied about seeing it."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small quiet chuckle. The favourite-smile has gone. The cheek under it has come honest.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You climb into the bed. The silk of the nightgown sliding across the linen sheets. The hair laid loose on the pillow beside you. The seaweed bracelet on the bedside table within reach of your hand.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes close. The lamp goes out at your hand.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Twelve breaths. The body lets go the way the body has not been allowed to let go in three days.', hold: 4400, cps: 24 },
+
+            // ─── ACT VIII · THE BALCONY · NOIR ────────────────────────────
+            { type: 'line', speaker: '', text: 'The moon. Past the gardens. Past the queen’s wing. The night gone to the deep hour.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The rose suite from the outside. The balcony doors visible. The doors are closed. The latch on the inside has not been fully secured. The wind has not yet found it.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wind that has been still all night moves through the lamp-light below the railing. A leaf along the cyan fountain path stirs once. The stillness afterwards is the kind of stillness that follows something arriving.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A shadow has begun to lie across the stone where a moment ago no shadow had been. It is the shape of a tall man in a long coat. It has come without a sound the marble would have registered.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The moon catches a single point of red along the edge of it. Low at the chest. The size of a small gem.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The figure at the railing. The face is turned three-quarters away. A half-mask of black-and-gold filigree along the visible side. The coat falls to the calves. The bare ungloved hands hang at the sides the way the hands of a hunter hang when a hunter has decided to be patient.', hold: 12400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The red eyes through the mask have gone soft the way they did not go soft in the hall.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He lifts one bare finger to the latch. He does not touch it. The latch eases open by itself the way a latch eases for a thing that knows the shape of the iron.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The balcony doors open the smallest amount. The wind that was not wind moves the silk curtains for the first time tonight.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He steps through. He moves the way he moved at your shoulder by the side table at the ball. Soundlessly.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The suite. The lamp out. The moonlight finding the silk of the nightgown and the wine of the carpet and the gold pins in the carved bowl. The favourite asleep on her side. The hair loose against the pillow. The seaweed bracelet faintly visible on the bedside table.', hold: 12400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The figure at the foot of the bed. He has stopped. He is looking at her.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The smirk under the half-mask has gone the kind of honest he has not let the half-mask hide all evening.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…such a clueless damsel."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line is warmer than any line he gave the favourite at the ball.', hold: 3400, cps: 26 },
+
+            // ─── The lock of hair · the breath ────────────────────────────
+            { type: 'line', speaker: '', text: 'He kneels at the edge of the bed. The long coat folds around him. The moon catches silver along the rings at his fingers.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bare ungloved hand lifts toward a lock of her hair resting loose against the pillow beside her cheek. His eyes have caught the seaweed bracelet on the bedside table beside the lamp. He has chosen not to reach for it.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His fingers closing around the lock of hair. The strands under his thumb. The warmth of her cheek a hair’s breadth from his knuckles.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He lifts the lock the smallest amount from the pillow. He brings it to his face. The bare line of her hair at his mouth. He breathes in.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The red has gone the kind of dark it went on the dance floor at the wrist. He has caught the scent of her on the hair and the silk of the nightgown and the warmth of her breathing all at once.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…your scent is really something else, damsel."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has not put the hair back on the pillow. He has not let it go. His other hand has begun to lift from his side. He is going to reach for more than the hair. He has decided that what he came for is not enough.', hold: 9400, cps: 22 },
+
+            // ─── The voice on the rail ────────────────────────────────────
+            { type: 'line', speaker: 'A VOICE', text: '"…stop there, prince."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The second hand stills mid-lift. The first hand has not let go of the hair.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A silver line trembles once along the iron of the balcony rail outside. Drawn the length of the railing. Drawn at a pitch no ear can hear. The voice has come from inside it.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has not turned. He has not stood. The smirk under the half-mask has gone wider than the half-mask can hide. The predator has been caught and the predator is amused.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…so. You finally appear."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'A VOICE', text: '"You have come to a lady’s chamber, prince. You have put your mouth to her hair. That is not proper from a foreign prince."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…speak for yourself. You have been observing her every move. Even into the lady’s chamber."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'A VOICE', text: '"…I have not put my hand on her hair, prince. I have not put my mouth to it either."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has heard the line. The lock of hair is still at his mouth. He lowers it the smallest amount. He does not put it back on the pillow. He holds it at the level of his chest.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…there was a door once."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'A VOICE', text: '"…you were not invited through it either, prince."', hold: 3400, cps: 26 },
+
+            // ─── "Sixth Weaver" · "I came out tonight" ────────────────────
+            { type: 'line', speaker: '', text: 'The warmth that was in his voice a breath ago is gone. The smirk under the half-mask has gone the kind of cold the room has not yet seen on him tonight. The 600-year prince has decided that being told off by a thread on a railing is a thing he will not forgive without an answer.', hold: 14400, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…you live inside the rift. You cannot even come out."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…if you could, you would, sixth Weaver."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The light along the silver line has gone the smallest amount dim. The voice does not answer at once. When the voice comes back, it has the patience of a thing that has been answering this question for a long count of years.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'A VOICE', text: '"…I came out tonight, prince. To stop you."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere the smirk does not cover. The red eyes through the mask have gone the smallest amount stiller.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lock of hair at Noir’s mouth. The favourite asleep through the conversation about her. Noir on his knee at the edge of her bed. The silver line on the rail outside the balcony. The moon holding the three of them.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He looks down at the sleeping woman. The smirk has gone the smallest amount honest.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'NOIR', text: '"…she is beginning to enjoy herself."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The silver line tightens once through the dark. The light along it goes brighter for the count of one breath and steadies.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'A VOICE', text: '"…I know."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'NOIR', text: '"…what will you do."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'A VOICE', text: '"…what I have been doing, prince. Watching."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The smirk under the mask has gone the smallest amount honest. The line that comes is for the thread. But the eyes through the mask have not left the sleeping woman.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…observe her well. Do not fall for her."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'A VOICE', text: '"…same to you, foreign prince. Same to you."', hold: 3800, cps: 26 },
+
+            // ─── Noir leaves · the line lingers ───────────────────────────
+            { type: 'line', speaker: '', text: 'Noir lowers the lock of hair the smallest amount. He sets it back on the pillow with the same patience the latch had when it opened for him. The hair has gone the smallest amount warmer where his hand has been.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bare ungloved hand has closed once against the dark of the long coat. The rings on the fingers catching the moon. He has taken nothing with him. The scent of her stays on his mouth.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He bows the smallest amount toward the sleeping woman. A private gesture. The kind of bow a man gives someone who cannot see it.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He rises. He turns. He steps through the balcony doors. The wind that is not wind moves the curtains once behind him.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is gone.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The balcony rail. The silver line still there. It has not vanished with him.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'It eases the smallest amount in from the rail. Not crossing the threshold of the doors. Hovering at the line of the curtains.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'It has come the smallest amount closer than it has ever come before in any of the three nights it has shown itself to her.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite on her side. The hair against the pillow. The light on it goes the smallest amount silver for the count of one slow breath. The kind of silver the moon does not give. The kind of silver the lamps in the corridor did not give. The kind of silver no mirror in this castle has ever shown.', hold: 14400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of her mouth moves once in her sleep. The breath does not change.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'A VOICE', text: '"…rest, lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The body has heard. The body has not woken. Something at the bottom of her chest has gone quiet in a way she has not known her chest to go quiet in three days.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The silver line eases back through the curtain. Through the balcony doors. Through the railing. Into the night. The line is gone.', hold: 6400, cps: 22 },
+
+            // ─── ACT IX · THE FOUR ROOMS · Alistair ───────────────────────
+            { type: 'line', speaker: '', text: 'The guards’ quarters. A small room above the south barracks. A narrow bed against the wall. A wash-stand. A wooden trunk at the foot of the bed. A single candle on the desk burning the low setting.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair. The burnished armour has come off. The dark under-tunic is at his shoulders. The laces at his throat undone. The bright green eyes have not been able to settle on anything in this room since he closed the door behind him.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The trunk at the foot of the bed. He has knelt at it. The lid is open. Folded inside, at the bottom of the trunk under a clean grey wool blanket and a folded tunic and a stack of papers tied with twine, a green cloak.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wool of it is old. The hem is frayed. The collar has gone soft from being washed and not worn. It is the cloak she was wearing the night he found her on the inland road. He has kept it. She does not know he has kept it.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bare ungloved hands lift the cloak from the trunk. He brings the collar of it to his face the way another man tonight brought a lock of hair to his face. He breathes in.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lips touch the wool of the collar. It is the closest he has been to her skin since the road. The scent on the cloak is faint and the scent on the cloak is hers and the captain who is not the captain has not let himself open this trunk in twenty-three days.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The forehead has come down to the wool. The eyes have closed. The captain who almost touched her elbow on the gravel path an hour ago has the cloak of her at his face in the dark.', hold: 8000, cps: 22 },
+
+            // ─── Caspian in the bath · "she made the heart skip" ──────────
+            { type: 'line', speaker: '', text: 'The prince’s wing. The bath chamber of the heir’s suite. Lamps low. Steam rising from the wide brass tub at the centre.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian in the water. The wine-and-gold over-coat folded on a chair across the room. The white shirt with the loose button on top of the over-coat. The blond hair wet against the temple. The blue eyes have not closed since he got into the water.', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hand on the rim of the tub. The fingers are not moving. He has been holding the rim for the count of half a bell.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court-smile is gone. The face underneath has come out for the first time since the queen’s throne uncovered.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has come up from the rim and pressed against the place between the lungs where her hand was at the V of the shirt tonight at the centre of the floor.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite’s hand at his throat. The favourite’s mouth a breath from his. The favourite’s hand sliding down to the bare line of skin where the shirt opens.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…she made the heart skip."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…it has not skipped for any of the others."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand is still over the place. The eyes have closed. The heir of Aethermoor who has commissioned thirteen favourites in his life has gone quiet in the bath with the memory of one woman’s palm at his chest.', hold: 9400, cps: 22 },
+
+            // ─── Lucien at the window ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The Mage Tower. The seventh landing. Lucien’s bedchamber. The galaxy-canopy bed unmade. The lavender magic circle on the floor faintly lit.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at the window. He has removed the ceremonial robe of the office of the Grand Mage. It hangs on the wooden stand by the door. The gold filigree catching the lamp from across the room. He stands in the dark shirt and dark trousers a private man wears when he is no longer the office.', hold: 12400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale eyes have gone to the far side of the castle. The window of the rose suite is across two courtyards and one garden wall. He cannot see it from here. He has stood at this window for the count of one bell looking in the direction of it anyway.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The monocle is off. It rests on the windowsill beside his hand. The pale eyes without the gold have gone the kind of soft no one in this kingdom has been allowed to see them in three decades.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the favourite calls the Grand Mage off the wall whether the Grand Mage wishes to come or not."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have closed. The forehead has come down to rest against the cold glass of the window. The mage of state has gone home for the night and has not been able to.', hold: 7400, cps: 22 },
+
+            // ─── Noir at the ruin ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The ruin. Far beyond the city. Past the inland road. Past the wood. A broken hall under the open sky. Black stone walls half-fallen. The constellations holding above where a roof has not been in six centuries.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Noir in the ruin. The half-mask is off. The long black coat is loose at the shoulders. The red gem at the chest catches a star the way no gem in this kingdom should catch a star.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His face without the mask. The first time the chapter has shown him without it. The red eyes are looking up at the constellations the way a man looks up at a thing he has not been allowed to see for a very long count of years.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smirk has gone. The face underneath has gone the kind of quiet a 600-year prince’s face goes when there is no one in the ruin to see it.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'NOIR', text: '"…I will not lose her this time."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The light from the constellations has not changed. The sky has not answered him. He has not asked the sky to.', hold: 4800, cps: 22 },
+
+            // ─── End image ────────────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The favourite of the rose asleep on her side. A lock of her hair loose against the pillow where Noir’s mouth was a breath ago.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The seaweed bracelet on the bedside table. The lavender stone at its centre faintly bright. The balcony doors moving the smallest amount in the wind that is not wind. The silver line gone. The moon holding.', hold: 9000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(26); setCurrent(nextIdAfter(26));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 27 · "The Mage’s Page"
+    // Owner PDF Ch26-27. Morning after. Caspian summons her in
+    // court-formal blue, not the wine. Bergamot. "Tell me what you
+    // understand." She names Noir, the wounds-as-traps, the silver
+    // line. "You promised me the library." Tower — Lucien reads the
+    // lineage of the seven. "The seventh disappeared into the rift
+    // one hundred and fifty years ago. She was fourteen." "There are
+    // only ever seven." Bone-bound — page torn before the binding
+    // could be copied. The gold pin with a lavender stone "for the
+    // wood." Queen has called a hunt — Thornwood, where Elian is.
+    // High gallery — Alistair in the training yard, "I should have
+    // asked you." Caspian’s office — the riding leathers in wine and
+    // gold, hunt costumed as continuation of the ball. End — she has
+    // the stone in her hair, the bracelet at her wrist, the leathers
+    // folded over her arm, the boy of bone in her chest pocket.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 27,
+      title: 'Chapter 27',
+      subtitle: 'The Mage’s Page',
+      teaser: 'I am giving you a stone, mi’lady. Decide what that means.',
+      charId: 'lucien',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_27_full',
+          title: 'Chapter 27',
+          subtitle: 'The Mage’s Page',
+          speaker: 'LUCIEN',
+          palette: { bg: '#160e1c', glow: '#7c5cb0', accent: '#c8aedc' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── ACT I · THE BREAKFAST ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite at mid-morning. Light through the balcony doors. The silk of the curtains moves in a wind that is not moving silk. The favourite asleep on her side. A lock of her hair settled where a hand lifted it in the dark and set it back.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The seaweed bracelet where she left it. The lavender stone at its centre is warm. It has been warm all night.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes open. You have slept for the first time in three days.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You sit up. The balcony latched. The lamp out.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your hand at the bedside. It passes the gold pins. It finds the seaweed. The stone is warmer than it should be. You loop the bracelet over your wrist. The stone goes still.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The unasked question. You set it back where you have been setting it.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two taps at the chamber door.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Mi’lady. The prince has requested private audience over breakfast. The chamberlain is at the corridor mouth at the second bell."', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…come."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The door opens. The attendant enters with the favourite-coffer.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Not the wine. Not the gold. Court-formal blue, soft grey at the underskirt. High collar. Plain cuff. No favourite-signal on the cloth.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the prince has asked for court-formal."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"Word came at first bell. Court-formal. Hair pinned. No rose."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"…mi’lady has rested."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',        text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Wenna, the senior attendant. She has been with the favourite long enough to know the rested face from the not. She chooses not to ask.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The court-formal blue going on. Hair pinned in two coils. High collar at her throat.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cuff sits over the seaweed bracelet. Neither band nor stone shows.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The favourite of the rose has gone. The court-formal woman is in her place.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The corridor mouth at the second bell. The chamberlain bows. He says "mi’lady" and leaves the favourite out.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…not the favourite this morning, then.*', hold: 2800, cps: 28 },
+
+            // ─── The breakfast chamber ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The prince’s private breakfast chamber. A small sunlit room. A round table for two. Cream porcelain. A teapot. Figs.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the far chair. He has not stood. Dark wine riding-tunic, plainer than court-warm. He has not slept.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The chamberlain bows them in and closes the door.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Be seated."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You sit. The cuff hides the bracelet.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He pours the tea himself.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Bergamot. The kitchen knows."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…the kitchen has been generous."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Two people across a teapot. The first silence.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady. Tell me what you understand."', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…of what."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…of last night."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You decide where to put the line.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the wounds in the city are her traps for Weavers, Caspian."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cup stops halfway to the saucer.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I had half-suspected. When did you understand."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…at the ball. The masked lord told me."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The shoulders go tight.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…he told you that aloud."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…he said she has been setting wounds in the city for a long count of years. He said one was gone. He said I would know what made it gone."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you should not have told me that outside this room, mi’lady."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…I am not telling it outside this room."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the masked lord. He gave you a name."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…he gave me Noir. He said people around there call him that."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you do not believe it."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I believe the name less than I believe his red eyes."', hold: 3800, cps: 26 },
+
+            // ─── "There was a silver line in the hedge" ──────────────────
+            { type: 'line', speaker: 'YOU', text: '"…there was a silver line in the hedge last night, Caspian."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cup goes still in his hand.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I told you it was the roses."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you did."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I lied to you."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I know, mi’lady. I let you."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…why."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…because I have seen it before."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…where."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…in the gardens. In the training yard. Once at the dining room window the night you stood at the table with the bread."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Six weeks of silver thread the prince has been carrying alone.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what is it, Caspian."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I do not know. I have not asked the mage."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…why have you not asked the mage."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…because he would have told me, mi’lady. And I have not been ready to hear it."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite does not press. The hand at the wrist closes the smallest amount over the hidden bracelet.', hold: 4400, cps: 24 },
+
+            // ─── "Grant it now" ───────────────────────────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. You will rest today. I will speak to the mage on your behalf. Do not leave the wing."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…I will be at the Mage Tower this morning, your highness."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I have not granted that."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…you promised me the library, Caspian."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…grant it now or watch me go without your blessing."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The blue has gone dark. The prince of Aethermoor has been outmanoeuvred by his own promise.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Three slow breaths.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are giving me a hard time, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…go to the tower. Take the attendant. Come back to this office by the long bell."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You rise. You bow. The court-formal bow a noble lady gives a prince when no favourite-thing is between them.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He bows in return. Not the prince’s nod to his favourite. The two of you have just bowed each other as something the morning does not yet have a name for.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You walk to the door. You glance back over your shoulder. He has not moved from the table.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The door closes. The prince alone with the cooling tea and the figs neither of them touched.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The blue has gone to the door she just closed. The hand drifts to the rim of the saucer.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…last night, mi’lady. I had wished for more.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…you came in court-formal instead.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The fingers tighten on the porcelain.', hold: 2200, cps: 28 },
+
+            // ─── ACT II · THE MAGE TOWER ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'The base of the Mage Tower. The spiral stair winds into cold stone.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You at the base of the stair. The attendant half a step behind in her dark cloak.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"I will be here when mi’lady descends."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',        text: '"…thank you."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'She reaches for your hand the briefest moment. She lets go.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"…go up, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You climb. The bracelet under the cuff goes warmer with each landing.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The fourth landing. The public library door. Open. Soft amber. Paper and lavender oil and old leather.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien standing in the doorframe. Dark shirt and trousers. No ceremonial robe. No monocle. The hair loose at the shoulders. He has been at this door since first bell.', hold: 8800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"Mi’lady. You came."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…the Grand Mage sounds surprised."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the Grand Mage is not surprised, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…then the Grand Mage was expecting me."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…mi’lady."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mage has not answered. The favourite has not made him. The cheek at the corner of her mouth.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Lucien steps back and gestures her in.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…come in. The prince has sent word. I am to give you what you ask for, within reason."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you have not been told what to give me. Only what not to give me."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…you read court correspondence well, mi’lady."', hold: 3400, cps: 26 },
+
+            // ─── The book on the table ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The reading table moved closer to the window. A book laid out on it. Heavy leather. Older script. The book that nearly killed her the morning Lucien first opened it for her.', hold: 8800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have stopped at the doorway. The body has remembered the book before the mind has.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',    text: '"…that is the book, Lucien."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…yes, mi’lady. That is the book."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wrist under the cuff has gone warm. The bracelet remembers the book also.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…come, mi’lady. Sit. I have chosen the page. I will read it on your behalf."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…you will not let me touch it."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…no, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…oh. The Grand Mage said no."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the Grand Mage said no, mi’lady."', hold: 2800, cps: 28 },
+
+            // ─── The lineage of seven ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The book between them. Window light across the older script. The slip of folded paper has been marking the page for hours.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the lineage. Seven. The first was Selene of the gardens, who wove the city at the centring."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The second was the kind who has not been named in any text the kingdom keeps."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The third walked the inland road and was lost to the wood."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The fourth was the second love of the warden’s house."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The fifth fled the centring and has not been seen since."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The sixth was a young man, a wardwright, who was lost to the kingdom at the breaking."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the seventh disappeared into the rift one hundred and fifty years ago. She was fourteen. She has not been seen since. No Weaver has been found in the kingdom in the years between."', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The book stops. The favourite has gone very still.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…what."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…read that part again, Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the seventh disappeared into the rift one hundred and fifty years ago. She was fourteen. She has not been seen since. No Weaver has been found in the kingdom in the years between."', hold: 11400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…that is quite heavy, Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…one hundred and fifty years."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…yes, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the book does not say what became of her."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…no, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…has she been written as dead."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…not in this book."', hold: 1800, cps: 28 },
+
+            // ─── "Maybe I am the eighth" · "There are only ever seven" ────
+            { type: 'line', speaker: 'YOU', text: '"…if she is the seventh, Lucien. Then she would have to be alive somewhere."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…if I am the seventh, Lucien. That might explain the memory."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…but that was one hundred and fifty years ago. I cannot be that old."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…maybe I am not the seventh, Lucien. Maybe I am the eighth."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…mi’lady. Why would you have a number at all."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…the singer told me I was the seventh, Lucien."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the singer told you that."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mage has registered. The singer named her. The book has named the seventh as someone who disappeared one hundred and fifty years ago.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…I do not understand it, Lucien. The singer would not lie to me. The book would not be wrong."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…so maybe I am the eighth."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…there are only ever seven, mi’lady. There has never been an eighth."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The math closes the smallest amount around her. She does not let the closing reach her face.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…yes, mi’lady. That is the question the book leaves open."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The chest tight. The mind refuses the line her body has just answered.', hold: 4000, cps: 24 },
+
+            // ─── "What do you know about bone-bound" ──────────────────────
+            { type: 'line', speaker: 'YOU', text: '"…Lucien. What do you know about bone-bound."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has gone very still. The silence holds three slow breaths.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He rises from the table and crosses to the shelf at the far wall. The pale fingers walk across the spines and stop on a smaller volume. Dark binding. No title.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He returns to the table with the second book.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I guess that masked man had told you something, mi’lady."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite-mask has not slipped. The eyes stop meeting his.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien opens the book anyway.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the older script names it. Bone-bound. A working built on what cannot consent. The dead do not refuse the call of the living who wove them."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The bone-bound walks. The bone-bound speaks. The bone-bound smiles. The bone-bound does not know it has been bound."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"The kingdom that practised this art was named in the older script also, and the older script’s writers tore the page out before the binding could be copied."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of the next leaf torn at the binding.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I do not yet know what kingdom practised it, mi’lady. The page was torn out before the binding could be copied."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has heard *bone-bound*. She has heard *smiles*. She has heard *does not know it has been bound*. She has put Caspian’s name on her own table in her own chest.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…is it still practised, Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the page was torn out, mi’lady. The kingdom that practised it would have had reason to."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…boy of bone.*', hold: 1800, cps: 28 },
+
+            // ─── The gold hair-pin ───────────────────────────────────────
+            { type: 'line', speaker: 'LUCIEN', text: '"…mi’lady. There is one more thing."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He crosses to the writing-desk by the window and lifts a small wooden box from the drawer. The wood is pale inland trees.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…open it, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You lift the lid. A gold hair-pin set with a lavender stone on dark velvet. The stone smaller than the bracelet’s, square cut.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…why are you giving me this, Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…for the wood, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…what wood."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…for the wood."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has handed her the pin and the line and nothing else.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…will you pin it for me."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…if mi’lady permits."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…mi’lady permits."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fingers lift to the line of your hair behind the right ear. They part the gold-pinned coils the smallest amount, careful not to touch the skin. They place the pin where a riding-hood will not catch on it.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lavender stone goes bright. The fingers come away.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…there, mi’lady."', hold: 1800, cps: 28 },
+
+            // ─── The hunt message ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'A knock at the library door. Two taps.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lucien opens it. A page with a sealed message. Lucien takes it, breaks the seal, reads. The face has not moved.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU',    text: '"…what is it, Lucien."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the queen has called a hunt, mi’lady. The court rides at first bell tomorrow into the Thornwood. A great stag has been spotted. The Mage Tower has been excused."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The Thornwood. Where the rot is. Where Elian is.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',    text: '"…will you be at the hunt, Lucien."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…no, mi’lady."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…should I be afraid, Lucien."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pause holds three slow breaths.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I am giving you a stone, mi’lady. Decide what that means."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The pin in your hair. The lavender brighter now.', hold: 3000, cps: 26 },
+
+            // ─── The hand at the edge of the book ─────────────────────────
+            { type: 'line', speaker: '', text: 'The book closed. The message on the dark wood. The pin in her hair.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you, Lucien."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You rise. Lucien rises with her.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You set your hand briefly on his at the edge of the book. His fingers go still under yours.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…go carefully, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU',    text: '"…I will, Lucien."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The favourite lifts hers away. The mage’s stays where it was placed.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You cross to the door. You have not looked back.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien at the window. The forehead at the cold glass. The same posture as the four rooms.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The spiral stair as you descend. The pin behind the right ear goes warm.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The bracelet under the cuff. The two stones have begun to know each other.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…something is in the wood, then. He would not have given me the stone if there were not.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"…the long bell is in two hours, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',        text: '"…take me to the prince’s office."', hold: 2400, cps: 28 },
+
+            // ─── ACT III · THE CORRIDOR WINDOW ────────────────────────────
+            { type: 'line', speaker: '', text: 'The high gallery corridor. A narrow window halfway along, cut for the light, with the view anyway.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite slows at the window without meaning to.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The training yard. Sand. Recruits along the wall. A captain at the centre.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Burnished armour. Red cloak. Dark blond at the jaw. A sword this morning.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite has stopped. Alistair.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Alistair with the recruit in front of him. Young. Unsure. Footing wrong. Grip wrong.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He steps in. Lifts the elbow. Sets the grip. Steps back. He has not shamed the recruit.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The breath of a young soldier corrected by a man who did not make him feel small.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Three breaths. You have not knocked. Have not waved.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…he will not be at the hunt.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The recruit has gone. Alistair alone at the centre of the sand.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He lifts his face the smallest amount toward the sun. The bright green eyes close.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The eyes open. He has not looked up at the window. He turns toward the next recruit.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hand at the sill. The cold of the stone in the palm.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…I should have asked you, Alistair.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line stays in the chest. You turn from the window. The captain has not been told.', hold: 4400, cps: 24 },
+
+            // ─── ACT IV · THE PRINCE'S OFFICE ─────────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian’s office. The same room where he gave you the rose suite key on the night the captain was demoted. The desk at the centre. Three maps unrolled at the edge. A small wooden chest on the side table.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the desk. Riding leathers now. The blond at the temple finger-combed. The blue eyes have not slept.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"Mi’lady. Come in."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The attendant left at the corridor mouth. The chamberlain closes the door. Alone again.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You cross to the desk. He registers the pin behind your ear. The blue softens.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the mage."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…for the wood."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has done the arithmetic.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…he is not coming."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…no."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…good."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The favourite has registered the *good*. He was not jealous. He was relieved.', hold: 4000, cps: 24 },
+
+            // ─── The map · "the queen has not called a hunt in eleven years"
+            { type: 'line', speaker: '', text: 'Caspian clears one map to the centre. The Thornwood. The cyan fountain at the gate. The eastern reaches marked with a small red dot.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A second mark near the edge of the wood. A small inked circle the prince has not explained.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the queen rides at first bell tomorrow. A great stag has been spotted in the eastern reaches. The court rides as her escort."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand comes away from the gate. The smile off.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the queen has not called a hunt in eleven years, mi’lady."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',     text: '"…what was the last hunt for."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the court was told a wolf."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…what was it for."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I was twelve, mi’lady. I do not know what it was for. The court was told a wolf."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…how did the last hunt end, Caspian."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…two of her ladies did not return from the wood."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the court was told an accident."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…what do you think it is for, Caspian."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I do not know, mi’lady. I do not like the timing."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has set his certainty down and chosen to ride out anyway.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you, Caspian. For telling me."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you would have known if I had not."', hold: 2800, cps: 28 },
+
+            // ─── The riding party · "Alistair will not be at the hunt" ────
+            { type: 'line', speaker: 'CASPIAN', text: '"…the queen. Her investigator from the ball, the man in cream and silver. The new captain of the guard. Myself. Yourself, as my favourite, in riding leathers I will give you before the long bell."', hold: 12400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite has counted. The captain who guarded her at the ball is not in the count.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…Alistair will not be at the hunt."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…no, mi’lady. He is not the captain. The new captain rides in his place."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite has heard. She has not pressed.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you will stay at my side, mi’lady. You will not stray. You will not engage with anything you see in the wood."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you will act the favourite who is too in love with me to care for the hunt."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, Caspian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are not going to argue with me, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…not on the playing, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you will not show the queen anything."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…I will try."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Not *yes*. *Try*. He has caught it. He has not pressed.', hold: 3400, cps: 26 },
+
+            // ─── The riding leathers · the close ──────────────────────────
+            { type: 'line', speaker: '', text: 'He crosses to the small wooden chest and lifts the lid.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Folded carefully, riding leathers in the wine and gold of the ball gown. High collar. Two stones set into the collar in the small roses-design the queen used in her hall.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hunt costumed as continuation of the ball.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…first bell tomorrow, mi’lady."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…first bell."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not let go until you have taken them. The hand lingers.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…we will speak again tonight before the hunt. You have my word."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The two of you at the map. The leathers in her hands.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look at him. He looks back. Three breaths. Neither has spoken. Neither has reached.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You turn. The leathers folded over your arm. You walk to the door. He has watched her cross his office for the second time today.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have not looked back. The door closes.', hold: 2400, cps: 28 },
+
+            // ─── Caspian alone · the closing image ────────────────────────
+            { type: 'line', speaker: '', text: 'The prince alone with the map. The leathers chest open. The morning has gone.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The blue eyes back to the eastern reaches of the Thornwood. The red dot at the place a stag has been spotted that he does not believe is a stag.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has come up from the desk and gone to his chest where her palm was at the centre of the floor the night before. He has not noticed he has done it.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…stay close to me, mi’lady.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…just this once.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand has come away. The blue eyes have not moved from the map.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The favourite has the stone in her hair, the bracelet at her wrist, the leathers folded over her arm, the boy of bone in her chest pocket.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince has the fear he could not say the size of. The mage has the worry he did not know was the right size. The wood waits.', hold: 7400, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(27); setCurrent(nextIdAfter(27));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 28 · "The Hunt"
+    // Owner PDF Ch28. Four-act turn. The silver thread tries to warn
+    // her on the suite wall. The queen at the south gate: "you look
+    // familiar to me, child." Alistair on gate post, hand at stone.
+    // The ride — flirting with the prince on the rein; the new
+    // captain Halvern’s contempt; queen’s "captain, eyes forward."
+    // The wood — Marra walks her into trees, the gold pin falls,
+    // Halvern arrives. Attempted assault. Bracelet snaps. Lyra’s
+    // twin braid snaps at the rocks; Lucien’s stones dim at once.
+    // The wound rises, takes Halvern, comes back for her. Marra
+    // chooses, sacrifices, last word: "RUN." She runs. Second wound
+    // catches her by the ankle — taking, not eating. To the queen.
+    // Elian’s arrows. "You found my wood again, mi’lady." He
+    // carries her toward the hut: "I told you I would not bury a
+    // third. I am keeping my word."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 28,
+      title: 'Chapter 28',
+      subtitle: 'The Hunt',
+      teaser: 'I told you I would not bury a third, mi’lady.',
+      charId: 'elian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_28_full',
+          title: 'Chapter 28',
+          subtitle: 'The Hunt',
+          speaker: 'ELIAN',
+          palette: { bg: '#0c140e', glow: '#5a8a4a', accent: '#a8c890' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── ACT I · THE THREAD ON THE WALL ───────────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite at first light. The wine-and-gold leathers already on the favourite. The hair already pinned. The gold hair-pin behind the right ear catching the steel-grey of the sky.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The far wall above the dressing-frame. A silver line drawn vertical the length of a hand. The same line that came through the hedge roses in the garden and the dining room window the night you stood at the bread.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Trembling. Trying to be louder than it is allowed to be.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A shape inside the silver. The hint of a hand. Reaching. Drawing.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A symbol resolving the smallest amount on the wall. A circle. A line through it.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…you are warning me.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The line trembles harder. A second mark will not come.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two taps at the chamber door. The line on the wall jumps once. Gone.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'WENNA', text: '"Mi’lady. The chamberlain is at the corridor mouth. The first bell has rung."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…whatever you wanted to tell me. I will hear it later.*', hold: 3800, cps: 26 },
+
+            // ─── Wenna · "go carefully" ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'Wenna enters with the riding-hood and cloak. She has read your face. She does not ask.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She sets the hood at your shoulders. The cuff already over the seaweed bracelet at your wrist. The gold pin already in your hair.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…mi’lady has a stone at the wrist and at the ear."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"…yes, Wenna."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'WENNA', text: '"…keep them on you, mi’lady. Both of them."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"…I will."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The senior attendant prepared four of the previous crown prince’s favourites for the queen’s hunts in the years before he died. She has not prepared one since. The favourite of the rose is the first to ride out under the queen alone.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She bows deeper than the hour calls for. Her hands have folded once and not unfolded.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'WENNA', text: '"…go carefully, mi’lady."', hold: 2200, cps: 28 },
+
+            // ─── The south gate · the queen ───────────────────────────────
+            { type: 'line', speaker: '', text: 'The south gate. The hunting party in the grey light. Horses. The queen’s escort in cream and silver. The new captain on his black horse. Caspian on his bay gelding.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wine-and-gold of his riding leathers matches yours. The stitch-work identical at the collar. The blue eyes find you the moment you step out.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"My favourite. There you are."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The favourite-smile is on. You walk to him through the assembled riders. The court is watching.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The queen on her white mare. The black dress of the cracked-token night is gone. Riding leathers of black and deep purple. The crown of branches small and tight at her brow.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes are reading you. Open. Direct. No court-smile.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '"…you there. The favourite of my grandson."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You curtsy. The bow Marra trained you to give the queen at the highest registers. The bow you have practised ten times and never given.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…your majesty."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…your court bearing is impeccable. Whichever lady of my house shaped you, she has not lost her hand."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…you look familiar to me, child. I cannot put a finger on where."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The line lands somewhere it should not. The favourite-smile holds. The breath under it does not.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…the favourite is honoured to be remembered by your majesty, however small the remembering."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…it will come to me. It usually does."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian has heard. The blue under the court-smile has gone careful. He cannot say anything.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You mount the chestnut mare Caspian has chosen for you. Your hand finds the reins. The body remembers a horse from before you remember your name.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Marra of the Chamber at the rear of the prince’s escort in dark riding cloth. She catches your eye. She nods.', hold: 4800, cps: 22 },
+
+            // ─── The horn · Alistair at the gate ──────────────────────────
+            { type: 'line', speaker: '', text: 'The horn. The gate opens.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The south gate from the inside. Two of the guard at the arch in burnished armour. The red wool of one cloak set at the shoulder. Bright green eyes under the helm.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair at the gate post. He has been here since first bell. He will do any post given to him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The column passes at ten paces. The favourite at the prince’s left in wine and gold. She does not look down. The bright green eyes follow the chestnut mare across the gate. The face does not move.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand at his side comes up. It rests against the stone of the gate-arch the breath after the chestnut mare clears the gate. The fingers press once and still.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wood at the far end of the road. It has been holding its breath since the gate opened.', hold: 4000, cps: 24 },
+
+            // ─── ACT II · THE RIDE · Caspian's hand ──────────────────────
+            { type: 'line', speaker: '', text: 'The court behind the prince’s gelding has been watching the favourite at his left for the count of the last bell. The riders are too far back to hear, not too far back to see.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-mask softens into something visible. You let the smile widen. You lean the smallest amount toward him so the court behind can see the lean.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hand finds his on the rein. The fingers brush. Then your thumb finds his knuckle and stays.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…your highness?"', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your thumb has not moved in the count of three breaths."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…has it not, your highness. The favourite had not noticed."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You lift your hand from his the smallest amount. Not far. Just enough that he feels the absence.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…my prince?"', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand under yours has reached the smallest amount after the absence. He has caught himself the breath after.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you are enjoying yourself, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the favourite has been told to play besotted, your highness. The favourite is doing as she was told. I should think your highness would approve."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the prince approves, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your thumb returns to his knuckle. Slower this time. The favourite has won the round and is collecting the prize.', hold: 5000, cps: 22 },
+
+            // ─── Halvern's contempt ───────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The new captain Halvern at the queen’s right has half-turned in the saddle. He has been watching the favourite and the prince for the count of the last bell.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Twenties. Sharp jaw. Pale eyes. The new gold chain of the captain’s office across his chest. The face of a man who has bought his rank with his name.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '*…so this is the trollop my prince has lost his head for. A common little wench in a noble’s silks.*', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '*…flirting at her own audience. The prince a fool for what he thinks she will give him.*', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand on his rein has tightened the smallest amount.', hold: 2800, cps: 26 },
+
+            // ─── "The body has ridden before" ─────────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian has seen you steady the chestnut mare under you with one quiet touch at the mane. The blue has gone careful.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you have ridden before, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',     text: '"…the body has."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…whoever taught you, mi’lady, taught you to last. The body remembers her hand."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince has just put on the table what Marra reported to him the afternoon she returned from the suite. He has held it that long.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite-mask has slipped the smallest amount. The cheek under it has gone wet at the edge. You do not answer. Caspian does not press.', hold: 6400, cps: 22 },
+
+            // ─── "Captain. Eyes forward." ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'Halvern at the queen’s right. He has not heard. He has seen the favourite lean and steady, and the prince look at her too long.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He turns the smallest amount to look at her directly across the column. The favourite has not yet caught the look. Not a court look. A man’s.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen on the white mare has not turned her face from the road ahead. She has not needed to.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…captain. The favourite is the prince’s. Eyes forward."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The line lands like a slap.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'HALVERN', text: '"…your majesty."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'HALVERN', text: '*…the queen protects her grandson’s harlot.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The leather creaks under his hand.', hold: 1800, cps: 28 },
+
+            // ─── The Thornwood treeline ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'The Thornwood. The column has crossed the treeline. The court has gone quiet on its own. The blue under Caspian’s public smile has gone the smallest amount darker.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…stay at my side, mi’lady. Whatever happens."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…yes, Caspian."', hold: 1800, cps: 28 },
+
+            // ─── ACT III · THE WOOD · the camp ────────────────────────────
+            { type: 'line', speaker: '', text: 'The eastern reaches. The column has stopped in a clearing the queen has chosen. The grey gone the colour of stone. The wood too still.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen’s tent. Cream and silver. Servants laying out the carved chairs. The court setting itself up.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Three smaller tents. A fire-pit. Horses tethered. The hunting party gathering with bows and spears.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady. The hunters ride east at the second bell. You will remain at the camp with Lady Marra and the queen’s escort. The favourite of the rose does not chase stags."', hold: 11400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the favourite has no quarrel with a chair by the fire, your highness."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…stay in the clearing, mi’lady. Stay near Marra. I will be back at the long bell."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU',     text: '"…I will, Caspian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He lifts your hand to his mouth. The full court kiss. He holds it a fraction too long.', hold: 4000, cps: 24 },
+
+            // ─── The hunters ride out ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The hunters mounting. The queen mounting. Halvern at her right. Five escort. Two of the prince’s guard. The horn winder.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '*…the prince is gone. The queen will not turn. The wood is mine.*', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The horn. The hunters move out.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian rides past you. The blue finds you and does not let go. Not two breaths. Three. Four. Long enough that the riders behind him notice.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: '', text: 'His mouth has opened the smallest amount. A word has begun to shape there. He does not finish it. He shuts his mouth.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The blue is too honest for a court ride. He pulls his face forward only when the chestnut mare is at his back and he cannot see you without turning. He does not turn.', hold: 8800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen has not looked at her grandson the whole exchange. She has not needed to. The corner of her mouth has done a thing it has not done since the cracked-token night.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wood closes behind them. The sound of horses fades faster than it should.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite alone at the edge of the clearing. The body knows the prince almost said something. The mind has not let her name it yet.', hold: 5800, cps: 22 },
+
+            // ─── Marra at her shoulder ────────────────────────────────────
+            { type: 'line', speaker: 'MARRA', text: '"…mi’lady. Will you sit by the fire."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…not yet, Lady Marra. The clearing is small. I have not been in the wood in some time."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'MARRA', text: '"…mi’lady should not go beyond the line of the tents."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"…only to the trees, my lady. Where I can still see the standard."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'MARRA', text: '"…I will walk with mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The two of you walking toward the line of the trees. The queen’s escort by the fire-pit not looking.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Moss. Wet leaves. The same kind of moss you woke in the morning the captain found you on the inland road.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'MARRA', text: '"…the wood has gone too quiet, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"…you feel it also."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…we should go back."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'MARRA', text: '"…yes, mi’lady."', hold: 1800, cps: 28 },
+
+            // ─── The pin falls · Marra steps deeper ──────────────────────
+            { type: 'line', speaker: '', text: 'A small sound. Faint. Like a stone shifted by a foot in the moss. From deeper in.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'MARRA', text: '"…stay here, mi’lady. One breath."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She steps the smallest amount further into the trees, toward the sound. Five paces. Seven.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite turns to follow her with her eyes. Both hands behind her head, still at the pin in the coil at her right ear.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'As you turn, your fingers catch the bent clip of the pin. The pin slides free of the coil. The gold flashes once against the leathers. The pin lands in the moss at the base of the oak beside you.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…no."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You crouch fast. Both hands sweeping the moss. The hair has begun to come down where the pin was.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Marra has gone further. The favourite is on her knees at the moss. The two of you have separated.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'MARRA', text: '*…nothing.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'She turns to walk back. She has gone further than she meant to.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'MARRA', text: '"…where is mi’lady."', hold: 2200, cps: 28 },
+
+            // ─── Halvern arrives ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'A man at the edge of the small clearing. He has come on foot. The black horse is not with him.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Halvern. The cream-and-silver of his cloak the only colour in the grey.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'HALVERN', text: '"…mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…captain. You have left the hunt."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'HALVERN', text: '"…I have come back, mi’lady. I had thought the favourite would have wanted company at the camp."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the favourite has Lady Marra. The favourite has not asked for the captain."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '"…Lady Marra is in the trees, mi’lady. The favourite is alone."', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have stood. Your fingers have closed on a small round stone the moss gave you instead of the pin.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '"…so this is what the prince has been keeping."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',     text: '"…captain."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'HALVERN', text: '"…a woman who reaches for a prince’s rein at her own ride. A woman who lets the prince’s mouth at her hand at a court she has not earned."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…take one more step, captain, and the queen will hear of it."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'HALVERN', text: '"…the queen will hear what the captain chooses to tell her. And the captain will tell her the favourite was lost in the wood."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you will leave. Now."', hold: 2200, cps: 28 },
+
+            // ─── The slap · the struggle ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'He has taken the step. The favourite has slapped him. The flat of the right hand.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'HALVERN', text: '"…the favourite of the rose has touched a captain of the kingdom."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has caught your wrist. The hand at the stone goes wide. The stone falls into the moss.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His other hand has taken the front of the leathers at the throat. He has pulled.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cloth tears. One of the small stones in the roses-design pops loose. It lands in the moss between you. The hood is gone with the pull. The hair has come fully loose.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"STOP."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You try to fight back. You twist. You pull against his hands. You break free, and the force of your own pull takes you with it. The moss meets your back hard.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has come down on one knee beside you. The hand has caught the leathers at the chest.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…get off."', hold: 1800, cps: 28 },
+
+            // ─── Marra returns with a branch ─────────────────────────────
+            { type: 'line', speaker: '', text: 'A sound from the trees. A branch breaking under a foot that has run.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Marra at the trees. The grey hood is down. The face of a woman who has decided.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A fallen branch in her hands. As heavy as her own forearm. The end jagged. The trainer of court etiquette has lifted a wood-club above her head with both hands.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'MARRA', text: '"…let her go."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Halvern half-turns. Marra swings. The branch catches him at the shoulder. He rocks sideways but not down.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '"…the chaperone."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has stood. He has taken the branch from Marra’s hands and thrown it.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Halvern slaps Marra. The back of the hand. Full weight. Her head has gone with the slap, her body with her head. She has fallen at the base of the oak.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The chest is rising. Alive. Not awake.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…MARRA."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You roll to your hands and knees. You begin to crawl toward her.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'HALVERN', text: '"…no, mi’lady. We are not finished."', hold: 3000, cps: 26 },
+
+            // ─── Pinned · the fight ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'He has caught your shoulder. He has pushed you back to the moss. The breath out of you again.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The leathers torn. The cloak under your back. One knee on either side of your hips. The hands at the line of the leathers at your chest.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your right knee drives up hard. You catch him at the side. The breath goes out of him in a grunt. He rocks but does not let go.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your left hand finds his face. Fingernails at the cheek. You rake. The skin opens in four lines. He jerks his head back.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cheek bleeding where you have caught it. The pale eyes have gone the kind of bright that is not human.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '"…keep fighting, mi’lady. The ones in the south of the city fight like this. They never mean it."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you will have to kill me first."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You bring your forehead up into his chin. The crack of bone on bone. The head snaps back. He has bitten his own tongue. Blood at his mouth. The court-captain is gone. The yard-fighter is back.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '"…have it your way."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has caught your wrists. He has pinned them above your head into the moss. His weight on your forearms is more than the body can lift against.', hold: 7400, cps: 22 },
+
+            // ─── The bracelet snaps ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The wine-and-gold cuff has caught at the seaweed bracelet. You twist against him still. The bracelet slides up.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'His grip tightens. Your wrist pulls the opposite direction. The seaweed strands caught between his fingers and your cuff. The braid begins to give.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The braid snaps under the strain of the pull you would not stop making. The lavender stone slides loose.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lavender stone has rolled into the moss two paces from where Halvern has pinned you. The oak is further off. The hair-pin lost in its base.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The light along the stone has gone. The colour of dead lavender.', hold: 3800, cps: 26 },
+
+            // ─── Lyra at the rocks · Lucien's stones ──────────────────────
+            { type: 'line', speaker: '', text: 'The sea, far from the wood. Lyra in the shallows by the rocks where her sisters sing. The water is silver and slow. She has been combing her hair.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The comb has stopped at her shoulder. She has looked up. The siren-eyes have gone wider than a song.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…no."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The little knot of seaweed she wears as the twin of the favourite’s bracelet has snapped clean. The strands are floating loose at her arm.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at his table in the Mage Tower. The chamberlain has just left the room. Lucien has been mid-sentence with his pen.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pen has stopped at the paper. The breath has stopped at his ribs. The ink has bled into the page where the pen stopped. He has gone past pale.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A feeling without a name has caught up to him. The lavender-stones set across his workbench have all gone dim at once. His own magic has felt the breaking before the mage has named it.', hold: 9400, cps: 22 },
+
+            // ─── The wound rises ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The bushes at the far edge of the small clearing. A sound from inside them.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The moss at twenty paces past the oak rises. Black. Wet. Arms longer than they should be. Mouth split sideways. Smoke between the teeth.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Halvern over you. He has heard the wet sound. The eyes have come up. The face of a man who understands he has been wrong about what is in the wood.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'HALVERN', text: '"What th…"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…no. No. It has found me.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Halvern stands. He lets go of your wrists. He draws his sword.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'HALVERN', text: '"…stand back."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You crawl the smallest amount toward Marra at the oak.', hold: 3000, cps: 26 },
+
+            // ─── The wound takes Halvern ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The wound at six paces. It has not moved at the sword. It has moved at the favourite.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The longer arm has reached past Halvern. The captain has stepped into the line of the reach and cut. The blade has gone through the arm without resistance. The wound has not bled.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wound has caught Halvern at the chest. The arm has gone around him. The other arm has gone around him.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The sword has fallen. The captain has begun to scream.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'HALVERN', text: '"…AAAAA…"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mouth split sideways has opened all the way. It has come down at the place where his shoulder meets his throat. The teeth that should not be teeth have found purchase.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The scream changes shape. Something in it has stopped working.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The captain’s body has stopped fighting because the captain is no longer entirely his body.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The new gold captain’s chain hanging from his neck where it has been pulled wide. The cream-and-silver of his cloak going dark.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes still open. The voice gone. The wound has not finished and the captain has finished.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wound sinks back into the moss the way it rose. It takes him down with it. Pieces of the cloak catch at the moss around the sapling as the body goes.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The moss where Halvern was. Empty. The cream-and-silver caught at the base of the sapling. The gold chain at the moss beside it.', hold: 6000, cps: 22 },
+
+            // ─── Marra · "RUN" ───────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'You at Marra’s side. Your hand at her shoulder.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…Marra. Marra. Wake up. We have to go."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The breath at her chest steady. The eyes have not opened.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…Marra. Please."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The moss where Halvern went under begins to move again. The same wound. It has risen back through the moss. Halvern is no longer with it.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have caught Marra under the arms. You have begun to drag her toward the trees you came in from. The wound has crossed half the distance in one breath.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wound has caught you. The longer arm has closed around your ankle. You have been pulled. Marra has slipped from your arms.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…no. NO."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have opened. Not all the way. Enough. She has seen the wound at your ankle.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Marra has lunged. She has caught the wound at the wrist where it holds you. She is not strong enough. She has only put herself in reach.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The second arm has come around. It has caught her at the throat. The hand on you has loosened.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'MARRA', text: '"…mi’lady. Go."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The ankle is free. The wound is lifting Marra.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…MARRA."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mouth has opened beneath her. The eyes have found you across the moss. The smile of a woman who has decided.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'MARRA', text: '"…RUN."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'One hand still outstretched toward Marra. The knees still on the moss. The body has heard the command and the body has refused.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…move. Move. MOVE.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The wound has taken her. The scream tears out of you a breath too late.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…AAAAAGH."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The moss where Marra was. Empty. The grey of her hood at the base of the oak. Your hand still outstretched at the place she was.', hold: 6400, cps: 22 },
+
+            // ─── ACT IV · "It is hunting me" ──────────────────────────────
+            { type: 'line', speaker: '', text: 'On your knees. Hair down. Leathers torn. Wrist bare. The bracelet in the moss past the oak. The hair-pin in the moss at its base. Two stones lost.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The moss at the far side. The same place again. Rising.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The realisation is the worst weight you have carried yet.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*…it is hunting me. It will eat anyone between it and me.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stand. The hair down. The leathers torn. The wrist bare.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn. Not toward the camp. Toward the deeper wood. Where there is no one but trees and you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You have begun to run.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Leathers dark. Hair streaming. The trees opening and closing around her. The right ankle where the wound caught it has gone cold the heat of the run cannot reach.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The same wound at the edge of the clearing, on its feet again. It has the scent the bracelet had hidden. It moves toward her through the trees, faster than the moss should let it.', hold: 8400, cps: 22 },
+
+            // ─── Thrown against the tree · "it is her pawn" ───────────────
+            { type: 'line', speaker: '', text: 'The trees thicker. The light gone past iron to bruised stone. The legs not holding.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A wound rising at the path beside you. The arm coming through the moss.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The arm has caught the leathers at your back. You have been thrown against a tree.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The breath out. The leathers torn worse. The face has come down toward yours.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The wound has not closed its mouth on you. The longer arm has closed around your ankle.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The body realises a moment before the mind. It is not eating you. It is taking you somewhere.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…to the queen. It is taking me to the queen. It is her pawn.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'It has begun to drag you backward through the moss. The leathers catching at the roots. The hair pulled.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…NO."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your hands have closed on the root of the tree behind your head. The knuckles white. The arm at your ankle has tightened. It pulls harder. The moss under you tears loose with you.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your grip on the root is going. The favourite cannot hold against what is pulling.', hold: 4400, cps: 24 },
+
+            // ─── Elian's arrows ──────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'A bowstring releasing.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The arrow takes the wound through the throat. The body jerks. The grip on your ankle does not break.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The arrow has lodged. No bleeding. The face has turned away from you toward the trees.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A figure in dark green leathers. A streak of silver in black hair. The bow already nocked.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian.', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The second arrow. It strikes where an eye would be. The wound spasms. Your ankle is free.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has crossed fast. The bow at his back. A short blade in his hand. The blade draws across what should be a throat. The body goes limp.', hold: 7800, cps: 22 },
+
+            // ─── "You found my wood again, mi'lady" ───────────────────────
+            { type: 'line', speaker: '', text: 'The body of the wound on the moss. Elian over it. The favourite slumped against the trunk.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has not looked at the wound. He has looked at the favourite.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The dry corner of his mouth has done the same careful thing it did at the bandage in the hut, and at the two stones by the creek.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you found my wood again, mi’lady."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"…Elian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I have you. Do not speak yet."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has crouched at your side. The bare hands at the leathers at the throat. He folds the torn cloth back over your shoulder with the same care he gave the ankle in the hut.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has lifted you the smallest amount from the trunk. The arm behind your shoulders. The other under your knees. The same lift Alistair gave you in the alley.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hair down at his shoulder. The eyes closed.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I told you I would not bury a third, mi’lady."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I am keeping my word."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mouth has done the smallest possible thing.', hold: 2400, cps: 28 },
+
+            // ─── End image · the two stones ───────────────────────────────
+            { type: 'line', speaker: '', text: 'Elian carrying the favourite away. The greens fold over the path he has walked. Nothing in the trees moves.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The small clearing far behind. The base of the oak. The grey of Marra’s hood at the moss. The cream-and-silver of Halvern’s cloak at the sapling. The blade in the moss where the captain dropped it.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The gold hair-pin half-buried in moss. The lavender at its head is the lavender of something asleep.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The broken seaweed bracelet at the base of the oak. The lavender of its centre is the lavender of something dead.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The two stones lie twenty paces apart. They will lie there until the kingdom comes looking.', hold: 5400, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(28); setCurrent(nextIdAfter(28));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 29 · "The Hunting Ground"
+    // Owner PDF Ch29. Three-act consequence chapter. The queen’s
+    // bone token splits in her palm: "I underestimated you, Weaver."
+    // She sends Magister Verren back for the bodies. Caspian sees
+    // the purple lightning around the Mage Tower’s spire — chooses
+    // to stay at the queen’s side. The ride back: "I miss her touch
+    // already." The queen marks her grandson’s love. Verren returns
+    // with no bodies, two stones. Lucien burns them both to ash from
+    // his tower window to protect both women. Caspian collapses in
+    // his tent — "I left you." Alistair takes the secret-patrol
+    // call, the green cloak from the trunk, rides east. The hut.
+    // The favourite says one word — "Marra." Proto’s silver thread
+    // at the window: "…sleep, lady. We will sit with you."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 29,
+      title: 'Chapter 29',
+      subtitle: 'The Hunting Ground',
+      teaser: '…mi’lady. Please. I am coming for you.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_29_full',
+          title: 'Chapter 29',
+          subtitle: 'The Hunting Ground',
+          speaker: 'CASPIAN',
+          palette: { bg: '#0f0e14', glow: '#7a7488', accent: '#c8c0d0' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── ACT I · THE TOKEN BROKEN ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The queen’s hunting party. Half a bell deeper into the eastern reaches than the camp. The trees thicker. The sky has not warmed.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen on the white mare. Her hand has lifted to her chest under the cloak. Her face has not changed. The escort behind would not have noticed.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bone token she had been carrying has split. Two halves. A thin smoke leaks from the break.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…two of mine. The one in the alley. And now the one in the wood.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '*…I underestimated you, Weaver.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The queen has not lost a piece in eleven years. She has lost two in two months, and the second one was taken by a hand she has not yet placed.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian on the gelding three paces behind. He has seen his grandmother’s hand move under her cloak. He has seen her face not change. He says nothing.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has turned the smallest amount in the saddle. Not toward Caspian. Toward the back of the column.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…Verren."', hold: 1400, cps: 28 },
+
+            // ─── Verren sent ──────────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'A man on a quieter horse rides up to the queen’s stirrup. Magister Verren. Long grey coat. The badge of a queen’s reader at his collar. Older than Caspian. Younger than the queen by six centuries.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'VERREN', text: '"…your majesty."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…ride back to the camp. Find the favourite’s body. Find every body the wood has touched this morning. Bring them to me before the long bell."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'VERREN', text: '"…if there are no bodies, your majesty."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…then bring me what is left where the bodies should be."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'VERREN', text: '"…your majesty."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has turned his horse. He has gone back through the column toward the camp.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian has heard. He has not turned his head.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…she said bodies. I hope it is not what I think it is.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A queen who does not ask her crown prince has already decided he is not yet trusted.', hold: 4400, cps: 24 },
+
+            // ─── The storm at the tower ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'The column resumes. The queen ahead. Caspian three paces behind. The escort behind him. The hunters spread out at the flanks looking for stags. No one has spoken to the queen about Verren.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian’s bow. He has notched an arrow. The hand is steady. The hand is too steady. The mind is somewhere else.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has lifted his head to the sky between the trees.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'To the west. Above the city. Above the spire of the Mage Tower. A black cloud where there was no cloud at dawn. The shape of a storm that has not come from anywhere.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Purple lightning around the spire. Not striking down. Wrapping the spire.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The arrow lowers in his hand without him deciding to lower it.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…Lucien.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…something has happened to her.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The knuckles white. The arrow lowered. The prince is standing in the saddle of a horse that has not stopped moving and the prince has gone still inside the standing.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen has stopped her mare. She has lifted her face to the sky in the same direction Caspian has lifted his.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…quite a show, mage.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '*…could it be her?*', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '*…the audience with the mage needs to be done.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'She has turned her head toward Caspian. The eyes are reading him.', hold: 3800, cps: 26 },
+
+            // ─── The boredom-smile ────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'He has felt her look land on him before he has seen it. He lowers the bow slowly. The face is not yet ready. He has to make it ready.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'It has shaped a small bored half-smile. The kind of smile a crown prince wears when he has not been paying attention.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite would have seen the difference in one breath. The queen will not. The queen is reading for panic and the smile is offering boredom.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty. The wood seems quieter than it was this morning."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'She has held his eye for three breaths. Four.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '"…the wood is always quieter after the hunt has begun, my grandson."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has not flinched at *my grandson*. The queen rarely uses the word. She has used it now to test what his face does when she names him.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…as you say, your majesty."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The queen has turned her face forward. The mare has begun to walk again.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…she saw the storm. She saw me see the storm. She is testing whether I will ride for my favourite or stay at her side.*', hold: 8800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…if I ride, she has me. If I stay, mi’lady is alone.*', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I have to stay.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The arrow has gone back to the quiver. The bow is in his hand for show. The prince has decided to stay in the saddle and let his composure carry him until the queen is satisfied.', hold: 9000, cps: 22 },
+
+            // ─── ACT II · THE RIDE BACK ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'The wood as the sun lowers. The trees gone to bruised gold. The hunting party riding back toward the camp. No stag at the lead horse. No game across any saddle. The queen has called the hunt off without naming the calling.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has been riding beside her grandson for the last bell. She has not spoken to him since the storm.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…you have not taken a single prey today, my grandson."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I have not, your majesty. The wood was harder than I remembered."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN',   text: '"…you remembered."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I was eleven, your majesty. Perhaps twelve. The bow felt larger then. The wood felt smaller."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN',   text: '"…the wood has not changed. The prince has."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…as you say, your majesty. I will need more hunts. Perhaps you would take me out more often."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN',   text: '"…you are old enough to organise your own hunts, prince."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty has more experience in the wood than I will have in three reigns. The prince would rather learn at the queen’s side."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The corner of her mouth has done the small thing. The flattery has landed where flattery lands on a queen of six hundred years. Not at the heart. At the calculation. She has marked it. She does not believe it. She enjoys it.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…next time, then."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…it is a shame you did not take any prey for her, my grandson."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…it is, your majesty."', hold: 2200, cps: 28 },
+
+            // ─── "I miss her touch already" ───────────────────────────────
+            { type: 'line', speaker: 'QUEEN', text: '"…you really do take a liking to this favourite, my prince."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has decided to give her this. The truth is the safest place to hide what is under the truth.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I do, your majesty."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I miss her touch already."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The blue under it is the blue the favourite would have recognised. The queen sees the sincerity. She has not seen this much honesty on her grandson’s face in eleven years.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…do not be too attached, my prince. You have more choices."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I kind of do like this one a lot, your majesty."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Caspian has just given her a piece of intelligence he should not have given her. The queen now knows the prince loves the favourite. She has needed only one ride to confirm it.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The camp through the trees. The standards of the queen’s tent visible. The fire-pit smoking. The servants visible at the edge.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian dismounts before the groom reaches him. The court-mask is fully on. The favourite-warmth is gone.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty. By your leave. I will go to my favourite."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN',   text: '"…go to her, my prince. Tell her the queen asks after her health."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He bows. The bow is too tight. He has turned. He has begun to walk toward the favourite’s tent at the prince’s escort line.', hold: 6400, cps: 22 },
+
+            // ─── ACT III · WHAT THE WOOD KEPT · Verren reports ────────────
+            { type: 'line', speaker: '', text: 'The queen’s tent. The cream-and-silver standard hanging in the still air. Verren waiting at the entrance, the long grey coat dark at the hem with moss and damp.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…Verren. Report."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…where are the bodies."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'VERREN', text: '"…there are no bodies, your majesty."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'VERREN', text: '"…we have found a captain’s cloak at a sapling. A blade. A grey hood at the base of an oak. The cloth of a riding-leather torn at the throat. A small stone in a roses-design at the moss. Two further objects."', hold: 15000, cps: 22 },
+            { type: 'line', speaker: 'VERREN', text: '"…a hair-pin of gold at the base of the oak, and a broken seaweed bracelet twenty paces from it. Both bearing lavender stones."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have gone the kind of still a predator’s eyes go when something it had not counted on has just walked across its sight-line.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…lavender stones."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'VERREN', text: '"…your majesty."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…show me."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Verren produces a small cloth from his coat. The cloth opens. The two stones lie inside, dim, neither catching the lamplight.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen’s hand hovers above the cloth. She does not touch the stones.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '*…the mage. The mage himself has set wards on the favourite of the rose.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…three missing. The favourite. Her trainer. And the captain I had just appointed, who was not mine to lose to a wood.*', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…the trap lost its hunter and the prize both. The captain was the wood’s own taking.*', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…which one of the three was the Weaver. Or do I have more than one Weaver inside my walls.*', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen has gone from one suspect to three to a possibility she had not counted on: that more than one of them might be what she is hunting.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…Verren. The hair-pin will go to my chamber. The bracelet will be wrapped in cold cloth and brought separately. No one touches the stones."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'VERREN', text: '"…your majesty."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…and Verren. I will see the mage at the second bell tomorrow. Send the word now."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'VERREN', text: '"…your majesty."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '*…my grandson is about to lose his mind.*', hold: 3400, cps: 26 },
+
+            // ─── Caspian's collapse ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The prince’s escort tent. Caspian inside. A captain of his escort in front of him. Two of the prince’s guard at the canvas.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite’s chest at the cot. Empty. The wine-and-gold over-coat she did not wear into the wood folded across the foot of the cot.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness. Lady Marra and the favourite of the rose have not returned to the camp. Captain Halvern of the queen’s guard has not returned. The queen’s reader has gone out to look at the wood. The escort has been told to wait."', hold: 15400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face has gone past careful. The face has gone to the place no court-mask reaches.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The bow has dropped from Caspian’s hand. The crash of wood and metal on the rug of the tent.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…where."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness, the queen’s reader has not yet…"', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…WHERE."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The captain has stepped back the smallest amount. The face has registered that the prince has gone past protocol.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…the eastern reaches, your highness. The clearing the queen chose this morning. There are no bodies."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has come up to his chest. The hand has been going to his chest in every quiet hour since the office. The hand is shaking.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…send word to the castle. A secret patrol. Only those who answer to the prince. Now. Tonight. The queen is not to hear of it."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness, the queen has not…"', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the prince has."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have gone wet. He has not let it past his cheek. The captain has seen it anyway.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…go."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Caspian alone. The bow on the rug. The over-coat at the cot. He has gone to one knee.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…stay at my side, mi’lady. Whatever happens.*', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…you did not.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I left you.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fingers pressed against the bone. The prince has not moved.', hold: 3400, cps: 26 },
+
+            // ─── Lucien burns the stones ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'The Mage Tower. The spire still in the sky. The black cloud above it. The purple lightning that has been wrapping the spire for the count of the last bell.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The lightning is thinning. The cloud is breaking apart. One last arc around the spire. Then nothing.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at the high window of his study. The chamber behind him in disarray. The workbench scattered. The lavender-stones still dim. The pen still on the floor where it dropped.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The Grand Mage. The face that has held a register of precision for as long as the kingdom has known him. The face has come apart.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grey has gone to a colour no one in the kingdom has seen on him. Not panic. Worse. The colour of a man who has just watched a discipline he built his life on fail in his own hands.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…compose yourself."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…how am I losing like this."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…where are you, mi’lady."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cloak he has not worn since spring is at the chair. The mage has chosen. The composure has begun to come back over him the way armour comes back. It is not the composure he had this morning. It is colder.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the queen will summon me."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have gone past the window to the wood beyond the city. The magic in him has settled enough to read what his hand could not read this morning.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has felt the two stones. The one of his work. The one of the singer’s. Both are no longer at the favourite’s wrist. Both are in hands they should not be in.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hand lifting at his side. The fingers gathering. The air at the table going thin.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A single line of light leaves the spire toward the east. Not a storm. A directed thing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The cloth where the two stones lie inside it. Verren has not yet brought them to her chamber.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The two stones flash white at their centres at the same breath. Both stones burst into flame. Purple fire at the hair-pin stone. Lavender fire at the seaweed bracelet stone. The cloth around them catching.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The flame burns hot and fast. The two stones crack apart inside the fire. Ash and char where the lavender used to be.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The flame goes out as suddenly as it came. Nothing left on the cloth but two scorched marks and the smell of ozone in the canvas of the tent.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…she will not find them both."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The composure colder still. He has just destroyed two pieces of his own life’s work to protect two women. He has taken the cloak.', hold: 6400, cps: 22 },
+
+            // ─── Alistair at the gate ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The south gate of the city. The grey of the sky has gone past iron. The torches at the arch lit early.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair still at the gate post. The day-watch ending. The night-watch coming on. The other guard of the morning has gone to the barracks.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A rider has come in fast and quiet through the gate. The horse foamed at the bit. The rider in plain dark cloth, not livery.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has come straight to Alistair at the gate post. No one else.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'MESSENGER', text: '"…the prince calls. A secret patrol. The favourite has not returned from the hunt. Three missing. Only those who answer to the prince. The queen is not to hear."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand on the stone of the gate-arch. The same stone he pressed the breath after she rode through it this morning. The fingers have closed against it.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has not waited for the messenger to finish. He has turned toward the night-watch captain crossing the courtyard.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…the gate has another guard for the night. I am going."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NIGHT CAPTAIN', text: '"…you have not been ordered, Alistair."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR',       text: '"…I have been."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has read Alistair’s face. He has read what is in it. He does not ask by whom.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'NIGHT CAPTAIN', text: '"…go. The gate did not see you leave."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair has bowed the smallest amount. He has moved already. The cloak is coming off the rack at the gatehouse. The green cloak he kept in his trunk after the inland road. He has taken it.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…mi’lady. Please. I am coming for you.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has mounted. He has spurred the horse hard. The gate-arch passes behind him. The road into the eastern reaches opens ahead.', hold: 6400, cps: 22 },
+
+            // ─── Elian's hut · "Marra" ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'A small hut deep in the Thornwood. Lantern light at the window. The trees folded close around the walls. The hut Elian built years ago, the one only he knows the path to.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The fire at the hearth. A pot at the iron hook. Elian’s bow at the wall, unstrung. A cloth across his arm. The face calm in the firelight. The dry corner of his mouth not yet moved.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The bed. The favourite. Wrapped in a dark blanket up to the shoulder. The hair down across the pillow. The wine-and-gold leathers folded on the chair at the bed.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes are open.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The body has not stopped trembling since you woke. The fire is warm. The blanket is heavy. The trembling is not from cold.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hands at the blanket. They have not stopped shaking either. You have been holding the edge for the count of bells you have not bothered to track.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have not yet wept. The body has not yet let the body weep. The body knows it would not stop.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…take your time, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have begun to wet. The shoulder has begun to shake harder. The body has decided it cannot hold any longer.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Marra."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not turned. He has heard. He has set the cloth at the iron hook of the pot the way a man sets a cloth when he has just been given a death.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I am sorry, mi’lady."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The first sob has come out of you. It has gone into the blanket. The shoulders shake.', hold: 4800, cps: 22 },
+
+            // ─── Proto's thread at the window ─────────────────────────────
+            { type: 'line', speaker: '', text: 'The fire. The favourite weeping at the bed. Elian at the hearth with his back to her, the dry corner of his mouth doing a thing it has not done in eleven years. Not warmth. Not pity. The smallest possible grief.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The doorway. The window. The wood folded close to the walls. Outside the hut the eastern reaches go quiet for the first time since dawn.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wind that is not wind moves the smallest amount through the trees.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'PROTO', text: '*…sleep, lady. We will sit with you.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The eyes have closed. The trembling has not stopped. The weeping has slowed the smallest amount because the body has chosen to begin a different thing.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The silver line at the window. It has settled at the sill. It does not enter. It will not leave.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite asleep at last, her face wet, the blanket gripped at her chest, the wood beyond the wall keeping the kind of watch only the seventh Weaver and her sixth have ever kept together.', hold: 10000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(29); setCurrent(nextIdAfter(29));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 30 · "The Queen’s Charade"
+    // Owner PDF Ch30. Three acts. RETREAT — queen orders camp
+    // broken, calls "the favourite is one of many." Caspian submits
+    // in front of court. OFFICE — alone, throws the brass
+    // candlestick, "gods rot the throne that holds her hands", "curse
+    // you, Aenor." Word arrives Alistair has ridden out with the
+    // green cloak from the trunk. AUDIENCE — Lucien vs the queen, "a
+    // failed experiment, your majesty", the trap she lays around the
+    // pattern, "she knows." Lucien’s letter on the windowsill —
+    // stones destroyed, mage cannot move openly, the patrol may
+    // continue. The rose suite — the secret door has never been
+    // locked since the night he came. Three glasses on her pillow,
+    // the drunk-truth speech: "I brought you to court to use you. I
+    // fell instead. Alistair fell. Lucien fell. None of us could
+    // stop it." Sleeps holding her pillow. THE WOOD — Alistair finds
+    // Halvern’s chain in the moss, the favourite’s bootprint, "she
+    // ran. She was not taken." Rides into the deeper wood.
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 30,
+      title: 'Chapter 30',
+      subtitle: 'The Queen’s Charade',
+      teaser: 'I fell instead. I fell harder than I have ever fallen at anything in my life.',
+      charId: 'caspian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_30_full',
+          title: 'Chapter 30',
+          subtitle: 'The Queen’s Charade',
+          speaker: 'CASPIAN',
+          palette: { bg: '#160a12', glow: '#8a3a4a', accent: '#e8c8a8' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── ACT I · THE RETREAT ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The queen’s camp in the eastern reaches. Late morning. The light has come down clear and pale through the high branches. The tents standing. The horses tethered. The hunting party not yet ridden out a second time.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen at the centre of the camp. The riding leathers of black and deep purple. The crown of branches small at her brow. The face that has not moved since Verren brought her the cloth.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hunters have been called back from the inner edges of the eastern reaches. They have come in ones and twos. They have lined up.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the front. The queen’s escort behind him. The Magister Verren at her right. The horn winder at the back.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face the colour of a prince who has not slept since the previous morning. The leathers of the wine and gold gone dark at the cold of the night the camp held. The blond at the temple has not been combed by anyone.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have not closed for the count of two bells, then three, then five, then the long bell of the night, then the first bell of this morning. The favourite has been lost for one night and the morning that followed it.', hold: 11400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand at his side has the smallest tremor a hand gets when a man has been awake too long with the wrong kind of fear. He has not let the chamberlain see it. He has not let any of the queen’s escort see it.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…the court rides for the castle within the hour."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty."', hold: 1800, cps: 28 },
+
+            // ─── "I will not ride from the wood she was lost in" ──────────
+            { type: 'line', speaker: '', text: 'Caspian crosses to the queen’s white mare. He has dropped the favourite-of-the-rose register entirely. He is the prince at his grandmother’s stirrup.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty. Three of the court are missing. The favourite of the rose is missing. We have not searched the eastern reaches at depth. We cannot ride for the castle now."', hold: 12400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…the wood is not safe, my grandson. The Magister has read the ground. There is a beast in the eastern reaches that has taken three of my court inside the count of one day."', hold: 12000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…then we hunt it, your majesty. The court has come for a hunt."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…the court has come for a stag, my prince. Not for a thing that takes three at a time. The royal blood is not to be risked on this ground."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen has just put on the table that *his* blood is the protected thing, not the favourite’s.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the favourite is missing, your majesty. The favourite of the rose has not returned from this camp. I will not ride from the wood she was lost in."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…the queen has already sent the most trustworthy of her men into the eastern reaches, my prince. The favourite is the first priority of the search. The court has been spared nothing in finding her."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…you are not searching for her. You are guarding the wood against me searching for her.*', hold: 6000, cps: 22 },
+
+            // ─── "The favourite is one of many" ───────────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty. The favourite is mine. I would ride into the wood myself."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…and the queen would not allow her grandson to ride into a wood that has taken three of the court already. The royal line is one, my prince. The favourite is one of many."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The line lands like a slap delivered with a smile.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…the favourite is one of many.*', hold: 3000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…you expect to replace her.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand at his side has closed once and opened. The discipline has come back over the face the way armour comes back.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…your majesty’s care for the royal line is well known. I shall ride for the castle at your majesty’s pace."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has heard the surrender. The smile has gone the smallest amount warmer.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…my prince is wise."', hold: 1800, cps: 28 },
+
+            // ─── Camp breaks · column rides ──────────────────────────────
+            { type: 'line', speaker: '', text: 'The tents coming down. The horses being readied. The court watching the prince walk back to his own.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at his bay gelding. The hands at the saddle. The fingers white at the leather. The chamberlain has come up. The man has read the prince’s face and chosen not to speak.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…the secret patrol should be out there by now.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has mounted. The eyes have not gone back to the queen.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The queen at the front on the white mare. Verren at her right. The court behind. Caspian at the back of the prince’s escort by his own choice.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian’s eyes going past the column to the eastern reaches one last time.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…she hasn’t got you yet, mi’lady.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…please.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I will find a way to you.*', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The horn. The column moves. The hunters who came for a stag riding home empty. The favourite of the rose not at the prince’s side.', hold: 6800, cps: 22 },
+
+            // ─── ACT II · THE OFFICE · the gate ──────────────────────────
+            { type: 'line', speaker: '', text: 'The city road past the castle gate. The light has gone past gold to bruise. The column has taken twice the time it took to ride out.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the south gate. The eyes have not moved from the back of his horse’s neck since the eastern reaches.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Two guards on either side in burnished armour. The rack inside the arch where Alistair stood at first bell is empty.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…he has gone.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The inner courtyard. The court dismounting. The chamberlain waiting. The queen’s escort taking the white mare.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"…your highness. The hall has been prepared for the queen’s audience with the Mage at second bell. Your highness has been requested at the office until then."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen has not given him an hour to rest. She has given him an hour to wait.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the office, then."', hold: 1800, cps: 28 },
+
+            // ─── The office · the breakdown ──────────────────────────────
+            { type: 'line', speaker: '', text: 'The corridor to the prince’s wing. Caspian walking alone. The chamberlain half a step behind. The court has scattered to its own rooms. The wing has gone quiet.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has not opened it. The breath has gone shallow. The hand has stayed on the brass.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…I cannot break here. Not yet. The corridor is watching.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The breath has steadied. He has opened the door. He has stepped through. He has closed it behind him.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The office. The maps still on the desk where he left them yesterday. The Thornwood map at the centre. The red dot at the eastern reaches. The inked circle a little further in. The chamber light has gone the colour of cold tin.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hands have gone flat on the wood on either side of the map. The head has lowered. The eyes have closed.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…not yet. Not until she is back.*', hold: 3400, cps: 26 },
+
+            // ─── "By the dark." · the candlestick ────────────────────────
+            { type: 'line', speaker: '', text: 'The fist has come down on the desk. The Thornwood map has shifted under his knuckles.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…by the dark."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…curse this whole charade."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fist has come down again, harder. The inkwell at the corner of the desk has gone over. The black has run across the map. The red dot at the eastern reaches has gone under the ink.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I am barred from her own wood."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…BARRED."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fingers black. The breath gone shallow with the kind of fury a young man’s breath goes shallow with when no living person is in the room to see it.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the crown prince of Aethermoor is the prince of nothing."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…NOTHING."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have gone the colour blue eyes go when a man has just understood the full shape of his own powerlessness.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has gone to the brass candlestick at the corner. The knuckles have gone white.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…gods rot the throne that holds her hands."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The candlestick has gone across the office. It has struck the panelled wall and dropped to the floor.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…by the breaking, let her wood give my favourite back."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The brass rolls along the boards. The candle has snapped at the wax.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The breath has come out the kind of ragged a prince’s breath does not come out in front of any living person. The rage has gone the moment the brass left his hand. The grief has come back into the empty space.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The head has come down to the desk. The forehead has pressed to the wood. The hand in the ink has stayed flat where it landed.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I hope you are safe somewhere, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I hope she cannot catch you."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I pray for your life."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…my favourite."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The breath has come back to even by the count of five. The forehead has lifted from the desk. The ink has come up with him in a black smear at the brow.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…curse you, Aenor."', hold: 2400, cps: 28 },
+
+            // ─── The patrol message ──────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The eyes have gone to the window. The Mage Tower spire visible across two courtyards and one garden wall.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…the audience is at second bell. She will press him. He will know I cannot help him from this side of the wall.*', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…and the patrol is out there. Alistair is out there.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The breath has steadied for the first time since the camp.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…hold on, mi’lady. He is coming. They are coming.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A knock at the office door. Two taps.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness. A message from the south gate."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…come."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Not the new captain. A junior officer in the prince’s livery, the one who carried the secret-patrol order yesterday. The cloak still has the dust of the road on it. He kneels.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness. The man you sent for is on the road. He left the gate at the long hour last night. He has not returned. The night-watch captain has reported only that the gate did not see him leave."', hold: 14000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair has gone to the wood."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness. He has gone."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…alone."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…alone, your highness. He took the green cloak from the inland road."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The green cloak. The captain who is not the captain kept the inland-road cloak of the favourite in his trunk. The prince has just been told.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have gone the smallest amount wet. He has not let it past the cheek. The captain has seen it anyway.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…thank you, captain."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…go. Bring me word the moment he sends any."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CAPTAIN', text: '"…your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The captain bows. He leaves. The door closes.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand has gone to the map. The fingers have traced the road from the south gate to the eastern reaches.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…he will reach her before the queen’s men reach her. He has to.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince who demoted the captain has just sent the man he demoted into a wood the queen has barred him from, in private, alone in his office, because that man is the only one currently riding for the woman the prince loves.', hold: 13000, cps: 22 },
+
+            // ─── ACT III · THE AUDIENCE ──────────────────────────────────
+            { type: 'line', speaker: '', text: 'The main hall at second bell. The hall has been emptied for the audience. The queen’s throne at the centre. The lamps along the walls burning low. The court is not present. The audience is private.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen on the throne. She has changed out of the riding leathers. A black dress. The high choker at her throat. The crown of branches at her brow. The face neutral in a way the court has not seen since the cracked-token night.', hold: 12400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hands rest on the arms of the throne. The lamp catches the rings on the fingers.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The great doors at the far end of the hall open. A figure in a long ceremonial robe at the threshold.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien. The robe of the office of the Grand Mage on his shoulders, the gold filigree catching the low lamp. The monocle at his eye. The hair caught back. The face the colour of cold lavender.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has stopped at five paces from the throne. He has bowed. The full ceremonial bow of the Grand Mage to the queen. Deep. Long. The robe folds at his ankles.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…the Grand Mage. It has been long since I have had your audience."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…I had not expected you to agree to come."', hold: 3000, cps: 26 },
+
+            // ─── "Life mate" / "your majesty's taste" ────────────────────
+            { type: 'line', speaker: 'QUEEN', text: '"…I have not seen you for such a long count of years, Grand Mage. I had wondered if you have found a life mate yet."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…indeed, your majesty. I have not seen you in a long count of years."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I had wondered the same. Whether your majesty has yet found a mate suited to your majesty’s taste."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smile has not moved. The silence has gone cold between the throne and the bow.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…indeed, Grand Mage. The queen has not."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…but it would seem the Grand Mage has taken an interest in someone, has he not."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…my, my. The Grand Mage will not tell me, then."', hold: 3800, cps: 26 },
+
+            // ─── "It was a failed experiment" ────────────────────────────
+            { type: 'line', speaker: 'QUEEN', text: '"…do not take it the wrong way, Grand Mage. I was only concerned for you."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…I saw the great cloud over your tower yesterday. The purple lightning. It struck the spire for the count of half a bell."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '"…I had thought, perhaps, the Grand Mage had lost someone he cared for."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…it was a failed experiment, your majesty. Nothing more."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN',  text: '"…oh, Grand Mage. The experiment must have been important to you, if it took the composure of the Grand Mage of state."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…yes, your majesty."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '"…now, now. The queen was only concerned with the cloud that struck the tower. Now that the Grand Mage has clarified the matter, the Grand Mage may have his rest."', hold: 12000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…thank you, your majesty."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lucien begins to turn. The ceremonial robe folds at his ankles.', hold: 3400, cps: 26 },
+
+            // ─── "The pattern" · the trap ────────────────────────────────
+            { type: 'line', speaker: 'QUEEN', text: '"…oh. By the way, Grand Mage."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The pale eyes have gone back to the throne. The robe has stopped at the half-fold.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…would you happen to know anything of the pattern I have just discovered?"', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…which one, your majesty?"', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I might help to identify what pattern it would belong to."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '"…hmm. I had thought the Grand Mage would give me an answer."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I am offering my help to identify it, your majesty."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '"…the Grand Mage is a busy man. He may send someone from his tower to identify it for me."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Any other mage from his tower would identify the pattern as the Grand Mage’s own signature inside the count of a single bell. The mage cannot send a junior. The mage cannot send a peer. The mage must do it himself.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the others are lacking the skill, your majesty."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I will be the one who assists your majesty."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '"…that would be a great help, Grand Mage."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…when your majesty has need of me, send word. The Grand Mage will come."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has held the bow one breath longer than the bow required.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Lucien turns. The ceremonial robe folds at his ankles. He walks toward the great doors at the far end of the hall.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…she knows.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…she still has doubt on which of the three was the Weaver. The cloak. The captain. The favourite. She will work the doubt until one of them comes back to her.*', hold: 11400, cps: 22 },
+
+            // ─── Queen alone · "which the mage has loved" ────────────────
+            { type: 'line', speaker: '', text: 'The queen alone on the throne. The hall empty. The smile has gone.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'QUEEN', text: '*…the mage lies.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'QUEEN', text: '*…the mage knows more than a failed experiment.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'QUEEN', text: '*…the favourite of the rose. The mage has placed a stone on the woman my grandson cannot stop looking at.*', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'QUEEN', text: '*…I have a long search to find out which of the three was the Weaver. I have only one to find out which of the three the mage has loved.*', hold: 9000, cps: 22 },
+
+            // ─── The letter on the windowsill ────────────────────────────
+            { type: 'line', speaker: '', text: 'Caspian’s office. The light has gone the colour of bruise. The lamps not yet lit. The maps still on the desk.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the window. The eyes on the Mage Tower spire. The hour is past second bell.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A small folded paper has appeared on the wood beside Caspian’s hand. The folds are tight. The seal is the small dark lavender of the Grand Mage’s private signature, not the office.', hold: 9400, cps: 22 },
+            { type: 'line', speaker: '', text: 'It has arrived without a page. Lucien’s magic has put it on the sill.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian lifts the paper. He breaks the seal. He reads.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the queen has narrowed her hunt to the three missing from the wood. She believes one of them is the Weaver. She does not yet know which."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I have destroyed the two stones. They had been brought to her. She cannot track the favourite by them."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…the queen has read the print my locating magic left on the wards. She knows a mage has been hunting a Weaver in her kingdom. She does not yet know it was me. Any further magic of the same kind will confirm her reading."', hold: 14400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '"…I must stay low until the queen has moved her hand. Wait for word from me. Do not act against the queen openly. The patrol may continue. The mage cannot."', hold: 10400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The line lands. He has read the message twice. The hand holding the page has gone steady.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He sets the page on the desk. He has not folded it. The lavender seal catches the last of the light.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite has no protection on her. The mage cannot help her. The queen knows the mage has been hunting a Weaver. The prince is alone with one man on a horse in the eastern reaches who does not answer to magic.', hold: 13400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair. You are all of it."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The first tear has come. He has not stopped it. The prince is alone with it.', hold: 4400, cps: 24 },
+
+            // ─── The rose suite · the unlocked door ──────────────────────
+            { type: 'line', speaker: '', text: 'The rose suite at the deep hour. The lamps low. The balcony doors latched from inside. The coffer is closed. The favourite’s morning shift folded on the dressing-frame the way she did not come back to put it on.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The carafe of small wine on the side table beside the bed where Wenna set it at first bell yesterday and has not been back to clear.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The secret passage at the back wall of the suite. The corridor narrow. The single small door at the end of it. The door he has used on the nights he has come to her.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The forehead has come down to the wood. The eyes have closed. The breath has gone out against the panel.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The gesture he gives the door before he tries the knob. The man at her threshold before he is the prince crossing it.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The brass has gone the whole turn. The door has come open under his hand without sound.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you did not lock it after I left."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you have not been back since."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The door has been unlocked since he came to her two nights ago. She unlocked it for him then. She did not turn the key after he left. She rode out to the hunt the next morning and the door has held that night between its hinges ever since.', hold: 14000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has stopped just inside the room. The breath has gone out of him at the smell of her on the air.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The carved bowl with the gold pins from before the hunt. The pins lined up in the bowl the way she lines them up each morning before she chooses.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has crossed to the dressing-frame. The morning shift folded the way Wenna folded it before first bell. The shift the favourite was wearing when the silver line came through the wall.', hold: 7800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has come up to the cloth. The fingers have rested on the silk at the shoulder where her shoulder would have been.', hold: 5400, cps: 22 },
+
+            // ─── Three glasses · the balcony ─────────────────────────────
+            { type: 'line', speaker: '', text: 'The side table at the bed. The carafe of small wine that Wenna set out yesterday at first bell. Two glasses. The favourite was meant to lift one of them at the long bell of the day she did not come back.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has poured. Not one glass. He has poured into the glass the favourite would have lifted to her own mouth.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian walks to the balcony doors. He unlatches them. He steps out.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Caspian at the rail. The wine glass in his hand. The night past the rail. The gardens below. The moon a thin curve over the southern wall.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He drinks. The whole glass in three swallows.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…come back to me."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has poured again. He has come back inside. The doors he has not latched behind him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A half-bell later. The lamp lower. The carafe on the side table almost empty. The prince has sat on the edge of her bed.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The riding leathers loose at the throat. The blond at the temple not the chamberlain-combed. The blue eyes have gone the kind of soft only wine and grief together make a man’s eyes go.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand has gone to her pillow. The fingers have closed in the silk. The scent of her. The unique herbal mix no other woman in the kingdom carries on her skin.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have closed. The breath has gone in deep. The smell of her has gone all the way to the bottom of him.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady. You smell of yourself."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the scent no one else in the kingdom carries."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I cannot bear how much I have come to love this smell."', hold: 4400, cps: 24 },
+
+            // ─── The drunk confession ────────────────────────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"…I never planned this."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I never thought you would make my heart…"', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…mi’lady, I never thought."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I brought you to court to use you, mi’lady."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you were the seventh. The kingdom needed the seventh. The wards are thinning. The wood east of the city is sick. The town past the headland is bones. The dark magic is coming up under us, and you were the hand that could weave it back."', hold: 18000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…that was the plan."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…that was all the plan."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you were the asset. I was the prince. The kingdom was the thing to save. The favourite of the rose was the cover. I was going to keep you alive long enough to use you."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I fell instead."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I fell hard, mi’lady. I fell harder than I have ever fallen at anything in my life. I fell past the plan. Past the kingdom. Past the throne. I fell into you and I could not climb back out."', hold: 14000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair fell. He found you on the inland road. He has been watching the south gate every quiet hour since I demoted him. He has gone into the wood for you tonight. Alone. He fell, mi’lady. He fell first. I saw it in him before I admitted it in myself."', hold: 18000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Lucien fell."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the Grand Mage of the kingdom has just destroyed two pieces of his own life’s work to protect you. He has not destroyed anything of his own work in a hundred years. He fell, mi’lady. The mage. The one I thought no woman could reach."', hold: 16400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…none of us could stop it, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I am sorry, mi’lady. I am sorry I planned to use you. I am sorry I fell anyway. I am sorry I have brought you here, into all of this, into a wood that has taken you from me."', hold: 13400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face has stopped fighting. The body has begun to give up.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The hand has gathered her pillow against his chest. The arms have folded around it. The forehead has come down to the linen.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wine has carried him under. He has not let go of the pillow. He has fallen asleep on her bed with her smell in his arms.', hold: 6800, cps: 22 },
+
+            // ─── Alistair in the wood ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The eastern reaches of the Thornwood. The deep hour. The moon caught between the high branches. The trees stiller than they should be.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A horse moving through the trees at a walk. The horse breathing hard. The rider in dark cloth, the green cloak across the saddle in front of him.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair. The bright green eyes have not blinked for the count of the last bell. The bow has come out of its case. The arrow is nocked but not drawn.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The face has gone the kind of careful a hunter’s face goes when the hunter has been tracking a thing he does not yet have a name for.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The same flat rock Marra left her at. Alistair has reached the clearing.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The marks of feet. The marks of something dragged. The marks of something that was not a foot and not a paw. The wet black where it came through the moss yesterday.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has come down at the rock. The hand has gone to the moss. The fingers have touched the wet. The black has not yet dried. The smell is wrong. The same smell as the alley.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…the same as the alley."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…wounds."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The moss past the oak. A long furrow where something was dragged in. The moss closed over it. The shape of a foot at the edge.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…the captain. The trainer. Both taken here."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The hand has gone to the place at the moss where a cloak fragment is still caught at the sapling. Cream and silver. Halvern’s. The captain’s gold chain catches the moon.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…the favourite is not here."', hold: 2400, cps: 28 },
+
+            // ─── The bootprint trail ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The trail of the deeper wood opens past the oaks. A second furrow, lighter than the first. A bootprint at the edge of it. A favourite’s bootprint.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The shape of the heel. The depth of the run.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…she ran. She was not taken. She ran."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…thank the wood for that."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The deeper wood past the clearing. The trees thicker. The moonlight thinner. The trail going in.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has gathered the green cloak across his saddle. He has remounted. The bow up.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…the wound that took the captain is in here.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…the wound that took the trainer is in here.*', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…you are in here, mi’lady.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '*…one of them will find you before the other. I will make sure which.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair on his horse riding into the trees. The bootprint trail in front of him. The green cloak across the saddle in front. The bow up. The moon catching the burnished armour through the cloth.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The dark of the wood swallowing him in.', hold: 2800, cps: 26 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(30); setCurrent(nextIdAfter(30));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 31 · "The Wood Observes From the Outside"
+    // Owner PDF Ch31. Three parts. Morning — she wakes in Elian’s
+    // hut. The bandage. The argument: "I have buried two of you in
+    // the moss. I will not kneel at a third." Noon — Elian goes for
+    // food; the wood hides the hut from Alistair riding past. The
+    // bath: "the warden does not trust the floor to stay under an
+    // injured Weaver." She weeps in the heat; he stands his wall at
+    // the door and does not look. Afternoon — the captain finds the
+    // edge of the warden’s wood. An arrow in the ground a hand’s
+    // breadth from his foot. "You failed to keep her safe, knight."
+    // "I will not give her up." The warden reads the love on his
+    // face. Laughs once. "Then the wood accepts your challenge,
+    // captain. Find her."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 31,
+      title: 'Chapter 31',
+      subtitle: 'The Wood Observes From the Outside',
+      teaser: 'Then the wood accepts your challenge, captain. Find her.',
+      charId: 'elian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_31_full',
+          title: 'Chapter 31',
+          subtitle: 'The Wood Observes From the Outside',
+          speaker: 'ELIAN',
+          palette: { bg: '#0c140e', glow: '#5a8a4a', accent: '#a8c890' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── Morning · the hut · waking ───────────────────────────────
+            { type: 'line', speaker: '', text: 'The kingdom at the same morning. The morning the queen has called her hunt and sent her search out across the kingdom. Her riders on the roads. Her word in every gate town. The eastern reaches dark and folded under the same light, the wood she has sent them to comb.', hold: 14000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The far side of that same wood. Past the lines the search will walk. Past a fold no map has ever held. Deep in the green where the queen’s riders will turn back without knowing why, a hut the wood keeps hidden.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The morning the day after the hunt rode out. The smoke from the chimney thin and grey.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The inside of the hut at mid-morning. The fire low. The light at the window the grey-gold of a day already old. The pot at the iron hook. Elian’s bow back on the wall, strung now. The favourite in the bed, the dark blanket to her shoulder.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You wake. The eyes open to a ceiling of rough beam. The smell of woodsmoke and crushed green. For one breath you do not know the room.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Then the body remembers. The wood. The wound. The running. The hand at your back that did not reach you in time.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grief has come back before the mind has. The grief lives in the body first.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…Marra.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Elian at the hearth. He has not turned. He has heard the breath change. He knows the difference between a sleeper’s breath and a woken one.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…grief stays a long while."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…let it. It will make you stronger than it found you."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The words land the way the warden’s words have always landed. Flat. True. Without a hand held out after them.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grief has not gone. It has been given somewhere to sit.', hold: 3400, cps: 26 },
+
+            // ─── "You found me in the wood" · the forest whispers ────────
+            { type: 'line', speaker: '', text: 'You push up against the headboard. The body protests. The shoulder, the ribs, the long line down the side where the wound caught you.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you found me in the wood."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…a good deed goes to the forest. The forest whispers it back."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…right. Right. The forest."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Elian crossing to the bed. A wooden cup in his hand. Something dark in it that steams. He sets it within your reach and steps back before you take it. The old habit. The accidental touch he does not trust himself with.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You drink. You do not ask what it is. You have learned that much about this hut. The warmth goes down. The pain at your side loosens the smallest amount.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…you saved me again. I do not think I ever said thank you."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you did. You are badly hurt from the fight, Weaver. The wounds want tending."', hold: 5400, cps: 22 },
+
+            // ─── The bandage · "the forest whispered that you tried" ─────
+            { type: 'line', speaker: '', text: 'Elian unrolling the cloth at the edge of the bed. The bandages laid out. A small clay pot of the green he crushes himself.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you fought hard. The man got what he deserved."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cup has stopped at your lip. The body has gone still.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…the forest whispered that."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the forest whispered that you tried."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Elian drawing the blanket back from your side. The shirt he has put you in, his own, parted at the wound. The bandage from the night gone brown.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I thought you were kept safe. Living the beautiful life. The favourite of the prince."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…if you mean the food and the dresses and the bed, yes. I was living for it."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…but it seems you have been misinformed on a great many things, warden."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…my forest observes you from the outside, Weaver. Not from within."', hold: 4800, cps: 22 },
+
+            // ─── "It was one of the queen's pawns" · "you knew" ──────────
+            { type: 'line', speaker: '', text: 'The wound revealed. Long. Angry. Not as deep as it wanted to be. The favourite looks at it the way one looks at a thing that belongs to someone else.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the thing that attacked me. It was one of the queen’s pawns."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…it was. The shape said as much."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…you have not changed. Thank you for that."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…why would I have changed."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…it was a compliment, warden. Take it."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks at you a long beat. He says nothing. He goes back to the wound.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…I did not plan to hurt anyone. Not like this."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…in life you will be hurt, and you will hurt others. Right now be grateful you are not in the queen’s hands."', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The body goes rigid before the mind catches up. The cup comes down hard on the blanket.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…you. You bast…"', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…you knew about the queen."', hold: 2400, cps: 28 },
+
+            // ─── "I will not kneel at a third" ───────────────────────────
+            { type: 'line', speaker: '', text: 'He has finished the knot. He sits back on his heel. He does not look away from you now. Something has come up behind the calm that the calm has held down for eleven years.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I have. I deserve the insult for keeping it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I have buried two of you in the moss by that creek. I have knelt at two stones and told them I was sorry I brought them here."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I will not kneel at a third. Do you understand me, Weaver. I will not do it again."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I sent you to the singer to keep you out of all of this. Not to be paraded at her court. Not to be hunted through my own wood."', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…then maybe you should have told me what I was running toward. If you had warned me, plainly, I would never have gone anywhere near her court."', hold: 9400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I showed you two graves, Weaver. I knelt at them in front of you. It is not my fault you did not understand that this kingdom takes Weavers and buries them in the moss."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…pardon me. Are you saying I was not capable of understanding two stones in a clearing. That was not clear, warden. Two graves and a silence is not a warning. You should have told me."', hold: 12000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…two of you in the ground was not warning enough."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…how much plainer did you need it, Weaver."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I thought the singer would have more sense than that."', hold: 3800, cps: 26 },
+
+            // ─── "They were using you" ───────────────────────────────────
+            { type: 'line', speaker: 'YOU', text: '"…the truth, warden. She tried to keep me in the cave. She would not let me leave."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…I chose the castle. I went to find what I am. Who I am. It was hard to get any of it. But there were people there who tried to protect me too."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…they were using you."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the prince and the mage. Yes."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The fire between you. Neither speaks.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you have met the queen herself."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…yes."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…how did you pass under her eye without being found."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand going to your wrist. The wrist is bare. The fingers close on nothing. The band is not there. The body reaches for it before the mind remembers the wood took it.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the grand mage made a stone. I think it hid what I am."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…that is a strange thing for him to do."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I think he saw the singer’s bracelet first. I think he set the stone in it believing she was the one protecting me."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…it is gone now. The band snapped in the wood. The stone went into the moss. I do not have either anymore."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…that is out of his character."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…but it was a good move. Whatever he meant by it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…and now you walk the wood with nothing hiding you at all. Weaver."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '"…no. Nothing at all."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…did you find your answers, then. For all of it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU',   text: '"…not much. I wish I knew more."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…they are keeping things from you."', hold: 2400, cps: 28 },
+
+            // ─── "I keep it because I do not want to grieve again" ────────
+            { type: 'line', speaker: 'YOU', text: '"…like you, warden. Everyone keeps things from me. No one tells me the truth. They gave me a stone and a bracelet and a beautiful room, and they kept the truth."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…not for the same reason."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…they keep it to use you. To mend Aethermoor with your hands. I keep it because I do not want to grieve again. I do not want to dig a third grave."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The words hang in the small room. The fire pops once.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The anger has spent itself against the truth on both sides.', hold: 3000, cps: 26 },
+
+            // ─── Noon · the wood hides the hut ────────────────────────────
+            { type: 'line', speaker: '', text: 'He has turned away first. He has taken his bow from the wall, then thought better of it and left it leaning.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…it is near noon. I will get food."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The quiet has come back between you, and you let it. He goes out. The latch settles behind him.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wood outside the hut. The trees folded close. The light noon-flat through the canopy.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wood at the eastern edge. The wind that is not wind moves through the trees. A track far off. A figure on it. Fair hair. Eyes the green of the wood he has ridden into.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian standing among the trees. He has felt the wood report it. He does not hurry. The corner of his mouth does the dry thing.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '*…the wood has always hidden this hut. It will keep hiding it.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The trees closing the line of sight. The hut is not there. The hut has never been there. The wood folds the way the wood folds for him.', hold: 7400, cps: 22 },
+
+            // ─── Food · grief at the lap ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The door opening. Elian back, a cloth bundle in his hand. Bread. Something cured. A handful of the small dark berries that grow where he lets them.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The two of you eating. In silence. The silence is not the angry one now. It is the lived-in one from the south road, the one that does not ask to be filled.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite alone in the hut. The fire. The quiet. The body that has begun, the smallest amount, to be a body again instead of a wound.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hands in your lap. They have stopped shaking. You noticed it only now.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…Marra.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…you put a fallen branch in your hands. A trainer of court manners. You swung it at a man twice your weight.*', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…for me.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…three months at your shoulder and I never asked your first name. You fixed my posture and my forks and my curtsey and you never once made me feel small for not knowing. And I let you stay the trainer. I never asked your name.*', hold: 15000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…you shouted for me to run. So I ran. I left you in the moss and I ran.*', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes have filled. The court taught you to weep without sound, and the training holds even here. You press the back of your hand to your mouth. You put it down. You hold.', hold: 9000, cps: 22 },
+
+            // ─── The bath · "the warden does not trust the floor" ────────
+            { type: 'line', speaker: 'ELIAN', text: '"…I have drawn a bath. Herbs in it. For the pain you are still carrying. It will help you sleep."', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you, Elian."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not ask. He gathers you up, the blanket and all, the way a man lifts a thing he has decided not to let fall.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your face against his shoulder. He smells of green and smoke and the cold clean of the creek. The body remembers being carried by him. The body remembers being carried twice.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not let yourself think about the last man who carried you through a quiet place in silence. You do not entirely succeed.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The small back room. A wooden tub. Steam off the water. The dark green of the herbs turning the surface. A stool. A folded cloth.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A hand at your arm until the legs decide to hold. Then the hand gone.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Elian turning his back. Fully. To the door. The set of his shoulders the set of a man making himself a wall.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I will be on the other side of this. Call if the water turns the legs to water."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the warden does not trust himself to face a tub."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the warden does not trust the floor to stay under an injured Weaver."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU',   text: '"…that was not a no, warden."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…get in the water, Weaver."', hold: 2200, cps: 28 },
+
+            // ─── The weeping in the heat ─────────────────────────────────
+            { type: 'line', speaker: '', text: 'The favourite lowering into the bath. The shirt left on the stool. The heat closing over the wound. The breath that goes out of you when the pain lets go of its grip for the first time since the wood.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your head back against the rim. The eyes closed. The herbs working at you. The warden a wall of back two paces away, present, turned, saying nothing.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'In the heat, with the walls all the way down at last, the thing you filed away in the front room comes back up, and this time it does not file.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…Marra.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The court tears, the silent ones, are not what comes. The other kind comes. The breath breaks on the way out.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian’s back at the door. He has heard the breath change. He knows the difference between a woman resting and a woman breaking. He does not turn. He does not fill it with words.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the water is a good place for it. No one has to see."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The permission undoes the last of the holding. You weep into the heat with your knees drawn up, the way the body has wanted to since the moss, and the warden stands his wall at the door and lets you.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The eyes on the middle distance. A man who has stood this exact watch before, for two women now under the moss by the creek. He does not turn. He does not let you see his face. His face is doing the thing he will not let you see.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The water going still as the weeping slows. The grief has not gone. The grief has been let out for the first time, in a warm place, with a man at the door who knew not to look.', hold: 9000, cps: 22 },
+
+            // ─── Dressing · sleep ────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'A folded set of his own clothes left at the stool without comment. He has gone out to the front room while you dress.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You in his shirt, too large, the sleeves turned twice. The smell of him in the cloth. You do not examine why the smell is a comfort.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian returning, an arm offered without a word. You take it. He walks you back to the bed.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…sleep. The wood is watching the door."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The last thing the eyes find is the warden’s back at the hearth, banking the fire low.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The favourite asleep. The breath even. The hands open for the first time since the wood.', hold: 4800, cps: 22 },
+
+            // ─── Afternoon · Alistair · the arrow ─────────────────────────
+            { type: 'line', speaker: '', text: 'Elian at the door. He has waited until the breath was the breath of true sleep. He takes the bow. He strings it at the threshold. He goes out into the green.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The deep wood, a long way from the hut. Noon gone to afternoon. The light in long bars through the trees.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair under an oak. The green cloak across the saddle behind him. The horse cropping. He has sat to rest. Hard bread and cured meat in his hand. The face of a man who has been riding since the dark.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has let the sword lie across his knees. The eyes still move over the treeline out of habit. The wood gives him nothing.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'An arrow stands in the earth a hand’s breadth from his foot. Still humming.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair already up. The bread gone into the dirt. The sword out and level. The pose the kingdom trained into him and the wood has not taken back.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian on a rise among the roots, the bow already lowered, a second arrow not nocked. He did not miss. He was never going to hit.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you have come a long way. Captain who has lost his post."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…the legendary warden. It is an honour."', hold: 3000, cps: 26 },
+
+            // ─── "You failed to keep her safe, knight" ───────────────────
+            { type: 'line', speaker: '', text: 'Elian coming down the slope a few steps. Unhurried. The wood moving aside for him the way it never will for the man below.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you must be lost, to have come this far into the wood."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…my apology for troubling your wood, warden. I am looking for a lady. She matters to the kingdom."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…she does. You failed to keep her safe, knight."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The words land where they are aimed. He does not look away from them.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you know her."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN',    text: '"…go back the way you came."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…you have her."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…this wood has kept me hidden for longer than your kingdom has known your name. It does not welcome you."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…I will not give her up."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has gone still. A long beat. The warden who reads tracks and weather and the intent of a wound has just read the thing standing in front of him, and the thing is not a knight on an errand for the kingdom.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has seen it. The man below loves her. The warden has buried two of them. He knows what the love looks like on a man’s face. He is looking at it now.', hold: 9000, cps: 22 },
+
+            // ─── "The wood accepts your challenge, captain. Find her." ───
+            { type: 'line', speaker: '', text: 'The stillness breaks. He laughs. Once. Short. Not unkind. The laugh of a man who has just understood the size of the thing he has stepped into.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…so."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…then the wood accepts your challenge, captain. Find her."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The sword stays where it is. He does not understand the laugh. He understands the last word.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Elian turning. The bow already going to his shoulder. The back already to the knight.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Elian walking into the green. The trees folding behind him the way they fold for no one else.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The knight below, the sword in his hand, the cloak on the saddle, watching a warden disappear into a wood that has just told him to come and try.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The place where Elian was. There is no path. There was never a path.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The wood closing. The last of the green takes him. The afternoon goes quiet. The wood keeps its hut, and its Weaver, and its long old grief, somewhere the knight cannot yet see.', hold: 10000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(31); setCurrent(nextIdAfter(31));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 32 · "Two Graves By the Creek"
+    // Owner PDF Ch32. Castle dawn — Alistair rides to the inner gate
+    // for a private audience. Wenna finds the prince asleep in the
+    // favourite’s bed, lies to the chamberlain for him, wakes him
+    // with the remedy. Office: "she is with the Forest Warden." The
+    // passing-scroll. "I will find a way to put another name in the
+    // queen’s mouth before she opens it." THE WOOD — Elian carries
+    // her to the clearing. Veyra of Nocthera. Six hundred years ago.
+    // Her last kiss: "the wood is not going to be enough this time."
+    // Wren of Marenhold. Three hundred. The darker magic at the edge
+    // of the green. "I knelt at this stone." She lays her hand on
+    // his shoulder. The seventh-light comes up — her first conscious
+    // Weaver-working — and lands on the place his grief lives. "I
+    // will try not to hide anything from you again."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 32,
+      title: 'Chapter 32',
+      subtitle: 'Two Graves By the Creek',
+      teaser: 'I will try not to hide anything from you again.',
+      charId: 'elian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_32_full',
+          title: 'Chapter 32',
+          subtitle: 'Two Graves By the Creek',
+          speaker: 'ELIAN',
+          palette: { bg: '#0c140e', glow: '#5a8a4a', accent: '#a8c890' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── The dawn rider ───────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The castle at the earliest hour the light has a colour. The east still the grey before colour. The west still the blue before the moon goes. The gate guards changing. A single horse on the long road from the south.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Fair hair under the cloak hood. The green of the riding cloak gone darker with the wet of the night. Alistair. Two days unwashed. The face of a man who has not slept enough hours together to count.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'At the inner gate. He has not given his name. The guard knows it. He gives it anyway.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…Alistair, of the south gate. A request for a private audience with his highness."', hold: 5400, cps: 22 },
+
+            // ─── The office · Alistair waits ──────────────────────────────
+            { type: 'line', speaker: '', text: 'The prince’s office at the same hour. The light grey at the high windows. The desk where Caspian broke a candlestick yesterday cleared and re-set. The ink stand back in its place.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Alistair at the centre of the room. Standing. The hood down now. The cloak left at the rack outside. The sword at his hip the way the kingdom requires it. Nothing else of him polite.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"…his highness will be with you presently. He has been at his studies through the night. I will fetch him."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…thank you. I will wait."', hold: 2400, cps: 28 },
+
+            // ─── Wenna covers · "your highness, you owe me this one" ─────
+            { type: 'line', speaker: '', text: 'The corridor outside the prince’s wing. The chamberlain at a near-run, the way a senior man of the household does not run except when the kingdom is shifting under his feet.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince’s bedchamber door. A knock. No answer. A second knock. He cracks the door. The bed is made the way no one has slept in it. The blue dressing-coat is on its peg the way no one has taken it down.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His prince was not here last night.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The lady’s-maid Wenna in the corridor at the favourite’s wing. A folded shift in her arms. A small kettle. The chamberlain rounds the corner half at a run and almost takes her down.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"…Wenna. The prince. Where is he."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'She is the daughter of a maid and the granddaughter of a maid. She is loyal to her prince before she is loyal to the truth.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…his highness has been in the library since well before the bell. Whatever has the chamberlain at a run."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'CHAMBERLAIN', text: '"…the rider from the south gate is in his office. He is asking for an audience."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…go back. I am at his hour now. I will inform his highness and bring him to his office."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has just lied to the head of the household for her prince. Her face has not changed.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'WENNA', text: '*…your highness, you owe me this one.*', hold: 3000, cps: 26 },
+
+            // ─── The rose suite · prince asleep · the remedy ──────────────
+            { type: 'line', speaker: '', text: 'The rose suite. The lamps out. The morning grey through the balcony. The carafe on the side table empty. The two glasses where Caspian left them. The bowl of pins on the bedside table. The bed.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The prince of Aethermoor asleep on his lover’s pillow. The cloak still half-on. One boot off. One boot still at his foot. The fair temple ink-stained from yesterday’s break. The blue eyes shut.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Wenna at the bedside. The shift folded onto the dressing-frame without sound. The kettle set down. She has stood at this prince’s bed since he was a boy with a fever. She has never stood at this prince’s bed in this room.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has decided two things at once: she will protect what she has seen, and she will get her prince out of this room before any other person in this castle finds him in it.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does not wake. The breath does not change. He has not slept like this in days and the body has him deep.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…your highness. You are needed."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…let me sleep, Wenna. A little more."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'WENNA', text: '"…Alistair is in your office, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The name lands. The body comes up before the eyes have all the way opened. The hand braced on the bedside table almost knocks the bowl.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair. Here. In the castle."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'WENNA', text: '"…yes, your highness."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…did he come back with her."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'WENNA', text: '"…I do not know, your highness. He has asked for an audience. I have not seen who he has with him."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…I have told the chamberlain you are in the library, your highness. He believes you have been there since before the bell."', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Wenna. You have saved me."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'WENNA', text: '"…his highness has not slept here. His highness slept in his own bed last night. The household has a long memory and a longer mouth. I will see to it that what they remember is what we choose."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'WENNA', text: '"…shall I bring a remedy to the study, your highness."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you will. Thank you."', hold: 2200, cps: 28 },
+
+            // ─── The audience · "she is with the Forest Warden" ──────────
+            { type: 'line', speaker: '', text: 'Caspian a quarter-bell later. Washed at a basin. The hair combed back. The ink at the temple gone. The wine-and-gold ridden out of his clothes and the slate-grey study coat on. He looks like the prince his kingdom expects to see.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hope has been pulled under the prince’s expression. It has not gone away.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair. Out, please, chamberlain. We will not be needing tea."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you have come back without her. Have you failed your task, Alistair."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He does not flinch from it. He has been preparing this sentence for half a day’s ride.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…my deepest apologies, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…I have come back with news of her."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…news."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…and to ask for reinforcement, your highness. And for equipment. To go back."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…you have not found her. You ride out at sunset on my secret order, alone, on the best track this kingdom has, and you come back at dawn empty-handed and you ask for more men and more gear."', hold: 14000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…do you lack the skill, Alistair. Is that what you are telling me. That you do not have what it takes to find one woman in one wood."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…it is not the skill, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"…not the skill. Then what."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…I know where she is, your highness."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN',  text: '"…you have found her."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…I have not found her, your highness."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…she is with the Forest Warden, your highness."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He has sat back in the chair. The hand has come up to his face. Both hands. The fingers over the eyes. He stays that way a long beat.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A knock at the door.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…come."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'WENNA', text: '"…your highness’s remedy."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…bless you, Wenna."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'One swallow. The face flickers around the taste. The second swallow goes down easier. A small bow. Out. The door pulled to.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…forgive that. I needed it."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the Forest Warden. She is with the Forest Warden."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…the wood will not let me through to him. Not without the right hand on the right token. The track to his hut closes behind him for any feet but his own. That is why I have come back."', hold: 14000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The smile that has not been on his face in two days does the smallest of things. It is not joy. It is the relief of a man who has been told the woman he loves is in the only place in the kingdom the queen cannot reach.', hold: 12000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…that is wonderful news, Alistair. That is wonderful news."', hold: 4400, cps: 24 },
+
+            // ─── The passing-scroll · "I will be exact" ───────────────────
+            { type: 'line', speaker: 'CASPIAN', text: '"…you will have everything you ask for. Every man you can use without drawing attention. Every blade. The tower’s own salts and stones if you need them. The mage cannot send them himself, but you can take them in your saddle and the wards will not read your hand on them."', hold: 18000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian crossing to the locked drawer of his desk. Key in the lock. The drawer slid out. From it, a small folded parchment with a seal of black wax.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…and you will take this."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The crown’s mark over a script that is older than the crown.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…a passing-scroll. My grandfather’s. It opens once. It returns to the place it was opened from. Use it to bring her home the moment the Warden lets her be brought."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…one thing more, Alistair."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…the queen has narrowed her hunt to three. The favourite is one. I cannot leave her named. I will need a different hand to be the one the queen finds."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…your highness."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…I do not yet know how. I do not yet know whom. I know that if the queen does not have a Weaver to name within the next moon, she will come for my favourite by name. I will not let her. I will find a way to put another name in that mouth before she opens it."', hold: 18000, cps: 22 },
+            { type: 'line', speaker: 'ALISTAIR', text: '"…your highness will be careful."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…no, Alistair. I will not. I will be exact."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…go. Eat. Sleep an hour. Take what you need from the armoury under the captain-of-watch’s seal. Be back in the wood by the long bell."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…Alistair. Bring her home to me."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The prince who has just decided to spend an innocent name to save the woman he loves does not look at his own hands.', hold: 6000, cps: 22 },
+
+            // ─── The hut · "I do not know what I am" ──────────────────────
+            { type: 'line', speaker: '', text: 'The Thornwood at the same morning. The sun an hour higher than it was at the castle window. The light through the canopy in long green bars. Birds going at it overhead in the rude indifferent way of birds who have not lost anyone in the night.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite at the threshold. The shirt of his still too large at her shoulders. The legs not entirely under her yet. The bandage at her side careful and clean.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The first daylight you have stood in since the wood took you down. The light goes too bright a breath and then the eyes settle.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You crossing to the fallen log a little way from the door. The limp careful. The hand at your side. You sit. You breathe.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hands on your knees in his too-large shirt. The bare wrist. The pale line where the band used to sit.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…I do not know what I am.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*…the singer said seven. The mage said the seventh has not been written. The prince said the kingdom needs me to mend the wards. The warden has buried two of me. Marra threw a branch at a man twice her weight and I do not know what for, because I do not know what I am.*', hold: 21000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grief is there. The guilt is there. The not-knowing is the hardest of the three.', hold: 4400, cps: 24 },
+
+            // ─── Elian carries her to the graves ──────────────────────────
+            { type: 'line', speaker: '', text: 'The wood behind the hut. The green parting without sound. Elian. The bow on his back. A cloth bundle of small early greens at his belt. He has stopped at the line of the trees because he has seen you.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The warden who said yesterday he had already started grieving you sees you sitting on his log in his shirt and decides something.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian crossing to you. The step quiet. The favourite catches the movement only when he is two paces from her.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…what the…"', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I am taking you to the graves."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The arms close. He has lifted you the way a man lifts a thing he has decided not to let fall.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian walking with you in his arms. The path through the green that is not a path. The trees moving aside for him the way they move aside for nothing else.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your head against his shoulder. The body does not have the energy to be careful. It rests. The cheek finds his collarbone through the green homespun and the body recognises the smell.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…green. Smoke. The cold clean of the creek. The smell of the wood that became a man and the man that became a wood.*', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grief from last night has not gone but it has somewhere to be in this carry. He smells like a place the grief is allowed.', hold: 5400, cps: 22 },
+
+            // ─── The clearing · the two stones ────────────────────────────
+            { type: 'line', speaker: '', text: 'A small clearing further into the wood than you have been. A creek at the far edge of it. Two stones in the moss. Both worn. One mossier than the other. The grass around them not the grass of a place that has been left. The grass of a place a man has knelt at, regularly, for a long time.', hold: 16000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian setting you down beside the stones. Not at them. A short distance from them. He gathers a small section of log over with one arm and sets it for you. He puts a mug into your hand without asking. Steam off it. The dark herbal smell.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…drink."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sits beside you on the log, not facing the graves, not facing you. Halfway between. The way a man sits when he is about to tell a story he has not told.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hands of a man who has dug two graves with them.', hold: 3000, cps: 26 },
+
+            // ─── Veyra · six hundred years ago ────────────────────────────
+            { type: 'line', speaker: 'ELIAN', text: '"…the first stone is Veyra. Six hundred years ago."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'The mug has stopped at your lip. The tea has gone the wrong way down the throat. The cough comes.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…six. Six hundred."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…Elian. You are that old."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…do you want the story or not."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You nod twice fast. The mug coming up to your mouth as a silent promise that you will not interrupt again.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…long enough that the math does not interest me anymore. Long enough that what comes next is what matters."', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…let me give you the story."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…Veyra. High noble of Nocthera, the kingdom east of where the eastern reaches still smoke. She was young and she was naive and she was the first thing I ever loved. She loved the wood."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…she would slip out of her kingdom and come into my wood and find me. Always found me. The wood let her. The wood liked her."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…her power had a pull on it. I did not know the word Weaver then. I did not know there was a word. I only knew that the air around her hummed the way the air around the loom hums when a thread is being chosen."', hold: 16000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…her kingdom did not approve. My people did not approve. We were forbidden to either side. We did not care. We were young and we were stupid and we believed the wood would keep us."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…one day she came to the wood and she would not sit. She told me she had been forbidden to come again. That she had been threatened with a thing she would not name to me. I asked her with what. She would not say. I asked her by whom. She would not say that either."', hold: 19000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…she put her mouth on mine. She said I am sorry, Elian. She said the wood is not going to be enough this time. And then she left the trees."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…that was the last of her I had."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…years went. I was young. I did what young men do. I taught myself the wood. I learned to listen for the whispers. I asked the wood for word of her, when I could not stop myself."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the wood told me she was well. She had taken a new lover. The wood did not lie. It does not lie. It does not always tell you the things you need."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…years more went. I built this hut. I learned the wood was teaching me to be one of its own quiet kinds. I stopped asking after her. I let her be the woman who had loved me when we were both children."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the wood woke me past the middle of a night. It told me there was a body on Aethermoor’s ground at the edge of my wood. It was someone I had loved."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I walked there. She was where the wood said she was. On the dirt. No one had taken her. There had been a fight. Two kinds of magic on the ground, one I knew the shape of from the wood, one I had never seen. Darker. Stronger. Older than anything the wood had a name for."', hold: 22000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I do not know who fought for her. I do not know what happened. I know that someone tried. I know that someone failed. I picked her up. I carried her here. I dug this hole. I put her in the moss."', hold: 14000, cps: 22 },
+
+            // ─── Wren · three hundred years ago ───────────────────────────
+            { type: 'line', speaker: '', text: 'The tears have come. You have not made a sound. The mug has come down to your lap because the hands are not steady enough for it.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is taking the breath before the second stone. The lichen on it lighter. Younger.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ELIAN', text: '"…Wren. Of Marenhold. Three hundred years ago."', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…Marenhold was a small kingdom in the south. Her village was Willowmead. The kingdom burned in a single season. The village burned with it. She was the only thing that walked out of Willowmead with breath in her."', hold: 16000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the wood found her. It guided her to me. She came to my door already half-dead and asked for help. I gave her what I had. I learned what she was, watching her with the wood. The wood was not unsettled by her. The way it had been with Veyra. The way the wood is with a Weaver."', hold: 21000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…we lived as husband and wife. Quietly. Years. She was kind in a way that does not exist much. She would not pass a hurt creature on a path. She would slow down for a beetle in her road. I have not since met another like her."', hold: 15000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…one morning she needed something from a village near the east. She had gone many times. The wood had always brought her back. I let her go."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the wood sent word to me by mid-day. Word that the same kind of magic that took Veyra had come into the edge of my wood. I rode."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I fought what was there. It was not a thing I could fight. It set its hand on my wood and the wood went still around me. I went down with it."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I woke at the edge of my own wood with the wood crying around me. The wood told me where she was. The Aethermoor ground at the edge of the green. No one had taken her. They had left her where she was to be left."', hold: 16000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I picked her up. I carried her here. I dug this hole. I knelt at this stone."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I told her she had been kinder than I had earned. I told her she had been the part of me that was not the wood. I told her the ground would not take a third from my hand."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…that was three hundred years ago. I have not loved another. I have not let one near me long enough. The wood has been my company. The wood has been enough."', hold: 12000, cps: 22 },
+
+            // ─── Her hand · the seventh-light ─────────────────────────────
+            { type: 'line', speaker: '', text: 'The tears have not stopped. You have not interrupted once. The hands have come together in your lap.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is still not looking at you. He will not. He has not given his face to anyone in three centuries and he is not going to give it to you now, even with you weeping beside him.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your hand has moved before the mind has decided what it is moving for. It has crossed the small space between you and gone to his shoulder.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The shoulder does not move. The breath does. The breath that does not move in this man has come in.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand under the cloth has gone the smallest amount warm. Then warmer. Then warmer than it should be.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A light is coming up under your palm. Not lamp-light. The other light. The colour the loom-light was in the cave. The seventh-light. It has come without your asking.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Something is happening under it that you have not done before. The light has gone into him. The light has found the place his grief lives. The light has begun to do something there.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*…oh.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has not turned to look at you. He has gone very still. His hand has come up across his body and laid itself over yours on his shoulder. The wood-rough warden’s hand on top of your light-warm one.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The dry corner of the mouth has moved. The eyes have gone wet the way a man’s eyes go wet who has not let them do it in three hundred years.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…thank you. For that."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I will try not to hide anything from you again."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…I have many things to ask, Elian."', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '"…but they can wait. Not now."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The two of you on the log, beside the two stones, the creek running, the wood quiet around the warden and the seventh Weaver and the place he has knelt twice and refused to kneel a third time.', hold: 12000, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(32); setCurrent(nextIdAfter(32));
+        if (onDone) onDone();
+      }
+    }
+
+    ,
+    // ──────────────────────────────────────────────────────────────────
+    // CHAPTER 33 · "The Globe at the Window"
+    // Owner PDF Ch33. The queen’s bone-globe catches a point of
+    // light — the seventh’s healing of Elian. "All this care to hide
+    // you, my dear, and you have lit yourself in my hand." The
+    // wagon rolls east. The hut — "old grandpap" / "do not
+    // underestimate the old." The Weaver lesson — *Aethermoor needs
+    // you because Aethermoor cannot make you. The Deep does not
+    // grow Weavers here.* Her hand in his hair. "Elian. The page."
+    // Three knocks. Lyra at the door. "You have been tracked. We
+    // have to move." Elian into the deep wood with her — "the far
+    // way, the one I do not use." Lyra at the hut, burning every
+    // cloth that touched her, the cave-song low in her throat.
+    // Caspian and Lucien watch from their windows. Queen at the
+    // globe: "the road runs out of someone else’s country."
+    // ──────────────────────────────────────────────────────────────────
+    {
+      id: 33,
+      title: 'Chapter 33',
+      subtitle: 'The Globe at the Window',
+      teaser: 'The road runs out of someone else’s country.',
+      charId: 'elian',
+      play: async function (onDone) {
+        await runCard({
+          id: 'chp_33_full',
+          title: 'Chapter 33',
+          subtitle: 'The Globe at the Window',
+          speaker: 'ELIAN',
+          palette: { bg: '#0c140e', glow: '#5a8a4a', accent: '#a8c890' },
+          bg: null,
+          beats: [
+            { type: 'show', pose: '', wait: 700 },
+
+            // ─── The globe · the queen ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'A chamber the kingdom does not know exists. High in the queen’s wing, walled in black silk and windowless. At the centre, a globe of bone-pale glass the size of a man’s skull rests on a stand of dark wood. A faint thread of light moves through it, slow, the way a fish moves through black water.', hold: 17000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Aenor alone with the globe. Her hands clasped at the small of her back. The smile she wears for courtiers is gone, since no courtier is here to see her.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The thread catches, flares, lights. A point of brightness opens deep in the bone-coloured dark and holds.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'AENOR', text: '"…there you are."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her hand slides to a small mark cut into the stand. The wood beneath her fingers warms to the same pale light as the globe.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'AENOR', text: '"…all this care to hide you, my dear, and you have lit yourself in my hand."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The point of light is a place. The place is a wood. The wood is east.', hold: 4400, cps: 24 },
+
+            // ─── The wagon rolls east ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The queen’s wing courtyard a half-bell later. A wagon at the cobbles. Riders mounting. Black livery under grey cloaks for the look of nothing at all. The captain of the advance takes a sealed token in his glove and pockets it like a coin.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'ADVANCE CAPTAIN', text: '"…east. The Thornwood line. Quietly. We carry the wagon empty. We will not carry it empty home."', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wagon-bed. Empty. Lined with the kind of cloth the queen uses to bring a thing back without bruising it.', hold: 5800, cps: 22 },
+
+            // ─── The hut · "old grandpap" ────────────────────────────────
+            { type: 'line', speaker: '', text: 'The small clearing by the creek. The two stones. The log. The mug in the moss where you left it. The afternoon higher than it was when he carried you in.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian gathering you back up off the log. Not asking. The same way he carried you in.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hut from the trees, smoke gone faint, door propped. He sets you in the chair by the hearth, not the bed. Closer, and the right seat for a Weaver who will be sitting up a while.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The grief from the graves has not gone out of you, but something else has come up on the carry back and wants its turn.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…so."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…you are that old. Six hundred years. Possibly more."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'ELIAN', text: '"…yes. And more."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I knew you were old. I did not know you were this old."', hold: 4000, cps: 24 },
+            { type: 'line', speaker: 'ELIAN', text: '"…I will take that as a compliment."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…take it as you like, warden. It does not change the fact that you are old enough to be the great-great-grandfather of every man at court."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…will you stop with my age."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…I cannot. I am still recovering from the shock of it, Elian. Your face and your shoulders and the rest of you do not match the math."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…then I take it the rest of me is pleasant enough to look at."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The flush you have not had on your face since the gardens last summer rises in you anyway. You hold his eye.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…so we are going there."', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…let me be plain about it, warden. It does not change the fact that you are old. Old grandpap."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The laugh that comes out of him is not a sound you have heard out of him before. Short. Real. The wood-rough register cracking around it.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…do not underestimate the old. The body has had a long time to learn what it is for."', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you would be surprised, Weaver."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The flush travels from cheek to throat to where the shirt loosens at the collarbone. Princes have had their hands at this collarbone, and your skin has never gone this colour for them.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…rest, Weaver. I will bring your remedy. You still need to heal."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…you set yourself up to tease him out of the grief and he hit you back at the throat.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*…you are not sure you mind.*', hold: 2400, cps: 28 },
+
+            // ─── Caspian's window · "she is moving" ───────────────────────
+            { type: 'line', speaker: '', text: 'The prince’s wing of the castle. The same afternoon. The high window above the south road shows a sky that has not committed to anything.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Caspian at the sill. The prince’s bearing is back over the exhaustion underneath it. The eyes are on the south road.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'A column of riders going at a hard pace south. The fair head at the front. The green cloak across the back of the lead saddle. Alistair has been at the armoury, has eaten, has not slept enough, has gone.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '"…bring her home."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The queen’s wing courtyard, just visible from this window if a man knows where to look. A wagon under a grey tarp. Riders in black under grey cloaks. The kind she sends when she does not want to be seen sending them.', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'CASPIAN', text: '*…she is moving.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The blue eyes have gone the colour of a man who has just understood that the patrol his captain is riding south for and the wagon his grandmother is rolling east for are running for the same wood from opposite sides of it.', hold: 14000, cps: 22 },
+
+            // ─── Lucien at his window ────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The Mage Tower from the south road, seen at distance. The single high window lit even in the afternoon. At the window, a man holding very still.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lucien at the tower window. The monocle off. The long dark blue hair loose at his shoulder. He has not been at his books for some hours.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'Knuckles white at the frame. The composure the kingdom is used to seeing on him has slipped from the eyes.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'They are watching two things at once. The south road. The queen’s wing courtyard.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…the captain has ridden.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…the wagon has rolled.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…the print on the wards is still warm. Any further magic will name me. I cannot move. I cannot send. I cannot follow.*', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'LUCIEN', text: '*…the most powerful mage in this kingdom is standing at his window watching the woman he failed to keep be hunted from two sides.*', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'His hand on the sill. It is shaking. The mage’s hands do not shake.', hold: 4400, cps: 24 },
+
+            // ─── The Weaver lesson · "the Deep" ──────────────────────────
+            { type: 'line', speaker: '', text: 'The hut. The afternoon gone deeper. The fire higher than it was. The pot at the hook. The favourite up out of the chair now, in his shirt still, the bandage clean.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You trying to lift a small bowl from the shelf. The shoulder protests. The hand goes back to your side.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…sit down, Weaver."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU',   text: '"…I can do a small thing, surely."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you can sit down."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The smile at the corner of your mouth says you did the small thing on purpose to see what he would do.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He moves through his hut the way a man moves through a thing he has built. Nothing wasted, everything within reach. The grief from the graves is in him still, and his hands have not forgotten their work.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Elian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…mm."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…what is a Weaver, exactly."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hands have stopped. He turns. The look he gives you is the warden’s look, sharp, measuring, the look of a man deciding whether to give an answer that costs him something.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has decided.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…a Weaver balances connection."', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…a Weaver is the translator between the Deep and the people. They weave bonds. They mend bonds. They keep the bonds the kingdoms forget they are standing on."', hold: 11000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…without Weavers, kingdoms fall. The wards thin. The wood goes sick. The towns past the headland go to bones. Aethermoor especially. Aethermoor cannot stand without one."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…the Deep."', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the Deep is what is under Aethermoor. The thing the wards keep us on top of. The old magic the kingdom is built across. Aethermoor needs the balance a Weaver brings more than any kingdom I have watched come and go on this stretch of ground."', hold: 18000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…and Weavers are not born in Aethermoor. The Deep does not grow them here. It cannot."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…somewhere else."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…for centuries Aethermoor has brought Weavers in. Through political marriage where it can. Through harder means where it cannot."', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…it is the kingdom’s deepest mechanism, Weaver. It is also its deepest weakness. A kingdom that cannot stand without something it does not grow inside itself is a kingdom that has built its house on a road that runs out of someone else’s country."', hold: 20000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…you are not from here. You did not come from here. Aethermoor needs you because Aethermoor cannot make you."', hold: 9000, cps: 22 },
+
+            // ─── The hand in his hair · "Elian, the page" ────────────────
+            { type: 'line', speaker: '', text: 'The room has gone the kind of quiet that follows a person understanding the size of what they have been walking through.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hand crosses the small space between you without your asking it to, and goes to his hair.', hold: 5000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your fingers in his hair at the temple. Longer than a knight’s, shorter than a court man’s, cut by a man with whatever blade was nearest. You have not asked permission. Your fingers move a strand back behind his ear, the way a wife rearranges a husband’s without thinking.', hold: 16000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has gone still under your hand, the bandage forgotten between his fingers. He does not turn his face up. He does not move his head back.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Elian."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…thank you. For all of it."', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The eyes have gone where they went at the graves, and he keeps his face just enough turned that you cannot see them all the way. He breathes once.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…do not thank me yet, Weaver."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…Elian. The page."', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '"…the burnt page I had in my sleeve when I came through your wood. The one with the seal."', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…where is it. Where have you kept it."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The face does not move. The eyes have gone where they go when a man has been waiting for a question and the question has arrived. He has not answered. He is going to.', hold: 10000, cps: 22 },
+
+            // ─── Three knocks · Lyra ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The door of the hut. A knock. Three. Quick. Hard. The kind of knock that does not belong to a wood that lets only the warden through.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Elian off his heel before the second knock finishes. His hand goes to the bow on the wall, thinks better of it, finds the door instead.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The favourite up out of the chair. The shirt at your shoulders. The hand at the bandage. The cold of the room arrived through your skin before you had heard it through the door.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The door opening to the wood beyond. A figure at the threshold. Hood down. Hair the colour pale things go in deep water. The mouth a hard line. Lyra.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Lyra. What are you doing here."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Her eyes are on Elian, not on you. The singer of the eastern cave does not leave her cave. The fact of her standing on his wood’s threshold is the message before she has opened her mouth.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…warden. You have been tracked. We have to move."', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'ELIAN', text: '"…impossible. My wood would tell me. They cannot find us here."', hold: 5000, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…the wood did tell you, Elian. You were not listening. The hum at the eastern line went still half a bell ago. It is going still because something is coming through it her hand has been on."', hold: 14000, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…she found her. Whatever the seventh did, she let a pulse of pure Weaver-power out into the world, and the queen has felt it. The advance is moving. We are out of time, warden."', hold: 14000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…by the dark."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The cold has gone all the way through. You have not woven anything in your life that you remember, and you have just put a pulse of yourself out where the queen could feel it, and a wood that has held a man secret for six hundred years has stopped holding him.', hold: 17000, cps: 22 },
+
+            // ─── Lyra · burn the trail ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'Lyra at the chest by the wardrobe-frame. She has gone to it without asking. The hands quick.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…take every thread of her. Every cloth she has touched. The cup. The mug at the bath. The bandage in the basket. Burn what cannot come. Leave nothing here that has been on her skin."', hold: 13000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…Lyra. Who. Who has she sent for me."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'LYRA', text: '"…the queen’s wagon. With her people inside it. Empty going east. Not empty coming back."', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…take her. You know where. Do not stop. Do not light a fire she could read. And whatever you do, warden, do not let her weave."', hold: 9000, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…do not use the power. Not a flicker of it. Do you hear me, seventh. Not a flicker."', hold: 5800, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '"…are you coming."', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'LYRA', text: '"…not yet. I will burn the trail you have left in this hut. I will lay a false one south. I will follow when the wood says I can. Go, seventh."', hold: 12000, cps: 22 },
+
+            // ─── Elian into the deep wood ────────────────────────────────
+            { type: 'line', speaker: '', text: 'Elian crossing to you with a cloak from the peg, his own, dark green at the shoulder where the leaf is stitched. He puts it over your shirt without asking.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…with me."', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Lyra at the door. She has already begun to pull cloths from the chest. The fire higher behind her, because she is going to use it.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: 'LYRA', text: '"…go."', hold: 1200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The hand that has carried you twice today. It is not asking. It is taking.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The wall of wood that has held the warden for six hundred years has gone the smallest amount thinner at its eastern edge. Afternoon light comes through where it should not.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He has stopped to listen. He listens to the wood the way a man listens to a sentry he has trusted his life to and is no longer sure of.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'ELIAN', text: '"…take us. The far way. The one I do not use."', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The trees parting. A way opens past the path that is not a path. Deeper. Older. The kind the wood opens only for the half of itself that walks on legs.', hold: 8400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The two of you stepping through. The light closing behind you. The hut gone in one breath of green.', hold: 5800, cps: 22 },
+
+            // ─── Lyra at the hut ─────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'The hut from the wood. The smoke beginning to come up the chimney harder, because Lyra is feeding the fire. The first cloth she has thrown in is the bandage. The second is the shirt.', hold: 10000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Lyra alone in the hut, the cave-face on her now, a half-song already low in her throat, the kind of song the wood does not always like and listens to anyway.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'She has shut it. The hut looks the way a hut looks when no one has been inside it for a season. Tired smoke. A silence that promises nothing in it worth coming for.', hold: 9000, cps: 22 },
+
+            // ─── Queen at the globe · the close ──────────────────────────
+            { type: 'line', speaker: '', text: 'The queen’s globe, in the chamber she has not left, two bells later. The point of light has not moved, only gone the smallest amount stronger.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The queen at the stand. The smile has not moved either. She has been patient for hundreds of years.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'AENOR', text: '"…run, my dear. Run all you like. The road runs out of someone else’s country."', hold: 6400, cps: 22 },
+
+            { type: 'hide' }
+          ]
+        });
+        markDone(33); setCurrent(nextIdAfter(33));
+        if (onDone) onDone();
+      }
+    }
+
+    // ── CHAPTER 34 onward will be appended here.
     // ────────────────────────────────────────────────────────────────────
   ];
 
@@ -1720,9 +8830,38 @@
     // OR after a safety-net 1.2s timer (when no chp-page reopens —
     // e.g. external-onDone path, bridges, etc).
     try { document.body.classList.add('pp-chapter-active'); } catch (_) {}
+
+    // "‹" back button (Aug 2026, owner request). REPLAYS ONLY — a chapter
+    // the player has already finished can be exited without tapping through
+    // to the end. Deliberately NOT shown on a first play (isDone false):
+    // the care-route ladder force-plays new chapters, so a first run keeps
+    // no early exit. It is visible only while an MSCard is actually on
+    // screen (CSS-gated in injectStyles) so it never doubles up with the
+    // world-intro cinematic's own ‹ back. Exit uses MSCard.abort(true) — a
+    // SILENT teardown that does NOT re-run the chapter's completion logic
+    // (markDone / bond reward / setCurrent / ceremonies), then returns the
+    // player to the chapter list they launched the replay from.
+    let _replayBackBtn = null;
     const clearChapterActive = () => {
       try { document.body.classList.remove('pp-chapter-active'); } catch (_) {}
+      if (_replayBackBtn && _replayBackBtn.parentNode) _replayBackBtn.parentNode.removeChild(_replayBackBtn);
+      _replayBackBtn = null;
     };
+    if (isDone(id)) {
+      _replayBackBtn = document.createElement('button');
+      _replayBackBtn.id = 'chp-replay-back';
+      _replayBackBtn.setAttribute('aria-label', 'Back');
+      _replayBackBtn.setAttribute('title', 'Back');
+      _replayBackBtn.textContent = '‹';
+      _replayBackBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        try { if (window.MSCard && typeof window.MSCard.abort === 'function') window.MSCard.abort(true); } catch (_) {}
+        clearChapterActive();   // drops pp-chapter-active + removes this button
+        refreshOrb();
+        openPageSoftly();       // reopen the chapter list the replay came from
+      });
+      document.body.appendChild(_replayBackBtn);
+    }
 
     // Detect bridges by id prefix. Bridges play out of chp-page taps too
     // (player advancing the story by tapping 'Begin' on the next bridge),
@@ -1778,6 +8917,42 @@
     // per-character left-border tint. Mode-aware via :root tokens.
     // ─────────────────────────────────────────────────────────────────────
     s.textContent = `
+      /* ──────────────────────── REPLAY ‹ BACK BUTTON ──────────────────────── */
+      /* Aug 2026 — exit affordance for chapter REPLAYS (created in
+         playChapter only when isDone). Sits above the MSCard (z 11000),
+         top-left, mirroring the chapter list's own ‹ arrow. Default hidden;
+         shown ONLY while an MSCard is on screen so it never collides with
+         the world-intro cinematic's built-in ‹ back, and hidden again
+         whenever a milestone modal (Ch6 unlock / route-open / MS gate)
+         owns the screen so it doesn't sit over a CTA. */
+      #chp-replay-back {
+        position: fixed;
+        top: calc(14px + env(safe-area-inset-top, 0));
+        left: 14px;
+        z-index: 11050;
+        width: 40px; height: 40px;
+        display: none;
+        align-items: center; justify-content: center;
+        padding: 0 4px 3px 0;
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 28px; line-height: 1;
+        color: rgba(244, 235, 220, 0.94);
+        background: linear-gradient(180deg, rgba(43,17,51,0.82) 0%, rgba(21,8,26,0.9) 100%);
+        border: 1px solid rgba(212, 168, 91, 0.45);
+        border-radius: 50%;
+        box-shadow: inset 0 1px 0 rgba(212,168,91,0.18), 0 6px 18px -6px rgba(0,0,0,0.7);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: transform 160ms ease, box-shadow 160ms ease;
+      }
+      #chp-replay-back:active { transform: scale(0.92); }
+      body:has(#mscard-root:not(:empty)) #chp-replay-back { display: flex; }
+      body:has(#pp-ch6-backdrop) #chp-replay-back,
+      body:has(#pp-route-gate-backdrop) #chp-replay-back,
+      body:has(#pp-ms-gate-backdrop) #chp-replay-back { display: none; }
+
       /* ──────────────────────── ORB (floating Main Story button) ──────────────────────── */
       /* Moved to TOP-RIGHT (more discoverable) + made bigger (48px+ tap target,
          more prominent gold gradient, clear text label). */
@@ -2217,11 +9392,19 @@
   function openPage() {
     if (document.getElementById(PAGE_ID)) return;
     injectStyles();
-    // The chapter→Main-Story handoff sets body.pp-chapter-active to
-    // suppress the Chronicle bleed-through during the 300ms openPageSoftly
-    // gap. Now that chp-page is actually mounting, the gap is closed —
-    // clear the flag. (See playChapter for the full lifecycle.)
-    try { document.body.classList.remove('pp-chapter-active'); } catch (_) {}
+    // BLEED GUARD. #chp-page fades in via opacity over --dur-slow (700ms); while
+    // it's semi-transparent, whatever is BEHIND it bleeds through. body.pp-
+    // chapter-active hides both the care screen (#game-container, via pp-overlay
+    // bleed-guard) and the Chronicle (#select-screen, via select.css). SET it now
+    // so the hide covers the WHOLE fade-in, in BOTH directions:
+    //   • chapter→list  (playChapter already set it — this is a redundant no-op)
+    //   • opening Main Story FROM care/Chronicle (NOT previously set → the care
+    //     screen, e.g. Caspian, bled through the opening list for ~700ms).
+    // It is cleared again only once the list has finished fading in (see the
+    // appendChild + transitionend handler below). Clearing it too early was the
+    // original bleed bug (v870); never setting it on the open-from-care path was
+    // the remaining half (v872).
+    try { document.body.classList.add('pp-chapter-active'); } catch (_) {}
     const root = document.createElement('div');
     root.id = PAGE_ID;
     // Set Velvet Hour theme so all design tokens flip to dark-mode values
@@ -2277,6 +9460,60 @@
     intro.textContent = 'Seven bonds to weave. Return here any time to continue.';
     root.appendChild(intro);
 
+    // ── Route header (Aug 2026) ─────────────────────────────────────
+    // Surfaces the player's strongest bond as "your thread" so the
+    // chapter list reads as an otome roadmap, not a flat checklist.
+    // Hidden when no one has been cared for yet (Day-1 player) — the
+    // existing onboarding handles that prompt.
+    try {
+      if (window.PPRouteGates && typeof window.PPRouteGates.strongestBond === 'function') {
+        const top = window.PPRouteGates.strongestBond();
+        if (top) {
+          const header = document.createElement('div');
+          header.className = 'chp-route-header';
+          // Accent color cascades from data-character for tinting.
+          header.setAttribute('data-character', top.charId);
+          // Inline styles kept minimal — sits in the chp-* layout cascade.
+          header.style.cssText =
+            'margin: 10px 18px 16px; padding: 12px 14px;' +
+            'border-radius: 12px;' +
+            'background: linear-gradient(180deg, rgba(43,17,51,0.55) 0%, rgba(21,8,26,0.55) 100%);' +
+            'border: 1px solid rgba(212,168,91,0.22);' +
+            'box-shadow: inset 0 1px 0 rgba(212,168,91,0.12);' +
+            'display: flex; align-items: center; gap: 12px;' +
+            'font-family: "Cormorant Garamond", serif;';
+          // Suitor portrait dot. Falls back to the initial if the image
+          // isn't loaded yet.
+          const portrait = (typeof CHAR_PORTRAIT === 'object' && CHAR_PORTRAIT[top.charId])
+            ? CHAR_PORTRAIT[top.charId] : null;
+          const dotHtml = portrait
+            ? '<img src="' + portrait + '" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">'
+            : '<span style="font-family:\'Cormorant Garamond\',serif;font-size:18px;color:#f4ebdc;">' +
+              top.name.charAt(0) + '</span>';
+          header.innerHTML =
+            '<div style="flex:0 0 40px;width:40px;height:40px;border-radius:50%;' +
+                'overflow:hidden;border:1px solid ' + top.accent + ';' +
+                'box-shadow:0 0 12px ' + top.accent + '55;' +
+                'display:flex;align-items:center;justify-content:center;' +
+                'background:rgba(15,8,26,0.55);">' + dotHtml + '</div>' +
+            '<div style="flex:1 1 auto;">' +
+              '<div style="font-family:Quicksand,Inter,sans-serif;font-size:9px;' +
+                  'letter-spacing:0.22em;text-transform:uppercase;color:rgba(232,168,91,0.7);">' +
+                  '✦ Your Strongest Thread ✦</div>' +
+              '<div style="font-style:italic;font-size:16px;color:#f4ebdc;line-height:1.2;margin-top:2px;">' +
+                  top.name + '<span style="color:rgba(232,168,91,0.65);font-size:12px;">' +
+                  '  ·  ' + top.role + '</span></div>' +
+              '<div style="font-family:Quicksand,Inter,sans-serif;font-size:10px;' +
+                  'color:rgba(232,200,220,0.7);margin-top:4px;letter-spacing:0.06em;">' +
+                  'Bond Level ' + top.level + '  ·  ' + top.raw + ' affection</div>' +
+            '</div>';
+          // Insert just before the list — between intro line and the
+          // first chapter card. Keeps the header above the scroll fold.
+          root.appendChild(header);
+        }
+      }
+    } catch (_) {}
+
     const list = document.createElement('div');
     list.className = 'chp-list';
     const cur = getCurrent();
@@ -2326,20 +9563,23 @@
         }
       }
 
-      // ── Main-story gate (Jun 2026) ────────────────────────────────
-      // Ch6 (Elian's first appearance) has a richer 3-milestone gate
-      // driven by PPMSGate. The player has to earn Bond Level 3 with
-      // Alistair, balance his care once, and hear his "Trust Earned"
-      // line before Ch6 unlocks. When all three tick, the gate opens
-      // and the popup turns into a milestone checklist. See main-
-      // story-gate.js for the evaluator + balanced-care latch.
+      // ── Main-story gate (Jun 2026, revised Aug 2026) ──────────────
+      // Ch6 (Elian's first appearance) has a richer two-milestone gate
+      // driven by PPMSGate (Bond Level 3 with Alistair + balanced care
+      // once). See main-story-gate.js for the evaluator + balanced-
+      // care latch.
       //
-      // IMPORTANT: for Ch6 specifically, the MS gate REPLACES the
-      // linear chapter-pointer lock — not stacks on top of it. The
-      // whole point of the loop (Care → Story) is that the player
-      // doesn't progress to Ch6 by binge-reading Ch2-5; they progress
-      // by living with Alistair. So when the chapter has its own
-      // MSGate verdict we use ONLY that.
+      // Aug 2026 — owner playtest flagged a logic break: Ch2-5 are
+      // real plot chapters that establish Alistair's arc before Ch6
+      // brings in the warden. The original Jun design had MSGate
+      // REPLACE the linear sequence lock (made sense when only Ch1
+      // existed before Ch6). Now that Ch2-5 are between them, that
+      // bypass lets the player jump straight from Ch1 → Ch6 by
+      // farming bond, skipping the Alistair spine entirely. Fix:
+      // STACK the gates. Ch6 needs both (a) linear sequence done
+      // (Ch5 reached) AND (b) MSGate milestones. The MSGate stays
+      // useful — it makes care meaningful — but the sequence lock
+      // keeps the story coherent.
       let lockedByMSGate = false;
       let usesMSGate = false;
       let msGateState = null;
@@ -2349,9 +9589,31 @@
         if (msGateState.locked) lockedByMSGate = true;
       }
 
-      const locked = usesMSGate
-        ? (lockedByMSGate && !done)
-        : ((lockedByGate || lockedByCare) && !done);
+      // ── Route gate (Aug 2026) ─────────────────────────────────────
+      // Every other gated chapter (Ch2-5, Ch7-33 minus the open plot
+      // beats) defers to PPRouteGates. Each chapter declares a bond
+      // requirement against its primary suitor in route-gates.js.
+      // Unlike Ch6, the route gate STACKS on the linear chapter-
+      // pointer lock: a chapter must be both (a) the next slot in the
+      // plot sequence AND (b) meet its suitor's bond floor. The
+      // sequence gate keeps the story coherent; the bond gate keeps
+      // care meaningful. Done chapters are never locked (replay).
+      let lockedByRoute = false;
+      let routeGateState = null;
+      if (!usesMSGate && !done && window.PPRouteGates &&
+          typeof window.PPRouteGates.evaluate === 'function') {
+        routeGateState = window.PPRouteGates.evaluate(ch);
+        if (routeGateState && routeGateState.gated && routeGateState.locked) {
+          lockedByRoute = true;
+        }
+      }
+
+      // Aug 2026 — stacked-gates model. A chapter is locked if ANY of
+      // the gates says no: linear sequence, bridge-care, route bond,
+      // or MSGate milestone. Done chapters are never locked.
+      const locked = !done && (
+        lockedByGate || lockedByCare || lockedByRoute || lockedByMSGate
+      );
       // Per-character left-border tint via .char-<id> class (design-tokens A4)
       const charClass = ch.charId ? ' char-' + ch.charId : '';
       row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '') + charClass;
@@ -2402,17 +9664,44 @@
       btn.textContent = done
         ? 'Replay'
         : ((!locked && (isCurrent || msReady)) ? 'Begin' : 'Locked');
-      // Tappable even when locked.opens a warning popup explaining why.
+      // Tappable even when locked. Opens a warning popup explaining why.
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (locked) {
-          // Jun 2026 — Ch6 has a milestone checklist instead of the
-          // generic message. Other locks fall through to PPChain (which
-          // is no-op now, but kept defensive in case it's revived).
+          // Aug 2026 — multi-gate priority. The lock the player needs
+          // to clear FIRST should be the popup we show, otherwise we
+          // mislead them. Order:
+          //   1. Linear sequence  — most structural. Without prior
+          //      chapters done, bond and balanced-care aren't even
+          //      meaningful yet.
+          //   2. Bridge-care      — legacy chain gate (mostly no-op).
+          //   3. Route bond       — per-character Bond Level floor.
+          //   4. MSGate milestone — Ch6 balanced-care checklist.
+          //
+          // Previously MSGate fired first when both linear AND MSGate
+          // were locked, which told the player "earn the bond" when
+          // really they hadn't read the prior chapters. Reversed.
+          if ((lockedByGate || lockedByCare) && window.PPRouteGates &&
+              typeof window.PPRouteGates.showLinearLockPopup === 'function') {
+            window.PPRouteGates.showLinearLockPopup(ch, lockReason);
+            return;
+          }
+          if (lockedByRoute && window.PPRouteGates &&
+              typeof window.PPRouteGates.showChapterGate === 'function') {
+            window.PPRouteGates.showChapterGate(ch);
+            return;
+          }
           if (lockedByMSGate && window.PPMSGate && window.PPMSGate.showCh6Checklist) {
             window.PPMSGate.showCh6Checklist({
               title: ch.title + (ch.subtitle ? ' · ' + ch.subtitle : '')
             });
+            return;
+          }
+          // Defensive fallbacks — these only fire if every named
+          // gate is missing its popup helper (shouldn't happen).
+          if (window.PPRouteGates &&
+              typeof window.PPRouteGates.showLinearLockPopup === 'function') {
+            window.PPRouteGates.showLinearLockPopup(ch, lockReason);
             return;
           }
           if (window.PPChain && window.PPChain.showLockPopup) {
@@ -2447,6 +9736,22 @@
 
     document.body.appendChild(root);
     requestAnimationFrame(() => root.classList.add('visible'));
+    // Clear pp-chapter-active ONLY after the list has fully faded in over the
+    // care screen — this keeps #game-container hidden through the whole opacity
+    // fade so the care screen can't bleed through the chapter→list transition.
+    // transitionend (on the list's opacity) is the precise signal; the timeout
+    // is a fallback (fade interrupted / transitionend missed / reduced-motion).
+    (function clearChapterActiveAfterFade() {
+        let done = false;
+        const clear = () => {
+            if (done) return; done = true;
+            try { document.body.classList.remove('pp-chapter-active'); } catch (_) {}
+            try { root.removeEventListener('transitionend', onEnd); } catch (_) {}
+        };
+        const onEnd = (e) => { if (e.target === root && e.propertyName === 'opacity') clear(); };
+        root.addEventListener('transitionend', onEnd);
+        setTimeout(clear, 900); // > --dur-slow (700ms) fade + buffer
+    })();
     // Hide the orb while page is open
     const orb = document.getElementById(ORB_ID); if (orb) orb.classList.remove('visible');
 
@@ -2466,6 +9771,20 @@
         }
       }, 220);
     });
+
+    // Route-open celebration nudge (Jun 2026). The chapter list is exactly
+    // where the player finishes a gateway chapter (e.g. Ch5 → Elian's route
+    // opens), so prompt the ladder celebration to check NOW instead of waiting
+    // for its 2s background poll. shouldFire() is the gatekeeper — it no-ops if
+    // nothing is newly ready or the handoff was already celebrated. (Owner:
+    // "finished Ch5, Ch6 opened, no popup" — the popup belongs right here.)
+    try {
+      setTimeout(function () {
+        if (window.PPCh6Unlock && typeof window.PPCh6Unlock.tryShow === 'function') {
+          window.PPCh6Unlock.tryShow();
+        }
+      }, 650);
+    } catch (_) {}
   }
 
   function closePage(opts) {

@@ -36,7 +36,9 @@
 (function () {
     'use strict';
 
-    const SCHEMA_VERSION = 1;
+    // v2 (Aug 2026): one-shot migration of the old "seed met chars to
+    // affection 10" default → 0, now that affection gates the route.
+    const SCHEMA_VERSION = 2;
     const CHARS = ['alistair', 'elian', 'lyra', 'caspian', 'lucien', 'noir', 'proto'];
 
     // Chapter-to-character mapping (from chapters.js — which chapters gate
@@ -125,11 +127,26 @@
             }
         });
 
-        // 3. met but no affection => seed to 10 (the intro-complete default)
+        // 3. met but no affection => seed to 0 (met-but-not-yet-romanced).
+        //    Aug 2026 FIX: this used to seed 10. That was correct when
+        //    affection was only a recall/display value. It is now the
+        //    ROUTE-GATE currency (route-gates.js gates each chapter on the
+        //    suitor's bond level, and bond level 2 = affection 10). Seeding
+        //    10 on "met" handed every character bond level 2 for free the
+        //    instant they were met — via an encounter, a chapter that
+        //    introduces them, or tapping "Care for X" — which silently
+        //    unlocked their first 1-2 chapters with ZERO actual care. A
+        //    first-time player could read Ch10 (Lyra) / Ch11 (Caspian)
+        //    without ever tending them. Seed 0 instead: "met" means you
+        //    have crossed paths in the story, NOT that you have begun the
+        //    romance. The chapters stay locked until the player genuinely
+        //    cares. (Readers all fall back to 0 for an absent key, so this
+        //    only matters where a key gets written; we still write '0' to
+        //    preserve the met-character-has-an-affection-key invariant.)
         CHARS.forEach(char => {
             if (lsGet('pp_met_' + char) === '1' && !lsHas('pp_affection_' + char)) {
-                lsSet('pp_affection_' + char, '10');
-                repaired.push('affection_' + char + ' (seeded 10)');
+                lsSet('pp_affection_' + char, '0');
+                repaired.push('affection_' + char + ' (seeded 0)');
             }
         });
 
@@ -148,6 +165,29 @@
         if (allIntrosSeen && lsGet('pp_world_intro_seen') !== '1') {
             lsSet('pp_world_intro_seen', '1');
             repaired.push('world_intro_seen (inferred)');
+        }
+
+        // 5c. ONE-SHOT MIGRATION (schema → v2). Existing saves already
+        //     carry the old "met => affection 10" seed (step 3 used to
+        //     write 10; the !lsHas guard means the new seed-0 won't
+        //     overwrite it). That stale 10 = bond level 2 still grants
+        //     free route-gate progression on returning saves. Reset any
+        //     met-but-uncared character that is STILL sitting on the exact
+        //     old seed value back to 0. "Genuinely cared for" is detected
+        //     by the presence of a per-character care save
+        //     (pocketLoveSave_<char>) — if that exists the player has run
+        //     the care loop, so we never touch their earned affection,
+        //     even if it happens to read 10. Runs once (gated below).
+        const _priorSchema = parseInt(lsGet('pp_schema_v') || '0', 10) || 0;
+        if (_priorSchema < 2) {
+            CHARS.forEach(char => {
+                const aff = lsGet('pp_affection_' + char);
+                const caredFor = lsHas('pocketLoveSave_' + char);
+                if (aff === '10' && !caredFor) {
+                    lsSet('pp_affection_' + char, '0');
+                    repaired.push('affection_' + char + ' (migrated stale seed 10→0)');
+                }
+            });
         }
 
         // 6. Write/refresh schema version.

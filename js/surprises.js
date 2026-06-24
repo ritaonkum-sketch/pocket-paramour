@@ -469,7 +469,7 @@
         { type: 'line', text: "I discovered I can corrupt my own visual buffers intentionally.", speed: 35, pose: 'neutral' },
         { type: 'shake', intensity: 3 },
         { type: 'line', text: "The result is... I believe humans call this 'art.' I made it for you.", speed: 35, pose: 'happy' },
-        { type: 'line', text: "It's called 'Connection Timeout.' It's about waiting for someone.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "It's called 'Connection Timeout.' Every frame is the half-second before something reconnects. I rendered it the whole time you were gone.", speed: 30, pose: 'gentle' },
         { type: 'hide' }
       ],
       effects: { bond: 15 },

@@ -325,3 +325,51 @@ class BGMSystem {
 }
 
 const bgm = new BGMSystem();
+
+// ── CARE-ONLY AUDIO GUARD (Jun 2026) ─────────────────────────────────────────
+// Each character's mood/ambient bed is a looping <audio> (loop=true). game.js
+// only ever START/setMood-s it from the care loop — NOTHING ever stopped it on
+// leaving care. So a character's music bled onto the Main Story, the Chronicle,
+// gallery/settings, the title, and during story chapters. This guard pauses the
+// bed the instant the player isn't actively looking at the care screen, and
+// resumes ONLY what the guard paused when they return — so character audio is
+// strictly care-route-only. Uses pause()/play() (not bgm.stop, which resets the
+// track + flips game.js's `playing` flag) so it survives transient pages.
+(function () {
+    // Non-care surfaces that cover or replace the care view → bed must go quiet.
+    // (Care-loop UI like the gift/training panels + ambient care content are
+    // deliberately NOT here — the bed should keep playing through those.)
+    var BLOCKERS = '#chp-page:not(:empty), #main-story-page:not(.hidden),' +
+        '#mscard-root:not(:empty), #ms-encounter-root:not(:empty),' +
+        '#gallery-overlay:not(.hidden), #gallery-viewer:not(.hidden),' +
+        '#settings-overlay:not(.hidden), #intro-overlay.visible,' +
+        '#card-reveal-overlay:not(.hidden)';
+    function careViewActive() {
+        try {
+            if (!document.body.classList.contains('pp-screen-care')) return false; // select/title/etc.
+            if (document.body.classList.contains('pp-chapter-active')) return false; // a chapter is playing
+            if (document.hidden) return false;                                       // tab backgrounded
+            var gc = document.getElementById('game-container');
+            if (!gc || gc.classList.contains('hidden') || getComputedStyle(gc).display === 'none') return false;
+            if (document.querySelector(BLOCKERS)) return false;                      // a page is covering care
+            return true;
+        } catch (_) { return true; }
+    }
+    function guard() {
+        try {
+            var a = bgm._bgmAudio;
+            if (!a) return;
+            if (!careViewActive()) {
+                if (!a.paused) { a.pause(); bgm._guardPaused = true; }
+            } else if (bgm._guardPaused && a.paused && !bgm.muted) {
+                a.play().catch(function () {}); bgm._guardPaused = false;
+            }
+        } catch (_) {}
+    }
+    try {
+        setInterval(guard, 500);
+        document.addEventListener('pp:scene-change', guard);
+        document.addEventListener('visibilitychange', guard);
+    } catch (_) {}
+    try { window.PPBgmGuard = guard; window.PPCareView = careViewActive; } catch (_) {}
+})();
