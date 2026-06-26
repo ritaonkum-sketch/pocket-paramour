@@ -76,7 +76,11 @@
         // PPOverlay.show('today-hub') so body.pp-overlay-active is set, but it was
         // missing from THIS list — so anyOpen() couldn't see it and an auto-firing
         // story card (alistair-arc "THE FAILURE") bled over the Daily page.
-        '#pp-today-overlay.show'
+        '#pp-today-overlay.show',
+        // The Talk-choice conversation modal (talk-choices.js). Full-screen
+        // modal created on demand; counts as open until it starts closing, so
+        // ambient content + card reveals never fire on top of an active choice.
+        '#talk-choice-overlay:not(.closing)'
     ];
     // Floating care-screen chips that must hide while any overlay is up.
     const HIDDEN_CHIPS = ['#pp-care-progress', '#dp-banner', '#pp-letters-btn', '#chp-orb',

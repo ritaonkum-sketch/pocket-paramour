@@ -723,72 +723,157 @@
         const game = window._game;
         if (!game) return;
 
-        // Build overlay
-        const overlay = document.createElement('div');
-        overlay.id = 'talk-choice-overlay';
-        overlay.style.cssText = [
-            'position: fixed',
-            'bottom: 0',
-            'left: 0',
-            'right: 0',
-            'z-index: 9999',
-            'background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.7))',
-            'padding: 20px 16px 28px',
-            'display: flex',
-            'flex-direction: column',
-            'gap: 10px',
-            'animation: talkChoiceFadeIn 0.3s ease-out',
-            'max-height: 60vh',
-            'overflow-y: auto'
-        ].join(';');
-
-        // Inject animation keyframes if not present
+        // Premium modal styles — injected once. The overlay is now a FULL-SCREEN
+        // modal (dimming scrim + a solid velvet/gold panel) instead of a
+        // bottom-only translucent strip. This (a) makes it look premium with a
+        // genuinely solid panel — nothing behind it bleeds through — and (b)
+        // covers the whole screen so the player can't slip away to the Gallery
+        // (or any menu) and leave this orphaned bleeding on top of it.
         if (!document.getElementById('talk-choice-styles')) {
             const style = document.createElement('style');
             style.id = 'talk-choice-styles';
             style.textContent = `
-                @keyframes talkChoiceFadeIn {
-                    from { opacity: 0; transform: translateY(20px); }
+                @keyframes talkChoiceScrimIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes talkChoicePanelIn {
+                    from { opacity: 0; transform: translateY(28px); }
                     to   { opacity: 1; transform: translateY(0); }
                 }
-                #talk-choice-overlay .choice-btn {
-                    background: rgba(255,255,255,0.08);
-                    border: 1px solid rgba(255,255,255,0.2);
-                    border-radius: 12px;
-                    color: #fff;
-                    padding: 14px 16px;
-                    font-size: 15px;
-                    line-height: 1.4;
-                    text-align: left;
-                    cursor: pointer;
-                    transition: background 0.2s, border-color 0.2s;
-                    font-family: inherit;
-                    width: 100%;
+                #talk-choice-overlay {
+                    /* z above the care chrome (back btn 11600, topbar 11500) so the
+                       scrim covers EVERY tap target on the care screen — a true
+                       modal the player can't slip behind into the menu/Gallery. */
+                    position: fixed; inset: 0; z-index: 11700;
+                    display: flex; flex-direction: column; justify-content: flex-end;
+                    background: radial-gradient(ellipse at 50% 30%, rgba(10,5,20,0.40), rgba(5,2,12,0.86));
+                    -webkit-backdrop-filter: blur(3px) saturate(115%);
+                    backdrop-filter: blur(3px) saturate(115%);
+                    animation: talkChoiceScrimIn 0.28s ease-out;
                 }
-                #talk-choice-overlay .choice-btn:active {
-                    background: rgba(255,255,255,0.18);
-                    border-color: rgba(255,255,255,0.5);
+                #talk-choice-overlay.closing { opacity: 0; transition: opacity 0.22s ease-out; }
+                #talk-choice-panel {
+                    margin-top: auto;
+                    background: linear-gradient(180deg, #241634 0%, #170E27 58%, #0F0A1C 100%);
+                    border-top: 1px solid rgba(212,168,91,0.45);
+                    border-radius: 22px 22px 0 0;
+                    box-shadow: 0 -20px 54px -14px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.05);
+                    padding: 18px 18px calc(22px + env(safe-area-inset-bottom, 0px));
+                    animation: talkChoicePanelIn 0.34s cubic-bezier(0.16,1,0.30,1);
+                }
+                #talk-choice-panel .tc-grip {
+                    width: 46px; height: 4px; border-radius: 9999px;
+                    background: rgba(212,168,91,0.40); margin: 0 auto 16px;
+                }
+                #talk-choice-panel .tc-speaker { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+                #talk-choice-panel .tc-avatar {
+                    width: 40px; height: 40px; border-radius: 50%;
+                    object-fit: cover; object-position: center top;
+                    border: 1.5px solid rgba(212,168,91,0.55);
+                    box-shadow: 0 2px 10px -2px rgba(0,0,0,0.6);
+                    background: #0f0a1c; flex: none;
+                }
+                #talk-choice-panel .tc-name {
+                    font-family: var(--font-sans, sans-serif); font-weight: 600;
+                    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+                    color: var(--c-accent-gold-soft, #D4B26E);
+                }
+                #talk-choice-panel .tc-prompt {
+                    font-family: var(--font-serif, Georgia, serif); font-style: italic;
+                    font-size: 18px; line-height: 1.5; color: #F4ECDC;
+                    margin: 0 2px 18px; text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+                }
+                #talk-choice-panel .tc-choices { display: flex; flex-direction: column; gap: 10px; }
+                #talk-choice-panel .choice-btn {
+                    background: linear-gradient(180deg, rgba(212,168,91,0.12), rgba(212,168,91,0.04));
+                    border: 1px solid rgba(212,168,91,0.32);
+                    border-radius: 14px; color: #F4ECDC;
+                    padding: 15px 17px; font-size: 15px; line-height: 1.4;
+                    text-align: left; cursor: pointer; width: 100%;
+                    font-family: var(--font-sans, sans-serif); font-weight: 500;
+                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+                    transition: background 0.2s, border-color 0.2s, transform 0.1s;
+                    -webkit-tap-highlight-color: transparent;
+                }
+                #talk-choice-panel .choice-btn:active {
+                    background: linear-gradient(180deg, rgba(212,168,91,0.24), rgba(212,168,91,0.10));
+                    border-color: rgba(212,168,91,0.65); transform: scale(0.99);
                 }
             `;
             document.head.appendChild(style);
         }
 
-        // Prompt text
+        const overlay = document.createElement('div');
+        overlay.id = 'talk-choice-overlay';
+
+        const panel = document.createElement('div');
+        panel.id = 'talk-choice-panel';
+
+        const grip = document.createElement('div');
+        grip.className = 'tc-grip';
+        panel.appendChild(grip);
+
+        // Speaker row — small round portrait + name, for a premium "he's talking
+        // to you" framing.
+        const charKey = getCharKey();
+        const ch = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : null;
+        const speaker = document.createElement('div');
+        speaker.className = 'tc-speaker';
+        if (charKey) {
+            const av = document.createElement('img');
+            av.className = 'tc-avatar';
+            av.src = 'assets/' + charKey + '/select-portrait.png';
+            av.onerror = function () { this.style.display = 'none'; };
+            speaker.appendChild(av);
+        }
+        const nm = document.createElement('div');
+        nm.className = 'tc-name';
+        nm.textContent = (ch && ch.name) ? ch.name : (charKey ? charKey.charAt(0).toUpperCase() + charKey.slice(1) : '');
+        speaker.appendChild(nm);
+        panel.appendChild(speaker);
+
+        // Prompt
         const promptEl = document.createElement('div');
-        promptEl.style.cssText = 'color: #e0d0ff; font-size: 16px; line-height: 1.5; margin-bottom: 6px; font-style: italic;';
-        promptEl.textContent = '"' + scenario.prompt + '"';
-        overlay.appendChild(promptEl);
+        promptEl.className = 'tc-prompt';
+        promptEl.textContent = '“' + scenario.prompt + '”';
+        panel.appendChild(promptEl);
 
         // Choice buttons
+        const choicesWrap = document.createElement('div');
+        choicesWrap.className = 'tc-choices';
         scenario.choices.forEach(choice => {
             const btn = document.createElement('button');
             btn.className = 'choice-btn';
             btn.textContent = choice.text;
-            btn.addEventListener('click', () => onChoiceSelected(scenario, choice, overlay), false);
-            overlay.appendChild(btn);
+            btn.addEventListener('click', (e) => { e.stopPropagation(); onChoiceSelected(scenario, choice, overlay); }, false);
+            choicesWrap.appendChild(btn);
         });
+        panel.appendChild(choicesWrap);
+
+        overlay.appendChild(panel);
+
+        // Tapping the dimmed area (the scrim itself, not the panel) closes the
+        // conversation without choosing — a gentle escape so the player is never
+        // trapped, while still blocking everything behind it.
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) dismissChoiceOverlay(overlay);
+        }, false);
 
         document.body.appendChild(overlay);
+        // Join the overlay convention: sets body.pp-overlay-active, which the
+        // existing CSS uses to HIDE the care top bar (menu + back buttons).
+        // Without this, those buttons sit above the scrim and the player could
+        // tap through to the menu/Gallery, leaving this orphaned + bleeding on
+        // top of it (the owner-reported "overlay/bleeding" over the Gallery).
+        try { if (window.PPOverlay) PPOverlay.show('talk-choice'); } catch (e) {}
+    }
+
+    // Remove the choice modal (used by the scrim-tap escape + as a defensive
+    // external hook so another system can clear it if it ever needs to).
+    function dismissChoiceOverlay(overlay) {
+        overlay = overlay || document.getElementById('talk-choice-overlay');
+        if (!overlay || overlay.classList.contains('closing')) return;
+        try { if (window.PPOverlay) PPOverlay.hide('talk-choice'); } catch (e) {}
+        overlay.classList.add('closing');
+        setTimeout(() => { try { overlay.remove(); } catch (e) {} }, 240);
     }
 
     // ── Handle choice selection ───────────────────────────────
@@ -796,7 +881,11 @@
         const game = window._game;
         if (!game) return;
 
-        // Remove overlay immediately (don't linger with the dark bg)
+        // Remove overlay immediately (don't linger with the dark bg). Release the
+        // overlay state (restores the top bar) + mark .closing so anyOpen() frees
+        // up right away for the response dialogue.
+        try { if (window.PPOverlay) PPOverlay.hide('talk-choice'); } catch (e) {}
+        overlay.classList.add('closing');
         overlay.style.opacity = '0';
         overlay.style.transition = 'opacity 0.25s ease-out';
         setTimeout(() => { try { overlay.remove(); } catch(e){} }, 260);
@@ -894,6 +983,7 @@
     window.TalkChoices = {
         SCENARIOS: SCENARIOS,
         findScenario: findScenario,
-        showChoiceOverlay: showChoiceOverlay
+        showChoiceOverlay: showChoiceOverlay,
+        dismiss: dismissChoiceOverlay
     };
 })();
