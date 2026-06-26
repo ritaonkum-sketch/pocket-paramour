@@ -1747,7 +1747,13 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
     border-radius: 18px;
     padding: 12px 16px 11px;
     min-height: 54px;
-    max-height: 110px;
+    /* Grow UPWARD to fit the whole line. The row (#dialogue-row) is absolutely
+       positioned + anchored at the bottom with align-items:flex-end, so a taller
+       box overlays more of the character and NEVER pushes the Kingdom meter or
+       stats. Was a fixed 110px, which clipped long care lines (~3 lines). Now it
+       sizes to content up to 38vh; overflow-y:auto + hidden scrollbar stays only
+       as a last resort for anything beyond ~8 lines. */
+    max-height: 38vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -6601,7 +6607,13 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
 /* ── Dialogue row: sits above action buttons ── */
 #dialogue-row #dialogue-box {
     min-height: 52px !important;
-    max-height: 100px !important;
+    /* Grow to fit the WHOLE line. Was `100px !important`, which clipped long
+       care lines to ~3 lines (owner: "doesn't show the full sentence"). The row
+       is absolute + bottom-anchored (align-items:flex-end), so the box grows
+       UPWARD over the character and never pushes the Kingdom meter or stats.
+       Sizes to content up to 38vh; the hidden-scrollbar overflow stays only as a
+       last resort for anything beyond ~8 lines. */
+    max-height: 38vh !important;
     padding: 10px 14px !important;
 }
 
