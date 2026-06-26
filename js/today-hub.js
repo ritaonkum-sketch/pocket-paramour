@@ -75,7 +75,11 @@
         try {
             if (!window.LetterSystem || typeof window.LetterSystem.list !== 'function') return null;
             const list = window.LetterSystem.list();
-            const unreplied = list.filter(l => !l.replied);
+            // Only FIRST letters can be replied to (they carry a `replied` flag).
+            // Milestone letters are one-way keepsakes with no reply mechanism, so
+            // they must NOT count as "waiting for a reply" (owner: "there are no
+            // letters to reply" — 3 one-way Alistair letters were being counted).
+            const unreplied = list.filter(l => l.kind === 'first' && !l.replied);
             if (unreplied.length === 0) return null;
             const first = unreplied[0];
             return {
@@ -582,33 +586,26 @@
                 letters.count === 1 ? letters.title : 'Tap to read',
                 () => {
                     closeOverlay();
-                    // Open letters archive via existing button if mounted
-                    const btn = document.getElementById('pp-letters-btn');
-                    if (btn) btn.click();
-                }
-            ));
-            rowCount++;
-        }
-
-        // Row 3: daily reward
-        const reward = dailyRewardStatus();
-        if (reward && reward.available) {
-            hub.appendChild(buildRow(
-                '✨',
-                reward.label,
-                'Tap to claim',
-                () => {
-                    closeOverlay();
-                    // Try to open daily-reward overlay if module exists
+                    // Go straight to the letters archive via its own API (reliable
+                    // from any screen); fall back to the floating button if needed.
                     try {
-                        if (window.DailyRewards && typeof window.DailyRewards.show === 'function') {
-                            window.DailyRewards.show();
+                        if (window.PPLettersArchive && typeof window.PPLettersArchive.open === 'function') {
+                            window.PPLettersArchive.open();
+                        } else {
+                            const btn = document.getElementById('pp-letters-btn');
+                            if (btn) btn.click();
                         }
                     } catch (_) {}
                 }
             ));
             rowCount++;
         }
+
+        // (Removed) "Today's reward ready" shortcut row — it pointed at the old
+        // DailyRewards module and was redundant + confusing now that the actual
+        // claimable rewards (check-in, daily/weekly tasks, chapter, event) live
+        // in the Heart Threads economy sections embedded right below. Owner:
+        // "today's reward can be removed — it serves no purpose."
 
         // Row 4 (last): notification opt-in offer — only when relevant.
         // Shown only if a pending invitation exists AND the player hasn't
