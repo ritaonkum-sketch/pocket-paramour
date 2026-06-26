@@ -226,6 +226,12 @@ class TypewriterEffect {
             } else if (this.element.textContent) {
                 // Dismiss finished dialogue
                 this.element.textContent = '';
+                // Release the reserved box height so the empty box collapses back
+                // to its resting size instead of leaving a tall empty card.
+                try {
+                    const b = (this.element.closest && this.element.closest('#dialogue-box')) || this.element.parentElement;
+                    if (b) b.style.removeProperty('min-height');
+                } catch (_) {}
                 const hint = document.getElementById('dialogue-tap-hint');
                 if (hint) hint.classList.add('hidden');
             }
@@ -314,6 +320,12 @@ class TypewriterEffect {
         this.isTyping = true;
         this.onComplete = callback || null;
         this.element.textContent = "";
+        // Reserve the box height for the FULL line up-front so it doesn't jump
+        // line-by-line as the text types (owner: "it glitches when there's a lot
+        // of text, especially on wash"). The box is bottom-anchored + content-
+        // sized, so each wrap used to snap it up ~24px mid-type. Now it sizes once
+        // and the text types into a stable box.
+        this._reserveHeight();
         // Bump generation — any pending _type() callback from a previous
         // show() will see a stale gen and bail out (see _type below).
         this._gen++;
@@ -333,6 +345,30 @@ class TypewriterEffect {
         } else {
             this._type(myGen);
         }
+    }
+
+    // Size the dialogue box to the FULL line before typing, so it doesn't grow
+    // and snap upward line-by-line as characters appear (the "glitch with a lot
+    // of text"). One synchronous measure of the full line, capped at the 38vh
+    // scroll limit, then min-height is pinned so the box sizes ONCE and the text
+    // types into a stable box. Released on dismiss + re-measured on every show().
+    // (No CSS transition on min-height — it corrupts this measure by making
+    // getComputedStyle return the mid-animation value.)
+    _reserveHeight() {
+        try {
+            const box = (this.element.closest && this.element.closest('#dialogue-box')) || this.element.parentElement;
+            if (!box) return;
+            // Clear any PREVIOUS reserve first, so the measure reflects THIS line's
+            // content — otherwise a short line after a long one would inherit the
+            // tall height (offsetHeight would read the stale min-height).
+            box.style.removeProperty('min-height');
+            const saved = this.element.textContent;
+            this.element.textContent = this.fullText || '';
+            const cap = Math.round(window.innerHeight * 0.38);
+            const full = Math.min(box.offsetHeight, cap); // border-box height
+            this.element.textContent = saved;
+            if (full > 0) box.style.setProperty('min-height', full + 'px', 'important');
+        } catch (_) {}
     }
 
     _type(gen) {
