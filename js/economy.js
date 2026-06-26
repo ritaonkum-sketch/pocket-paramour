@@ -536,16 +536,104 @@
     function floatGain(n) {
         try {
             var anchor = document.getElementById(COUNTER_ID);
+            // The little float anchors to the top-bar counter. If that counter
+            // isn't actually on screen (an overlay like the Daily page is up and
+            // the top bar is hidden), this float would land in a dead top-left
+            // corner — barely visible (owner report). Skip it there; the claim
+            // path shows the prominent centered reward burst instead.
+            if (!anchor || anchor.offsetParent === null) return;
             var f = document.createElement('div');
             f.className = 'ht-float';
             f.textContent = '+' + n + ' ' + CUR.icon;
             document.body.appendChild(f);
-            var r = anchor ? anchor.getBoundingClientRect() : { left: window.innerWidth / 2 - 20, bottom: 60 };
+            var r = anchor.getBoundingClientRect();
             f.style.left = Math.round(r.left) + 'px';
-            f.style.top  = Math.round((anchor ? r.bottom : 60) + 4) + 'px';
+            f.style.top  = Math.round(r.bottom + 4) + 'px';
             requestAnimationFrame(function () { f.classList.add('go'); });
             setTimeout(function () { try { f.remove(); } catch (_) {} }, 1200);
-            if (anchor) { anchor.classList.remove('ht-bump'); void anchor.offsetWidth; anchor.classList.add('ht-bump'); }
+            anchor.classList.remove('ht-bump'); void anchor.offsetWidth; anchor.classList.add('ht-bump');
+        } catch (_) {}
+    }
+
+    // ── Prominent reward "received it!" celebration ───────────────────────────
+    // Shown when the player CLAIMS a reward (check-in, daily/weekly task, chapter,
+    // event). The old feedback was the tiny corner float above — invisible on the
+    // Daily page where the top-bar counter is hidden. This is a centered, premium
+    // burst (glowing thread + the amount + sparkles) so receiving threads reads
+    // clearly. Tap to continue; a long fallback clears it if ignored (never just
+    // flashes past — see the owner's tap-to-dismiss rule).
+    function rewardBurst(n) {
+        try {
+            n = Math.round(n) || 0; if (n <= 0) return;
+            if (!document.getElementById('pp-ht-burst-styles')) {
+                var st = document.createElement('style');
+                st.id = 'pp-ht-burst-styles';
+                st.textContent = [
+                    '#pp-ht-reward-burst{position:fixed;inset:0;z-index:12000;display:flex;align-items:center;justify-content:center;',
+                    'background:radial-gradient(ellipse at 50% 45%,rgba(20,10,6,0.34),rgba(8,4,2,0.62));opacity:0;transition:opacity .3s ease;}',
+                    '#pp-ht-reward-burst.show{opacity:1;}',
+                    '#pp-ht-reward-burst.out{opacity:0;}',
+                    '#pp-ht-reward-burst .ht-rb-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;',
+                    'padding:30px 46px 24px;border-radius:24px;',
+                    'background:linear-gradient(180deg,rgba(48,30,20,0.97),rgba(26,15,10,0.98));',
+                    'border:1px solid rgba(232,180,110,0.55);',
+                    'box-shadow:0 22px 64px -14px rgba(0,0,0,0.78),inset 0 1px 0 rgba(255,235,200,0.14);',
+                    'transform:scale(0.55);opacity:0;transition:transform .46s cubic-bezier(.16,1,.3,1),opacity .3s ease;}',
+                    '#pp-ht-reward-burst.show .ht-rb-card{transform:scale(1);opacity:1;}',
+                    '#pp-ht-reward-burst.out .ht-rb-card{transform:scale(0.92);opacity:0;transition:transform .3s ease,opacity .3s ease;}',
+                    '#pp-ht-reward-burst .ht-rb-glow{position:absolute;width:210px;height:210px;border-radius:50%;z-index:0;',
+                    'background:radial-gradient(circle,rgba(232,150,120,0.34),transparent 68%);filter:blur(7px);animation:ht-rb-pulse 1.7s ease-in-out infinite;}',
+                    '#pp-ht-reward-burst .ht-rb-ico{font-size:48px;line-height:1;z-index:1;filter:drop-shadow(0 0 13px rgba(232,140,150,0.7));animation:ht-rb-bob 1.9s ease-in-out infinite;}',
+                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:44px;line-height:1.05;margin-top:6px;',
+                    'background:linear-gradient(180deg,#FBE8B8,#D4A85B);-webkit-background-clip:text;background-clip:text;color:transparent;}',
+                    '#pp-ht-reward-burst .ht-rb-label{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,236,209,0.74);margin-top:3px;}',
+                    '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.42);margin-top:14px;}',
+                    '#pp-ht-reward-burst .ht-rb-spark{position:absolute;left:50%;top:40%;z-index:0;color:#FBE0A0;font-size:14px;opacity:0;pointer-events:none;',
+                    'text-shadow:0 0 6px rgba(251,224,160,0.8);animation:ht-rb-spark 1s ease-out forwards;}',
+                    '@keyframes ht-rb-pulse{0%,100%{transform:scale(0.9);opacity:.55;}50%{transform:scale(1.12);opacity:1;}}',
+                    '@keyframes ht-rb-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}',
+                    '@keyframes ht-rb-spark{0%{opacity:0;transform:translate(-50%,-50%) scale(0.4);}25%{opacity:1;}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.15);}}'
+                ].join('');
+                document.head.appendChild(st);
+            }
+            var ov = document.createElement('div');
+            ov.id = 'pp-ht-reward-burst';
+            ov.innerHTML = '<div class="ht-rb-card">' +
+                '<div class="ht-rb-glow"></div>' +
+                '<div class="ht-rb-ico">' + CUR.icon + '</div>' +
+                '<div class="ht-rb-amt">+' + n + '</div>' +
+                '<div class="ht-rb-label">' + CUR.name + '</div>' +
+                '<div class="ht-rb-tip">tap to continue</div>' +
+                '</div>';
+            document.body.appendChild(ov);
+            // Sparkle ring radiating from the icon.
+            var card = ov.querySelector('.ht-rb-card');
+            for (var i = 0; i < 10; i++) {
+                var s = document.createElement('span');
+                s.className = 'ht-rb-spark';
+                var a = (Math.PI * 2 * i) / 10;
+                var d = 60 + (i % 3) * 16;
+                s.style.setProperty('--dx', Math.round(Math.cos(a) * d) + 'px');
+                s.style.setProperty('--dy', Math.round(Math.sin(a) * d) + 'px');
+                s.style.animationDelay = (i * 0.03) + 's';
+                s.textContent = '✦';
+                card.appendChild(s);
+            }
+            requestAnimationFrame(function () { ov.classList.add('show'); });
+            try {
+                if (typeof sounds !== 'undefined' && sounds.enabled) {
+                    if (sounds.rarityChime) sounds.rarityChime('rare');
+                    else if (sounds.chime) sounds.chime();
+                }
+            } catch (_) {}
+            var done = false;
+            var close = function () {
+                if (done) return; done = true;
+                ov.classList.remove('show'); ov.classList.add('out');
+                setTimeout(function () { try { ov.remove(); } catch (_) {} }, 340);
+            };
+            ov.addEventListener('click', close);
+            setTimeout(close, 6000); // safety fallback only — the player taps to continue
         } catch (_) {}
     }
 
@@ -673,13 +761,18 @@
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 var key = btn.getAttribute('data-claim'), ok = false;
+                // The gain shown on the button ("+100 🧵"), captured BEFORE the row
+                // re-renders, so the celebration shows the exact amount received.
+                var gain = parseInt((btn.textContent.match(/\d+/) || [])[0], 10) || 0;
+                var isAlbum = key.indexOf('album:') === 0; // a SPEND (card reveal), not a gain — no burst
                 if (key === 'checkin') ok = claimCheckin();
                 else if (key.indexOf('task:') === 0) { var t = findTask(key.slice(5)); ok = t ? claimTask(t) : false; }
                 else if (key.indexOf('weekly:') === 0) { var wt = findWeekly(key.slice(7)); ok = wt ? claimWeekly(wt) : false; }
                 else if (key.indexOf('ch:') === 0) ok = claimChapter(key.slice(3));
                 else if (key.indexOf('event:') === 0) ok = claimEvent();
-                else if (key.indexOf('album:') === 0) { var ap = key.split(':'); ok = buyAlbumCard(ap[1], parseInt(ap[2], 10) || 0); }
+                else if (isAlbum) { var ap = key.split(':'); ok = buyAlbumCard(ap[1], parseInt(ap[2], 10) || 0); }
                 if (ok) {
+                    if (!isAlbum && gain > 0) rewardBurst(gain);
                     renderInto(scopeEl);
                     try { document.querySelectorAll('.ht-wallet-amt').forEach(function (el) { el.textContent = get(); }); } catch (_) {}
                     renderCounter();
