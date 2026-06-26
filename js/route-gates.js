@@ -881,6 +881,7 @@
                        document.getElementById('pp-ch6-backdrop') ||
                        document.getElementById('pp-ms-gate-backdrop') ||
                        document.getElementById('pp-route-gate-backdrop') ||
+                       document.querySelector('#card-reveal-overlay.visible') ||
                        document.querySelector('#cinematic-overlay.visible');
             return !busy;
         } catch (_) { return false; }

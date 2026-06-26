@@ -706,6 +706,25 @@ class GallerySystem {
             // Reveal EVERY newly-unlocked card in turn — not just the last one.
             this._enqueueReveals(justUnlocked);
         }
+
+        // One-time: the starter card ("first-meeting") is seeded as unlocked at
+        // construction, so it never travels through the reveal queue — the player
+        // never actually SEES their very first memory (owner report). Reveal it
+        // once, but ONLY on a genuinely calm care screen (this method also runs
+        // on the 5s care tick, so it can never fire over the title/intro), and
+        // only when nothing else is on screen, so it slots in cleanly after the
+        // onboarding beats settle. Latched via pp_starter_card_seen.
+        try {
+            if (!localStorage.getItem('pp_starter_card_seen') &&
+                this.unlockedCards.has('first-meeting') &&
+                document.body.classList.contains('pp-screen-care') &&
+                !this._screenBusyForReveal() &&
+                !this._revealActive &&
+                (!this._revealQueue || !this._revealQueue.length)) {
+                localStorage.setItem('pp_starter_card_seen', '1');
+                this._enqueueReveals(['first-meeting']);
+            }
+        } catch (_) {}
     }
 
     // ── Sequential reveal queue ───────────────────────────────────────
@@ -735,14 +754,14 @@ class GallerySystem {
         if (!card) { this._flushRevealQueue(); return; }   // skip unknown id, keep going
         this._revealActive = true;
         const next = () => { this._revealActive = false; this._flushRevealQueue(); };
-        // Gacha reveal for rare+ (next fires when the player taps to continue);
-        // simple corner toast for common/uncommon (auto-fades, then continue).
-        if (card.rarity === 'rare' || card.rarity === 'legendary' || card.rarity === 'premium') {
-            this.playReveal(card, next);
-        } else {
-            this._showSimpleNotification(card);
-            setTimeout(next, 3800);
-        }
+        // EVERY rarity gets the full card-art reveal so the player always SEES
+        // the card they just earned. (Owner report: common cards — "First
+        // Meeting", "The Loyal Knight" — only flashed a text-only corner toast
+        // with no art, so unlocking read as "the cards aren't showing".)
+        // playReveal scales the drama by rarity — a soft fade-in for common, a
+        // cinematic burst for legendary — and in every case shows the real card
+        // and waits for a player tap before continuing.
+        this.playReveal(card, next);
     }
 
     // Back-compat shim — any remaining caller routes through the queue so a
@@ -756,14 +775,24 @@ class GallerySystem {
     // reveal must not cover it.
     _screenBusyForReveal() {
         try {
-            if (document.body.classList.contains('pp-chapter-active')) return true;
+            const b = document.body.classList;
+            if (b.contains('pp-chapter-active')) return true;
+            if (b.contains('pp-overlay-active')) return true;        // any panel up
+            if (b.contains('pp-chain-in-progress')) return true;     // mid story-chain
+            // Authoritative single-source overlay check (Daily page, letters,
+            // gift/training panels, etc. all register here) so a reveal can never
+            // bleed over a panel that the selector list below doesn't enumerate.
+            if (window.PPOverlay && typeof PPOverlay.anyOpen === 'function' && PPOverlay.anyOpen()) return true;
             return !!document.querySelector(
                 '#mscard-root:not(:empty), #chp-page:not(:empty),' +
                 '#cinematic-overlay.visible, #intro-overlay.visible,' +
                 '#story-overlay:not(.hidden), #ms-encounter-root:not(:empty),' +
                 '#tp-root:not(:empty), #date-overlay:not(.hidden),' +
                 '#event-overlay:not(.hidden), #gallery-overlay:not(.hidden),' +
-                '#settings-overlay:not(.hidden), #card-reveal-overlay.visible'
+                '#settings-overlay:not(.hidden), #card-reveal-overlay.visible,' +
+                // Route-open / Ch6 / main-story-gate celebrations are modal too —
+                // never pop a card reveal on top of one (defer until it closes).
+                '#pp-route-gate-backdrop, #pp-ch6-backdrop, #pp-ms-gate-backdrop'
             );
         } catch (_) { return false; }
     }
@@ -1026,6 +1055,9 @@ class GallerySystem {
         this.renderActive();
         overlay.classList.remove('hidden');
         this.newCards.clear(); // Mark all as seen
+        // Opening the gallery counts as having seen the starter card, so the
+        // one-time "first-meeting" reveal won't pop redundantly afterward.
+        try { localStorage.setItem('pp_starter_card_seen', '1'); } catch (_) {}
     }
 
     // ── Cards / Stories mode toggle ──────────────────────────────
