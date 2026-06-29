@@ -1332,12 +1332,15 @@ class GallerySystem {
             return;
         }
 
-        filteredCards.forEach(card => {
+        filteredCards.forEach((card, index) => {
             const isUnlocked = this.unlockedCards.has(card.id);
             const isNew = this.newCards.has(card.id);
 
             const cardEl = document.createElement('div');
             cardEl.className = `gallery-card rarity-${card.rarity} ${isUnlocked ? 'unlocked' : 'locked'} ${isNew ? 'new' : ''}`;
+            // Staggered entrance (juice): the first dozen cards cascade in; the
+            // rest share the last step so the big "All" grid doesn't drag.
+            cardEl.style.setProperty('--pp-i', Math.min(index, 12));
 
             if (isUnlocked) {
                 cardEl.innerHTML = `

@@ -2962,6 +2962,16 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
     overflow: hidden;
     transition: transform 0.2s;
     cursor: pointer;
+    /* Premium staggered entrance — cards rise + fade in when the grid renders
+       instead of snapping. --pp-i (set per card in renderCards, capped at 12)
+       cascades the first dozen; the global reduced-motion rule neutralizes it.
+       `backwards` holds the hidden start state through the delay. */
+    animation: pp-gallery-card-in 400ms cubic-bezier(0.16, 1, 0.30, 1) backwards;
+    animation-delay: calc(var(--pp-i, 0) * 32ms);
+}
+@keyframes pp-gallery-card-in {
+    from { opacity: 0; transform: translateY(14px) scale(0.94); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .gallery-card.unlocked:active { transform: scale(0.95); }
