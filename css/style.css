@@ -1850,6 +1850,11 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
     margin-top: 0;
 }
 
+.action-btn:focus-visible {
+    outline: 2px solid rgba(232, 200, 138, 0.9);
+    outline-offset: 2px;
+}
+
 .action-btn {
     /* AAA POLISH (Jun 2026) — was a white iOS-keyboard card with
        a flat cream gradient. Now a wine-velvet card with rose-gold

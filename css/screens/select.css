@@ -1298,6 +1298,11 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     pointer-events: none;
 }
 
+.cc-nav-tab:focus-visible {
+    outline: 2px solid rgba(242, 214, 144, 0.9);
+    outline-offset: 2px;
+}
+
 .cc-nav-tab {
     position: relative;
     display: flex;
