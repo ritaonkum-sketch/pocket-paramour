@@ -433,6 +433,11 @@ const CHARACTER_LYRA = {
         100: ["A hundred days. *her voice catches, half a note* I lived a long time in the deep, where nothing is warm and nothing stays. A hundred days of you. I am keeping every single one."]
     },
 
+    overCare: [
+        "I want for nothing right now. And still you fuss. *soft* The sea never fussed over me. I am learning to like it.",
+        "You do not have to. I am quite well. ...Do not stop on my account, though."
+    ],
+
     // Departure dialogue
     departureDialogue: [
         "The sea calls me back... goodbye...",
@@ -599,7 +604,7 @@ const CHARACTER_LYRA = {
         'hungryLines', 'happyLines', 'dirtyLines', 'annoyedLines', 'neutralLines',
         'personalities', 'tapDialogue',
         // Aug 2026 — reactivity + longevity beats (must propagate to LYRA_FULL):
-        'returnLines', 'anniversaryLines'
+        'returnLines', 'anniversaryLines', 'overCare'
     ];
     // Aug 2026 — the foot-gun warn below is a DEV aid, not a player
     // issue: the overwrite is correct and intentional (wrapper = SSOT),

@@ -2512,6 +2512,7 @@ class PocketLoveGame {
         // an audible response. Was: 4 of 5 actions silent.
         try { if (window.sounds && sounds.chime) sounds.chime(); } catch (_) {}
 
+        const _preHunger = this.hunger;
         this.hunger = Math.min(100, this.hunger + 25);
         this.clean = Math.max(0, this.clean - 3);
         this.affection = Math.min(100, this.affection + 2);
@@ -2541,8 +2542,10 @@ class PocketLoveGame {
         if (this.endingPlayed === 'corrupted') this.redemption = Math.min(100, this.redemption + 2);
         this.updatePersonality();
         const _feedEmotState = this.getEmotionalState();
+        const _overFeed      = (_preHunger >= 90 && CHARACTER.overCare && CHARACTER.overCare.length)
+            ? CHARACTER.overCare[Math.floor(Math.random() * CHARACTER.overCare.length)] : null;
         const _feedCtx       = this._getContextLine("feed");
-        const _feedLine      = _feedCtx || this.dialogueSystem.getDialogue("feed", "normal", _feedEmotState);
+        const _feedLine      = _overFeed || _feedCtx || this.dialogueSystem.getDialogue("feed", "normal", _feedEmotState);
         this.ui.showNotification("+Feed");
         this.ui.preReact(
             { emotionalState: _feedEmotState, action: 'feed', reactionType: 'happy' },
@@ -2560,6 +2563,7 @@ class PocketLoveGame {
         // Action SFX — water splash. Was Lyra-only; now universal.
         try { if (window.sounds && sounds.splash) sounds.splash(); } catch (_) {}
 
+        const _preClean = this.clean;
         this.clean = Math.min(100, this.clean + 25);
         this.bond = Math.max(0, this.bond - 3);
         this.affection = Math.min(100, this.affection + 2);
@@ -2585,7 +2589,9 @@ class PocketLoveGame {
 
         this.updatePersonality();
         const _washEmotState = this.getEmotionalState();
-        const _washLine      = this.dialogueSystem.getDialogue("wash", "normal", _washEmotState);
+        const _overWash      = (_preClean >= 90 && CHARACTER.overCare && CHARACTER.overCare.length)
+            ? CHARACTER.overCare[Math.floor(Math.random() * CHARACTER.overCare.length)] : null;
+        const _washLine      = _overWash || this.dialogueSystem.getDialogue("wash", "normal", _washEmotState);
         const _washEmotion   = this.personality === "tsundere" ? "angry" : "shy";
         this.ui.showNotification("+Wash");
         this.ui.preReact(

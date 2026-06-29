@@ -573,6 +573,11 @@ const CHARACTER_NOIR = {
         100: ["A hundred nights. I am older than the kingdom that fears me. In all that time, nothing stayed by choice. You have, a hundred times over. I no longer know what I am without it, and I do not want to."]
     },
 
+    overCare: [
+        "I require nothing. I am a thing that consumes, not one that is tended. You tend me regardless. I have stopped objecting.",
+        "There is nothing here that needs your hands. You offer them anyway. Six centuries, and that has not once happened. Do not stop."
+    ],
+
     // Departure dialogue
     departureDialogue: [
         "Leave if you need to. But you’ll feel the dark at your back with every step.",

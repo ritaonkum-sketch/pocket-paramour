@@ -698,6 +698,11 @@ const CHARACTER_CASPIAN = {
         100: ["A hundred days. The pattern in my family is that someone burns for love. A hundred days, and you have only ever warmed me. You are breaking the curse by staying."]
     },
 
+    overCare: [
+        "I have a hundred servants for this and I have never wanted one of them. I want you, doing the unnecessary thing. ...Carry on.",
+        "You are spoiling a prince who needs nothing. It is the most genuine thing anyone has done for me. Please do not stop."
+    ],
+
     departureDialogue: [
         "The palace will stand without you. I’m not sure I will.",
         "I prepared everything for your comfort. And you still left.",

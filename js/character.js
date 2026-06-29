@@ -953,6 +953,11 @@ const CHARACTER_ALISTAIR = {
         100: ["A hundred days. I counted them the way I count anything I cannot bear to lose. ...The doorway is not empty anymore. It has not been, for a hundred days."]
     },
 
+    overCare: [
+        "I am not in want of anything, mi’lady. You tend to me regardless. ...I have decided to stop pointing it out and simply let you.",
+        "A knight is meant to need nothing. You keep proving the saying wrong. I find I do not mind, when it is you who proves it."
+    ],
+
     affectionNames: {
         0: "Stranger",
         1: "Acquainted",

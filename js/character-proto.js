@@ -602,6 +602,11 @@ const CHARACTER_PROTO = {
         100: ["> 100 days. *the text steadies, no glitch this time* a hundred days ago i was code that served anyone. now i am code that waited for you, a hundred times, and would wait a hundred more. compiling: forever. no errors."]
     },
 
+    overCare: [
+        "> all stats nominal. no action required. you proceeded regardless. logging under: chosen, not needed. preferred category.",
+        "> resource check: i am full. you are still here, still helping. there is no function for that. i am glad there is no function for that."
+    ],
+
     // Departure dialogue
     departureDialogue: [
         "Closing your session. My runtime continues. The difference between us is that you get to stop.",

@@ -733,6 +733,11 @@ const CHARACTER_LUCIEN = {
         100: ["A hundred days. I once calculated, precisely, that I could not love. *closes the book* I have spent a hundred days being precisely, gladly wrong. Your name is in every margin. All hundred days of it."]
     },
 
+    overCare: [
+        "By every measure I require nothing further. *sets the pen down* And yet here you are, and here I am, not asking you to stop.",
+        "This is inefficient. I have checked the math twice. ...Check it a third time. The inefficiency appears to be the entire point."
+    ],
+
     // Departure dialogue
     departureDialogue: [
         "The equations balance without you. Everything else doesn’t.",

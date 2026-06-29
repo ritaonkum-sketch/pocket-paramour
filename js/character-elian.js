@@ -580,6 +580,11 @@ const CHARACTER_ELIAN = {
         100: ["A hundred days. *long pause* I do not have a hundred words for it. I have one. Stay. I have meant it every day, and I will mean it tomorrow."]
     },
 
+    overCare: [
+        "I do not need tending. *pause* I am also not telling you to stop. Those are two different things.",
+        "I want for nothing out here. You do it anyway. That is how I know it is not duty."
+    ],
+
     departureDialogue: [
         "The trail goes two ways. You picked the one leading away.",
         "I’ll keep the fire lit. In case.",
