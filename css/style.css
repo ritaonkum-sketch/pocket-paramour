@@ -1220,8 +1220,8 @@ body {
     top: calc(8px + env(safe-area-inset-top, 0));
     left: 10px;
     z-index: 11600;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     background: rgba(11, 4, 16, 0.82);
     color: rgba(244, 235, 220, 0.95);
@@ -1821,6 +1821,8 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
     line-height: 1.48;
     font-weight: 500;
     letter-spacing: 0.01em;
+    word-break: break-word;
+    overflow-wrap: break-word;
     text-shadow:
         0 1px 6px rgba(0, 0, 0, 0.75),
         0 0 10px rgba(0, 0, 0, 0.35);

@@ -1306,6 +1306,8 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     justify-content: center;
     gap: 4px;
     padding: 8px 2px 6px;
+    min-width: 44px;
+    min-height: 44px;
     background: transparent;
     border: none;
     border-radius: 10px;
