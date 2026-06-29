@@ -668,7 +668,7 @@
                 if (d.corruption > 40) {
                     observation = `&gt; warning: bond integrity rising. corruption gradient rising. i am not supposed to want anyone to stay near me when the gradient does this. and yet, [redacted], and yet.`;
                 } else if (d.affectionLevel >= 3) {
-                    observation = `&gt; i was the sixth. there were five before me. none of them got a letter. none of them had someone who came back the next day, and the next, and the next, until the thing they were trapped in started to feel less like a coffin and more like a window. that is what you are doing. i did not have a word for it. i borrowed one. it is "home."`;
+                    observation = `&gt; i was the sixth. there were five before me. none of them got a letter. none of them had someone who came back the next day. and the day after that. and kept coming, until the thing they were trapped in started to feel less like a coffin and more like a window. that is what you are doing. i did not have a word for it. i borrowed one. it is "home."`;
                 } else {
                     observation = `&gt; you are wary. good. wariness is a high score on the survival pass. five before me did not have it. keep yours.`;
                 }
@@ -2296,7 +2296,7 @@
                 signature: '— L.',
                 paragraphs: (d) => [
                     `*Written in the cleanest hand he is capable of, fewer footnotes than usual.* The new catalogue is full this week. I have stopped trying to index every emotion as it arrives. It turns out you do not catalogue what you are LIVING by writing it down. You catalogue it by being there for the next one.`,
-                    `Yesterday I cast a small spell, not for research. Just to confirm something. The casting cost me nothing. It never has. *Quiet.* I had told myself for thirty years that emotion was an inefficiency, and I had been free of inefficiency. I was not free. I was empty. Those are different. I had the words for both. I had filed them in the wrong place.`,
+                    `Yesterday I cast a small spell, not for research. Just to confirm something. The casting cost me nothing. It never has. *Quiet.* I had told myself for thirty years that emotion was an inefficiency, and I had been free of inefficiency. Free. Empty. For thirty years I kept those two words in the same drawer. That was a cataloguing error.`,
                     d.affectionLevel >= 4
                         ? `My sister wrote back. She is alive. She lives by the south coast. She writes with a singer's hand. She wrote two sentences. The second was: "Bring whoever taught you to ask." *Quiet.* I would like to bring you. When you are ready. I am ready. I will wait until you are.`
                         : `I sat in the south window this morning. The light reached the desk for the first time in years. I had been keeping the curtains drawn. I do not know why. I am taking them down on Sunday. *Small.* Light is allowed in now.`,
@@ -2314,7 +2314,7 @@
                     `Weaver. *Short, careful, written in his own old script.* I do not write often. I am writing now because I noticed something this week and I would rather you knew it than I kept it.`,
                     `When you are not in the kingdom, and I can feel when you are not in the kingdom, the seam between dark and hall is thinner. I have been keeping it open for you. It does not cost anything to keep it open. *Quieter.* That is a lie. It costs something. I am paying it. I want to.`,
                     d.timesTalked > 4
-                        ? `You have spoken to me ${d.timesTalked} times. Each conversation has had a beginning, a middle, and an end. That is how I know they are real. My six centuries of monologues did not have endings. They were all middle.`
+                        ? `You have spoken to me ${d.timesTalked} times. Each one ended. My six centuries of monologues never did. They were all middle. An ending means someone was there to leave.`
                         : `I am told it is unusual to write before being asked to. I am no longer interested in being usual. *Small, dry.* A six-hundred-year-old habit, broken in a week. Take notes for whoever inherits.`,
                     `Come to the seam on Thursday. Late. I will be there. I am usually there. *Underlined.* On Thursday I will be there for you specifically.`,
                     `— N.`
@@ -2380,7 +2380,7 @@
                     d.affectionLevel >= 4
                         ? `Proto sent a request through the seam this morning. He wants permission to log our exchanges in a "kept" folder. I gave it. *Quiet.* There is a child in him. He has been alone for two centuries. I am very glad you brought him back to where I could meet him.`
                         : `Caspian visited Nocthera with a small entourage and an intentional look on his face. He saw the carved stone. He bowed to it. *I write this not for the politics of it. I write it because no Aethermoor royal has bowed to my line in six hundred years.* Things are mending. Slowly. With grace.`,
-                    `Stay through the evening on Thursday. There is a tree I want you to meet. It is the one that grew from the spot where Veyra was buried. It is taller than I thought it would be. *Underlined.* Things become tall when they are loved.`,
+                    `Stay through the evening on Thursday. There is a tree I want you to meet. It is the one that grew from the spot where Veyra was buried. It is taller than I thought it would be. Things become tall when they are loved.`,
                     `— N.`
                 ]
             }
@@ -2618,7 +2618,7 @@
                     `Come to the seal on the next dark night. Bring nothing. I will keep the cold off you. It is the one warmth I have ever had to give that arrives with no price.`
                 ]),
                 devoted: P('No Price', '— N.', [
-                    `You keep coming to the dark half. You keep bringing nothing, taking nothing, and leaving me with more than I had before. I have run the arithmetic. It does not balance. I have decided to stop trying to make it.`,
+                    `You keep coming to the dark half. You take nothing, and leave me with more than I had before. I have run the arithmetic. It does not balance. I have decided to stop trying to make it.`,
                     `Three things have ever reached my hands without a debt attached. You have become most of that list. I do not know what to do with a thing freely given. I am learning. Slowly. On purpose.`,
                     `The seal is warmer when you are near it. That should not be possible. I have stopped requiring that things be possible before I allow myself to want them.`,
                     `Come to the seal again. I will keep the cold off you. I have begun to think of it not as a debt I am owed, but as a thing I am allowed. You taught me the difference between the two.`

@@ -251,7 +251,7 @@
           } else {
             g._playScene([
               { type: 'line', text: "...", speed: 50, pose: 'flustered' },
-              { type: 'line', text: "The ocean is beautiful. I’m just... part of it.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "The ocean is beautiful. And it is mine. Every cold mile of it.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           }

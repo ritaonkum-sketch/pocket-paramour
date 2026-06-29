@@ -117,7 +117,7 @@
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "There's something I've been meaning to tell you.", speed: 30, pose: 'serious' },
         { type: 'delay', ms: 1200 },
-        { type: 'line', text: "I— you— when you're around, I—", speed: 40, pose: 'flustered' },
+        { type: 'line', text: "I... you... when you're around, I...", speed: 40, pose: 'flustered' },
         { type: 'line', text: "...Never mind. Forget it. Goodnight.", speed: 25, pose: 'sheepish' },
         { type: 'hide' }
       ],
@@ -549,7 +549,7 @@
         { type: 'flash', color: '#1a0020', ms: 600 },
         { type: 'line', text: "You were dreaming. I know because I was there.", speed: 30, pose: 'neutral' },
         { type: 'line', text: "The boundary between sleep and shadow is thin. I walked through.", speed: 35, pose: 'smirk' },
-        { type: 'line', text: "You looked peaceful. I almost didn't want to leave.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "You looked at peace. I confess I was loath to disturb it.", speed: 30, pose: 'gentle' },
         { type: 'hide' }
       ],
       effects: { bond: 15, corruption: 5 },

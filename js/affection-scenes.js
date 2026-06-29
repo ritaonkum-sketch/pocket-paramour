@@ -172,7 +172,7 @@
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
           { type: 'line', text: 'The forest decides who stays. It decided you weeks ago. I am a slower creature. I decide tonight.', hold: 2800, cps: 26 },
           { type: 'particles', count: 16, duration: 1800 },
-          { type: 'line', text: 'I do not age like other men. My mother was something older than human. I have watched this kingdom be four kingdoms. I have not wanted to follow anyone out of these trees. Until you.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'I do not age like other men. My mother was something older than human. I have watched this kingdom be four kingdoms. I have not wanted to follow anyone out of these trees. You are the first thing that has made me consider the road.', hold: 3400, cps: 26 },
           { type: 'line', text: '*Quieter, eyes on the ground*. There is a black place under the rowan that has been growing for sixty years. I have been patrolling its edges. I have not told anyone. Tonight I am telling you.', hold: 4200, cps: 22 },
           { type: 'line', text: '*Takes your face in both rough hands, presses his forehead to yours, breathes. Just breathes. For a long time. *. Stay. With me. Past the markers, if you want.', hold: 3400, cps: 26 },
           { type: 'hide' }
@@ -234,7 +234,7 @@
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 700 },
           { type: 'line', text: 'I tried a new note today. The cave did not flinch. That is your doing, little listener.', hold: 2400, cps: 30 },
           { type: 'line', text: '*Reaches. Hesitates. Then wraps her cold fingers around your hand*. Oh.\u2026You are so warm. I did not know hands could be this warm.', hold: 3200, cps: 28 },
-          { type: 'line', text: 'Can I. Keep it?. Just for a moment. I have been cold for years. I did not know I could stop being cold.', hold: 3000, cps: 28 },
+          { type: 'line', text: 'Can I keep it? Just a moment. *Her hand stays where yours was.* The deep is always cold. I had stopped noticing that. You made me notice.', hold: 3000, cps: 28 },
           { type: 'line', text: 'Stay for the next verse. It is warmer. This cave has not been warm in a long time. You brought that in with you.', hold: 2400, cps: 30 },
           { type: 'hide' }
         ]
@@ -439,7 +439,7 @@
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
           { type: 'line', text: 'I have been working on a theorem for months. It states: any room you walk into becomes my favourite room. The proof requires me to admit I have favourites. *Quiet*. That admission is, by itself, longer than the theorem.', hold: 3000, cps: 26 },
           { type: 'particles', count: 18, duration: 1800 },
-          { type: 'line', text: 'I should tell you something I have not told anyone. *Eyes down, then up*. I do not feel things the way other people feel them. I have not, since I was eight. I decided emotion was inefficient. I built a whole life on that decision. *Quieter*. The decision was wrong. I am thirty years late realising it. You are the reason.', hold: 4400, cps: 24 },
+          { type: 'line', text: 'I should tell you something I have not told anyone. *Eyes down, then up*. I do not feel things the way other people feel them. I have not, since I was eight. I decided emotion was inefficient. I built a whole life on that decision. *Quieter*. Then you walked in, and the arithmetic stopped working. You are the reason it stopped.', hold: 4400, cps: 24 },
           { type: 'line', text: '*Reaches across the desk, takes your hand, keeps reading with his other, ink-stained fingers warming against yours*. I noticed the warming. I had filed warm-hands under "thermodynamic event." I am revising the file. *Small breath*. The file is now under "yours."', hold: 4000, cps: 24 },
           // (Slow-burn arc — Lucien drip beat. He follows through on the
           //  catch in Ch14: he begins giving her the slow version of what
