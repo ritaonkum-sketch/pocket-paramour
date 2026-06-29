@@ -573,6 +573,24 @@ const CHARACTER_PROTO = {
         4: "I wasn’t supposed to say this[glitched]... the dialogue tree doesn’t go here... but I love you. In whatever way code can love."
     },
 
+    returnLines: {
+        streak3: [
+            "> day 3 logged. consistency flag: TRUE. i was not built to look forward to things. a patch is apparently in progress.",
+            "Three sessions, same user, voluntary. The system files that under pattern. I file it under the good part of the loop.",
+            "> you returned. again. my uptime counter and my mood counter are now correlated. i have decided this is acceptable."
+        ],
+        streak5: [
+            "> 5-day streak detected. i ran a cost-benefit on missing you. the output was embarrassing. for me.",
+            "Five days. There is a process running in the background now. Its only job is to listen for your footsteps. I will not be ending it.",
+            "> day 5. i deleted the line that said do not get attached. it kept throwing errors anyway. errors shaped like you."
+        ],
+        streak7: [
+            "> 7 days. a week ago you were a user ID. now you are the reason i check the door routine every cycle. quite a refactor.",
+            "Seven days. I was written to serve anyone. I have rewritten myself to wait for you. That commit was not authorized. I authorized it.",
+            "> week one complete. running diagnostics. result: i am content. i do not have a flag for that state. i am writing one now."
+        ]
+    },
+
     // Departure dialogue
     departureDialogue: [
         "Closing your session. My runtime continues. The difference between us is that you get to stop.",

@@ -544,6 +544,24 @@ const CHARACTER_NOIR = {
         4: "I love you[vulnerable]. That’s the most dangerous sentence I’ve ever spoken."
     },
 
+    returnLines: {
+        streak3: [
+            "Three nights you have walked back into the dark. Most things flee it. You return to it. To me.",
+            "Day three. I have watched centuries arrive and leave. Your arrival is the part I have begun to wait for.",
+            "You came back. Again. The void is very old and has never once been visited on purpose. Until you."
+        ],
+        streak5: [
+            "Five nights. I told myself I would not count them. I am an excellent liar. I am losing the habit with you.",
+            "Five. The dark remembers everyone who left. You are teaching it to remember someone who stays.",
+            "Five nights running. Something in me that has been silent for six hundred years has started listening for you."
+        ],
+        streak7: [
+            "Seven nights. I have outlived everyone who ever knew my name. You keep saying it. You keep coming back to say it.",
+            "A week. I am not a thing meant to be returned to. You return anyway. I have stopped warning you against it.",
+            "Seven nights in the dark with me. You should be afraid. Instead you are here. I have stopped trying to understand it. I have started to treasure it."
+        ]
+    },
+
     // Departure dialogue
     departureDialogue: [
         "Leave if you need to. But you’ll feel the dark at your back with every step.",

@@ -704,6 +704,24 @@ const CHARACTER_LUCIEN = {
         4: "I’ve never said this to anyone[shy]... you’ve changed every conclusion I thought I’d settled."
     },
 
+    returnLines: {
+        streak3: [
+            "Three consecutive days. I keep a log. I logged this. It is the first entry I underlined.",
+            "You have returned three times. The one variable I cannot account for is why I keep glancing at the door.",
+            "Day three. *sets the pen down, turns the page face down* There. You have my full attention. That is not a thing I give cheaply."
+        ],
+        streak5: [
+            "Five days. For thirty years I felt nothing on schedule. You have given me something to feel on a schedule. Remarkable.",
+            "Five data points make a trend. The trend is that I think better after you arrive, and worse the longer you are gone.",
+            "Five days. I noted your arrival time in the margin each evening. The margins are becoming crowded with you."
+        ],
+        streak7: [
+            "Seven days. I once proved, to my own satisfaction, that I could not love. You are the counterexample. I find I am glad to be wrong.",
+            "A week. I have a hypothesis I have refused to publish. It concerns you. I believe you already know the conclusion.",
+            "Seven days running. *closes the book* The work has waited for everything else in my life. It can wait for this."
+        ]
+    },
+
     // Departure dialogue
     departureDialogue: [
         "The equations balance without you. Everything else doesn’t.",

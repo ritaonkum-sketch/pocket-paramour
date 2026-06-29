@@ -1025,7 +1025,10 @@ class PocketLoveGame {
         } else {
             // Alistair daily streak line + NG+ memory echo
             setTimeout(() => {
-                if (!this.dailyLineShown) this._showAlistairDailyReturnLine();
+                if (!this.dailyLineShown) {
+                    if (CHARACTER.name === 'Alistair') this._showAlistairDailyReturnLine();
+                    else this._showReturnLineGeneric();
+                }
                 if (!this.memoryLeakShown) {
                     const meta = this._loadMetaMemory();
                     if (meta.hasPlayedBefore && (meta.bondEcho || 0) > 0) {
@@ -4552,6 +4555,27 @@ class PocketLoveGame {
         else if (day >= 5) line = "I don't think I can ignore it anymore.";
         else if (day >= 3) line = "I notice when you're gone now.";
         if (line) setTimeout(() => this.typewriter.show(line), 3200);
+    }
+
+    // Generic cast-wide daily streak return lines.
+    // Caspian/Lucien/Elian/Proto/Noir had no "you came back" beat (only
+    // Lyra + Alistair did). Reads each character's own returnLines pool so
+    // every route gets the "they notice you" moment, in that character's
+    // voice, gated by streak. Surfaces via the existing typewriter (no new
+    // UI, so the care screen stays calm).
+    _showReturnLineGeneric() {
+        const rl = CHARACTER.returnLines;
+        if (!rl) return;
+        this.dailyLineShown = true;
+        const day = this.dailyStreak || 1;
+        let pool = null;
+        if (day >= 7 && rl.streak7) pool = rl.streak7;
+        else if (day >= 5 && rl.streak5) pool = rl.streak5;
+        else if (day >= 3 && rl.streak3) pool = rl.streak3;
+        if (pool && pool.length) {
+            const line = pool[Math.floor(Math.random() * pool.length)];
+            setTimeout(() => this.typewriter.show(line), 3200);
+        }
     }
 
     // ── Alistair Absence-Aware Return Lines ───────────────────────────

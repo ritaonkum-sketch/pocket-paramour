@@ -669,6 +669,24 @@ const CHARACTER_CASPIAN = {
         4: "You are my kingdom[love] now. The rest is just borders."
     },
 
+    returnLines: {
+        streak3: [
+            "Three days. The court would call it a habit. I call it the best part of my schedule.",
+            "You keep coming back. I have stopped bracing for the day you do not.",
+            "Day three. I rearranged nothing for you, and somehow my whole day arranged itself around this."
+        ],
+        streak5: [
+            "Five days. I have started leaving the east window open in the evenings. ...In case you came early.",
+            "Princes are taught to count on nothing. I have been counting on you for five days now.",
+            "Five. I keep the hour after supper free. I tell the stewards it is for correspondence. It is for you."
+        ],
+        streak7: [
+            "A week. Do you know how rare it is for someone to want nothing from me but my company? ...You are the only one.",
+            "Seven days. Everyone in my life is paid to return. You are not. That is the whole difference.",
+            "A week of you. I have never been chosen freely before. I am still learning how it feels."
+        ]
+    },
+
     departureDialogue: [
         "The palace will stand without you. I’m not sure I will.",
         "I prepared everything for your comfort. And you still left.",

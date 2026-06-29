@@ -551,6 +551,24 @@ const CHARACTER_ELIAN = {
         4: "*Sets the wood down between you, then sits[warm]*. The fire is on this side. Stay there. Stay close."
     },
 
+    returnLines: {
+        streak3: [
+            "Three days. The snares can wait. You came back. That is worth marking.",
+            "You keep returning. The forest trusts what returns. So do I.",
+            "Three days running. I left the fire on your side again. It is habit now."
+        ],
+        streak5: [
+            "Five days. I used to set one place at the fire. Lately I set two without thinking.",
+            "Five. The wood I gather is for two now. I did not decide that. It became true.",
+            "Five days. I am not good with words for this. But I notice. Every day you come, I notice."
+        ],
+        streak7: [
+            "Seven days. The woods go quiet when you are gone. I had stopped minding the quiet. Now I mind it.",
+            "A week. I do not say much, so hear this once. I count on you. That is rare ground for me.",
+            "Seven days. *adds a log to your side of the fire* Stay. You always could."
+        ]
+    },
+
     departureDialogue: [
         "The trail goes two ways. You picked the one leading away.",
         "I’ll keep the fire lit. In case.",
