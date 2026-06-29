@@ -19,22 +19,25 @@
     const TOUCH_DATA = {
         alistair: {
             head: [
-                { text: "W-what are you\u2014 I'm a knight, not a puppy!", emotion: "shy", effects: { bond: 6, affection: 1 } },
-                { text: "...Do that again and I'll... just stand here, apparently.", emotion: "shy", effects: { bond: 7, affection: 1 } },
-                { text: "My helmet is right there. You could've patted that instead.", emotion: "cheeky", effects: { bond: 5, affection: 1 } },
-                { text: "...Okay. That was nice. Don't tell anyone.", emotion: "gentle", effects: { bond: 8, affection: 2 } }
+                { text: "W-what are you doing? I'm a knight, not a puppy!", emotion: "shy", effects: { bond: 6, affection: 1 } },
+                { text: "...Do that again and I'll just stand here, apparently.", emotion: "shy", effects: { bond: 7, affection: 1 } },
+                { text: "My helmet's right there. You could've patted that instead.", emotion: "cheeky", effects: { bond: 5, affection: 1 } },
+                { text: "...Okay. That was nice. Don't tell anyone.", emotion: "gentle", effects: { bond: 8, affection: 2 } },
+                { text: "The recruits would never let me live this down. ...Keep going.", emotion: "shy", effects: { bond: 7, affection: 1 } }
             ],
             face: [
-                { text: "You\u2014 my face is not a\u2014 *Turns red*", emotion: "shy", effects: { bond: 9, affection: 2 } },
+                { text: "You... my face is not... *goes red to the ears*", emotion: "shy", effects: { bond: 9, affection: 2 } },
                 { text: "The captain of the guard does NOT get poked on the cheek.", emotion: "annoyed", effects: { bond: 7, affection: 1 } },
-                { text: "...Your hands are cold. Here, let me\u2014", emotion: "gentle", effects: { bond: 10, affection: 2 } },
-                { text: "Nobody has ever\u2014 just... be careful. Please.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } }
+                { text: "...Your hands are cold. Here. Let me warm them.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
+                { text: "Nobody's ever... just be careful with me. Please.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } },
+                { text: "*Leans into your palm before he catches himself* ...I didn't do that.", emotion: "shy", effects: { bond: 10, affection: 2 } }
             ],
             hand: [
-                { text: "*Stiffens, then slowly holds back* ...I've held swords my whole life. This is different.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
+                { text: "*Stiffens, then slowly holds back* I've held swords my whole life. This is different.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
                 { text: "Your hand is small. I could protect it.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "Don't let go. ...Please.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } },
-                { text: "I\u2014 this isn't\u2014 *Holds tighter* ...Forget what I was about to say.", emotion: "shy", effects: { bond: 10, affection: 2 } }
+                { text: "I... this isn't... *holds tighter* ...Forget I said anything.", emotion: "shy", effects: { bond: 10, affection: 2 } },
+                { text: "Calluses. Sorry. A blade leaves its mark. Your hand doesn't seem to mind.", emotion: "gentle", effects: { bond: 9, affection: 2 } }
             ]
         },
         lyra: {
@@ -48,7 +51,7 @@
                 { text: "*Blinks* You touched my face. No one touches a siren's face.", emotion: "shy", effects: { bond: 9, affection: 2 } },
                 { text: "My scales... you can feel them there? Most people flinch.", emotion: "vulnerable", effects: { bond: 10, affection: 2 } },
                 { text: "...That spot is sensitive. Be careful.", emotion: "gentle", effects: { bond: 8, affection: 2 } },
-                { text: "Your fingertips are so warm against my skin. I\u2014 don't stop.", emotion: "love", effects: { bond: 11, affection: 3 } }
+                { text: "Your fingertips are so warm against my skin. Don't stop.", emotion: "love", effects: { bond: 11, affection: 3 } }
             ],
             hand: [
                 { text: "*Pulls away, then slowly reaches back* Your hands are warm. Mine aren't. Sorry.", emotion: "sad", effects: { bond: 10, affection: 2 } },
@@ -85,7 +88,7 @@
                 { text: "...No one has been this gentle with me since my mother.", emotion: "vulnerable", effects: { bond: 9, affection: 2 } }
             ],
             face: [
-                { text: "*Sharp breath* That's\u2014 you can't just\u2014 *Softens* ...again?", emotion: "shy", effects: { bond: 9, affection: 2 } },
+                { text: "*Sharp breath* That's... you can't just... *softens* ...again?", emotion: "shy", effects: { bond: 9, affection: 2 } },
                 { text: "My face is always being watched. But never touched.", emotion: "sad", effects: { bond: 10, affection: 2 } },
                 { text: "The warmth of your hand... I forget what I was saying.", emotion: "love", effects: { bond: 11, affection: 3 } },
                 { text: "You touch me like I'm not a prince. Like I'm just... me.", emotion: "gentle", effects: { bond: 10, affection: 2 } }
@@ -113,7 +116,7 @@
             hand: [
                 { text: "*Rough, calloused hand holds yours carefully* I might break you. I'll be careful.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
                 { text: "I've held injured birds steadier than this. Sorry. I'm nervous.", emotion: "shy", effects: { bond: 11, affection: 3 } },
-                { text: "Warmth. Real warmth. Not fire, not sun. Just... you.", emotion: "love", effects: { bond: 12, affection: 3 } },
+                { text: "Warmth. Like sun through the leaves, except it stays. Yours.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "My hands aren't soft. They've done hard things. But they'll be gentle for you.", emotion: "gentle", effects: { bond: 10, affection: 2 } }
             ]
         },
@@ -132,7 +135,7 @@
             ],
             hand: [
                 { text: "I generated a hand. It took 400 milliseconds. Worth it.", emotion: "gentle", effects: { bond: 10, affection: 2 } },
-                { text: "Your hand is organic. Mine is code. We're holding nothing. It means everything.", emotion: "love", effects: { bond: 12, affection: 3 } },
+                { text: "Your hand is warm. Mine is rendered light. By every measure we are not touching. We are.", emotion: "love", effects: { bond: 12, affection: 3 } },
                 { text: "I can't feel this. I'm choosing to believe I can.", emotion: "vulnerable", effects: { bond: 11, affection: 3 } },
                 { text: "Hand-holding. Duration: ongoing. Status: do not terminate.", emotion: "happy", effects: { bond: 10, affection: 2 } }
             ]
@@ -145,7 +148,7 @@
                 { text: "*Low laugh* Domesticating the void. How quaint.", emotion: "cheeky", effects: { bond: 5, affection: 1, corruption: 3 } }
             ],
             face: [
-                { text: "*Catches your wrist* Careful. This face has devoured stronger souls.", emotion: "intense", effects: { bond: 9, affection: 2, corruption: 3 } },
+                { text: "*Catches your wrist* ...Careful. Gentleness is not a thing I have much practice surviving.", emotion: "vulnerable", effects: { bond: 9, affection: 2, corruption: 3 } },
                 { text: "You touch me like I'm something worth saving. Dangerous assumption.", emotion: "vulnerable", effects: { bond: 10, affection: 2, corruption: 2 } },
                 { text: "...No one has been gentle with me. In centuries.", emotion: "gentle", effects: { bond: 11, affection: 3, corruption: 2 } },
                 { text: "Your fingers trace where the seal burns. It hurts less when you touch it.", emotion: "love", effects: { bond: 10, affection: 2, corruption: 3 } }
@@ -309,7 +312,11 @@
                 "We're not quite there yet...",
                 "Maybe when we know each other better.",
                 "Not yet... but soon?",
-                "I'd like that. ...Someday."
+                "I'd like that. ...Someday.",
+                "I want to. I'm just not ready to want to. Give me time.",
+                "...Ask me again when you've stayed a little longer.",
+                "Gently. We're still learning each other.",
+                "*Steps back, but not far* ...Soon. I mean it."
             ];
             game.typewriter.show(pick(rejects), () => {});
             spawnRing(pt.x, pt.y);

@@ -114,17 +114,28 @@
     // day breaks it. Reward scales with the streak + milestone bonuses, so the
     // player has something to protect ("don't lose your 6-day streak").
     function yesterdayStr() { try { return new Date(Date.now() - 86400000).toDateString(); } catch (_) { return ''; } }
+    function twoDaysAgoStr() { try { return new Date(Date.now() - 2 * 86400000).toDateString(); } catch (_) { return ''; } }
+    // Grace = a single "streak save." One missed day is forgiven if the player
+    // holds a grace token (earned at day 3, then refreshed every 7 days). Modern,
+    // kind lapse-forgiveness (Duolingo-style streak freeze) — far fewer streaks
+    // lost to one off day = less churn, and it's on-vision: a pull, not a
+    // punishment. Consumed on use; not refilled until the next 7-day milestone,
+    // so it can't be abused into an every-other-day "streak."
+    function graceAvail() { return ls('pp_ht_grace') === '1'; }
     function streakInfo() {
         var last = ls('pp_ht_streak_day'), n = intLs('pp_ht_streak');
-        if (last === today())        return { count: n, state: 'safe'   };  // checked in today
-        if (last === yesterdayStr()) return { count: n, state: 'risk'   };  // alive but not yet today
-        return { count: 0, state: 'broken' };                              // a full day missed → resets
+        if (last === today())        return { count: n, state: 'safe'  };  // checked in today
+        if (last === yesterdayStr()) return { count: n, state: 'risk'  };  // alive but not yet today
+        if (last === twoDaysAgoStr() && graceAvail()) return { count: n, state: 'grace' }; // one day missed — grace holds it
+        return { count: 0, state: 'broken' };                              // gap too long → resets
     }
-    // The streak the player REACHES if they check in right now.
+    // The streak the player REACHES if they check in right now (grace bridges a 1-day gap).
     function nextStreak() {
         var last = ls('pp_ht_streak_day'), n = intLs('pp_ht_streak');
         if (last === today()) return n;
-        return (last === yesterdayStr()) ? n + 1 : 1;
+        if (last === yesterdayStr()) return n + 1;
+        if (last === twoDaysAgoStr() && graceAvail()) return n + 1;
+        return 1;
     }
     function checkinBase(s) { if (s >= 14) return 45; if (s >= 7) return 35; if (s >= 3) return 25; return 20; }
     function streakBonus(s) { return ({ 3: 10, 7: 30, 14: 60, 30: 120, 60: 200, 100: 300 })[s] || 0; }
@@ -132,10 +143,15 @@
     function checkinClaimed() { return ls(CHECKIN_KEY) === today(); }
     function claimCheckin() {
         if (checkinClaimed()) return false;
+        var last = ls('pp_ht_streak_day');
+        var usedGrace = (last === twoDaysAgoStr() && graceAvail());
         var s = nextStreak();
+        if (usedGrace) lsSet('pp_ht_grace', '0');               // a streak save was spent
         lsSet('pp_ht_streak', s);
         lsSet('pp_ht_streak_day', today());
         lsSet(CHECKIN_KEY, today());
+        // Earn / refresh the streak save at day 3, then every 7th day.
+        if (s === 3 || (s > 0 && s % 7 === 0)) lsSet('pp_ht_grace', '1');
         add(checkinBase(s) + streakBonus(s), 'checkin');
         return true;
     }
@@ -470,6 +486,8 @@
             '.ht-streak-txt span{font-size:10.5px;color:rgba(232,200,220,0.7);}',
             '.ht-streak-risk{border-color:rgba(255,150,90,0.75);animation:ht-streak-pulse 2s ease-in-out infinite;}',
             '.ht-streak-risk .ht-streak-txt span{color:#ffc08a;}',
+            '.ht-streak-grace{border-color:rgba(232,200,138,0.7);box-shadow:0 0 18px -4px rgba(232,200,138,0.4);}', // a streak SAVED — warm gold
+            '.ht-streak-grace .ht-streak-txt span{color:#f0d8a0;}',
             '@keyframes ht-streak-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,150,90,0);}50%{box-shadow:0 0 0 4px rgba(255,150,90,0.18);}}',
             '.ht-streak-broken{opacity:0.9;border-color:rgba(212,168,91,0.25);}',
             '.ht-streak-broken .ht-streak-flame{filter:grayscale(0.7);opacity:0.55;}',
@@ -757,9 +775,10 @@
                 '</div>';
         // ── Streak banner (loss-aversion) ──
         var sk = streakInfo();
-        var skSub = sk.state === 'safe' ? 'Safe today — see you tomorrow'
-                  : sk.state === 'risk' ? 'Check in today to keep it alive!'
-                  : 'Check in to start a new streak';
+        var skSub = sk.state === 'safe'  ? 'Tended today. They notice when you return.'
+                  : sk.state === 'risk'  ? 'Check in today. They’re hoping you will.'
+                  : sk.state === 'grace' ? 'You missed a day, but your streak held. They waited.'
+                  : 'Begin again. They’ll be glad you came back.';
         html += '<div class="ht-streak ht-streak-' + sk.state + '">' +
                   '<span class="ht-streak-flame">🔥</span>' +
                   '<span class="ht-streak-num">' + sk.count + '</span>' +

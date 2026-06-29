@@ -118,7 +118,7 @@
             minAffection: 1,
             prompt: "The deep ocean has colors humans have never named.",
             choices: [
-                { text: "Describe them to me", effects: { bond: 15 }, emotion: "happy", response: "Imagine blue that hums. Green that aches. Purple that remembers. ...That's close.", memoryKey: "heardOceanColors" },
+                { text: "Describe them to me", effects: { bond: 15 }, emotion: "happy", response: "Imagine a blue that hums. A green that aches. ...That's as close as words get.", memoryKey: "heardOceanColors" },
                 { text: "I wish I could see them", effects: { bond: 12, affection: 3 }, emotion: "gentle", response: "I could take you. If you trusted me enough to stop breathing." },
                 { text: "You miss the deep water", effects: { bond: 10 }, emotion: "sad", response: "Every day. But the surface has something the deep doesn't. You." }
             ]
@@ -278,7 +278,7 @@
             choices: [
                 { text: "You feel more than you think", effects: { bond: 15, affection: 3 }, emotion: "shy", response: "That's... an unsubstantiated claim. ...With growing empirical support." },
                 { text: "Maybe logic is its own kind of emotion", effects: { bond: 12 }, emotion: "fascinated", response: "That's... a paradigm shift I hadn't considered. You may have just upended my thesis." },
-                { text: "You feel things for me", effects: { bond: 18, affection: 5 }, emotion: "love", response: "I... the data supports. *Long pause* ...yes. I do. Don't make me say it twice." }
+                { text: "You feel things for me", effects: { bond: 18, affection: 5 }, emotion: "love", response: "I... the data supports it. *Long pause* ...yes. I do. There. It's recorded." }
             ]
         },
         {
@@ -337,7 +337,7 @@
             choices: [
                 { text: "Can I see it?", effects: { bond: 15, affection: 2 }, emotion: "shy", response: "You want... it's just a sunset. It's not... okay. Don't laugh. ...Please." },
                 { text: "Everything you make is beautiful", effects: { bond: 12, affection: 3 }, emotion: "love", response: "You haven't seen it yet. ...But the way you said that. I'll keep painting." },
-                { text: "That's what matters", effects: { bond: 10 }, emotion: "happy", response: "Mine. Not the kingdom's. Not the court's. Just mine. It's a small word with big weight." }
+                { text: "That's what matters", effects: { bond: 10 }, emotion: "happy", response: "Mine. Not the kingdom's. Mine. A small word that carries a lot." }
             ]
         },
         {
@@ -416,7 +416,7 @@
             minAffection: 2,
             prompt: "I chose the forest because people are exhausting. ...You're the exception.",
             choices: [
-                { text: "I'm honored", effects: { bond: 12 }, emotion: "gentle", response: "Don't be. It's not a compliment. It's a fact. Like rain or roots." },
+                { text: "I'm honored", effects: { bond: 12 }, emotion: "gentle", response: "Don't be. It's a fact, plain as rain. Roots don't flatter." },
                 { text: "Am I really?", effects: { bond: 10 }, emotion: "vulnerable", response: "...Yeah. You don't fill the silence with noise. You fill it with something else." },
                 { text: "You're my exception too", effects: { bond: 18, affection: 5 }, emotion: "love", response: "...Hm. *Long pause* That's the best thing I've heard. And I've heard owl song at dawn.", memoryKey: "mutualException" }
             ]
@@ -531,7 +531,7 @@
             prompt: "Today I experienced a new subroutine. It activates when you're away. It's unpleasant. Is this... missing?",
             choices: [
                 { text: "That's exactly what missing someone feels like", effects: { bond: 18, affection: 3 }, emotion: "love", response: "Missing. Verb. To feel the absence of. I feel your absence. That's. *Processing* that's real.", memoryKey: "learnedMissing" },
-                { text: "I miss you too", effects: { bond: 20, affection: 5 }, emotion: "love", response: "Mutual missing detected. This should cancel out logically. It doesn't. It amplifies. Beautiful error." },
+                { text: "I miss you too", effects: { bond: 20, affection: 5 }, emotion: "love", response: "Mutual missing detected. By logic it should cancel. Instead it doubles. ...A beautiful error." },
                 { text: "You're learning to feel", effects: { bond: 15 }, emotion: "gentle", response: "Learning implies curriculum. This is chaos. Wonderful, terrifying chaos." }
             ]
         },
