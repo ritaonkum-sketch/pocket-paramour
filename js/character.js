@@ -947,6 +947,12 @@ const CHARACTER_ALISTAIR = {
         ]
     },
 
+    anniversaryLines: {
+        7: ["A week, mi’lady. Seven mornings I have woken knowing where you are. I had forgotten a watch could feel like a gift instead of a duty."],
+        30: ["A month. *sets his sword aside, deliberately* I have guarded many things for many years. None of them ever stayed a month. You did."],
+        100: ["A hundred days. I counted them the way I count anything I cannot bear to lose. ...The doorway is not empty anymore. It has not been, for a hundred days."]
+    },
+
     affectionNames: {
         0: "Stranger",
         1: "Acquainted",

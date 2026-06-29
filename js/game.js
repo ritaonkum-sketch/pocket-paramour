@@ -1012,7 +1012,11 @@ class PocketLoveGame {
         // New Game+ memory leak + daily progression
         if (CHARACTER.name === 'Lyra') {
             setTimeout(() => {
-                if (!this.dailyLineShown) this._showDailyReturnLine();
+                this._checkDaysTogether();
+                if (!this.dailyLineShown) {
+                    if (this.lapsedDays >= 3 && CHARACTER.returnLines && CHARACTER.returnLines.lapsed) this._showLapsedReturnLine();
+                    else this._showDailyReturnLine();
+                }
                 if (!this.memoryLeakShown) {
                     const meta = this._loadMetaMemory();
                     if (meta.hasPlayedBefore && (meta.bondEcho || 0) > 0) {
@@ -1025,6 +1029,7 @@ class PocketLoveGame {
         } else {
             // Alistair daily streak line + NG+ memory echo
             setTimeout(() => {
+                this._checkDaysTogether();
                 if (!this.dailyLineShown) {
                     if (this.lapsedDays >= 3 && CHARACTER.returnLines && CHARACTER.returnLines.lapsed) this._showLapsedReturnLine();
                     else if (CHARACTER.name === 'Alistair') this._showAlistairDailyReturnLine();
@@ -4590,6 +4595,46 @@ class PocketLoveGame {
         this.dailyLineShown = true;
         const line = pool[Math.floor(Math.random() * pool.length)];
         setTimeout(() => this.typewriter.show(line), 3200);
+    }
+
+    // Days-together / anniversary longevity beat. Stamps the calendar date a
+    // route first opens (pp_met_<char>), then on a later visit fires a ONE-TIME
+    // in-voice milestone line at 7 / 30 / 100 days together. Longevity is
+    // orthogonal to affectionLevel (which can max in ~2 days) — this rewards
+    // sustained bond. Takes priority over the daily return line on the day it
+    // triggers (sets dailyLineShown). Surfaces via the typewriter (no new UI).
+    // Returns true if an anniversary was shown.
+    _checkDaysTogether() {
+        if (!CHARACTER) return false;
+        let store; try { store = window.localStorage; } catch (_) { return false; }
+        const id = (CHARACTER.name || 'x').toLowerCase();
+        const todayStr = new Date().toDateString();
+        const metKey = 'pp_met_' + id;
+        let met = null; try { met = store.getItem(metKey); } catch (_) {}
+        if (!met) { try { store.setItem(metKey, todayStr); } catch (_) {} return false; }
+        const days = Math.round((new Date(todayStr) - new Date(met)) / 86400000);
+        const lines = CHARACTER.anniversaryLines;
+        if (!lines || days < 7) return false;
+        const milestones = [7, 30, 100];
+        const shownKey = 'pp_anniv_' + id;
+        let shownRaw = ''; try { shownRaw = store.getItem(shownKey) || ''; } catch (_) {}
+        const shown = shownRaw.split(',').filter(Boolean);
+        const due = milestones.filter(m => days >= m && lines[m] && lines[m].length && !shown.includes(String(m)));
+        if (!due.length) return false;
+        const hit = Math.max.apply(null, due);
+        due.forEach(m => shown.push(String(m)));
+        try { store.setItem(shownKey, shown.join(',')); } catch (_) {}
+        const pool = lines[hit];
+        const line = pool[Math.floor(Math.random() * pool.length)];
+        this.dailyLineShown = true;
+        const queuedFor = CHARACTER.name;
+        setTimeout(() => {
+            if (CHARACTER && CHARACTER.name === queuedFor) {
+                this.typewriter.show(line);
+                if (this.ui && this.ui.flashEmotion) this.ui.flashEmotion('love', 3500);
+            }
+        }, 4200);
+        return true;
     }
 
     // ── Alistair Absence-Aware Return Lines ───────────────────────────

@@ -419,6 +419,20 @@ const CHARACTER_LYRA = {
         4: "Come closer.[shy] *Cold hand finds your warm one.* I would rather feel this than be safe. Safe was only ever very quiet."
     },
 
+    returnLines: {
+        lapsed: [
+            "You were gone with the tide for a while. The sea taught me that things leave. ...You are teaching me that some of them come back. I am still adjusting to the lesson.",
+            "Days of quiet water. I sang to no one. *softly* I am glad to have someone to sing to again.",
+            "I did not expect you to surface again. Most things that go under do not. You did. I have decided to believe in it."
+        ]
+    },
+
+    anniversaryLines: {
+        7: ["Seven days. The tide comes in, goes out, comes back. I used to think that was the only thing that returned to me. Now there is you."],
+        30: ["A month. I have been composing something the whole while. It still has no ending, because for the first time the song refuses to be about someone leaving."],
+        100: ["A hundred days. *her voice catches, half a note* I lived a long time in the deep, where nothing is warm and nothing stays. A hundred days of you. I am keeping every single one."]
+    },
+
     // Departure dialogue
     departureDialogue: [
         "The sea calls me back... goodbye...",
@@ -583,7 +597,9 @@ const CHARACTER_LYRA = {
         'idleDialogue', 'feedDialogue', 'washDialogue', 'affectionDialogue',
         // Extended May 2026 — voice-fidelity audit:
         'hungryLines', 'happyLines', 'dirtyLines', 'annoyedLines', 'neutralLines',
-        'personalities', 'tapDialogue'
+        'personalities', 'tapDialogue',
+        // Aug 2026 — reactivity + longevity beats (must propagate to LYRA_FULL):
+        'returnLines', 'anniversaryLines'
     ];
     // Aug 2026 — the foot-gun warn below is a DEV aid, not a player
     // issue: the overwrite is correct and intentional (wrapper = SSOT),

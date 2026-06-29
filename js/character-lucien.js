@@ -727,6 +727,12 @@ const CHARACTER_LUCIEN = {
         ]
     },
 
+    anniversaryLines: {
+        7: ["Seven days on record. I have begun a new ledger. Its only column is you. The week's data is conclusive, and I will not be peer-reviewing it."],
+        30: ["A month. For thirty years I felt nothing on schedule. *opens a notebook* This is one month of feelings, catalogued. The handwriting worsens toward the end. I was hurrying to keep up with you."],
+        100: ["A hundred days. I once calculated, precisely, that I could not love. *closes the book* I have spent a hundred days being precisely, gladly wrong. Your name is in every margin. All hundred days of it."]
+    },
+
     // Departure dialogue
     departureDialogue: [
         "The equations balance without you. Everything else doesn’t.",

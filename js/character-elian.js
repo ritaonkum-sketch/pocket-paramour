@@ -574,6 +574,12 @@ const CHARACTER_ELIAN = {
         ]
     },
 
+    anniversaryLines: {
+        7: ["A week. *cuts a notch into the doorframe with his knife, says nothing for a moment* The forest marks its seasons. I have started marking you."],
+        30: ["A month. The wood remembers who sits by its fire. So do I. Thirty days. You have a place here now. It is not going anywhere."],
+        100: ["A hundred days. *long pause* I do not have a hundred words for it. I have one. Stay. I have meant it every day, and I will mean it tomorrow."]
+    },
+
     departureDialogue: [
         "The trail goes two ways. You picked the one leading away.",
         "I’ll keep the fire lit. In case.",

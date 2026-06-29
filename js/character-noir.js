@@ -567,6 +567,12 @@ const CHARACTER_NOIR = {
         ]
     },
 
+    anniversaryLines: {
+        7: ["Seven nights. I have watched stars die slower than most affections. Yours has lasted a week, here in the dark, where nothing should grow. And yet."],
+        30: ["A month. I have forgotten the names of people I once swore to keep. *quiet* I will not forget a single one of these thirty nights. I have decided."],
+        100: ["A hundred nights. I am older than the kingdom that fears me. In all that time, nothing stayed by choice. You have, a hundred times over. I no longer know what I am without it, and I do not want to."]
+    },
+
     // Departure dialogue
     departureDialogue: [
         "Leave if you need to. But you’ll feel the dark at your back with every step.",
