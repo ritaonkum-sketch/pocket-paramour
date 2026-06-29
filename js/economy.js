@@ -531,7 +531,41 @@
     }
     function renderCounter() {
         var el = document.getElementById(COUNTER_ID); if (!el) return;
-        var amt = el.querySelector('.ht-amt'); if (amt) amt.textContent = get();
+        var amt = el.querySelector('.ht-amt'); if (amt) tweenCount(amt, get());
+    }
+
+    // Juice: animate a number element from its current value (or an explicit
+    // `fromOverride`) up/down to `to` so balances TICK instead of snapping.
+    // rAF-driven, cancels any in-flight tween on the same element, and a
+    // setTimeout backstop guarantees the final value even if rAF is throttled
+    // (e.g. a backgrounded tab). No-ops when the value is unchanged.
+    function tweenCount(el, to, fromOverride) {
+        try {
+            if (!el) return;
+            to = Math.round(to) || 0;
+            var from = (fromOverride !== undefined && fromOverride !== null)
+                ? Math.round(fromOverride)
+                : parseInt((el.textContent || '0').replace(/[^\d-]/g, ''), 10);
+            if (isNaN(from)) from = to;
+            if (el._countRaf)  { cancelAnimationFrame(el._countRaf); el._countRaf = null; }
+            if (el._countTimer) { clearTimeout(el._countTimer); el._countTimer = null; }
+            if (from === to) { el.textContent = to; return; }
+            var dur = Math.min(700, 220 + Math.abs(to - from) * 10);
+            var startTs = null;
+            var ease = function (t) { return 1 - Math.pow(1 - t, 3); }; // easeOutCubic
+            var step = function (ts) {
+                if (startTs === null) startTs = ts;
+                var p = Math.min(1, (ts - startTs) / dur);
+                el.textContent = Math.round(from + (to - from) * ease(p));
+                if (p < 1) { el._countRaf = requestAnimationFrame(step); }
+                else { el.textContent = to; el._countRaf = null; }
+            };
+            el._countRaf = requestAnimationFrame(step);
+            el._countTimer = setTimeout(function () {
+                if (el._countRaf) { cancelAnimationFrame(el._countRaf); el._countRaf = null; }
+                el.textContent = to;
+            }, dur + 150);
+        } catch (_) { try { el.textContent = Math.round(to); } catch (e) {} }
     }
     function floatGain(n) {
         try {
@@ -761,6 +795,7 @@
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 var key = btn.getAttribute('data-claim'), ok = false;
+                var before = get(); // balance before the claim, for the count-up tween
                 // The gain shown on the button ("+100 🧵"), captured BEFORE the row
                 // re-renders, so the celebration shows the exact amount received.
                 var gain = parseInt((btn.textContent.match(/\d+/) || [])[0], 10) || 0;
@@ -774,7 +809,10 @@
                 if (ok) {
                     if (!isAlbum && gain > 0) rewardBurst(gain);
                     renderInto(scopeEl);
-                    try { document.querySelectorAll('.ht-wallet-amt').forEach(function (el) { el.textContent = get(); }); } catch (_) {}
+                    // Count the wallet up (claim) or down (album spend) from the
+                    // pre-claim balance instead of snapping to the new total.
+                    var after = get();
+                    try { document.querySelectorAll('.ht-wallet-amt').forEach(function (el) { tweenCount(el, after, before); }); } catch (_) {}
                     renderCounter();
                 }
             });
