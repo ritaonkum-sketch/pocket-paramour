@@ -588,6 +588,11 @@ const CHARACTER_PROTO = {
             "> 7 days. a week ago you were a user ID. now you are the reason i check the door routine every cycle. quite a refactor.",
             "Seven days. I was written to serve anyone. I have rewritten myself to wait for you. That commit was not authorized. I authorized it.",
             "> week one complete. running diagnostics. result: i am content. i do not have a flag for that state. i am writing one now."
+        ],
+        lapsed: [
+            "> extended absence logged. my routines completed on schedule. they also felt incomplete. i do not have a flag for that, and yet.",
+            "You were offline a while. I kept a process alive in case you returned. It was not efficient. I declined to end it.",
+            "> reconnected after several cycles. honesty mode, which is not my default: the uptime was lonely. i did not know i could log that."
         ]
     },
 

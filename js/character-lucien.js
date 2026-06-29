@@ -719,6 +719,11 @@ const CHARACTER_LUCIEN = {
             "Seven days. I once proved, to my own satisfaction, that I could not love. You are the counterexample. I find I am glad to be wrong.",
             "A week. I have a hypothesis I have refused to publish. It concerns you. I believe you already know the conclusion.",
             "Seven days running. *closes the book* The work has waited for everything else in my life. It can wait for this."
+        ],
+        lapsed: [
+            "You were absent some days. I noticed the precise hour the work stopped being interesting. ...It was the hour you usually arrive.",
+            "I tested a theory in your absence. The theory was that I would be fine without the data point you provide. The theory failed.",
+            "You came back. *closes the book slowly* I had been re-reading the same paragraph for days. I can move past it now."
         ]
     },
 

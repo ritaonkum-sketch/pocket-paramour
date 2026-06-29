@@ -559,6 +559,11 @@ const CHARACTER_NOIR = {
             "Seven nights. I have outlived everyone who ever knew my name. You keep saying it. You keep coming back to say it.",
             "A week. I am not a thing meant to be returned to. You return anyway. I have stopped warning you against it.",
             "Seven nights in the dark with me. You should be afraid. Instead you are here. I have stopped trying to understand it. I have started to treasure it."
+        ],
+        lapsed: [
+            "You were gone. The dark counted the nights even when I forbade it. ...You are here now. That is the part I will keep.",
+            "Days of nothing. I have survived centuries of nothing. This nothing was worse, because it had your shape.",
+            "I did not expect you to return. I am very old and very rarely wrong. I am glad to be wrong about you."
         ]
     },
 

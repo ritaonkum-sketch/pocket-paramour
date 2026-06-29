@@ -684,6 +684,11 @@ const CHARACTER_CASPIAN = {
             "A week. Do you know how rare it is for someone to want nothing from me but my company? ...You are the only one.",
             "Seven days. Everyone in my life is paid to return. You are not. That is the whole difference.",
             "A week of you. I have never been chosen freely before. I am still learning how it feels."
+        ],
+        lapsed: [
+            "You were gone longer than usual. I told the court it did not concern me. I am a practiced liar in that room. ...I missed you. That part I could not perform away.",
+            "Days. I kept the window open out of habit, then out of hope, then I stopped admitting which. You are here. The window can close now.",
+            "I will not ask where you were. A prince learns not to cling. ...Stay a while, though. The not-clinging is harder than they taught."
         ]
     },
 

@@ -1026,7 +1026,8 @@ class PocketLoveGame {
             // Alistair daily streak line + NG+ memory echo
             setTimeout(() => {
                 if (!this.dailyLineShown) {
-                    if (CHARACTER.name === 'Alistair') this._showAlistairDailyReturnLine();
+                    if (this.lapsedDays >= 3 && CHARACTER.returnLines && CHARACTER.returnLines.lapsed) this._showLapsedReturnLine();
+                    else if (CHARACTER.name === 'Alistair') this._showAlistairDailyReturnLine();
                     else this._showReturnLineGeneric();
                 }
                 if (!this.memoryLeakShown) {
@@ -4576,6 +4577,19 @@ class PocketLoveGame {
             const line = pool[Math.floor(Math.random() * pool.length)];
             setTimeout(() => this.typewriter.show(line), 3200);
         }
+    }
+
+    // Lapsed-return beat: player came back after a multi-day gap (>=3 days,
+    // so dailyStreak has already reset to 1 and the streak lines won't fire).
+    // Saying nothing about a long absence reads as the cast not caring — give
+    // each character one in-voice acknowledgement of the gap. Re-engagement
+    // hook + emotional weight, via the existing typewriter (no new UI).
+    _showLapsedReturnLine() {
+        const pool = CHARACTER.returnLines && CHARACTER.returnLines.lapsed;
+        if (!pool || !pool.length) return;
+        this.dailyLineShown = true;
+        const line = pool[Math.floor(Math.random() * pool.length)];
+        setTimeout(() => this.typewriter.show(line), 3200);
     }
 
     // ── Alistair Absence-Aware Return Lines ───────────────────────────
@@ -11123,9 +11137,11 @@ class PocketLoveGame {
             const todayStr = new Date().toDateString();
             this.lastLoginDate = data.lastLoginDate ?? null;
             this.dailyStreak   = data.dailyStreak   ?? 0;
+            this.lapsedDays    = 0;
             const _isNewDay    = this.lastLoginDate && this.lastLoginDate !== todayStr;
             if (_isNewDay) {
                 const daysDiff = Math.round((new Date(todayStr) - new Date(this.lastLoginDate)) / 86400000);
+                this.lapsedDays  = daysDiff;
                 this.dailyStreak = daysDiff === 1 ? this.dailyStreak + 1 : 1;
                 // Lucien grows more influential when player is absent
                 if (data.lucienActive) {

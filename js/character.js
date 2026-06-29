@@ -939,6 +939,14 @@ const CHARACTER_ALISTAIR = {
         4: "I love you. I’ve said that oath to the crown, to my blade, to the code.[shy] None of them felt like this."
     },
 
+    returnLines: {
+        lapsed: [
+            "You were gone a long watch, mi’lady. I held the post. ...I am better at holding posts than at admitting I waited at one.",
+            "Days. A knight does not abandon his station for worry. I came close. ...You are back. The watch feels different now.",
+            "I did not know if you would return. I guarded the doorway anyway. It is the only way I know how to hope."
+        ]
+    },
+
     affectionNames: {
         0: "Stranger",
         1: "Acquainted",

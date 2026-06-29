@@ -566,6 +566,11 @@ const CHARACTER_ELIAN = {
             "Seven days. The woods go quiet when you are gone. I had stopped minding the quiet. Now I mind it.",
             "A week. I do not say much, so hear this once. I count on you. That is rare ground for me.",
             "Seven days. *adds a log to your side of the fire* Stay. You always could."
+        ],
+        lapsed: [
+            "You were gone a long stretch. The forest did not change. I did. I felt the absence more than I planned to.",
+            "Days of quiet. I am used to quiet. This was a different kind. ...You are back. Good. Sit.",
+            "I did not track the days. *pause* That is not true. I tracked them. Come warm yourself."
         ]
     },
 
