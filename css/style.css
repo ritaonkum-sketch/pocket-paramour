@@ -65,7 +65,9 @@ button,
     justify-content: center;
     align-items: flex-start;
     z-index: 10000;
-    transition: opacity 1s ease, visibility 1s;
+    /* Screen fades share the signature page-turn curve (durations kept — boot
+       timing is setTimeout-driven, not transition-gated). */
+    transition: opacity 1s var(--ease-ceremonial, ease), visibility 1s;
     overflow: hidden;
 }
 
@@ -303,7 +305,7 @@ button,
     align-items: center;
     padding-top: 40px;
     z-index: 9500;
-    transition: opacity 0.8s ease, visibility 0.8s;
+    transition: opacity 0.8s var(--ease-ceremonial, ease), visibility 0.8s;
     /* overflow is owned by css/screens/select.css (#select-screen there sets
        overflow-y:auto !important + overflow-x:hidden + scrollbar-hide). A second
        overflow declaration here was dead + contradictory, so it was removed. */
@@ -391,7 +393,7 @@ button,
     justify-content: center;
     z-index: 10001;
     opacity: 0;
-    transition: opacity 0.8s ease;
+    transition: opacity 0.8s var(--ease-ceremonial, ease);
     padding: 40px;
 }
 #world-intro::before {
@@ -671,7 +673,7 @@ button,
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: opacity 0.8s ease, visibility 0.8s;
+    transition: opacity 0.8s var(--ease-ceremonial, ease), visibility 0.8s;
 }
 
 #loading-screen.hidden {
