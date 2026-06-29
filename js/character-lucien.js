@@ -296,7 +296,7 @@ const CHARACTER_LUCIEN = {
             "That’s the third law of resonance. Most people get it wrong.",
             "You chose the dangerous answer. It was also the correct one.",
             "... You’ve been reading my notes, haven’t you?",
-            "The theory is sound. The practice will be. . messier.",
+            "The theory is sound. The practice will be... messier.",
             "I’m running out of questions you can’t answer."
         ],
         memory: [
@@ -312,14 +312,14 @@ const CHARACTER_LUCIEN = {
     personalities: {
         shy: {     // maps to 'analytical' for Lucien
             talk: [
-                "I’m cataloguing my observations. You’re. . a recurring variable.",
+                "I’m cataloguing my observations. You’re... a recurring variable.",
                 "Human connection is statistically improbable at this depth of understanding.",
                 "I didn’t expect you to stay this long. My models were wrong.",
                 "... You’re looking at me. Is there something on my face, or is this social?",
                 "I have 47 unanswered questions about you. I won’t ask any of them."
             ],
             feed: [
-                "I forgot to eat. Again. Your reminder is. . noted.",
+                "I forgot to eat. Again. Your reminder is... noted.",
                 "Sustenance. Efficient. Thank you.",
                 "The body requires fuel. The mind objects to the interruption.",
                 "... This is adequate. I mean... it’s fine."
@@ -332,7 +332,7 @@ const CHARACTER_LUCIEN = {
             ],
             gift: [
                 "A gift. I’m not certain of the protocol here.",
-                "You thought of me while obtaining this. That’s. . data I’ll process later.",
+                "You thought of me while obtaining this. That’s... data I’ll process later.",
                 "I’ll study this. Everything you give me tells me something.",
                 "... Thank you. The words are harder than the magic."
             ],
@@ -345,7 +345,7 @@ const CHARACTER_LUCIEN = {
         },
         clingy: {   // maps to 'curious' for Lucien
             talk: [
-                "Tell me something. Anything. Your voice is. . useful data.",
+                "Tell me something. Anything. Your voice is... useful data.",
                 "I’ve been thinking about what you said yesterday. All day.",
                 "You’re the only variable I can’t predict. I need more samples.",
                 "Stay. I have questions. So many questions.",
@@ -359,7 +359,7 @@ const CHARACTER_LUCIEN = {
             ],
             wash: [
                 "You noticed I was disheveled. You were observing me.",
-                "I suppose appearances matter when someone is. . watching.",
+                "I suppose appearances matter when someone is... watching.",
                 "I’ll clean up. For the data. Not for you. Obviously.",
                 "You’re making me self-conscious. That’s new."
             ],
@@ -388,25 +388,25 @@ const CHARACTER_LUCIEN = {
                 "I eat when the work demands it. Your concern is misplaced.",
                 "Fine. But only because low blood sugar affects calculations.",
                 "I don’t need you to feed me. The food is acceptable though.",
-                "Stop bringing me meals. . . What did you bring?"
+                "Stop bringing me meals... What did you bring?"
             ],
             wash: [
                 "I don’t require monitoring. The ink is part of the process.",
-                "You’re not my caretaker. But. . the mirror agrees with you.",
+                "You’re not my caretaker. But... the mirror agrees with you.",
                 "I maintain myself perfectly well. Usually. Today was an exception.",
                 "The robes are ceremonial. They don’t need to be clean. But fine."
             ],
             gift: [
-                "I have no use for sentiment. . . Where did you find this?",
+                "I have no use for sentiment... Where did you find this?",
                 "Gifts are a primitive bonding mechanism. I’ll keep it for study.",
-                "This is irrelevant to my research. Why does it make me feel. .",
+                "This is irrelevant to my research. Why does it make me feel...",
                 "Don’t expect gratitude. Expect a very detailed analysis."
             ],
             train: [
                 "You’re behind. Catch up or I’ll solve it myself.",
                 "That was wrong. Spectacularly wrong. Do it again.",
                 "I set the difficulty higher. You complained less than expected.",
-                "Your persistence is irrational. I. . respect that."
+                "Your persistence is irrational. I... respect that."
             ]
         }
     },
@@ -443,10 +443,10 @@ const CHARACTER_LUCIEN = {
             "The mind transcends hunger. The stomach disagrees.",
             "I’ve been subsisting on focus alone. It’s not sustainable.",
             "Food is a distraction from. Actually, I’m quite hungry.",
-            "My last meal was. . I don’t recall. That’s concerning.",
+            "My last meal was... I don’t recall. That’s concerning.",
             "Hunger reduces cognitive throughput by 23%. I calculated it while starving.",
             "The body is a vessel. A vessel that’s running on fumes.",
-            "I could eat, or I could finish this theorem. . . Fine. I’ll eat.",
+            "I could eat, or I could finish this theorem... Fine. I’ll eat.",
             "My stomach just interrupted a breakthrough. Unacceptable.",
             "Lyra would say I need someone to remind me to eat. She’s not wrong.",
             "If you brought food, I’ll forgive the interruption.",
@@ -462,11 +462,11 @@ const CHARACTER_LUCIEN = {
             "The mirror and I are not on speaking terms today.",
             "... Point taken. I’ll attend to it.",
             "These robes have seen four experiments and two explosions. They’re fine.",
-            "Hygiene is a social construct. But also. . I can smell myself.",
+            "Hygiene is a social construct. But also... I can smell myself.",
             "The dust on my shoulders has its own ecosystem at this point.",
             "I have ink on my face, don’t I? Don’t answer that.",
             "Clean mages don’t discover anything. That’s a fact I just invented.",
-            "My hair hasn’t been brushed since. . what day is it?",
+            "My hair hasn’t been brushed since... what day is it?",
             "The reagent stain on my sleeve is actually a new colour. I should document it.",
             "You’re looking at me like I need a bath. You’re correct.",
             "I prioritized research over personal maintenance. Again."
@@ -523,7 +523,7 @@ const CHARACTER_LUCIEN = {
             "I can see the patterns in everything now. Especially in you.",
             "Reality is just notation. And I’m rewriting it.",
             "Don’t interrupt. I’m so close to understanding everything.",
-            "The code underneath. . it hums. Can you hear it?",
+            "The code underneath... it hums. Can you hear it?",
             "I haven’t slept. Sleep wastes time I could spend seeing.",
             "My hands are glowing. I didn’t tell them to do that.",
             "Every breath is a variable. Every heartbeat, a data point. Yours especially.",
@@ -531,7 +531,7 @@ const CHARACTER_LUCIEN = {
             "I’m not losing control. I’m gaining perspective. Infinite perspective.",
             "The wards aren’t keeping things out anymore. They’re keeping ME in.",
             "Why does the truth have to hurt this much?",
-            "I can fix you. I can fix everything. Just let me. .",
+            "I can fix you. I can fix everything. Just let me...",
             "The noise is getting louder. But so is the clarity."
         ],
         neglected: [
@@ -598,9 +598,9 @@ const CHARACTER_LUCIEN = {
     // Hunger / happy / dirty / annoyed lines for state system
     hungryLines: [
         "The mind transcends hunger. The stomach disagrees.",
-        "I’ve been subsisting on focus alone. .",
+        "I’ve been subsisting on focus alone...",
         "Food is a distraction from. Actually, I’m quite hungry.",
-        "My last meal was. . what day is it?",
+        "My last meal was... what day is it?",
         "Hunger reduces throughput by 23%. I calculated it while starving.",
         "The candle is burning low and so am I.",
         "If you brought food, I’ll forgive the interruption.",
@@ -610,7 +610,7 @@ const CHARACTER_LUCIEN = {
         "I smell something. Is that breakfast or a hallucination?"
     ],
     happyLines: [
-        "This is. . pleasant. I’m cataloguing the sensation.",
+        "This is... pleasant. I’m cataloguing the sensation.",
         "You’ve disrupted my equilibrium. In a good way.",
         "I rarely smile. You should feel accomplished.",
         "My notes are legible today. That’s how you know.",
@@ -629,7 +629,7 @@ const CHARACTER_LUCIEN = {
         "These robes have survived four experiments. They’re fine.",
         "I have ink on my face, don’t I?",
         "Clean mages don’t discover anything.",
-        "My hair hasn’t been brushed since. . what day is it?",
+        "My hair hasn’t been brushed since... what day is it?",
         "You’re looking at me like I need a bath. You’re correct."
     ],
     annoyedLines: [
@@ -661,12 +661,12 @@ const CHARACTER_LUCIEN = {
         "Sustenance. Efficient. Thank you.",
         "... This is adequate. I mean... it’s fine.",
         "The body requires fuel. Noted.",
-        "You remembered I forget to eat. That’s. . thoughtful.",
+        "You remembered I forget to eat. That’s... thoughtful.",
         "Calories improve spellcasting accuracy. This is strategic.",
         "I can taste things again. That’s a good sign.",
         "You cook better than my familiar. Don’t tell it I said that.",
         "This is the first thing I’ve eaten voluntarily in two days.",
-        "The flavor profile is. . complex. Like you.",
+        "The flavor profile is... complex. Like you.",
         "I didn’t realise I was hungry until the first bite.",
         "My sister sends seaweed. This is considerably better.",
         "Thank you. The words are harder than the magic."
@@ -676,7 +676,7 @@ const CHARACTER_LUCIEN = {
         "... I feel noticeably better. Don’t gloat.",
         "Hygiene improves cognitive function by 12%. Thank you.",
         "The water disrupts thought. But also the smell.",
-        "I look. . presentable? Is that the word?",
+        "I look... presentable? Is that the word?",
         "The reagent burns on my hands are healing. Thank you.",
         "Clean robes feel like a fresh page. Possibility.",
         "I can think more clearly now. Correlation with your help: strong.",
@@ -707,7 +707,7 @@ const CHARACTER_LUCIEN = {
     // Departure dialogue
     departureDialogue: [
         "The equations balance without you. Everything else doesn’t.",
-        "I’ll be in the tower. The wards will hold without your. . presence.",
+        "I’ll be in the tower. The wards will hold without your... presence.",
         "Goodbye is an inefficient word. It implies finality I haven’t calculated.",
         "The data suggests I should stay. But the data is wrong sometimes."
     ],
@@ -719,12 +719,12 @@ const CHARACTER_LUCIEN = {
             "I forgot to eat. The theorem was more urgent.",
             "...the body insists.",
             "My stomach is making demands I can’t negotiate with.",
-            "I’ll eat when I finish this chapter. . . Maybe.",
+            "I’ll eat when I finish this chapter... Maybe.",
             "The hunger sharpens focus. Briefly. Then it doesn’t."
         ],
         dirty: [
             "...",
-            "The ink is drying on my hands. .",
+            "The ink is drying on my hands...",
             "*Notices robes are stained*",
             "I can feel the dust settling. On me.",
             "Is this what Lyra means by 'letting yourself go'?",
@@ -748,7 +748,7 @@ const CHARACTER_LUCIEN = {
             "I documented the exact shade of your eyes. For reference.",
             "The theorem I’m working on keeps resolving into your name.",
             "I added a new variable to my models. It’s called 'hope.'",
-            "Your heartbeat is 72 BPM. I find it. . soothing.",
+            "Your heartbeat is 72 BPM. I find it... soothing.",
             "I’ve never wanted someone to stay before. The data is new.",
             "If I could prove love mathematically, I’d dedicate the paper to you.",
             "The stars spell something tonight. I think it’s your name.",
@@ -781,7 +781,7 @@ const CHARACTER_LUCIEN = {
             "The third rune on the left wall is slightly crooked. It bothers me.",
             "*Inhales deeply, as if gathering data from the air*",
             "I wonder what you see when you look at me.",
-            "The ink is a new formula. It changes colour with my mood. Currently. . purple.",
+            "The ink is a new formula. It changes colour with my mood. Currently... purple.",
             "*Glances at you over the top of a book*",
             "The forest druid sent a message. Something about the wards weakening.",
             "My sister’s song carried up from the caves last night. She’s restless.",
@@ -791,7 +791,7 @@ const CHARACTER_LUCIEN = {
             "My spells stabilized the day you walked through the door. I’ve been tracking it.",
             "Something is draining the kingdom’s magic. Connection reverses it. You are the proof.",
             "Do you remember anything from before? Where you came from? The data doesn’t add up.",
-            "The wards were built on emotional resonance. They need bonds to hold. Yours are. . potent.",
+            "The wards were built on emotional resonance. They need bonds to hold. Yours are... potent.",
             "I’ve been studying the pattern. Every time you care for someone here, the magic surges.",
             "Soul Weaver. The term appears in texts so old the ink has changed colour three times.",
             "I’ve mapped the correlation. Your emotional bonds generate measurable magical output.",
@@ -825,7 +825,7 @@ const CHARACTER_LUCIEN = {
     storyMilestones: {
         affection1: {
             title: "Subject of Interest",
-            text: "Lucien pauses his writing. For the first time, he looks at you. Not through you. 'You’re. . not what I calculated.'"
+            text: "Lucien pauses his writing. For the first time, he looks at you. Not through you. 'You’re... not what I calculated.'"
         },
         affection2: {
             title: "The Margin Notes",

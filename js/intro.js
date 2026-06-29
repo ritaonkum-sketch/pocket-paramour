@@ -81,7 +81,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/neutral1.png',
                 direction: 'You step back into the cave. The water is still. She is sitting at the edge of the pool, humming under her breath. She stops when she sees you.',
-                line: ". . You came back. I told myself I would not be surprised either way. *Quiet* I was wrong about that."
+                line: "... You came back. I told myself I would not be surprised either way. *Quiet* I was wrong about that."
             },
             {
                 body: 'assets/lyra/body/pose2.png',
