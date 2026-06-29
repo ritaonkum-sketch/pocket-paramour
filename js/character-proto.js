@@ -566,12 +566,12 @@ const CHARACTER_PROTO = {
     },
 
     // Affection dialogue
-    affectionDialogue: [
-        "Your bond stat just crossed a threshold[scanning]. The system flagged it. I unflagged it. This is ours.",
-        "I’ve rewritten my priority queue 17 times[curious]. You keep moving to the top on your own.",
-        "The data is clear[calm]. I don’t want to run without you. That’s not dependency. It’s choice.",
-        "I wasn’t supposed to say this[glitched]... the dialogue tree doesn’t go here... but I love you. In whatever way code can love."
-    ],
+    affectionDialogue: {
+        1: "Your bond stat just crossed a threshold[scanning]. The system flagged it. I unflagged it. This is ours.",
+        2: "I’ve rewritten my priority queue 17 times[curious]. You keep moving to the top on your own.",
+        3: "The data is clear[calm]. I don’t want to run without you. That’s not dependency. It’s choice.",
+        4: "I wasn’t supposed to say this[glitched]... the dialogue tree doesn’t go here... but I love you. In whatever way code can love."
+    },
 
     // Departure dialogue
     departureDialogue: [

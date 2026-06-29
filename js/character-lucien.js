@@ -697,12 +697,12 @@ const CHARACTER_LUCIEN = {
     },
 
     // Affection dialogue
-    affectionDialogue: [
-        "You’ve become a statistically significant[gentle] variable in my life.",
-        "I’ve rewritten my models three times[shy] because of you.",
-        "The data is clear[love]. I don’t want to be without you.",
-        "I’ve never said this to anyone[shy]. . you’ve changed everything I thought I knew."
-    ],
+    affectionDialogue: {
+        1: "You’ve become a statistically significant[gentle] variable in my life.",
+        2: "I’ve rewritten my models three times[shy] because of you.",
+        3: "The data is clear[love]. I don’t want to be without you.",
+        4: "I’ve never said this to anyone[shy]... you’ve changed every conclusion I thought I’d settled."
+    },
 
     // Departure dialogue
     departureDialogue: [

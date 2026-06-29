@@ -3379,6 +3379,31 @@ class PocketLoveGame {
                         this.ui.showStoryScene(event.dialogue, event.emotion || storyInfo.emotion);
                     }
                 }, 1500);
+            } else {
+                // No bespoke milestoneEvents scene (everyone except Alistair +
+                // Lyra) used to fall SILENT here: the storyInfo branch claimed
+                // the level-up, marked the key shown, and the affectionDialogue
+                // fallback below never ran. So 5 of 7 characters said nothing at
+                // the exact moment the bond deepened. Speak their affection line
+                // instead — same queuedFor guard so a mid-delay character switch
+                // can't bleed the line onto another route.
+                const _affLine = CHARACTER.affectionDialogue && CHARACTER.affectionDialogue[this.affectionLevel];
+                if (_affLine) {
+                    // affectionDialogue lines carry an inline [emotion] cue
+                    // (e.g. "...[tender]...") that nothing downstream strips —
+                    // this fallback was effectively dead until now, so the leak
+                    // never surfaced. Remove every cue so the player never sees
+                    // a literal "[tender]" in the bubble, and collapse any
+                    // double space the removal leaves behind.
+                    const msg = _affLine.replace(/\[[a-z]+\]/ig, '').replace(/\s{2,}/g, ' ').trim();
+                    const queuedFor = CHARACTER.name;
+                    setTimeout(() => {
+                        if (CHARACTER && CHARACTER.name === queuedFor) {
+                            this.typewriter.show(msg);
+                            this.ui.flashEmotion('love', 3000);
+                        }
+                    }, 1500);
+                }
             }
         } else {
             // Fallback to normal milestone check

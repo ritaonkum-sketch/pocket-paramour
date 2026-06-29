@@ -412,12 +412,12 @@ const CHARACTER_LYRA = {
     },
 
     // Affection level dialogue
-    affectionDialogue: [
-        "Your pulse keeps a key.[shy] I have been humming in it without deciding to.",
-        "I am writing something that does not end with someone leaving.[love] It is about you. It is the hardest thing I have composed.",
-        "I love you.[love] I am saying it first, and aloud, because I have watched everyone else wait until it was too late.",
-        "Come closer.[shy] *Cold hand finds your warm one.* I would rather feel this than be safe. Safe was only ever very quiet."
-    ],
+    affectionDialogue: {
+        1: "Your pulse keeps a key.[shy] I have been humming in it without deciding to.",
+        2: "I am writing something that does not end with someone leaving.[love] It is about you. It is the hardest thing I have composed.",
+        3: "I love you.[love] I am saying it first, and aloud, because I have watched everyone else wait until it was too late.",
+        4: "Come closer.[shy] *Cold hand finds your warm one.* I would rather feel this than be safe. Safe was only ever very quiet."
+    },
 
     // Departure dialogue
     departureDialogue: [

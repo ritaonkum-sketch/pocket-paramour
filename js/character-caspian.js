@@ -662,12 +662,12 @@ const CHARACTER_CASPIAN = {
         wine:     ["From the private reserves. You have excellent taste.", "Let’s share this. Tonight. Just us."]
     },
 
-    affectionDialogue: [
-        "I’ve never felt this way[tender] about anyone outside the royal line. .",
-        "The kingdom matters less[adoring] than this moment with you. .",
-        "I would abdicate[shy] before I’d let you go. .",
-        "You are my kingdom[love] now. ."
-    ],
+    affectionDialogue: {
+        1: "I’ve never felt this way[tender] about anyone outside the royal line.",
+        2: "The kingdom matters less[adoring] than this moment with you.",
+        3: "I would abdicate[shy] before I’d let you go. I have thought about it more than once.",
+        4: "You are my kingdom[love] now. The rest is just borders."
+    },
 
     departureDialogue: [
         "The palace will stand without you. I’m not sure I will.",

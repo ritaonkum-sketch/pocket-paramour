@@ -537,12 +537,12 @@ const CHARACTER_NOIR = {
     },
 
     // Affection dialogue
-    affectionDialogue: [
-        "You’ve walked further into the dark[whisper] than anyone else has dared...",
-        "I told myself I’d let you go[shadow]. I told myself a lot of things.",
-        "What I feel for you doesn’t have a name[consuming]. Names are cages.",
-        "I love you[vulnerable]. That’s the most dangerous sentence I’ve ever spoken."
-    ],
+    affectionDialogue: {
+        1: "You’ve walked further into the dark[whisper] than anyone else has dared...",
+        2: "I told myself I’d let you go[shadow]. I told myself a lot of things.",
+        3: "What I feel for you doesn’t have a name[consuming]. Names are cages.",
+        4: "I love you[vulnerable]. That’s the most dangerous sentence I’ve ever spoken."
+    },
 
     // Departure dialogue
     departureDialogue: [

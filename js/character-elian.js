@@ -544,12 +544,12 @@ const CHARACTER_ELIAN = {
         stone:    ["River stone. Smooth. You held this and thought of me.", "I collect these. You didn’t know that. But you chose right."]
     },
 
-    affectionDialogue: [
-        "I don’t say things[guarded] unless I mean them...",
-        "You’ve become part of this place[warm]. Part of me.",
-        "The forest chose you[calm]. So did I.",
-        "*Sets the wood down between you, then sits[warm]*. The fire is on this side. Stay there. Stay close."
-    ],
+    affectionDialogue: {
+        1: "I don’t say things[guarded] unless I mean them...",
+        2: "You’ve become part of this place[warm]. Part of me.",
+        3: "The forest chose you[calm]. So did I.",
+        4: "*Sets the wood down between you, then sits[warm]*. The fire is on this side. Stay there. Stay close."
+    },
 
     departureDialogue: [
         "The trail goes two ways. You picked the one leading away.",
