@@ -631,23 +631,23 @@ const CHARACTER_CASPIAN = {
     ],
 
     feedDialogue: [
-        "This is perfect. You remembered my preferences.",
-        "The chef would be jealous of how much I’m enjoying this.",
-        "Dining alone is policy. Dining with you is pleasure.",
-        "You have excellent taste. In food. And in company.",
-        "The simplest meals taste best with the right person.",
+        "You remembered I take it without the saffron. The kitchens never learned that in twenty years. You did, in a week.",
+        "I almost said something charming about the chef. ...The truth is plainer. No one has fed me from their own hand since I was a boy.",
+        "Dining alone was the rule. I kept it for years and called it dignity. This is better than dignity.",
+        "Everyone watches me eat, gauging my mood. You only want me fed. ...I had forgotten anyone did that.",
+        "There were forty courses at my coronation. I remember none of them. I will remember this.",
         "More, please... I rarely say please. Notice that.",
-        "The southern provinces would be proud of this presentation.",
+        "*eats without checking the door first* That is new. I do not usually unclench enough to taste anything.",
         "I’m going to pretend I wasn’t starving. Thank you."
     ],
     washDialogue: [
         "That’s... much better. Thank you.",
         "I feel human again. Well. Princely.",
-        "The jasmine oil was a good choice. Like you.",
+        "Jasmine. My mother wore jasmine. I stopped letting anyone use it. ...I think I can stand it again, if it is your hands.",
         "I’m presentable once more. The mirror and I are reconciled.",
-        "You care about the small things. That’s not small.",
+        "You washed behind my ears like I was a child, not a crown. No one is allowed to forget the crown. Thank you for forgetting it.",
         "A clean prince is a thinking prince. Thank you.",
-        "The servants could learn from your thoroughness."
+        "The servants are thorough because they are paid to be. You are thorough because... *stops* ...I do not have the end of that sentence yet. Give me time."
     ],
     giftDialogue: {
         apple:    ["Simple. Natural. Like the best things.", "The orchards at home grow these. This one is better."],

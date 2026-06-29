@@ -353,7 +353,7 @@ const CHARACTER_ALISTAIR = {
             ],
             wash: [
                 "Armour takes hours to properly clean. You’re making it look easy.",
-                "I.this is a bit much. I appreciate it though.",
+                "I... this is a bit much. I appreciate it, though.",
                 "A squire used to do this. I dismissed him. I was wrong.",
                 "My hands are rough from the hilt. I forget what careful hands feel like.",
                 "Knights aren’t supposed to be tended to like this. But... thank you.",
