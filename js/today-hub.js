@@ -647,7 +647,7 @@
                 hub.appendChild(thTitle);
                 const wallet = document.createElement('div');
                 wallet.className = 'pp-today-threads-wallet';
-                wallet.innerHTML = '<span class="ico">' + (window.PPCurrency.icon || '🧵') + '</span> <b class="ht-wallet-amt">' + window.PPCurrency.get() + '</b> <span class="lbl">' + (window.PPCurrency.name || 'Heart Threads') + '</span>';
+                wallet.innerHTML = '<span class="ico">' + (window.PPCurrency.icon || '🌹') + '</span> <b class="ht-wallet-amt">' + window.PPCurrency.get() + '</b> <span class="lbl">' + (window.PPCurrency.name || 'Roses') + '</span>';
                 hub.appendChild(wallet);
                 const threads = document.createElement('div');
                 threads.className = 'pp-today-threads';

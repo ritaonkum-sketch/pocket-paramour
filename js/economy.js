@@ -29,7 +29,7 @@
     'use strict';
 
     // ── Identity (single source of truth — rename here only) ───────────────
-    var CUR = { name: 'Heart Threads', one: 'Heart Thread', icon: '🧵' }; // 🧵
+    var CUR = { name: 'Roses', one: 'Rose', icon: '🌹' }; // 🌹 (renamed from Heart Threads / 🧵 — more premium + on-theme for a gothic romance)
 
     var FLAG_KEY    = 'pp_main_story_enabled';
     var BAL_KEY     = 'pp_heart_threads';     // global wallet (integer string)
@@ -699,7 +699,7 @@
         ov.innerHTML = '<div class="ht-panel" role="dialog" aria-label="Bonds and Rewards">' +
             '<button class="ht-close" aria-label="Close">✕</button>' +
             '<div class="ht-eyebrow">Bonds &amp; Rewards</div>' +
-            '<div class="ht-title">Threads of the Heart</div>' +
+            '<div class="ht-title">Roses of the Heart</div>' +
             '<div class="ht-wallet"><span class="ht-ico">' + CUR.icon + '</span><span class="ht-wallet-amt">0</span><span>' + CUR.name + '</span></div>' +
             '<div class="ht-body"></div>' +
             '<div class="ht-foot"></div>' +
@@ -785,7 +785,7 @@
                   '<span class="ht-streak-txt"><b>Day streak</b><span>' + skSub + '</span></span>' +
                 '</div>';
         html += '<div class="ht-sec">Daily check-in</div>';
-        html += rowHTML({ ico: '🗓️', label: 'Welcome back', sub: checkinClaimed() ? 'Come again tomorrow' : 'A thread for returning today', amount: checkinAmount(), key: 'checkin', target: 0, state: checkinClaimed() ? 'claimed' : 'claim' });
+        html += rowHTML({ ico: '🗓️', label: 'Welcome back', sub: checkinClaimed() ? 'Come again tomorrow' : 'A rose for returning today', amount: checkinAmount(), key: 'checkin', target: 0, state: checkinClaimed() ? 'claimed' : 'claim' });
         html += '<div class="ht-sec">Today’s devotions</div>';
         TASKS.forEach(function (t) { var s = taskState(t); html += rowHTML({ ico: t.icon, label: t.label, sub: s.sub, amount: t.amount, key: 'task:' + t.id, state: s.state, cur: s.cur, target: (s.bar ? s.target : 0) }); });
         html += '<div class="ht-sec">This week</div>';
