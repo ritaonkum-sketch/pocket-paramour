@@ -1071,8 +1071,18 @@
 
       if (locked || cooldown) {
         card.style.opacity = '0.5';
-        card.style.cursor = 'default';
+        card.style.cursor = 'pointer';
         card.style.filter = 'grayscale(0.6)';
+        // Was: NO click handler, so tapping a locked/cooldown destination did
+        // nothing at all — it read as "broken / blank" (owner report). Now a
+        // tap tells the player WHY it is unavailable + nudges the card.
+        card.addEventListener('click', function () {
+          dateToast(cooldown
+            ? 'You have already shared this place today. It opens again tomorrow.'
+            : 'Unlocks at Affection ' + loc.minAffection + '  ·  Day ' + loc.minDay + '.');
+          card.style.transform = 'scale(0.97)';
+          setTimeout(function () { try { card.style.transform = 'scale(1)'; } catch (_) {} }, 150);
+        });
       }
 
       var nameEl = document.createElement('div');
@@ -1114,6 +1124,38 @@
 
   function hideOverlay () {
     if (overlayEl) overlayEl.style.display = 'none';
+  }
+
+  // Transient feedback for taps on an unavailable destination (locked /
+  // on cooldown) so the player gets a reason instead of a dead, blank tap.
+  function dateToast (msg) {
+    try {
+      var host = overlayEl || document.body;
+      var t = host.querySelector('.pp-date-toast');
+      if (!t) {
+        t = document.createElement('div');
+        t.className = 'pp-date-toast';
+        t.style.cssText = [
+          'position:fixed;left:50%;bottom:118px;transform:translateX(-50%) translateY(8px);',
+          'max-width:82%;padding:11px 18px;border-radius:14px;z-index:2147483000;',
+          'background:linear-gradient(180deg,rgba(50,30,40,0.98),rgba(26,14,20,0.99));',
+          'border:1px solid rgba(232,200,138,0.5);box-shadow:0 12px 34px rgba(0,0,0,0.6);',
+          "font-family:'Cormorant Garamond','EB Garamond',serif;font-style:italic;",
+          'font-size:14px;line-height:1.4;text-align:center;color:rgba(247,236,209,0.96);',
+          'opacity:0;transition:opacity .22s ease, transform .22s ease;pointer-events:none;'
+        ].join('');
+        host.appendChild(t);
+      }
+      t.textContent = msg;
+      void t.offsetWidth;
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(t._h);
+      t._h = setTimeout(function () {
+        t.style.opacity = '0';
+        t.style.transform = 'translateX(-50%) translateY(8px)';
+      }, 2600);
+    } catch (_) {}
   }
 
   /* ================================================================
