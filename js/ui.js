@@ -1064,7 +1064,7 @@ class GameUI {
         if (_econOn) {
             const _cost = window.PPCurrency.giftCost(gift);
             if (!window.PPCurrency.canAfford(_cost)) {
-                this.showNotification('Not enough ' + window.PPCurrency.icon + ' — care daily to earn more');
+                this.showNotification('Not enough ' + window.PPCurrency.name + ' — care daily to earn more');
                 try { (sounds.blip ? sounds.blip() : sounds.chime()); } catch (_) {}
                 try {
                     const _gi = [...document.querySelectorAll('#gift-grid .gift-item')]

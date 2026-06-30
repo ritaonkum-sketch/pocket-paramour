@@ -29,7 +29,7 @@
     'use strict';
 
     // ── Identity (single source of truth — rename here only) ───────────────
-    var CUR = { name: 'Roses', one: 'Rose', icon: '🌹' }; // 🌹 (renamed from Heart Threads / 🧵 — more premium + on-theme for a gothic romance)
+    var CUR = { name: 'Roses', one: 'Rose', icon: '<img src="assets/ui/rose-coin.png" class="cur-ico" alt="">' }; // custom glossy rose-coin emblem (v939); was emoji 🌹, originally Heart Threads 🧵. NOTE: icon is now an <img> HTML string — render via innerHTML, never textContent.
 
     var FLAG_KEY    = 'pp_main_story_enabled';
     var BAL_KEY     = 'pp_heart_threads';     // global wallet (integer string)
@@ -443,6 +443,7 @@
             // wallet so the bar doesn’t crowd (owner request).
             '#affection-display:not(.topbar-collapsed) #' + COUNTER_ID + '{display:none !important;}',
             '#' + COUNTER_ID + ' .ht-ico{font-size:13px;line-height:1;filter:drop-shadow(0 0 4px rgba(232,120,140,0.5));}',
+            '.cur-ico{display:inline-block;width:1.2em;height:1.2em;object-fit:contain;vertical-align:-0.24em;}',
             '#' + COUNTER_ID + ' .ht-amt{min-width:8px;text-align:right;letter-spacing:0.02em;}',
             '#' + COUNTER_ID + '.ht-bump{animation:ht-bump 0.4s cubic-bezier(0.22,1,0.36,1);}',
             '@keyframes ht-bump{0%{transform:scale(1);}40%{transform:scale(1.18);}100%{transform:scale(1);}}',
@@ -596,7 +597,7 @@
             if (!anchor || anchor.offsetParent === null) return;
             var f = document.createElement('div');
             f.className = 'ht-float';
-            f.textContent = '+' + n + ' ' + CUR.icon;
+            f.innerHTML = '+' + n + ' ' + CUR.icon;  // icon is an <img> string — must be innerHTML
             document.body.appendChild(f);
             var r = anchor.getBoundingClientRect();
             f.style.left = Math.round(r.left) + 'px';
