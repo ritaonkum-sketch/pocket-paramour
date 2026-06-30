@@ -1891,13 +1891,23 @@
             if (!tab) return;
             var dot = tab.querySelector('.cc-nav-dot');
             if (!dot) return;
-            var pending = 0;
+            // The dot must mean ONE thing: there is a Heart Thread / reward to
+            // COLLECT right now (the daily check-in, a completed daily/weekly
+            // task, an event reward, or a chapter bonus). PPCurrency.anyClaimable()
+            // is the canonical "anything to claim?" predicate.
+            //
+            // It was wired to PPTodayHub.pendingRowCount(), which also counts
+            // TO-DO items — an urgent character, a waiting letter, a pending
+            // invitation, the notif opt-in — so the dot never cleared even when
+            // there was nothing to collect. The dot now appears only when a
+            // thread is waiting and disappears the moment you have collected it.
+            var claimable = false;
             try {
-                if (window.PPTodayHub && typeof window.PPTodayHub.pendingRowCount === 'function') {
-                    pending = window.PPTodayHub.pendingRowCount() || 0;
+                if (window.PPCurrency && typeof window.PPCurrency.anyClaimable === 'function') {
+                    claimable = !!window.PPCurrency.anyClaimable();
                 }
             } catch (_) {}
-            dot.classList.toggle('show', pending > 0);
+            dot.classList.toggle('show', claimable);
         }
         function wireDailyDotPolling() {
             updateDailyDot();
