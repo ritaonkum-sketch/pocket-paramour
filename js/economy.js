@@ -443,7 +443,8 @@
             // wallet so the bar doesn’t crowd (owner request).
             '#affection-display:not(.topbar-collapsed) #' + COUNTER_ID + '{display:none !important;}',
             '#' + COUNTER_ID + ' .ht-ico{font-size:13px;line-height:1;filter:drop-shadow(0 0 4px rgba(232,120,140,0.5));}',
-            '.cur-ico{display:inline-block;width:1.2em;height:1.2em;object-fit:contain;vertical-align:-0.24em;}',
+            '.cur-ico{display:inline-block;width:24px;height:24px;object-fit:contain;vertical-align:middle;margin-top:-2px;}',
+            '#pp-ht-reward-burst .cur-ico{width:54px;height:54px;}',
             '#' + COUNTER_ID + ' .ht-amt{min-width:8px;text-align:right;letter-spacing:0.02em;}',
             '#' + COUNTER_ID + '.ht-bump{animation:ht-bump 0.4s cubic-bezier(0.22,1,0.36,1);}',
             '@keyframes ht-bump{0%{transform:scale(1);}40%{transform:scale(1.18);}100%{transform:scale(1);}}',
