@@ -3741,6 +3741,13 @@ class PocketLoveGame {
                             // Fallback: if onload never fires (same src, offline cache quirk,
                             // or browser skips event for data URLs) clear the class anyway
                             setTimeout(() => bodyImg.classList.remove('pose-swapping'), 350);
+                            // A line that carries a resolved pose intends the character on
+                            // screen — reveal the body wrap. Story scenes already set this via
+                            // their 'char' beat (no-op here); date scenes never had a 'char'
+                            // beat, so without this their character stayed invisible (opacity 0)
+                            // behind the dialogue. 'hidechar' is never used in any beat data,
+                            // so nothing relies on a posed line keeping the character hidden.
+                            overlay.classList.add('char-visible');
                         }
                     }
                     // Speaker label — shows who's talking (e.g. "Lucien")
@@ -3995,13 +4002,34 @@ class PocketLoveGame {
         // Dynamically build buttons so any number of choices work
         box.innerHTML = '';
         choices.forEach((label, i) => {
+            // Choices come in two shapes: plain strings (story scenes → onPick(index))
+            // and { text, value } objects (date scenes → onPick(value)). Support both
+            // so the shared handler stays backward-compatible with every caller.
+            const isObj = label && typeof label === 'object';
             const btn = document.createElement('button');
             btn.className = 'cinematic-choice-btn';
             btn.dataset.choice = i;
-            btn.textContent = label;
-            btn.onclick = () => {
+            btn.textContent = isObj ? label.text : label;
+            btn.onclick = async () => {
                 box.classList.add('hidden');
-                if (onPick) onPick(i);
+                if (onPick) onPick(isObj ? label.value : i);
+                // Date choices (object form) start a branch scene via _playScene,
+                // which the re-entrancy guard queued because this parent scene is
+                // still active. Play that branch inline NOW — before the parent's
+                // remaining beats (the shared farewell) — so the reaction lands in
+                // order. Drop the branch's trailing 'hide' so the farewell + exit
+                // still render. String (story) choices never queue, so this stays a
+                // no-op for them and the shared handler is left untouched.
+                if (isObj) {
+                    while (this._sceneQueue && this._sceneQueue.length) {
+                        const nx = this._sceneQueue.shift();
+                        for (const b of nx.beats) {
+                            if (b.type === 'hide') continue;
+                            await this._runBeat(b);
+                        }
+                        if (nx.onComplete) { try { nx.onComplete(); } catch (_) {} }
+                    }
+                }
                 resolve();
             };
             box.appendChild(btn);

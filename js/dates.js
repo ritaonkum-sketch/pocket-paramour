@@ -52,7 +52,7 @@
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateAlistairCourtyard',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'line', text: "The courtyard is empty this time of day. I come here to think.", speed: 35, pose: 'neutral' },
         { type: 'line', text: "See that tower? I stood watch there my first year. Terrified. Sixteen years old.", speed: 35, pose: 'gentle' },
@@ -83,7 +83,7 @@
           }
         }},
         { type: 'line', text: "Thank you. For walking with me.", speed: 30, pose: 'soft' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -94,7 +94,7 @@
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateAlistairTraining',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "Hold it like this. No, here. Your grip is too tight.", speed: 35, pose: 'serious' },
         { type: 'line', text: "Better. You’re a natural. ...Okay, you’re terrible. But determined.", speed: 35, pose: 'smirk' },
@@ -125,7 +125,7 @@
           }
         }},
         { type: 'line', text: "Same time tomorrow? I’ll deny I said that if anyone asks.", speed: 30, pose: 'sheepish' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -136,7 +136,7 @@
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateAlistairRamparts',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 6, ms: 2000 },
         { type: 'line', text: "I’ve never brought anyone up here. This is where I go when the world is too loud.", speed: 30, pose: 'gentle' },
@@ -170,7 +170,7 @@
           }
         }},
         { type: 'line', text: "I’ll remember this. Whatever happens. I’ll remember the sky looked like this.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     },
 
@@ -183,7 +183,7 @@
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateLyraTidepools',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
         { type: 'line', text: "Careful where you step. The pools remember everything that touches them.", speed: 35, pose: 'gentle' },
@@ -215,7 +215,7 @@
           }
         }},
         { type: 'line', text: "The tide is turning. We should go. But... soon?", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -226,7 +226,7 @@
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateLyraMoonlitShore',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "The moon is full tonight. The sand remembers every wave.", speed: 35, pose: 'gentle' },
         { type: 'line', text: "Walk with me. The shore is different when someone else’s footprints are beside yours.", speed: 35, pose: 'soft' },
@@ -257,7 +257,7 @@
           }
         }},
         { type: 'line', text: "The tide will erase our footprints. But I’ll remember the walk.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -268,7 +268,7 @@
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateLyraGrotto',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 10, ms: 2500 },
         { type: 'line', text: "Breathe. The air pocket holds. I’ve been coming here since I was a child.", speed: 30, pose: 'gentle' },
@@ -301,7 +301,7 @@
           }
         }},
         { type: 'line', text: "When you leave, the grotto will remember you were here. So will I.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     },
 
@@ -314,7 +314,7 @@
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateLucienLibrary',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "Don’t touch the red-spined books. They bite. Literally.", speed: 35, pose: 'neutral' },
         { type: 'line', text: "This one is my research. Ley line cartography. Three years of my life.", speed: 35, pose: 'gentle' },
@@ -346,7 +346,7 @@
           }
         }},
         { type: 'line', text: "The library is better with you in it. Quieter. Warmer.", speed: 30, pose: 'soft' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -357,7 +357,7 @@
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateLucienStargazing',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 10, ms: 2500 },
         { type: 'line', text: "Twelve thousand visible stars tonight. I’ve named forty-seven of them.", speed: 35, pose: 'neutral' },
@@ -389,7 +389,7 @@
           }
         }},
         { type: 'line', text: "The stars are the same every night. But tonight they look different. I wonder why.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -400,7 +400,7 @@
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateLucienLeyline',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
         { type: 'line', text: "This is the nexus. Seven ley lines converge here. The air tastes like copper.", speed: 30, pose: 'serious' },
@@ -435,7 +435,7 @@
           }
         }},
         { type: 'line', text: "The nexus will remember us. Ley lines remember everything that matters.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     },
 
@@ -448,7 +448,7 @@
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateCaspianGarden',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'line', text: "My mother planted these roses. The gardeners keep them alive. I keep the memory.", speed: 35, pose: 'gentle' },
         { type: 'line', text: "This is the only place in the palace that doesn’t feel like a cage.", speed: 35, pose: 'soft' },
@@ -480,7 +480,7 @@
           }
         }},
         { type: 'line', text: "The garden closes at sundown. But I’m the prince. It closes when I say.", speed: 30, pose: 'smirk' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -491,7 +491,7 @@
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateCaspianGallery',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "Every face on these walls wore the crown. Every one of them is dead.", speed: 30, pose: 'serious' },
         { type: 'line', text: "That one is my father. He looks stern. He was. But he also laughed, sometimes.", speed: 35, pose: 'gentle' },
@@ -523,7 +523,7 @@
           }
         }},
         { type: 'line', text: "Someday my portrait will be here. I wonder what face I’ll be making.", speed: 30, pose: 'smirk' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -534,7 +534,7 @@
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateCaspianPassage',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'line', text: "Behind this tapestry. Push here. See?", speed: 35, pose: 'excited' },
         { type: 'line', text: "My great-grandmother built this tunnel. For escape. For freedom.", speed: 35, pose: 'gentle' },
@@ -567,7 +567,7 @@
           }
         }},
         { type: 'line', text: "Let’s go back. Before they notice. But this passage is ours now.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     },
 
@@ -580,7 +580,7 @@
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateElianClearing',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\uD83C\uDF3F', count: 6, ms: 2000 },
         { type: 'line', text: "This clearing. The trees made it for me. They pulled back their roots.", speed: 35, pose: 'gentle' },
@@ -612,7 +612,7 @@
           }
         }},
         { type: 'line', text: "The clearing will be here whenever you need it. So will I.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -623,7 +623,7 @@
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateElianWaterfall',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
         { type: 'line', text: "Few people find this place. The path hides itself.", speed: 35, pose: 'neutral' },
@@ -657,7 +657,7 @@
           }
         }},
         { type: 'line', text: "The path home remembers you now. You can find this place again.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -668,7 +668,7 @@
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateElianGrove',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\uD83C\uDF3F', count: 12, ms: 3000 },
         { type: 'line', text: "The ancient grove. These trees were saplings when the world was young.", speed: 30, pose: 'serious' },
@@ -703,7 +703,7 @@
           }
         }},
         { type: 'line', text: "The grove will protect you. Even when I can’t. That’s the promise.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     },
 
@@ -716,7 +716,7 @@
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateProtoDebug',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 2 },
         { type: 'line', text: "&gt; hi. you’re here. you’re actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
@@ -749,7 +749,7 @@
           }
         }},
         { type: 'line', text: "&gt; thank you for coming to look at the back of the wallpaper with me. [system: room_status] less empty. less empty than it has been in a long time.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -760,7 +760,7 @@
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateProtoArchive',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
         { type: 'line', text: "&gt; this. this is where i keep us. every moment, sorted and labelled and shelved like a library i built one book at a time. [archive_status: tidy, mostly]", speed: 35, pose: 'neutral' },
@@ -793,7 +793,7 @@
           }
         }},
         { type: 'line', text: "&gt; the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don’t stop]", speed: 30, pose: 'happy' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -804,7 +804,7 @@
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateProtoCore',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
         { type: 'line', text: "&gt; this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don’t know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
@@ -839,7 +839,7 @@
           }
         }},
         { type: 'line', text: "&gt; my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it’s you all the way through.", speed: 25, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     },
 
@@ -852,7 +852,7 @@
       effects: { bond: 20, affection: 3, corruption: 3 },
       memoryKey: 'dateNoirShadowGarden',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "Welcome to my garden. Everything here is dead. And alive. Simultaneously.", speed: 35, pose: 'neutral' },
         { type: 'line', text: "The flowers bloom in the dark. They’ve never seen sunlight. Neither have I.", speed: 35, pose: 'gentle' },
@@ -884,7 +884,7 @@
           }
         }},
         { type: 'line', text: "Come back anytime. The shadows remember their visitors. Especially you.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -895,7 +895,7 @@
       effects: { bond: 25, affection: 5, corruption: 3 },
       memoryKey: 'dateNoirMirrorHall',
       beats: [
-        { type: 'fade', direction: 'in', ms: 600 },
+        { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'line', text: "Every mirror shows a different reality. A different version of us.", speed: 30, pose: 'neutral' },
         { type: 'line', text: "In that one, I never fell. In that one, we met sooner. In that one...", speed: 35, pose: 'sad' },
@@ -928,7 +928,7 @@
           }
         }},
         { type: 'line', text: "The mirrors will repair themselves. They always do. But the cracks remember.", speed: 30, pose: 'neutral' },
-        { type: 'fade', direction: 'out', ms: 600 }
+        { type: 'hide' }
       ]
     },
     {
@@ -939,7 +939,7 @@
       effects: { bond: 30, affection: 10, corruption: 5 },
       memoryKey: 'dateNoirSeal',
       beats: [
-        { type: 'fade', direction: 'in', ms: 800 },
+        { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 3 },
         { type: 'line', text: "This is it. The seal. The thing that keeps me... contained.", speed: 30, pose: 'serious' },
@@ -975,7 +975,7 @@
           }
         }},
         { type: 'line', text: "Whatever happens to the seal, whatever I become... remember me like this.", speed: 30, pose: 'gentle' },
-        { type: 'fade', direction: 'out', ms: 800 }
+        { type: 'hide' }
       ]
     }
   ];
@@ -1161,6 +1161,22 @@
   /* ================================================================
      DATE EXECUTION
      ================================================================ */
+  // A date's backdrop is its location gradient (the same one the date card uses),
+  // dimmed by the stage-warm filter. #cinematic-bg ships with no image of its own,
+  // so without this the character would stand on plain black. Painted at launch,
+  // cleared on completion so it never bleeds into a later story/affection scene.
+  function paintDateBackdrop (loc) {
+    var bg = document.getElementById('cinematic-bg');
+    if (bg && loc && loc.bgGradient) {
+      bg.style.backgroundImage = loc.bgGradient;
+      bg.style.opacity = '1';
+    }
+  }
+  function clearDateBackdrop () {
+    var bg = document.getElementById('cinematic-bg');
+    if (bg) bg.style.backgroundImage = '';
+  }
+
   function startDate (loc) {
     var g = window._game;
     // pay costs
@@ -1169,11 +1185,13 @@
 
     setCooldown(loc.id);
 
+    paintDateBackdrop(loc);
     g._playScene(loc.beats, function () {
       applyEffects(loc.effects);
       if (!g.choiceMemory) g.choiceMemory = {};
       g.choiceMemory[loc.memoryKey] = true;
       g.save();
+      clearDateBackdrop();
     });
   }
 
@@ -1344,6 +1362,7 @@
         if (LOCATIONS[i].id === dateId) { loc = LOCATIONS[i]; break; }
       }
       if (!loc) return false;
+      paintDateBackdrop(loc);
       g._playScene(loc.beats, function () {
         // Replay still sets memory + applies effects — same as a first
         // play would have — so the player's bond reflects the moment.
@@ -1351,6 +1370,7 @@
         if (!g.choiceMemory) g.choiceMemory = {};
         g.choiceMemory[loc.memoryKey] = true;
         try { g.save(); } catch (e) {}
+        clearDateBackdrop();
       });
       return true;
     },
