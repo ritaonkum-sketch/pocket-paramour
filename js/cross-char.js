@@ -8,8 +8,11 @@
  * SAFETY CONTRACT:
  *  - Purely additive. Feature-flagged.
  *  - Read-only polling of window._game and other chars\u2019 save files.
- *  - Non-intrusive: appears as a soft caption above the character,
- *    auto-dismiss after a few seconds.
+ *  - Non-intrusive: the line is spoken through the care dialogue box (the
+ *    character's normal text box), NOT a separate popup. Owner direction
+ *    (Jul 2026): the floating "X NOTICES" bubble was removed for every route.
+ *    It uses the typewriter's idle-only entry point, so it never talks over a
+ *    line the player is still reading.
  */
 (function () {
   'use strict';
@@ -73,12 +76,12 @@
       proto:   'The static one left a little of himself in you. Charming. Temporary.'
     },
     proto: {
-      alistair:'&gt; his signal is strong today. i like him. categorise as threat = false. categorise as ally = pending.',
-      elian:   '&gt; forest-traffic detected in your packets. scheduled a maintenance window around it.',
-      lyra:    '&gt; she wrote a line in your buffer. i read it. i will not report its contents. that is love, apparently.',
-      caspian: '&gt; court data in your cache. i deleted the boring bits. you\u2019re welcome.',
-      lucien:  '&gt; he cross-referenced me last night. i pretended to be busy. he pretended to believe it.',
-      noir:    '&gt; he\u2019s \u2026 present in your logs. i am not going to fight him. i am going to outwait him. that\u2019s different.'
+      alistair:'> his signal is strong today. i like him. categorise as threat = false. categorise as ally = pending.',
+      elian:   '> forest-traffic detected in your packets. scheduled a maintenance window around it.',
+      lyra:    '> she wrote a line in your buffer. i read it. i will not report its contents. that is love, apparently.',
+      caspian: '> court data in your cache. i deleted the boring bits. you\u2019re welcome.',
+      lucien:  '> he cross-referenced me last night. i pretended to be busy. he pretended to believe it.',
+      noir:    '> he\u2019s \u2026 present in your logs. i am not going to fight him. i am going to outwait him. that\u2019s different.'
     }
   };
 
@@ -136,60 +139,21 @@
     const line = REACTIONS[active] && REACTIONS[active][rival];
     if (!line) return;
 
-    showBubble(active, rival, line);
-    _lastAt = now;
+    // Only stamp the cooldown if the line actually landed. speakNotice bails
+    // when the player is still reading a prior line — retry on the next poll.
+    if (speakNotice(active, rival, line)) _lastAt = now;
   }
 
-  function showBubble(active, rival, text) {
-    const prev = document.getElementById('cc-bubble'); if (prev) prev.remove();
-    const b = document.createElement('div');
-    b.id = 'cc-bubble';
-    b.style.cssText = [
-      'position:fixed', 'left:50%', 'top:22%', 'transform:translateX(-50%) translateY(-6px)',
-      'max-width:80%', 'background:linear-gradient(180deg,rgba(18,12,32,0.94),rgba(10,6,22,0.94))',
-      'color:#f4e6ff', 'font-family:inherit', 'font-size:13px', 'line-height:1.4',
-      'padding:10px 16px', 'border-radius:16px',
-      'border:1px solid rgba(255,255,255,0.12)', 'text-align:center',
-      'box-shadow:0 6px 20px rgba(0,0,0,0.55)',
-      'z-index:6800', 'pointer-events:auto', 'cursor:pointer', 'opacity:0', 'font-style:italic',
-      'transition:opacity 500ms ease, transform 500ms ease'
-    ].join(';');
-    const speaker = document.createElement('div');
-    speaker.style.cssText = 'font-size:10px;letter-spacing:2.5px;opacity:0.55;margin-bottom:4px;font-style:normal;';
-    speaker.textContent = '\u2726 ' + active.toUpperCase() + ' NOTICES';
-    const line = document.createElement('div');
-    line.innerHTML = text;
-    b.appendChild(speaker);
-    b.appendChild(line);
-    // A subtle "tap" affordance so the player knows it waits for them.
-    const hint = document.createElement('div');
-    hint.style.cssText = 'font-size:9px;letter-spacing:1.5px;opacity:0;margin-top:6px;font-style:normal;transition:opacity 400ms ease;';
-    hint.textContent = 'tap to dismiss';
-    b.appendChild(hint);
-    document.body.appendChild(b);
-    requestAnimationFrame(() => { b.style.opacity = '1'; b.style.transform = 'translateX(-50%) translateY(0)'; });
-    setTimeout(() => { hint.style.opacity = '0.5'; }, 700);
-
-    // Owner direction (Jun 2026): WAIT FOR A TAP — do NOT auto-vanish. It used
-    // to fade itself out after 6s, so it disappeared mid-read. Now it stays
-    // until the player taps it. A leave-care cleanup + a long safety backstop
-    // keep it from ever stranding; a fresh notice already replaces this one
-    // (see prev.remove() above), so it never stacks.
-    let _done = false;
-    function dismiss() {
-      if (_done) return; _done = true;
-      try { document.removeEventListener('pp:scene-change', onScene); } catch (_) {}
-      b.style.opacity = '0';
-      setTimeout(() => { try { b.remove(); } catch (_) {} }, 520);
-    }
-    b.addEventListener('click', dismiss);
-    b.addEventListener('touchstart', dismiss, { passive: true });
-    // NO timed auto-dismiss (owner: it must wait for the tap, never vanish on
-    // its own). It still clears when the player LEAVES care (context exit, not a
-    // timer) and a fresh notice replaces it (prev.remove above) — but on the
-    // care screen it waits for the player's tap indefinitely.
-    function onScene(e) { var s = e && e.detail && e.detail.scene; if (s && s !== 'care') dismiss(); }
-    document.addEventListener('pp:scene-change', onScene);
+  // Deliver the cross-character notice through the care dialogue box — the same
+  // typewriter every other idle/greeting line uses — instead of a floating popup.
+  // Owner direction (Jul 2026): the "X NOTICES" bubble was removed for every
+  // route; the line now reads as the active character noticing, in their normal
+  // text box. showIfIdle() bails if a line is still on screen, so it never talks
+  // over something the player is reading.
+  function speakNotice(active, rival, text) {
+    const g = window._game;
+    if (!g || !g.typewriter || typeof g.typewriter.showIfIdle !== 'function') return false;
+    return g.typewriter.showIfIdle(text);
   }
 
   function boot() {
@@ -211,7 +175,7 @@
       const r = rival || CHARS.find(c => c !== a && affectionOf(c) >= RIVAL_AFF_MIN);
       if (!a || !r) return null;
       const line = REACTIONS[a] && REACTIONS[a][r];
-      if (line) showBubble(a, r, line);
+      if (line) speakNotice(a, r, line);
       return { active: a, rival: r, line };
     },
     _debug_reset: () => { _lastAt = 0; }
