@@ -2455,6 +2455,58 @@ class GameUI {
         }, 2250);
     }
 
+    // ── Fighting sequence (Elian: spar / combat flourish) ─────────
+    // Runs a fast 4-pose combat flourish on the care body sprite:
+    // ready stance → blade strike → cut back → draw-and-loose finisher,
+    // then settles to neutral. Poses are the clean cut-outs added Jul 2026
+    // (fightready/fightslash/fightbow + the deployed fighting.png). CSS
+    // motion classes live under body.pp-screen-care .character-elian so they
+    // out-specificity the elianCareBreathe !important idle rule.
+    playFightingSequence(onComplete) {
+        const poses   = CHARACTER.bodySprites || CHARACTER.bodyPoses;
+        const bodyImg = document.getElementById('character-body-img');
+        if (!poses || !bodyImg) { this.bounceCharacter(); onComplete && onComplete(); return; }
+
+        const ready  = poses.fightReady || poses.neutral || poses.default;
+        const slash1 = poses.fighting   || poses.fightSlash || ready;   // deployed fighting.png
+        const slash2 = poses.fightSlash || poses.fighting   || ready;   // Fighting (dagger + trail)
+        const bow    = poses.fightBow   || ready;                       // arrow fight — winged finisher
+        const base   = poses.neutral || poses.default;
+
+        const ALL_FIGHT = ['fight-lunge-r','fight-lunge-l','fight-impact','fight-loose','bounce'];
+        const set = (src, cls) => {
+            bodyImg.classList.remove(...ALL_FIGHT);
+            void bodyImg.offsetWidth;               // restart the animation
+            if (src) bodyImg.src = src;
+            if (cls) bodyImg.classList.add(cls);
+        };
+        // guarded SFX — returns true if it actually played, so `a() || b()` falls back cleanly
+        const sfx = (name) => { try { if (window.sounds && sounds[name]) { sounds[name](); return true; } } catch (_) {} return false; };
+
+        this._seqActive = true;
+        bodyImg.classList.remove('in-love','strength-strain','strength-glow','strength-peak');
+        set(ready, null);
+
+        // Settle into the ready stance
+        setTimeout(() => { set(ready, 'fight-lunge-l'); sfx('swoosh'); }, 180);
+        // Strike 1 — lunge right, blade
+        setTimeout(() => { set(slash1, 'fight-lunge-r'); sfx('clash') || sfx('thud'); }, 640);
+        // Strike 2 — cut back to the left
+        setTimeout(() => { set(slash2, 'fight-lunge-l'); sfx('clash') || sfx('thud'); }, 1120);
+        // Finisher — draw the bow and loose
+        setTimeout(() => { set(bow, 'fight-loose'); sfx('swoosh'); }, 1640);
+        // Recoil hold on the release
+        setTimeout(() => { set(bow, 'fight-impact'); sfx('thud'); }, 2100);
+        // Return to neutral, release the button lock
+        setTimeout(() => {
+            bodyImg.classList.remove(...ALL_FIGHT, 'in-love');
+            bodyImg.src = base;
+            this._seqActive = false;
+            onComplete && onComplete();
+            if (this._idleTimer) { clearTimeout(this._idleTimer); this.scheduleIdleDialogue(); }
+        }, 3050);
+    }
+
     // ── Focus / Drift sequence (Lyra: mermaid ocean swim) ─────────
     playFocusSequence(onComplete) {
         const poses = CHARACTER.bodySprites || CHARACTER.bodyPoses;

@@ -2713,7 +2713,7 @@ class PocketLoveGame {
             // Elian foraging types — timing game
             herbs:      { emotion: 'happy',   duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
             tracking:   { emotion: 'neutral', duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
-            meditation: { emotion: 'neutral', duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
+            fighting:   { emotion: 'angry',   duration: 3400, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playFightingSequence(unlock); } },
             // Proto system command types
             inspect:    { emotion: 'neutral', duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },

@@ -1601,6 +1601,45 @@ body.pp-screen-care .character-elian #character-body-img {
     animation: elianCareBreathe 4s ease-in-out infinite !important;
     transform-origin: 50% 100% !important;
 }
+/* ── Elian "Fighting" training flourish (Jul 2026) ───────────────
+   Fast combat motion on the care body sprite during playFightingSequence
+   (ui.js). Scoped under body.pp-screen-care .character-elian so these
+   out-rank the elianCareBreathe !important idle rule (both use !important).
+   Base translateX(5%) preserves his care-screen centering; pivot at the
+   feet (50% 100%) so lunges lean from the ground. */
+@keyframes ppElianFightLungeR {
+    0%   { transform: translateX(5%) scale(1); }
+    100% { transform: translateX(8.5%) scale(1.05) rotate(1.5deg); }
+}
+@keyframes ppElianFightLungeL {
+    0%   { transform: translateX(5%) scale(1); }
+    100% { transform: translateX(1.5%) scale(1.05) rotate(-1.5deg); }
+}
+@keyframes ppElianFightLoose {
+    0%   { transform: translateX(2%) scale(1.03); }
+    100% { transform: translateX(5%) scale(1); }
+}
+@keyframes ppElianFightImpact {
+    0%, 100% { transform: translateX(5%) scale(1); }
+    30%      { transform: translateX(6.5%) scale(1.02) rotate(1deg); }
+    65%      { transform: translateX(3.5%) scale(1.02) rotate(-1deg); }
+}
+body.pp-screen-care .character-elian #character-body-img.fight-lunge-r {
+    animation: ppElianFightLungeR 0.42s cubic-bezier(0.3,0.7,0.4,1) both !important;
+    transform-origin: 50% 100% !important;
+}
+body.pp-screen-care .character-elian #character-body-img.fight-lunge-l {
+    animation: ppElianFightLungeL 0.42s cubic-bezier(0.3,0.7,0.4,1) both !important;
+    transform-origin: 50% 100% !important;
+}
+body.pp-screen-care .character-elian #character-body-img.fight-loose {
+    animation: ppElianFightLoose 0.44s ease-out both !important;
+    transform-origin: 50% 100% !important;
+}
+body.pp-screen-care .character-elian #character-body-img.fight-impact {
+    animation: ppElianFightImpact 0.4s ease-in-out both !important;
+    transform-origin: 50% 100% !important;
+}
 .character-proto #character-body-img {
     animation: breathe 3s ease-in-out infinite, pp-proto-idle 2s ease-in-out infinite;
 }

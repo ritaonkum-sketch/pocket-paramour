@@ -185,6 +185,9 @@ const CHARACTER_ELIAN = {
         washing:     "assets/elian/body/washing.png",     // wash action pose
         fighting:    "assets/elian/body/fighting.png",
         fighting1:   "assets/elian/body/fighting.png",
+        fightReady:  "assets/elian/body/fightready.png",
+        fightSlash:  "assets/elian/body/fightslash.png",
+        fightBow:    "assets/elian/body/fightbow.png",
         corrupt1:    "assets/elian/body/corrupted.png"
     },
 
@@ -203,7 +206,7 @@ const CHARACTER_ELIAN = {
         feed:  ["eating1", "eating2"],
         wash:  ["washing", "neutral"],
         gift:  ["guarded", "warm"],
-        train: ["foraging", "tracking", "meditating"],
+        train: ["foraging", "tracking"],
         talk:  ["talk", "calm"]
     },
 
@@ -221,7 +224,7 @@ const CHARACTER_ELIAN = {
     trainingOptions: [
         { type: 'herbs',      icon: '\uD83C\uDF3F', label: 'Herbs',      desc: 'Gather and identify' },
         { type: 'tracking',   icon: '\uD83D\uDC3E', label: 'Tracking',   desc: 'Read the land' },
-        { type: 'meditation', icon: '\uD83E\uDDD8', label: 'Meditation', desc: 'Still the mind' }
+        { type: 'fighting',   icon: '\u2694\uFE0F', label: 'Fighting',   desc: 'Spar and strike' }
     ],
 
     trainingDialogue: {
@@ -239,12 +242,12 @@ const CHARACTER_ELIAN = {
             "That print isn’t a wolf. It’s a dog. The difference matters.",
             "You tracked that in half the time. I’m running out of things to teach you."
         ],
-        meditation: [
-            "Breathe. The forest doesn’t rush. Neither should you.",
-            "You held still longer this time. The birds came closer.",
-            "The mind is the loudest thing in the forest. You’re learning to quiet it.",
-            "You felt it, didn’t you? The pulse beneath the roots.",
-            "Stillness isn’t weakness. It’s the strongest thing you can do."
+        fighting: [
+            "Draw from the back, not the arm. The bow does the work if you let it.",
+            "Good. You held the stance. Most people break when I come at them.",
+            "Blade close, feet moving. You do not swing at what you cannot reach.",
+            "You did not flinch that time. Fear gets slower every time you face it.",
+            "Faster. If this were real, you would already be behind them."
         ]
     },
 
