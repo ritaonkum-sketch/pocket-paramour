@@ -286,7 +286,7 @@ const ACHIEVEMENTS = [
         id: "lyra_defied_lucien",
         name: "My Choice",
         icon: "🛡️",
-        description: "Defied Lucien — she chose you",
+        description: "Defied Lucien. She chose you",
         secret: true,
         check: (g) => g.selectedCharacter === 'lyra' && g._lucienEventOutcome === 0
     },
@@ -310,7 +310,7 @@ const ACHIEVEMENTS = [
         id: "lyra_second_loop",
         name: "Still Here",
         icon: "♾️",
-        description: "You came back again — and again",
+        description: "You came back again, and again",
         secret: true,
         check: (g) => g.selectedCharacter === 'lyra' && (g.day47LoopCount || 0) >= 2
     },
@@ -353,7 +353,7 @@ const ACHIEVEMENTS = [
         id: "alistair_true_bond",
         name: "By Choice, Not Oath",
         icon: "🛡️",
-        description: "Alistair chose to stay — not out of duty",
+        description: "Alistair chose to stay, not out of duty",
         secret: true,
         check: (g) => g.selectedCharacter !== 'lyra' && g.cinematicFlags?.alistairTrueBondPlayed
     },

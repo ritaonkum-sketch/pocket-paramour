@@ -3292,7 +3292,7 @@ class PocketLoveGame {
 
         // Update character info
         const charName = document.getElementById('settings-character-name');
-        if (charName) charName.textContent = CHARACTER.name + ' — ' + CHARACTER.title;
+        if (charName) charName.textContent = CHARACTER.name + ' · ' + CHARACTER.title;
 
         // Update stats
         const stats = document.getElementById('settings-stats');
@@ -4578,7 +4578,7 @@ class PocketLoveGame {
             }
             if (seen.alistairTrueBond && echo >= 3) {
                 const lines = [
-                    "I don't say this lightly — but you feel familiar.",
+                    "I don't say this lightly, but you feel familiar.",
                     "Something in me already decided to trust you.",
                     "I've served many. I don't understand why you feel different."
                 ];
@@ -4698,7 +4698,7 @@ class PocketLoveGame {
             ] : [
                 "You were away a while. The castle doesn't change much.",
                 "You're back. I wasn't sure if you would be.",
-                "Hours. I didn't track them. That's not true — I did.",
+                "Hours. I didn't track them. That's not true. I did.",
                 "Long absence. I started to wonder."
             ];
             return pool[Math.floor(Math.random() * pool.length)];
@@ -4767,7 +4767,7 @@ class PocketLoveGame {
             const pool = bond >= 65 ? [
                 "You've come back every day for a week. I've stopped pretending that doesn't mean something.",
                 "Seven days. A knight knows the value of consistency. So does this.",
-                "Every morning I think — maybe today. And every day, you're here."
+                "Every morning I think, maybe today. And every day, you're here."
             ] : [
                 "Seven days in a row. That's more than most people manage.",
                 "You keep showing up. I'm starting to believe it.",
@@ -5665,7 +5665,7 @@ class PocketLoveGame {
             setTimeout(() => {
                 this.ui.flashEmotion('shy', 3000);
                 tw.show("…I wasn't going to say anything.", () => {
-                    setTimeout(() => tw.show("It's just — I notice these things.", () => {
+                    setTimeout(() => tw.show("It's just... I notice these things.", () => {
                         setTimeout(end, 2000);
                     }), 700);
                 });
@@ -5834,7 +5834,7 @@ class PocketLoveGame {
                 // A-variant response is warmer; B-variant is more guarded
                 const resp = balance === 'player'
                     ? "…I know. That's why I'm telling you."
-                    : "…I want to. I'm just — not sure how.";
+                    : "…I want to. I'm just... not sure how.";
                 setTimeout(() => this.typewriter.show(resp), 1500);
             } else if (i === 1) {
                 this.emotion.trust   = Math.max(0,   this.emotion.trust   - 5);
@@ -10395,7 +10395,7 @@ class PocketLoveGame {
                 { type: 'clear' },
                 { type: 'delay', ms: 800 },
                 { type: 'zoom', scale: 1.1, ms: 700 },
-                { type: 'line', text: "But you — you're chaos. Beautiful, irrational chaos.", hold: 3000, speed: 30, pose: 'fascinated' },
+                { type: 'line', text: "But you. You're chaos. Beautiful, irrational chaos.", hold: 3000, speed: 30, pose: 'fascinated' },
             ]),
 
             { type: 'clear' },

@@ -355,7 +355,7 @@ const CHARACTER_PROTO = {
             "Do that again? Please? For... for calibration. Only for calibration. Mostly."
         ],
         clingy: [
-            "Touch registered! Again. Please — I will take as many of those as you are willing to give.",
+            "Touch registered! Again. Please... I will take as many of those as you are willing to give.",
             "Your finger was on the screen for 0.3 seconds. That was GREAT. Do it for 0.4 next time!",
             "*Presses his hologram-palm flat against yours on the other side of the screen, prismatic light where the skin would meet* ... almost. almost almost almost.",
             "I mapped every pixel you’ve ever touched. It makes a pattern shaped like CARE. You did that. That was YOU.",

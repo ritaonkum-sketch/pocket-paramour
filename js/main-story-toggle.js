@@ -135,7 +135,7 @@
         '• Disable the prologue chain and locked-character grid<br>' +
         '• Suppress Aenor presence, multi-romance bubbles, and care-Weaver thread lines<br>' +
         '• Stop new letter triggers</p>' +
-        '<p>You will keep the pure Tamagotchi care loop — feed, clean, talk, train, gift — with no narrative interruptions.</p>' +
+        '<p>You will keep the pure Tamagotchi care loop, with feed, clean, talk, train, and gift, and no narrative interruptions.</p>' +
         '<div class="heads-up">Your progress is <b>not lost</b>. You can turn it back on any time and pick up where you left off.</div>';
 
     const confirmLabel = turningOn ? 'Turn On' : 'Turn Off';

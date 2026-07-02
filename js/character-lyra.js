@@ -399,7 +399,7 @@ const CHARACTER_LYRA = {
     giftDialogue: {
         apple:    ["A fruit that grew in the light. I have only ever eaten what the dark water gives. Thank you.", "It is sweet. Most things I am handed are not."],
         rose:     ["It will not last the week. *She studies it.* Most beautiful things do not. I will love it anyway.", "No one brings flowers to a cave. You did. I have noted that."],
-        sword:    ["A blade. I keep people away with a held note, not steel. But I understand the gesture — you want me able to.", "You would arm the thing that could drown you. *Soft.* Reckless. I will keep it."],
+        sword:    ["A blade. I keep people away with a held note, not steel. But I understand the gesture. You want me able to.", "You would arm the thing that could drown you. *Soft.* Reckless. I will keep it."],
         cake:     ["You carried something this sweet all the way down to the water. *Quiet.* That is the gift. Not the cake.", "I will make it last. I make everything last down here."],
         ring:     ["A circle has no end. You know that is what you are handing me. *She does not look away.* I accept it as such.", "I will wear it where my pulse is. So it learns the rhythm you already know."],
         book:     ["Words that hold still on a page. Mine only ever lived in the air, and then were gone. This is a kindness I did not expect.", "Read one to me. I want to hear how the surface sounds when it is trying to be beautiful."],

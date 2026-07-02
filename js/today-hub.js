@@ -119,7 +119,7 @@
                 urgent = true;
             } else if (ms < 30 * 60 * 1000) {
                 const mins = Math.max(1, Math.round(ms / 60000));
-                timeText = `In ${mins} minute${mins === 1 ? '' : 's'} — soon`;
+                timeText = `In ${mins} minute${mins === 1 ? '' : 's'}, soon`;
                 urgent = true;
             } else {
                 const totalMins = Math.round(ms / 60000);

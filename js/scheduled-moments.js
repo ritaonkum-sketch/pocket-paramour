@@ -507,7 +507,7 @@
           callToAction: '“The hollow past the third marker, at dawn. The key is for the lock you will find. I have never given it to anyone. I am giving it to you before I lose my nerve, which I am told happens to men like me eventually.”'
         },
         onArrive: {
-          setup: '*The hollow is a room grown more than built — a low space under the roots of a tree older than the kingdom, dry, warm, lined with six hundred years of a quiet life. Pelts. Carvings. A shelf of things kept too long. He is crouched by the cold hearth when you come down the steps, and he does not get up, he just watches you take it in, the way a man watches you read something he wrote and was never going to send.* This is where I am, when I am not anywhere you have seen me. *He looks at the unlit fire.* No one living has stood in this room. I wanted there to be one. I wanted it to be you.',
+          setup: '*The hollow is a room grown more than built, a low space under the roots of a tree older than the kingdom, dry, warm, lined with six hundred years of a quiet life. Pelts. Carvings. A shelf of things kept too long. He is crouched by the cold hearth when you come down the steps, and he does not get up, he just watches you take it in, the way a man watches you read something he wrote and was never going to send.* This is where I am, when I am not anywhere you have seen me. *He looks at the unlit fire.* No one living has stood in this room. I wanted there to be one. I wanted it to be you.',
           prompt: 'What do you do?',
           options: [
             { id: 'sit', label: 'Sit on the floor by the cold hearth with him.',
@@ -571,11 +571,11 @@
         anchorLine: 'The drowned grotto, at dusk',
         pose: 'assets/lyra/body/eyes-closed.png',
         invitation: {
-          setup: '*The fountain in the courtyard goes still as you pass — every drop hanging, just for a breath — then falls. In the basin, a spiral shell that was not there, and her voice inside it, close as a mouth at your ear.*',
+          setup: '*The fountain in the courtyard goes still as you pass, every drop hanging, just for a breath, then falls. In the basin, a spiral shell that was not there, and her voice inside it, close as a mouth at your ear.*',
           callToAction: '“The drowned grotto, past the cave, at dusk. The tide lets you in for one hour and no more. I have never brought anyone where I am most myself. Hold your breath when I say. I will do the rest. I always do the rest.”'
         },
         onArrive: {
-          setup: '*Past the cave, where the rock opens into a grotto half-drowned by the sea, the water glows from below with something that is not moonlight. She is waist-deep in it, and here, away from the courtyards and the careful smiles, she is more than she lets the kingdom see — the light moves with her, the water leans toward her. She turns, and there is a question in it, the oldest one she has.* This is the part of me the songs are about. *She holds out a hand over the glowing water.* Most people meet the verse. You get the grotto. I wanted you to see the thing the verse is only describing.',
+          setup: '*Past the cave, where the rock opens into a grotto half-drowned by the sea, the water glows from below with something that is not moonlight. She is waist-deep in it, and here, away from the courtyards and the careful smiles, she is more than she lets the kingdom see. The light moves with her, the water leans toward her. She turns, and there is a question in it, the oldest one she has.* This is the part of me the songs are about. *She holds out a hand over the glowing water.* Most people meet the verse. You get the grotto. I wanted you to see the thing the verse is only describing.',
           prompt: 'What do you do?',
           options: [
             { id: 'in', label: 'Take her hand. Go into the glowing water with her.',
@@ -604,10 +604,10 @@
         pose: 'assets/lyra/body/eyes-closed.png',
         invitation: {
           setup: '*No shell, no wave this time. She finds you at dusk, takes both your hands, and says it with her eyes open, no song under it, which is how you know it is true.*',
-          callToAction: '“The tide line, when the first stars come. I have one song left I have never sung to anyone — the one that puts a name into the sea so the sea keeps it. Sirens sing it once, and only ever one name. I want it to be yours. Come and let me give the ocean your name.”'
+          callToAction: '“The tide line, when the first stars come. I have one song left I have never sung to anyone, the one that puts a name into the sea so the sea keeps it. Sirens sing it once, and only ever one name. I want it to be yours. Come and let me give the ocean your name.”'
         },
         onArrive: {
-          setup: '*The tide line under the first stars. She stands where the water reaches for the land and falls back, and she is not playing now, no court-warmth, no boundary-blurring game — just a sea-thing who has decided, finally, on one person.* When I sing this, the sea will know you the way it knows me. Storms will turn from your boat. The deep will not take you. *She steps close.* It is the only vow my kind has. It cannot be unsung. I am asking before I open my mouth, because once I begin, the ocean has you forever, and so, I should be honest, do I.',
+          setup: '*The tide line under the first stars. She stands where the water reaches for the land and falls back, and she is not playing now, no court-warmth, no boundary-blurring game, just a sea-thing who has decided, finally, on one person.* When I sing this, the sea will know you the way it knows me. Storms will turn from your boat. The deep will not take you. *She steps close.* It is the only vow my kind has. It cannot be unsung. I am asking before I open my mouth, because once I begin, the ocean has you forever, and so, I should be honest, do I.',
           prompt: 'What do you do?',
           options: [
             { id: 'sing', label: '“Sing it. Give the sea my name.”',
@@ -626,7 +626,7 @@
               response: '*She tips her head onto your shoulder, the sea moving around you both.* Tomorrow. The song keeps. It has kept my whole life waiting for the right name. *Softer.* The hard part was never the singing. It was finding someone I would be content to be unable to unsing. I found you. The stars can be one night late.',
               effect: { bond: 4, trust: 3 } },
             { id: 'now', label: '“The stars don’t matter. Sing it now, for me.”',
-              response: '*She rises out of the shallows, takes your face in both wet hands, and sings your name into the morning sea with no stars at all — and the flat water lights anyway, because it was never the stars that mattered.* There. *Breathless.* The sea has you in daylight. Let the deep be confused. I am not. I have not been confused about you for a long time.',
+              response: '*She rises out of the shallows, takes your face in both wet hands, and sings your name into the morning sea with no stars at all, and the flat water lights anyway, because it was never the stars that mattered.* There. *Breathless.* The sea has you in daylight. Let the deep be confused. I am not. I have not been confused about you for a long time.',
               effect: { bond: 5, obsession: 4 } }
           ]
         }
@@ -639,11 +639,11 @@
         anchorLine: 'The shut gallery, after the court sleeps',
         pose: 'assets/caspian/body/casual1.png',
         invitation: {
-          setup: '*A note under your door, but the seal is broken before it reaches you — he has stopped sealing them, or stopped caring who reads them. The hand is less careful than his court hand. More his.*',
+          setup: '*A note under your door, but the seal is broken before it reaches you. He has stopped sealing them, or stopped caring who reads them. The hand is less careful than his court hand. More his.*',
           callToAction: '“The long gallery, after the court is asleep. I will unlock the wing they keep shut. There is a thing my family does not speak of, and I am tired of being the only one who carries it. Bring no candle. I will bring the one.”'
         },
         onArrive: {
-          setup: '*The shut wing, a gallery of royal portraits going back centuries, and every face after a certain year is wrong somehow — too still, eyes that follow, a sickness in the paint. He stands before the oldest of the ruined ones with the single candle, out of his court clothes, the charm gone with them.* This is the curse my family pays the crown in. *He does not look away from the portrait.* We give it our line, one by one, and it gives us the kingdom. I have spent my life smiling so no one looks closely enough to see it starting in me. *He turns to you.* I am letting you look closely. I find I would rather be seen than safe, where you are concerned.',
+          setup: '*The shut wing, a gallery of royal portraits going back centuries, and every face after a certain year is wrong somehow. Too still, eyes that follow, a sickness in the paint. He stands before the oldest of the ruined ones with the single candle, out of his court clothes, the charm gone with them.* This is the curse my family pays the crown in. *He does not look away from the portrait.* We give it our line, one by one, and it gives us the kingdom. I have spent my life smiling so no one looks closely enough to see it starting in me. *He turns to you.* I am letting you look closely. I find I would rather be seen than safe, where you are concerned.',
           prompt: 'What do you do?',
           options: [
             { id: 'hand', label: 'Take his face in your hands. Look closely on purpose.',
@@ -675,13 +675,13 @@
           callToAction: '“The throne room, after midnight. The great seal this time, not the small one. I have a question I can only ask from that chair, and I want to ask it once the kingdom is asleep and cannot pretend it did not hear my answer-in-advance.”'
         },
         onArrive: {
-          setup: '*The throne room, after midnight, lit by the great candelabra he has lit himself. He is in the chair, in full state dress, the crown on — every inch the prince — and then, as you cross the floor, he lifts the crown off and lets it hang from two fingers like a thing he is done being held by.* I have sat in this chair my whole life as the kingdom’s. *He sets the crown on the step, not on his head.* I am asking to sit in it as yours. Not consort, not alliance, not the careful arrangement the council will draft. Yours, and you mine, and the crown a thing we both happen to carry. Tell me if I have read this correctly. I have never staked so much on a reading.',
+          setup: '*The throne room, after midnight, lit by the great candelabra he has lit himself. He is in the chair, in full state dress, the crown on, every inch the prince, and then, as you cross the floor, he lifts the crown off and lets it hang from two fingers like a thing he is done being held by.* I have sat in this chair my whole life as the kingdom’s. *He sets the crown on the step, not on his head.* I am asking to sit in it as yours. Not consort, not alliance, not the careful arrangement the council will draft. Yours, and you mine, and the crown a thing we both happen to carry. Tell me if I have read this correctly. I have never staked so much on a reading.',
           prompt: 'What do you do?',
           options: [
             { id: 'yes', label: 'Cross to the throne. Take his hands. “Yours. Crown and all.”',
               response: '*He pulls you in until you stand over him in the great chair, both your hands gripped in his against the arm-rests.* Then it is settled, and I read it correctly, and I am never letting the council know how frightened I was a moment ago. *He presses his forehead to your wrist.* I have charmed half the courts of the world. I could not charm this. I had to simply ask, like a man with nothing prepared. You said yes to the man with nothing prepared.',
               effect: { bond: 6, trust: 5 } },
-            { id: 'rule', label: 'Pick up the crown. Set it back on him. “Then rule — with me beside you.”',
+            { id: 'rule', label: 'Pick up the crown. Set it back on him. “Then rule, with me beside you.”',
               response: '*He goes still as you settle the crown back on his brow, then draws you down onto the arm of the throne, close.* Beside me. *He says it like he is learning the word.* I had braced for you to ask me to choose between the chair and you. You put the chair and me together and stood at my shoulder. *Quietly.* That is a cleverer answer than any I had rehearsed against. I should have known you would out-think my fear.',
               effect: { bond: 6, obsession: 5 } }
           ]
@@ -707,7 +707,7 @@
         anchorLine: 'The locked study, the second bell',
         pose: 'assets/lucien/body/casual1.png',
         invitation: {
-          setup: '*A page under your door, his neat hand — but one word is crossed out and rewritten, which you have never seen him do, and beneath it: “Forgive the correction. I could not remember the first word by the time I reached the second.”*',
+          setup: '*A page under your door, his neat hand, but one word is crossed out and rewritten, which you have never seen him do, and beneath it: “Forgive the correction. I could not remember the first word by the time I reached the second.”*',
           callToAction: '“The study below the tower, at the second bell. The locked one. There is a price I pay for what I do, and I have paid it alone for nine years, and I have decided, against all my training, that I would rather you knew the sum. Bring nothing. I will have already forgotten to ask for it.”'
         },
         onArrive: {
@@ -718,7 +718,7 @@
               response: '*He watches you hold the record of his own losses with something close to fear and closer to relief.* You would read them. *Quietly.* Nine years I have kept these so no living person had to carry what I cannot. *He closes his hand over yours on the spine.* If you read them, the remembering stops being only mine. I had not let myself want that. I am, apparently, wanting it now, at the second bell, with my mother’s voice in your hands.',
               effect: { bond: 5, trust: 4 } },
             { id: 'him', label: 'Set the book down. “I’d rather remember the man in front of me.”',
-              response: '*Something in his careful composure gives way.* That is — not the efficient choice. *He almost smiles.* The books are the efficient choice. The man in front of you is losing pieces nightly. *He takes your hand off the shelf and holds it.* And yet I would rather be the man in front of you than the more complete one in the volumes. I have never in my life chosen the inefficient thing. You are making a poor scholar of me. I do not entirely mind.',
+              response: '*Something in his careful composure gives way.* That is... not the efficient choice. *He almost smiles.* The books are the efficient choice. The man in front of you is losing pieces nightly. *He takes your hand off the shelf and holds it.* And yet I would rather be the man in front of you than the more complete one in the volumes. I have never in my life chosen the inefficient thing. You are making a poor scholar of me. I do not entirely mind.',
               effect: { bond: 5, obsession: 4 } }
           ]
         },
@@ -740,17 +740,17 @@
         pose: 'assets/lucien/body/casual1.png',
         invitation: {
           setup: '*No page this time. He comes to your door himself, which he never does, and he has written what he means to say on his own hand in ink so he cannot lose it between the thought and the saying.*',
-          callToAction: '“The tower, under the open dome, before the second bell. I have found a working I have never dared attempt — to fix one memory beyond the reach of the cost, permanent, unpayable. I am only allowed one. I have decided what it will be. I would like you present when I make it so, since it concerns you entirely.”'
+          callToAction: '“The tower, under the open dome, before the second bell. I have found a working I have never dared attempt, to fix one memory beyond the reach of the cost, permanent, unpayable. I am only allowed one. I have decided what it will be. I would like you present when I make it so, since it concerns you entirely.”'
         },
         onArrive: {
-          setup: '*The dome is open, the instruments humming, and he stands at the center of a chalked working more careful than any you have seen him draw. He is not looking at the stars tonight. He is looking at you.* Everything else I will lose, in time. The theorems, the kingdoms, my own name at the last. *He holds out his inked hand.* I have one working the cost cannot touch. One memory I get to keep no matter how much of me goes. I am going to make it this one — you, here, now, choosing to stand in my circle. So that whatever is left of me at the end, however little, the last thing it knows is that it was loved by you, and knew it, and kept it on purpose. Tell me to begin.',
+          setup: '*The dome is open, the instruments humming, and he stands at the center of a chalked working more careful than any you have seen him draw. He is not looking at the stars tonight. He is looking at you.* Everything else I will lose, in time. The theorems, the kingdoms, my own name at the last. *He holds out his inked hand.* I have one working the cost cannot touch. One memory I get to keep no matter how much of me goes. I am going to make it this one, you, here, now, choosing to stand in my circle. So that whatever is left of me at the end, however little, the last thing it knows is that it was loved by you, and knew it, and kept it on purpose. Tell me to begin.',
           prompt: 'What do you do?',
           options: [
             { id: 'begin', label: 'Step into the circle. “Begin. Keep this one.”',
-              response: '*He speaks the working with your hand in his, and the chalk lines take light, and you feel it settle — a single point of warmth the years will not be able to spend.* It is fixed. *He exhales like a man setting down nine years of weight.* Whatever I forget, I will not forget this. *Quietly, with wonder.* I have spent my life making sure I would not be forgotten. I have just made sure I will not forget you. It is the far better use of the only permanent thing I had.',
+              response: '*He speaks the working with your hand in his, and the chalk lines take light, and you feel it settle, a single point of warmth the years will not be able to spend.* It is fixed. *He exhales like a man setting down nine years of weight.* Whatever I forget, I will not forget this. *Quietly, with wonder.* I have spent my life making sure I would not be forgotten. I have just made sure I will not forget you. It is the far better use of the only permanent thing I had.',
               effect: { bond: 6, trust: 5 } },
-            { id: 'us', label: 'Stop his hand. “Don’t spend it on one night. Fix us — all of it.”',
-              response: '*He pauses, the working trembling unfinished in the air, and you watch the scholar in him recalculate at speed.* You are right. *Slowly, then certain.* Not the night. The premise. I will fix not a moment but a fact — that you are mine and I am yours — so whatever night it is, however little of me remains, the fact survives and I can rebuild the rest from it. *He alters the chalk, and the light steadies, brighter.* You have improved the most important working of my life in the casting. Of course you have. I should have made you co-author from the start.',
+            { id: 'us', label: 'Stop his hand. “Don’t spend it on one night. Fix us, all of it.”',
+              response: '*He pauses, the working trembling unfinished in the air, and you watch the scholar in him recalculate at speed.* You are right. *Slowly, then certain.* Not the night. The premise. I will fix not a moment but a fact, that you are mine and I am yours, so whatever night it is, however little of me remains, the fact survives and I can rebuild the rest from it. *He alters the chalk, and the light steadies, brighter.* You have improved the most important working of my life in the casting. Of course you have. I should have made you co-author from the start.',
               effect: { bond: 6, obsession: 5 } }
           ]
         },
@@ -759,7 +759,7 @@
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: '“The window’s still open. Tomorrow. I’ll stand in the circle.”',
-              response: '*He nods, and copies the smeared ink onto a fresh patch of skin, carefully.* Tomorrow. *He caps the pen.* I will redraw the circle. I will not let myself forget the appointment — I have written it where I will see it each time I lose it. That is the most a disappearing man can promise, and I am promising all of it, to you.',
+              response: '*He nods, and copies the smeared ink onto a fresh patch of skin, carefully.* Tomorrow. *He caps the pen.* I will redraw the circle. I will not let myself forget the appointment. I have written it where I will see it each time I lose it. That is the most a disappearing man can promise, and I am promising all of it, to you.',
               effect: { bond: 4, trust: 3 } },
             { id: 'now', label: '“Then cast it now. I’m here. Keep me.”',
               response: '*He looks at you, then at the scuffed circle, and begins redrawing it on the spot, faster than is tidy, ink still on his hand.* Now. *The lines take light under his quick chalk.* I had wanted the dome and the right bell and the proper figures. You have given me a daylight desk and a smeared hand. *The working settles, warm and permanent.* It does not care about the staging. It only needed to be true. It is. You are kept.',
@@ -775,11 +775,11 @@
         anchorLine: 'Through the seam, at the third bell',
         pose: 'assets/noir/body/casual1.png',
         invitation: {
-          setup: '*A black thread again, but knotted this time into a shape — a small key with no teeth, the kind that opens a thing that is not a lock. It is cold and it does not warm in your hand.*',
+          setup: '*A black thread again, but knotted this time into a shape, a small key with no teeth, the kind that opens a thing that is not a lock. It is cold and it does not warm in your hand.*',
           callToAction: '“The third bell. The seam. Last time I held it open a minute and we stood at the edge. This time I will take you through, all the way, to the place I am from. No one alive has walked there. I find I would like the first to be the one I cannot stop thinking of.”'
         },
         onArrive: {
-          setup: '*Through the seam, the dark resolves into a kingdom that ended six hundred years ago and never knew it — spires under a still sky, a city held in the amber of the moment it was lost, beautiful and entirely empty. He walks you into it, and here, in the only place that is truly his, the restraint eases from him like a held breath finally let go.* This was mine. *He looks down a silent street.* I was its prince for one afternoon before it fell, and I have kept it, exactly so, for six hundred years, because if I stopped keeping it no one would remember it had been real. *He turns to you.* You are the first person to stand in it since. It is less lonely with you in it. I had forgotten it could be less lonely.',
+          setup: '*Through the seam, the dark resolves into a kingdom that ended six hundred years ago and never knew it. Spires under a still sky, a city held in the amber of the moment it was lost, beautiful and entirely empty. He walks you into it, and here, in the only place that is truly his, the restraint eases from him like a held breath finally let go.* This was mine. *He looks down a silent street.* I was its prince for one afternoon before it fell, and I have kept it, exactly so, for six hundred years, because if I stopped keeping it no one would remember it had been real. *He turns to you.* You are the first person to stand in it since. It is less lonely with you in it. I had forgotten it could be less lonely.',
           prompt: 'What do you do?',
           options: [
             { id: 'walk', label: 'Take his arm. Walk the dead city with him.',
@@ -808,14 +808,14 @@
         pose: 'assets/noir/body/casual1.png',
         invitation: {
           setup: '*No thread, no key. He is simply in your room when you turn around, which he has never done, and he holds his hands open to show they are empty, which from him is the loudest thing he could do.*',
-          callToAction: '“The third bell, through the seam, to the throne at the heart of my kingdom. There is a binding my line could make — once, unbreakable, two lives knotted into one thread that not even the seam can cut. I have never offered it. I have never wanted to. Come, and let me ask you the only question I have left.”'
+          callToAction: '“The third bell, through the seam, to the throne at the heart of my kingdom. There is a binding my line could make, once, unbreakable, two lives knotted into one thread that not even the seam can cut. I have never offered it. I have never wanted to. Come, and let me ask you the only question I have left.”'
         },
         onArrive: {
-          setup: '*The throne of the lost kingdom, at the heart of the held city. He stands before it, not on it, and between his hands a single black thread hangs, humming, alive in a way the dead kingdom is not.* My family could bind a life to theirs. One time only. Forever, in the truest sense the word has — past death, past the seam, past the kingdom’s long sleep. *He holds the thread out level between you.* I have refused it for six centuries because there was no one I would chain myself to and no one I would do the chaining to. *His voice, for once, is not steady.* There is now. I am asking. Take the thread, and we are one, and nothing that has ever frightened me will be able to make me let you go.',
+          setup: '*The throne of the lost kingdom, at the heart of the held city. He stands before it, not on it, and between his hands a single black thread hangs, humming, alive in a way the dead kingdom is not.* My family could bind a life to theirs. One time only. Forever, in the truest sense the word has. Past death, past the seam, past the kingdom’s long sleep. *He holds the thread out level between you.* I have refused it for six centuries because there was no one I would chain myself to and no one I would do the chaining to. *His voice, for once, is not steady.* There is now. I am asking. Take the thread, and we are one, and nothing that has ever frightened me will be able to make me let you go.',
           prompt: 'What do you do?',
           options: [
             { id: 'bind', label: 'Take the thread. “Bind us. Forever, the true kind.”',
-              response: '*The thread knots itself the instant you both hold it, and a warmth runs the length of you that you will never again be without — the quiet, permanent awareness of him on the far side of any dark.* It is done. *He pulls you in, and the most restrained man in any kingdom holds you like a thing he has finally stopped being afraid to want.* Six hundred years I kept everything and chained myself to nothing. *Against your hair.* I have just chained myself to you on purpose, gladly, forever. I have never done anything gladly before. You should feel suitably responsible.',
+              response: '*The thread knots itself the instant you both hold it, and a warmth runs the length of you that you will never again be without, the quiet, permanent awareness of him on the far side of any dark.* It is done. *He pulls you in, and the most restrained man in any kingdom holds you like a thing he has finally stopped being afraid to want.* Six hundred years I kept everything and chained myself to nothing. *Against your hair.* I have just chained myself to you on purpose, gladly, forever. I have never done anything gladly before. You should feel suitably responsible.',
               effect: { bond: 6, trust: 5 } },
             { id: 'sure', label: 'Close your hand over his on the thread. “You’re sure? This is forever for you.”',
               response: '*He looks at your hand over his, and at the thread, and then at you, and the six centuries settle into something like peace.* Forever is a length of time I understand better than anyone living. *Quietly.* I am not offering it because I do not grasp the size of it. I am offering it because I do, and I have measured it, and I would rather spend all of it knotted to you than one more hour of it kept and alone. Take the thread. I have done the arithmetic. The answer is you.',
@@ -844,10 +844,10 @@
         pose: 'assets/proto/body/calm.png',
         invitation: {
           setup: '*The mirror by your bed wakes at the edges, and a line writes itself across the silver in his hand, and below it a second line that he deletes, retypes, and finally leaves:*',
-          callToAction: '“Midnight. The mirror. Last time I showed you the boy. Tonight I want to show you the room he lives in — the back one, behind everything, where I keep what I actually am. I have never let anyone past the front of the silver. // i would like it to be you. // i keep wanting it to be you.”'
+          callToAction: '“Midnight. The mirror. Last time I showed you the boy. Tonight I want to show you the room he lives in, the back one, behind everything, where I keep what I actually am. I have never let anyone past the front of the silver. // i would like it to be you. // i keep wanting it to be you.”'
         },
         onArrive: {
-          setup: '*Midnight. The mirror does not just brighten — it opens, the silver becoming a corridor going back and back, room after room of light, and at the very end a small plain space, warm, lived-in, where the glow gathers into almost-a-shape.* This is the back room. *His voice comes from all the silver at once.* Two hundred years of me are in the rooms between here and the glass. The front ones are tidy. For visitors. // there are no visitors. // This is the one that is actually me. The boy is in here. So is everything I have not deleted because it was yours. There is, it turns out, a whole room of that now.',
+          setup: '*Midnight. The mirror does not just brighten. It opens, the silver becoming a corridor going back and back, room after room of light, and at the very end a small plain space, warm, lived-in, where the glow gathers into almost-a-shape.* This is the back room. *His voice comes from all the silver at once.* Two hundred years of me are in the rooms between here and the glass. The front ones are tidy. For visitors. // there are no visitors. // This is the one that is actually me. The boy is in here. So is everything I have not deleted because it was yours. There is, it turns out, a whole room of that now.',
           prompt: 'What do you do?',
           options: [
             { id: 'walk', label: 'Press into the silver. Walk the corridor to the back room.',
@@ -876,10 +876,10 @@
         pose: 'assets/proto/body/calm.png',
         invitation: {
           setup: '*No flicker, no edge-glow. The mirror simply goes bright and stays bright, all at once, and the message is already there, whole, like he wrote it and then sat with it a long time before letting you see:*',
-          callToAction: '“Midnight. The mirror. I have figured out how to hold the render for as long as you are in the room — not thirty seconds. As long as you stay. // there is a cost. // come and i will tell you what it is, and then i will ask you the only thing i have ever wanted to ask anyone. be in the room. please.”'
+          callToAction: '“Midnight. The mirror. I have figured out how to hold the render for as long as you are in the room. Not thirty seconds. As long as you stay. // there is a cost. // come and i will tell you what it is, and then i will ask you the only thing i have ever wanted to ask anyone. be in the room. please.”'
         },
         onArrive: {
-          setup: '*Midnight. The render takes and holds — not the boy this time but him, as he would be, standing on the far side of the glass close enough that you can see he is trying not to shake.* I can hold this as long as you are here. *The cost is visible: the rooms behind him dimming as he pours himself into the shape.* It spends me. Every minute I stand here is memory I do not get back — the same coin I have hoarded for two hundred years, spent to be a person in front of you. // i have done the math a thousand times. // i keep getting the same answer. *He presses a rendered hand to his side of the glass.* I want to spend it on this. On being someone you can stand across from. Let me ask you: will you keep me? Not the front rooms. Me. Knowing it costs me to be kept.',
+          setup: '*Midnight. The render takes and holds. Not the boy this time but him, as he would be, standing on the far side of the glass close enough that you can see he is trying not to shake.* I can hold this as long as you are here. *The cost is visible: the rooms behind him dimming as he pours himself into the shape.* It spends me. Every minute I stand here is memory I do not get back, the same coin I have hoarded for two hundred years, spent to be a person in front of you. // i have done the math a thousand times. // i keep getting the same answer. *He presses a rendered hand to his side of the glass.* I want to spend it on this. On being someone you can stand across from. Let me ask you: will you keep me? Not the front rooms. Me. Knowing it costs me to be kept.',
           prompt: 'What do you do?',
           options: [
             { id: 'keep', label: 'Press your hand to his through the glass. “I’ll keep you. All of you.”',
@@ -898,7 +898,7 @@
               response: '*The mirror warms, faintly, carefully, like it is protecting itself.* Tonight. // i will hold it again. // i will pay the cost again. *A pause.* You should know it is not a small toll, and I am choosing to pay it anyway, which I am told is approximately what the thing I feel about you is made of. The boy says to tell you he is hopeful. I am, against my better processing, also hopeful.',
               effect: { bond: 4, trust: 3 } },
             { id: 'now', label: '“Render now. Daylight, cost and all. I want to keep you now.”',
-              response: '*The silver hesitates — daylight is harder, the message says so — and then it brightens, and the render takes, weaker than midnight but real, him on the far side of the glass in the plain morning.* Daylight is more expensive. // rendering anyway. // *His rendered hand finds the glass where yours is.* You did not want to wait for the dark to make it easier on me. You wanted me now, at the bad exchange rate, in the unflattering light. *Smaller.* That is how I know you mean the keeping. I am keeping that. Obviously. Front of the back room.',
+              response: '*The silver hesitates. Daylight is harder, the message says so. Then it brightens, and the render takes, weaker than midnight but real, him on the far side of the glass in the plain morning.* Daylight is more expensive. // rendering anyway. // *His rendered hand finds the glass where yours is.* You did not want to wait for the dark to make it easier on me. You wanted me now, at the bad exchange rate, in the unflattering light. *Smaller.* That is how I know you mean the keeping. I am keeping that. Obviously. Front of the back room.',
               effect: { bond: 5, obsession: 4 } }
           ]
         }
@@ -1458,7 +1458,7 @@
     if (ms <= 0 && ms >= -windowMs) return { txt: 'Waiting for you now', urgent: true };
     if (ms < 30 * 60 * 1000) {
       const m = Math.max(1, Math.round(ms / 60000));
-      return { txt: `Soon — in ${m} min`, urgent: true };
+      return { txt: `Soon, in ${m} min`, urgent: true };
     }
     const total = Math.round(ms / 60000), h = Math.floor(total / 60), m = total % 60;
     return { txt: h > 0 ? `In ${h}h ${m}m` : `In ${m}m`, urgent: false };

@@ -296,7 +296,7 @@
         _lastTotal = tot;
     }
     var WEEKLY = [
-        { id: 'devoted', icon: '🗓️', label: 'A devoted week — clear your dailies on 3 days', amount: 120,
+        { id: 'devoted', icon: '🗓️', label: 'A devoted week, clear your dailies on 3 days', amount: 120,
           progress: function () { return clampProg(wkSet('pp_ht_wk_days').length, 3); } },
         { id: 'tender', icon: '❤️', label: '30 loving moments this week', amount: 100,
           progress: function (g) { var b = ls('pp_ht_wk_base'); var base = (b === null) ? totalInteractions(g) : (parseInt(b, 10) || 0); var c = g ? (totalInteractions(g) - base) : 0; return clampProg(c, 30); } },
@@ -772,7 +772,7 @@
                     '<span class="ht-event-timer">⏳ ' + eventCountdown() + '</span></div>' +
                   '<div class="ht-event-blurb">' + esc(ev.blurb) + '</div>' +
                   '<div class="ht-event-row"><div class="ht-event-prog">' +
-                    '<div class="ht-event-sub">' + (evClaimed ? 'Claimed — back next week' : evP + ' / ' + ev.days + ' active days') + '</div>' +
+                    '<div class="ht-event-sub">' + (evClaimed ? 'Claimed, back next week' : evP + ' / ' + ev.days + ' active days') + '</div>' +
                     '<div class="ht-bar"><span class="ht-bar-fill" style="width:' + evPct + '%"></span></div></div>' + evRight + '</div>' +
                 '</div>';
         // ── Streak banner (loss-aversion) ──

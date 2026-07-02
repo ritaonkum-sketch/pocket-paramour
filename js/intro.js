@@ -249,7 +249,7 @@ const INTRO_SCENES = {
         postNameBeats: [
             {
                 body: 'assets/lucien/body/fascinated.png',
-                direction: 'He writes it once, neatly, then sets the quill down without writing it again — which, for him, is the remarkable part.',
+                direction: 'He writes it once, neatly, then sets the quill down without writing it again, which, for him, is the remarkable part.',
                 line: "{name}. The first entry in this whole catalogue I did not have to derive. You gave it to me. I will keep it."
             },
             {

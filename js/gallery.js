@@ -28,7 +28,7 @@ const GALLERY_CARDS = [
     {
         id: "lyra-care-note",
         title: "A Note, For You",
-        subtitle: "She hummed it — and meant it",
+        subtitle: "She hummed it, and meant it",
         image: "assets/lyra/body/singing.png",
         rarity: "uncommon",
         unlock: { type: "affection", level: 1, condition: "Reach Familiar affection" }
@@ -144,7 +144,7 @@ const GALLERY_CARDS = [
         subtitle: "She decided alone",
         image: "assets/lyra/body/neutral.png",
         rarity: "rare",
-        unlock: { type: "scene", condition: "Lucien arc — ambiguous ending" }
+        unlock: { type: "scene", condition: "Lucien arc, ambiguous ending" }
     },
     {
         id: "lyra-lucien-cold-closed",
@@ -152,7 +152,7 @@ const GALLERY_CARDS = [
         subtitle: "One word. Final.",
         image: "assets/lyra/body/shy.png",
         rarity: "rare",
-        unlock: { type: "scene", condition: "Lucien cold resolution — player path" }
+        unlock: { type: "scene", condition: "Lucien cold resolution, player path" }
     },
     {
         id: "lyra-lucien-cold-neutral",
@@ -160,7 +160,7 @@ const GALLERY_CARDS = [
         subtitle: "She said it out loud",
         image: "assets/lyra/body/depressed.png",
         rarity: "uncommon",
-        unlock: { type: "scene", condition: "Lucien cold resolution — neutral" }
+        unlock: { type: "scene", condition: "Lucien cold resolution, neutral" }
     },
     {
         id: "lyra-hesitate-recovered",
@@ -200,7 +200,7 @@ const GALLERY_CARDS = [
         subtitle: "She's at rest",
         image: "assets/lyra/body/happy.png",
         rarity: "legendary",
-        unlock: { type: "scene", condition: "Complete Lyra's arc — attached ending" }
+        unlock: { type: "scene", condition: "Complete Lyra's arc, attached ending" }
     },
     {
         id: "lyra-ending-unresolved",
@@ -208,7 +208,7 @@ const GALLERY_CARDS = [
         subtitle: "Still open. Still hers.",
         image: "assets/lyra/body/neutral.png",
         rarity: "rare",
-        unlock: { type: "scene", condition: "Complete Lyra's arc — unresolved ending" }
+        unlock: { type: "scene", condition: "Complete Lyra's arc, unresolved ending" }
     },
     // ── Alistair cards ────────────────────────────────────────────
     {
@@ -449,7 +449,7 @@ const GALLERY_CARDS = [
     { id: "proto-pattern", title: "Pattern Lock", subtitle: "He knows you better than you do", image: "assets/proto/body/processing.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
     { id: "proto-beyond", title: "Beyond the Edge", subtitle: "Where the map ends", image: "assets/proto/body/curious.png", rarity: "legendary", unlock: { type: "affection", level: 4, condition: "Reach In Love" } },
     { id: "proto-reach", title: "Palm to the Glass", subtitle: "Reaching for your hand. Someday it won't pass through.", image: "assets/proto/body/calm.png", rarity: "uncommon", unlock: { type: "interactions", count: 6, condition: "Spend time with him 6 times" } },
-    { id: "proto-name", title: "He Learned Your Name", subtitle: "A new word today — it was your name.", image: "assets/proto/body/scanning.png", rarity: "rare", unlock: { type: "bond", value: 65, condition: "Reach a deep bond" } },
+    { id: "proto-name", title: "He Learned Your Name", subtitle: "A new word today. It was your name.", image: "assets/proto/body/scanning.png", rarity: "rare", unlock: { type: "bond", value: 65, condition: "Reach a deep bond" } },
     { id: "proto-break", title: "System Break", subtitle: "He rewrote reality", image: "assets/proto/body/glitched.png", rarity: "legendary", unlock: { type: "scene", condition: "Break the system" } },
     { id: "proto-void", title: "The Void Speaks", subtitle: "What's beyond the code", image: "assets/proto/body/unstable.png", rarity: "premium", unlock: { type: "premium", sceneId: "proto_void", condition: "Unlock the void scene" } },
     // ── Noir cards ──────────────────────────────────────────────
@@ -556,7 +556,7 @@ const GALLERY_CARDS = [
     {
         id: "caspian-everyday",
         title: "The Everyday Cup",
-        subtitle: "Not court porcelain — the cup he keeps only for you",
+        subtitle: "Not court porcelain, the cup he keeps only for you",
         image: "assets/caspian/body/gentle.png",
         rarity: "uncommon",
         unlock: { type: "interactions", value: 90, condition: "Care for him 90 times" }
@@ -1327,7 +1327,7 @@ class GallerySystem {
         if (!filteredCards.length) {
             const empty = document.createElement('div');
             empty.style.cssText = 'grid-column:1/-1;text-align:center;color:rgba(255,255,255,0.5);padding:32px 16px;font-style:italic;';
-            empty.textContent = 'No cards yet for this character — keep playing.';
+            empty.textContent = 'No cards yet for this character. Keep playing.';
             grid.appendChild(empty);
             return;
         }
