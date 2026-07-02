@@ -160,7 +160,22 @@
     if (_blinkTracked.has(imgEl)) return;
     const m = metaFor(imgEl);
     if (!m.id) return;
-    const blinkSrc = 'assets/' + m.id + '/face/blink.png';
+
+    // POSE (body) blink, NOT a face close-up. The old build overlaid
+    // assets/<char>/face/blink.png (a face-framed sprite) on top of the full-body
+    // scene portrait, so a tiny face popped in over the body (owner report, Aug
+    // 2026). Now we flash the character's same-stance eyes-closed BODY frame,
+    // aligned with the body sprite exactly like the care screen. Single source of
+    // truth for the per-char base poses + blink frame = care-blink.js.
+    const ccfg = window.PPCareBlink && window.PPCareBlink._config;
+    if (!ccfg) return;                        // care-blink not ready yet — retry next tick
+    const cfg = ccfg[m.id];
+    if (!cfg || !cfg.frames || !cfg.frames.length || !cfg.bases || !cfg.bases.length) {
+      _blinkTracked.set(imgEl, true);         // no body-blink art for this char -> never blink (never the wrong face)
+      return;
+    }
+    const blinkSrc = cfg.frames[0];
+    const blinkBases = cfg.bases;
 
     // Probe file once
     const probe = new Image();
@@ -186,8 +201,17 @@
         const delay = (m.blinkMin + Math.random() * (m.blinkMax - m.blinkMin)) * 1000;
         setTimeout(() => {
           if (!document.body.contains(layer)) return;
-          layer.classList.add('flash');
-          setTimeout(() => { layer.classList.remove('flash'); scheduleBlink(); }, 160);
+          // Only blink while the body sprite is on a same-stance BASE pose, so the
+          // eyes-closed frame lines up instead of flashing a different stance.
+          // Expressive poses (foraging, softshy, ...) simply don't blink — matches
+          // care-blink.js; there's no per-pose eyes-closed art to align to.
+          const baseSrc = (imgEl && imgEl.getAttribute('src')) || '';
+          if (blinkBases.some((b) => baseSrc.indexOf(b) >= 0)) {
+            layer.classList.add('flash');
+            setTimeout(() => { layer.classList.remove('flash'); scheduleBlink(); }, 160);
+          } else {
+            scheduleBlink();
+          }
         }, delay);
       };
       scheduleBlink();
