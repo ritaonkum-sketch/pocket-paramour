@@ -35,7 +35,7 @@ const INTRO_SCENES = {
                 // in one beat. The careful look from Beat 4's direction is
                 // preserved so the bridge-callback gaze still lands.
                 body: 'assets/alistair/body/casual.png',
-                direction: 'A small, formal half-bow — the way knights remember a rule of conduct when they would rather not. Then he looks at you the way he looked at you in the woods. Careful, unhurried, as if afraid to misread what you are.',
+                direction: 'A small, formal half-bow, the way knights remember a rule of conduct when they would rather not. Then he looks at you the way he looked at you in the woods. Careful, unhurried, as if afraid to misread what you are.',
                 line: "Captain Alistair. South gate. Twenty years of service. I came to the wall a boy and the wall has had me ever since. I have been calling you mi’lady in my head. It is an address, not a name."
             },
             {
@@ -60,7 +60,7 @@ const INTRO_SCENES = {
                 //  f."). Replaced with a single, plain naming and a knight's
                 //  oath form: "That is on my watch now. You have my word.")
                 body: 'assets/alistair/body/softshy-love2.png',
-                direction: 'He says her name once. Plain. The way a knight reads a roll at watch-change. The corner of his mouth almost moves. Almost.',
+                direction: 'He says your name once. Plain. The way a knight reads a roll at watch-change. The corner of his mouth almost moves. Almost.',
                 line: "{name}. That is on my watch now. You have my word."
             },
             {
