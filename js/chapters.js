@@ -365,7 +365,7 @@
       id: 2,
       title: 'Chapter 2',
       subtitle: 'The Chamber Not The Chamberlain’s',
-      teaser: 'Eleven hours in his bed. A captain who hides you from the queen. A healing draught he has carried for four years.',
+      teaser: 'Half a day in his bed. A captain who hides you from the queen. A healing draught he has carried for four years.',
       charId: 'alistair',
       play: async function (onDone) {
         await runCard({
@@ -396,7 +396,7 @@
             { type: 'line', speaker: 'YOU', text: 'Hi.', hold: 1800, cps: 28 },
             { type: 'line', text: '...hi.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He looks momentarily stranded inside his own body.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'You slept eleven hours. That is good. You should drink. I will...', hold: 3000, cps: 26 },
+            { type: 'line', text: 'You slept half a day. That is good. You should drink. I will...', hold: 3000, cps: 26 },
 
             // ─── Section 3 · The cup of water ────────────────────────────
             { type: 'line', speaker: '', text: 'He stands too quickly. The stool tips backward. He catches it before it hits the floor.', hold: 3600, cps: 26 },
@@ -454,7 +454,7 @@
             { type: 'line', speaker: '', text: 'Your stomach growls. Loud in the quiet room.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You freeze. Mortified.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Alistair stands immediately. The stool nearly topples again. He catches it. Again.', hold: 3600, cps: 26 },
-            { type: 'line', text: 'Eleven hours. Of course. I should have thought of that sooner.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'Half a day. Of course. I should have thought of that sooner.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'He crouches beside a small chest at the foot of his cot.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Lifts out a clay bowl wrapped in cloth and a small dark vial. He carries both carefully. Like breakables.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'Steam rises as he unwraps the bowl. Broth. Onion. A little thyme.', hold: 3200, cps: 26 },
