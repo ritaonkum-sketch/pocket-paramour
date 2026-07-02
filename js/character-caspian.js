@@ -796,9 +796,9 @@ const CHARACTER_CASPIAN = {
             "Tell me a thing about your day. Anything. The smallest thing. I will listen as if you are reciting law.",
             "I sleep better when I have seen you that day. I am told this is unbecoming for a prince. I find I do not mind.",
             "Sit closer. The chair next to mine is not for ambassadors. It has only ever been for one person and you are sitting in the wrong one.",
-            "I have a meeting in ten minutes. I will be late. They will wait. They have waited longer for less.",
+            "I have a meeting before the next bell. I will be late. They will wait. They have waited longer for less.",
             "I missed you. I know I am not supposed to admit it that quickly. Pretend I said it later.",
-            "Walk the gardens with me. The roses do not matter. I want twenty minutes where no one can interrupt.",
+            "Walk the gardens with me. The roses do not matter. I want a little while where no one can interrupt.",
             "I drafted a letter to you this morning. I did not send it. It was too honest. I am working up to it.",
             "Stay the night. I will not ask anything of you. I want to know you slept under the same roof.",
             "Your hand was on the table for half an hour. I almost reached for it eight separate times. I counted."

@@ -572,7 +572,7 @@ const CHARACTER_ALISTAIR = {
             "You’re pushing against the one thing I actually worked to build.",
             "My patience is a practiced skill. You’re making me practice it a lot.",
             "I don’t raise my voice. I lower it. Understand that.",
-            "I defended a bridge alone for six hours once. This is harder.",
+            "I defended a bridge alone for half a day once. This is harder.",
             "Don’t. Just... think about what you’re doing.",
             "I won’t forget this. Knights have excellent memories."
         ],
@@ -726,7 +726,7 @@ const CHARACTER_ALISTAIR = {
         brief: [
             "That was fast. I barely had time to find a reason to look busy.",
             "Back already. Good. The patrol was getting repetitive.",
-            "That was nothing. Ask me about the six-hour bridge watch sometime."
+            "That was nothing. Ask me about the half-day bridge watch sometime."
         ],
         short: [
             "You were gone long enough that I noticed. I’m noting that out loud.",
@@ -1274,7 +1274,7 @@ const CHARACTER_LYRA_FULL = {
                 "You’re late. I’m not mad. I’m just... you’re late.",
                 "Don’t disappear like that again.",
                 "I can’t settle when you’re not here.",
-                "I counted. You were gone three hours.",
+                "I counted. You were gone half a morning.",
                 "You’re here now. That’s what matters.",
                 "I need you here. I know that’s a lot. I need it anyway.",
                 "You’re paying attention… finally.",

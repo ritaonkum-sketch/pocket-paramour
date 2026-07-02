@@ -447,11 +447,11 @@
             id: 'elian_tracking',
             character: 'elian',
             minAffection: 1,
-            prompt: "I tracked a deer for six hours today. Lost it at the river. Best day I've had in weeks.",
+            prompt: "I tracked a deer for half the day today. Lost it at the river. Best day I've had in weeks.",
             choices: [
                 { text: "You enjoyed LOSING it?", effects: { bond: 12 }, emotion: "cheeky", response: "The chase is the point. If I always caught them, what would I do with my mornings?" },
                 { text: "I want to track with you sometime", effects: { bond: 15, affection: 2 }, emotion: "happy", response: "You'd slow me down. ...I don't mind slow anymore.", memoryKey: "trackingTogether" },
-                { text: "Six hours of patience. That's impressive.", effects: { bond: 10 }, emotion: "gentle", response: "Patience isn't impressive. It's necessary. Like breathing. Like you." }
+                { text: "Half a day of patience. That's impressive.", effects: { bond: 10 }, emotion: "gentle", response: "Patience isn't impressive. It's necessary. Like breathing. Like you." }
             ]
         },
         {

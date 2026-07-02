@@ -4691,7 +4691,7 @@ class PocketLoveGame {
         if (minutesAway > 480) {
             const pool = affLvl >= 2 ? [
                 "You were gone a long time. I won't say I noticed. But I did.",
-                "Eight hours. I counted the patrol rotations.",
+                "Half a day. I counted the patrol rotations.",
                 "I had to find things to do. There were fewer than I expected.",
                 "The quiet was different when you weren't here.",
                 "I kept expecting to hear you. You weren't there."

@@ -233,7 +233,7 @@ const CHARACTER_ELIAN = {
             "Most people can’t tell foxglove from lavender. You can now."
         ],
         tracking: [
-            "Deer. Two hours old. Heading east. You saw the broken branch?",
+            "Deer. Fresh trail. Heading east. You saw the broken branch?",
             "You’re reading the ground now. Not just walking on it.",
             "Patience. The trail tells you everything if you listen.",
             "That print isn’t a wolf. It’s a dog. The difference matters.",

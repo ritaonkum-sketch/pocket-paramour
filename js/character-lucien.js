@@ -512,7 +512,7 @@ const CHARACTER_LUCIEN = {
             "I found an error in a 200-year-old spell text today. Satisfying.",
             "The tower is quiet. I used to prefer it that way.",
             "I’m recalibrating the instruments. Don’t mind me.",
-            "Tea is steeping. The world can wait four minutes.",
+            "Tea is steeping. The world can wait until it is steeped.",
             "*Glances up from a book, then immediately back down*",
             "My familiar keeps staring at me. I think it learned that from you.",
             "The candles are burning evenly tonight. A good omen, if I believed in omens.",
@@ -650,7 +650,7 @@ const CHARACTER_LUCIEN = {
         "The wards are holding.",
         "The crystal needs recharging. Or I do.",
         "*Scribbles a note, pauses, crosses it out*",
-        "Tea is steeping. The world can wait four minutes.",
+        "Tea is steeping. The world can wait until it is steeped.",
         "I found an error in a 200-year-old text today. Satisfying.",
         "The candles are burning evenly tonight.",
         "I catalogued 47 rune variants today. Productive."

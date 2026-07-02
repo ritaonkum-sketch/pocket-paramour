@@ -114,7 +114,7 @@
         bg: 'assets/bg-knight-room.png',
         beats: [
           { type: 'show', pose: 'assets/alistair/body/softshy-love3.png', wait: 900 },
-          { type: 'line', text: '*You wake to find his eyes already on you, but soft this time, not sentry-soft*. I slept through, mi\u2019lady. Eight hours. *Small, awed, like he is reporting a miracle to a captain*. I did not know my body was still capable of it.', hold: 4200, cps: 24 },
+          { type: 'line', text: '*You wake to find his eyes already on you, but soft this time, not sentry-soft*. I slept through, mi\u2019lady. The whole night. *Small, awed, like he is reporting a miracle to a captain*. I did not know my body was still capable of it.', hold: 4200, cps: 24 },
           { type: 'line', text: 'I have laid my sword across the foot of the bed. Not at my hip. Not in the corner. At the foot of the bed where I can see it without reaching. That is. *Quiet*. The closest a knight comes to retirement, mi\u2019lady. I am beginning it with you.', hold: 5000, cps: 22 },
           { type: 'pose', src: 'assets/alistair/body/casual.png', animate: 'swap' },
           { type: 'line', text: '*Sits up, slowly, the linen of his shirt loose because he forgot to dress for armour first*. Forgive me a small ritual. *Takes both your hands, presses them between his, head bowed*. I knelt to my king at fifteen. I knelt to my captain at twenty. *Looks up*. I have not knelt for a third oath since.', hold: 5400, cps: 22 },

@@ -462,7 +462,7 @@
             { type: 'line', text: 'Cook prepares it for the patrol after difficult nights.', hold: 3000, cps: 26 },
             { type: 'line', text: 'I thought it might be easiest on you.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You stare at the bowl.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'You have been awake less than fifteen minutes.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You have been awake only a little while.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Someone you do not know made certain there would be warm soup waiting beside your bed.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes sting unexpectedly. You blink once. Hard.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*(quiet)* Thank you.', hold: 2200, cps: 28 },
@@ -812,14 +812,14 @@
     {
       id: 5,
       title: 'Chapter 5',
-      subtitle: 'Sixty Hours',
-      teaser: 'Sixty hours since he last sat down. The first sleep in twelve years. The forest calls. You do not answer.',
+      subtitle: 'Three Days',
+      teaser: 'Three days since he last sat down. The first sleep in twelve years. The forest calls. You do not answer.',
       charId: 'alistair',
       play: async function (onDone) {
         await runCard({
           id: 'chp_5_full',
           title: 'Chapter 5',
-          subtitle: 'Sixty Hours',
+          subtitle: 'Three Days',
           speaker: 'ALISTAIR',
           palette: { bg: '#180c14', glow: '#ffd07a', accent: '#fff0d6' },
           bg: null,
@@ -862,7 +862,7 @@
             { type: 'line', speaker: '', text: 'Yours is not much better.', hold: 2200, cps: 28 },
 
             // ─── Section 4 · Sixty hours ─────────────────────────────────
-            { type: 'line', text: '*(very quiet)* Sixty hours.', hold: 2400, cps: 26 },
+            { type: 'line', text: '*(very quiet)* Three days.', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'What?', hold: 1400, cps: 28 },
             { type: 'line', text: 'Since I last sat down.', hold: 2200, cps: 28 },
             { type: 'line', text: 'That is the answer to the question you were about to ask.', hold: 3000, cps: 26 },
@@ -1111,7 +1111,7 @@
 
             // ─── Section 12 · The body ───────────────────────────────────
             { type: 'line', speaker: '', text: 'The dead creature behind him collapses inward. Smoke slipping from the wounds.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Elian watches the smoke carefully. Hand already reaching for another arrow. Prepared for it to rise again.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He watches the smoke carefully. Hand already reaching for another arrow. Prepared for it to rise again.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'It does not. Slowly, he lowers the bow.', hold: 2800, cps: 26 },
 
             // ─── Section 13 · He notices everything ──────────────────────
@@ -1142,14 +1142,14 @@
             { type: 'line', speaker: '', text: 'Silence.', hold: 1800, cps: 28 },
             { type: 'line', text: 'Everyone in Thornwood knows the man who keeps walking into wounds and surviving them.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'Your chest tightens unexpectedly.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Elian notices. His gaze sharpens slightly.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He notices. His gaze sharpens slightly.', hold: 2600, cps: 26 },
 
             // ─── Section 17 · The horn ───────────────────────────────────
             { type: 'line', speaker: '', text: 'A distant horn. Faint through the trees.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Once. Then again.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Alistair.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'You turn instinctively toward the sound.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'When you look back, Elian is already several steps deeper into the trees.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'When you look back, he is already several steps deeper into the trees.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Moving silently. Not retreating. Melting back into the forest.', hold: 3000, cps: 26 },
 
             // ─── Section 18 · Wait ───────────────────────────────────────
@@ -5905,7 +5905,7 @@
             { type: 'line', speaker: 'YOU',        text: '"I know."', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'The attendant goes. The doors close.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He has not looked up at the exchange. He has heard it.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The pale eyes lift to yours for the first time in two hours. He lets out a small breath. Not a sigh exactly. The kind of breath a man lets out when a fact he had not predicted has just landed in his afternoon.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The pale eyes lift to yours for the first time in a long while. He lets out a small breath. Not a sigh exactly. The kind of breath a man lets out when a fact he had not predicted has just landed in his afternoon.', hold: 8000, cps: 22 },
             { type: 'line', speaker: 'LUCIEN', text: '"…Lucien."', hold: 1600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '"If the Grand Mage will permit it. The tower has tea, does it not."', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'The pale eyes have done the thing the mouth does not.', hold: 2800, cps: 26 },
@@ -7148,7 +7148,7 @@
             { type: 'line', speaker: '', text: 'The spiral stair as you descend. The pin behind the right ear goes warm.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The bracelet under the cuff. The two stones have begun to know each other.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*…something is in the wood, then. He would not have given me the stone if there were not.*', hold: 5400, cps: 22 },
-            { type: 'line', speaker: 'ATTENDANT', text: '"…the long bell is in two hours, mi’lady."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ATTENDANT', text: '"…there is time yet before the long bell, mi’lady."', hold: 2800, cps: 28 },
             { type: 'line', speaker: 'YOU',        text: '"…take me to the prince’s office."', hold: 2400, cps: 28 },
 
             // ─── ACT III · THE CORRIDOR WINDOW ────────────────────────────

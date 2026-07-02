@@ -247,12 +247,12 @@
         ]
       },
       onMiss: {
-        setup: '*The tower the next afternoon. He is at the desk with a notebook open to a fresh page. The sketch of the light is finished. There is, however, a single line in the margin that he turns, slightly, so you cannot quite read it.* The light came at one minute past the bell. It lasted nine. I sat under the dome alone for the nine minutes.',
+        setup: '*The tower the next afternoon. He is at the desk with a notebook open to a fresh page. The sketch of the light is finished. There is, however, a single line in the margin that he turns, slightly, so you cannot quite read it.* The light came just past the bell. It lasted the space of nine breaths. I sat under the dome alone for all of them.',
         prompt: 'What do you say?',
         options: [
           { id: 'soon',
             label: '"Show me the sketch. Tell me everything I missed."',
-            response: '*He turns the page toward you and walks you through it, line by careful line, until you have stood under nine minutes of light he has not been able to stop thinking about.* That is the closest I can get you to having seen it. *Smaller.* I am sorry it is not closer.',
+            response: '*He turns the page toward you and walks you through it, line by careful line, until you have stood under nine breaths of light he has not been able to stop thinking about.* That is the closest I can get you to having seen it. *Smaller.* I am sorry it is not closer.',
             effect: { bond: 3, trust: 3 } },
           { id: 'next',
             label: '"When’s the next anomaly? I’ll be there."',
@@ -278,7 +278,7 @@
         options: [
           { id: 'follow',
             label: 'Walk beside him into the trees. No questions.',
-            response: '*Twenty paces in, the light comes through the canopy at exactly the angle he had been waiting for. The forest floor lights up. A thousand small white flowers that bloom only at this one hour of the year. He watches your face. Not the flowers.* I have been waiting six years for the bloom and four months for the right person to bring. *Smaller.* You are correct that I am not subtle.',
+            response: '*Twenty paces in, the light comes through the canopy at exactly the angle he had been waiting for. The forest floor lights up. A thousand small white flowers that bloom only at this one moment of the year. He watches your face. Not the flowers.* I have been waiting six years for the bloom and four months for the right person to bring. *Smaller.* You are correct that I am not subtle.',
             effect: { bond: 5, trust: 4 } },
           { id: 'hand',
             label: 'Take his hand. Walk in.',
@@ -310,10 +310,10 @@
       pose: 'assets/noir/body/casual1.png',
       invitation: {
         setup: '*A black thread on your pillow when you turn the bed down. Not a curse. Not a warning. An invitation, in his style, written in a language only one person in the kingdom uses.*',
-        callToAction: '“Third bell. The seam. I am opening it tonight, fully, for one minute. With you, if you will come. I will not open it again on my own.”'
+        callToAction: '“Third bell. The seam. I am opening it tonight, fully, for a moment. With you, if you will come. I will not open it again on my own.”'
       },
       onArrive: {
-        setup: '*The seam at the third bell. Wider tonight than you have ever seen it. The dark behind it is not threatening. It is patient, the way a room that has been waiting six hundred years to be entered is patient. He is on this side of it. He is holding the seam open with both hands, and the strain of it is on his face.* You came. *He says it like a man who is about to lose the ability to hold something for very much longer.* Step in. With me. One minute. Then I close it. Hand.',
+        setup: '*The seam at the third bell. Wider tonight than you have ever seen it. The dark behind it is not threatening. It is patient, the way a room that has been waiting six hundred years to be entered is patient. He is on this side of it. He is holding the seam open with both hands, and the strain of it is on his face.* You came. *He says it like a man who is about to lose the ability to hold something for very much longer.* Step in. With me. A moment. Then I close it. Hand.',
         prompt: 'What do you do?',
         options: [
           { id: 'in',
@@ -572,7 +572,7 @@
         pose: 'assets/lyra/body/eyes-closed.png',
         invitation: {
           setup: '*The fountain in the courtyard goes still as you pass, every drop hanging, just for a breath, then falls. In the basin, a spiral shell that was not there, and her voice inside it, close as a mouth at your ear.*',
-          callToAction: '“The drowned grotto, past the cave, at dusk. The tide lets you in for one hour and no more. I have never brought anyone where I am most myself. Hold your breath when I say. I will do the rest. I always do the rest.”'
+          callToAction: '“The drowned grotto, past the cave, at dusk. The tide lets you in for a short while and no more. I have never brought anyone where I am most myself. Hold your breath when I say. I will do the rest. I always do the rest.”'
         },
         onArrive: {
           setup: '*Past the cave, where the rock opens into a grotto half-drowned by the sea, the water glows from below with something that is not moonlight. She is waist-deep in it, and here, away from the courtyards and the careful smiles, she is more than she lets the kingdom see. The light moves with her, the water leans toward her. She turns, and there is a question in it, the oldest one she has.* This is the part of me the songs are about. *She holds out a hand over the glowing water.* Most people meet the verse. You get the grotto. I wanted you to see the thing the verse is only describing.',

@@ -1845,7 +1845,7 @@
                             signature: '— A.',
                             paragraphs: [
                                 `*Reads it twice. Then a third time.* You used the word ALLOWED. That is, I had not realised how badly I needed someone to give me permission. A knight is taught to grant himself nothing. You handed it to me on a folded piece of parchment.`,
-                                `Tomorrow at the watch, bring nothing. Stand near the brazier. Let me look at you for ten minutes. That is what I am asking for. *Small.* You are allowed to say no. I will not have meant any of this if you did not feel free to.`
+                                `Tomorrow at the watch, bring nothing. Stand near the brazier. Let me look at you for a little while. That is what I am asking for. *Small.* You are allowed to say no. I will not have meant any of this if you did not feel free to.`
                             ]
                         }
                     },

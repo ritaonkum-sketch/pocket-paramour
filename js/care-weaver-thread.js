@@ -73,7 +73,7 @@
       feed:  ['An equation he was stuck on solved itself in a margin he did not write.', 'A book on the third shelf righted itself.', 'The ink in his pen warmed.'],
       clean: ['A footnote rewrote itself in his hand.', 'His robes smelled of lavender. He does not own lavender.'],
       talk:  ['A page in a book he never opened bookmarked itself with your initial.', 'The wards on the door bowed. He noticed. He did not move.', 'Three margins in three different volumes acquired a small heart in the same handwriting. Not his.'],
-      train: ['A spell cost him feeling for the first time in years. He has just enough now to be billed. He is keeping notes.', 'A staff in the corner tapped the floor once. Three minutes later, the staff somewhere east of here tapped back.'],
+      train: ['A spell cost him feeling for the first time in years. He has just enough now to be billed. He is keeping notes.', 'A staff in the corner tapped the floor once. A moment later, the staff somewhere east of here tapped back.'],
       gift:  ['The candle in his study burned slower for an hour.', 'A theorem he has been stalking for a year solved itself overnight.']
     },
     noir: {

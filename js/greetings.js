@@ -101,7 +101,7 @@
                 "The observatory is cold at night. Your presence is... thermally appreciated."
             ],
             sleepy: [
-                "I've been awake for... *Checks notes* ...thirty-one hours. That explains it.",
+                "I've been awake for... *Checks notes* ...the better part of two days. That explains it.",
                 "My handwriting is deteriorating. That's usually the sign.",
                 "*Head nods, jerks awake* I was NOT sleeping. I was thinking vertically.",
                 "The equations are swimming. That's not how equations work."
@@ -166,7 +166,7 @@
             ],
             sleepy: [
                 "The fire's warm. My eyes are heavy. ...Don't go.",
-                "*Leans against tree* Just resting my eyes. One minute.",
+                "*Leans against tree* Just resting my eyes. A moment.",
                 "The forest gets quiet this late. Even the owls stop.",
                 "I've slept in worse places. This is... comfortable. You're comfortable."
             ]

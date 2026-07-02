@@ -433,11 +433,11 @@
         options: [
           { id: 'stay',
             label: 'Stay in the doorway. Smile, just a little.',
-            response: '*He cuts the meeting short by twenty minutes. The chamberlain leaves with the firm impression that he has been outmanoeuvred by a doorway.*',
+            response: '*He cuts the meeting short, well before its end. The chamberlain leaves with the firm impression that he has been outmanoeuvred by a doorway.*',
             effect: { bond: 3, obsession: 2 } },
           { id: 'leave',
             label: 'Leave him to the meeting. Wave once.',
-            response: '*He finishes the meeting professionally. Three hours later, you find a single line written in his hand on your nightstand: "Doorways suit you. Wear them more often."*',
+            response: '*He finishes the meeting professionally. Later, you find a single line written in his hand on your nightstand: "Doorways suit you. Wear them more often."*',
             effect: { bond: 2, obsession: 2 } }
         ]
       },
