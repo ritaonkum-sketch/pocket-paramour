@@ -9460,60 +9460,6 @@
     intro.textContent = 'Seven bonds to weave. Return here any time to continue.';
     root.appendChild(intro);
 
-    // ── Route header (Aug 2026) ─────────────────────────────────────
-    // Surfaces the player's strongest bond as "your thread" so the
-    // chapter list reads as an otome roadmap, not a flat checklist.
-    // Hidden when no one has been cared for yet (Day-1 player) — the
-    // existing onboarding handles that prompt.
-    try {
-      if (window.PPRouteGates && typeof window.PPRouteGates.strongestBond === 'function') {
-        const top = window.PPRouteGates.strongestBond();
-        if (top) {
-          const header = document.createElement('div');
-          header.className = 'chp-route-header';
-          // Accent color cascades from data-character for tinting.
-          header.setAttribute('data-character', top.charId);
-          // Inline styles kept minimal — sits in the chp-* layout cascade.
-          header.style.cssText =
-            'margin: 10px 18px 16px; padding: 12px 14px;' +
-            'border-radius: 12px;' +
-            'background: linear-gradient(180deg, rgba(43,17,51,0.55) 0%, rgba(21,8,26,0.55) 100%);' +
-            'border: 1px solid rgba(212,168,91,0.22);' +
-            'box-shadow: inset 0 1px 0 rgba(212,168,91,0.12);' +
-            'display: flex; align-items: center; gap: 12px;' +
-            'font-family: "Cormorant Garamond", serif;';
-          // Suitor portrait dot. Falls back to the initial if the image
-          // isn't loaded yet.
-          const portrait = (typeof CHAR_PORTRAIT === 'object' && CHAR_PORTRAIT[top.charId])
-            ? CHAR_PORTRAIT[top.charId] : null;
-          const dotHtml = portrait
-            ? '<img src="' + portrait + '" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">'
-            : '<span style="font-family:\'Cormorant Garamond\',serif;font-size:18px;color:#f4ebdc;">' +
-              top.name.charAt(0) + '</span>';
-          header.innerHTML =
-            '<div style="flex:0 0 40px;width:40px;height:40px;border-radius:50%;' +
-                'overflow:hidden;border:1px solid ' + top.accent + ';' +
-                'box-shadow:0 0 12px ' + top.accent + '55;' +
-                'display:flex;align-items:center;justify-content:center;' +
-                'background:rgba(15,8,26,0.55);">' + dotHtml + '</div>' +
-            '<div style="flex:1 1 auto;">' +
-              '<div style="font-family:Quicksand,Inter,sans-serif;font-size:9px;' +
-                  'letter-spacing:0.22em;text-transform:uppercase;color:rgba(232,168,91,0.7);">' +
-                  '✦ Your Strongest Thread ✦</div>' +
-              '<div style="font-style:italic;font-size:16px;color:#f4ebdc;line-height:1.2;margin-top:2px;">' +
-                  top.name + '<span style="color:rgba(232,168,91,0.65);font-size:12px;">' +
-                  '  ·  ' + top.role + '</span></div>' +
-              '<div style="font-family:Quicksand,Inter,sans-serif;font-size:10px;' +
-                  'color:rgba(232,200,220,0.7);margin-top:4px;letter-spacing:0.06em;">' +
-                  'Bond Level ' + top.level + '  ·  ' + top.raw + ' affection</div>' +
-            '</div>';
-          // Insert just before the list — between intro line and the
-          // first chapter card. Keeps the header above the scroll fold.
-          root.appendChild(header);
-        }
-      }
-    } catch (_) {}
-
     const list = document.createElement('div');
     list.className = 'chp-list';
     const cur = getCurrent();
