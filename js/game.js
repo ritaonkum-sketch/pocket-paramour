@@ -3131,24 +3131,35 @@ class PocketLoveGame {
                 'Reset entire game?',
                 'All characters, progress, scenes, unlocks, and settings will be erased. The game will restart from the very beginning. This cannot be undone.',
                 () => {
-                    try {
-                        const keysToWipe = [];
-                        for (let i = 0; i < localStorage.length; i++) {
-                            const k = localStorage.key(i);
-                            if (!k) continue;
-                            // Sweep every key that belongs to the game.
-                            if (k.startsWith('pp_') ||
-                                k.startsWith('pocketLove') ||
-                                k.startsWith('pocketlove') ||
-                                k.startsWith('pl_')) {
-                                keysToWipe.push(k);
-                            }
-                        }
-                        keysToWipe.forEach(k => { try { localStorage.removeItem(k); } catch (_) {} });
-                        // Belt-and-braces: wipe sessionStorage and any in-memory game state too.
-                        try { sessionStorage.clear(); } catch (_) {}
-                    } catch (e) { console.error('[reset-all]', e); }
-                    window.location.reload();
+                    // Second, FINAL confirmation (owner request Aug 2026). The wipe is
+                    // destructive + irreversible, so make the player say "yes, I'm sure"
+                    // once more before anything is deleted. Nesting works because
+                    // _ppConfirm removes the first modal before firing this callback.
+                    this._ppConfirm(
+                        'Are you sure?',
+                        'This is your last chance. Every character, memory, and unlock will be permanently deleted, with no way to get them back.',
+                        () => {
+                            try {
+                                const keysToWipe = [];
+                                for (let i = 0; i < localStorage.length; i++) {
+                                    const k = localStorage.key(i);
+                                    if (!k) continue;
+                                    // Sweep every key that belongs to the game.
+                                    if (k.startsWith('pp_') ||
+                                        k.startsWith('pocketLove') ||
+                                        k.startsWith('pocketlove') ||
+                                        k.startsWith('pl_')) {
+                                        keysToWipe.push(k);
+                                    }
+                                }
+                                keysToWipe.forEach(k => { try { localStorage.removeItem(k); } catch (_) {} });
+                                // Belt-and-braces: wipe sessionStorage and any in-memory game state too.
+                                try { sessionStorage.clear(); } catch (_) {}
+                            } catch (e) { console.error('[reset-all]', e); }
+                            window.location.reload();
+                        },
+                        { danger: true, confirmLabel: 'Yes, delete', cancelLabel: 'No, keep it' }
+                    );
                 },
                 { danger: true }
             );
@@ -3208,13 +3219,13 @@ class PocketLoveGame {
         btns.style.cssText = 'display:flex;gap:10px;justify-content:flex-end;';
 
         const cancel = document.createElement('button');
-        cancel.textContent = 'Cancel';
+        cancel.textContent = opts.cancelLabel || 'Cancel';
         cancel.style.cssText = 'padding:10px 22px;border:1px solid rgba(232,200,138,0.35);background:rgba(0,0,0,0.45);color:rgba(244,235,220,0.85);border-radius:999px;font-family:"Quicksand","Inter",sans-serif;font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;cursor:pointer;';
         cancel.onclick = () => modal.remove();
         btns.appendChild(cancel);
 
         const confirm = document.createElement('button');
-        confirm.textContent = opts.danger ? 'Delete' : 'Confirm';
+        confirm.textContent = opts.confirmLabel || (opts.danger ? 'Delete' : 'Confirm');
         // Brand: danger = wine gradient with magenta border. Normal = magenta gradient (START button family) with gold border.
         const confirmBg = opts.danger
             ? 'linear-gradient(180deg,#9A2F4E 0%,#7A1224 100%)'
