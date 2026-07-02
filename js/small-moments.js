@@ -498,7 +498,7 @@
         id: 'c07_unsent_letter',
         minAff: 3,
         pose: 'assets/caspian/body/reading.png',
-        setup: '*A council pulls him out mid-tea. He says he will be ten minutes. He is not ten minutes. The letter on the top of the pile is not the chamberlain’s. It is not yours. The salutation is "Mother." It is in his hand. The third line is: "I have not asked you what you did to him because I am afraid the asking would be louder than the answer." There are eight more pages. He has been writing this letter for weeks. He has not finished it. He has not sent it.*',
+        setup: '*A council pulls him out mid-tea. He says he will be a moment. He is not a moment. The letter on the top of the pile is not the chamberlain’s. It is not yours. The salutation is "Mother." It is in his hand. The third line is: "I have not asked you what you did to him because I am afraid the asking would be louder than the answer." There are eight more pages. He has been writing this letter for weeks. He has not finished it. He has not sent it.*',
         prompt: 'What do you do?',
         options: [
           { id: 'refold',
@@ -593,7 +593,7 @@
             effect: { bond: 3, obsession: 3 } },
           { id: 'return',
             label: 'Hand them back. Smile. "I see you well enough without."',
-            response: '*He puts them on and writes in his journal for the next ten minutes without looking up. The line he writes, in the dialect only he and his sister could read, says: she does not need lenses to see me. That is a problem.*',
+            response: '*He puts them on and writes in his journal for a long while without looking up. The line he writes, in the dialect only he and his sister could read, says: she does not need lenses to see me. That is a problem.*',
             effect: { bond: 2, obsession: 2 } }
         ]
       },
@@ -624,7 +624,7 @@
         id: 'lu06_grief_unfileable',
         minAff: 3,
         pose: 'assets/lucien/body/curious.png',
-        setup: '*The desk. The catalogue is open to a fresh page. The pen has been hovering over the same blank line for, by the candle’s erosion, eleven minutes. He looks up when you come in, and the courtly composure is unusually thin tonight.* I have a feeling I cannot file. I know its temperature. I know its weight. I have been trying to find the word for thirty minutes. *Quieter.* This is the first time the catalogue has refused me.',
+        setup: '*The desk. The catalogue is open to a fresh page. The pen has been hovering over the same blank line for, by the candle’s erosion, a good while. He looks up when you come in, and the courtly composure is unusually thin tonight.* I have a feeling I cannot file. I know its temperature. I know its weight. I have been trying to find the word since the candle was lit. *Quieter.* This is the first time the catalogue has refused me.',
         prompt: 'What do you do?',
         options: [
           { id: 'sit_silent',
@@ -652,11 +652,11 @@
         options: [
           { id: 'help',
             label: 'Cross to him. "Tell me where you have already looked. I’ll walk it with you."',
-            response: '*He stops moving. He has not let anyone walk a search with him in nineteen years. He looks at you for a long count, the way a man looks at a thing he was about to count alone.* Yes. Yes. *Quieter.* Thank you. Start with the south stair. I have done the north. The man who took it had his hand inside this building for twenty minutes by my count. I will know who within a week. *Even quieter.* I will be a worse man for that week. Be patient with me.',
+            response: '*He stops moving. He has not let anyone walk a search with him in nineteen years. He looks at you for a long count, the way a man looks at a thing he was about to count alone.* Yes. Yes. *Quieter.* Thank you. Start with the south stair. I have done the north. The man who took it had his hand inside this building for a good while, by my count. I will know who within a week. *Even quieter.* I will be a worse man for that week. Be patient with me.',
             effect: { bond: 4, trust: 5 } },
           { id: 'still_him',
             label: 'Take both his hands. Stop them moving. "Look at me. We will get it back."',
-            response: '*He lets you stop the hands. The hands have been moving for six hours. He has not noticed they were moving.* The hands. *He looks at them like they are not his.* I have been writing a letter to the queen in my head for six hours. *Quieter, almost ashamed*. I do not write letters to the queen. *He breathes out.* Thank you for stopping the hands. We will get it back. The hands can be still until we do.',
+            response: '*He lets you stop the hands. The hands have been moving for half the day. He has not noticed they were moving.* The hands. *He looks at them like they are not his.* I have been writing a letter to the queen in my head for half the day. *Quieter, almost ashamed*. I do not write letters to the queen. *He breathes out.* Thank you for stopping the hands. We will get it back. The hands can be still until we do.',
             effect: { bond: 5, obsession: 4 } }
         ]
       },
@@ -696,7 +696,7 @@
             effect: { bond: 5, obsession: 4 } },
           { id: 'pick',
             label: 'Kneel with him. Pick the papers up together. Hold his hand on the way back to the desk.',
-            response: '*He lets you. He does not let your hand go. At the desk he says, very quietly, into the side of your hair:* Thank you for not making me say it twice in one minute. I would have. I had a second draft loaded.',
+            response: '*He lets you. He does not let your hand go. At the desk he says, very quietly, into the side of your hair:* Thank you for not making me say it twice in one breath. I would have. I had a second draft loaded.',
             effect: { bond: 5, trust: 4 } }
         ]
       }
@@ -715,7 +715,7 @@
             effect: { bond: 3, obsession: 2 } },
           { id: 'out',
             label: 'Step out. Smile so he knows it is not rejection.',
-            response: '*He nods, once. Three minutes later he points out another root before you reach it, just so you do not need the steering.* Better. *He says nothing else. The sentence took him three minutes to compose.*',
+            response: '*He nods, once. A little later he points out another root before you reach it, just so you do not need the steering.* Better. *He says nothing else. The sentence took him a long moment to compose.*',
             effect: { bond: 1, trust: 3 } }
         ]
       },
@@ -759,7 +759,7 @@
         options: [
           { id: 'pretend',
             label: 'Pretend to still be asleep. Watch him through your lashes.',
-            response: '*He notices. He does not call you on it. He keeps watching the fire. Five minutes later he says, very quietly:* You are awake. I let you have it. You looked tired in a way the fire could not fix on its own.',
+            response: '*He notices. He does not call you on it. He keeps watching the fire. A little later he says, very quietly:* You are awake. I let you have it. You looked tired in a way the fire could not fix on its own.',
             effect: { bond: 2, obsession: 3 } },
           { id: 'sit',
             label: 'Sit up. Pass him the coat back.',
@@ -960,7 +960,7 @@
         inversion: true,
         minAff: 50,
         pose: 'assets/noir/body/vulnerable.png',
-        setup: '*Mid-conversation in his alley, he stops mid-sentence. He looks at you the way he has not looked at anyone in six hundred years. He says, low, fast, like a man cutting his own throat to get the words out before his pride can stop him:* I am sorry. For what I am. For what I have asked of you, knowing what asking from me costs. For the centuries of wanting that have made me clumsier than I should be by now. I have not said the word sorry to anyone in six hundred years. I have just said it to you twice in one minute. *Quieter.* Be aware of what you are doing to me. I am.',
+        setup: '*Mid-conversation in his alley, he stops mid-sentence. He looks at you the way he has not looked at anyone in six hundred years. He says, low, fast, like a man cutting his own throat to get the words out before his pride can stop him:* I am sorry. For what I am. For what I have asked of you, knowing what asking from me costs. For the centuries of wanting that have made me clumsier than I should be by now. I have not said the word sorry to anyone in six hundred years. I have just said it to you twice in one breath. *Quieter.* Be aware of what you are doing to me. I am.',
         prompt: 'What do you tell him?',
         options: [
           { id: 'forgive',

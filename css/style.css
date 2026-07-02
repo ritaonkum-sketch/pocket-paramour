@@ -4601,6 +4601,11 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
 .intro-bg-druid ~ #intro-character-wrap #intro-character-img {
     filter: drop-shadow(0 8px 32px rgba(0,0,0,0.7))
             drop-shadow(0 -4px 24px rgba(60, 140, 60, 0.25));
+    /* Elian's calm/neutral art is composed head-left (~5% left of canvas centre)
+       with his cloak sweeping right, and the intro centres the whole canvas — so
+       he reads "too far left". Nudge only his intro portrait right to centre his
+       head/upper body. (Aug 2026 owner report; tune this % if needed.) */
+    transform: translateX(5%);
 }
 /* Glitch tint: flickering cyan */
 .intro-bg-glitch {
