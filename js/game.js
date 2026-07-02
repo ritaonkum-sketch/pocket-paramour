@@ -682,8 +682,8 @@ class PocketLoveGame {
             lyra:     { unlocked: false, title: "The Song", text: "A melody surfaces. You hummed it in another life. Someone taught it to you... someone with ocean eyes." },
             lucien:   { unlocked: false, title: "The Pattern", text: "Equations flash behind your eyes. You understood magic once. Deeply. The symbols feel like a language you forgot." },
             caspian:  { unlocked: false, title: "The Crown", text: "A throne room. Not this one. Somewhere warmer. You stood beside someone important. You were important too." },
-            elian:    { unlocked: false, title: "The Root", text: "Soil between your fingers. A forest that spoke to you. You healed something once \u2014 not a person. A place." },
-            proto:    { unlocked: false, title: "The Code", text: "A flash of data. Your summoning wasn't random. Someone \u2014 something \u2014 chose you specifically. The selection criteria: capacity for connection." },
+            elian:    { unlocked: false, title: "The Root", text: "Soil between your fingers. A forest that spoke to you. You healed something once. Not a person, but a place." },
+            proto:    { unlocked: false, title: "The Code", text: "A flash of data. Your summoning wasn't random. Someone, or something, chose you specifically. The selection criteria: capacity for connection." },
             noir:     { unlocked: false, title: "The Loss", text: "A face in shadow. Someone who loved the last Soul Weaver. Someone who broke when they died. Someone who is still here... waiting." }
         };
         this.fragmentsUnlocked = 0;
@@ -2713,7 +2713,7 @@ class PocketLoveGame {
             // Elian foraging types — timing game
             herbs:      { emotion: 'happy',   duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
             tracking:   { emotion: 'neutral', duration: 8000, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playPuzzleSequence('timing', unlock); } },
-            fighting:   { emotion: 'angry',   duration: 3400, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playFightingSequence(unlock); } },
+            fighting:   { emotion: 'angry',   duration: 2600, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playFightingSequence(unlock); } },
             // Proto system command types
             inspect:    { emotion: 'neutral', duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },

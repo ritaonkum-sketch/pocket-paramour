@@ -183,6 +183,10 @@ const CHARACTER_ELIAN = {
         eating2:     "assets/elian/body/eating2.png",     // second eating pose
         splash1:     "assets/elian/body/washing.png",     // bath / wash
         washing:     "assets/elian/body/washing.png",     // wash action pose
+        washShower:  "assets/elian/body/washshower.png",  // bathing — water poured over head
+        washClean1:  "assets/elian/body/washclean1.png",  // bathing — toweling by the stream
+        washClean2:  "assets/elian/body/washclean2.png",  // bathing — washing chest in the pool
+        washBubble:  "assets/elian/body/washbubble.png",  // bathing — soap + bubbles
         fighting:    "assets/elian/body/fighting.png",
         fighting1:   "assets/elian/body/fighting.png",
         fightReady:  "assets/elian/body/fightready.png",
@@ -204,7 +208,7 @@ const CHARACTER_ELIAN = {
 
     actionToBody: {
         feed:  ["eating1", "eating2"],
-        wash:  ["washing", "neutral"],
+        wash:  ["washShower", "washClean2", "washBubble"],
         gift:  ["guarded", "warm"],
         train: ["foraging", "tracking"],
         talk:  ["talk", "calm"]

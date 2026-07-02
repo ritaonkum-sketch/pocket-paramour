@@ -1847,6 +1847,20 @@ class GameUI {
             }
         }
 
+        // Elian wash — override body with a random bath pose during the flash window
+        // (his default wash showed the static towel-round-neck pose; these are
+        // active bathing poses. Same one-shot pattern as Lyra above — the pose
+        // reverts when _flashActive clears and the next updateBody runs.)
+        if (action === 'wash' && typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Elian') {
+            const bathKeys = ['washShower', 'washClean1', 'washClean2', 'washBubble'];
+            const key = bathKeys[Math.floor(Math.random() * bathKeys.length)];
+            const src = CHARACTER.bodySprites && CHARACTER.bodySprites[key];
+            if (src) {
+                const bodyImg = document.getElementById('character-body-img');
+                if (bodyImg) bodyImg.src = src;
+            }
+        }
+
         if (this._flashTimer) clearTimeout(this._flashTimer);
         this._flashTimer = setTimeout(() => {
             this._flashActive = false;
@@ -2494,9 +2508,9 @@ class GameUI {
         // Strike 2 — cut back to the left
         setTimeout(() => { set(slash2, 'fight-lunge-l'); sfx('clash') || sfx('thud'); }, 1120);
         // Finisher — draw the bow and loose
-        setTimeout(() => { set(bow, 'fight-loose'); sfx('swoosh'); }, 1640);
+        setTimeout(() => { set(bow, 'fight-loose'); sfx('swoosh'); }, 1520);
         // Recoil hold on the release
-        setTimeout(() => { set(bow, 'fight-impact'); sfx('thud'); }, 2100);
+        setTimeout(() => { set(bow, 'fight-impact'); sfx('thud'); }, 1880);
         // Return to neutral, release the button lock
         setTimeout(() => {
             bodyImg.classList.remove(...ALL_FIGHT, 'in-love');
@@ -2504,7 +2518,7 @@ class GameUI {
             this._seqActive = false;
             onComplete && onComplete();
             if (this._idleTimer) { clearTimeout(this._idleTimer); this.scheduleIdleDialogue(); }
-        }, 3050);
+        }, 2400);
     }
 
     // ── Focus / Drift sequence (Lyra: mermaid ocean swim) ─────────
