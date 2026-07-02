@@ -344,7 +344,9 @@
     try {
       injectStyles();
       watchBreathing();
-      watchBlinks();
+      // watchBlinks() removed Aug 2026 — owner: no blink on story beats.
+      // Breathing stays; the care-screen blink (care-blink.js) is separate and
+      // unaffected. setupBlinkOverlay/watchBlinks remain defined but uncalled.
       // Wait a tick so MSCard loads first
       setTimeout(installVoiceHook, 300);
     } catch (e) {

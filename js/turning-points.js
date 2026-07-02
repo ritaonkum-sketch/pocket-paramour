@@ -537,6 +537,11 @@
     if (localStorage.getItem(seenKey(charId)) === '1') return;
     const aff = affectionOf(charId);
     if (aff < AFF_THRESHOLD) return;
+    // Owner (Aug 2026): turning points must not fire on day 1 of the care route —
+    // they land way too early (e.g. Alistair's "a courier came from the king"
+    // hitting a brand-new player). Require day 2+ of care (same day counter the
+    // date system gates on). storyDay is 1 on the first care day, 2+ after.
+    if ((g.storyDay || 1) < 2) return;
 
     _playing = true;
     _mountedFor = charId;

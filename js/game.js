@@ -8456,7 +8456,11 @@ class PocketLoveGame {
         // (bond starts at 50; ≥55 means the player has actually moved the
         // needle). Fires later in Day 1 so Alistair's vulnerability has been
         // properly earned.
-        if (this.storyDay === 1 && this.dayInteractions >= 6 && this.bond >= 55 && !sl.alistair_scene1.triggered) {
+        // Owner (Aug 2026): the Oath's line is "you keep coming back. Why?", so it
+        // must NOT fire on day 1 — only once the player has actually revisited.
+        // Gate to day 2+ (a return visit). (Also fixes the old day-1-ONLY check,
+        // which stopped it ever firing on later days.)
+        if (this.storyDay >= 2 && this.dayInteractions >= 6 && this.bond >= 55 && !sl.alistair_scene1.triggered) {
             sl.alistair_scene1.triggered = true;
             this._alistairScene1PlayedAt = Date.now();
             this.save();

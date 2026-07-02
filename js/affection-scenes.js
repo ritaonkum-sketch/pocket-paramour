@@ -44,6 +44,10 @@
   const SCENES = {
     alistair: {
       warm: {
+        // Owner (Aug 2026): only after the player has read Alistair's Chapter 3
+        // "Gauntlet Off" (id 3) — this warm scene is that chapter's gauntlet/hand
+        // callback. Enforced by the gateChapter check in tick().
+        gateChapter: 3,
         title: 'A QUIET MOMENT', subtitle: 'ALISTAIR \u00b7 Off Duty',
         speaker: 'ALISTAIR',
         palette: { bg: '#0a0c1a', glow: '#ffce6b', accent: '#fff4de' },
@@ -746,6 +750,11 @@
       if (aff >= t.min && !isSeen(charId, t.key)) {
         const scene = SCENES[charId][t.key];
         if (!scene) return;
+        // Owner gate (Aug 2026): a scene can require a main-story chapter to be
+        // read first (e.g. Alistair's warm "A Quiet Moment" waits for Ch3 done).
+        // Skip to a lower tier if the gate isn't met; don't markSeen, so it can
+        // still fire on a later tick once that chapter is read.
+        if (scene.gateChapter && localStorage.getItem('pp_chapter_done_' + scene.gateChapter) !== '1') continue;
         if (!window.MSCard || typeof window.MSCard.show !== 'function') return;
         // \u2500\u2500 SCENE MUTEX (May 2026 audit, 3-scene-stack fix) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
         // Owner reported affection-scene firing simultaneously with
