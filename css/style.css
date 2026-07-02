@@ -1586,6 +1586,21 @@ body:has(#cinematic-overlay.visible:not(.hidden)) #care-back-btn {
     animation: breathe 3.8s ease-in-out infinite;
     /* Elian barely moves — stoic */
 }
+/* Owner (Aug 2026): Elian read as off-centre AND "floating" on the care screen.
+   His calm/neutral art is composed head-left (the area centres the whole canvas,
+   so he sits left), and care-ambiance's ambient weight-shift sway (ppca-weight:
+   translateX + rotate) made him drift/tilt. Hold him steady and nudge his head
+   to centre, keeping only a gentle in-place breath. The translateX is baked into
+   the keyframe so it doesn't fight the breath's scale. !important overrides the
+   runtime-injected care-ambiance sway rule (same selector, no !important there). */
+@keyframes elianCareBreathe {
+    0%, 100% { transform: translateX(5%) scale(1); }
+    50%      { transform: translateX(5%) scale(1.012); }
+}
+body.pp-screen-care .character-elian #character-body-img {
+    animation: elianCareBreathe 4s ease-in-out infinite !important;
+    transform-origin: 50% 100% !important;
+}
 .character-proto #character-body-img {
     animation: breathe 3s ease-in-out infinite, pp-proto-idle 2s ease-in-out infinite;
 }
