@@ -577,7 +577,7 @@ const CHARACTER_ELIAN = {
         lapsed: [
             "You were gone a long stretch. The forest did not change. I did. I felt the absence more than I planned to.",
             "Days of quiet. I am used to quiet. This was a different kind. ...You are back. Good. Sit.",
-            "I did not track the days. *pause* That is not true. I tracked them. Come warm yourself."
+            "I did not track the days... That is not true. I tracked them. Come warm yourself."
         ]
     },
 
@@ -588,7 +588,7 @@ const CHARACTER_ELIAN = {
     },
 
     overCare: [
-        "I do not need tending. *pause* I am also not telling you to stop. Those are two different things.",
+        "I do not need tending... I am also not telling you to stop. Those are two different things.",
         "I want for nothing out here. You do it anyway. That is how I know it is not duty."
     ],
 

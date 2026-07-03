@@ -749,7 +749,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Tell ${CHARACTER.name} her voice is better",
                 effects: { bond: 15, affection: 6 },
-                response: "You don't have to say that... *Pause* ...But thank you. I needed to hear it.",
+                response: "You don't have to say that... But thank you. I needed to hear it.",
                 emotion: "shy"
             }
         ]

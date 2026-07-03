@@ -81,7 +81,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/neutral1.png',
                 direction: 'You step back into the cave. The water is still. She is sitting at the edge of the pool, humming under her breath. She stops when she sees you.',
-                line: "... You came back. I told myself I would not be surprised either way. *Quiet* I was wrong about that."
+                line: "... You came back. I told myself I would not be surprised either way... I was wrong about that."
             },
             {
                 body: 'assets/lyra/body/pose2.png',
@@ -130,7 +130,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/elian/body/calm.png',
                 direction: 'You wake by the fire. Fresh wood on it. He is sitting across the embers with a tin cup of tea in his hands, watching the trees, not you. He turns when you stir.',
-                line: "You slept through the second watch. That is the longest anyone has slept in this clearing in a long time. *Quiet* I will take it as a compliment."
+                line: "You slept through the second watch. That is the longest anyone has slept in this clearing in a long time... I will take it as a compliment."
             },
             {
                 body: 'assets/elian/body/calm.png',

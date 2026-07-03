@@ -103,7 +103,7 @@
       { type: 'line', text: '*There is dried blood on the linen at his side, badly bandaged, the work of someone in a hurry on horseback*. The campaign held. The line held. …The promise to you did not.', hold: 4200, cps: 24 },
       { type: 'pose', src: 'assets/alistair/body/thinking2.png', animate: 'swap' },
       { type: 'line', text: 'I rode for two days without sleeping. The whole way I rehearsed what I would say when I walked through that door. None of it was good enough. None of it is good enough.', hold: 4800, cps: 24 },
-      { type: 'line', text: 'I have kept oaths to kings I never met. I have kept oaths to captains who are buried now. The first oath I made in my own voice, the one to be there, I broke. You waited. *Quiet*. I know you waited.', hold: 5400, cps: 22 },
+      { type: 'line', text: 'I have kept oaths to kings I never met. I have kept oaths to captains who are buried now. The first oath I made in my own voice, the one to be there, I broke. You waited... I know you waited.', hold: 5400, cps: 22 },
       { type: 'flourish', text: '✦', duration: 1600 },
       { type: 'pose', src: 'assets/alistair/body/shy3.png', animate: 'swap' },
       { type: 'line', text: '*Lowers himself onto one knee, the wounded side wincing as he does, but he does not stop, does not let you stop him*. I have knelt for kings. I have knelt for captains. I am kneeling for you. Not because you are above me. Because I owe you something I cannot pay standing up.', hold: 6200, cps: 22 },
@@ -125,7 +125,7 @@
     bg: BG_HALL,
     beats: [
       { type: 'show', pose: 'assets/alistair/body/soft-sad.png', wait: 900 },
-      { type: 'line', text: 'I am not a knight as of this morning, mi’lady. I am Alistair. *Quiet*. Just that. Just the name.', hold: 4000, cps: 24 },
+      { type: 'line', text: 'I am not a knight as of this morning, mi’lady. I am Alistair... Just that. Just the name.', hold: 4000, cps: 24 },
       { type: 'pose', src: 'assets/alistair/body/thinking2.png', animate: 'swap' },
       { type: 'line', text: 'They called the council at first light. I stood through it without my sword. They took it before I entered. The captain who trained me read the charges. He did not look at me when he did. I do not blame him.', hold: 5800, cps: 22 },
       { type: 'line', text: 'Deserter. That is the word now. *Small, controlled*. Twenty years of service unwritten in the time it takes to read a charge sheet. I have been a knight longer than I have been a man. I do not know what I am tonight.', hold: 6000, cps: 22 },

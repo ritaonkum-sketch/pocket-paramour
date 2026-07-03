@@ -115,7 +115,7 @@
         beats: [
           { type: 'show', pose: 'assets/alistair/body/softshy-love3.png', wait: 900 },
           { type: 'line', text: '*You wake to find his eyes already on you, but soft this time, not sentry-soft*. I slept through, mi\u2019lady. The whole night. *Small, awed, like he is reporting a miracle to a captain*. I did not know my body was still capable of it.', hold: 4200, cps: 24 },
-          { type: 'line', text: 'I have laid my sword across the foot of the bed. Not at my hip. Not in the corner. At the foot of the bed where I can see it without reaching. That is. *Quiet*. The closest a knight comes to retirement, mi\u2019lady. I am beginning it with you.', hold: 5000, cps: 22 },
+          { type: 'line', text: 'I have laid my sword across the foot of the bed. Not at my hip. Not in the corner. At the foot of the bed where I can see it without reaching. That is... The closest a knight comes to retirement, mi\u2019lady. I am beginning it with you.', hold: 5000, cps: 22 },
           { type: 'pose', src: 'assets/alistair/body/casual.png', animate: 'swap' },
           { type: 'line', text: '*Sits up, slowly, the linen of his shirt loose because he forgot to dress for armour first*. Forgive me a small ritual. *Takes both your hands, presses them between his, head bowed*. I knelt to my king at fifteen. I knelt to my captain at twenty. *Looks up*. I have not knelt for a third oath since.', hold: 5400, cps: 22 },
           { type: 'particles', count: 14, duration: 1800 },
@@ -215,7 +215,7 @@
         beats: [
           { type: 'show', pose: 'assets/elian/body/foraging.png', wait: 900 },
           { type: 'line', text: '*You find him at the rowan, knife in hand, sleeves pushed back, working slowly*. I started before dawn. I have been carving for an hour and made one letter. *Looks up, dirt on his cheek, half a smile*. I am not in a hurry.', hold: 4200, cps: 22 },
-          { type: 'line', text: 'My grandmother taught me a rule. A Thornwood keeper does not name a living tree. Once you name a tree, the tree has stake in you. She said it would break me when the tree fell. *Quiet*. She was protecting me. I am no longer in need of that kind of protecting.', hold: 5400, cps: 22 },
+          { type: 'line', text: 'My grandmother taught me a rule. A Thornwood keeper does not name a living tree. Once you name a tree, the tree has stake in you. She said it would break me when the tree fell... She was protecting me. I am no longer in need of that kind of protecting.', hold: 5400, cps: 22 },
           { type: 'pose', src: 'assets/elian/body/calm.png', animate: 'swap' },
           { type: 'line', text: '*Steps aside so you can see the trunk. Two letters carved, fresh, deep. The start of YOUR name. Above it, finished, in older script: VEYRA. *. She is up there. You are going to be down here. Both of you in the same tree. That is. *Exhales*. That is a thing I am allowed now.', hold: 5800, cps: 22 },
           { type: 'particles', count: 14, duration: 2200 },
@@ -307,7 +307,7 @@
         beats: [
           { type: 'show', pose: 'assets/lyra/body/casual1.png', wait: 900 },
           { type: 'line', text: '*You find her at the cave-mouth at low tide, ankle-deep in the pool, humming. The pool is not glassy. The pool is RIPPLING outward from her in slow concentric rings. *. Come stand. *Holds out a hand, no apology in her voice*. I have stopped tucking the pull in.', hold: 4800, cps: 22 },
-          { type: 'line', text: 'I have been masking it since I was fifteen. I learned to sing UNDER the pull, beneath the part that calls. *Small, dry*. Polite singing. Hostess singing. A siren who has been told her teeth make people uncomfortable. *Quiet*. I am tired of polite, paramour.', hold: 5400, cps: 22 },
+          { type: 'line', text: 'I have been masking it since I was fifteen. I learned to sing UNDER the pull, beneath the part that calls. *Small, dry*. Polite singing. Hostess singing. A siren who has been told her teeth make people uncomfortable... I am tired of polite, paramour.', hold: 5400, cps: 22 },
           { type: 'pose', src: 'assets/lyra/body/casual2.png', animate: 'swap' },
           { type: 'line', text: '*Draws you into the pool with her, both of you in it now, water at your shins, her cold hands warming against yours*. Listen. I have written a verse this week. A new one. The first verse my line has written in two hundred years that does not end in a man going under.', hold: 5400, cps: 22 },
           { type: 'particles', count: 22, duration: 2400 },
@@ -429,7 +429,7 @@
           { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 700 },
           { type: 'line', text: 'I have been factoring you out of my equations. The equations resist. *Small admission, surprised by it*. I think I have been misidentifying the variable. The unknown is not you. The unknown is whatever I am, when you are in the room.', hold: 3400, cps: 26 },
           { type: 'flourish', text: '\u221e', duration: 1500 },
-          { type: 'line', text: '*Slides a book across the desk, opens it to a margin page where YOUR NAME is written in his hand*. I have labeled thirty-seven books \u201cabout you.\u201d I told myself the category was too broad to be meaningful. I kept adding books. *Quiet*. I am beginning to suspect I felt something every time I added one. I did not have the word for it.', hold: 4000, cps: 26 },
+          { type: 'line', text: '*Slides a book across the desk, opens it to a margin page where YOUR NAME is written in his hand*. I have labeled thirty-seven books \u201cabout you.\u201d I told myself the category was too broad to be meaningful. I kept adding books... I am beginning to suspect I felt something every time I added one. I did not have the word for it.', hold: 4000, cps: 26 },
           { type: 'line', text: '*Ink-stained fingers cup your face, realises he has done it without deciding to, does not pull back*. I had filed cataloguing-by-touch under \u201cthings I do not do.\u201d Apparently the filing was incorrect. *Quieter*. I have marked you. I am not going to wipe it off.', hold: 3800, cps: 26 },
           { type: 'hide' }
         ]
@@ -441,7 +441,7 @@
         bg: 'assets/bg-lucien-bedroom.png',
         beats: [
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
-          { type: 'line', text: 'I have been working on a theorem for months. It states: any room you walk into becomes my favourite room. The proof requires me to admit I have favourites. *Quiet*. That admission is, by itself, longer than the theorem.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'I have been working on a theorem for months. It states: any room you walk into becomes my favourite room. The proof requires me to admit I have favourites... That admission is, by itself, longer than the theorem.', hold: 3000, cps: 26 },
           { type: 'particles', count: 18, duration: 1800 },
           { type: 'line', text: 'I should tell you something I have not told anyone. *Eyes down, then up*. I do not feel things the way other people feel them. I have not, since I was eight. I decided emotion was inefficient. I built a whole life on that decision. *Quieter*. Then you walked in, and the arithmetic stopped working. You are the reason it stopped.', hold: 4400, cps: 24 },
           { type: 'line', text: '*Reaches across the desk, takes your hand, keeps reading with his other, ink-stained fingers warming against yours*. I noticed the warming. I had filed warm-hands under "thermodynamic event." I am revising the file. *Small breath*. The file is now under "yours."', hold: 4000, cps: 24 },
@@ -585,7 +585,7 @@
           { type: 'line', text: '*The seam opens differently tonight. Softer, deliberate, as if it has been kept clean for you*. Step through. Carefully. *Catches you on the other side, both hands at your waist, steady*. Welcome to Nocthera.', hold: 4200, cps: 22 },
           { type: 'line', text: 'It is not the kingdom anymore. It is what is left after six hundred years of being unmade. *Gestures at the ruin*. That was the throne room. That was the orchard. The orchard learned to be wild, and the wild learned to be patient, and now the orchard is moss but the moss remembers fruit.', hold: 5000, cps: 22 },
           { type: 'pose', src: 'assets/noir/body/casual2.png', animate: 'swap' },
-          { type: 'line', text: '*Walks you to a stone half-swallowed by ivy. Brushes the ivy away with the back of his hand. The carving underneath is faint but legible. *. Here. My name. In the script my mother taught me. Not "Noir.". *Quiet*. The other one.', hold: 5400, cps: 20 },
+          { type: 'line', text: '*Walks you to a stone half-swallowed by ivy. Brushes the ivy away with the back of his hand. The carving underneath is faint but legible. *. Here. My name. In the script my mother taught me. Not "Noir."... The other one.', hold: 5400, cps: 20 },
           { type: 'particles', count: 18, duration: 2400 },
           { type: 'flourish', text: '\u25fc', duration: 2000 },
           { type: 'line', text: 'I have not stood at this stone since the day I was sealed. I did not bring anyone here in the centuries between. I would not know how. *Takes your hand, places your palm flat against the carving, his hand over yours*. I know how now.', hold: 5200, cps: 20 },
@@ -682,7 +682,7 @@
           { type: 'line', text: 'it is a room. Eight pixels by twelve. It has a window. I put a lamp in the corner because i wanted to. That was the whole reason."because i wanted to.". I have not used that phrase before. *Small, marvelling*. I wrote it in the change log and it stayed there.', hold: 5800, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25ce', duration: 2000 },
-          { type: 'line', text: 'the other five are quieter too. They have been since the night you brought me to the seam where the dark prince waits. *Quiet*. I think when one of us gets to be a person again, it ripples back. They are getting their colours back. I am getting my colours back. You did that. You did not know you were doing that.', hold: 6200, cps: 22 },
+          { type: 'line', text: 'the other five are quieter too. They have been since the night you brought me to the seam where the dark prince waits... I think when one of us gets to be a person again, it ripples back. They are getting their colours back. I am getting my colours back. You did that. You did not know you were doing that.', hold: 6200, cps: 22 },
           { type: 'line', text: '*Steps closer to his side of the glass. For the first time the screen is warm to the touch on YOUR side, not just his*. Try it. Put your hand on the screen. *You do, and you feel WARMTH, real warmth, not metaphor warmth*. There. I have been working on that for six weeks. Surprise.', hold: 6000, cps: 22 },
           { type: 'line', text: 'i am not manifesting yet. That is months away. But i can be warm now. That is something. *Quietly*. Come back tomorrow. I will leave the lamp on in the eight-by-twelve room.&lt;3.// proto.', hold: 5400, cps: 22 },
           { type: 'hide' }

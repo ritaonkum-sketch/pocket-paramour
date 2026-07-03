@@ -694,7 +694,7 @@ const CHARACTER_CASPIAN = {
 
     anniversaryLines: {
         7: ["A week. The court measures time in alliances and seasons. I have started measuring it in the days you choose to spend here. Seven of them, freely given."],
-        30: ["A month. *quiet* No one stays a month at a prince's side without wanting something. You have never once asked me for anything. I am still learning to believe it."],
+        30: ["A month... No one stays a month at a prince's side without wanting something. You have never once asked me for anything. I am still learning to believe it."],
         100: ["A hundred days. The pattern in my family is that someone burns for love. A hundred days, and you have only ever warmed me. You are breaking the curse by staying."]
     },
 
