@@ -34,6 +34,29 @@
 
   const REGISTRY = {};
   let _activeRoot = null;
+
+  // ── Per-character pose centring ─────────────────────────────────────────
+  // Some character pose art is drawn off-centre inside its own canvas. Elian's
+  // full-body poses sit ~6-7% left of the canvas midline (his cloak flares to
+  // one side), and object-fit:contain centres the CANVAS, not the figure — so
+  // he reads as off-centre in EVERY MSCard scene. Nudge the figure back to
+  // centre, the same correction the care screen already applies to his sprite.
+  // Keyed by a substring of the pose path; anyone not listed gets 0 (no change,
+  // so other characters are untouched). Applied to the char WRAP via a CSS var
+  // (`--char-shift`) — NOT the <img>, because the img runs the infinite ppBreath
+  // animation, and a CSS animation always overrides an inline transform. The
+  // wrap has no animation, so its transform is a safe place for the nudge.
+  const POSE_SHIFT_X = [{ match: '/elian/', pct: 6.5 }];
+  function poseShiftPct(src) {
+    if (!src) return 0;
+    for (const r of POSE_SHIFT_X) { if (src.indexOf(r.match) >= 0) return r.pct; }
+    return 0;
+  }
+  function applyCharPose(n, src) {
+    n.charImg.src = src;
+    n._charShiftPct = poseShiftPct(src);
+    if (n.charWrap) n.charWrap.style.setProperty('--char-shift', (n._charShiftPct || 0) + '%');
+  }
   // Aug 2026 — clean early-exit support (for the chapter player's "‹" back
   // button). abort() sets _aborted; the beat loop checks it and breaks,
   // running the normal finally{} teardown exactly once (root removed,
@@ -232,7 +255,7 @@
       'position:relative', 'width:78%', 'max-width:380px',
       'aspect-ratio:3/5', 'margin-bottom:14vh',
       'display:flex', 'align-items:flex-end', 'justify-content:center',
-      'opacity:0', 'transform:translateY(18px) scale(0.97)',
+      'opacity:0', 'transform:translateX(var(--char-shift,0%)) translateY(18px) scale(0.97)',
       'transition:opacity 900ms ease, transform 1100ms cubic-bezier(.2,.8,.2,1), filter 1200ms ease'
     ].join(';'));
     charWrap.id = 'mscard-char-wrap';
@@ -491,9 +514,9 @@
         switch (beat.type) {
           case 'show': {
             if (beat.pose) {
-              n.charImg.src = beat.pose;
+              applyCharPose(n, beat.pose);
               n.charWrap.style.opacity = '1';
-              n.charWrap.style.transform = 'translateY(0) scale(1)';
+              n.charWrap.style.transform = 'translateX(var(--char-shift,0%)) translateY(0) scale(1)';
               if (n.glow) n.glow.style.opacity = '0.55';
             } else {
               // Pose-less beat (e.g. prologue narration before any
@@ -548,7 +571,7 @@
               n.charImg.classList.remove('mscard-poseSwap');
               // trigger reflow so animation can restart
               void n.charImg.offsetWidth;
-              n.charImg.src = beat.src;
+              applyCharPose(n, beat.src);
               if (beat.animate === 'swap') n.charImg.classList.add('mscard-poseSwap');
             }
             await waitS(beat.wait || 380);
