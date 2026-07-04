@@ -88,6 +88,38 @@
         });
     } catch (_) {}
 
+    // ── Preload the ACTIVE character's care poses on care entry ──────────
+    // Owner: "there is a delay when I tap Feed/Wash/Talk for Elian — the poses
+    // are delayed." Measured cause: the reaction pose (e.g. eating2.png, ~2.7MB)
+    // is set as #character-body-img.src on tap but takes ~300ms to load, so the
+    // sprite shows blank/stale until it decodes. Preloading every body sprite of
+    // the current character the moment we land on the care screen means the tap
+    // swaps to an already-decoded image (instant). This is the SAME bytes the
+    // player would fetch on tap anyway — just moved to the idle beat before it,
+    // and the browser + SW cache them so later visits cost nothing. Deduped by
+    // URL; only the current character (not all 7).
+    var _posePreloadFor = null;
+    function preloadCarePoses() {
+        try {
+            var C = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : null;
+            if (!C || !C.bodySprites || C.name === _posePreloadFor) return;
+            _posePreloadFor = C.name;
+            var seen = {};
+            Object.keys(C.bodySprites).forEach(function (k) {
+                var src = C.bodySprites[k];
+                if (src && !seen[src]) { seen[src] = 1; var im = new Image(); im.src = src; }
+            });
+        } catch (_) {}
+    }
+    try {
+        document.addEventListener('pp:scene-change', function (e) {
+            if (e && e.detail && e.detail.scene === 'care') preloadCarePoses();
+        });
+        // Also run once now in case care-blink loads after the care screen is
+        // already up (scene-change already fired).
+        if (document.body.classList.contains('pp-screen-care')) preloadCarePoses();
+    } catch (_) {}
+
     function lsGet(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }
     function activeChar() {
         var g = window._game;
