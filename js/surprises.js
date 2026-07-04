@@ -32,6 +32,12 @@
     if (!g || !g.tickInterval) return false;
     if (hasFiredThisSession) return false;
     if (g.sceneActive || g.characterLeft) return false;
+    // Overlay-busy gate (the condition revival was deferred on): only fire on
+    // the VISIBLE care screen with no overlay up (gallery, gift panel, Daily,
+    // letters…). g.sceneActive alone misses non-scene overlays — the classic
+    // bleed class.
+    if (!document.body.classList.contains('pp-screen-care')) return false;
+    if (window.PPOverlay && typeof window.PPOverlay.anyOpen === 'function' && window.PPOverlay.anyOpen()) return false;
     if (g.storyDay < 2 || g.affectionLevel < 1) return false;
     if (lastTapAge() < IDLE_THRESHOLD_MS) return false;
     const last = parseInt(localStorage.getItem('pp_last_surprise_time') || '0', 10);
