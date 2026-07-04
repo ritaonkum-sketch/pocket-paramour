@@ -11793,7 +11793,7 @@ let selectedCharacter = 'alistair';
         // Update loading subtitle
         var loadSub = document.getElementById('loading-subtitle');
         if (loadSub) {
-            var subtitles = { lyra: "~ Lyra's Story ~", lucien: "~ Lucien's Story ~", caspian: "~ Caspian's Story ~", elian: "~ Elian's Story ~", proto: "~ ???'s Story ~", noir: "~ Noir's Story ~" };
+            var subtitles = { lyra: "~ Lyra's Story ~", lucien: "~ Lucien's Story ~", caspian: "~ Caspian's Story ~", elian: "~ Elian's Story ~", proto: "~ Proto's Story ~", noir: "~ Noir's Story ~" };
             loadSub.textContent = subtitles[selectedCharacter] || "~ Alistair's Story ~";
         }
 
