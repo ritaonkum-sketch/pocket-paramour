@@ -1906,6 +1906,33 @@ const CHARACTER_LYRA_FULL = {
             trigger: { affectionLevel: 3, timesTalked: 10 },
             dialogue: "I’ve never let anyone this close to my heart... or my cave.",
             emotion: "love"
+        },
+        // Premium affection level-up scenes (the showStoryScene card via
+        // onAffectionLevelUp). Lyra was the ONLY character missing the
+        // firstTrust/growingClose/deepFeeling/confession keys, and she has no
+        // affectionDialogue fallback, so her level-ups showed nothing at all.
+        // Added Jul 2026 in her voice — queen in ruins, immortal siren who gave
+        // her voice away, cave + tide + song, never pleads, confession holds the
+        // oldest word back for the story climax.
+        firstTrust: {
+            trigger: { affectionLevel: 1 },
+            dialogue: "The surface only ever sent me sailors, and the sailors only ever left me their drowning. I stopped expecting kinder. You came down with no song in your ears, and you keep coming, and I have stopped bracing for the water to take you too. That is trust. I did not know the tide had left me any.",
+            emotion: "shy"
+        },
+        growingClose: {
+            trigger: { affectionLevel: 2 },
+            dialogue: "I have not sung for anyone since the reef went quiet. Last night I caught myself humming while I waited for your step on the stones. Old habit, I told the cave. The cave has listened to me for nine hundred years. It did not believe me either.",
+            emotion: "love"
+        },
+        deepFeeling: {
+            trigger: { affectionLevel: 3 },
+            dialogue: "I have watched every warm thing I found go cold and go under. So I learned to love the half-gone ones early and spare the sea its work. You, I cannot hold at that distance. Every time I look, you are fully here, and I have started planning past tomorrow. I have not done that in longer than you have been alive.",
+            emotion: "love"
+        },
+        confession: {
+            trigger: { affectionLevel: 4 },
+            dialogue: "I have a voice that has ended men, and I have never once turned it to keeping something for myself. I could sing you down to this cave and call it love, and your ears would never find the seam in it. I will not. Whatever you feel on these stones, you will have chosen it wide awake. I am not going to say the oldest word to you tonight. When I do, there will be no song beneath it. Only me. I have never handed that to anyone who lived to keep it.",
+            emotion: "love"
         }
     },
 

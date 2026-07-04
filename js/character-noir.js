@@ -304,7 +304,7 @@ const CHARACTER_NOIR = {
         },
         confession: {
             trigger: { affectionLevel: 4 },
-            dialogue: "I loved once. She rests under the rowan, and I have been shadow since. You have made the shadow want its name back. The old name has begun to answer. I am no longer waiting to end. I will not say the last words yet. Know that they are near.",
+            dialogue: "I loved once, before the seal closed and drew the colour out of the world behind it. I buried what was left of me in that same dark and called the quiet peace. You have made the shadow want its name back, and the old name has begun to answer. The grey breaks red now, at the edges, where you stand. I am no longer waiting to end. I will not say the last words yet. Know that they have already chosen their hour.",
             emotion: "love"
         },
         becameClingy: {
