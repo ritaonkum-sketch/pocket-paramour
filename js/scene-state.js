@@ -114,7 +114,21 @@
             if (cs && (cs.display === 'none' || cs.visibility === 'hidden')) continue;
             return setActiveScreen(s.name);
         }
-        // Nothing visible — default to title (boot state)
+        // Nothing visible via the base screens. Before defaulting to 'title',
+        // check whether an OVERLAY is currently covering the base screen (the
+        // Daily page, gallery, settings, a scene card, a date, etc.). Those set
+        // body.pp-overlay-active (or register with PPOverlay), and their CSS
+        // hides #select-screen / #game-container while they are up — so detect()
+        // sees nothing and would wrongly conclude 'title'. That flip to
+        // pp-screen-title reveals the empty title screen underneath, and when the
+        // overlay closes the base screen never comes back: the "black screen
+        // after the Daily page / dates glitch" bug. The underlying scene has NOT
+        // changed while an overlay is up, so preserve it; the overlay's own close
+        // re-reveals the base screen and re-fires detect() correctly.
+        var overlayUp = document.body.classList.contains('pp-overlay-active') ||
+            (window.PPOverlay && typeof window.PPOverlay.anyOpen === 'function' && window.PPOverlay.anyOpen());
+        if (overlayUp && CURRENT) return;
+        // Truly nothing visible (boot / hard transition) — default to title.
         setActiveScreen('title');
     }
 
