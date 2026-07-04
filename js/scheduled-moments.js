@@ -1134,11 +1134,9 @@
     const card = document.createElement('div');
     card.id = 'pp-sched-card';
 
-    const tag = document.createElement('div');
-    tag.id = 'pp-sched-tag';
-    tag.textContent = 'INVITATION';
-    card.appendChild(tag);
-
+    // No "INVITATION" tag here: it sat directly behind the wax seal and read as
+    // a dark pill peeking out below it. The seal + the note content already make
+    // clear this is an invitation.
     const setup = document.createElement('div');
     setup.id = 'pp-sched-setup';
     setup.textContent = inv.invitation.setup;

@@ -1222,21 +1222,23 @@ class GameUI {
         sounds.fanfare();
 
         // Cancel any in-flight typewriter from a PREVIOUS milestone scene.
-        // Without this, crossing affection levels in quick succession (e.g. L2
-        // growingClose then L3 deepFeeling within ~1.5s) left the previous
-        // scene's typewriter setTimeout-chain running — it kept appending its
-        // tail into THIS scene's freshly-cleared box, so growingClose's
-        // "...I think it's you." bled in as a stray "'s you." prefix (owner-
-        // reported "missing words"). A generation token makes any stale
-        // typewriter stop on its next tick.
-        const _gen = (this._storyTypeGen = (this._storyTypeGen || 0) + 1);
+        // The generation token lives on the SHARED #story-dialogue ELEMENT, not
+        // on `this` — so a scene shown from ANY game/ui instance cancels an older
+        // typewriter still running on the same element. A per-instance token
+        // failed when TWO instances wrote into #story-dialogue at once (e.g. a
+        // lingering pre-navigation game whose 1500ms level-up timer still fires,
+        // plus the fresh instance): each had its own `this._storyTypeGen`, so
+        // neither stopped the other and every character got typed twice ("I trust
+        // you" → "II ttrruusstt yyoouu"). Element-scoped token = one writer wins.
+        const _el = this.storyDialogue;
+        const _gen = (_el._ppStoryTypeGen = (_el._ppStoryTypeGen || 0) + 1);
 
         // Typewrite the story dialogue
         let i = 0;
         const typeStory = () => {
-            if (_gen !== this._storyTypeGen) return; // a newer scene took over — stop
+            if (_gen !== _el._ppStoryTypeGen) return; // a newer scene took over — stop
             if (i < dialogue.length) {
-                this.storyDialogue.textContent += dialogue[i];
+                _el.textContent += dialogue[i];
                 i++;
                 // if (i % 2 === 0) sounds.blip();
                 setTimeout(typeStory, 40);
