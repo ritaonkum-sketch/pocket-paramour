@@ -986,14 +986,22 @@
         transition: opacity 520ms ease, transform 520ms ease;
       }
       #pp-sched-root.show #pp-sched-portrait { opacity: 1; transform: translateY(0); }
+      /* Wax-seal variant (invitation): frame the round seal + a warmer gold
+         rim, since the invitation shows the character's seal, not a pose. */
+      #pp-sched-portrait.pp-sched-seal {
+        object-position: center 46%;
+        border-color: rgba(255, 214, 150, 0.62);
+        background: rgba(28, 16, 40, 0.4);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.6), 0 0 26px rgba(240,200,120,0.42);
+      }
       #pp-sched-card {
         width: 100%; max-width: 480px;
         background: linear-gradient(180deg, rgba(20,12,32,0.96), rgba(14,8,22,0.98));
         border: 1px solid rgba(255,210,140,0.28);
         border-radius: 22px;
         padding: 52px 22px 18px;
-        color: #f4e6ff; font-family: inherit;
-        font-size: 15px; line-height: 1.55;
+        color: #f0e6d2; font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+        font-size: 17px; line-height: 1.5;
         box-shadow: 0 10px 36px rgba(0,0,0,0.55);
         position: relative;
       }
@@ -1011,7 +1019,7 @@
         background: linear-gradient(180deg, rgba(60,38,18,0.55), rgba(40,24,12,0.65));
         border: 1px solid rgba(255,210,140,0.25);
         border-radius: 14px; margin-top: 8px;
-        color: #fde8c6;
+        color: #f0e6d2;
       }
       #pp-sched-prompt { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.55; text-align: center; margin: 14px 0 12px; }
       .pp-sched-option {
@@ -1042,8 +1050,8 @@
         padding: 12px 28px; border-radius: 14px;
         background: linear-gradient(180deg, rgba(60,40,20,0.75), rgba(40,28,14,0.85));
         border: 1px solid rgba(255,210,140,0.35);
-        color: #fde8c6; font-family: inherit; font-size: 14px;
-        letter-spacing: 1px; cursor: pointer;
+        color: #f0e6d2; font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif; font-size: 17px;
+        letter-spacing: 0.5px; cursor: pointer;
         /* Jun 2026 — bulletproof tap target. The button needs an
            explicit pointer-events:auto (the gradient parent layer can
            occasionally swallow it on iOS WebKit) and a relative
@@ -1093,11 +1101,20 @@
     root.id = 'pp-sched-root';
     root.classList.add('invitation');
 
-    if (inv.pose) {
+    // The invitation is a SEALED note — the setup text literally describes the
+    // wax seal — so show the character's WAX SEAL (their "hand"), not a body
+    // pose. Seal art: assets/seals/<charId>.png (all 7 wired). Falls back to the
+    // pose if a seal is somehow missing.
+    var _sealSrc = inv.charId ? ('assets/seals/' + inv.charId + '.png') : '';
+    if (_sealSrc || inv.pose) {
       const img = document.createElement('img');
       img.id = 'pp-sched-portrait';
-      img.src = inv.pose;
-      img.onerror = () => { img.style.display = 'none'; };
+      img.className = 'pp-sched-seal';
+      img.src = _sealSrc || inv.pose;
+      img.onerror = function () {
+        if (inv.pose && img.src.indexOf('/seals/') >= 0) { img.classList.remove('pp-sched-seal'); img.src = inv.pose; }
+        else { img.style.display = 'none'; }
+      };
       root.appendChild(img);
     }
 
