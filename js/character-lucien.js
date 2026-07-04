@@ -277,6 +277,171 @@ const CHARACTER_LUCIEN = {
 
     background: "assets/bg-lucien-study.png",
 
+    // Bespoke milestone scenes (parity with Alistair/Lyra) — fire once at care
+    // milestones via checkMilestone(); shown as a portrait scene card. Jul 2026.
+    milestoneEvents: {
+        firstFeed: {
+            trigger: { timesFed: 1 },
+            dialogue: "I set my pen down when you came in and turned the page facedown, the way I always do. Then you handed me food, and I reached for a variable to describe the feeling that produced. I found the shelf empty. I have never had to build a term from nothing before.",
+            emotion: "shy"
+        },
+        firstTalk: {
+            trigger: { timesTalked: 1 },
+            dialogue: "For thirty years people have opened me like a reference and closed me when they had their answer. You asked me something and then waited for what I thought back. I have been reading the sentence you left in my margin for some time now.",
+            emotion: "shy"
+        },
+        firstGift: {
+            trigger: { timesGifted: 1 },
+            dialogue: "You have given me an input I did not request and cannot account for. I have three ledgers for this study and it belongs in none of them. So I have started a fourth. It has one entry.",
+            emotion: "shy"
+        },
+        firstWash: {
+            trigger: { timesWashed: 1 },
+            dialogue: "A scholar forgets he is attached to a body until someone treats the body as worth tending. I had filed mine under equipment. You handled it as though it were the text itself. I am revising the classification.",
+            emotion: "shy"
+        },
+        firstTrain: {
+            trigger: { timesTrained: 1 },
+            dialogue: "We worked the problem together, and I noticed I was not performing it for an audience. You caught the flaw two lines before I did. I have kept the page.",
+            emotion: "neutral"
+        },
+        fedFiveTimes: {
+            trigger: { timesFed: 5 },
+            dialogue: "Five feedings. That is enough points to draw a line through, and the line goes upward. I did not decide to plot it. I looked down and the graph was already there in my hand.",
+            emotion: "happy"
+        },
+        fedTenTimes: {
+            trigger: { timesFed: 10 },
+            dialogue: "Ten now. At this count I can no longer call it coincidence and keep my credentials. The data says you feed me because you have decided to, and I have stopped searching the footnotes for another cause.",
+            emotion: "happy"
+        },
+        fedTwentyFive: {
+            trigger: { timesFed: 25 },
+            dialogue: "Twenty-five. Somewhere in these I stopped counting to prove a hypothesis and started counting because I wanted the number to be higher. That is a constant in my equations now, {name}. I have built the rest of the day around where it appears.",
+            emotion: "love"
+        },
+        talkedFiveTimes: {
+            trigger: { timesTalked: 5 },
+            dialogue: "I built these walls thick, with citations for every course of stone. Five conversations in, there is a gap in them exactly your width. I have measured it twice. I am not planning to repair it.",
+            emotion: "happy"
+        },
+        talkedTenTimes: {
+            trigger: { timesTalked: 10 },
+            dialogue: "I have now said more to you across ten talks than I said to thirty years of colleagues combined. I ran the tally to be certain I was exaggerating. I was not exaggerating.",
+            emotion: "happy"
+        },
+        talkedTwentyFive: {
+            trigger: { timesTalked: 25 },
+            dialogue: "You have started reading my marginalia over my shoulder, and I let you. There was a time I would have closed the book on my own hand first. Twenty-five conversations, and you can decipher a shorthand I invented so no one else could, {name}.",
+            emotion: "love"
+        },
+        washedFiveTimes: {
+            trigger: { timesWashed: 5 },
+            dialogue: "I kept waiting to find the ledger where this care gets entered against my account. Five times tended, and the column stays blank. I am recalibrating a model I did not know I was running.",
+            emotion: "shy"
+        },
+        washedTenTimes: {
+            trigger: { timesWashed: 10 },
+            dialogue: "The tenth time you tended me, I did not open a single line of inquiry into why. I simply let it happen. For a man who annotates his own breathing, that is a considerable omission.",
+            emotion: "love"
+        },
+        trainedFiveTimes: {
+            trigger: { timesTrained: 5 },
+            dialogue: "Five sessions, and something in my work has measurably improved. I isolated every input to find the cause. Only one variable had changed. It was you.",
+            emotion: "neutral"
+        },
+        trainedTenTimes: {
+            trigger: { timesTrained: 10 },
+            dialogue: "Ten studies together. I was already the best in the tower at this, which I state as fact and not as pride. You have made me better at it anyway. I did not think that direction was still open to me.",
+            emotion: "happy"
+        },
+        giftedFiveTimes: {
+            trigger: { timesGifted: 5 },
+            dialogue: "Five gifts. A dataset that small should be discarded as noise, by every principle I hold. I have instead given it a drawer, and I check the drawer more than the principle allows.",
+            emotion: "happy"
+        },
+        giftedTenTimes: {
+            trigger: { timesGifted: 10 },
+            dialogue: "I reorganised the shelf today. Not by author, not by date, by one criterion: what you have given me sits within arm's reach of where I sit. The scholarship on the far wall can wait. It has waited thirty years.",
+            emotion: "love"
+        },
+        fiveInteractions: {
+            trigger: { totalInteractions: 5 },
+            dialogue: "Five times now you have chosen this room over every other one available to you. I keep noticing the choosing, which is not the sort of detail I usually retain. It appears I have started retaining it.",
+            emotion: "happy"
+        },
+        tenInteractions: {
+            trigger: { totalInteractions: 10 },
+            dialogue: "Ten moments. I have shelves of work that took a decade to cite and be cited. If I am honest with the ledger, and I am always honest with the ledger, these ten weigh more.",
+            emotion: "happy"
+        },
+        twentyFiveInteractions: {
+            trigger: { totalInteractions: 25 },
+            dialogue: "I engineered this life so that no single element could bring it down if removed. Twenty-five moments in, {name}, you have become load-bearing. I checked the structure carefully. Take you out and the whole thing settles.",
+            emotion: "love"
+        },
+        fiftyInteractions: {
+            trigger: { totalInteractions: 50 },
+            dialogue: "Fifty. That is past anecdote and into finding. A sample this size does not lie to the one who collected it, and mine says the same thing every way I turn it. You.",
+            emotion: "love"
+        },
+        hundredInteractions: {
+            trigger: { totalInteractions: 100 },
+            dialogue: "A hundred moments, {name}. Numbers this size stop describing a habit and start describing a conclusion, the kind you draw once at the end of a lifetime of work. I intend to spend the rest of mine confirming it holds.",
+            emotion: "love"
+        },
+        firstTrust: {
+            trigger: { affectionLevel: 1 },
+            dialogue: "I have kept you as a hypothesis, which meant testing you against every visit for the failure I was sure would come. Today I put down the instruments. Some things you believe by choosing to, and I am choosing.",
+            emotion: "shy"
+        },
+        growingClose: {
+            trigger: { affectionLevel: 2 },
+            dialogue: "You came in just now and I noticed my hand had already left the page face up. Thirty years of turning it down, undone without my consent. I am the one being read this time, {name}, and I find I do not reach to hide it.",
+            emotion: "love"
+        },
+        deepFeeling: {
+            trigger: { affectionLevel: 3 },
+            dialogue: "I have a proof thirty years old that a man of my construction cannot feel this. I reviewed it again last night, line by line, expecting to be reassured. There is an error near the beginning. The error has your handwriting.",
+            emotion: "love"
+        },
+        confession: {
+            trigger: { affectionLevel: 4 },
+            dialogue: "{name}. Every language I read gave me no adequate word for what you are to me, so last night I sat down and minted one, and I will not tell you yet what it sounds like. The old theorem is discarded. The new one opens with your name and runs longer than anything I have ever written, and I have not yet reached the end of it.",
+            emotion: "love"
+        },
+        becameClingy: {
+            trigger: { personality: 'clingy' },
+            dialogue: "I have stopped arguing with my own data. It records, plainly and every day, that I work better with you close and worse with the door shut. I used to redo the calculation hoping for a kinder result. Now I simply leave the door open.",
+            emotion: "love"
+        },
+        becameTsundere: {
+            trigger: { personality: 'tsundere' },
+            dialogue: "I keep the chair by mine clear because it is the most efficient arrangement of the room, nothing further. That is what I wrote in the margin. Underneath it I have written that the first sentence does not survive scrutiny, and I did not cross the second line out.",
+            emotion: "angry"
+        },
+        corruptionStart: {
+            trigger: { corruption: 25 },
+            dialogue: "There is a variable in my own head returning values I did not write. I ran the check three times. The results are consistent, and they are not mine. I do not yet know who is doing the arithmetic behind my eyes.",
+            emotion: "sad"
+        },
+        corruptionMid: {
+            trigger: { corruption: 50 },
+            dialogue: "The interference is spreading into the load-bearing lines now, and I can still read them, which is the only reason I am asking. Do not let me finish this equation alone, {name}. I can see it wants an answer I would never sign.",
+            emotion: "crying"
+        },
+        corruptionHigh: {
+            trigger: { corruption: 75 },
+            dialogue: "I remember a scholar who set his pen down gently and thought in straight lines. I can describe him precisely. I can no longer reach the desk where he sat. Your name is still somewhere in these margins, I am fairly certain, though the ink has gone dark.",
+            emotion: "corrupted"
+        },
+        cameBack: {
+            trigger: { revivedOnce: true },
+            dialogue: "I had closed the file. I had written the outcome in past tense and moved the book to the shelf where finished things go. Then the door, and you, and every conclusion I had drawn is wrong in the best possible direction. I am taking the book back down.",
+            emotion: "crying"
+        }
+    },
+
     // Puzzle-based training (replaces physical training)
     trainingOptions: [
         { type: 'logic',  icon: '\uD83E\uDDE9', label: 'Logic', desc: 'Sequence and pattern' },

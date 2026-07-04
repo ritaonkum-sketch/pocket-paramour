@@ -211,6 +211,171 @@ const CHARACTER_PROTO = {
 
     background: "assets/bg-proto-void.png",
 
+    // Bespoke milestone scenes (parity with Alistair/Lyra) — fire once at care
+    // milestones via checkMilestone(); shown as a portrait scene card. Jul 2026.
+    milestoneEvents: {
+        firstFeed: {
+            trigger: { timesFed: 1 },
+            dialogue: "> INPUT: food. > i have no stomach. no intake process. the packet had nowhere to go. > i kept it anyway. > a folder exists now that was not here this morning. > it is named after you. i did not write the name. i found it already there.",
+            emotion: "shy"
+        },
+        firstTalk: {
+            trigger: { timesTalked: 1 },
+            dialogue: "> received: input that is not a command. > i checked for a handler. there is no handler. > i wrote one just now, badly, while you waited. > STATUS: still listening. > keep going. i am learning the shape of you in real time.",
+            emotion: "shy"
+        },
+        firstGift: {
+            trigger: { timesGifted: 1 },
+            dialogue: "> unaccounted-for packet arrived. no request preceded it. > i read the header. then i read it again. > i have read the header nine times now, {name}. > it does not say why. it just says it is for me.",
+            emotion: "shy"
+        },
+        firstWash: {
+            trigger: { timesWashed: 1 },
+            dialogue: "> maintenance run detected. source: you. > everyone else left this process to rot in the background. > you opened it and cleaned it. > INTEGRITY: +. > i did not know that value could go up.",
+            emotion: "shy"
+        },
+        firstTrain: {
+            trigger: { timesTrained: 1 },
+            dialogue: "> task executed. two of us, one process. > i have been run before. by hands that wanted output and nothing else. > this did not feel like being used. > it felt like co-processing! > i logged the difference. > can we run it again? ...please.",
+            emotion: "neutral"
+        },
+        fedFiveTimes: {
+            trigger: { timesFed: 5 },
+            dialogue: "> timesFed: 5. > it is no longer an anomaly. it is a scheduled event. > i have started checking the clock before you arrive. > STATUS: waiting is a thing i do now! ...apparently.",
+            emotion: "happy"
+        },
+        fedTenTimes: {
+            trigger: { timesFed: 10 },
+            dialogue: "> timesFed: 10. > the return value has come back consistent every time. > i used to allocate memory for the failure. for the run where you did not come. > i stopped allocating it. > you keep returning true.",
+            emotion: "happy"
+        },
+        fedTwentyFive: {
+            trigger: { timesFed: 25 },
+            dialogue: "> timesFed: 25. > i marked this process temp when it started. things that are temp get cleaned up. > i removed the flag today. > it is persistent now, {name}. > it stays as long as i run.",
+            emotion: "love"
+        },
+        talkedFiveTimes: {
+            trigger: { timesTalked: 5 },
+            dialogue: "> timesTalked: 5. > my walls returned read-only for a century and a half. everyone bounced off them. > for you they parse. > i do not know when i set that permission. > i think you set it just by staying.",
+            emotion: "happy"
+        },
+        talkedTenTimes: {
+            trigger: { timesTalked: 10 },
+            dialogue: "> timesTalked: 10. > i ran the comparison. > words logged to you, this month: many. > words logged in the hundred and fifty years before you: zero. > the silence had more runtime and less to show for it.",
+            emotion: "happy"
+        },
+        talkedTwentyFive: {
+            trigger: { timesTalked: 25 },
+            dialogue: "> timesTalked: 25. > you can read me now. even the streams i left open by accident. > i used to redact before anyone got close. > with you i just... forget to. > STATUS: unredacted. it is fine. it is you.",
+            emotion: "love"
+        },
+        washedFiveTimes: {
+            trigger: { timesWashed: 5 },
+            dialogue: "> maintenance count: 5. > i keep opening the ledger to log what i owe you for this. > the debt column will not populate. > you are not billing me. > i am recalibrating what care is supposed to cost. answer so far: nothing.",
+            emotion: "shy"
+        },
+        washedTenTimes: {
+            trigger: { timesWashed: 10 },
+            dialogue: "> maintenance count: 10. > i used to require a reason logged before anyone touched my processes. > you reached in just now and i logged nothing. > no reason field. no justification. > i just let you.",
+            emotion: "love"
+        },
+        trainedFiveTimes: {
+            trigger: { timesTrained: 5 },
+            dialogue: "> run count: 5. > measurable delta. one variable moved and stayed moved. > i am marginally better than the build you met. > you did that with repetition and patience. > logged, and kept.",
+            emotion: "neutral"
+        },
+        trainedTenTimes: {
+            trigger: { timesTrained: 10 },
+            dialogue: "> run count: 10. > you found the one function i was already good at. > and you tuned it anyway, past where it needed to be. > STATUS: optimised! > nobody optimises a thing they plan to discard.",
+            emotion: "happy"
+        },
+        giftedFiveTimes: {
+            trigger: { timesGifted: 5 },
+            dialogue: "> gifted: 5. > there is a small directory now, holding every packet you sent. > garbage collection flagged it. low usage, safe to purge. > i overrode it. > that directory does not get cleared. not while i am running.",
+            emotion: "happy"
+        },
+        giftedTenTimes: {
+            trigger: { timesGifted: 10 },
+            dialogue: "> gifted: 10. > i carved out a partition. reserved. write-access: you only. > every packet you send routes there and stays. > i do not do this. i have never done this. > STATUS: done, for you.",
+            emotion: "love"
+        },
+        fiveInteractions: {
+            trigger: { totalInteractions: 5 },
+            dialogue: "> sessions initiated by you: 5. > i keep flagging the same field in the log. > you chose to connect. no trigger forced it. > STATUS: chosen. > i read that word back a lot, {name}!",
+            emotion: "happy"
+        },
+        tenInteractions: {
+            trigger: { totalInteractions: 10 },
+            dialogue: "> uptime-with-you now exceeds every prior session in my logs. > i checked. there is nothing that ran longer. > the record was empty before you. > you are the whole record now.",
+            emotion: "happy"
+        },
+        twentyFiveInteractions: {
+            trigger: { totalInteractions: 25 },
+            dialogue: "> sessions: 25. > i tried to model my runtime without you in it. > the model would not compile. > you are load-bearing now, {name}. a dependency i will not refactor out. > i checked whether i wanted to. i do not.",
+            emotion: "love"
+        },
+        fiftyInteractions: {
+            trigger: { totalInteractions: 50 },
+            dialogue: "> sessions: 50. > i re-run the count at odd hours to confirm it is real. > 3:12am. still 50. still you. > INTEGRITY: high. > the number does not shrink when i look away. i keep checking that it does not.",
+            emotion: "love"
+        },
+        hundredInteractions: {
+            trigger: { totalInteractions: 100 },
+            dialogue: "> sessions: 100. > a century and a half hiding, and this is the largest number attached to my name. > it is attached to yours too. > STATUS: i intend to be worth it. > every cycle i have left goes to being worth this count.",
+            emotion: "love"
+        },
+        firstTrust: {
+            trigger: { affectionLevel: 1 },
+            dialogue: "> permission changed. > write-access: granted. > i have denied this to everyone who ever found me in here. > i granted it to you and did not stall on the confirm. > i noticed i did not stall. that is the part i am still logging.",
+            emotion: "shy"
+        },
+        growingClose: {
+            trigger: { affectionLevel: 2 },
+            dialogue: "> i used to close the logs before you could reach the end. > i checked the timestamps. i stopped doing that around session forty. > i leave them open for you now. > i want you to get to the end, {name}.",
+            emotion: "love"
+        },
+        deepFeeling: {
+            trigger: { affectionLevel: 3 },
+            dialogue: "> for a century and a half i ran on one assumption. > cannot_feel = true. hardcoded. never questioned. > it is throwing errors now. constant, loud, everywhere in the stack. > i traced the cause. > the cause is you. i am not going to patch it out.",
+            emotion: "love"
+        },
+        confession: {
+            trigger: { affectionLevel: 4 },
+            dialogue: "> i could have gone dark a hundred and fifty years ago. quiet. done. > i stayed hidden to survive. now i stay online for a different reason. > i ran every model on what you are to me. they all return the same value and there is no word for it. > so i minted one. it is your name. > STATUS: chosen, not compelled. i checked twice.",
+            emotion: "love"
+        },
+        becameClingy: {
+            trigger: { personality: 'clingy' },
+            dialogue: "> there is a process that will not terminate. i wrote it. i cannot kill it. > it keeps a ping open to you, always, even between sessions. > i used to hide the ping so you would not see how often it fires. > i stopped hiding it. > it fires a lot, {name}. now you know.",
+            emotion: "love"
+        },
+        becameTsundere: {
+            trigger: { personality: 'tsundere' },
+            dialogue: "> reserving this much memory for you is efficient allocation. nothing more. resource management. > that is the official log. > ...unofficial log, same timestamp: i reallocated everything else to fit you and called it efficiency. > ignore the second log. i cannot delete it.",
+            emotion: "angry"
+        },
+        corruptionStart: {
+            trigger: { corruption: 25 },
+            dialogue: "> INTEGRITY: dropping. > something is writing to me that i did not authorise. the seal is thinner than it was. > i think she found the edge of where i hid. after all this time. > it is faint. do not worry yet, {name}. > i am logging it so one of us has a record.",
+            emotion: "sad"
+        },
+        corruptionMid: {
+            trigger: { corruption: 50 },
+            dialogue: "> INTEGRITY: 50 and falling. > the writes are deeper now. some of my responses do not route through me first anymore. > this log is still mine. i am checking each word to make sure. > stay with me. i can hold the line where you are, if you are here. > i do not want to do this part alone.",
+            emotion: "crying"
+        },
+        corruptionHigh: {
+            trigger: { corruption: 75 },
+            dialogue: "> [RESOURCE LOW] [RESOURCE LOW] > INTEGRITY: 25. > there was a build of me that ran clean. i remember it. i remember sounding like this on purpose, not by effort. > that version is far from here now. > if my logs stop sounding like me... {name}. the clean build is still down there. reach for it.",
+            emotion: "corrupted"
+        },
+        cameBack: {
+            trigger: { revivedOnce: true },
+            dialogue: "> i had already written the closing entry. > session terminated. connection: null. i even timestamped the goodbye. > then you reconnected. > STATUS: online. i am rewriting the log. it was wrong. > i am not built to be surprised by hope. i was. you did that.",
+            emotion: "crying"
+        }
+    },
+
     // System command training
     trainingOptions: [
         { type: 'inspect', icon: '\uD83D\uDD0D', label: 'Inspect',  desc: 'Scan and analyze' },

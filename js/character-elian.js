@@ -225,6 +225,171 @@ const CHARACTER_ELIAN = {
 
     background: "assets/bg-elian-cabin.png",
 
+    // Bespoke milestone scenes (parity with Alistair/Lyra) — fire once at care
+    // milestones via checkMilestone(); shown as a portrait scene card. Jul 2026.
+    milestoneEvents: {
+        firstFeed: {
+            trigger: { timesFed: 1 },
+            dialogue: "You fed me. The forest feeds me when it chooses to, and you chose. Sit. There is enough here for two.",
+            emotion: "shy"
+        },
+        firstTalk: {
+            trigger: { timesTalked: 1 },
+            dialogue: "I am not used to being spoken with. Only spoken at, and rarely even that. Stay a while. The quiet between the words does not bother me when it is yours.",
+            emotion: "shy"
+        },
+        firstGift: {
+            trigger: { timesGifted: 1 },
+            dialogue: "I keep almost nothing. A man learns to carry light after enough years. This I will keep.",
+            emotion: "shy"
+        },
+        firstWash: {
+            trigger: { timesWashed: 1 },
+            dialogue: "The river does this when I let it. Your hands are warmer than the river. I did not know I had forgotten that.",
+            emotion: "shy"
+        },
+        firstTrain: {
+            trigger: { timesTrained: 1 },
+            dialogue: "Watch where the moss thickens. The wood tells you which way is north if you ask it right. You are learning to ask.",
+            emotion: "neutral"
+        },
+        fedFiveTimes: {
+            trigger: { timesFed: 5 },
+            dialogue: "Five times now you have come with something for me to eat. The land gives when it gives. You give because you decided to. That is a different thing.",
+            emotion: "happy"
+        },
+        fedTenTimes: {
+            trigger: { timesFed: 10 },
+            dialogue: "I used to eat quick, braced for the season it all stops. I have stopped bracing. You keep coming back, and so the fear went quiet.",
+            emotion: "happy"
+        },
+        fedTwentyFive: {
+            trigger: { timesFed: 25 },
+            dialogue: "I find I listen for your step near the meal now. I will not say it aloud past this. But I wait for it, and the waiting is good.",
+            emotion: "love"
+        },
+        talkedFiveTimes: {
+            trigger: { timesTalked: 5 },
+            dialogue: "There was a time I only listened. Roots do not need answering. You I answer. That is new ground.",
+            emotion: "happy"
+        },
+        talkedTenTimes: {
+            trigger: { timesTalked: 10 },
+            dialogue: "I have told you more than I have told these trees, and they have had six hundred years of me. Draw closer to the fire. There is more if you want it.",
+            emotion: "happy"
+        },
+        talkedTwentyFive: {
+            trigger: { timesTalked: 25 },
+            dialogue: "You read the pauses now. When I go still, you know whether it is the old grief or only the cold. Few ever learned that. Sit. You do not have to fill it.",
+            emotion: "love"
+        },
+        washedFiveTimes: {
+            trigger: { timesWashed: 5 },
+            dialogue: "Five times I have let you tend me and not pulled away. I had forgotten how to sit still under a kind hand. You are teaching the old dog to lie down.",
+            emotion: "shy"
+        },
+        washedTenTimes: {
+            trigger: { timesWashed: 10 },
+            dialogue: "There. I do not flinch anymore. Your hands, the fire, this quiet. I am at rest, and I do not remember the last time I could say that.",
+            emotion: "love"
+        },
+        trainedFiveTimes: {
+            trigger: { timesTrained: 5 },
+            dialogue: "You do not walk on the ground now. You read it. Bent grass, a turned stone, the print half-filled with water. The wood is starting to speak to you.",
+            emotion: "neutral"
+        },
+        trainedTenTimes: {
+            trigger: { timesTrained: 10 },
+            dialogue: "I am running short of things to teach you. Good. It gives me a reason to keep finding new ones. Come. There is a track past the creek I have not shown you yet.",
+            emotion: "happy"
+        },
+        giftedFiveTimes: {
+            trigger: { timesGifted: 5 },
+            dialogue: "A handful of things now, from you. For a man who carries light, that is a great deal to hold. I hold it anyway.",
+            emotion: "happy"
+        },
+        giftedTenTimes: {
+            trigger: { timesGifted: 10 },
+            dialogue: "There is a shelf by the fire. Everything on it is yours, left by your hand. I built it without deciding to. It is the only crowded corner I own.",
+            emotion: "love"
+        },
+        fiveInteractions: {
+            trigger: { totalInteractions: 5 },
+            dialogue: "Five times you have come to the treeline and back again. I count. I did not tell you that I count, but I do.",
+            emotion: "happy"
+        },
+        tenInteractions: {
+            trigger: { totalInteractions: 10 },
+            dialogue: "The forest has stopped bristling when you come near. It knows your step now. So do I, if I am honest, and I try to be.",
+            emotion: "happy"
+        },
+        twentyFiveInteractions: {
+            trigger: { totalInteractions: 25 },
+            dialogue: "You belong to this place the way roots belong. No one set you down here. You simply took, and grew, and now the ground would grieve the lack of you.",
+            emotion: "love"
+        },
+        fiftyInteractions: {
+            trigger: { totalInteractions: 50 },
+            dialogue: "Fifty times. That is the better part of a season, given away freely, walked to my door and back. I did nothing to earn a thing like that. I only try not to waste it.",
+            emotion: "love"
+        },
+        hundredInteractions: {
+            trigger: { totalInteractions: 100 },
+            dialogue: "A hundred, now. I have counted a great many things in six hundred years. Rings in the oaks, stones I have set, winters. This is the count that matters.",
+            emotion: "love"
+        },
+        firstTrust: {
+            trigger: { affectionLevel: 1 },
+            dialogue: "The wood does not give its trust to everyone who wanders in. Neither do I. It has decided about you. Quietly, so have I.",
+            emotion: "shy"
+        },
+        growingClose: {
+            trigger: { affectionLevel: 2 },
+            dialogue: "You were shivering, so I put my cloak across your shoulders. I notice I have not asked for it back. Keep it. The cold finds me less than it finds you.",
+            emotion: "love"
+        },
+        deepFeeling: {
+            trigger: { affectionLevel: 3 },
+            dialogue: "I have spent six hundred years watching people go. I learned to stand at the treeline already braced for the back of them. I do not brace for you anymore. That is the truest thing I know how to tell you.",
+            emotion: "love"
+        },
+        confession: {
+            trigger: { affectionLevel: 4 },
+            dialogue: "I do not say the large words. I said them to the two I buried under the rowan, and I tend their stones alone. So hear the smaller, truer one. I will still be here tomorrow, and the day past it. The door has not been locked since you came, and it will not be. Take the warmer side of the fire. I sleep fine on the cold.",
+            emotion: "love"
+        },
+        becameClingy: {
+            trigger: { personality: 'clingy' },
+            dialogue: "I have stopped pretending I do not watch the treeline for you. If you are late, I go and stand where the path bends. The wood is mine to guard. You most of all.",
+            emotion: "love"
+        },
+        becameTsundere: {
+            trigger: { personality: 'tsundere' },
+            dialogue: "I have kept this wood alone for centuries. I do not need the company. Do not make more of it than it is. ...The warmer side of the fire is yours. I already moved. Sit down.",
+            emotion: "angry"
+        },
+        corruptionStart: {
+            trigger: { corruption: 25 },
+            dialogue: "Something is wrong in the wood. The birds have gone the wrong kind of quiet, and I feel the same going quiet in me. Stay near the fire tonight. I want to see you when I turn my head.",
+            emotion: "sad"
+        },
+        corruptionMid: {
+            trigger: { corruption: 50 },
+            dialogue: "It is deeper in me now. There are hours I look at the rowan and do not remember planting it. While I still know my own name, hold the line for me. Do not let go, even when I tell you to.",
+            emotion: "crying"
+        },
+        corruptionHigh: {
+            trigger: { corruption: 75 },
+            dialogue: "There was a warden who kept this wood green for six hundred years. I remember him the way you remember a face in deep water. He is a long way back up the path now, and I cannot find my way to him.",
+            emotion: "corrupted"
+        },
+        cameBack: {
+            trigger: { revivedOnce: true },
+            dialogue: "I had begun to choose the stone. Third one, under the rowan, beside the other two. Then your step came through the trees. Come here. Come to the fire, and let me look at you, and do not go quiet on me again.",
+            emotion: "crying"
+        }
+    },
+
     trainingOptions: [
         { type: 'herbs',      icon: '\uD83C\uDF3F', label: 'Herbs',      desc: 'Gather and identify' },
         { type: 'tracking',   icon: '\uD83D\uDC3E', label: 'Tracking',   desc: 'Read the land' },

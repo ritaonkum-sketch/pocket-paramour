@@ -254,6 +254,171 @@ const CHARACTER_CASPIAN = {
     // with bg-caspian-day/night/bedroom.png for specific scenes.
     background: "assets/bg-caspian-balcony.png",
 
+    // Bespoke milestone scenes (parity with Alistair/Lyra) — fire once at care
+    // milestones via checkMilestone(); shown as a portrait scene card. Jul 2026.
+    milestoneEvents: {
+        firstFeed: {
+            trigger: { timesFed: 1 },
+            dialogue: "You brought me food. No one has fed me without a ledger open somewhere since I was a boy. I do not know the courtly response to this, and I find I am glad. I am tired of courtly responses.",
+            emotion: "shy"
+        },
+        firstTalk: {
+            trigger: { timesTalked: 1 },
+            dialogue: "I was about to give you the answer I give at court, the polished one. Then you actually waited for me to finish, and the polished one went out of my head. You are talking with me. I had almost forgotten the difference.",
+            emotion: "shy"
+        },
+        firstGift: {
+            trigger: { timesGifted: 1 },
+            dialogue: "Everything given to a prince is owed to the crown first, and to me second, if at all. This is yours, and you gave it anyway. I have been turning it over in my hands trying to work out why my chest feels strange.",
+            emotion: "shy"
+        },
+        firstWash: {
+            trigger: { timesWashed: 1 },
+            dialogue: "The staff dress me. They do not touch me, not like this. I keep waiting for the part where you want something back, and it does not come. Give me a moment. I am not used to being simply looked after.",
+            emotion: "shy"
+        },
+        firstTrain: {
+            trigger: { timesTrained: 1 },
+            dialogue: "I have run these forms a thousand times with a master watching for my mistakes. You are the first to stand at my side instead of across from me. It changes the whole shape of the thing. Again?",
+            emotion: "neutral"
+        },
+        fedFiveTimes: {
+            trigger: { timesFed: 5 },
+            dialogue: "Five times now. I have started noticing the hour before you come, the way the light goes in the rose garden. A prince is taught to be waited on, never to wait. You have undone that already.",
+            emotion: "happy"
+        },
+        fedTenTimes: {
+            trigger: { timesFed: 10 },
+            dialogue: "I spend my days keeping track of everyone. Whose alliance is fraying, whose son needs a post, whose grief is real. Ten times you have kept track of me. I did not know how much I wanted to be the one on someone's ledger.",
+            emotion: "happy"
+        },
+        fedTwentyFive: {
+            trigger: { timesFed: 25 },
+            dialogue: "This has become a small rite, you and I, twenty-five times over. The court has its bells and its processions to mark what matters. I would trade every one of them for this quiet thing we have that no one else knows the shape of.",
+            emotion: "love"
+        },
+        talkedFiveTimes: {
+            trigger: { timesTalked: 5 },
+            dialogue: "Have you noticed the charm gets quieter each time we talk? I have. It used to run without my asking, a current under every word. With you it keeps going still, and I have to reach for something truer to fill the silence. I like what I find there.",
+            emotion: "happy"
+        },
+        talkedTenTimes: {
+            trigger: { timesTalked: 10 },
+            dialogue: "I have told you things across these ten talks that my whole court has never once heard me say. They get the prince. You get the man who is tired, and stubborn, and a little afraid of his own family. I do not know when I decided you could hold that.",
+            emotion: "happy"
+        },
+        talkedTwentyFive: {
+            trigger: { timesTalked: 25 },
+            dialogue: "The crown is a very good disguise. It lets a man be seen constantly and known by no one. Twenty-five talks in, and you have gone straight past it. You know the person underneath, the actual one. That should frighten me more than it does.",
+            emotion: "love"
+        },
+        washedFiveTimes: {
+            trigger: { timesWashed: 5 },
+            dialogue: "I catch myself doing it even now, sitting up straight, arranging my face, performing being cared for as if there were a gallery watching. Five times, and I am slowly forgetting to. There is no one here but you. You are teaching me that is allowed.",
+            emotion: "shy"
+        },
+        washedTenTimes: {
+            trigger: { timesWashed: 10 },
+            dialogue: "There. Did you see. I did not sit up, did not compose myself, did not do a single thing for an audience that is not there. Ten times of your hands being gentle with me and I have finally gone still under them. This is the most undefended I have been in years.",
+            emotion: "love"
+        },
+        trainedFiveTimes: {
+            trigger: { timesTrained: 5 },
+            dialogue: "My footwork is cleaner. My timing on the turns is better. I have had five sessions with you as the one constant, and the difference is measurable, {name}. The masters used to call me undisciplined. Turns out I only needed the right person to show up.",
+            emotion: "neutral"
+        },
+        trainedTenTimes: {
+            trigger: { timesTrained: 10 },
+            dialogue: "Ten sessions. I walked into the last audience and did not fumble a single form, and the chamberlain actually raised an eyebrow. You did that. You took a passable prince and put an edge on him. I intend to make you proud in front of far worse rooms than this one.",
+            emotion: "happy"
+        },
+        giftedFiveTimes: {
+            trigger: { timesGifted: 5 },
+            dialogue: "I have five of your gifts now. I keep them somewhere the staff will not tidy them away and ask questions I cannot answer. A prince is not supposed to hoard sentiment. I am doing it anyway, quietly, and I am not sorry.",
+            emotion: "happy"
+        },
+        giftedTenTimes: {
+            trigger: { timesGifted: 10 },
+            dialogue: "There is a drawer in my chambers now that is only yours. Ten things you have handed me, tucked where no chamberlain will inventory them. My whole life is catalogued and accounted for. This one corner of it belongs to you and to nobody's ledger.",
+            emotion: "love"
+        },
+        fiveInteractions: {
+            trigger: { totalInteractions: 5 },
+            dialogue: "Five times you have chosen to be here. I keep noticing that word, chosen. Everyone else is assigned to me, or angling for something. You simply decided to come, five times over, and each time I catch myself surprised that you did.",
+            emotion: "happy"
+        },
+        tenInteractions: {
+            trigger: { totalInteractions: 10 },
+            dialogue: "I have survived entire court seasons, months of banquets and bows, that left me with less than these ten moments with you have. All that spectacle, and I remember almost none of it. I remember every one of these.",
+            emotion: "happy"
+        },
+        twentyFiveInteractions: {
+            trigger: { totalInteractions: 25 },
+            dialogue: "My days were built, very deliberately, to hold no one. Duty in the morning, duty at night, no gap wide enough for a person to slip into. Twenty-five times you have slipped in anyway, {name}. You have become a fixture in a life that was designed to have none.",
+            emotion: "love"
+        },
+        fiftyInteractions: {
+            trigger: { totalInteractions: 50 },
+            dialogue: "I count everything. Alliances, debts, the years my line has held the throne, the coins in every purse I am handed. Fifty times you have come to me. Of all the numbers I carry, that is the one I find I keep returning to.",
+            emotion: "love"
+        },
+        hundredInteractions: {
+            trigger: { totalInteractions: 100 },
+            dialogue: "A hundred. I started rehearsing a courtly little speech about what that means and then I stopped, because you deserve the plain version. I have spent my life trying to be worthy of a crown. Somewhere in these hundred times I started trying to be worthy of you instead, and I mean to keep at it as long as I live.",
+            emotion: "love"
+        },
+        firstTrust: {
+            trigger: { affectionLevel: 1 },
+            dialogue: "People trust the prince on sight. The rank does it, the blood does it, none of it is mine. What is happening between us is different. You did not hand this to the crown. You are handing it to me, and I had to earn it first. I have never been prouder of anything.",
+            emotion: "shy"
+        },
+        growingClose: {
+            trigger: { affectionLevel: 2 },
+            dialogue: "I just realised I have stopped rehearsing what to say to you. Every other soul in my life, I plan the sentence three moves ahead. With you the words simply arrive, unpolished, exactly as they are. I did not lower the guard on purpose. You made it forget its job.",
+            emotion: "love"
+        },
+        deepFeeling: {
+            trigger: { affectionLevel: 3 },
+            dialogue: "There is a composure they drilled into me until it never slips, not at a funeral, not at a coronation, not once. It slips with you. There is a gap in the armour now, precisely your shape, and I have stopped trying to close it.",
+            emotion: "love"
+        },
+        confession: {
+            trigger: { affectionLevel: 4 },
+            dialogue: "There is a curse in my line. Princes love once, and someone else burns a kingdom down to give them that love. I have spent my whole life swearing no one would ever burn for me. Then you arrived, and I understood the danger had been aimed the wrong way round. I would rather set the throne behind me alight myself than let a single ember of it touch you. That is the vow my blood forbids me, and I am making it to you anyway.",
+            emotion: "love"
+        },
+        becameClingy: {
+            trigger: { personality: 'clingy' },
+            dialogue: "I am done pretending the room is fine when you leave it. It is not. I notice the door, I notice the quiet, I notice the exact moment you are gone. A prince is meant to need nothing. I need you near, and I have stopped dressing it up as anything smaller.",
+            emotion: "love"
+        },
+        becameTsundere: {
+            trigger: { personality: 'tsundere' },
+            dialogue: "I do not sit at the window watching for you, that would be beneath a man of my station, and frankly the chamberlain would talk. I was merely reviewing the light on the garden, which happens to fall on the path you take. Fine. I was watching for you. Do not make me say it a second time.",
+            emotion: "angry"
+        },
+        corruptionStart: {
+            trigger: { corruption: 25 },
+            dialogue: "Something is wrong with the charm lately. It used to warm a room. Now I hear it come out of my mouth and it lands cold, like a coin dropped on stone, and I did not decide to say it that way. I am watching myself turn into something I do not recognise, and I cannot find where it began.",
+            emotion: "sad"
+        },
+        corruptionMid: {
+            trigger: { corruption: 50 },
+            dialogue: "I need you to listen while I still sound like myself, because I can feel that slipping. The tool I was trained into is starting to run the man instead of the other way round. Do not let me become the prince who uses you the way I use a court. Hold onto the one who did not. Please. I am asking.",
+            emotion: "crying"
+        },
+        corruptionHigh: {
+            trigger: { corruption: 75 },
+            dialogue: "There was a prince who wanted to break the pattern. Who swore no one would ever burn for him. I remember him the way you remember a face from childhood, fond and blurred and very far away. I do not think I can reach him from here anymore. I am not sure I still want to. That should terrify you more than it does me.",
+            emotion: "corrupted"
+        },
+        cameBack: {
+            trigger: { revivedOnce: true },
+            dialogue: "You came back. I had already done the sensible thing, the princely thing, and stopped expecting you. I told myself people leave, that it is the natural cost of a crown, that I would not count on the door. Then the door opened, and every careful arrangement I made for your absence fell apart at once. Do not tell me not to. Let me just look at you for a moment.",
+            emotion: "crying"
+        }
+    },
+
     // Court Etiquette training
     trainingOptions: [
         { type: 'dance',     icon: '\uD83D\uDC83', label: 'Dance',     desc: 'Grace in motion' },

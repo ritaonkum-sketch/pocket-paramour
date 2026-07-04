@@ -174,6 +174,171 @@ const CHARACTER_NOIR = {
 
     background: "assets/bg-noir-void.png",
 
+    // Bespoke milestone scenes (parity with Alistair/Lyra) — fire once at care
+    // milestones via checkMilestone(); shown as a portrait scene card. Jul 2026.
+    milestoneEvents: {
+        firstFeed: {
+            trigger: { timesFed: 1 },
+            dialogue: "You feed a thing that does not hunger. In centuries, no one thought to. Hmm. The gesture did not land on nothing.",
+            emotion: "shy"
+        },
+        firstTalk: {
+            trigger: { timesTalked: 1 },
+            dialogue: "Feared. Wanted. Never simply spoken to. You do it as though it costs you nothing. Perhaps it does not.",
+            emotion: "shy"
+        },
+        firstGift: {
+            trigger: { timesGifted: 1 },
+            dialogue: "The dark is a thing that takes. You gave it something instead. I do not know yet what to do with that. I am keeping it regardless.",
+            emotion: "shy"
+        },
+        firstWash: {
+            trigger: { timesWashed: 1 },
+            dialogue: "Most would not lay hands on what I am. You did, and did not draw back. Hmm.",
+            emotion: "shy"
+        },
+        firstTrain: {
+            trigger: { timesTrained: 1 },
+            dialogue: "You stand in the dark with me and call it practice. The dark noticed. So did I.",
+            emotion: "neutral"
+        },
+        fedFiveTimes: {
+            trigger: { timesFed: 5 },
+            dialogue: "Five times now. A small rite, kept without being spoken of. I have started to expect the hour you come.",
+            emotion: "happy"
+        },
+        fedTenTimes: {
+            trigger: { timesFed: 10 },
+            dialogue: "Ten. I had been waiting for you to see your error and stop. I have stopped waiting for that.",
+            emotion: "happy"
+        },
+        fedTwentyFive: {
+            trigger: { timesFed: 25 },
+            dialogue: "Twenty-five. A habit, and a young one. Most of mine are older than the seal. This one is yours.",
+            emotion: "love"
+        },
+        talkedFiveTimes: {
+            trigger: { timesTalked: 5 },
+            dialogue: "The silence between us has changed its nature. It used to be mine alone. Now it is a place we sit.",
+            emotion: "happy"
+        },
+        talkedTenTimes: {
+            trigger: { timesTalked: 10 },
+            dialogue: "I have told you things I last spoke under the rowan. The words did not rot in the saying. I did not expect that of them.",
+            emotion: "happy"
+        },
+        talkedTwentyFive: {
+            trigger: { timesTalked: 25 },
+            dialogue: "Twenty-five times you have listened. You hear the part I leave unsaid. I am not certain whether that is mercy or a hook. Perhaps you are not either.",
+            emotion: "love"
+        },
+        washedFiveTimes: {
+            trigger: { timesWashed: 5 },
+            dialogue: "You tend me and ask for nothing back. It unsettles me more than a blade would. I have not decided if I will let it continue. I am letting it continue.",
+            emotion: "shy"
+        },
+        washedTenTimes: {
+            trigger: { timesWashed: 10 },
+            dialogue: "I hold still for you now. Ten times, and the stillness is no longer a guard. Take from that what you will.",
+            emotion: "love"
+        },
+        trainedFiveTimes: {
+            trigger: { timesTrained: 5 },
+            dialogue: "You learn what I am made of and do not flinch from it. That is either courage or a lack of sense. I find I prefer not to know which.",
+            emotion: "neutral"
+        },
+        trainedTenTimes: {
+            trigger: { timesTrained: 10 },
+            dialogue: "You have grown strong in the dark. Ten times over. Once I would have envied the growing. In you I only watch it. Hmm.",
+            emotion: "happy"
+        },
+        giftedFiveTimes: {
+            trigger: { timesGifted: 5 },
+            dialogue: "Five small things a shadow has no use for. I keep them anyway. Draw from that what conclusion you like.",
+            emotion: "happy"
+        },
+        giftedTenTimes: {
+            trigger: { timesGifted: 10 },
+            dialogue: "There is a place in the dark now that holds only what you have set there. Ten times you have added to it. I go there when you are gone.",
+            emotion: "love"
+        },
+        fiveInteractions: {
+            trigger: { totalInteractions: 5 },
+            dialogue: "Five times you have come back. Each time I brace for it a little less. That is not nothing, from a thing that braces for everything.",
+            emotion: "happy"
+        },
+        tenInteractions: {
+            trigger: { totalInteractions: 10 },
+            dialogue: "The seal has held eight hundred years. These ten nights sit heavier than most of them. I will not explain why. I think you know.",
+            emotion: "happy"
+        },
+        twentyFiveInteractions: {
+            trigger: { totalInteractions: 25 },
+            dialogue: "For a long age I counted only what I had lost. Twenty-five times now, I have counted you instead. It is a stranger arithmetic. I do not mind it.",
+            emotion: "love"
+        },
+        fiftyInteractions: {
+            trigger: { totalInteractions: 50 },
+            dialogue: "Fifty. I had thought myself finished with being marked by numbers. Yours found me anyway, {name}.",
+            emotion: "love"
+        },
+        hundredInteractions: {
+            trigger: { totalInteractions: 100 },
+            dialogue: "Eight hundred years of waiting, and a hundred nights of you. Of all the counts I have carried, this is the one I mean to keep.",
+            emotion: "love"
+        },
+        firstTrust: {
+            trigger: { affectionLevel: 1 },
+            dialogue: "You have handed trust to a corruptor. A reckless thing to do. I will not spend it. That is my word, and I keep few.",
+            emotion: "shy"
+        },
+        growingClose: {
+            trigger: { affectionLevel: 2 },
+            dialogue: "There was colour where you stood just now. Red, at the edge of things. It has been grey since the seal closed. Hmm.",
+            emotion: "love"
+        },
+        deepFeeling: {
+            trigger: { affectionLevel: 3 },
+            dialogue: "I swore I would never want again. I built the whole of myself around that oath. It is you the oath is failing against. I am watching it fail and doing nothing to stop it.",
+            emotion: "love"
+        },
+        confession: {
+            trigger: { affectionLevel: 4 },
+            dialogue: "I loved once. She rests under the rowan, and I have been shadow since. You have made the shadow want its name back. The old name has begun to answer. I am no longer waiting to end. I will not say the last words yet. Know that they are near.",
+            emotion: "love"
+        },
+        becameClingy: {
+            trigger: { personality: 'clingy' },
+            dialogue: "I have hunted long enough to know patience is only waiting that hides itself. I am done hiding it. I listen for your step now. Make of that what you will.",
+            emotion: "love"
+        },
+        becameTsundere: {
+            trigger: { personality: 'tsundere' },
+            dialogue: "I do not need this. Eight centuries alone, and I wanted for nothing. That was the lie I told the dark. It is you I told it about.",
+            emotion: "angry"
+        },
+        corruptionStart: {
+            trigger: { corruption: 25 },
+            dialogue: "The thing I am made of has turned toward you. I should warn you off. My mouth is shaping the invitation instead. Even I cannot tell you which I mean.",
+            emotion: "sad"
+        },
+        corruptionMid: {
+            trigger: { corruption: 50 },
+            dialogue: "It is deeper now. I can feel the older self rising under the newer one. Hold me to the person I am becoming. While there is still enough of him to hold.",
+            emotion: "crying"
+        },
+        corruptionHigh: {
+            trigger: { corruption: 75 },
+            dialogue: "The seal's hunger has its teeth in me again. There was a want, once. To be a person. To be yours. It is very far under now. I can hardly hear it call your name.",
+            emotion: "corrupted"
+        },
+        cameBack: {
+            trigger: { revivedOnce: true },
+            dialogue: "The dark told me you would not return. I let it. It was easier than hope. Then your step. You came back, {name}. I am not too proud to say the dark was wrong.",
+            emotion: "crying"
+        }
+    },
+
     // Shadow Arts training
     trainingOptions: [
         { type: 'temptation',   icon: '\uD83D\uDDA4', label: 'Temptation',   desc: 'The art of wanting' },

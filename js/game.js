@@ -3386,11 +3386,11 @@ class PocketLoveGame {
             //  surfacing, but no reader was ever added. The in-save
             //  storyMilestonesShown array still tracks via game save.
             //  Removing prevents per-character flag bloat in localStorage.)
-            // CHARACTER.milestoneEvents is only defined on Alistair + Lyra
-            // (the original 2 characters). Caspian/Lucien/Elian/Noir/Proto
-            // don't have it — without the optional chain we'd crash with
-            // 'Cannot read properties of undefined (reading "firstTrust")'
-            // every time those 5 hit affection level 1.
+            // CHARACTER.milestoneEvents is now defined on all 7 characters —
+            // Caspian/Lucien/Elian/Noir/Proto gained bespoke milestone scenes
+            // Jul 2026 (was Alistair + Lyra only). The optional chain stays as
+            // defensive code so a future character shipping without the block
+            // cannot crash this path.
             const event = CHARACTER.milestoneEvents?.[storyInfo.key];
             if (event) {
                 // Capture the character name AT QUEUE TIME so we can
