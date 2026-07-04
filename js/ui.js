@@ -2053,13 +2053,16 @@ class GameUI {
     preReact(config, callback) {
         const { emotionalState = 'neutral', action = '', reactionType = 'happy' } = config;
 
-        // Delay ranges [min, max] ms — kept short so taps feel responsive
+        // Delay ranges [min, max] ms — HALVED Jul 2026 (owner: "delay when I tap
+        // Feed/Wash/Talk, the poses are delayed"). Kept a micro-beat for juice,
+        // but the reaction pose now lands ~2x faster; the image-LOAD half of the
+        // lag is separately handled by the care-pose preload in care-blink.js.
         const delayTable = {
-            unstable: [180, 320],   // volatile — still a beat, but not sluggish
-            obsessed: [60,  150],   // hyper-aware — reacts fast
-            guarded:  [150, 260],   // controlled — brief hold
-            secure:   [50,  130],   // settled — warm and ready
-            neutral:  [80,  200]    // default — natural beat
+            unstable: [80,  150],   // volatile — still a beat, but snappy
+            obsessed: [30,  80],    // hyper-aware — reacts fast
+            guarded:  [60,  120],   // controlled — brief hold
+            secure:   [30,  80],    // settled — warm and ready
+            neutral:  [40,  100]    // default — natural beat
         };
 
         // Pre-expression shown on the FACE only before the action registers
@@ -2074,9 +2077,9 @@ class GameUI {
 
         // Action overrides — certain interactions always have a specific physical beat
         const actionOverrides = {
-            wash:  { preExpr: 'shy', range: [100, 200] },  // intimate — quick shy flash
-            gift:  { preExpr: 'shy', range: [80,  180] },  // surprise before warmth
-            train: {                  range: [60,  130] },  // decisive — almost instant
+            wash:  { preExpr: 'shy', range: [45, 95] },   // intimate — quick shy flash
+            gift:  { preExpr: 'shy', range: [40, 90] },   // surprise before warmth
+            train: {                  range: [30, 70] },   // decisive — almost instant
         };
 
         const override   = actionOverrides[action] || {};
