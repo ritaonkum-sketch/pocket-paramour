@@ -1916,6 +1916,29 @@ class GameUI {
             }
         }
 
+        // Noir feed / wash / talk — random pose pools from the Full-body-crop
+        // wiring (v979). Before this his eating/splash keys aliased neutral.png,
+        // so care actions never visibly changed him. Same one-shot pattern as
+        // Lyra/Elian above.
+        if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Noir') {
+            const noirPools = {
+                feed: ['eating1', 'eating2', 'eating3', 'eating4'],
+                wash: ['splash1', 'splash2', 'splash3', 'splash4', 'splash5',
+                       'shower6', 'shower7', 'shower8', 'shower9', 'shower10'],
+                talk: ['talking1', 'talking2', 'talking3', 'talking4',
+                       'talking5', 'talking6', 'talking7']
+            };
+            const noirPool = noirPools[action];
+            if (noirPool) {
+                const key = noirPool[Math.floor(Math.random() * noirPool.length)];
+                const src = CHARACTER.bodySprites && CHARACTER.bodySprites[key];
+                if (src) {
+                    const bodyImg = document.getElementById('character-body-img');
+                    if (bodyImg) bodyImg.src = src;
+                }
+            }
+        }
+
         if (this._flashTimer) clearTimeout(this._flashTimer);
         this._flashTimer = setTimeout(() => {
             this._flashActive = false;
