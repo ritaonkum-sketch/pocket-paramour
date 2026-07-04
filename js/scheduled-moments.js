@@ -989,10 +989,18 @@
       /* Wax-seal variant (invitation): frame the round seal + a warmer gold
          rim, since the invitation shows the character's seal, not a pose. */
       #pp-sched-portrait.pp-sched-seal {
-        object-position: center 46%;
-        border-color: rgba(255, 214, 150, 0.62);
-        background: rgba(28, 16, 40, 0.4);
-        box-shadow: 0 6px 24px rgba(0,0,0,0.6), 0 0 26px rgba(240,200,120,0.42);
+        /* Show JUST the wax seal — no circular frame/ring. The seal art has a
+           baked gradient background, so we can't simply un-crop it; instead a
+           radial mask fades the outer background to transparent, leaving the
+           wax blob floating on the card with a soft drop-shadow (a stamped
+           seal), not a portrait in a gold circle. */
+        width: 122px; height: 122px;
+        border: none; background: transparent; border-radius: 0;
+        object-fit: cover; object-position: center 46%;
+        -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 40%, rgba(0,0,0,0) 57%);
+                mask-image: radial-gradient(circle at 50% 50%, #000 40%, rgba(0,0,0,0) 57%);
+        box-shadow: none;
+        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
       }
       #pp-sched-card {
         width: 100%; max-width: 480px;
@@ -1015,11 +1023,16 @@
       }
       #pp-sched-setup { font-style: italic; opacity: 0.94; text-align: center; margin-bottom: 14px; }
       #pp-sched-cta {
-        text-align: center; padding: 14px 18px;
-        background: linear-gradient(180deg, rgba(60,38,18,0.55), rgba(40,24,12,0.65));
-        border: 1px solid rgba(255,210,140,0.25);
-        border-radius: 14px; margin-top: 8px;
-        color: #f0e6d2;
+        text-align: center; padding: 18px 20px;
+        /* The note's written content sits on PARCHMENT PAPER — light beige,
+           dark sepia ink — so it reads as the physical note the setup describes,
+           distinct from the narration on the dark card. */
+        background: radial-gradient(120% 100% at 50% 0%, #f7eed9 0%, #efe2c6 58%, #e5d6b4 100%);
+        border: 1px solid rgba(120, 92, 52, 0.45);
+        border-radius: 10px; margin-top: 8px;
+        color: #3a2a12;
+        box-shadow: 0 5px 16px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.5), inset 0 0 0 1px rgba(120,92,52,0.14);
+        text-shadow: 0 1px 0 rgba(255,255,255,0.25);
       }
       #pp-sched-prompt { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.55; text-align: center; margin: 14px 0 12px; }
       .pp-sched-option {
