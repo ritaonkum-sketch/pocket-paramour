@@ -223,7 +223,7 @@ const CHARACTER_ELIAN = {
 
     // (outfits block removed May 2026 — system was unreachable from UI)
 
-    background: "assets/bg-elian-forest.png",
+    background: "assets/bg-elian-cabin.png",
 
     trainingOptions: [
         { type: 'herbs',      icon: '\uD83C\uDF3F', label: 'Herbs',      desc: 'Gather and identify' },
