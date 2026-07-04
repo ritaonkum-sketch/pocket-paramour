@@ -6056,7 +6056,7 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
     flex-shrink: 0;
     font-size: 26px;
     text-align: center;
-    margin: 8px 0 24px;
+    margin: 4px 0 14px;
     font-style: italic;
     font-weight: normal;
     color: #3b220a;
@@ -6089,8 +6089,8 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
     flex-shrink: 0;
     font-style: italic;
     font-size: 18px;
-    margin-top: 26px;
-    margin-bottom: 10px;
+    margin-top: 16px;
+    margin-bottom: 8px;
     padding-right: 0;
     color: #3b220a;
     opacity: 0;
@@ -6223,7 +6223,7 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
     display: flex;
     gap: 12px;
     justify-content: center;
-    margin-top: 24px;
+    margin-top: 14px;
     opacity: 0;
     transition: opacity 0.8s ease;
 }
@@ -6253,7 +6253,7 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
 /* Reply choices for the first letter — flex-column under the actions area. */
 .letter-actions:has(.letter-reply-btn) {
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     align-items: stretch;
     max-width: 460px;
     margin-left: auto;
@@ -6261,22 +6261,23 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
 }
 .letter-reply-intro {
     font-family: 'Georgia', serif;
-    font-size: 12px;
-    letter-spacing: 1.2px;
-    color: rgba(247,236,209,0.65);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: rgba(59,34,10,0.85);   /* dark sepia — was near-invisible cream (247,236,209) on the light parchment */
     text-align: center;
     text-transform: uppercase;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 .letter-reply-btn {
     background: rgba(59,34,10,0.92);
     color: #f7ecd1;
     border: 1px solid rgba(220,180,120,0.30);
     padding: 11px 16px;
-    border-radius: 14px;
+    border-radius: 12px;
     font-family: 'Georgia', serif;
-    font-size: 13.5px;
-    line-height: 1.45;
+    font-size: 12.5px;
+    line-height: 1.34;
     cursor: pointer;
     letter-spacing: 0.2px;
     text-align: left;
@@ -6304,19 +6305,19 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
 .letter-reply-btn {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 13px 16px;
-    line-height: 1.45;
+    gap: 9px;
+    padding: 8px 14px;
+    line-height: 1.34;
 }
 .letter-reply-btn .reply-icon {
     flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 13px;
+    font-size: 11px;
     margin-top: 1px;
     background: rgba(247, 236, 209, 0.10);
     color: #f7ecd1;
