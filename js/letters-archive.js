@@ -180,6 +180,11 @@
         text-transform: uppercase; color: rgba(232,200,138,0.6); margin-top: 6px;
       }
       .pp-lt-drawer .dcount .new { color: #ffd98a; }
+      .pp-lt-drawer .dchev {
+        flex-shrink: 0; align-self: center; font-family: 'Cormorant Garamond', serif;
+        font-size: 26px; line-height: 1; color: rgba(232,200,138,0.55); padding-left: 2px;
+      }
+      .pp-lt-drawer.locked .dchev { display: none; }
       .pp-lt-drawer.locked { cursor: default; opacity: 0.72; }
       .pp-lt-drawer.locked .frame {
         display: flex; align-items: center; justify-content: center;
@@ -482,6 +487,14 @@
       Math.max.apply(null, groups[b].map(i => i.seenAt || 0)) -
       Math.max.apply(null, groups[a].map(i => i.seenAt || 0)));
 
+    // Single companion → open their letters directly. Most players care for one
+    // companion at a time, so the drawer index is pure friction: they tap
+    // "Letters", see a lone drawer, and don't realise they must tap it AGAIN to
+    // reach the letters — which reads as "I can't re-read my letters". With
+    // exactly one character we skip the index and show the thread; the ✕ closes
+    // it (the back arrow is hidden via isRoot, since there's no index to return to).
+    if (chars.length === 1) { renderThread(chars[0], true); return; }
+
     body.innerHTML = ''; body.scrollTop = 0;
     chars.forEach(charId => {
       const letters = groups[charId].slice().sort((a, b) => (b.seenAt || 0) - (a.seenAt || 0));
@@ -500,7 +513,8 @@
           '<div class="dteaser">“' + escapeHTML(teaser) + '”</div>' +
           '<div class="dcount">' + letters.length + (letters.length === 1 ? ' letter' : ' letters') +
             (owed ? ' · <span class="new">' + owed + ' waiting</span>' : '') + '</div>' +
-        '</div>';
+        '</div>' +
+        '<div class="dchev" aria-hidden="true">›</div>';
       d.addEventListener('click', () => renderThread(charId));
       body.appendChild(d);
     });
@@ -522,12 +536,15 @@
   // ---------------------------------------------------------------------------
   // THREAD — one character's letters as sealed parchment cards
   // ---------------------------------------------------------------------------
-  function renderThread(charId) {
+  function renderThread(charId, isRoot) {
     const body = _overlay.querySelector('.pp-letters-body');
     const name = CHAR_NAME[charId] || charId;
     const all = (window.LetterSystem && window.LetterSystem.list) ? window.LetterSystem.list() : [];
     const letters = all.filter(i => i.char === charId).sort((a, b) => (b.seenAt || 0) - (a.seenAt || 0)); // newest first
-    setHeader(name, letters.length + (letters.length === 1 ? ' letter' : ' letters'), true);
+    // Show the back arrow only when we came from the drawer index. When the
+    // thread IS the root (single-companion auto-open), there's nothing to go
+    // back to, so we hide it and let ✕ close the archive.
+    setHeader(name, letters.length + (letters.length === 1 ? ' letter' : ' letters'), !isRoot);
 
     body.innerHTML = ''; body.scrollTop = 0;
     letters.forEach(item => {
