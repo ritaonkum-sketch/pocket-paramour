@@ -241,6 +241,21 @@
             '#' + POPUP_ID + ' .pp-ctp-row.done .pp-ctp-bar-fill {' +
             '  background: linear-gradient(90deg, #F2D690 0%, #FFE9B8 100%);' +
             '}' +
+            // The "Read the story…" row doubles as a shortcut INTO the chapter
+            // list — tap it to jump straight to the story and go complete the
+            // read-through requirement. Pointer cursor + a gently pulsing ›
+            // chevron advertise that it is tappable.
+            '#' + POPUP_ID + ' .pp-ctp-row-go { cursor: pointer; transition: border-color 160ms ease, background 160ms ease; }' +
+            '#' + POPUP_ID + ' .pp-ctp-row-go:hover, #' + POPUP_ID + ' .pp-ctp-row-go:active {' +
+            '  border-color: rgba(232, 168, 91, 0.5); background: rgba(40, 22, 54, 0.7);' +
+            '}' +
+            '#' + POPUP_ID + ' .pp-ctp-go-chev {' +
+            '  flex: 0 0 auto; align-self: center;' +
+            '  font-family: "Cormorant Garamond", serif; font-size: 20px; line-height: 1;' +
+            '  color: rgba(232, 168, 91, 0.8); margin-left: 2px;' +
+            '  animation: ppCtpChev 1.6s ease-in-out infinite;' +
+            '}' +
+            '@keyframes ppCtpChev { 0%,100% { transform: translateX(0); opacity: 0.7; } 50% { transform: translateX(3px); opacity: 1; } }' +
             // Jun 2026 — belt-and-braces bleed-through guard. Even if the
             // JS teardown loses a race during a scene transition, CSS
             // hides the chip + popup whenever the player isn't on the
@@ -407,13 +422,17 @@
             // re-rendering the popup — that re-render was the source of
             // the "popup flickers every 3 seconds" bug (the chip poll).
             var pct = (typeof m.pct === 'number') ? Math.round(m.pct * 100) : (m.done ? 100 : 0);
-            return '<div class="pp-ctp-row' + (m.done ? ' done' : '') + '" data-key="' + m.key + '">' +
+            // The read-through step ('sequence') doubles as a shortcut into the
+            // chapter list — tappable, with a chevron, while it's still pending.
+            var isGo = (m.key === 'sequence' && !!p.gatewayChapter);
+            return '<div class="pp-ctp-row' + (m.done ? ' done' : '') + (isGo ? ' pp-ctp-row-go' : '') + '" data-key="' + m.key + '"' + (isGo ? ' role="button" tabindex="0"' : '') + '>' +
                 '<span class="pp-ctp-check">' + (m.done ? '✓' : '') + '</span>' +
                 '<span style="flex:1 1 auto;">' +
                 '  <div class="pp-ctp-label">' + m.label + '</div>' +
                 '  <div class="pp-ctp-prog">' + m.progress + '</div>' +
                 '  <div class="pp-ctp-bar"><span class="pp-ctp-bar-fill" style="width:' + pct + '%"></span></div>' +
                 '</span>' +
+                (isGo && !m.done ? '<span class="pp-ctp-go-chev" aria-hidden="true">›</span>' : '') +
                 '</div>';
         }).join('');
         pop.innerHTML =
@@ -421,6 +440,21 @@
             '<div class="pp-ctp-title">' + p.nextName + '’s route opens</div>' +
             rows;
         document.body.appendChild(pop);
+        // Wire the "Read the story…" row → open the chapter list so the player
+        // can jump straight to reading and go complete the requirement. Same
+        // jump the ready-CTA chip uses (togglePopup → MSChapters.open).
+        try {
+            var _goRow = pop.querySelector('.pp-ctp-row-go[data-key="sequence"]');
+            if (_goRow) {
+                _goRow.addEventListener('click', function (ev) {
+                    ev.stopPropagation();
+                    closePopup();
+                    if (window.MSChapters && typeof window.MSChapters.open === 'function') {
+                        window.MSChapters.open();
+                    }
+                });
+            }
+        } catch (_) {}
         void pop.offsetHeight;
         pop.classList.add('show');
     }
