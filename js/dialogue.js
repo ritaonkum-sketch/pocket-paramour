@@ -274,6 +274,11 @@ class TypewriterEffect {
         // Format: "Some text[shy] continues here" → shifts face at that position.
         // Tags are stripped from display text; only their position is recorded.
         const VALID_EMOTIONS = new Set(['happy','sad','shy','love','angry','neutral','crying']);
+        // Authored cues use more emotion words than the face system has sprites for.
+        // Map the extras onto a face we DO have so [warm]/[calm]/[guarded]/… still
+        // shift the portrait instead of printing literally. (Before: only the 7 above
+        // were stripped, so every other bracketed cue leaked into the bubble as text.)
+        const EMOTION_ALIAS = { warm:'love', gentle:'love', tender:'love', soft:'love', calm:'happy', guarded:'shy', weathered:'sad', cold:'neutral', serious:'neutral', stern:'angry', furious:'angry' };
         this._emotionTriggers = [];
         let rawText = applyPlayerName(text);
         // Proto 4th-wall token resolution — replace ${BOND} etc with actual values
@@ -287,10 +292,15 @@ class TypewriterEffect {
             if (rawText[i] === '[') {
                 const close = rawText.indexOf(']', i + 1);
                 if (close !== -1) {
-                    const tag = rawText.slice(i + 1, close);
-                    if (VALID_EMOTIONS.has(tag)) {
-                        // Record trigger at current clean-text position
-                        this._emotionTriggers.push({ at: cleanText.length, emotion: tag, fired: false });
+                    const tag = rawText.slice(i + 1, close).toLowerCase();
+                    // ANY single lowercase word in brackets is an inline emotion cue
+                    // (the authoring convention — stage ACTIONS use *asterisks*). Strip
+                    // it so it can never print literally; fire a face-shift for the 7
+                    // native emotions or a mapped alias. 'name' is spared in case a
+                    // stray [name] slips past applyPlayerName above.
+                    if (/^[a-z]+$/.test(tag) && tag !== 'name') {
+                        const em = VALID_EMOTIONS.has(tag) ? tag : EMOTION_ALIAS[tag];
+                        if (em) this._emotionTriggers.push({ at: cleanText.length, emotion: em, fired: false });
                         i = close + 1;
                         continue;
                     }
