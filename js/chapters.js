@@ -8282,9 +8282,9 @@
 
             // ─── Noon · the wood hides the hut ────────────────────────────
             { type: 'line', speaker: '', text: 'He has turned away first. He has taken his bow from the wall, then thought better of it and left it leaning.', hold: 5400, cps: 22 },
-            { type: 'line', speaker: 'ELIAN', text: '"…it is near noon. I will get food."', hold: 2800, cps: 28 },
+            { type: 'line', speaker: 'ELIAN', text: '"…the sun is near its height. I will get food."', hold: 2800, cps: 28 },
             { type: 'line', speaker: '', text: 'The quiet has come back between you, and you let it. He goes out. The latch settles behind him.', hold: 5400, cps: 22 },
-            { type: 'line', speaker: '', text: 'The wood outside the hut. The trees folded close. The light noon-flat through the canopy.', hold: 4800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wood outside the hut. The trees folded close. The light high and flat through the canopy.', hold: 4800, cps: 22 },
             { type: 'line', speaker: '', text: 'The wood at the eastern edge. The wind that is not wind moves through the trees. A track far off. A figure on it. Fair hair. Eyes the green of the wood he has ridden into.', hold: 9000, cps: 22 },
             { type: 'line', speaker: '', text: 'Elian standing among the trees. He has felt the wood report it. He does not hurry. The corner of his mouth does the dry thing.', hold: 6400, cps: 22 },
             { type: 'line', speaker: 'ELIAN', text: '*…the wood has always hidden this hut. It will keep hiding it.*', hold: 4400, cps: 24 },
@@ -8339,7 +8339,7 @@
 
             // ─── Afternoon · Alistair · the arrow ─────────────────────────
             { type: 'line', speaker: '', text: 'Elian at the door. He has waited until the breath was the breath of true sleep. He takes the bow. He strings it at the threshold. He goes out into the green.', hold: 8000, cps: 22 },
-            { type: 'line', speaker: '', text: 'The deep wood, a long way from the hut. Noon gone to afternoon. The light in long bars through the trees.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The deep wood, a long way from the hut. The high sun gone to afternoon. The light in long bars through the trees.', hold: 5400, cps: 22 },
             { type: 'line', speaker: '', text: 'Alistair under an oak. The green cloak across the saddle behind him. The horse cropping. He has sat to rest. Hard bread and cured meat in his hand. The face of a man who has been riding since the dark.', hold: 11000, cps: 22 },
             { type: 'line', speaker: '', text: 'He has let the sword lie across his knees. The eyes still move over the treeline out of habit. The wood gives him nothing.', hold: 6000, cps: 22 },
             { type: 'line', speaker: '', text: 'An arrow stands in the earth a hand’s breadth from his foot. Still humming.', hold: 4000, cps: 24 },

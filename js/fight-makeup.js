@@ -210,7 +210,7 @@
         ]
       },
       reunion: {
-        setup: '*The clearing at dusk. He has set out two bowls beside the fire before you arrived. The stew has been on the pot since noon. He turns when he hears your boots.* I had planned to be cold to you tonight. *Smaller.* The forest has talked me out of it. So have I.',
+        setup: '*The clearing at dusk. He has set out two bowls beside the fire before you arrived. The stew has been on the pot since the sun was high. He turns when he hears your boots.* I had planned to be cold to you tonight. *Smaller.* The forest has talked me out of it. So have I.',
         prompt: 'What do you do?',
         options: [
           { id: 'sit_close',

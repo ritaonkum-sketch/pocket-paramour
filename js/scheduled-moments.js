@@ -287,7 +287,7 @@
         ]
       },
       onMiss: {
-        setup: '*The treeline at noon. The flowers have closed. They will not open again for another year. He is sharpening his knife on the same log he sharpens it on every day. He does not look up.* The bloom came at first light. I waited. The forest waited. We have a year to go before it tries again.',
+        setup: '*The treeline, the sun straight overhead. The flowers have closed. They will not open again for another year. He is sharpening his knife on the same log he sharpens it on every day. He does not look up.* The bloom came at first light. I waited. The forest waited. We have a year to go before it tries again.',
         prompt: 'What do you say?',
         options: [
           { id: 'with_you',
@@ -519,7 +519,7 @@
           ]
         },
         onMiss: {
-          setup: '*He is at the treeline at noon, where the markers end, the iron key back on its stem of grass in his palm. He does not hold it out. He closes his hand around it.* I lit the fire. I sat in the room with the door open and the steps clear. The hollow has been empty six hundred years. It managed one more dawn.',
+          setup: '*He is at the treeline under a high sun, where the markers end, the iron key back on its stem of grass in his palm. He does not hold it out. He closes his hand around it.* I lit the fire. I sat in the room with the door open and the steps clear. The hollow has been empty six hundred years. It managed one more dawn.',
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: '“Give me the key again. I’ll come down the steps tomorrow.”',
@@ -551,14 +551,14 @@
           ]
         },
         onMiss: {
-          setup: '*The rowan at noon. The clear space at eye height is still clear. He has not cut it. He sits against the trunk with the closed knife across his knee, and he speaks to the markers, not to you.* The light came. I had the blade to the bark. I did not cut a name into a tree for someone who was not standing under it. That is not how it is done. The tree and I can wait. We are both good at it.',
+          setup: '*The rowan under a high sun. The clear space at eye height is still clear. He has not cut it. He sits against the trunk with the closed knife across his knee, and he speaks to the markers, not to you.* The light came. I had the blade to the bark. I did not cut a name into a tree for someone who was not standing under it. That is not how it is done. The tree and I can wait. We are both good at it.',
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: '“Tomorrow’s dawn. I’ll stand under it. Then cut.”',
               response: '*He nods, once, opens the knife and closes it again, a small private sound.* Tomorrow. I have waited six hundred years to carve this tree in something other than grief. One more dawn is nothing. You being under it is everything. I can tell the difference now.',
               effect: { bond: 4, trust: 3 } },
             { id: 'now', label: '“I’m here now. Cut it now.”',
-              response: '*He stands, slowly, and sets the blade to the clear space without another word, and carves your name into the rowan at noon with the markers of six centuries watching.* There. *He steps back, looks at it, looks at you.* It is done in the wrong light and I do not care. Some names should not wait for the dawn to be tidy. Yours was one.',
+              response: '*He stands, slowly, and sets the blade to the clear space without another word, and carves your name into the rowan under the high sun with the markers of six centuries watching.* There. *He steps back, looks at it, looks at you.* It is done in the wrong light and I do not care. Some names should not wait for the dawn to be tidy. Yours was one.',
               effect: { bond: 5, obsession: 4 } }
           ]
         }
