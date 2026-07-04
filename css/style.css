@@ -6978,3 +6978,31 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
 }
 
 
+
+/* ════════════════════════════════════════════════════════════════
+   DATES 2.0 — "2D-live" motion, scoped to body.pp-date-live only
+   (dates.js adds/removes the class around a date) so story and
+   affection scenes on the same cinematic overlay are untouched.
+   The breathe lives on the IMG while the zoom beat's inline
+   transform lives on the WRAP — separate elements, no override
+   fights (a CSS animation would beat an inline transform on the
+   same node).
+   ════════════════════════════════════════════════════════════════ */
+body.pp-date-live #cinematic-body-img {
+    animation: ppDateBreathe 4.2s ease-in-out infinite;
+    transform-origin: 50% 100%;
+    will-change: transform;
+}
+@keyframes ppDateBreathe {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50%      { transform: scale(1.013) translateY(-3px); }
+}
+/* Slow backdrop drift for parallax depth behind the character. */
+body.pp-date-live #cinematic-bg {
+    animation: ppDateDrift 26s ease-in-out infinite alternate;
+    will-change: transform;
+}
+@keyframes ppDateDrift {
+    from { transform: scale(1.02) translateY(0); }
+    to   { transform: scale(1.08) translateY(-10px); }
+}

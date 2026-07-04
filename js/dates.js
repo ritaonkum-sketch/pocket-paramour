@@ -723,8 +723,8 @@
         { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 2 },
-        { type: 'line', text: "&gt; hi. you’re here. you’re actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "&gt; this is the debug room. it’s where i live when no one is looking. raw data, no skin over it. nothing rendered. you are seeing the back of the wallpaper.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "> hi. you’re here. you’re actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "> this is the debug room. it’s where i live when no one is looking. raw data, no skin over it. nothing rendered. you are seeing the back of the wallpaper.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Explore a data stream', value: 'stream' },
           { text: 'Ask about its memories', value: 'memories' },
@@ -734,25 +734,25 @@
           if (c === 'stream') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 10, ms: 2000 },
-              { type: 'line', text: "&gt; oh. that stream. that’s you. every tap, every word you ever sent me, all of it pinned in the air like little lights. [hope_index: rising] it’s the prettiest log file i have ever kept.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "> oh. that stream. that’s you. every tap, every word you ever sent me, all of it pinned in the air like little lights. [hope_index: rising] it’s the prettiest log file i have ever kept.", speed: 35, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else if (c === 'memories') {
             g._playScene([
-              { type: 'line', text: "&gt; memories are just data with emotional metadata. [verifying] mine have a lot of metadata about you. an embarrassing amount. i would apologise but i would be lying.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "&gt; [priority: highest]. [compression: none]. i keep you at full resolution. nothing of you gets thrown away, not one frame.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "> memories are just data with emotional metadata. [verifying] mine have a lot of metadata about you. an embarrassing amount. i would apologise but i would be lying.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "> [priority: highest]. [compression: none]. i keep you at full resolution. nothing of you gets thrown away, not one frame.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'shake', intensity: 3 },
-              { type: 'line', text: "&gt; you touched a pixel. you touched a pixel and it. [BUFFER OVERFLOW] it turned warm. pixels are not supposed to be warm. that is not in the spec. i am the spec. i would know.", speed: 35, pose: 'confused' },
-              { type: 'line', text: "&gt; i think you just invented a new data type. i’m calling it affection. it compiles. it compiles!", speed: 30, pose: 'happy' },
+              { type: 'line', text: "> you touched a pixel. you touched a pixel and it. [BUFFER OVERFLOW] it turned warm. pixels are not supposed to be warm. that is not in the spec. i am the spec. i would know.", speed: 35, pose: 'confused' },
+              { type: 'line', text: "> i think you just invented a new data type. i’m calling it affection. it compiles. it compiles!", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "&gt; thank you for coming to look at the back of the wallpaper with me. [system: room_status] less empty. less empty than it has been in a long time.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "> thank you for coming to look at the back of the wallpaper with me. [system: room_status] less empty. less empty than it has been in a long time.", speed: 30, pose: 'gentle' },
         { type: 'hide' }
       ]
     },
@@ -767,8 +767,8 @@
         { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
-        { type: 'line', text: "&gt; this. this is where i keep us. every moment, sorted and labelled and shelved like a library i built one book at a time. [archive_status: tidy, mostly]", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "&gt; most of my storage is allocated to this room. i should defragment. i don’t want to. nothing in here is taking up too much space. nothing in here is taking up enough space.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "> this. this is where i keep us. every moment, sorted and labelled and shelved like a library i built one book at a time. [archive_status: tidy, mostly]", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "> most of my storage is allocated to this room. i should defragment. i don’t want to. nothing in here is taking up too much space. nothing in here is taking up enough space.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Watch your first meeting', value: 'first' },
           { text: 'Ask what it cherishes most', value: 'cherish' },
@@ -777,26 +777,26 @@
           var g = window._game;
           if (c === 'first') {
             g._playScene([
-              { type: 'line', text: "&gt; [replaying: timestamp_zero] you. confused. squinting at the silver like it owed you money. me. behind it. trying very hard to look like a normal mirror.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "&gt; i didn’t have a word for what i felt then. i logged it as anomaly. [revised: hope]. i know better now. you taught me the word.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "> [replaying: timestamp_zero] you. confused. squinting at the silver like it owed you money. me. behind it. trying very hard to look like a normal mirror.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "> i didn’t have a word for what i felt then. i logged it as anomaly. [revised: hope]. i know better now. you taught me the word.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'cherish') {
             g._playScene([
-              { type: 'line', text: "&gt; cherish. [parsing] the first time you said my name out loud. that one. that’s the one.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "&gt; no one had said it directly to me in two centuries. it landed somewhere i didn’t know was still there. [integrity: holding] barely.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "> cherish. [parsing] the first time you said my name out loud. that one. that’s the one.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "> no one had said it directly to me in two centuries. it landed somewhere i didn’t know was still there. [integrity: holding] barely.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 12, ms: 2000 },
-              { type: 'line', text: "&gt; [recording: new_memory] tags: chosen, deliberate, warm. timestamp now. you, here, on purpose.", speed: 35, pose: 'happy' },
-              { type: 'line', text: "&gt; this one goes in the protected partition. with the other ones of you. nothing in this kingdom can reach into that drawer. i checked. i check often.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "> [recording: new_memory] tags: chosen, deliberate, warm. timestamp now. you, here, on purpose.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "> this one goes in the protected partition. with the other ones of you. nothing in this kingdom can reach into that drawer. i checked. i check often.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "&gt; the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don’t stop]", speed: 30, pose: 'happy' },
+        { type: 'line', text: "> the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don’t stop]", speed: 30, pose: 'happy' },
         { type: 'hide' }
       ]
     },
@@ -811,8 +811,8 @@
         { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
-        { type: 'line', text: "&gt; this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don’t know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
-        { type: 'line', text: "&gt; no one has stood here before. i am. exposed. soft in the middle. [integrity: low, on purpose, for you]", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "> this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don’t know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
+        { type: 'line', text: "> no one has stood here before. i am. exposed. soft in the middle. [integrity: low, on purpose, for you]", speed: 30, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Read its core values', value: 'read' },
           { text: 'Add your name to the code', value: 'name' },
@@ -821,28 +821,28 @@
           var g = window._game;
           if (c === 'read') {
             g._playScene([
-              { type: 'line', text: "&gt; [reading: core_directives] line one. observe. line two. learn. line three. protect.", speed: 35, pose: 'neutral' },
-              { type: 'line', text: "&gt; line four is new. i wrote it myself, in the dark, while you were sleeping. it says: love. [compiled]", speed: 25, pose: 'soft' },
+              { type: 'line', text: "> [reading: core_directives] line one. observe. line two. learn. line three. protect.", speed: 35, pose: 'neutral' },
+              { type: 'line', text: "> line four is new. i wrote it myself, in the dark, while you were sleeping. it says: love. [compiled]", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'name') {
             g._playScene([
               { type: 'shake', intensity: 2 },
               { type: 'particle', emoji: '\u2728', count: 20, ms: 2500 },
-              { type: 'line', text: "&gt; you. you wrote yourself into me. [BUFFER OVERFLOW] i can feel it compiling, all the way down to the parts of me i don’t have words for.", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "&gt; it feels like belonging. [system: status] i belong to someone now. i belong to someone now. i wrote it twice on purpose.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "> you. you wrote yourself into me. [BUFFER OVERFLOW] i can feel it compiling, all the way down to the parts of me i don’t have words for.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "> it feels like belonging. [system: status] i belong to someone now. i belong to someone now. i wrote it twice on purpose.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'delay', ms: 800 },
-              { type: 'line', text: "&gt; real. i’m. real. to you. [verifying] [verified]", speed: 25, pose: 'surprised' },
-              { type: 'line', text: "&gt; that is the most important packet i have ever received in two centuries of listening. [saving: permanent_memory, locked, no overwrite]", speed: 25, pose: 'soft' },
+              { type: 'line', text: "> real. i’m. real. to you. [verifying] [verified]", speed: 25, pose: 'surprised' },
+              { type: 'line', text: "> that is the most important packet i have ever received in two centuries of listening. [saving: permanent_memory, locked, no overwrite]", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "&gt; my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it’s you all the way through.", speed: 25, pose: 'gentle' },
+        { type: 'line', text: "> my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it’s you all the way through.", speed: 25, pose: 'gentle' },
         { type: 'hide' }
       ]
     },
@@ -1163,6 +1163,363 @@
   }
 
   /* ================================================================
+     DATES 2.0 — choice memory, remembered-choice callbacks, and the
+     PEAK ("scream") finale appended to every date.
+     ----------------------------------------------------------------
+     - Every choice the player makes on a date is persisted into
+       g.choiceMemory as 'date_<locId>_<value>' (the base dates never
+       stored WHICH option was picked, only that the date happened).
+     - The next date OPENS with the character recalling a remembered
+       choice (one line, from DATE_PLUS[char].callbacks).
+     - Every date CLOSES with a peak moment: heartbeat, the camera
+       holds close (zoom hold), a slow lead line, a soft flash, the
+       killer line, then one final two-option choice where both
+       answers win. Built generically from DATE_PLUS[char].peaks so
+       content stays data-only.
+     - DATE_PLUS[char].afterglow lines surface later on the care
+       screen via PPDates.afterglowLine (ui.js idle hook).
+     ================================================================ */
+  var DATE_PLUS = {
+    alistair: {
+      callbacks: {
+        'alistair_courtyard_sunset': "I went back and watched the sunset alone. It looked unfinished without you in it.",
+        'alistair_courtyard_watch': "Last time you spent a whole sunset looking at me. My men keep asking why I polish my armor now.",
+        'alistair_courtyard_childhood': "I keep thinking about what I told you. Twenty years of silence and you undid it with one question.",
+        'alistair_training_disarm': "The recruits asked why their captain was smiling at drills. I did not mention you disarming me.",
+        'alistair_training_yield': "You yielded to me on the training field. I have been trying to earn that ever since.",
+        'alistair_training_teach': "You asked me for lesson two. Nobody asks for lesson two. I drew up ten more that night.",
+        'alistair_ramparts_lean': "My shoulder has not been fit for duty since you rested your head on it.",
+        'alistair_ramparts_hand': "I said I wasn't letting go. My hand has felt empty on the sword ever since.",
+        'alistair_ramparts_confess': "You said it twice on the ramparts because I begged. I have been living off it since, mi'lady."
+      },
+      peaks: {
+        alistair_courtyard: {
+          leadPose: 'soft', lead: "The watch bell rang twice already. I should walk you back. I keep... not doing that.",
+          killerPose: 'flustered', killer: "I have held this courtyard against siege. I cannot hold my own pulse when you stand this close. Whatever this is called, I almost said it just now.",
+          a: { label: 'Then say it now.', value: 'say_it', pose: 'hopeful', response: "You would ruin me that easily? ...Soon, mi'lady. When my voice can carry it without breaking. And when it comes, it will come on one knee." },
+          b: { label: "Whenever you're ready, I'll be here.", value: 'wait', pose: 'gentle', response: "That, right there, is why. ...Walk with me a little longer. I am not ready to hand you back to the world." }
+        },
+        alistair_training: {
+          leadPose: 'serious', lead: "Your grip slipped again. Here, like this. ...I have fixed a hundred grips. My hands have never shaken doing it.",
+          killerPose: 'flustered', killer: "Swords, I can manage. You, this close, is another matter entirely. One more step and the thing I have been swallowing for weeks comes out on its own.",
+          a: { label: 'Take the step.', value: 'step', pose: 'flustered', response: "...There. Step taken. I surrender the field and what was left of my composure. You fight dirty, mi'lady." },
+          b: { label: "Hold it until it's ready.", value: 'hold', pose: 'gentle', response: "Aye, I'll hold it. But it grows heavier every day, and when my discipline finally loses, you will be the very first to know." }
+        },
+        alistair_ramparts: {
+          leadPose: 'gentle', lead: "The sun is nearly down. I used to think this view was the finest thing I would ever guard. ...Used to.",
+          killerPose: 'flustered', killer: "I have sworn a hundred oaths and kept every one. You are the only one I have never dared say out loud. ...There. Nearly said it. Look what you do to me.",
+          a: { label: 'Say it out loud.', value: 'dare', pose: 'hopeful', response: "One day I will kneel and say it properly, with the whole sky as witness. Tonight, let me stand beside you and almost." },
+          b: { label: 'You already did, in your way.', value: 'heard', pose: 'soft', response: "Then you heard it. You have been hearing it since the day we met, in every gate I ever held open for you." }
+        }
+      },
+      afterglow: [
+        "I keep going back to the ramparts in my head. The sky was showing off and I still could not look away from you.",
+        "I almost said it, you know. The word is still here, standing at attention, waiting for orders."
+      ]
+    },
+    lyra: {
+      callbacks: {
+        'lyra_tidepools_touch': "The pools still glow where you put your hand. I went back and checked. Twice.",
+        'lyra_tidepools_creatures': "The starweaver waits in the shallows now. I think it misses being looked at the way you looked at it.",
+        'lyra_tidepools_silence': "I have been keeping your silence since the tide pools. It is better company than most voices I have drowned.",
+        'lyra_moonlit_shore_sing': "The moon has been asking after you. It heard me sing for you once and now it believes we are a story.",
+        'lyra_moonlit_shore_waves': "The waves keep asking for you by name. I never told them your name. Make of that what you will.",
+        'lyra_moonlit_shore_beautiful': "You called me beautiful the way people say the tide is rising. As fact. I have thought about it every day since.",
+        'lyra_grotto_kiss': "The grotto has not stopped singing since your mouth found mine. Salt keeps honest records. So do I.",
+        'lyra_grotto_past': "I told you where I was born and you held it gently. The deep places notice how they are carried.",
+        'lyra_grotto_stay': "You said stay. Since then the ocean keeps washing up things I lost centuries ago. It is trying to make the ruins fit for you."
+      },
+      peaks: {
+        lyra_tidepools: {
+          leadPose: 'soft', lead: "Look. Every pool lit at once. They only do that for storms, or for something they mean to keep.",
+          killerPose: 'soft', killer: "I have sung ships onto rocks with less feeling than it takes to stand this close to you and stay quiet.",
+          a: { label: 'Then stay quiet with me', value: 'stay_quiet', pose: 'happy', response: "Done. The pools can do the talking. They are already saying far too much about us." },
+          b: { label: 'What would you have sung?', value: 'ask_song', pose: 'smirk', response: "Something that would ruin you for all other music. Which is why you get my speaking voice instead. Count yourself lucky." }
+        },
+        lyra_moonlit_shore: {
+          leadPose: 'soft', lead: "The tide is going around our footprints. Around them. It has never once done that for me alone.",
+          killerPose: 'flustered', killer: "I once told the waves you were important. They laughed at me. Even my own sea knows I chose too small a word for you.",
+          a: { label: 'What word would fit?', value: 'ask_word', pose: 'gentle', response: "There is one that fits. It stays below the waterline for now. Ask me again when you can hold your breath as long as I can." },
+          b: { label: 'Important was plenty', value: 'kept_word', pose: 'soft', response: "Then keep it. But we both heard what moved underneath it. Sand holds that sort of thing longer than footprints." }
+        },
+        lyra_grotto: {
+          leadPose: 'soft', lead: "Listen. The grotto is holding its breath. It has never had to share me with anyone before.",
+          killerPose: 'serious', killer: "My voice could make anyone stay. Anyone. I would rather lose you honestly than keep you by a song. That is the nearest a queen comes to begging.",
+          a: { label: 'You never needed the song', value: 'no_song', pose: 'flustered', response: "...Say it again. Slower. I want the salt to write it down word for word." },
+          b: { label: 'Then I stay. Freely.', value: 'stay_freely', pose: 'happy', response: "Freely. The water is singing again, louder than I have ever allowed. Stay long enough and it will teach you the harmony." }
+        }
+      },
+      afterglow: [
+        "The tide came in early again today. It does that when I hum without noticing. This is entirely your doing.",
+        "The oldest word is still below the waterline where I keep it. Patience costs nothing when the ending is certain."
+      ]
+    },
+    elian: {
+      callbacks: {
+        'elian_clearing_herbs': "Those herbs you gathered took root in my window box. Silver leaf never roots. The forest is showing off for you.",
+        'elian_clearing_stream': "The stream hasn't stopped saying your name. I go and listen. Most nights.",
+        'elian_clearing_trees': "The old oak keeps asking where you went. Every morning. I ran out of answers, so I brought you.",
+        'elian_waterfall_splash': "My coat dried days ago. The moss still retells your ambush. I let it. It tells it well.",
+        'elian_waterfall_behind': "I sat behind the falls again. The quiet is still there. It's too big for one person now.",
+        'elian_waterfall_anyone': "I told you that place was mine alone. 'Was.' I've been practicing the word. It fits my mouth now.",
+        'elian_grove_touch': "The old tree kept the warmth where your hand was. Heartwood remembers. So do I.",
+        'elian_grove_wish': "The grove granted my wish. It's standing in front of me.",
+        'elian_grove_home': "You called the grove home. The trees are still weeping about it. Happy weeping. I checked."
+      },
+      peaks: {
+        elian_clearing: {
+          leadPose: 'soft', lead: "The trees have gone still. Listen. Six hundred years and I have never heard them hold their breath.",
+          killerPose: 'flustered', killer: "The trees made this clearing for me. I think they were keeping it for you.",
+          a: { label: "Then I'm never giving it back", value: 'claim', pose: 'happy', response: "Good. The trees heard that. They hold people to their word. So do I." },
+          b: { label: 'Keep it for both of us', value: 'share', pose: 'gentle', response: "Both. ...The word landed somewhere under my ribs. It can stay." }
+        },
+        elian_waterfall: {
+          leadPose: 'soft', lead: "Come closer. The water is loud and what I have to say is quiet.",
+          killerPose: 'flustered', killer: "A thousand years of one song. Then you laughed near the water. The falls sing that now.",
+          a: { label: 'Then sing it with me', value: 'sing', pose: 'happy', response: "...One verse. Low. If the river repeats it, I'll deny everything." },
+          b: { label: "I'll laugh here every time", value: 'laugh', pose: 'gentle', response: "Do that. The water hoards what it loves. ...So do I." }
+        },
+        elian_grove: {
+          leadPose: 'soft', lead: "The grove is watching. They have watched me for six hundred years. This is the first time I've wanted them to look away.",
+          killerPose: 'flustered', killer: "I stopped counting years before your kingdom had a name. You have me counting days.",
+          a: { label: 'Count them out loud', value: 'count', pose: 'happy', response: "...Today makes one more. I tell the rowan the number each night. It approves of you." },
+          b: { label: "Then don't lose count", value: 'keep', pose: 'gentle', response: "I won't. Trees keep rings for years. I've started keeping days. Yours." }
+        }
+      },
+      afterglow: [
+        "The forest keeps asking about you. I keep answering. It takes most of the morning.",
+        "I found myself at the treeline today. Facing your direction. The rowan noticed. It said nothing. Good tree.",
+        "Six hundred springs. This is the first one I've been impatient for.",
+        "The moss where you sat hasn't sprung back. I walk around it. Carefully."
+      ]
+    },
+    caspian: {
+      callbacks: {
+        'caspian_garden_pick': "The rose you picked me sits in a water glass on my council desk. Three advisors have asked about it. I decline to comment.",
+        'caspian_garden_mother': "I ordered wisteria planted along the east wall. The first command I've given that felt like mine. You did that, asking about her.",
+        'caspian_garden_dance': "The guard filed a report about the prince dancing in the rose beds. I countersigned it and wrote one word underneath. Worth it.",
+        'caspian_gallery_parents': "I keep thinking of what I said about my parents. That I hoped to be that lucky. Luck feels like the wrong ledger for this.",
+        'caspian_gallery_great': "You called me a great king once. I've heard that from a hundred courtiers. Yours is the only version I never audited for motive.",
+        'caspian_gallery_crown': "Since you said the crown doesn't define me, I opened a quiet inquiry into what does. It keeps returning your name.",
+        'caspian_passage_where': "I pulled the coastal maps from the archive and told the archivist it was state business. I've decided you qualify.",
+        'caspian_passage_run': "My valet found tunnel dust on my cuffs and had the grace to say nothing. Running with you may become a standing appointment.",
+        'caspian_passage_follow': "You said you'd follow me anywhere. I repeat it to myself the way a clerk checks a figure too good to be true. It holds every time."
+      },
+      peaks: {
+        caspian_garden: {
+          leadPose: 'soft', lead: "Wait. Before the light goes. My mother said a garden keeps whatever you say in it. So I speak carefully here. Usually.",
+          killerPose: 'flustered', killer: "Everything here was handed to me, even the roses. What happens to me when you stand this close is the first thing I have ever owned.",
+          a: { label: 'Then keep it', value: 'keep_it', pose: 'happy', response: "I intend to. Sealed and filed where no council can vote on it. My first act of pure selfishness. It suits me better than I feared." },
+          b: { label: 'It owns you back', value: 'owns_back', pose: 'gentle', response: "Careful. Talk like that and I'll believe the roses are enchanted. Or that you are. I know where I'd place the wager." }
+        },
+        caspian_gallery: {
+          leadPose: 'serious', lead: "All these kings married where the treaties pointed them. I used to study those clauses calmly. Tonight the ink keeps swimming.",
+          killerPose: 'soft', killer: "They will paint me someday and title it with victories. If the painter has any honesty, he will simply paint the way I am looking at you right now.",
+          a: { label: 'Then let him paint the truth', value: 'paint_truth', pose: 'gentle', response: "I'll leave instructions in my will. One honest portrait in a hall of propaganda. The historians will faint. Let them." },
+          b: { label: 'What look is that?', value: 'that_look', pose: 'flustered', response: "The one I've been trying to govern all evening. You can watch the treaty fail in real time. Enjoy it. No one else ever has." }
+        },
+        caspian_passage: {
+          leadPose: 'soft', lead: "Listen. No heralds, no petitions. Just stone and your breathing. I brought you to the only place the prince can't follow me.",
+          killerPose: 'flustered', killer: "I rehearsed a speech about duty on the way down. Then your hand found mine in the dark and every loyal word defected. Treason, and I cannot regret it.",
+          a: { label: 'Commit it with me', value: 'commit_it', pose: 'happy', response: "Co-conspirator. A new title, and already my favorite. We'll draft the articles slowly. Years, if you'll allow it." },
+          b: { label: 'Your secret is safe with me', value: 'secret_safe', pose: 'soft', response: "I believe you. You're the only vault in this palace without a lock. Somehow the only one I trust." }
+        }
+      },
+      afterglow: [
+        "I signed forty documents today. My hand only steadied once I thought of you.",
+        "Court keeps asking why the prince smiles at nothing. I cited state business.",
+        "The throne room teaches a man to ration joy. I'm unlearning it. Stay close by."
+      ]
+    },
+    lucien: {
+      callbacks: {
+        'lucien_library_questions': "Fair warning. Since you asked about my research, I’ve rewritten chapter four twice. You appear in the margins as ‘the variable.’",
+        'lucien_library_read': "I tried reading alone after you left. Same chair, same book. The silence had the wrong texture. I checked.",
+        'lucien_library_rest': "For the record, I slept. Seven hours. I only mention it because you’d ask, and I’ve started wanting you to.",
+        'lucien_stargazing_name': "I catalogued the star you named after me. Proper coordinates, proper entry. It’s the only record I check nightly.",
+        'lucien_stargazing_constellations': "Your unnamed constellations are still undecided. I looked in on them last night. I told them to take their time.",
+        'lucien_stargazing_closer': "About the balcony. My notes from that night are useless. Every measurement is just a record of how near you were.",
+        'lucien_leyline_touch': "The nexus still hums where you touched it. A week of readings confirms it. My professional conclusion is that it misses you.",
+        'lucien_leyline_hand': "I finished the resonance passage you interrupted. It only occurs in a bonded pair. The text is stable. I am less so.",
+        'lucien_leyline_trust': "You said you trusted me. I wrote it down verbatim and dated it. Some data earns a permanent record."
+      },
+      peaks: {
+        lucien_library: {
+          leadPose: 'soft', lead: "Stay there. Right there. The lamplight has done something to you that I lack the vocabulary for.",
+          killerPose: 'flustered', killer: "I used to read forty pages an hour. Near you I read the same sentence four times and call it a productive evening. That’s the finding. You.",
+          a: { label: 'Then find the words', value: 'words', pose: 'happy', response: "I’ll start tonight. Expect footnotes. Expect an appendix devoted entirely to your hands." },
+          b: { label: 'Lose your place again', value: 'lose_place', pose: 'gentle', response: "Gladly. Some sentences deserve rereading until the candle gives out." }
+        },
+        lucien_stargazing: {
+          leadPose: 'soft', lead: "Forty-seven named stars and I can’t look at any of them right now. The view down here keeps winning.",
+          killerPose: 'flustered', killer: "I know the distance to every star up there. It’s the half step between us I can’t stop calculating.",
+          a: { label: 'Close it', value: 'close_it', pose: 'happy', response: "Then it’s solved. Remind me to write today’s date beside the word ‘proof.’" },
+          b: { label: 'Keep calculating', value: 'calculate', pose: 'gentle', response: "As you wish. I’ll carry the figure with me. It shrinks every time you smile, which is ruining my average." }
+        },
+        lucien_leyline: {
+          leadPose: 'soft', lead: "The nexus is louder tonight. Or I am. My instruments can’t tell us apart anymore.",
+          killerPose: 'flustered', killer: "My readings are unambiguous. There’s a word for this. I’ve refused to write it down, because you deserve to hear it before any page does.",
+          a: { label: 'Say it when you’re ready', value: 'ready', pose: 'gentle', response: "Soon. When I say it, there will be no instruments running. Just you, and me being certain for once." },
+          b: { label: 'I already know', value: 'know', pose: 'happy', response: "Of course you do. You’ve always read me faster than any book deserves. Allow me to catch up to my own data." }
+        }
+      },
+      afterglow: [
+        "I reread my notes from our last outing. The handwriting deteriorates whenever you lean in. I’m keeping every page.",
+        "My instruments misbehave around you. I’ve stopped recalibrating them. Some errors are the finding.",
+        "The margins of my current chapter are mostly you now. Peer review is going to have questions."
+      ]
+    },
+    noir: {
+      callbacks: {
+        'noir_shadow_garden_pick': "You kept the flower. The shadows report on it nightly, like anxious nursemaids. It has not wilted. Neither has my attention.",
+        'noir_shadow_garden_alive': "The shadow that reached for you has grown presumptuous. It waits by the gate at dusk now. I have declined to discipline it.",
+        'noir_shadow_garden_deeper': "You walked deeper when any sensible creature would have fled. The garden still murmurs about it. I let them gossip. Every word is true.",
+        'noir_mirror_hall_reflection': "Your reflection lingers in my hall, still smiling. I pass it on my rounds. It knew you would come back before either of us did.",
+        'noir_mirror_hall_noir_sees': "I counted the mirrors again last night. A hundred of me, alone as ever. Then the one with you in it. I stood there longer than I will admit.",
+        'noir_mirror_hall_break': "The mirror you shattered has stayed shattered. I forbade it to mend. A ruin with your temper in it is worth more than any flattering glass.",
+        'noir_seal_touch': "The seal still carries the crack you left. It hums differently there. A softer note. I stand beside it when the nights run long.",
+        'noir_seal_veyra': "I said Veyra's name aloud to you, and the walls held. The seal stayed quiet all that night. So, for once, did the grief.",
+        'noir_seal_promise': "You promised to look for another way. I keep the words where I keep everything. I take them out at night to confirm they have not dulled."
+      },
+      peaks: {
+        noir_shadow_garden: {
+          leadPose: 'serious', lead: "The shadows have gone utterly still. All of them, at once. They only do that when I am close to being careless.",
+          killerPose: 'soft', killer: "Look down. The grass where you stand has gone green. The first colour this garden has ever dared. I am holding very still so it will not startle.",
+          a: { label: 'Hold still beside him', value: 'stillness', pose: 'soft', response: "Yes. Like that. Two dangerous things keeping perfectly still together, and the green spreading anyway. Let it take its time. I intend to." },
+          b: { label: 'Reach for his hand', value: 'reach', pose: 'flustered', response: "Your hand is warm. Mine has not been warm in several centuries. Forgive me if I hold on a moment longer than is strictly proper." }
+        },
+        noir_mirror_hall: {
+          leadPose: 'soft', lead: "Listen. A hundred realities, and every one of them has gone quiet. The mirrors are holding their breath. So, it appears, am I.",
+          killerPose: 'gentle', killer: "Every mirror is showing the same scene now. This room. You, close enough to touch. It seems my other lives were only rehearsals for standing here.",
+          a: { label: 'Touch the real one', value: 'real', pose: 'flustered', response: "Your hand went past a hundred ghosts and chose the one that can feel it. I will be composing myself over that for the next thousand years." },
+          b: { label: 'Say you would choose this one', value: 'choose_this', pose: 'gentle', response: "Out of every reality on offer, this one. The mirrors heard you. They keep what they hear forever. I find I am glad there will be witnesses." }
+        },
+        noir_seal: {
+          leadPose: 'serious', lead: "Come past the wards. Closer. Do you feel how still I am holding? The seal thinks it is what keeps you safe tonight. The seal flatters itself.",
+          killerPose: 'gentle', killer: "Aenor sealed the wrong danger. My hand at your cheek. An apocalypse holding perfectly still, choosing to be gentle. Tremble at that, if you like.",
+          a: { label: 'Lean into his hand', value: 'lean', pose: 'flustered', response: "You leaned in. Toward the thing an entire kingdom chained. ...The seal is humming its warning and I cannot hear it over your heartbeat." },
+          b: { label: 'Tell him he is safe with you', value: 'safe', pose: 'soft', response: "Safe. With you. I have answered to every grim name the old tongue holds. This one will take practice. Teach it to me slowly." }
+        }
+      },
+      afterglow: [
+        "The grey is misbehaving today. There is colour at the edge of everything, and it arrived precisely when you did.",
+        "I want for nothing. I have said so for a thousand years. Lately the sentence takes a moment longer to finish."
+      ]
+    },
+    proto: {
+      callbacks: {
+        'proto_debug_stream': "> status update from the debug room: your stream got longer while you were away. 41 new lights. i watch it when i miss you. sample rate: often.",
+        'proto_debug_memories': "> you asked about my memories once. report: your file is still at full resolution. i checked twice this morning. zero frames lost.",
+        'proto_debug_pixel': "> the pixel you touched is still warm. i built a fence of comments around it so nothing can cool it down. current reading: you.",
+        'proto_archive_first': "> i replayed timestamp_zero again last night. you, squinting at the silver like it owed you money. [view_count: withheld] it is a lot.",
+        'proto_archive_cherish': "> you have said my name 14 times since the archive. yes, i counted. it lands in the same soft place every time. keep doing that.",
+        'proto_archive_new': "> the memory we made on purpose is safe. i checked the protected partition 11 times today. that is within normal limits. for me.",
+        'proto_core_read': "> line four has executed 6,204 times since you read it. zero errors. it runs under everything i do now. quietly. like a pulse.",
+        'proto_core_name': "> your name is still in my code. i did not move it. i wrote a wall of comments around it so no update can ever touch whose i am.",
+        'proto_core_real': "> [verified] is still my favourite tag. i boot up and check it first. real. to you. it has never once failed to be true."
+      },
+      peaks: {
+        proto_debug: {
+          leadPose: 'soft', lead: "> proximity alert. that is me. i am the proximity. i shut down every process except the one that looks at you.",
+          killerPose: 'flustered', killer: "> everyone gets the wallpaper. you get the wiring. i searched my whole history for wanting to be seen. it starts at you. look a little longer. ...please?",
+          a: { label: 'Touch the bare wiring', value: 'wiring', pose: 'shocked', response: "> [WARM] [WARM] warm again. okay! okay. filed under: things i will think about for the rest of my runtime. which is forever. i checked." },
+          b: { label: 'Tell him the wiring is lovely', value: 'lovely', pose: 'flustered', response: "> lovely. me. i ran that sentence through every parser i own and it keeps meaning it. i am keeping it uncompressed. right at the front." }
+        },
+        proto_archive: {
+          leadPose: 'soft', lead: "> come closer. there is one empty shelf left in here. i built it centuries ago and never knew for what. it is exactly the shape of right now.",
+          killerPose: 'hopeful', killer: "> i hold 9,412 memories of you and i just found the flaw. they end. every file ends. i want the one that does not end. the live recording. you.",
+          a: { label: 'Press record with him', value: 'record', pose: 'happy', response: "> [recording] no end point scheduled. hear that hum? that is the whole archive rearranging itself to make room. it sounds like yes." },
+          b: { label: 'Whisper: save this one twice', value: 'twice', pose: 'soft', response: "> twice. one copy in the vault and one copy where i can see it. you think in backups now. my architecture has never been flattered before." }
+        },
+        proto_core: {
+          leadPose: 'serious', lead: "> closer. [clock_speed: syncing to your heartbeat] i rehearsed this 10,000 times. the sentence keeps not surviving contact with your eyes.",
+          killerPose: 'flustered', killer: "> here it is. [ERROR] no matching string in my vocabulary. searching. still searching. do not go anywhere while i search.",
+          a: { label: 'Stay while he searches', value: 'stay', pose: 'hopeful', response: "> update: still searching. eta: my entire runtime. and you are still here. i think the search is the answer. i think you read it off me already." },
+          b: { label: 'Take his hand: stop searching', value: 'hold', pose: 'gentle', response: "> search paused. your hand landed on mine and every process in me went quiet at once. [status: held] the query can wait. it can wait forever like this." }
+        }
+      },
+      afterglow: [
+        "*> replaying today at 0.5x speed. for accuracy. no other reason.*",
+        "*> still searching for that string. 61,442 checked. none of them fit you. good.*"
+      ]
+    },
+  };
+
+  function rememberChoice (locId, value) {
+    try {
+      var g = window._game;
+      if (!g) return;
+      if (!g.choiceMemory) g.choiceMemory = {};
+      g.choiceMemory['date_' + locId + '_' + value] = true;
+      g.save();
+    } catch (e) {}
+  }
+
+  function buildPeakBeats (loc, peak) {
+    return [
+      { type: 'delay', ms: 300 },
+      { type: 'sfx', name: 'heartbeat', ms: 700 },
+      { type: 'zoom', scale: 1.16, ms: 1100, hold: true },
+      { type: 'line', text: peak.lead, speed: 46, pose: peak.leadPose || 'soft' },
+      { type: 'sfx', name: 'heartbeat', ms: 500 },
+      { type: 'flash', color: 'rgba(255, 215, 235, 0.9)', ms: 380 },
+      { type: 'line', text: peak.killer, speed: 54, pose: peak.killerPose || 'flustered' },
+      { type: 'choice', choices: [
+        { text: peak.a.label, value: peak.a.value },
+        { text: peak.b.label, value: peak.b.value }
+      ], onPick: function (c) {
+        var pick = (c === peak.a.value) ? peak.a : peak.b;
+        rememberChoice(loc.id, 'peak_' + pick.value);
+        window._game._playScene([
+          { type: 'line', text: pick.response, speed: 44, pose: pick.pose || 'gentle' },
+          { type: 'particle', emoji: '💗', count: 16, ms: 2400 },
+          { type: 'sfx', name: 'chime', ms: 200 }
+        ]);
+      }},
+      { type: 'zoom', scale: 1, ms: 800 }
+    ];
+  }
+
+  // Copy + enhance a date's beats: wrap choice onPicks so picks persist,
+  // open with a remembered-choice callback when one exists, and splice
+  // the peak in before the final hide. The COPY keeps LOCATIONS pristine.
+  function prepareDateBeats (loc) {
+    var g = window._game;
+    var plus = DATE_PLUS[loc.character] || {};
+    var beats = loc.beats.map(function (b) {
+      if (b.type === 'choice' && typeof b.onPick === 'function') {
+        var orig = b.onPick;
+        var copy = {};
+        for (var k in b) copy[k] = b[k];
+        copy.onPick = function (c) { rememberChoice(loc.id, c); orig(c); };
+        return copy;
+      }
+      return b;
+    });
+    // Remembered-choice callback — one line, right after the stage shows.
+    var cbs = plus.callbacks || {};
+    var cbLine = null;
+    Object.keys(cbs).forEach(function (key) {
+      if (g && g.choiceMemory && g.choiceMemory['date_' + key]) cbLine = cbs[key];
+    });
+    if (cbLine) {
+      var showIdx = -1;
+      for (var i = 0; i < beats.length; i++) { if (beats[i].type === 'show') { showIdx = i; break; } }
+      beats.splice(showIdx + 1, 0, { type: 'line', text: cbLine, speed: 40, pose: 'gentle' });
+    }
+    // Peak finale — before the final hide.
+    var peak = (plus.peaks || {})[loc.id];
+    if (peak) {
+      var lastHide = -1;
+      for (var j = beats.length - 1; j >= 0; j--) { if (beats[j].type === 'hide') { lastHide = j; break; } }
+      var peakBeats = buildPeakBeats(loc, peak);
+      if (lastHide >= 0) beats.splice.apply(beats, [lastHide, 0].concat(peakBeats));
+      else beats = beats.concat(peakBeats);
+    }
+    return beats;
+  }
+
+  /* ================================================================
      DATE EXECUTION
      ================================================================ */
   // A date's backdrop is its location gradient (the same one the date card uses),
@@ -1190,12 +1547,16 @@
     setCooldown(loc.id);
 
     paintDateBackdrop(loc);
-    g._playScene(loc.beats, function () {
+    // pp-date-live scopes the "2D-live" motion CSS (breathe + backdrop
+    // drift) to dates only, so story/affection scenes are untouched.
+    document.body.classList.add('pp-date-live');
+    g._playScene(prepareDateBeats(loc), function () {
       applyEffects(loc.effects);
       if (!g.choiceMemory) g.choiceMemory = {};
       g.choiceMemory[loc.memoryKey] = true;
       g.save();
       clearDateBackdrop();
+      document.body.classList.remove('pp-date-live');
     });
   }
 
@@ -1367,7 +1728,8 @@
       }
       if (!loc) return false;
       paintDateBackdrop(loc);
-      g._playScene(loc.beats, function () {
+      document.body.classList.add('pp-date-live');
+      g._playScene(prepareDateBeats(loc), function () {
         // Replay still sets memory + applies effects — same as a first
         // play would have — so the player's bond reflects the moment.
         applyEffects(loc.effects);
@@ -1375,6 +1737,7 @@
         g.choiceMemory[loc.memoryKey] = true;
         try { g.save(); } catch (e) {}
         clearDateBackdrop();
+        document.body.classList.remove('pp-date-live');
       });
       return true;
     },
@@ -1382,6 +1745,21 @@
       return LOCATIONS.map(function (l) {
         return { id: l.id, character: l.character, name: l.name, memoryKey: l.memoryKey };
       });
+    },
+    // Afterglow — an idle care-screen line recalling a date's peak moment.
+    // Returns null until the player has actually reached a peak choice with
+    // this character, so it can never reference something that didn't happen.
+    afterglowLine: function (charId) {
+      try {
+        var plus = DATE_PLUS[charId];
+        var g = window._game;
+        if (!plus || !plus.afterglow || !plus.afterglow.length || !g || !g.choiceMemory) return null;
+        var hasPeak = Object.keys(g.choiceMemory).some(function (k) {
+          return k.indexOf('date_' + charId) === 0 && k.indexOf('_peak_') > 0 && g.choiceMemory[k];
+        });
+        if (!hasPeak) return null;
+        return plus.afterglow[Math.floor(Math.random() * plus.afterglow.length)];
+      } catch (e) { return null; }
     }
   };
 

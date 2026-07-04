@@ -652,6 +652,20 @@ class GameUI {
                     }
                 }
 
+                // ── Date afterglow (8% chance) ────────────────────────
+                // Recalls the PEAK moment of a past date in the character's
+                // voice. PPDates.afterglowLine returns null until the player
+                // has actually reached a date's peak with this character.
+                if (Math.random() < 0.08 && window.PPDates && typeof window.PPDates.afterglowLine === 'function') {
+                    var agChar = g.selectedCharacter || g.characterId;
+                    var agLine = window.PPDates.afterglowLine(agChar);
+                    if (agLine) {
+                        g.typewriter.show(agLine);
+                        this.scheduleIdleDialogue();
+                        return;
+                    }
+                }
+
                 // ── Noir cross-character corruption taint (8% chance) ────
                 if (Math.random() < 0.08 && g.selectedCharacter !== 'noir' && typeof g._loadMetaMemory === 'function') {
                     var meta = g._loadMetaMemory();
