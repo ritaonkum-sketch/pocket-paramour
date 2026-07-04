@@ -180,7 +180,7 @@
             { type: 'line', speaker: '', text: '*horn. once.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: '*horn. twice.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'Patrol horns. The kind that mean a kingdom is awake and watching.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: '...a kingdom.', hold: 1800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...a kingdom.*', hold: 1800, cps: 26 },
             { type: 'line', speaker: '', text: 'You move before you understand why.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your hand folds the page along the burned edge, slipping it into the tear inside your sleeve. The lining accepts it too easily. Like it has hidden this before.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You would rather be the one to find out.', hold: 3200, cps: 26 },
@@ -190,13 +190,13 @@
             { type: 'line', speaker: '', text: 'The world tilts. Your ankle folds under you. You hit one knee, then both hands, breath leaving hard through your teeth.', hold: 4000, cps: 26 },
             { type: 'line', speaker: '', text: '*krk.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'Something moving through the underbrush. Not animal movement. Something heavier.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: '...something is in here with you.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...something is in here with you.*', hold: 2400, cps: 26 },
 
             // ─── Section 5 · The wound-creature ──────────────────────────
             { type: 'line', speaker: '', text: 'Leaves shifting. A shape behind them.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'It steps forward.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Too many legs. Joints bending a fraction too late. A mouth split sideways across its skull. Black ribbons leaking from between its teeth like smoke escaping a wound.', hold: 4800, cps: 24 },
-            { type: 'line', speaker: '', text: '...run.', hold: 1600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...run.*', hold: 1600, cps: 26 },
 
             // ─── Section 6 · The chase ───────────────────────────────────
             { type: 'line', speaker: '', text: 'You run.', hold: 1400, cps: 28 },
@@ -209,7 +209,7 @@
             { type: 'line', speaker: '', text: 'You do not know your own name. You know to save this.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'You glance back.', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'The creature is already at the clearing’s edge. Closer than it should be.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: '...you are not going to make it.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...you are not going to make it.*', hold: 2400, cps: 26 },
 
             // ─── Section 7 · The fall ────────────────────────────────────
             { type: 'line', speaker: '', text: 'Your foot catches a root. You hit the moss hard. The air leaves your chest.', hold: 3000, cps: 26 },
@@ -231,7 +231,7 @@
             { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet. Not soot-black. Absence-black. It curls toward the trees in thin ribbons. Like it wants to go home.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'The man watches the smoke instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'The smoke thins. Vanishes into the canopy. The creature beneath it collapses inward. Ash-coloured. Ancient. As if death only just remembered it.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: '*(fading)* ...the danger is over.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...the danger is over.*', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close. Darkness rushes up fast.', hold: 2200, cps: 28 },
 
             // ─── Section 9 · The kneel ───────────────────────────────────
@@ -282,7 +282,7 @@
             // typing. Sprint 3 audit item #8.
             { type: 'line', speaker: '', sfx: { name: 'crystal-resonance', volume: 0.42 }, text: 'He lifts you carefully against his chest. Like someone long accustomed to carrying wounded people.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Over his shoulder you glimpse the creature. Already collapsing into grey ash. The earth beneath it stained black.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'That is not a wolf. That is not anything.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*That is not a wolf. That is not anything.*', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'What was it?', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He carries you past the body without looking back.', hold: 2600, cps: 26 },
             { type: 'line', text: 'A wound, mi’lady.', hold: 2200, cps: 28 },
@@ -303,10 +303,10 @@
             // ─── Section 16 · The castle ─────────────────────────────────
             { type: 'line', speaker: '', text: 'The horse moves into a smooth canter. The trees thin. Mist lifting with the dawn.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Far beyond the hills rises a castle of pale stone. High walls. Towering banners. A kingdom large enough to swallow you whole.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: '...that is a kingdom.', hold: 2000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...that is a kingdom.*', hold: 2000, cps: 26 },
             { type: 'line', speaker: '', text: 'Your head dips forward. You catch yourself. Then drift again.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Behind you, Alistair’s arm tightens slightly so you do not slip.', hold: 2800, cps: 26 },
-            { type: 'line', text: '*(quiet)* Easy, mi’lady. I have you.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'Easy, mi’lady. I have you.', hold: 2400, cps: 26 },
 
             // ─── Section 17 · Safe place ─────────────────────────────────
             { type: 'line', speaker: '', text: 'Your cheek settles against the open space between gorget and collar. Warm linen. Warm skin beneath it. The steady pulse in his throat.', hold: 4400, cps: 24 },
@@ -315,7 +315,7 @@
             { type: 'line', speaker: '', text: 'The pulse beneath your cheek. Steady. Grounding.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'He found yours. You found his.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: '*(fading)* ...safe place.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...safe place.*', hold: 2200, cps: 26 },
 
             // ─── Section 18 · Final wide shot ────────────────────────────
             { type: 'line', speaker: '', text: 'The horse disappearing down the road. The castle waiting ahead. The forest behind them watching in silence.', hold: 3800, cps: 26 },
@@ -404,7 +404,7 @@
             { type: 'line', speaker: '', text: 'He crosses to the table, pours water, returns. Holds the cup out. Then realises you cannot sit upright properly.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'One arm slips carefully behind your shoulders. Helping you up.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'His hand against your back is enormous. Very careful. Like he thinks people break easily.', hold: 3600, cps: 26 },
-            { type: 'line', text: '*(under his breath)* Easy.', hold: 2200, cps: 26 },
+            { type: 'line', text: 'Easy.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'You drink. He watches the floor between your feet instead of your mouth.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Colour rising slowly into his neck.', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'You’re nervous.', hold: 2000, cps: 28 },
@@ -444,7 +444,7 @@
             // ─── Section 6 · The queen ───────────────────────────────────
             { type: 'line', speaker: '', text: 'Silence. He picks up the knife. Sets it back down.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Adjusts the folded cloth beside him. His hands need work so they do not reach toward you.', hold: 3800, cps: 24 },
-            { type: 'line', text: '*(quiet)* Because the chamberlain reports to the queen.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'Because the chamberlain reports to the queen.', hold: 3000, cps: 26 },
             { type: 'line', text: 'And I did not want the queen to know about you yet.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '...the queen.', hold: 2000, cps: 28 },
             { type: 'line', text: 'Six hundred years old, mi’lady.', hold: 2600, cps: 26 },
@@ -465,7 +465,7 @@
             { type: 'line', speaker: '', text: 'You have been awake only a little while.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Someone you do not know made certain there would be warm soup waiting beside your bed.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes sting unexpectedly. You blink once. Hard.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* Thank you.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Thank you.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'He hands you the spoon. Watches carefully to make sure your hand is steady enough to hold it.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'For half a second, his fingers twitch like he almost intends to feed you himself.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'He catches the impulse. Sits back instead.', hold: 2600, cps: 26 },
@@ -491,7 +491,7 @@
             { type: 'line', speaker: 'YOU', text: 'And you’re giving it away.', hold: 2400, cps: 26 },
             { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Alistair...', hold: 1800, cps: 28 },
-            { type: 'line', text: '*(quickly)* I have never used it.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'I have never used it.', hold: 2400, cps: 26 },
             { type: 'line', text: 'Four years. I have not had the need.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'He says it plainly. The way another man might quietly confess he no longer expects kindness.', hold: 4000, cps: 24 },
             { type: 'line', speaker: 'YOU', text: 'You have not had the need?', hold: 2400, cps: 26 },
@@ -506,7 +506,7 @@
 
             // ─── Section 10 · Drinking the draught ───────────────────────
             { type: 'line', speaker: '', text: 'He uncorks the vial. The liquid inside glows soft gold in the candlelight.', hold: 3400, cps: 26 },
-            { type: 'line', text: '*(quieter)* It will mend the split in your lip.', hold: 2600, cps: 26 },
+            { type: 'line', text: 'It will mend the split in your lip.', hold: 2600, cps: 26 },
             { type: 'line', text: 'And the cut at your brow before it scars.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your fingers rise automatically to your forehead. You had not known there was a cut there.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'He notices the motion. Looks away immediately.', hold: 2800, cps: 26 },
@@ -538,7 +538,7 @@
             { type: 'line', speaker: 'YOU', text: 'There is a piece of paper hidden in my sleeve.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'His eyes shift immediately to your wrist. He does not ask to see it.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Long silence.', hold: 1800, cps: 28 },
-            { type: 'line', text: '*(low)* Then we leave it there for now.', hold: 2800, cps: 26 },
+            { type: 'line', text: 'Then we leave it there for now.', hold: 2800, cps: 26 },
 
             // ─── Section 13 · Final shot ─────────────────────────────────
             { type: 'line', speaker: '', text: 'His hand resting deliberately against his own knee instead of reaching toward yours.', hold: 3800, cps: 24 },
@@ -664,7 +664,7 @@
             { type: 'line', speaker: '', text: 'You tighten your grip harder.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'Alistair’s thumb shifts once against your sleeve. The smallest movement.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Like he almost forgot himself.', hold: 2400, cps: 26 },
-            { type: 'line', text: '*(quiet)* I do not hold beautiful things in armour, mi’lady.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'I do not hold beautiful things in armour, mi’lady.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Silence. The corridor suddenly feels far too narrow.', hold: 2800, cps: 26 },
 
             // ─── Section 8 · The pull back ───────────────────────────────
@@ -725,18 +725,18 @@
             { type: 'line', speaker: '', text: 'Same room. Different light. Another tray.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Day two. Still no captain.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Evening. A folded note rests atop the tray. Handwriting you do not recognise.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: '*(note)* The captain has been called to the south wall. Open this door for no one but him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The captain has been called to the south wall. Open this door for no one but him.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'You stare at the note.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* Someone in this castle knows I am here. And it is not him.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Someone in this castle knows I am here. And it is not him.*', hold: 3600, cps: 26 },
 
             // ─── Section 3 · The thought spiral ──────────────────────────
             { type: 'line', speaker: '', text: 'You fold the note once. Then again. Then smooth it flat against your knee.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Rain-streaked window. Your reflection faint in the dark glass.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You study your own face like it belongs to someone else.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* Why does it matter that he has not come.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Why does it matter that he has not come.*', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* You have known him three days. You know his name. You know the shape of his hands.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* You do not know your own.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*You have known him three days. You know his name. You know the shape of his hands.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*You do not know your own.*', hold: 2800, cps: 26 },
 
             // ─── Section 4 · Night at the door ───────────────────────────
             { type: 'line', speaker: '', text: 'Night. You sit on the floor beside the door now. Back resting against the wood. Listening.', hold: 3800, cps: 26 },
@@ -752,9 +752,9 @@
 
             // ─── Section 6 · The second note ─────────────────────────────
             { type: 'line', speaker: '', text: 'Morning light. Another tray. Another note. Smaller handwriting this time. Different hand.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: '*(note)* He has not slept. He will come tonight. Wait.', hold: 3800, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has not slept. He will come tonight. Wait.', hold: 3800, cps: 24 },
             { type: 'line', speaker: '', text: 'You stare.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(whispered)* Who are you?', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Who are you?', hold: 2400, cps: 26 },
 
             // ─── Section 7 · Opening the door ────────────────────────────
             { type: 'line', speaker: '', text: 'You stand. Cross to the door. Open it carefully.', hold: 2800, cps: 26 },
@@ -767,7 +767,7 @@
             { type: 'line', speaker: '', text: 'Without thinking, your fingers have gone to the hidden seam inside your sleeve.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The page is still there.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'Your fingertips remain pressed there a moment too long.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* If a stranger can find me here. Someone else can too.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*If a stranger can find me here. Someone else can too.*', hold: 3400, cps: 26 },
 
             // ─── Section 9 · Latch the door · two notes ──────────────────
             { type: 'line', speaker: '', text: 'Close on your face. His cloak around your shoulders. Your hand still at your sleeve.', hold: 3600, cps: 26 },
@@ -776,11 +776,11 @@
             { type: 'line', speaker: '', text: 'Close on the two notes side by side on the desk.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Two different hands. Neither yours. Neither his.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The castle has been watching you for three days.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(small)* Whoever is leaving these. They have known I am here since the morning he carried me in.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*Whoever is leaving these. They have known I am here since the morning he carried me in.*', hold: 4200, cps: 24 },
 
             // ─── Section 10 · Reflection ─────────────────────────────────
             { type: 'line', speaker: '', text: 'Close on your reflection in the dark glass again. The cloak. The page-hand. The face.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* You are not as hidden as he thinks.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*You are not as hidden as he thinks.*', hold: 3000, cps: 26 },
 
             // ─── Section 11 · He is climbing ─────────────────────────────
             { type: 'line', speaker: '', text: 'Three floors below. Heavy footsteps climbing stone stairs. Slow. Measured.', hold: 3400, cps: 26 },
@@ -836,7 +836,7 @@
             { type: 'line', speaker: '', text: 'Then he sees you.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Something in his face loosens. Not breaking. Releasing.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Like a rope finally allowed to slacken.', hold: 2400, cps: 26 },
-            { type: 'line', text: '*(rough)* Mi’lady.', hold: 2200, cps: 26 },
+            { type: 'line', text: 'Mi’lady.', hold: 2200, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Come in.', hold: 1800, cps: 28 },
 
             // ─── Section 2 · He sees the cloak ───────────────────────────
@@ -862,7 +862,7 @@
             { type: 'line', speaker: '', text: 'Yours is not much better.', hold: 2200, cps: 28 },
 
             // ─── Section 4 · Sixty hours ─────────────────────────────────
-            { type: 'line', text: '*(very quiet)* Three days.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'Three days.', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'What?', hold: 1400, cps: 28 },
             { type: 'line', text: 'Since I last sat down.', hold: 2200, cps: 28 },
             { type: 'line', text: 'That is the answer to the question you were about to ask.', hold: 3000, cps: 26 },
@@ -880,7 +880,7 @@
             { type: 'line', speaker: '', text: 'Rain taps softly against the window.', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Why did you not send word?', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'His gaze lowers to his hands. The old bandages around his forearms. The rain-dark fabric at his wrists.', hold: 4200, cps: 24 },
-            { type: 'line', text: '*(low)* I did not want you waiting for me if I failed to come back.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'I did not want you waiting for me if I failed to come back.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Silence.', hold: 1600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'That may be the worst thing you have said so far.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'The ghost of a tired smile. Gone quickly.', hold: 2400, cps: 26 },
@@ -911,15 +911,15 @@
 
             // ─── Section 8 · You stay watch ──────────────────────────────
             { type: 'line', speaker: '', text: 'You remain seated near the door. His cloak around your shoulders. Watching him.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I do not know my own name.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* But I know I will not let anyone through that door tonight.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I do not know my own name.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*But I know I will not let anyone through that door tonight.*', hold: 3400, cps: 26 },
 
             // ─── Section 9 · Watching him sleep ──────────────────────────
             { type: 'line', speaker: '', text: 'Close on Alistair sleeping. The hard line usually held in his mouth has vanished.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The rain still drying in his hair. One hand open loosely against the stone floor.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Not a fist anymore.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* He looks younger asleep.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* Not softer. Just less defended.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*He looks younger asleep.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Not softer. Just less defended.*', hold: 2800, cps: 26 },
 
             // ─── Section 10 · Counting breaths ───────────────────────────
             { type: 'line', speaker: '', text: 'You count the rise and fall of his chest without meaning to.', hold: 2800, cps: 26 },
@@ -929,12 +929,12 @@
 
             // ─── Section 11 · He stayed awake for me ─────────────────────
             { type: 'line', speaker: '', text: 'Close on your hand resting against the edge of his cloak around your shoulders.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* He stayed awake three days. For me.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*He stayed awake three days. For me.*', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes drift over him again.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'The captain who walks into wounds in the world with a sword in his hand.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The man who chose to sleep in the same room as you without hesitation.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* He trusts me.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* ...I am not sure he should.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*He trusts me.*', hold: 2200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...I am not sure he should.*', hold: 2800, cps: 26 },
 
             // ─── Section 12 · The pull ───────────────────────────────────
             { type: 'line', speaker: '', text: 'Time passes quietly. The candle burns lower. The rain stops. Alistair does not move once.', hold: 4000, cps: 24 },
@@ -943,7 +943,7 @@
             { type: 'line', speaker: '', text: 'Like a thread tightening somewhere deep inside your chest.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Closer. Your eyes drift toward the window. Toward the dark beyond the glass.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The forest is out there. Far off. Calling.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(small)* ...what is this.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...what is this.*', hold: 2400, cps: 26 },
 
             // ─── Section 13 · Resisting ──────────────────────────────────
             { type: 'line', speaker: '', text: 'You stand. Slowly. Test your ankle. It holds.', hold: 2600, cps: 26 },
@@ -956,9 +956,9 @@
 
             // ─── Section 14 · No ─────────────────────────────────────────
             { type: 'line', speaker: '', text: 'Closest on your face.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(small)* No.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* Whatever this is. Whatever is calling.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(faint)* He sleeps tonight.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*No.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*Whatever this is. Whatever is calling.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*He sleeps tonight.*', hold: 2600, cps: 26 },
 
             // ─── Section 15 · Holding the cloak ──────────────────────────
             { type: 'line', speaker: '', text: 'You sit back down by the door. The cloak around your shoulders. Back against the wood.', hold: 3600, cps: 26 },
@@ -1034,7 +1034,7 @@
 
             // ─── Section 3 · Walking out ─────────────────────────────────
             { type: 'line', speaker: '', text: 'Close on your fingers against the window glass. A faint tremor running through them.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* What are you.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*What are you.*', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'No answer. Only the feeling. Steady. Patient.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your feet move before the decision fully forms.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Narrow servant stairs. Moonlight through slitted windows. The castle sleeping around you.', hold: 3800, cps: 26 },
@@ -1042,8 +1042,8 @@
             { type: 'line', speaker: '', text: 'You continue anyway.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'The postern door. Unlocked. The same door Alistair showed you.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Your hand hesitates on the latch.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* He told me this in case I needed it.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I do not think this is what he meant.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*He told me this in case I needed it.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I do not think this is what he meant.*', hold: 2800, cps: 26 },
 
             // ─── Section 4 · Into the trees ──────────────────────────────
             { type: 'line', speaker: '', text: 'The door opens. Cold night air rushes in. Wet earth. Pine. Smoke.', hold: 3400, cps: 26 },
@@ -1214,15 +1214,15 @@
             { type: 'line', speaker: '', text: 'You do not know why exactly.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'Perhaps because he seems to know a lot. Perhaps because you have a clue now.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'A new lead. The kind of lead you do not turn from when you have nothing else.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* A man steps out of a forest with a bow and no surprise on his face.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* That is not a coincidence.', hold: 2400, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* That is something to follow.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*A man steps out of a forest with a bow and no surprise on his face.*', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*That is not a coincidence.*', hold: 2400, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*That is something to follow.*', hold: 2400, cps: 28 },
 
             // ─── Section 2 · The leg gives ───────────────────────────────
             { type: 'line', speaker: '', text: 'You take three steps. Your leg gives. You catch yourself on his arm.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'He waits. He does not catch you. He lets you find the ground again.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Then, only then, when it is clear the leg will not carry you, he sighs.', hold: 3400, cps: 26 },
-            { type: 'line', text: '*(quiet)* Get on.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'Get on.', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '...what.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He has turned. Crouched. Offered his back.', hold: 2600, cps: 26 },
             { type: 'line', text: 'Get on, mi’lady. You will not walk this on your own.', hold: 3000, cps: 26 },
@@ -1236,8 +1236,8 @@
             { type: 'line', speaker: '', text: 'You expect a fire camp, the way men in stories camp. Instead he moves like a man going home.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'He smells of woodsmoke. Crushed pine. Cold cloth. Something green and old you cannot name.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'The smell is steady. It is the same smell every breath.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* ...his earthy scent steadies me.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I did not realise I needed steadying.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...his earthy scent steadies me.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I did not realise I needed steadying.*', hold: 2800, cps: 26 },
 
             // ─── Section 4 · The hut ─────────────────────────────────────
             { type: 'line', speaker: '', text: 'The trees thin. Then they thicken again, on purpose, the way a curtain is drawn.', hold: 3600, cps: 26 },
@@ -1245,7 +1245,7 @@
             { type: 'line', speaker: '', text: 'The hut sits in a hollow you would not have seen from twenty paces away.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Stone foundation. Wooden walls dark with age. A roof half buried in moss. A single window.', hold: 3800, cps: 26 },
             { type: 'line', text: 'We are here.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* ...where.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '...where.', hold: 1800, cps: 28 },
             { type: 'line', text: 'As you can see, it is a small hut. But it is the best place to hide and rest.', hold: 3400, cps: 26 },
 
             // ─── Section 5 · Setting her down ────────────────────────────
@@ -1253,15 +1253,15 @@
             { type: 'line', speaker: '', text: 'Sets you down gently on a wooden chair by the fire-pit.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Crouches so his eyes are level with yours for a moment. Looks at you.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Then he stands and turns back to the room.', hold: 2400, cps: 26 },
-            { type: 'line', text: '*(mild)* The hearth. The water barrel is by the door. Dried meat in the rafter. The bed is...', hold: 3800, cps: 24 },
+            { type: 'line', text: 'The hearth. The water barrel is by the door. Dried meat in the rafter. The bed is...', hold: 3800, cps: 24 },
             { type: 'line', speaker: '', text: 'He keeps speaking. You can see his mouth moving. You cannot hear him.', hold: 3200, cps: 26 },
 
             // ─── Section 6 · Blood loss ──────────────────────────────────
             { type: 'line', speaker: '', text: 'Close on your hand. It has gone cold.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'The blood loss is hitting you now that the running is over.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* ...a stranger is telling me where the food is.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* A stranger has put me on a chair and is telling me where his food is.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I do not know my own name. He does not know my name. He is telling me where the food is anyway.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*...a stranger is telling me where the food is.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*A stranger has put me on a chair and is telling me where his food is.*', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I do not know my own name. He does not know my name. He is telling me where the food is anyway.*', hold: 4400, cps: 24 },
 
             // ─── Section 7 · The drink ───────────────────────────────────
             { type: 'line', speaker: '', text: 'He notices.', hold: 1800, cps: 28 },
@@ -1274,7 +1274,7 @@
             { type: 'line', speaker: '', text: 'It smells of pine and bitter root and something faintly sweet underneath.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You drink. You do not ask what is in it.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not have the strength to be careful.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* Thank you.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Thank you.', hold: 2000, cps: 28 },
 
             // ─── Section 8 · His bed ─────────────────────────────────────
             { type: 'line', speaker: '', text: 'He nods once. Looks away.', hold: 2000, cps: 28 },
@@ -1297,18 +1297,18 @@
             { type: 'line', speaker: '', text: 'Morning.', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'Light through the single window. Pale gold. The hut is warm. There is no fire now, only embers.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'You open your eyes. You do not move yet.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* ...I slept.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I slept all the way through.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...I slept.*', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*I slept all the way through.*', hold: 2400, cps: 26 },
 
             // ─── Section 11 · Slept without fear ─────────────────────────
             { type: 'line', speaker: '', text: 'You sit up slowly. The pain in the ankle is there but small. The herbs worked.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Whatever was in that cup was not ordinary.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I was supposed to be afraid.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* That was the plan. That was the careful thing.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* I forgot to be afraid. I just slept.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I was supposed to be afraid.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*That was the plan. That was the careful thing.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I forgot to be afraid. I just slept.*', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'You sit with that for a moment. The strangeness of it.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The strangeness of having stopped being afraid in a stranger’s bed, in a stranger’s hut, in a wood that the stranger said is sick.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* What is wrong with me.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*What is wrong with me.*', hold: 2400, cps: 26 },
 
             // ─── Section 12 · Hut by daylight ────────────────────────────
             { type: 'line', speaker: '', text: 'You stand. Test the leg. It holds, if you do not push it.', hold: 3000, cps: 26 },
@@ -1334,8 +1334,8 @@
 
             // ─── Section 15 · He speaks ──────────────────────────────────
             { type: 'line', speaker: '', text: 'His eyes are still closed when he speaks.', hold: 2400, cps: 26 },
-            { type: 'line', text: '*(low)* How long are you going to stand there, watching me, mi’lady.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: '*...!*', hold: 1400, cps: 28 },
+            { type: 'line', text: 'How long are you going to stand there, watching me, mi’lady.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...!*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'You flinch. Your face turns bright red. You step back so fast you hit the table.', hold: 3400, cps: 26 },
 
             // ─── Section 16 · He sits up ─────────────────────────────────
@@ -1374,7 +1374,7 @@
             { type: 'line', speaker: '', text: 'His hands do not stop. There is the smallest pause, almost not a pause. Then he keeps wrapping.', hold: 3800, cps: 24 },
             { type: 'line', speaker: '', text: 'He does not answer for a long beat. Long enough that you think he might not answer at all.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'Then.', hold: 1400, cps: 28 },
-            { type: 'line', text: '*(quiet)* You are asking the right question first, mi’lady.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'You are asking the right question first, mi’lady.', hold: 3000, cps: 26 },
             { type: 'line', text: 'Most people ask the wrong one.', hold: 2400, cps: 26 },
             { type: 'line', text: 'The forest is sick.', hold: 2000, cps: 28 },
             { type: 'line', text: 'It is losing pieces of itself.', hold: 2400, cps: 28 },
@@ -1384,11 +1384,11 @@
             { type: 'line', text: 'A deer ran past me yesterday with no reflection in the stream.', hold: 3200, cps: 26 },
             { type: 'line', text: 'The water just forgot to hold it.', hold: 2400, cps: 26 },
             { type: 'line', text: 'And deeper in, past the stones I mark, something has started calling at night.', hold: 3800, cps: 26 },
-            { type: 'line', text: '*(lower)* The dark is taking the world piece by piece, mi’lady.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'The dark is taking the world piece by piece, mi’lady.', hold: 3400, cps: 26 },
 
             // ─── Section 21 · I feel it ──────────────────────────────────
             { type: 'line', speaker: '', text: 'You swallow.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* ...I feel it.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '...I feel it.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He looks up.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Something is pulling me. Like it needs me.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'But I do not understand. What am I. Who am I.', hold: 3200, cps: 26 },
@@ -1404,17 +1404,17 @@
 
             // ─── Section 23 · The captain did not tell you ───────────────
             { type: 'line', speaker: '', text: 'He turns. Looks at you. Long beat. He is deciding something.', hold: 3200, cps: 26 },
-            { type: 'line', text: '*(quieter)* You are searching for an answer, aren’t you, mi’lady.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'You are searching for an answer, aren’t you, mi’lady.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Yes.', hold: 1600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '...do you know the answer.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He does not look away from you.', hold: 2200, cps: 28 },
             { type: 'line', text: 'So the captain did not tell you.', hold: 2600, cps: 26 },
-            { type: 'line', text: '*(almost to himself)* That is strange of him. He should have reported this by now.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'That is strange of him. He should have reported this by now.', hold: 3600, cps: 26 },
 
             // ─── Section 24 · The ruin · one survivor ────────────────────
             { type: 'line', speaker: '', text: 'He sets the cup down on the table between you. Carefully.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I am not the right person to tell you, mi’lady.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* ...then who.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '...then who.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He sits, finally, across from you. Forearms on his knees.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'He chooses his words the way a man chooses footing on wet stone.', hold: 3200, cps: 26 },
             { type: 'line', text: 'Deep in the ancient ruin. East of here. Past the rotting wood, past the markers.', hold: 3800, cps: 26 },
@@ -1434,12 +1434,12 @@
             { type: 'line', speaker: '', text: 'He looks at the cup on the table instead of at you.', hold: 2800, cps: 26 },
 
             // ─── Section 26 · Will you help me ───────────────────────────
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* Will you help me.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Will you help me.', hold: 2200, cps: 28 },
             { type: 'line', text: 'Not yet.', hold: 1800, cps: 28 },
             { type: 'line', text: 'You are still weak. You would not last the walk in the state you are in.', hold: 3400, cps: 26 },
             { type: 'line', text: 'The wood between here and the ruin is the worst of it.', hold: 3000, cps: 26 },
             { type: 'line', text: 'The pull would have you again before nightfall.', hold: 2800, cps: 26 },
-            { type: 'line', text: '*(lower)* You are safe here. No one will find this hut.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'You are safe here. No one will find this hut.', hold: 3000, cps: 26 },
             { type: 'line', text: 'Not the captain. Not the things that hunt you. Heal first.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'He looks up. Steady.', hold: 2000, cps: 28 },
             { type: 'line', text: 'Then I will walk you to the ruin, mi’lady. When you are ready. Not before.', hold: 3600, cps: 26 },
@@ -1447,7 +1447,7 @@
             // ─── Section 27 · Eye contact · breaks first ─────────────────
             { type: 'line', speaker: '', text: 'You hold his eyes for a moment. He breaks first. He looks at the cup on the table instead.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'He stands. Takes a folded cloth from a low shelf. Crosses to a basin in the back of the room.', hold: 3600, cps: 26 },
-            { type: 'line', text: '*(without turning)* The water barrel is by the door. The screen at the back is for washing.', hold: 3800, cps: 26 },
+            { type: 'line', text: 'The water barrel is by the door. The screen at the back is for washing.', hold: 3800, cps: 26 },
             { type: 'line', text: 'The jars on the upper shelf are for cooking. The jars on the lower shelf are medicine.', hold: 3600, cps: 26 },
             { type: 'line', text: 'Do not move them. The order matters.', hold: 2600, cps: 26 },
 
@@ -1472,16 +1472,16 @@
             { type: 'line', speaker: '', text: 'He goes out at first light.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He comes back at midday with herbs in a satchel and his bow across his back.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'He brings you water. He does not touch your hand when he passes the cup.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* The captain looked at me like he was afraid I would shatter.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* The warden looks at me like he is afraid I will catch.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*The captain looked at me like he was afraid I would shatter.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*The warden looks at me like he is afraid I will catch.*', hold: 3200, cps: 26 },
 
             // ─── Section 32 · Recognition becoming attachment ────────────
             { type: 'line', speaker: '', text: 'He is waiting for something. You can feel it.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You cannot tell whether he is waiting for you to be well, or waiting for you to be ready, or waiting for himself to be ready.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'Closer on his profile by the firelight when he thinks you are not looking.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Not softness. Something more dangerous.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(very small)* ...recognition becoming attachment.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*(thought)* ...he does not want to feel it. He feels it anyway.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...recognition becoming attachment.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...he does not want to feel it. He feels it anyway.*', hold: 3400, cps: 26 },
 
             // ─── Section 33 · Final ──────────────────────────────────────
             { type: 'line', speaker: '', text: 'End on the small hut at dusk. Smoke from the chimney. A single window lit warm.', hold: 3800, cps: 26 },
@@ -1571,7 +1571,7 @@
 
             // ─── Section 8 · He apologises to them ───────────────────────
             { type: 'line', speaker: '', text: 'Then he speaks. To the stones, not to you.', hold: 2800, cps: 26 },
-            { type: 'line', text: '*(very quiet)* I am sorry I have brought someone. It has been a long time.', hold: 3800, cps: 24 },
+            { type: 'line', text: 'I am sorry I have brought someone. It has been a long time.', hold: 3800, cps: 24 },
 
             // ─── Section 9 · They were Weavers ───────────────────────────
             { type: 'line', speaker: '', text: 'He stands. He does not turn to you yet.', hold: 2400, cps: 26 },
@@ -1581,7 +1581,7 @@
             { type: 'line', text: 'The kingdom took them from these trees.', hold: 2600, cps: 26 },
             { type: 'line', text: 'I have been tending what was left ever since.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You take half a step closer.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(quiet)* ...Weavers.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '...Weavers.', hold: 2400, cps: 26 },
 
             // ─── Section 10 · The page ───────────────────────────────────
             { type: 'line', speaker: '', text: 'Close on your hand.', hold: 1800, cps: 28 },
@@ -1600,7 +1600,7 @@
             // ─── Section 12 · Both of them ───────────────────────────────
             { type: 'line', speaker: 'YOU', text: '...both of them.', hold: 2000, cps: 28 },
             { type: 'line', text: 'Yes, mi’lady.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*(quieter)* ...you loved them.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '...you loved them.', hold: 2600, cps: 26 },
 
             // ─── Section 13 · He doesn't answer for a long time ──────────
             { type: 'line', speaker: '', text: 'He does not answer for a long time.', hold: 2400, cps: 26 },
@@ -1612,7 +1612,7 @@
             // ─── Section 14 · The first ──────────────────────────────────
             { type: 'line', text: 'The first I knew when I was younger than I look.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'He looks at the first stone. His face does something he does not let you see.', hold: 3600, cps: 26 },
-            { type: 'line', text: '*(quieter)* I did not know what she was when I loved her.', hold: 3200, cps: 26 },
+            { type: 'line', text: 'I did not know what she was when I loved her.', hold: 3200, cps: 26 },
             { type: 'line', text: 'We were a long time together before the kingdom found her.', hold: 3200, cps: 26 },
             { type: 'line', text: 'I learned what she was the night they took her.', hold: 3000, cps: 26 },
             { type: 'line', text: 'I went to bring her back. I was not fast enough.', hold: 2800, cps: 26 },
@@ -1625,7 +1625,7 @@
             { type: 'line', speaker: '', text: 'A breath that is almost a laugh, gone before it lands.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I knew, by then. I told her, the first night.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I thought, if she knew, I might be quick enough this time.', hold: 3200, cps: 26 },
-            { type: 'line', text: '*(very quiet)* They took her in five years instead of ten.', hold: 3200, cps: 26 },
+            { type: 'line', text: 'They took her in five years instead of ten.', hold: 3200, cps: 26 },
             { type: 'line', text: 'Because I knew. Because I had warned her. Because I tried.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'He looks at the second stone.', hold: 2200, cps: 28 },
             { type: 'line', text: 'I was not quick enough either time.', hold: 2800, cps: 26 },
@@ -1652,7 +1652,7 @@
             { type: 'line', speaker: '', text: 'You understand, suddenly and completely, why he has been making his hands do other things every time you came near him.', hold: 4400, cps: 24 },
 
             // ─── Section 19 · You are afraid of me ───────────────────────
-            { type: 'line', speaker: 'YOU', text: '*(very quiet)* ...you are afraid of me.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '...you are afraid of me.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I am afraid for you, mi’lady. That is different.', hold: 3000, cps: 26 },
             { type: 'line', text: 'But yes. I am also afraid of myself, where you are concerned.', hold: 3400, cps: 26 },
             { type: 'line', text: 'I have not allowed myself a third want.', hold: 2800, cps: 26 },
@@ -1667,7 +1667,7 @@
 
             // ─── Section 21 · The forest recognised you ──────────────────
             { type: 'line', speaker: '', text: 'But Elian speaks again. Quieter than before. Looking at the second stone, not at you.', hold: 3800, cps: 26 },
-            { type: 'line', text: '*(very quiet)* The forest recognised you before I did, mi’lady.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'The forest recognised you before I did, mi’lady.', hold: 3600, cps: 26 },
             { type: 'line', text: 'That should concern you more than it does.', hold: 3200, cps: 26 },
 
             // ─── Section 22 · Final ──────────────────────────────────────
