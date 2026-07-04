@@ -1031,9 +1031,21 @@ class DialogueSystem {
         if (!events) return null;
         const totalInteractions = s.timesFed + s.timesWashed + s.timesTalked + s.timesGifted + s.timesTrained;
 
+        // The four affection level-up scenes are OWNED by onAffectionLevelUp →
+        // showStoryScene (the premium portrait card). Their triggers (affection-
+        // Level 1..4) also match here, and this path dedups on a SEPARATE list
+        // (triggeredMilestones) from the card path (storyMilestonesShown), so
+        // without this guard the exact line the player just saw as a full scene
+        // card replays minutes later as a flat care bubble. (Confirmed: all four
+        // land in both lists.) Skip them so the card is their only presentation.
+        // Threshold milestones (fedTenTimes, fiftyInteractions, etc.) still fire.
+        const CARD_OWNED_KEYS = ['firstTrust', 'growingClose', 'deepFeeling', 'confession'];
+
         for (const [key, event] of Object.entries(events)) {
             // Skip already triggered
             if (triggered.includes(key)) continue;
+            // Owned by the affection level-up card — never replay as a bubble.
+            if (CARD_OWNED_KEYS.includes(key)) continue;
 
             const t = event.trigger;
             let match = true;
