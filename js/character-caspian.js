@@ -827,6 +827,42 @@ const CHARACTER_CASPIAN = {
         wine:     ["From the private reserves. You have excellent taste.", "Let’s share this. Tonight. Just us."]
     },
 
+    // Care-history reminiscing (read by dialogue.js after 10+ of an action).
+    memoryDialogue: {
+        fedOften: [
+            "I keep a count of the times you have fed me. It sits in the same ledger as treaty sums and harvest figures. It is the only line I reread for pleasure.",
+            "The kitchens feed the crown. You feed the man. After this many meals I can tell the difference at the first bite.",
+            "I was trained to eat like a portrait, slowly, for an audience. Somewhere around the tenth plate from your hands I stopped performing. You may have noticed the crumbs.",
+            "Everyone who ever fed me kept accounts. I have looked for yours and found nothing owed. A debt that refuses to exist. I keep trying to pay it anyway.",
+            "At state dinners I count the exits between courses. Old habit. With you I have started counting second helpings instead."
+        ],
+        talkedOften: [
+            "We have talked past the point where protocol has scripts. I checked. Everything after the fortieth conversation is improvised.",
+            "You know how I take my tea and how I take my grandmother’s letters. The court would call that leverage. I have decided to call it being known.",
+            "I rehearse conversations the way other men rehearse fencing. Ours refuse rehearsal. I have stopped bringing notes.",
+            "Half of what I have told you would fetch a fortune from the wrong ears. You keep forgetting to sell it. It makes a prince careless. Keep doing it.",
+            "You let my sentences trail off. At court they get transcribed, every clause weighed for policy. I save my unfinished thoughts for you now."
+        ],
+        washedOften: [
+            "You have seen me unpolished more often than my valet has. He is paid handsomely for his discretion. You do it for nothing, which unsettles the treasurer in me.",
+            "There is a version of me that exists between the bath and the crown. You are the only person who has met him this many times.",
+            "Warm water and your hands, undoing a whole day of court. I could staff the palace twice over and never replace that.",
+            "I used to think being seen unkempt would cost me something. I have run the accounts. It has only ever paid."
+        ],
+        giftedOften: [
+            "I keep your gifts in the cabinet meant for treaties. The steward thinks I am eccentric. He is right, and it is your fault.",
+            "Tribute arrives here by the cartload, every crate with a favor folded inside it. I have searched yours. Just the gift, every time. Those I unwrap myself.",
+            "You have given me more small things than the crown has given me large ones. I did the arithmetic. The small things are winning.",
+            "There is a drawer in my desk the household is forbidden to tidy. Everything you have handed me is in it. It stopped closing properly last month. I consider this a triumph."
+        ],
+        trainedOften: [
+            "My fencing master says my footwork has improved. I told him I changed nothing. I simply train in front of someone I would rather not fall in front of.",
+            "Drills used to be one more duty on the schedule. With you watching they have become the part of the schedule I protect.",
+            "A prince trains so the portrait looks honest. Somewhere in all these sessions I found a better reason. You keep standing exactly where I can see you.",
+            "You have watched me run the forms more times than my own guard captain. He drills me out of duty. Your reasons remain unaudited. I think about that between strikes."
+        ]
+    },
+
     affectionDialogue: {
         1: "I’ve never felt this way[tender] about anyone outside the royal line.",
         2: "The kingdom matters less[adoring] than this moment with you.",
@@ -1010,3 +1046,13 @@ const CHARACTER_CASPIAN = {
         }
     }
 };
+
+// Pose ALIASES — dates.js/surprises.js stage with pose names no character
+// defined (soft, flustered, smirk…), so those beats hid the sprite. Map each
+// to Caspian's closest existing art by key (never overrides a real key).
+(function (b) {
+    var A = { soft: 'tender', flustered: 'shy', sheepish: 'shy', serious: 'formal',
+              smirk: 'happy', shocked: 'hurt', surprised: 'neutral', excited: 'happy',
+              hopeful: 'tender', confused: 'neutral', tired: 'sleepy1' };
+    Object.keys(A).forEach(function (k) { if (!b[k] && b[A[k]]) b[k] = b[A[k]]; });
+})(CHARACTER_CASPIAN.bodySprites);

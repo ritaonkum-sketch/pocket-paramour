@@ -861,6 +861,42 @@ const CHARACTER_LUCIEN = {
         scroll:   ["Ancient notation. Where did you find this?", "This will take weeks to decode. Thank you."]
     },
 
+    // Care-history reminiscing (read by dialogue.js after 10+ of an action).
+    memoryDialogue: {
+        fedOften: [
+            "I keep a chart of the days I forgot to eat. It thins out precisely where you begin. I do not intend to publish the correlation. I intend to keep it.",
+            "At some point my notes stopped filing your meals under interruptions. I checked when. Meal nine. The margin just says: she came back.",
+            "You feed me on a schedule I never gave you. You built one from observation. Being studied is apparently pleasant. This finding is new.",
+            "The tower has seventeen clocks and I still missed every mealtime until you. Now I get hungry at the hour you tend to arrive. The body keeps better records than I credited.",
+            "Someone will eventually ask why I look fed. I have drafted a reply of perfect factual accuracy and no explanatory power whatsoever. It is one word long."
+        ],
+        talkedOften: [
+            "The pen goes down before you reach the desk now. Do you know how many conversations that took? I do. I counted.",
+            "I used to time conversations against the work they displaced. Ours stopped losing that comparison around the twentieth. I no longer run it.",
+            "You have talked me out of four stuck proofs without understanding one of them. I understand them and could not do it. I have footnoted you accordingly.",
+            "You ask questions no colleague has asked in thirty years. How did I sleep. Whether I ate. Small instruments. They keep finding things.",
+            "My margins used to hold citations. Lately they hold things you said. Some future scholar will mistake you for a primary source. They will be right."
+        ],
+        washedOften: [
+            "You have cleaned ink from my hands often enough to know which stains I keep on purpose. That level of calibration took me years with my own instruments.",
+            "Clean spectacles, clean collar, a person underneath after all. You have unearthed him repeatedly. He is beginning to expect it.",
+            "I once calculated that grooming cost me forty minutes of study a day and abolished it. You have quietly reinstated the practice and I have quietly allowed it. Do not cite this as precedent. It is, obviously, precedent.",
+            "The reagent burns heal faster now that someone insists on finding them. I had a theory that the body ignores what nobody sees. You keep disproving it."
+        ],
+        giftedOften: [
+            "Everything you have given me is shelved at eye level. The arrangement is not alphabetical, and the librarian in me objects. He has been overruled.",
+            "I catalogue acquisitions by usefulness. Your gifts broke the taxonomy. There is a new shelf category now. It has no label, because the label would embarrass us both.",
+            "Objects are supposed to take their value from scarcity or application. Yours test poorly on both and outperform my first editions anyway. I have stopped auditing the anomaly.",
+            "There is a box on the highest shelf for instruments too delicate for daily use. It now holds everything you have brought me. The instruments were relocated. They will cope."
+        ],
+        trainedOften: [
+            "Casting drills were private for a reason. Precision suffers under observation, per the literature. The literature has not met you. My error rate drops when you sit there.",
+            "You have watched me run the same warding sequence dozens of times and asked questions each time. Good ones. Two of them are now in the curriculum I teach no one.",
+            "Practice used to be maintenance. Lately I catch myself rehearsing the difficult forms on the days you visit. A performance instinct. Thirty years without one, and there it is.",
+            "The tower logs every spell cast inside it. Some columns in that record correlate with your visits so tightly the log looks falsified. It is not. I checked twice."
+        ]
+    },
+
     // Affection dialogue
     affectionDialogue: {
         1: "You’ve become a statistically significant[gentle] variable in my life.",
@@ -1044,3 +1080,13 @@ const CHARACTER_LUCIEN = {
         }
     }
 };
+
+// Pose ALIASES — dates.js/surprises.js stage with pose names no character
+// defined (soft, flustered, smirk…), so those beats hid the sprite. Map each
+// to Lucien's closest existing art by key (never overrides a real key).
+(function (b) {
+    var A = { soft: 'gentle', flustered: 'vulnerable', sheepish: 'shy1', serious: 'thinking',
+              smirk: 'amused', shocked: 'curious', surprised: 'curious', excited: 'fascinated',
+              hopeful: 'fascinated', confused: 'curious', tired: 'sleepy1' };
+    Object.keys(A).forEach(function (k) { if (!b[k] && b[A[k]]) b[k] = b[A[k]]; });
+})(CHARACTER_LUCIEN.bodySprites);

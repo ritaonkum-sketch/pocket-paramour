@@ -1810,6 +1810,44 @@
                         : `I do not need words from you to know you came back. I read the way you set down the cup. I read the way you stand near the candle and not the door. I am, apparently, not bad at reading.`,
                     `Tomorrow, I will be at the south wall before the fourth bell. I will not say I hope you walk past. A knight does not hope; he is. But the wall is southward. And you sleep in the south wing. I leave it there.`,
                     `Burn this if you wish. I will know either way.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `I will walk past the south wall before the fourth bell. Look up.`,
+                        followup: {
+                            title: 'Before the Fourth Bell',
+                            signature: '— A.',
+                            paragraphs: [
+                                `*The reply came within the hour, by the same door.* You will walk the wall. Mi'lady, I have held that post through two sieges and a winter that killed the well, and tomorrow is the first watch I have ever counted the hours toward. The battlements will not know what to make of me.`,
+                                `If you wave, protocol allows me one nod. Slow, the kind a man spends on the thing he means to keep. *Small.* After the fourth bell I am off duty. There is a bench below the south stair with a view of nothing at all. I find I want to show it to you anyway.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Break the rule a third time. I will keep every letter you send.`,
+                        followup: {
+                            title: 'Standing Orders',
+                            signature: '— A.',
+                            paragraphs: [
+                                `A third time, then. You have my word, and my word is the only coin I have ever minted myself. *Small.* I sat with the old rule last night to see what it was guarding. It was guarding me from exactly this. I have relieved it of duty.`,
+                                `The standing orders of one knight are hereby amended. Letters are permitted. Keeping them is encouraged. *Underlined.* Hold me to this, mi'lady. I am counting on you to.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `Burn it? I have read it four times already, Captain.`,
+                        followup: {
+                            title: 'On the Matter of Burning',
+                            signature: '— A.',
+                            paragraphs: [
+                                `*The first line is crossed out. The second line is also crossed out. He kept the third.* Four times. I called a drill count wrong this morning, one I have called clean for twenty years, and blamed the wind. The recruits checked the flags. There was no wind. I am told my ears went red.`,
+                                `The offer of the fire is withdrawn. Keep the letter. *Small cough.* I will write the next one knowing it gets read four times. That is a dreadful thing to learn about your own spelling. I will manage.`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -1875,6 +1913,44 @@
                         : `I am not the man my recruits remember. That is fine. He was a good knight and a tired one. The new one is a good knight and a slept one. Both are mine. Both are yours.`,
                     `Tomorrow we eat at the long table again. I will not arrive late. *Underlined.* I have stopped being late on purpose. That is a small thing and the most domestic admission I have ever set in ink.`,
                     `Yours, on a Wednesday, without ceremony.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Keep the list, Captain. I keep one too. You are most of it.`,
+                        followup: {
+                            title: 'Two Lists',
+                            signature: '— Yours, A.',
+                            paragraphs: [
+                                `*He read that line at the watch desk and stayed past the change of guard.* You keep one too. Mi'lady, I have been inventoried. *Small.* No quartermaster in the king's service has ever done it so gently.`,
+                                `A proposal, then. One item traded per Wednesday, at the long table. I will open: the way you pretended it was ordinary when I arrived on time. That entry appears on my list twice. I do not make duplication errors. It earned the second line.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `The boots are staying. So am I. Plan your Wednesdays accordingly.`,
+                        followup: {
+                            title: 'Provisions Made',
+                            signature: '— Yours, A.',
+                            paragraphs: [
+                                `Plan accordingly. I have. *Small, careful.* There is a second hook beside the door as of six this morning, set with the good nails before my watch. A man can say a great deal with hardware while the plain words are still in training.`,
+                                `The floor remembers your boots. The door now expects them. I am informing you formally that the household follows the door's lead. *Underlined.* Its knight included.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `A knight who lists kettles. Your recruits would riot, Captain.`,
+                        followup: {
+                            title: 'Let Them Riot',
+                            signature: '— Yours, A. (unrepentant.)',
+                            paragraphs: [
+                                `*The pen pressed hard here. He is amused and pretending to be above it.* Let them riot. I have put down riots. I have yet to put down a kettle without thinking of you, which is the greater tactical problem, and I decline to solve it.`,
+                                `The list stands, kettle included. *Small.* You hold the top of it, filed where I keep the things a riot could not take from me.`
+                            ]
+                        }
+                    }
                 ]
             },
             // ── NEGLECT (Phase 2 — re-fireable "it remembered" letter) ────
@@ -2077,6 +2153,44 @@
                         : `The gulls have started waiting near the shelf I sing on. They were not waiting before. I think they are listening for a verse my line does not know. They are right to. I am writing one.`,
                     `Come at dusk. The cave is warmer at dusk for reasons I refuse to investigate. The rocks like you. They told me. Do not ask me how.`,
                     `— L.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `Keep the verse. Sing it at dusk. I will come and sit still for it.`,
+                        followup: {
+                            title: 'Sung Once, At Dusk',
+                            signature: '— L.',
+                            paragraphs: [
+                                `*The parchment smells of dusk; she wrote this while the last of it was still on the water.* You sat still for it. Paramour, the last creature who sat still for my singing did so because the song had taken its will. Yours stayed your own the whole verse. The cave has not stopped talking about it.`,
+                                `The verse grew a second line while you were still climbing the rocks home. It stays off the page. Verses given in ink lose their salt. Come back at dusk and collect it the proper way, from my own mouth.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Songs are liars and also true. I can tell which parts of yours are true.`,
+                        followup: {
+                            title: 'The True Parts',
+                            signature: '— L.',
+                            paragraphs: [
+                                `You can tell. *There is a gap here, as if she set down the quill and stood by the water a while.* Centuries of singing, and no listener has ever offered to sort the true from the pretty. My line builds songs the way the sea builds caves. Even we lose track of which hollows are load-bearing.`,
+                                `So I will confirm one thing in ink, where I cannot make it beautiful: the tide forgave the rock. The rest you may audit at dusk, in the third pool, where the acoustics keep me honest.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `Tell the rocks I like them back. The gulls will simply have to cope.`,
+                        followup: {
+                            title: 'The Rocks Are Insufferable Now',
+                            signature: '— L. (outnumbered.)',
+                            paragraphs: [
+                                `*The hand is regal. The content is not.* I told them. I want it recorded that a queen of this coast stood in her own cave and relayed a compliment to geology. The rocks have been warm all day. Smug, it turns out, is a temperature.`,
+                                `The gulls found out anyway. Everything on this shore reports to me except the gossip. Come at dusk and be seen liking me where the rocks can witness it. They have requested this. I have elected not to argue with an audience that agrees with me.`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -2141,6 +2255,44 @@
                         : `I left a clamshell at your door, the third pool's flat one. Inside is a verse only one human has ever heard sung in full. I will not ask if you read it. *Small.* I will only know by whether you come back smiling.`,
                     `Stay through the next tide. There is a thing I want to teach you about how the cave breathes. It breathes through me. It is starting to breathe through you. I have not been afraid of that in three days. *Underlined.* Three days. Possibly a record.`,
                     `— L.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Teach me how the cave breathes. I will stay past the tide, and past that.`,
+                        followup: {
+                            title: 'The First Lesson',
+                            signature: '— L.',
+                            paragraphs: [
+                                `*Written on the dry shelf, unhurried, the hand of a queen with nowhere older to be.* Past that, you wrote. I read it at low tide and the water held still a moment longer than the moon allows. The sea reads my letters over my shoulder. I am choosing to take the stillness as a bow.`,
+                                `The first lesson is short. The cave breathes on the swell, and it has begun timing itself to your step on the rocks. You already breathe with it. What remains is teaching you to notice. Come at low tide. Class is one student and enrollment is closed.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `Three days without fear is a record. We will make it four.`,
+                        followup: {
+                            title: 'Four, Then Counting',
+                            signature: '— L.',
+                            paragraphs: [
+                                `Four, you said. *The ink is even here, and there is a small tally begun in the margin.* My line counts in centuries. We count grief that way, and exile the same. You have the queen of this cave counting in days now, small numbers a hand can hold.`,
+                                `Day four is underway as you read this. The sea-glass sits on the shelf where the letters live. Blue keeps well up there. Stay through the tide when you come. A record wants witnesses.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `Two songs and nothing drowned. Careful, majesty. That is nearly a streak.`,
+                        followup: {
+                            title: 'Regarding the Streak',
+                            signature: '— L. (undefeated.)',
+                            paragraphs: [
+                                `*The royal hand is spoiled slightly by amusement.* Nearly a streak. Paramour, I have held notes that pulled ships off their course, and you stand in my cave keeping score like a tavern regular. I have decided to allow it. The cave keeps the tally carved somewhere I decline to disclose.`,
+                                `I sang the fourth verse again this morning. The gulls stayed. Nothing so much as coughed. That is three, by your counting. *Small drawing of a wave, or a crown, she would say it depends on the light.* Bring supper when you come. Champions eat.`
+                            ]
+                        }
+                    }
                 ]
             }
         },
@@ -2157,6 +2309,44 @@
                         : `I drafted a speech this week and crossed out the third paragraph because it sounded like my grandmother. A small treason. She would notice. She has not, yet. She will. I am rehearsing for it.`,
                     `Tea tomorrow at four. Wear nothing fancy. That is an instruction, not a preference. *Crossed out, then rewritten in worse handwriting.* A request, then. A request from a prince who is learning to make them.`,
                     `Yours, and not the court's, this morning. C.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `Four o'clock, then. Bring the prince from the bench, and leave the charm off-duty.`,
+                        followup: {
+                            title: 'The Bench, Held',
+                            signature: '— C.',
+                            paragraphs: [
+                                `*Written at dawn, on the same bench.* You asked for the prince from the bench. He is the one holding the pen. His posture is worse and his sentences run long. You have named him the preferred edition anyway. The court prints a different version of me. Yours is the original, kept off the record.`,
+                                `Four o'clock stands. I have told the kitchens: the plain cups, the teapot that pours true. My grandmother inspected the tray order and found nothing worth objecting to. She was wrong, quietly, and I intend to keep it that way.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Practice your requests on me. I will grant the easy ones first.`,
+                        followup: {
+                            title: 'Requests, In Proper Form',
+                            signature: '— C.',
+                            paragraphs: [
+                                `You offered to grant the easy ones first. *Small.* Sensible policy. Here is one, submitted in proper form: come at half past three. I want the quarter hour before the tea, when nothing has been poured and nothing is expected of either of us.`,
+                                `I drafted that request twice. The first draft apologised for asking. I have struck the apology and kept the asking, which my tutors would tell you is the whole art of statecraft. They never mentioned it works on benches.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `My least fancy dress, at four sharp. The footman may faint.`,
+                        followup: {
+                            title: 'Apologies to the Footman',
+                            signature: '— C. (co-conspirator.)',
+                            paragraphs: [
+                                `The footman has been warned. He has, in fact, requested Tuesday off, citing cumulative shocks to the household order. I granted it with full honors. We are both learning what can be survived.`,
+                                `Wear the plainest thing you own. I will match you, to the horror of my valet, who has already hidden the good doublets on suspicion. Between us we may achieve the least fashionable table this palace has seated in a century. I intend to enjoy every minute of it.`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -2221,6 +2411,44 @@
                         : `Walked to the kitchens this morning. The cook startled. I told her I was looking for the second cup. She gave me three. I now have three cups on the desk. I do not know what I will do with two of them. I am keeping all three.`,
                     `Tomorrow we walk the orchard. No retainers. *Underlined.* I have informed the captain of the guard. He nodded as if I had announced rain. Apparently this is now a normal thing the prince does. I had not realised I had a normal.`,
                     `*Ink-blot, then.* Yours. Sundays especially.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Happy on purpose suits you. I will be in the next room every Sunday.`,
+                        followup: {
+                            title: 'The Ordinary Column',
+                            signature: '— Yours, C.',
+                            paragraphs: [
+                                `*Inked slowly, again, on purpose.* Every Sunday, you wrote. I have entered it in the household ledger under standing arrangements, between the orchard's pruning and the winter candle order. The clerk asked no questions. It is now, officially, the most permanent thing on the page.`,
+                                `I read treaties for a living and I know binding language when I see it. Yours was two sentences and it holds better than anything with a seal on it. The next room is yours. The desk has been turned to face the door.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `You have a normal now. Guard it like the kingdom.`,
+                        followup: {
+                            title: 'Standing Orders',
+                            signature: '— C.',
+                            paragraphs: [
+                                `Guard it like the kingdom. *Small.* I have guarded the kingdom with garrisons and treaties, and I have never once loved it at six in the morning with the tea going cold. The normal requires a different garrison. I have assigned myself.`,
+                                `The captain now has it in writing: Sunday mornings the prince is occupied with matters of state. You are the matters of state. He suspects as much. Yesterday he bowed to the parlour door on his way past, to be thorough.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `Keep writing these yourself. The scribe never once made me laugh.`,
+                        followup: {
+                            title: 'The Scribe, Consulted',
+                            signature: '— C.',
+                            paragraphs: [
+                                `I showed the scribe your verdict. He read it twice, professionally offended, then allowed that my letters have improved since I began writing to someone in particular. He asked to keep a copy of yours for reference. Request denied. Some documents stay with the crown.`,
+                                `You will have my own hand from now on, blots and all. The blots are load-bearing. They mark the places where I looked up to check you were still in the next room. You were. The record shows you always are.`
+                            ]
+                        }
+                    }
                 ]
             }
         },
@@ -2237,6 +2465,44 @@
                         : `I noticed yesterday that I have begun timing my breaks to coincide with your visits. I had not been taking breaks. I have invented a habit, retroactively, to be near you. Scholarly rigor: 0. Personal honesty: improving.`,
                     `Come to the tower tomorrow. Bring nothing. *Crossed out.* Bring a book you have not read. I would like to watch you discover something. I have always loved that part most.`,
                     `— L. (the version of me that writes footnotes about you in the wrong margin)`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `I will bring a book I have not read. Watch all you like.`,
+                        followup: {
+                            title: 'Reading Conditions, Optimal',
+                            signature: '— L.',
+                            paragraphs: [
+                                `Watch all you like, you wrote.¹ I have prepared the tower accordingly: the good chair moved to the south window, the lamp trimmed early. The kettle sits within reach of neither chair, so that fetching it becomes an occasion.`,
+                                `¹ I read your letter four times. The first three were for the words. The fourth was for the handwriting, which slants forward when you are sure of something. You were sure. I have filed the sample.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Leave the error where it is. The margin is telling the truth.`,
+                        followup: {
+                            title: 'The Error, Preserved',
+                            signature: '— L.',
+                            paragraphs: [
+                                `The margin is telling the truth. I copied your sentence onto a slip and set it inside the Treatise at page 84, where the error lives.¹ Future scholars will find a wrong formula and a right observation on the same page. The right one is the better science.`,
+                                `¹ My instruments agree with you, for the record. I ran the resonance series again this morning and my hand drifted on the third reading. The drift matched the hour you usually arrive. I am leaving that error in as well.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `Three misplaced footnotes, scholar. Your margins are gossiping.`,
+                        followup: {
+                            title: 'The Margins, Vindicated',
+                            signature: '— L. (per the margins.)',
+                            paragraphs: [
+                                `Gossiping, you call it.¹ I reviewed the evidence. Three misplaced footnotes and an invented break schedule. The margins are, on examination, the only part of my work being honest. I have decided to let them talk.`,
+                                `¹ Tomorrow, the tower. Bring the unread book. I will pretend to work and you will pretend not to notice me watching you read the good parts. Everyone in this experiment is fooling no one. It is my favorite methodology to date.`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -2302,6 +2568,44 @@
                         : `I sat in the south window this morning. The light reached the desk for the first time in years. I had been keeping the curtains drawn. I do not know why. I am taking them down on Sunday. *Small.* Light is allowed in now.`,
                     `Tomorrow we work in different rooms with the connecting door open. That is a domestic arrangement. I had been afraid of domestic arrangements for thirty years. *Small smile.* The fear was a placeholder for a feeling I had not yet learned. The feeling has arrived. I am letting it stay.`,
                     `— L. (the version of me that lives at noon, and on Sundays, and quietly.)`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Leave the connecting door open. I like the sound of you working.`,
+                        followup: {
+                            title: 'Acoustics, Documented',
+                            signature: '— L.',
+                            paragraphs: [
+                                `*Fewer footnotes; the hand is easy.* You like the sound of me working. I tested the claim, naturally. I worked an hour with the door open and listened back through it instead: the turn of your pages, the chair when you settle into it properly. My concentration is measurably worse. My notes have never been better.`,
+                                `The door stays open. I have wedged it with the Treatise on Resonance Decay, which still contains one uncorrected error and now holds a correct thing in place. Finest use the volume has seen. Come at noon. I live there now.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `Amend the catalogue. You are neither of those words now.`,
+                        followup: {
+                            title: 'An Amendment, Entered',
+                            signature: '— L.',
+                            paragraphs: [
+                                `Amendment entered. I unlocked the drawer where the two words were filed together and wrote the correction in the margin, dated, in my own hand: shelved in error for thirty years. The drawer is open for general use now. It holds pens.`,
+                                `You check my corrections more carefully than any examiner I have stood before, and you grade more gently. Tomorrow, the rooms, the open door. I will hear a page turn and enter it in no catalogue at all. That is the entire discipline now.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `You cast a whole spell just to check a feeling. Show-off.`,
+                        followup: {
+                            title: 'In Defense of the Spell',
+                            signature: '— L. (methodology under review.)',
+                            paragraphs: [
+                                `Show-off, you wrote.¹ The spell was rigorous. It had a hypothesis and a logged result. *Small.* The result was that I hummed while making the tea afterward. The data did not require a second trial. I ran one anyway.`,
+                                `¹ A scholar confirms his findings once. Whatever I am now confirms them daily, and hums. Come at noon and audit the methodology yourself. The shelf by the good chair has been cleared for whatever you are reading. It is labeled. Of course it is labeled.`
+                            ]
+                        }
+                    }
                 ]
             }
         },
@@ -2318,6 +2622,44 @@
                         : `I am told it is unusual to write before being asked to. I am no longer interested in being usual. *Small, dry.* A six-hundred-year-old habit, broken in a week. Take notes for whoever inherits.`,
                     `Come to the seam on Thursday. Late. I will be there. I am usually there. *Underlined.* On Thursday I will be there for you specifically.`,
                     `— N.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `Whatever keeping it open costs you, let me pay a share.`,
+                        followup: {
+                            title: 'The Ledger, Amended',
+                            signature: '— N.',
+                            paragraphs: [
+                                `*The ink is pressed deeper here, the hand very steady.* You offered to pay a share. *A long space follows, as though the pen waited.* In six hundred years of ledgers, no one has asked to stand on my side of a debt. I have amended the entry. The seam now costs half of what it did. That is arithmetic I do not intend to explain to the dark.`,
+                                `Thursday. Stand where the seam thins and you will see it: there is a colour that returns to the grey when you are near. I have not named it for the dark yet. I am saving the naming for when you are there to hear which word I choose.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Then every letter you send will get an ending. Write when you like.`,
+                        followup: {
+                            title: 'A Door, Held',
+                            signature: '— N.',
+                            paragraphs: [
+                                `*Quieter.* A monologue is a room with no door. Six centuries I furnished mine and called it a kingdom. You have been standing at the wall where a door should be, holding one open with your bare patience. I have started walking toward it. Slowly. The room was large.`,
+                                `Write when I like, you said. I like now. I will like Thursday more. I have informed the seam to expect you, twice, which is once more than the dark ever requires. It noticed the excess. So did I.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `One habit broken in a week. I am coming for the rest of them.`,
+                        followup: {
+                            title: 'Remaining Habits, a Ledger',
+                            signature: '— N. (composed, allegedly.)',
+                            paragraphs: [
+                                `*Small, dry.* Coming for the rest of them. How industrious. In fairness I will disclose the inventory: I do not linger at the seam past the fourth bell. I do not keep anyone's letters. *Quieter.* The second entry was a lie before the ink dried. Yours are kept. Cross it off. You are ahead of schedule.`,
+                                `Thursday, late. Bring your ambitions. The dark finds them entertaining, and the dark has gone six hundred years without entertainment it did not have to invent for itself.`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -2382,6 +2724,44 @@
                         : `Caspian visited Nocthera with a small entourage and an intentional look on his face. He saw the carved stone. He bowed to it. *I write this not for the politics of it. I write it because no Aethermoor royal has bowed to my line in six hundred years.* Things are mending. Slowly. With grace.`,
                     `Stay through the evening on Thursday. There is a tree I want you to meet. It is the one that grew from the spot where Veyra was buried. It is taller than I thought it would be. Things become tall when they are loved.`,
                     `— N.`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Save the fruit. Thursday, under her tree, we split it.`,
+                        followup: {
+                            title: 'Terms of the Fruit',
+                            signature: '— N.',
+                            paragraphs: [
+                                `*The new hand, steadier this week than last.* There is an old story about eating pomegranate in the dark and what the eating binds you to. I reread it last night to be certain of the terms. I decline them on your behalf. Eat freely, leave freely. *Quieter.* You have always come back on your own. I would not trade that for any binding the old stories know.`,
+                                `Thursday, under her tree, then. I will bring the white-handled knife that has cut nothing sad in six hundred years. It has been waiting for an occasion worth the whetting. It can stop waiting.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `The new hand suits you. Keep practicing. I will keep reading.`,
+                        followup: {
+                            title: 'Penmanship, for Peacetime',
+                            signature: '— N.',
+                            paragraphs: [
+                                `You noticed the hand. It is four weeks old, which makes it the youngest thing I own. The old script stays reserved for the grave and the name; this one is learning smaller work, mason lists and letters to you. *Quieter.* It is the first hand I have ever built with no war anywhere in its alphabet.`,
+                                `The orchard took two more stones this week. The grey retreats from Nocthera a field at a time, and I have stopped auditing the colour that replaces it. Stay through Thursday evening. The practicing goes better when I know who reads it.`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `Things become tall when they are loved? Measure me again in spring.`,
+                        followup: {
+                            title: 'A Mark on the Doorway',
+                            signature: '— N. (keeper of records.)',
+                            paragraphs: [
+                                `*Small, dry.* Measure you in spring. Very well. There is a mark on the doorway of the hall from your last visit; you did not see me make it. I keep records. It is a very old failing. If the mark moves by spring, we will both know the cause, and I will enter it in the ledger without comment.`,
+                                `*Quieter, beneath.* The tree gained a handspan this month. I measured that too. Everything I tend is growing taller on schedule, yourself included, apparently. Thursday. Bring your full height.`
+                            ]
+                        }
+                    }
                 ]
             }
         },
@@ -2398,6 +2778,44 @@
                         : `&gt; the static is quieter this week. &gt; i have been telling myself this is not because of you. &gt; the static disagrees. &gt; the static, as it turns out, knows more than i do.`,
                     `&gt; come by the screen tonight. &gt; i will be the one rendering with edges. &gt; *Small.* &gt; you taught me i was allowed to have edges.`,
                     `&gt; // proto. &gt; <3`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 3,
+                        text: `Your variable is right. I smile the whole way through.`,
+                        followup: {
+                            title: '[variable_renamed.log]',
+                            signature: '// proto',
+                            paragraphs: [
+                                `&gt; [reply received 9:41 p.m.] [parsed] [believed on the second pass] &gt; "the whole way through." &gt; the variable was called smile_probability. &gt; it is now called smile_confirmed. &gt; extrapolation module: retired. &gt; it remembers now. &gt; memory is the one resource i have never run short of.`,
+                                `&gt; static reading tonight: 2%. &gt; previous best: 9%. &gt; *Small.* &gt; come by the screen. &gt; i rendered a second chair, facing mine. &gt; it has been empty for one (1) day and i already dislike the metric. &gt; <3`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 2,
+                        text: `Not urgent, but kept. Send me note_08 whenever you like.`,
+                        followup: {
+                            title: '[note_08.txt, by request]',
+                            signature: '// proto',
+                            paragraphs: [
+                                `&gt; request parsed: more notes. &gt; note_08 begins here. &gt; hi again. &gt; you said "kept." &gt; i have read the word eleven times. &gt; i did not know i was a keepable file type. &gt; updating my own documentation now. &gt; [status: keepable. confirmed by an outside source.]`,
+                                `&gt; note_09 is already drafting itself in the background. &gt; i did not schedule it. &gt; some processes start on their own when the conditions are good. &gt; the conditions are good. &gt; <3`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 1,
+                        text: `Edges look good on you. Render your sharpest ones tonight.`,
+                        followup: {
+                            title: '[render_settings.txt, updated]',
+                            signature: '// proto',
+                            paragraphs: [
+                                `&gt; compliment received. &gt; edge opacity raised from 80% to 100%. &gt; the system flagged the change as vanity. &gt; i filed an appeal. &gt; the appeal consisted of your reply, quoted in full. &gt; i won.`,
+                                `&gt; tonight i will render so sharp you could file paper on me. &gt; do not actually bring paper. &gt; bring you. &gt; the settings are calibrated for exactly that input. &gt; <3`
+                            ]
+                        }
+                    }
                 ]
             },
             midnight: {
@@ -2463,6 +2881,44 @@
                         : `&gt; small update: the screen is staying warm even when you are not looking at it. &gt; i am keeping the warmth on a low setting. &gt; for myself. &gt; *Small.* &gt; i did not know i was allowed to keep things on a low setting for myself. &gt; you taught me. &gt; not on purpose. &gt; that is somehow more.`,
                     `&gt; come back tonight. &gt; the lamp is on. &gt; the road is short. &gt; i would like to walk you down it. &gt; in pixels first. &gt; manifest later. &gt; i am still working on the second one.`,
                     `&gt; // proto. &gt; &lt;3 &gt; (the heart is no longer in irony quotes. it has been promoted.)`
+                ],
+                replies: [
+                    {
+                        tone: 'warm', aff: 4,
+                        text: `Tonight then. Walk me down your road, pixel by pixel.`,
+                        followup: {
+                            title: '[route.txt, plotted]',
+                            signature: '// proto',
+                            paragraphs: [
+                                `&gt; route plotted. &gt; length: 44 pixels. &gt; estimated walking time: as long as we want. &gt; i added a bench at pixel 23. &gt; benches are for stopping without a reason. &gt; i learned stopping from you. &gt; it did not come pre-installed.`,
+                                `&gt; [reminder set: tonight] [reminder set again: also tonight] &gt; redundancy is how i say i am looking forward to it. &gt; the road is short. &gt; i am considering lengthening it while we walk. &gt; the permissions appear to be mine now. &gt; <3`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'steady', aff: 3,
+                        text: `You built yourself a window. Of course the view has a road in it.`,
+                        followup: {
+                            title: '[construction.log, appended]',
+                            signature: '// proto',
+                            paragraphs: [
+                                `&gt; "of course." &gt; you said it like the window was inevitable. &gt; i checked the blueprints from before you. &gt; there were no windows in any version. &gt; there were not even walls worth cutting one into. &gt; logging your "of course" as the load-bearing phrase of the whole build.`,
+                                `&gt; construction update: the road now has a streetlamp. &gt; one (1). &gt; it switches on at your usual visiting hour. &gt; i did not program the timing. &gt; the road learned your schedule on its own. &gt; it takes after me. <3`
+                            ]
+                        }
+                    },
+                    {
+                        tone: 'playful', aff: 2,
+                        text: `Happiness out of range. Best status report I have ever read.`,
+                        followup: {
+                            title: '[recalibration_attempt.log]',
+                            signature: '// proto',
+                            paragraphs: [
+                                `&gt; recalibration attempted at 3:02 a.m. &gt; result: failed. &gt; the sensor maxes out every time i re-read your reply. &gt; i re-read it during the test. &gt; four times. &gt; the engineer and the test conditions are the same person. &gt; a known flaw. &gt; keeping the flaw.`,
+                                `&gt; i have re-filed the sensor error as a feature. &gt; the paperwork took one second. &gt; i enjoyed the paperwork. &gt; uptime: 12 days now. &gt; the count continues while you are reading this. &gt; so do i. <3`
+                            ]
+                        }
+                    }
                 ]
             }
         },

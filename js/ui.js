@@ -4,6 +4,21 @@ class GameUI {
     constructor(game) {
         this.game = game;
 
+        // ── SINGLE-ACTIVE-INSTANCE GUARD (Jul 2026 audit) ──────────────────
+        // Switching companions builds a fresh game + GameUI, but nothing tore
+        // down the OLD instance's self-rescheduling timers (_idleTimer,
+        // _idlePoseTimer, _ambientLoopTimer, _notifTimer). The orphaned idle
+        // loop kept firing forever with the PREVIOUS game's frozen stats —
+        // stale "I'm getting hungry..." chatter at double rate on the new
+        // companion's screen. Each new GameUI now destroys the previous one.
+        try {
+            if (GameUI._active && typeof GameUI._active.destroy === 'function') {
+                GameUI._active.destroy();
+            }
+        } catch (_) {}
+        GameUI._active = this;
+        this._destroyed = false;
+
         // Cache DOM refs
         this.hungerBar = document.getElementById('hunger-bar');
         this.cleanBar = document.getElementById('clean-bar');
@@ -569,11 +584,26 @@ class GameUI {
         this._initNotifications();
     }
 
+    // Tear down every self-rescheduling timer this instance owns. Called by
+    // the next GameUI's constructor (single-active-instance guard) so an old
+    // instance can never keep talking over the new companion.
+    destroy() {
+        this._destroyed = true;
+        try { clearTimeout(this._idleTimer); } catch (_) {}
+        try { clearTimeout(this._idlePoseTimer); } catch (_) {}
+        try { clearTimeout(this._ambientLoopTimer); } catch (_) {}
+        try { clearTimeout(this._notifTimer); } catch (_) {}
+        try { clearInterval(this._notifTimer); } catch (_) {}
+        try { clearTimeout(this._trainingCloseTimer); } catch (_) {}
+    }
+
     scheduleIdleDialogue() {
+        if (this._destroyed) return;
         // Speak every 20-40 seconds when idle
         const delay = 20000 + Math.random() * 20000;
 
         this._idleTimer = setTimeout(() => {
+            if (this._destroyed) return;
             const g = this.game;
             if (g.characterLeft) { this.scheduleIdleDialogue(); return; }
 
@@ -684,6 +714,15 @@ class GameUI {
                     lines = c.timeDialogue[g.timeOfDay];
                 } else {
                     lines = (c.stateDialogue && c.stateDialogue.neutral) || ["..."];
+                }
+
+                // idleDialogue (Jul 2026 audit): a per-character idle pool that
+                // was authored for everyone but never read. When needs aren't
+                // urgent, mix its flattened lines into the pick for variety.
+                if (g.hunger >= 25 && g.clean >= 25 && c.idleDialogue) {
+                    var idlePool = Array.isArray(c.idleDialogue) ? c.idleDialogue
+                        : [].concat.apply([], Object.keys(c.idleDialogue).map(function (k) { return c.idleDialogue[k]; }).filter(Array.isArray));
+                    if (idlePool.length && Math.random() < 0.5) lines = idlePool;
                 }
 
                 const line = lines[Math.floor(Math.random() * lines.length)];

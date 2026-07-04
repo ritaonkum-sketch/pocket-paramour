@@ -723,6 +723,42 @@ const CHARACTER_ELIAN = {
         4: "*Sets the wood down between you, then sits[warm]*. The fire is on this side. Stay there. Stay close."
     },
 
+    // Care-history reminiscing (read by dialogue.js after 10+ of an action).
+    memoryDialogue: {
+        fedOften: [
+            "You feed me the way rain feeds the woods. Steady, without being asked. Things grow in that.",
+            "I kept my own stores for six hundred years. Now I catch myself leaving room in the pack for whatever you bring.",
+            "I stopped checking the snares at dawn. Breakfast arrives on its own these days. Old habits are quietly losing.",
+            "You never ask if I am hungry. You watch, and then food appears. Trackers train decades for eyes like that.",
+            "*Sets his bowl down* Another meal from you. The tally is long now. I keep it anyway."
+        ],
+        talkedOften: [
+            "We have talked more this season than I talked in the fifty years before you. The forest noticed before I did.",
+            "You know things about me the trees took centuries to learn. I handed them over in an evening. Strange, what you make easy.",
+            "I used to go a month on ten words. You have ruined my average. Keep ruining it.",
+            "Talk was noise to me once. Yours is more like weather. I plan my days around it.",
+            "You let my silences sit without poking at them. Probably why I keep filling them for you."
+        ],
+        washedOften: [
+            "You have scrubbed more road off me than the river ever managed. And you ask how I got muddy. I like the asking.",
+            "Six hundred years of cold creek water, quick and done. Your way takes longer. I stopped minding.",
+            "A warden keeps his own kit clean. I still let you do it. Work that one out.",
+            "You get pine sap out of my hair without pulling now. That takes practice. We have had practice."
+        ],
+        giftedOften: [
+            "My shelter used to hold tools and little else. Now there is a shelf. Everything on it came from you.",
+            "Whatever you give me earns a place in the pack. From me, that is high praise.",
+            "You bring me things the forest cannot grow. I keep every one. Ask me why sometime.",
+            "I started carving small things in return. You may have noticed your firewood has gotten suspiciously neat."
+        ],
+        trainedOften: [
+            "My draw is smoother with you watching. I tested it alone yesterday. Ordinary again.",
+            "We have trained enough that the clearing expects us. The grass has given up growing back.",
+            "You keep showing up for the dull work. Footwork and drills. Trees do their growing in the boring seasons too.",
+            "Six hundred years I trained alone. It worked. This works better."
+        ]
+    },
+
     returnLines: {
         streak3: [
             "Three days. The snares can wait. You came back. That is worth marking.",
@@ -838,3 +874,13 @@ const CHARACTER_ELIAN = {
         }
     }
 };
+
+// Pose ALIASES — dates.js/surprises.js stage with pose names no character
+// defined (soft, flustered, smirk…), so those beats hid the sprite. Map each
+// to Elian's closest existing art by key (never overrides a real key).
+(function (b) {
+    var A = { soft: 'warm', flustered: 'shy', sheepish: 'shy', serious: 'stern',
+              smirk: 'calm', shocked: 'guarded', surprised: 'guarded', excited: 'happy',
+              hopeful: 'warm', confused: 'neutral', tired: 'sleepy1' };
+    Object.keys(A).forEach(function (k) { if (!b[k] && b[A[k]]) b[k] = b[A[k]]; });
+})(CHARACTER_ELIAN.bodySprites);

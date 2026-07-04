@@ -20,14 +20,14 @@
             // like eating/fighting/shower). These are the moments Alistair
             // has on screen when the player is just watching him.
             behaviors: [
-                { body: 'casual',      face: 'neutral2', duration: 6000 },
-                { body: 'crossarms',   face: 'neutral',  duration: 5000 },
-                { body: 'walking',     face: 'neutral2', duration: 5000 },
-                { body: 'lookaround1', face: 'neutral',  duration: 5000 },
-                { body: 'lookaround2', face: 'neutral2', duration: 5000 },
-                { body: 'confuse',     face: 'gentle',   duration: 6000 },
-                { body: 'talking1',    face: 'gentle2',  duration: 5000 },
-                { body: 'talking5',    face: 'neutral',  duration: 5000 },
+                { body: 'casual',      face: 'neutral2', duration: 6000, thought: "No orders until sundown. Strange, how little I mind." },
+                { body: 'crossarms',   face: 'neutral',  duration: 5000, thought: "The perimeter is fine. I checked it twice anyway." },
+                { body: 'walking',     face: 'neutral2', duration: 5000, thought: "The old patrol route keeps bending toward wherever you are." },
+                { body: 'lookaround1', face: 'neutral',  duration: 5000, thought: "Heard something. Only the wind off the ramparts." },
+                { body: 'lookaround2', face: 'neutral2', duration: 5000, thought: "Second sweep, all clear. The quiet holds." },
+                { body: 'confuse',     face: 'gentle',   duration: 6000, thought: "Forgot what I was doing just now. That keeps happening around you." },
+                { body: 'talking1',    face: 'gentle2',  duration: 5000, thought: "Rehearsing what to say to you. A siege plan would be simpler." },
+                { body: 'talking5',    face: 'neutral',  duration: 5000, thought: "The daily report says nothing happened. It leaves out that you came by." },
             ],
         },
         lyra: {

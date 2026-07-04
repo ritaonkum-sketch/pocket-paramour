@@ -953,33 +953,64 @@ class DialogueSystem {
             if (s.timesTalked >= 50 && action === "talk" && md.talkedOftenDeep && Math.random() > 0.65) return memPick(md.talkedOftenDeep);
         }
 
-        if (s.timesFed > 10    && action === "feed"  && Math.random() > 0.62) return memPick(CHARACTER.memoryDialogue.fedOften);
-        if (s.timesTalked > 10 && action === "talk"  && Math.random() > 0.62) return memPick(CHARACTER.memoryDialogue.talkedOften);
-        if (s.timesWashed > 8  && action === "wash"  && Math.random() > 0.62) return memPick(CHARACTER.memoryDialogue.washedOften);
-        if (s.timesGifted > 10 && action === "gift"  && Math.random() > 0.62) return memPick(CHARACTER.memoryDialogue.giftedOften);
-        if (s.timesTrained > 10 && action === "train" && Math.random() > 0.62) return memPick(CHARACTER.memoryDialogue.trainedOften);
+        // GUARD (Jul 2026 audit): only Alistair + Lyra define memoryDialogue.
+        // The bare CHARACTER.memoryDialogue.fedOften dereference THREW for the
+        // other five once a count passed its threshold (~38% of taps from the
+        // 11th interaction on), killing the whole care handler before dialogue,
+        // animation, or save. Guard the object AND each pool.
+        const md2 = CHARACTER.memoryDialogue || {};
+        if (s.timesFed > 10    && action === "feed"  && md2.fedOften     && Math.random() > 0.62) return memPick(md2.fedOften);
+        if (s.timesTalked > 10 && action === "talk"  && md2.talkedOften  && Math.random() > 0.62) return memPick(md2.talkedOften);
+        if (s.timesWashed > 8  && action === "wash"  && md2.washedOften  && Math.random() > 0.62) return memPick(md2.washedOften);
+        if (s.timesGifted > 10 && action === "gift"  && md2.giftedOften  && Math.random() > 0.62) return memPick(md2.giftedOften);
+        if (s.timesTrained > 10 && action === "train" && md2.trainedOften && Math.random() > 0.62) return memPick(md2.trainedOften);
+
+        // PER-ACTION FLAVOUR POOLS (Jul 2026 audit): feedDialogue/washDialogue
+        // were written for six characters but NOTHING ever read them — hundreds
+        // of authored lines sat inert. Surface them at ~55% so state/personality
+        // and time pools below still get airtime. Handles both shapes (flat
+        // array, or an object of arrays).
+        const flatPool = (p) => Array.isArray(p) ? p
+            : (p && typeof p === 'object'
+                ? [].concat.apply([], Object.keys(p).map(k => p[k]).filter(Array.isArray))
+                : null);
+        if (action === "feed") {
+            const fp = flatPool(CHARACTER.feedDialogue);
+            if (fp && fp.length && Math.random() > 0.45) return this._pickFresh(fp, this.state);
+        }
+        if (action === "wash") {
+            const wp = flatPool(CHARACTER.washDialogue);
+            if (wp && wp.length && Math.random() > 0.45) return this._pickFresh(wp, this.state);
+        }
+
+        // Merge helper — the per-char mood pools (hungryLines/dirtyLines/
+        // happyLines/neutralLines, same dead-content family) now enrich the
+        // matching stateDialogue picks instead of sitting unread.
+        const withExtra = (base, extra) => (extra && extra.length) ? (base || []).concat(extra) : base;
 
         // AFFECTION-BASED
-        if (s.affectionLevel >= 3 && Math.random() > 0.6) return this._pickFresh(CHARACTER.stateDialogue.happy, this.state);
+        if (s.affectionLevel >= 3 && Math.random() > 0.6) return this._pickFresh(withExtra(CHARACTER.stateDialogue.happy, CHARACTER.happyLines), this.state);
         if (s.affectionLevel === 0 && s.affection < 5) return "I don’t really know you yet...";
 
         // STATE-BASED (urgent needs first)
-        if (s.hunger < 25) return this._pickFresh(CHARACTER.stateDialogue.hungry, this.state);
-        if (s.clean < 25)  return this._pickFresh(CHARACTER.stateDialogue.dirty, this.state);
-        if (s.bond > 75)   return this._pickFresh(CHARACTER.stateDialogue.happy, this.state);
+        if (s.hunger < 25) return this._pickFresh(withExtra(CHARACTER.stateDialogue.hungry, CHARACTER.hungryLines), this.state);
+        if (s.clean < 25)  return this._pickFresh(withExtra(CHARACTER.stateDialogue.dirty, CHARACTER.dirtyLines), this.state);
+        if (s.bond > 75)   return this._pickFresh(withExtra(CHARACTER.stateDialogue.happy, CHARACTER.happyLines), this.state);
 
         // PERSONALITY-BASED
         const pool = CHARACTER.personalities[s.personality];
         if (pool && pool[action]) return this._pickFresh(pool[action], this.state);
 
-        // TIME-OF-DAY (small chance)
-        if (Math.random() > 0.7) {
+        // TIME-OF-DAY (small chance) — timeDialogue exists only on Alistair +
+        // Lyra; guard so a data change can never surface the same dead-tap
+        // throw the memoryDialogue block had.
+        if (Math.random() > 0.7 && CHARACTER.timeDialogue) {
             const timePool = CHARACTER.timeDialogue[s.timeOfDay];
             if (timePool) return this._pickFresh(timePool, this.state);
         }
 
         // FALLBACK
-        return this._pickFresh(CHARACTER.stateDialogue.neutral, this.state);
+        return this._pickFresh(withExtra(CHARACTER.stateDialogue.neutral, CHARACTER.neutralLines), this.state);
     }
 
     // Emotional state override — character-specific, uses eventDialogue pools if defined

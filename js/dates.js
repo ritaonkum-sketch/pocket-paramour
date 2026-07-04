@@ -18,7 +18,11 @@
     if (effects.clean)      g.clean      = Math.min(100, Math.max(0, g.clean + effects.clean));
     if (effects.bond)       g.bond       = Math.min(100, Math.max(0, g.bond + effects.bond));
     if (effects.corruption) g.corruption = Math.min(100, Math.max(0, g.corruption + effects.corruption));
-    if (effects.affection)  g.affectionLevel = Math.min(6, Math.max(0, g.affectionLevel + effects.affection));
+    // affection effects add to the REAL 0-100 counter. Writing g.affectionLevel
+    // directly (the old code) was a lost reward: game.js recomputes the level
+    // from g.affection every tick (Math.floor(affection/25)), so the bump
+    // evaporated on the next tick and could fire a spurious level-change event.
+    if (effects.affection)  g.affection = Math.min(100, Math.max(0, (g.affection || 0) + effects.affection));
   }
 
   function isOnCooldown (locId) {

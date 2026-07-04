@@ -365,7 +365,10 @@
                 game.bond = clamp((game.bond || 0) + reaction.effects.bond, 0, 100);
             }
             if (reaction.effects.affection) {
-                game.affectionLevel = clamp((game.affectionLevel || 0) + reaction.effects.affection, 0, 6);
+                // Add to the REAL 0-100 counter — writing game.affectionLevel
+                // (the derived tier) evaporated on the next tick when game.js
+                // recomputed it from game.affection.
+                game.affection = clamp((game.affection || 0) + reaction.effects.affection, 0, 100);
             }
             if (reaction.effects.corruption) {
                 game.corruption = clamp((game.corruption || 0) + reaction.effects.corruption, 0, 100);

@@ -709,6 +709,42 @@ const CHARACTER_NOIR = {
         4: "I love you[vulnerable]. That’s the most dangerous sentence I’ve ever spoken."
     },
 
+    // Care-history reminiscing (read by dialogue.js after 10+ of an action).
+    memoryDialogue: {
+        fedOften: [
+            "You have fed a thing that does not eat more times than most priests pray in a year. Hmm. One of us is being converted.",
+            "I keep count of every meal you waste on me. The number is absurd. I guard it like treasure anyway.",
+            "Centuries under the seal and nothing touched my lips. Now there is a routine. You are the routine.",
+            "The food does nothing. The habit of you bringing it has done considerable damage. To the grey, I mean.",
+            "Devotion has a flavor. You have been feeding it to me by the spoonful for some time now. I am done pretending otherwise."
+        ],
+        talkedOften: [
+            "We have talked so often the shadows repeat you when you are gone. Badly. I correct them.",
+            "Eight hundred years of silence, and now I hold opinions about your day. The seal never managed to humble me. You may yet.",
+            "Conversation was a currency I spent to corrupt. With you I keep spending and nothing corrupts. Curious arrangement.",
+            "You talk to me the way people talk to something they intend to keep. I have checked the wording each time. It holds.",
+            "The void used to answer me in echoes. Your voice arrives with no echo at all. It simply stays."
+        ],
+        washedOften: [
+            "You have washed the unwashable a dozen times over. The ritual changes nothing. I would riot if you stopped.",
+            "Water through shadow, again and again. Futile. I have begun to arrange my week around the futility.",
+            "Every washing leaves something behind on me. I have yet to name the residue. I am careful to keep it.",
+            "Your hands pass through the dark and the dark lets them. It lets nothing else. Draw your own conclusions."
+        ],
+        giftedOften: [
+            "A hoard is forming in the void. Small mortal objects, all from your hands. I was sealed for lesser crimes than what I would commit to keep it.",
+            "You keep giving things to the dark. The dark keeps them. That is the whole arrangement, and I have never honored a contract so carefully.",
+            "Every gift arrives with a little of your color still on it. I am building quite a collection of color. The grey is losing ground.",
+            "I have been offered tribute before. Bribes, mostly. Yours ask for nothing on the return. Hmm. Those are the expensive kind."
+        ],
+        trainedOften: [
+            "You keep sharpening a weapon that was pointed at your world. Either you trust me or you enjoy the edge. I have stopped asking which.",
+            "We have practiced often enough that my shadows anticipate you. They part before you ask. I taught them nothing of the sort.",
+            "Centuries of power, refined alone in the dark. One season of it refined under your eye. The second frightens me more. It has a purpose now.",
+            "Careful. Every session you attend, I grow stronger and more kept. One of those should worry you."
+        ]
+    },
+
     returnLines: {
         streak3: [
             "Three nights you have walked back into the dark. Most things flee it. You return to it. To me.",
@@ -884,3 +920,13 @@ const CHARACTER_NOIR = {
         }
     }
 };
+
+// Pose ALIASES — dates.js/surprises.js stage with pose names no character
+// defined (soft, flustered, smirk…), so those beats hid the sprite. Map each
+// to Noir's closest existing art by key (never overrides a real key).
+(function (b) {
+    var A = { soft: 'gentle', flustered: 'vulnerable', sheepish: 'shy', serious: 'crossarms',
+              smirk: 'seductive', shocked: 'neutral', surprised: 'neutral', excited: 'happy',
+              hopeful: 'love', confused: 'neutral', tired: 'sleepy1' };
+    Object.keys(A).forEach(function (k) { if (!b[k] && b[A[k]]) b[k] = b[A[k]]; });
+})(CHARACTER_NOIR.bodySprites);

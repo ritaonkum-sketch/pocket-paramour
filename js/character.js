@@ -1907,6 +1907,61 @@ const CHARACTER_LYRA_FULL = {
             dialogue: "I’ve never let anyone this close to my heart... or my cave.",
             emotion: "love"
         },
+        firstTalk: {
+            trigger: { timesTalked: 1 },
+            dialogue: "You spoke to me and then waited, as if the answer mattered. Sailors only ever wanted the singing. Sit on the dry stones a while. I am learning what my voice is for when it is not a lure.",
+            emotion: "shy"
+        },
+        firstGift: {
+            trigger: { timesGifted: 1 },
+            dialogue: "The tide brings me what the drowned let go of. You put this in my hands on purpose. I will keep it above the waterline, where the salt cannot reach it.",
+            emotion: "shy"
+        },
+        fiveInteractions: {
+            trigger: { totalInteractions: 5 },
+            dialogue: "Five visits. I scratch a mark for each on the cave wall, above where the high tide reaches. The sea keeps its own count of things. This count is mine.",
+            emotion: "happy"
+        },
+        tenInteractions: {
+            trigger: { totalInteractions: 10 },
+            dialogue: "Ten now. The gulls have stopped crying warnings when you crest the rocks. Even the water has decided you are weather, the kind that returns.",
+            emotion: "happy"
+        },
+        twentyFiveInteractions: {
+            trigger: { totalInteractions: 25 },
+            dialogue: "Twenty-five. I once measured the years by what the storms washed in. Now the measure is your footsteps on the shale, and the years have grown kinder for it.",
+            emotion: "love"
+        },
+        fiftyInteractions: {
+            trigger: { totalInteractions: 50 },
+            dialogue: "Fifty. I ruled an empty court so long I sang coronations to the barnacles. You arrive the way a tide should, and rarely does. Tonight you may hear one of the songs I keep below the waterline.",
+            emotion: "love"
+        },
+        hundredInteractions: {
+            trigger: { totalInteractions: 100 },
+            dialogue: "A hundred. The sea keeps everything it has ever taken from me, and it has never once shown me the ledger. You it has returned a hundred times over. Come here. There is a place beside me that has learned the shape of you.",
+            emotion: "love"
+        },
+        becameClingy: {
+            trigger: { personality: 'clingy' },
+            dialogue: "I have started leaving the cave mouth open on the side you come from. When dusk arrives without your step, my singing turns to searching, and every sailor for miles sleeps safe because of you. Come back soon. Call it a summons. Queens are permitted those.",
+            emotion: "love"
+        },
+        becameTsundere: {
+            trigger: { personality: 'tsundere' },
+            dialogue: "I sing at dusk because the acoustics are best at dusk. That it is also the hour you tend to arrive is a coincidence of tides. Oh, sit down. The echo carries better where you usually sit, and the cave misses its favorite obstacle.",
+            emotion: "angry"
+        },
+        corruptionStart: {
+            trigger: { corruption: 25 },
+            dialogue: "There is a note living under my songs now that I never put there. It tastes of deep water, of the cold past where the light gives up. If my voice starts to sound like the drowning, tell me. I will believe you before I believe the sea.",
+            emotion: "sad"
+        },
+        cameBack: {
+            trigger: { revivedOnce: true },
+            dialogue: "The sea keeps what it takes. In all my years on this coast it has never once opened its hand and given something back. Then the dark let go of me, and the first sound in the world was your voice saying my name. Do not ask why I am shaking. Sit with me until the tide finishes turning.",
+            emotion: "crying"
+        },
         // Premium affection level-up scenes (the showStoryScene card via
         // onAffectionLevelUp). Lyra was the ONLY character missing the
         // firstTrust/growingClose/deepFeeling/confession keys, and she has no
@@ -2026,3 +2081,27 @@ function selectCharacter(id) {
     }
     return CHARACTER;
 }
+
+// ── Pose ALIASES for the shared emotional vocabulary ────────────────────────
+// dates.js + surprises.js stage lines with pose names (soft, flustered, smirk,
+// shocked…) that no character's bodySprites defined — the sprite lookup missed
+// and the character went INVISIBLE for those beats (Lyra never appeared in two
+// of her three dates). Alias each name to this character's closest EXISTING
+// art by key, so the alias always tracks the real file. `if (!b[k])` never
+// overrides a real key.
+(function () {
+    function aliasPoses(b, map) {
+        if (!b) return;
+        Object.keys(map).forEach(function (k) { if (!b[k] && b[map[k]]) b[k] = b[map[k]]; });
+    }
+    aliasPoses(CHARACTER_ALISTAIR.bodySprites, {
+        soft: 'gentle', flustered: 'shy2', sheepish: 'shy1', serious: 'crossarms',
+        smirk: 'smile2', shocked: 'questioning', surprised: 'questioning',
+        excited: 'happy2', hopeful: 'wondering', confused: 'confuse', tired: 'sleepy1'
+    });
+    aliasPoses(CHARACTER_LYRA_FULL.bodySprites, {
+        gentle: 'love', soft: 'love', flustered: 'shy2', sheepish: 'shy1',
+        serious: 'queen', smirk: 'happy', shocked: 'shy3', surprised: 'wavehappy',
+        excited: 'wavehappy', hopeful: 'love', confused: 'neutral', tired: 'sleepy1'
+    });
+})();

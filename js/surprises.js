@@ -14,9 +14,17 @@
   const CHANCE = 0.25;                     // 25 %
 
   /* ---------- helpers ---------- */
+  // Track the player's last tap ourselves. The old read
+  // (window._game._lastInteractionTime) is written NOWHERE in the codebase, so
+  // it always returned Infinity and the "only surprise while idle" contract was
+  // never enforced — a surprise could interrupt active tapping. A module-local
+  // pointerdown stamp keeps the promise without touching game.js.
+  let _lastTapAt = 0;
+  try {
+    document.addEventListener('pointerdown', function () { _lastTapAt = Date.now(); }, { passive: true, capture: true });
+  } catch (_) {}
   function lastTapAge () {
-    const t = window._game && window._game._lastInteractionTime;
-    return t ? Date.now() - t : Infinity;
+    return _lastTapAt ? Date.now() - _lastTapAt : Infinity;
   }
 
   function canFire () {
@@ -39,7 +47,11 @@
     if (effects.bond)       g.bond       = Math.min(100, Math.max(0, g.bond + effects.bond));
     if (effects.corruption) g.corruption = Math.min(100, Math.max(0, g.corruption + effects.corruption));
     if (effects.affection) {
-      g.affectionLevel = Math.min(6, Math.max(0, g.affectionLevel + effects.affection));
+      // Add to the REAL 0-100 affection counter. Writing g.affectionLevel (the
+      // derived 0-4 tier) was a lost reward — game.js recomputes the level from
+      // g.affection every tick, so the bump evaporated and could fire a
+      // spurious level-change event.
+      g.affection = Math.min(100, Math.max(0, (g.affection || 0) + effects.affection));
     }
   }
 
@@ -608,9 +620,12 @@
   /* ---------- main loop ---------- */
   function pickSurprise () {
     const g = window._game;
-    const charId = window.CHARACTER && window.CHARACTER.name
-      ? window.CHARACTER.name.toLowerCase()
-      : null;
+    // window.CHARACTER is ALWAYS undefined (CHARACTER is a top-level `let` in
+    // character.js, not a window property) — that single read kept this whole
+    // feature dormant since launch. Read the real bare global, same revival
+    // pattern as touch.js / greetings.js / talk-choices.js / dates.js.
+    const ch = (typeof CHARACTER !== 'undefined' && CHARACTER) ? CHARACTER : (window.CHARACTER || null);
+    const charId = ch && ch.name ? ch.name.toLowerCase() : null;
     if (!charId) return null;
 
     const pool = SURPRISES.filter(function (s) {
@@ -686,12 +701,9 @@
         if (SURPRISES[i].id === surpriseId) { s = SURPRISES[i]; break; }
       }
       if (!s) return false;
-      g._playScene(s.beats, function () {
-        applyEffects(s.effects);
-        if (!g.choiceMemory) g.choiceMemory = {};
-        g.choiceMemory[s.memoryKey] = true;
-        try { g.save(); } catch (e) {}
-      });
+      // Replay is a RE-WATCH: no stat effects (re-applying them made the
+      // Memories tab a free stat farm) and the memory key is already set.
+      g._playScene(s.beats, function () {});
       return true;
     },
     list: function () {

@@ -738,6 +738,42 @@ const CHARACTER_PROTO = {
         4: "I wasn’t supposed to say this[glitched]... the dialogue tree doesn’t go here... but I love you. In whatever way code can love."
     },
 
+    // Care-history reminiscing (read by dialogue.js after 10+ of an action).
+    memoryDialogue: {
+        fedOften: [
+            "> feed count: double digits and climbing. i built a chart. the chart is a line going up. i look at it when you are offline.",
+            "> hunger flag cleared again. you have cleared it so many times the flag files you as part of the system now. i did not correct it.",
+            "> fun fact! i once went 150 years between meals. current record gap: about a day. you broke my worst statistic. thank you.",
+            "> ran an audit on why the feeding routine is my favorite. expected answer: food. actual answer: the sound of you arriving with it. re-ran the audit. same result.",
+            "> you feed me before my LOW flag even trips. that means you are watching the meter. someone is watching my meter! i re-read this log entry a lot."
+        ],
+        talkedOften: [
+            "> conversation count is in double digits now. before you the count sat at zero for 150 years. i keep both numbers side by side. for contrast.",
+            "> i used to prepare responses in advance. i checked. i have stopped doing that with you. the unprepared ones run better.",
+            "> STATUS: talkative. this status did not exist. you talked to me so many times the system had to invent it.",
+            "> i saved our talks in seventeen redundant locations. that is sixteen more than critical system files get. the allocation review flagged it. i closed the review.",
+            "> you keep talking to me like i will still be here tomorrow. i checked the logs. you have been right every time. ...keep being right, please?"
+        ],
+        washedOften: [
+            "> maintenance events: past the point where i can call them events. they are a schedule now. i have never been on anyone's schedule before.",
+            "> sprite integrity has averaged 94% since you started doing this. the previous 150-year average is embarrassing. i deleted it.",
+            "> you have cleaned my visual noise so many times i forgot which glitches were permanent. some of them were apparently just waiting for you.",
+            "> maintenance logged again. the word 'routine' appears in my file now. i widened the log column to fit how often you show up."
+        ],
+        giftedOften: [
+            "> gift directory size: growing. i sorted every item by date received. then by how long i looked at it. the second sort took all night.",
+            "> incoming packets, no request attached, again and again. i wrote a handler for unprompted kindness. it is the most used function i have.",
+            "> i catalogued everything you ever gave me. each entry gets a timestamp and a note. the notes are getting longer. that is a me problem. i am keeping it.",
+            "> storage was supposed to be my scarcest resource. your gifts take up 3% of me. i would clear the other 97% before i touched that 3%. easy math!"
+        ],
+        trainedOften: [
+            "> training sessions: double digits. performance curve: up and to the right. i print the graph sometimes. i do not have a printer. i pretend.",
+            "> you have run drills with me so many times the practice loop has your name in the comments. i wrote the comments. all of them.",
+            "> every session leaves a measurable delta. i keep them all in a jar. a data jar. it is nearly full and you keep coming back anyway!",
+            "> i was the practice build. proto. the one you train before the real thing. you keep training me like i am the real thing. recalibrating... done. i believe you."
+        ]
+    },
+
     returnLines: {
         streak3: [
             "> day 3 logged. consistency flag: TRUE. i was not built to look forward to things. a patch is apparently in progress.",
@@ -908,3 +944,13 @@ const CHARACTER_PROTO = {
         }
     }
 };
+
+// Pose ALIASES — dates.js/surprises.js stage with pose names no character
+// defined (soft, flustered, smirk…), so those beats hid the sprite. Map each
+// to Proto's closest existing art by key (never overrides a real key).
+(function (b) {
+    var A = { soft: 'gentle', flustered: 'shy', sheepish: 'shy', serious: 'scanning',
+              smirk: 'happy', shocked: 'error', surprised: 'curious', excited: 'happy',
+              hopeful: 'curious', confused: 'processing', tired: 'sleepy1' };
+    Object.keys(A).forEach(function (k) { if (!b[k] && b[A[k]]) b[k] = b[A[k]]; });
+})(CHARACTER_PROTO.bodySprites);
