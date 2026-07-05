@@ -220,7 +220,12 @@
       'opacity:0', 'transition:opacity 900ms ease, transform 8000ms ease'
     ].join(';'));
     bg.id = 'mscard-bg';
-    if (card.bg) {
+    if (card.bg && /\.(mp4|webm)(\?|$)/i.test(card.bg)) {
+      // Motion-CG background (Jul 2026): a video file in card.bg mounts a
+      // muted looping <video> instead of a background-image. Opt-in purely
+      // by file extension — image cards behave exactly as before.
+      setBgVideo(bg, card.bg);
+    } else if (card.bg) {
       const img = new Image();
       img.onload = () => {
         // A 150-byte / 1×1 placeholder loads OK (onload fires, NOT onerror) but
@@ -340,6 +345,33 @@
     root.appendChild(tapHint);
 
     return { root, bg, charWrap, charImg, dialogue, line, speaker, titleStrip, particles, flourish, glow };
+  }
+
+  // ---------------------------------------------------------------
+  // Motion-CG helper (Jul 2026): mount/clear a looping video inside the
+  // #mscard-bg layer. url=null clears back to the palette gradient.
+  // Autoplay is safe: muted + playsinline, and cards only open from a
+  // user tap. On any error the palette gradient stays — same graceful
+  // fallback contract as the image path above.
+  function setBgVideo(bg, url) {
+    const old = bg.querySelector('video');
+    if (old) { try { old.pause(); } catch (_) {} old.remove(); }
+    if (!url) {
+      bg.style.backgroundImage = '';
+      bg.style.opacity = '1';
+      return;
+    }
+    const v = document.createElement('video');
+    v.muted = true; v.loop = true; v.autoplay = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    v.src = url;
+    bg.style.backgroundImage = '';
+    bg.style.opacity = '0';
+    v.addEventListener('canplay', () => { bg.style.opacity = '0.85'; }, { once: true });
+    v.addEventListener('error', () => { v.remove(); bg.style.opacity = '1'; }, { once: true });
+    bg.appendChild(v);
+    try { const p = v.play(); if (p && p.catch) p.catch(() => {}); } catch (_) {}
   }
 
   function spawnParticles(container, count, pal) {
@@ -554,6 +586,24 @@
             if (!card.cinematic) {
               n.dialogue.style.transform = 'translateY(0)';
             }
+            break;
+          }
+          case 'bg': {
+            // Motion-CG background swap mid-card (Jul 2026). Opt-in:
+            //   { type:'bg', url:'assets/motion/x.mp4' }  → looping video scene
+            //   { type:'bg', url:'assets/x.png' }         → still image scene
+            //   { type:'bg', url:null }                   → back to palette gradient
+            // Cards that never use this beat are untouched.
+            if (beat.url && /\.(mp4|webm)(\?|$)/i.test(beat.url)) {
+              setBgVideo(n.bg, beat.url);
+            } else if (beat.url) {
+              setBgVideo(n.bg, null);
+              n.bg.style.backgroundImage = `url(${beat.url})`;
+              n.bg.style.opacity = '0.6';
+            } else {
+              setBgVideo(n.bg, null);
+            }
+            await waitS(beat.wait || 0);
             break;
           }
           case 'pose': {
