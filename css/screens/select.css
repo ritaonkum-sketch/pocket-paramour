@@ -1661,3 +1661,208 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     #select-screen::before,
     .cc-threads-section::before { animation: none; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREMIUM ORNAMENT PASS (v983) — owner direction Jul 2026
+   ───────────────────────────────────────────────────────────────────────────
+   Real painted gold-rose ornament art (assets/ui/chronicle/) replaces the
+   plain CSS corner brackets. Reference: owner's premium mockup — ornate
+   framing, jewel medallion bond badge, richer velvet cards. No chapter
+   banner on this page (owner: story lives in the STORY tab).
+   All rules override earlier blocks by cascade order — the HTML hooks and
+   JS contracts (ids, select-card classes, is-locked flows) are unchanged.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── HEADER — painted rose-heart divider above the title ─── */
+.cc-heart-divider::before,
+.cc-heart-divider::after { content: none; }
+.cc-hdr-divider-img {
+    height: 30px;
+    width: auto;
+    max-width: 78%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(232, 76, 140, 0.35));
+}
+
+/* ─── ACTIVE COMPANION — ornate rose brackets + deeper velvet ─── */
+.cc-active-companion::before,
+.cc-active-companion::after { content: none; }  /* retire the CSS corner ticks */
+
+.cc-active-companion {
+    padding: 18px 16px 20px;
+    border-radius: 18px;
+    border-color: rgba(212, 168, 91, 0.50);
+    background:
+        radial-gradient(130% 100% at 18% 0%, rgba(122, 18, 36, 0.28) 0%, transparent 55%),
+        radial-gradient(120% 90% at 85% 100%, rgba(80, 32, 110, 0.30) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(40, 16, 50, 0.92) 0%, rgba(13, 7, 22, 0.97) 100%);
+    box-shadow:
+        inset 0 0 0 1px rgba(212, 168, 91, 0.16),
+        inset 0 1px 0 rgba(255, 200, 220, 0.10),
+        0 12px 30px -8px rgba(0, 0, 0, 0.75),
+        0 0 40px rgba(154, 69, 103, 0.22);
+}
+.cc-active-portrait,
+.cc-active-info { position: relative; z-index: 2; }
+
+/* Painted gold-rose corner ornaments — sliced from the tall bracket art
+   (corner-rose-left.png) into 4 pieces so they scale on narrow phones. */
+.cc-bracket {
+    position: absolute;
+    width: 86px;
+    aspect-ratio: 166 / 120;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.95;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+.cc-bracket-tl { top: -4px;    left: -4px;  background-image: url('../../assets/ui/chronicle/corner-rose-tl.png'); background-position: left top; }
+.cc-bracket-tr { top: -4px;    right: -4px; background-image: url('../../assets/ui/chronicle/corner-rose-tr.png'); background-position: right top; }
+.cc-bracket-bl { bottom: -4px; left: -4px;  background-image: url('../../assets/ui/chronicle/corner-rose-bl.png'); background-position: left bottom; }
+.cc-bracket-br { bottom: -4px; right: -4px; background-image: url('../../assets/ui/chronicle/corner-rose-br.png'); background-position: right bottom; }
+.cc-active-companion.is-locked .cc-bracket {
+    opacity: 0.22;
+    filter: grayscale(1) brightness(0.7);
+}
+
+/* Slim gold divider between the bond row and the quote */
+.cc-active-quote::before {
+    content: "";
+    display: block;
+    height: 13px;
+    margin: 0 0 8px;
+    background: url('../../assets/ui/chronicle/divider-slim.png') left center / auto 13px no-repeat;
+    opacity: 0.55;
+}
+
+/* ─── BOND MEDALLION — jewel rose-heart with the level number ─── */
+.cc-active-companion .cc-bond-badge,
+#cc-bond-badge {
+    width: 46px;
+    height: 62px;
+    border-radius: 0;
+    border: none;
+    background: url('../../assets/ui/chronicle/medallion-rose.png') center / contain no-repeat;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFF6FA;
+    text-shadow:
+        0 1px 3px rgba(40, 4, 12, 0.95),
+        0 0 8px rgba(232, 76, 140, 0.65);
+    filter: drop-shadow(0 0 10px var(--cc-char-glow, rgba(232, 76, 140, 0.40)));
+}
+.cc-active-companion.is-locked .cc-bond-badge {
+    background: url('../../assets/ui/chronicle/medallion-rose.png') center / contain no-repeat;
+    border: none;
+    box-shadow: none;
+    filter: grayscale(1) brightness(0.55);
+    color: rgba(255, 246, 250, 0.55);
+}
+
+/* ─── CARE BUTTON — crimson velvet, double gold ring, shimmer sweep ─── */
+.cc-action-btn.cc-action-care {
+    min-width: 188px;
+    padding: 13px 30px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, #8E1E33 0%, #5A0E1F 55%, #4A0A1A 100%);
+    border: 1px solid rgba(242, 214, 144, 0.85);
+    box-shadow:
+        0 0 0 3px rgba(74, 10, 26, 0.55),
+        0 0 0 4px rgba(212, 168, 91, 0.35),
+        0 6px 18px -4px rgba(0, 0, 0, 0.7),
+        0 0 26px rgba(232, 76, 140, 0.22);
+    font-size: 12px;
+    letter-spacing: 0.26em;
+    color: #FFEFF5;
+}
+.cc-action-btn.cc-action-care:hover {
+    box-shadow:
+        0 0 0 3px rgba(74, 10, 26, 0.65),
+        0 0 0 4px rgba(232, 200, 138, 0.55),
+        0 8px 22px -4px rgba(0, 0, 0, 0.8),
+        0 0 38px rgba(232, 76, 140, 0.38);
+}
+/* Gold shimmer sweeping across the CARE button every few seconds */
+.cc-action-btn.cc-action-care::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 46px;
+    left: -60px;
+    background: linear-gradient(100deg, transparent 0%, rgba(255, 235, 200, 0.28) 50%, transparent 100%);
+    transform: skewX(-18deg);
+    animation: ppCcCareShimmer 4.2s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes ppCcCareShimmer {
+    0%, 62%  { left: -60px; }
+    82%, 100% { left: 110%; }
+}
+.cc-action-btn.cc-action-care .cc-action-icon { font-size: 13px; }
+
+/* Favourite button — gold ring finish */
+.cc-favorite-btn {
+    border-color: rgba(242, 214, 144, 0.75);
+    box-shadow:
+        0 0 10px rgba(212, 168, 91, 0.35),
+        inset 0 0 6px rgba(212, 168, 91, 0.22);
+    z-index: 5;
+}
+
+/* ─── THREAD CARDS — velvet chrome + brighter corner jewels ─── */
+.cc-thread-card.select-card {
+    border: 1px solid rgba(212, 168, 91, 0.55);
+    border-radius: 16px;
+    background:
+        radial-gradient(120% 90% at 50% 0%, rgba(80, 32, 96, 0.35) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(46, 18, 62, 0.90) 0%, rgba(13, 7, 22, 0.96) 100%);
+    box-shadow:
+        inset 0 0 0 1px rgba(212, 168, 91, 0.14),
+        inset 0 1px 0 rgba(255, 200, 220, 0.10),
+        0 8px 18px -4px rgba(0, 0, 0, 0.70);
+}
+.cc-thread-card.select-card::before,
+.cc-thread-card.select-card::after {
+    width: 12px;
+    height: 12px;
+    border-width: 1.5px;
+    border-color: rgba(232, 200, 138, 0.85);
+    filter: drop-shadow(0 0 4px rgba(212, 168, 91, 0.55));
+}
+.cc-thread-card.select-card::before { border-top-left-radius: 5px; }
+.cc-thread-card.select-card::after  { border-bottom-right-radius: 5px; }
+
+/* Slim gold rose divider under each companion name */
+.cc-thread-name.select-card-name::after {
+    content: "";
+    display: block;
+    height: 12px;
+    width: 82%;
+    margin: 3px auto 0;
+    background: url('../../assets/ui/chronicle/divider-slim.png') center / contain no-repeat;
+    opacity: 0.65;
+}
+.cc-thread-locked.select-card .cc-thread-name.select-card-name::after,
+.cc-thread-card.ms-locked .cc-thread-name.select-card-name::after,
+.cc-thread-card.select-card-locked .cc-thread-name.select-card-name::after {
+    opacity: 0.22;
+    filter: grayscale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cc-action-btn.cc-action-care::before { animation: none; opacity: 0; }
+}
+
+@media (max-width: 390px) {
+    .cc-bracket { width: 72px; }
+    .cc-action-btn.cc-action-care { min-width: 170px; padding: 12px 24px; }
+}
