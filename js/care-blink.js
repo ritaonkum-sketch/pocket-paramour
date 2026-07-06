@@ -144,9 +144,13 @@
             // Only wink when a base (same-stance) pose is showing.
             var onBase = cfg.bases.some(function (b) { return src.indexOf(b) >= 0; });
             if (!onBase) return;
-            // ~40% per 5s tick → a wink roughly every ~12s while idle. Winks
-            // are intentional/flirty, so we keep them occasional, not constant.
-            if (Math.random() > 0.4) return;
+            // Jul 2026 playtest fix — at 40%/5s the blink almost never landed
+            // inside the short windows when a base pose is actually up
+            // (idle-life rotates poses every 5-6s), so testers reported "he
+            // never blinks." 65% per 3.5s tick → a blink typically lands
+            // within ~5s of a base pose showing, while still reading as
+            // occasional (base poses are only up part of the time).
+            if (Math.random() > 0.65) return;
             var prev = src;
             var frame = cfg.frames[Math.floor(Math.random() * cfg.frames.length)];
             img.setAttribute('data-winking', '1');
@@ -162,7 +166,7 @@
         } catch (_) {}
     }
 
-    function boot() { setInterval(tick, 5000); }
+    function boot() { setInterval(tick, 3500); }
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', boot, { once: true });
     } else {

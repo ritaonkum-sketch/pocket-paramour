@@ -86,6 +86,15 @@
   }
 
   function runCard(cardData) {
+    // Jul 2026 — REPLAY fast-forward. A chapter the player has already
+    // completed gets MSCard's ⏩ Skip control; a first read never does
+    // (owner rule: no skipping unread chapters). Card ids follow the
+    // 'chp_<id>_...' convention, so the chapter number is recoverable
+    // here without touching every play() call site.
+    try {
+      const m = String(cardData && cardData.id || '').match(/^chp_(\d+)/);
+      if (m && isDone(parseInt(m[1], 10))) cardData._skippable = true;
+    } catch (_) {}
     return new Promise((resolve) => {
       if (!window.MSCard || typeof window.MSCard.show !== 'function') { resolve(); return; }
       try { window.MSCard.show(cardData, () => resolve()); } catch (_) { resolve(); }
@@ -8855,21 +8864,11 @@
       if (_replayBackBtn && _replayBackBtn.parentNode) _replayBackBtn.parentNode.removeChild(_replayBackBtn);
       _replayBackBtn = null;
     };
-    if (isDone(id)) {
-      _replayBackBtn = document.createElement('button');
-      _replayBackBtn.id = 'chp-replay-back';
-      _replayBackBtn.setAttribute('aria-label', 'Back');
-      _replayBackBtn.setAttribute('title', 'Back');
-      _replayBackBtn.textContent = '‹';
-      _replayBackBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        try { if (window.MSCard && typeof window.MSCard.abort === 'function') window.MSCard.abort(true); } catch (_) {}
-        clearChapterActive();   // drops pp-chapter-active + removes this button
-        refreshOrb();
-        openPageSoftly();       // reopen the chapter list the replay came from
-      });
-      document.body.appendChild(_replayBackBtn);
-    }
+    // Jul 2026 — the legacy replay-only ‹ button is superseded by MSCard's
+    // built-in ✕ exit (VN control bar), which covers first reads too and
+    // routes back to this menu itself. Creating both stacked two buttons
+    // in the same corner on replays.
+    const wasReplay = isDone(id);
 
     // Detect bridges by id prefix. Bridges play out of chp-page taps too
     // (player advancing the story by tapping 'Begin' on the next bridge),
@@ -8888,7 +8887,7 @@
           // External-onDone path may not reopen chp-page. Clear the
           // body flag after the 420ms close fade window.
           setTimeout(clearChapterActive, 500);
-        } else if (!isBridge) {
+        } else if (!isBridge && wasReplay) {
           // Manual-replay path from the chapter menu.restore the menu.
           // Bridges skip this so the route-open toast lands on a clean
           // background. openPage() itself clears the body flag once
@@ -8899,6 +8898,21 @@
           // in case openPage() short-circuits (e.g. chp-page already
           // exists). Idempotent — openPage() also clears it.
           setTimeout(clearChapterActive, 1200);
+        } else if (!isBridge) {
+          // Jul 2026 playtest fix — FIRST completion lands on the
+          // CHRONICLE, not back in the chapter menu. The player just
+          // lived an emotional ending; the Chronicle is where the
+          // unlock ceremony (gold glow, newly-open card) plays and
+          // where the CARE button invites the next step. The menu is
+          // one tap away via the STORY tab whenever they want it.
+          refreshOrb();
+          try {
+            if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
+            var sel = document.getElementById('select-screen');
+            if (sel) { sel.classList.remove('hidden'); sel.style.opacity = ''; sel.style.visibility = ''; }
+            if (window.PPScene && typeof window.PPScene.set === 'function') window.PPScene.set('select');
+          } catch (_) {}
+          setTimeout(clearChapterActive, 500);
         } else {
           // Bridge tapped from chp-page.show the orb (so the player can
           // re-open the chapter list manually if they want), but don't
@@ -9669,6 +9683,13 @@
         playChapter(ch.id);
       });
       row.appendChild(btn);
+
+      // Jul 2026 playtest fix — the WHOLE card is the tap target, not just
+      // the small Begin pill (players tap the big pretty card first; on
+      // mobile the pill is a precision target). Locked cards route to the
+      // same explain-why popup, replays to Replay — identical to the pill.
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', function () { btn.click(); });
 
       list.appendChild(row);
     });

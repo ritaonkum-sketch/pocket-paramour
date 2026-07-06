@@ -447,10 +447,14 @@ window.PPWorldIntro = (function () {
                         worldText.style.whiteSpace = 'pre-line';
                         requestAnimationFrame(function () {
                             worldText.classList.add('show');
-                            // Block taps until fade-in nearly completes
-                            // (1.6s CSS transition) so the player can't
-                            // skip past a beat that's mid-appearance.
-                            setTimeout(function () { transitioning = false; }, 1400);
+                            // Jul 2026 playtest fix — taps unblock the moment
+                            // the text starts fading IN (it is readable from
+                            // here). The old +1.4s lock meant up to 3s of
+                            // silently swallowed taps per beat, which testers
+                            // read as "the intro is unresponsive." The fade-
+                            // OUT window above stays guarded so text never
+                            // swaps mid-vanish.
+                            transitioning = false;
                         });
                     }, 1600);
                 }
@@ -3259,7 +3263,42 @@ class PocketLoveGame {
         if (settingsOverlay) settingsOverlay.classList.add('hidden');
         document.getElementById('game-container').classList.add('hidden');
         if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
-        document.getElementById('select-screen').classList.remove('hidden');
+        // Jul 2026 playtest fix — leaving care MUST release every overlay
+        // that can suppress #select-screen via the CSS guard chain, or the
+        // player lands on a black screen (select shown but visibility:hidden
+        // under a stale guard; only an app relaunch recovered). Normalize
+        // every guard-participating overlay to its CLOSED convention, then
+        // clear the PPOverlay stack. Belt-and-braces: the pp-overlay.js
+        // watchdog also self-heals zombies, but the direct navigation path
+        // shouldn't depend on a 2s tick.
+        try {
+            var closeMap = [
+                ['pp-today-overlay',      function (el) { el.classList.remove('show'); }],
+                ['pp-economy-overlay',    function (el) { el.classList.remove('show'); el.classList.add('hidden'); }],
+                ['pp-onboarding-overlay', function (el) { el.classList.remove('show'); }],
+                ['card-reveal-overlay',   function (el) { el.classList.add('hidden'); }],
+                ['pp-letters-overlay',    function (el) { el.classList.remove('show'); }],
+                ['intro-overlay',         function (el) { el.classList.remove('visible'); }],
+                ['pp-aci-backdrop',       function (el) { try { el.remove(); } catch (_) {} }],
+                ['pp-day-one-overlay',    function (el) { try { el.remove(); } catch (_) {} }],
+                ['title-transition-overlay', function (el) { el.classList.remove('is-firing'); }],
+                ['talk-choice-overlay',   function (el) { try { el.remove(); } catch (_) {} }]
+            ];
+            closeMap.forEach(function (pair) {
+                var el = document.getElementById(pair[0]);
+                if (el) { try { pair[1](el); } catch (_) {} }
+            });
+            if (window.PPOverlay && typeof window.PPOverlay.clear === 'function') window.PPOverlay.clear();
+        } catch (_) {}
+        var selectScreen = document.getElementById('select-screen');
+        selectScreen.classList.remove('hidden');
+        // Clear any stale inline fade state so the 0.8s fade-in restarts
+        // from a clean slate no matter how the screen was last hidden.
+        selectScreen.style.opacity = '';
+        selectScreen.style.visibility = '';
+        if (window.PPScene && typeof window.PPScene.set === 'function') {
+            try { window.PPScene.set('select'); } catch (_) {}
+        }
         this.sceneActive = false;
         document.querySelectorAll('.visible').forEach(el => {
             if (el.id !== 'select-screen') el.classList.remove('visible');

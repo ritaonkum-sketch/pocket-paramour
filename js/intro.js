@@ -713,6 +713,12 @@ class IntroScene {
             this.overlay.style.opacity    = '';
             this.overlay.style.transition = '';
             this.charImg.classList.remove('show');
+            // Jul 2026 playtest fix — flag the just-finished intro for THIS
+            // session so the first live greeting can acknowledge it instead
+            // of re-greeting ("Oh. You came." right after he walked us in).
+            // sessionStorage: gone on next app launch, when a normal
+            // greeting is correct again.
+            try { sessionStorage.setItem('pp_intro_just_done', this.characterId || ''); } catch (_) {}
             this.onComplete && this.onComplete();
         }, 750);
     }

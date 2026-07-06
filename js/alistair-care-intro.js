@@ -173,15 +173,21 @@
         // chp-back / CARE pulse sequence — they'd pile up.
         if (window.PPFirstCareHint && window.PPFirstCareHint.isPending
             && window.PPFirstCareHint.isPending()) return false;
-        // Defer over any story / chapter / cinematic / intro overlay
+        // Defer over any story / chapter / cinematic / intro overlay.
+        // Jul 2026: also defer to the onboarding tour and the card-reveal
+        // popup — the playtest caught this guide stacked under BOTH (four
+        // overlays deep). One tutorial at a time.
         if (document.querySelector(
             '#mscard-root:not(:empty), #chp-page:not(.hidden):not(:empty),' +
             '#intro-overlay.visible, #cinematic-overlay.visible,' +
             '#tp-root:not(:empty), #ms-encounter-root:not(:empty),' +
             '#story-overlay:not(.hidden), #event-overlay:not(.hidden),' +
             '#date-overlay:not(.hidden), #gift-panel:not(.hidden),' +
-            '#training-panel:not(.hidden)'
+            '#training-panel:not(.hidden),' +
+            '#pp-onboarding-overlay.show, #card-reveal-overlay:not(.hidden),' +
+            '#pp-today-overlay.show'
         )) return false;
+        if (document.body.classList.contains('cinematic-transition')) return false;
         return true;
     }
 

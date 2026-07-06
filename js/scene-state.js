@@ -128,6 +128,13 @@
         var overlayUp = document.body.classList.contains('pp-overlay-active') ||
             (window.PPOverlay && typeof window.PPOverlay.anyOpen === 'function' && window.PPOverlay.anyOpen());
         if (overlayUp && CURRENT) return;
+        // Jul 2026 playtest fix — mid-play transitions (care → select, overlay
+        // teardown races) can leave a 1-tick window where NOTHING is visible
+        // and no overlay is registered. Flipping to 'title' there is always
+        // wrong once the player is past boot: it desyncs every pp-screen-*
+        // CSS gate and contributed to the black-screen deadlock. Hold the
+        // last known scene instead; the next real screen change re-detects.
+        if (CURRENT === 'care' || CURRENT === 'select') return;
         // Truly nothing visible (boot / hard transition) — default to title.
         setActiveScreen('title');
     }

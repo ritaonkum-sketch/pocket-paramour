@@ -77,6 +77,16 @@
     } catch (_) {}
     // Don't compete with any active chain transition.
     if (document.body.classList.contains('pp-chain-in-progress')) return false;
+    // Jul 2026 playtest fix — the tour was racing the care-entry
+    // transition (select still technically visible, game-container not
+    // yet un-hidden) and mounting ON TOP of the in-fiction character
+    // intro. Never fire mid-transition, never fire once the player is
+    // in (or heading into) care, and always defer to the other two
+    // tutorial surfaces (character intro + care guide).
+    if (document.body.classList.contains('cinematic-transition')) return false;
+    if (document.body.classList.contains('pp-screen-care')) return false;
+    if (document.querySelector('#intro-overlay.visible')) return false;
+    if (document.getElementById('pp-aci-backdrop')) return false;
     // Don't compete with any open scene/overlay.
     if (document.querySelector('#mscard-root')) return false;
     if (document.querySelector('#letter-overlay:not(.hidden)')) return false;
@@ -151,6 +161,26 @@
       ]
     }
   ];
+
+  // Jul 2026 playtest fix — the BEGIN card is progress-aware. A player
+  // who already finished Chapter 1 was being told to "read the first
+  // chapter to meet Alistair" right after meeting him. Swap card 4's
+  // copy once Ch1 is done.
+  function cardFor(idx) {
+    const c = CARDS[idx];
+    if (idx === CARDS.length - 1 && lsGet('pp_chapter_done_1') === '1') {
+      return {
+        eyebrow: 'BEGIN',
+        title: 'You’ve already met him.',
+        body: [
+          'Alistair’s door is open. Care for him daily. Feed, wash, talk, listen.',
+          'Your bond with him opens Chapter 6, and Elian’s thread walks in through it.',
+          'The story unfolds one heart at a time. Take it slow.'
+        ]
+      };
+    }
+    return c;
+  }
 
   // --- Build / show --------------------------------------------------------
   let _running = false;
@@ -309,7 +339,7 @@
     if (!_root) return;
     const card = _root.querySelector('#pp-onboarding-card');
     if (!card) return;
-    const c = CARDS[idx];
+    const c = cardFor(idx);
     card.innerHTML = '';
     if (c.eyebrow) {
       const eb = document.createElement('div'); eb.className = 'pp-on-eyebrow';
@@ -353,6 +383,10 @@
 
   function show() {
     if (_running) return;
+    // Re-verify at mount time — the poll's answer can be seconds stale
+    // and the screen may have transitioned since (the exact race that
+    // stacked the tour on top of the character intro).
+    if (!shouldFire()) return;
     _running = true;
     injectStyles();
 
@@ -400,6 +434,11 @@
     document.addEventListener('click', (e) => {
       const card = e.target && e.target.closest && e.target.closest('.select-card');
       if (card) lsSet(FLAG_DONE, '1');
+      // Jul 2026 — heading into care via the hero CARE button also ends
+      // the "before you pick" window; without this the tour lay in wait
+      // and ambushed the player mid-care-session.
+      const careBtn = e.target && e.target.closest && e.target.closest('.cc-action-care');
+      if (careBtn && lsGet('pp_chapter_done_1') === '1') lsSet(FLAG_DONE, '1');
     }, true);
   }
 

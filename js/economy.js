@@ -543,11 +543,49 @@
         el.id = COUNTER_ID;
         el.title = CUR.name;
         el.innerHTML = '<span class="ht-ico">' + CUR.icon + '</span><span class="ht-amt">0</span>';
-        // Display-only wallet (owner request): the tasks/rewards live on the
-        // Daily tab now, so tapping the icon opens nothing — and no pink dot.
+        // Jul 2026 playtest fix (supersedes the display-only decision): a new
+        // player standing on the care screen had NO path to the earn loop —
+        // the Daily hub lives on the Chronicle nav they may not revisit for a
+        // while. Tapping the wallet now opens the Daily page (rewards +
+        // tasks). No new UI element on the calm care screen; the counter that
+        // already exists simply becomes the door.
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function () {
+            if (window.PPTodayHub && typeof window.PPTodayHub.open === 'function') {
+                try { window.PPTodayHub.open(); return; } catch (_) {}
+            }
+            try { openPanel(); } catch (_) {}
+        });
         var menu = document.getElementById('topbar-menu-btn');
         if (menu && menu.parentNode === bar) bar.insertBefore(el, menu); else bar.appendChild(el);
         renderCounter();
+        maybeGrantStarter();
+    }
+
+    // ── Starter grant (Jul 2026 playtest fix) ────────────────────────────────
+    // A brand-new player reached the gift panel with 0 Roses and every gift
+    // unaffordable — the first-gift fantasy dead on arrival. Grant a one-time
+    // welcome purse (enough for a first real gift) the first time the wallet
+    // exists on the care screen, deferred until no tutorial/reveal is on
+    // stage so the burst never joins an overlay pile-up.
+    var STARTER_KEY = 'pp_ht_starter_granted';
+    var STARTER_AMOUNT = 30;
+    var _starterTimer = null;
+    function maybeGrantStarter() {
+        if (ls(STARTER_KEY) === '1' || !enabled()) return;
+        if (_starterTimer) return;
+        _starterTimer = setInterval(function () {
+            if (ls(STARTER_KEY) === '1') { clearInterval(_starterTimer); _starterTimer = null; return; }
+            if (!document.body.classList.contains('pp-screen-care')) return;
+            if (document.querySelector(
+                '#intro-overlay.visible, #pp-aci-backdrop, #pp-onboarding-overlay.show,' +
+                '#card-reveal-overlay:not(.hidden), #mscard-root:not(:empty), #pp-today-overlay.show'
+            )) return;
+            clearInterval(_starterTimer); _starterTimer = null;
+            lsSet(STARTER_KEY, '1');
+            add(STARTER_AMOUNT, 'starter');
+            rewardBurst(STARTER_AMOUNT);
+        }, 2500);
     }
     function renderCounter() {
         var el = document.getElementById(COUNTER_ID); if (!el) return;
@@ -821,6 +859,23 @@
                 // re-renders, so the celebration shows the exact amount received.
                 var gain = parseInt((btn.textContent.match(/\d+/) || [])[0], 10) || 0;
                 var isAlbum = key.indexOf('album:') === 0; // a SPEND (card reveal), not a gain — no burst
+                // Jul 2026 playtest fix — the Reveal button is a SPEND sitting
+                // in a column of claim-gains; one stray tap cost 20. Arm on
+                // first tap ("tap again to spend"), execute on the second.
+                // Disarms after 4s or when the pointer leaves the row.
+                if (isAlbum && !btn._ppArmed) {
+                    btn._ppArmed = true;
+                    btn._ppOldHTML = btn.innerHTML;
+                    btn.innerHTML = 'Spend ' + CUR.icon + ' ' + (key.split(':')[2] || '') + '?';
+                    btn.style.background = 'linear-gradient(180deg,#C46A8D,#7A2B4D)';
+                    btn.style.color = '#FFF6FA';
+                    setTimeout(function () {
+                        if (!btn._ppArmed) return;
+                        btn._ppArmed = false;
+                        try { btn.innerHTML = btn._ppOldHTML; btn.style.background = ''; btn.style.color = ''; } catch (_) {}
+                    }, 4000);
+                    return;
+                }
                 if (key === 'checkin') ok = claimCheckin();
                 else if (key.indexOf('task:') === 0) { var t = findTask(key.slice(5)); ok = t ? claimTask(t) : false; }
                 else if (key.indexOf('weekly:') === 0) { var wt = findWeekly(key.slice(7)); ok = wt ? claimWeekly(wt) : false; }

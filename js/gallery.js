@@ -792,7 +792,11 @@ class GallerySystem {
                 '#settings-overlay:not(.hidden), #card-reveal-overlay.visible,' +
                 // Route-open / Ch6 / main-story-gate celebrations are modal too —
                 // never pop a card reveal on top of one (defer until it closes).
-                '#pp-route-gate-backdrop, #pp-ch6-backdrop, #pp-ms-gate-backdrop'
+                '#pp-route-gate-backdrop, #pp-ch6-backdrop, #pp-ms-gate-backdrop,' +
+                // Jul 2026 playtest: tutorials count as busy too — the First
+                // Meeting reveal was found buried in a 4-deep overlay stack
+                // with the care guide and onboarding tour.
+                '#pp-aci-backdrop, #pp-onboarding-overlay.show'
             );
         } catch (_) { return false; }
     }

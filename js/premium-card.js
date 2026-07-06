@@ -403,6 +403,144 @@
   }
 
   // ---------------------------------------------------------------
+  // VN CONTROL BAR (Jul 2026 playtest fix) — Exit / Auto / History on
+  // every card, Skip only when the card is a REPLAY (card._skippable,
+  // set by chapters.js runCard for already-completed chapters — the
+  // owner's rule: no skipping a chapter the player hasn't read once).
+  // All buttons stopPropagation so control taps never advance beats.
+  const AUTO_KEY = 'pp_vn_auto';
+  function buildVNControls(n, card, hooks) {
+    const mk = (label, title) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = label;
+      b.title = title;
+      b.style.cssText = [
+        'pointer-events:auto', 'min-width:34px', 'height:30px', 'padding:0 10px',
+        'border-radius:999px', 'border:1px solid rgba(232,200,138,0.4)',
+        'background:rgba(10,6,22,0.62)', 'color:rgba(244,235,220,0.88)',
+        'font-family:Quicksand,Inter,sans-serif', 'font-size:11px', 'font-weight:600',
+        'letter-spacing:0.08em', 'cursor:pointer', 'backdrop-filter:blur(4px)',
+        '-webkit-backdrop-filter:blur(4px)'
+      ].join(';');
+      const eat = (e) => { e.stopPropagation(); };
+      b.addEventListener('touchstart', eat, { passive: true });
+      return b;
+    };
+
+    // Exit — top-left
+    const exitBtn = mk('✕', 'Leave this scene');
+    exitBtn.style.position = 'absolute';
+    exitBtn.style.top = 'calc(10px + env(safe-area-inset-top, 0px))';
+    exitBtn.style.left = '10px';
+    exitBtn.style.zIndex = '30';
+    exitBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // inline two-tap confirm: first tap arms, second leaves.
+      if (!exitBtn._armed) {
+        exitBtn._armed = true;
+        exitBtn.textContent = 'Leave?';
+        exitBtn.style.background = 'linear-gradient(180deg,#9A2F4E,#7A1224)';
+        setTimeout(() => {
+          if (!exitBtn._armed) return;
+          exitBtn._armed = false;
+          exitBtn.textContent = '✕';
+          exitBtn.style.background = 'rgba(10,6,22,0.62)';
+        }, 3200);
+        return;
+      }
+      hooks.onExit();
+    });
+    n.root.appendChild(exitBtn);
+
+    // Right-side cluster: [SKIP] [AUTO] [LOG]
+    const bar = document.createElement('div');
+    bar.style.cssText = [
+      'position:absolute', 'top:calc(10px + env(safe-area-inset-top, 0px))', 'right:10px',
+      'display:flex', 'gap:6px', 'z-index:30', 'pointer-events:none'
+    ].join(';');
+
+    let skipBtn = null;
+    if (card._skippable) {
+      skipBtn = mk('⏩', 'Fast-forward (already read)');
+      skipBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const on = hooks.toggleSkip();
+        skipBtn.style.background = on ? 'linear-gradient(180deg,#8E1E33,#5A0E1F)' : 'rgba(10,6,22,0.62)';
+        skipBtn.style.color = on ? '#FFEFF5' : 'rgba(244,235,220,0.88)';
+      });
+      bar.appendChild(skipBtn);
+    }
+
+    const autoBtn = mk('AUTO', 'Auto-advance lines');
+    const paintAuto = () => {
+      const on = localStorage.getItem(AUTO_KEY) === '1';
+      autoBtn.style.background = on ? 'linear-gradient(180deg,#C46A8D,#7A2B4D)' : 'rgba(10,6,22,0.62)';
+      autoBtn.style.color = on ? '#FFF6FA' : 'rgba(244,235,220,0.88)';
+    };
+    autoBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const on = localStorage.getItem(AUTO_KEY) === '1';
+      try { localStorage.setItem(AUTO_KEY, on ? '0' : '1'); } catch (_) {}
+      paintAuto();
+      hooks.onAutoToggle();
+    });
+    paintAuto();
+    bar.appendChild(autoBtn);
+
+    const logBtn = mk('📜', 'Story so far');
+    logBtn.addEventListener('click', (e) => { e.stopPropagation(); openLog(); });
+    bar.appendChild(logBtn);
+    n.root.appendChild(bar);
+
+    // History overlay — scrollable backlog of every line shown this card.
+    function openLog() {
+      let ov = n.root.querySelector('.mscard-log');
+      if (ov) { ov.remove(); return; }   // toggle
+      ov = document.createElement('div');
+      ov.className = 'mscard-log';
+      ov.style.cssText = [
+        'position:absolute', 'inset:0', 'z-index:40',
+        'background:rgba(5,3,12,0.92)', 'backdrop-filter:blur(6px)',
+        '-webkit-backdrop-filter:blur(6px)',
+        'display:flex', 'flex-direction:column', 'padding:52px 18px 20px'
+      ].join(';');
+      const title = document.createElement('div');
+      title.textContent = 'THE STORY SO FAR';
+      title.style.cssText = 'font-family:Quicksand,Inter,sans-serif;font-size:11px;letter-spacing:0.3em;color:rgba(232,200,138,0.8);text-align:center;margin-bottom:14px;';
+      ov.appendChild(title);
+      const list = document.createElement('div');
+      list.style.cssText = 'flex:1;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;padding:0 4px;';
+      const sheet = document.createElement('style');
+      sheet.textContent = '.mscard-log ::-webkit-scrollbar{display:none;}';
+      ov.appendChild(sheet);
+      hooks.history().forEach((h) => {
+        const row = document.createElement('div');
+        row.style.cssText = 'margin-bottom:12px;font-family:"Cormorant Garamond",serif;font-size:15px;line-height:1.5;color:rgba(232,200,220,0.9);';
+        const clean = String(h.t || '').replace(/\*/g, '');
+        row.innerHTML = h.s
+          ? '<div style="font-size:10px;letter-spacing:0.18em;color:rgba(232,200,138,0.75);font-family:Quicksand,sans-serif;margin-bottom:2px;">' + h.s + '</div>' + clean
+          : '<em style="opacity:0.8;">' + clean + '</em>';
+        list.appendChild(row);
+      });
+      ov.appendChild(list);
+      const closeRow = document.createElement('div');
+      closeRow.textContent = 'tap to close';
+      closeRow.style.cssText = 'text-align:center;font-family:Quicksand,sans-serif;font-size:10px;letter-spacing:0.2em;color:rgba(244,235,220,0.4);margin-top:10px;';
+      ov.appendChild(closeRow);
+      ov.addEventListener('click', (e) => { e.stopPropagation(); ov.remove(); });
+      ov.addEventListener('touchstart', (e) => { e.stopPropagation(); }, { passive: true });
+      n.root.appendChild(ov);
+      list.scrollTop = list.scrollHeight;
+    }
+
+    return {
+      isAuto: () => localStorage.getItem(AUTO_KEY) === '1',
+      teardown: () => { try { exitBtn.remove(); bar.remove(); } catch (_) {} }
+    };
+  }
+
+  // ---------------------------------------------------------------
   async function show(card, onDone) {
     if (_activeRoot) { try { onDone && onDone(); } catch (_) {} return; }
     if (!card || !Array.isArray(card.beats)) {
@@ -433,6 +571,27 @@
     _suppressOnDone = false;
     document.body.appendChild(n.root);
 
+    // ── VN controls state (Jul 2026) ──
+    let _skipFast = false;          // replay fast-forward latch
+    const _history = [];            // every line shown this card, for the 📜 log
+    const vn = buildVNControls(n, card, {
+      onExit: () => {
+        // Silent abort: never counts as completing the card. If this card
+        // is a chapter, land the player back on the chapter menu.
+        const isChapter = /^chp_/.test(String(card.id || ''));
+        abort(true);
+        setTimeout(() => {
+          try { document.body.classList.remove('pp-chapter-active'); } catch (_) {}
+          if (isChapter && window.MSChapters && typeof window.MSChapters.open === 'function') {
+            try { window.MSChapters.open(); } catch (_) {}
+          }
+        }, 120);
+      },
+      toggleSkip: () => { _skipFast = !_skipFast; if (_skipFast && _wakeSkip) _wakeSkip(); return _skipFast; },
+      onAutoToggle: () => { if (localStorage.getItem(AUTO_KEY) === '1' && _wakeSkip) _wakeSkip(); },
+      history: () => _history
+    });
+
     // Tap-to-skip: each beat gets a fresh "skip" promise that resolves the
     // moment the player taps anywhere on the card. Beats that use waitS()
     // or typeToS() race against it, so taps feel like "advance now."
@@ -449,7 +608,8 @@
     // can fire again.
     const waitS = async (ms) => {
       if (_aborted) return;
-      await Promise.race([wait(ms), skipPromise]);
+      // Replay fast-forward: collapse every hold to a blink.
+      await Promise.race([wait(_skipFast ? Math.min(ms || 0, 60) : ms), skipPromise]);
       resetSkip();
     };
     const typeToS = async (target, text, cps) => {
@@ -503,6 +663,8 @@
       };
       // Edge case: text is empty (or only asterisks). Nothing to type.
       if (totalLen === 0) { fillAll(); resetSkip(); return; }
+      // Replay fast-forward: no typewriter, the full line lands at once.
+      if (_skipFast) { fillAll(); resetSkip(); return; }
 
       const speed = Math.max(14, Math.round(1000 / (cps || 32)));
       let i = 0;
@@ -743,6 +905,8 @@
                 n.line.style.textAlign = 'left';
               }
             }
+            // 📜 backlog — record every line as it is shown (Jul 2026).
+            _history.push({ s: resolvedSpeaker || '', t: beat.text || '' });
             await typeToS(n.line, beat.text || '', beat.cps || 32);
             // BULLETPROOF tap-to-advance. Don't reuse skipPromise — it can
             // be racing with stale state from the typewriter phase. Register
@@ -759,12 +923,16 @@
             // chain doesn't advance, save state is corrupt. Fixed May 2026.
             await new Promise((resolve) => {
               let done = false;
+              let flagPoll = null;
+              let autoTimer = null;
               const finish = () => {
                 if (done) return;
                 done = true;
                 n.root.removeEventListener('click', tap);
                 n.root.removeEventListener('touchstart', tap);
                 if (removalObserver) try { removalObserver.disconnect(); } catch (_) {}
+                if (flagPoll) clearInterval(flagPoll);
+                if (autoTimer) clearTimeout(autoTimer);
                 resolve();
               };
               const tap = (e) => {
@@ -773,6 +941,24 @@
               };
               n.root.addEventListener('click', tap);
               n.root.addEventListener('touchstart', tap, { passive: true });
+              // ── AUTO / SKIP advance (Jul 2026) ──
+              // Skip (replay fast-forward): advance almost immediately.
+              // Auto: advance after the beat's authored hold (floored so a
+              // line is never yanked away unread). Both still yield to a
+              // manual tap, and a mid-wait toggle is caught by the poll.
+              const armTimers = () => {
+                if (done) return;
+                if (_skipFast) {
+                  if (!autoTimer) autoTimer = setTimeout(finish, 90);
+                } else if (vn.isAuto()) {
+                  if (!autoTimer) autoTimer = setTimeout(finish, Math.max(1100, beat.hold || 2400));
+                } else if (autoTimer) {
+                  // mode toggled OFF mid-wait — cancel the pending advance
+                  clearTimeout(autoTimer); autoTimer = null;
+                }
+              };
+              armTimers();
+              flagPoll = setInterval(armTimers, 200);
               // Watch the parent (or document.body) for our root being removed.
               let removalObserver = null;
               try {
@@ -839,6 +1025,9 @@
             // authored block.
             const opts = Array.isArray(beat.options) ? beat.options : [];
             if (!opts.length) break;
+            // A choice always interrupts fast-forward — the player decides,
+            // never the skip latch (standard VN contract).
+            _skipFast = false;
             // Hide the dialogue line briefly so the choice card has the stage.
             const prevDialogueOpacity = n.dialogue.style.opacity;
             n.dialogue.style.transition = 'opacity 280ms ease';

@@ -11,9 +11,13 @@
 (function () {
     'use strict';
 
-    // Minimum affection level required to unlock each action
+    // Minimum affection level required to unlock each action.
+    // Jul 2026 playtest fix — Gift is no longer trust-locked: giving a
+    // first small gift IS the getting-to-know-you beat in a romance
+    // game, and day-one players were hitting a double gate (no currency
+    // AND "build more trust"). Training keeps its gate; it reads as the
+    // advanced mechanic.
     const LOCKS = {
-        'btn-gift':  { minAffection: 1, label: 'Gifts',   hint: 'Build more trust before giving gifts.' },
         'btn-train': { minAffection: 1, label: 'Training', hint: 'Training together requires more trust first.' }
     };
 

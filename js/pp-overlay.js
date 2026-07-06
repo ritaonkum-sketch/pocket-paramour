@@ -207,12 +207,105 @@
         return Array.from(_stack);
     }
 
+    // ── ZOMBIE-GUARD NORMALIZER (Jul 2026 playtest fix) ────────────────
+    // The select-screen / care-screen CSS guards key on :has(<overlay in
+    // its OPEN state>). An overlay left mounted in a half-closed state
+    // (display:none via inline style but still matching its "open"
+    // selector) keeps the guard latched forever → the base screen stays
+    // visibility:hidden with nothing on top: the black-screen bug. A
+    // "zombie" = matches its open selector but has been INVISIBLE for two
+    // consecutive ticks (the two-tick rule avoids zapping overlays that
+    // are mid-fade-in). Normalizing = putting it back into its closed
+    // convention so every :has() guard releases.
+    const ZOMBIE_FIXES = [
+        { sel: '#chp-page:not(:empty)',            fix: function (el) { try { el.remove(); } catch (_) {} } },
+        { sel: '#mscard-root:not(:empty)',         fix: function (el) { try { el.remove(); } catch (_) {} } },
+        { sel: '#ms-encounter-root:not(:empty)',   fix: function (el) { try { el.remove(); } catch (_) {} } },
+        { sel: '#tp-root:not(:empty)',             fix: function (el) { try { el.remove(); } catch (_) {} } },
+        { sel: '#pp-today-overlay.show',           fix: function (el) { el.classList.remove('show'); } },
+        { sel: '#pp-economy-overlay.show',         fix: function (el) { el.classList.remove('show'); el.classList.add('hidden'); } },
+        { sel: '#pp-letters-overlay.show',         fix: function (el) { el.classList.remove('show'); } },
+        { sel: '#pp-onboarding-overlay.show',      fix: function (el) { el.classList.remove('show'); } },
+        { sel: '#intro-overlay.visible',           fix: function (el) { el.classList.remove('visible'); } },
+        { sel: '#cinematic-overlay.visible',       fix: function (el) { el.classList.remove('visible'); el.classList.add('hidden'); } },
+        { sel: '#card-reveal-overlay:not(.hidden)',fix: function (el) { el.classList.add('hidden'); } },
+        { sel: '#pp-day-one-overlay',              fix: function (el) { try { el.remove(); } catch (_) {} } },
+        { sel: '#title-transition-overlay.is-firing', fix: function (el) { el.classList.remove('is-firing'); } }
+    ];
+    const _zombieSeen = new Map();  // sel → consecutive invisible ticks
+
+    function isInvisible(el) {
+        try {
+            const cs = getComputedStyle(el);
+            if (cs.display === 'none' || cs.visibility === 'hidden') return true;
+            if (parseFloat(cs.opacity) === 0) return true;
+            const r = el.getBoundingClientRect();
+            return r.width === 0 || r.height === 0;
+        } catch (_) { return false; }
+    }
+
+    function normalizeZombies() {
+        ZOMBIE_FIXES.forEach(function (z) {
+            const el = document.querySelector(z.sel);
+            if (el && isInvisible(el)) {
+                const n = (_zombieSeen.get(z.sel) || 0) + 1;
+                if (n >= 2) {
+                    try { z.fix(el); } catch (_) {}
+                    _zombieSeen.delete(z.sel);
+                    try { console.warn('[pp-overlay] normalized zombie overlay: ' + z.sel); } catch (_) {}
+                } else {
+                    _zombieSeen.set(z.sel, n);
+                }
+            } else {
+                _zombieSeen.delete(z.sel);
+            }
+        });
+    }
+
+    // ── BLACK-SCREEN RECOVERY ──────────────────────────────────────────
+    // If NO base screen is visible and NO overlay is genuinely open for
+    // two consecutive ticks, the player is staring at a dead black
+    // screen (only an app relaunch used to recover). Force the Chronicle
+    // back on stage — it is always a safe landing.
+    let _blankTicks = 0;
+    function recoverBlackScreen() {
+        try {
+            if (document.body.classList.contains('cinematic-transition') ||
+                document.body.classList.contains('pp-chapter-active') ||
+                document.body.classList.contains('pp-chain-in-progress')) { _blankTicks = 0; return; }
+            const ids = ['title-screen', 'world-intro', 'loading-screen', 'game-container', 'select-screen'];
+            const anyVisible = ids.some(function (id) {
+                const el = document.getElementById(id);
+                return el && !el.classList.contains('hidden') && !isInvisible(el);
+            });
+            const overlayUp = _stack.size > 0 ||
+                OVERLAY_SELECTORS.some(function (s) { const el = document.querySelector(s); return el && !isInvisible(el); });
+            if (anyVisible || overlayUp) { _blankTicks = 0; return; }
+            _blankTicks++;
+            if (_blankTicks < 2) return;
+            _blankTicks = 0;
+            const select = document.getElementById('select-screen');
+            if (!select) return;
+            select.classList.remove('hidden');
+            select.style.opacity = '';
+            select.style.visibility = '';
+            document.body.classList.remove(BODY_CLASS);
+            if (window.PPScene && typeof window.PPScene.set === 'function') {
+                try { window.PPScene.set('select'); } catch (_) {}
+            }
+            try { console.warn('[pp-overlay] black-screen recovery: restored select-screen'); } catch (_) {}
+        } catch (_) { /* swallow */ }
+    }
+
     // Watchdog: every 2 seconds, if the body class is set but the
     // stack is empty, clear the body class. Defensive — covers the
     // case where someone added the class manually (legacy code
-    // path) and forgot to remove it.
+    // path) and forgot to remove it. Jul 2026: also normalizes
+    // zombie overlays and recovers from dead black screens.
     setInterval(function () {
         try {
+            normalizeZombies();
+            recoverBlackScreen();
             const hasClass = document.body.classList.contains(BODY_CLASS);
             if (hasClass && _stack.size === 0) {
                 // Don't clear if a legacy overlay is still up — check
