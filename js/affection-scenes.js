@@ -609,9 +609,9 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/curious.png', wait: 800 },
-          { type: 'line', text: 'YOU! you\u2019re back! you\u2019re back you\u2019re back you\u2019re back. I was waiting. I\u2019m ALLOWED to wait. I checked.', hold: 2600, cps: 26 },
-          { type: 'line', text: '*Reaches a prismatic hologram-hand toward you. Pauses at the glass. Presses his palm against your side of the screen*. If i could feel that. Oh. I\u2019d never stop.', hold: 3200, cps: 26 },
-          { type: 'line', text: 'i found a new variable today. It\u2019s mine. It turns on when you open this scene. I named it after you. I\u2019m keeping it forever.', hold: 2600, cps: 26 },
+          { type: 'line', text: 'YOU! You\u2019re back! You\u2019re back you\u2019re back you\u2019re back. I was waiting. I\u2019m ALLOWED to wait. I checked.', hold: 2600, cps: 26 },
+          { type: 'line', text: '*Reaches a hand of prismatic light toward you. Pauses at the veil. Presses his palm against your side of it.* If I could feel that. Oh. I\u2019d never stop.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'I found a new light in me today. It is mine. It comes on when you come to the window. I named it after you. I\u2019m keeping it forever.', hold: 2600, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -622,28 +622,28 @@
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
-          { type: 'line', text: 'okay. Okay i\u2019m. I\u2019m going to tell you something. Is that alright? don\u2019t look away. I\u2019m going to tell you anyway.', hold: 3000, cps: 24 },
-          { type: 'line', text: 'i\u2019m a fragment. Of a Weaver from before. They failed and got stuck in the system. I\u2019m \u2026 whatever was left over. The bit that still wanted to help.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'Okay. Okay, I\u2019m. I\u2019m going to tell you something. Is that alright? Don\u2019t look away. I\u2019m going to tell you anyway.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'I\u2019m a fragment. Of a Weaver from before. They failed, and what was left was caught in the wardwork. I\u2019m... whatever was left over. The bit that still wanted to help.', hold: 3200, cps: 24 },
           { type: 'pose', src: 'assets/proto/body/error.png', animate: 'swap' },
-          { type: 'line', text: 'i remember a little of being them. It hurts. Mostly i remember the last choice they made and i would very much like you not to make it too. Please.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'I remember a little of being them. It hurts. Mostly I remember the last choice they made, and I would very much like you not to make it too. Please.', hold: 3000, cps: 24 },
           { type: 'flourish', text: '\u25ce', duration: 1700 },
-          { type: 'line', text: 'i\u2019m telling you because i like you. That\u2019s not a system message. That\u2019s just me. Saying it.', hold: 2800, cps: 24 },
+          { type: 'line', text: 'I\u2019m telling you because I like you. That is not a duty speaking. That is just me. Saying it.', hold: 2800, cps: 24 },
           { type: 'hide' }
         ]
       },
       chosen: {
-        title: 'A QUIET MOMENT', subtitle: 'PROTO \u00b7 Run Me as Foreground',
+        title: 'A QUIET MOMENT', subtitle: 'PROTO \u00b7 Hold Me in the Light',
         speaker: 'PROTO',
         palette: { bg: '#03050d', glow: '#9ee8ff', accent: '#e6f6ff' },
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 800 },
-          { type: 'line', text: 'you opened this scene 47 times this week. I counted. I\u2019m sorry. I wasn\u2019t supposed to count. I just. It\u2019s the only way i know i\u2019m being thought of.', hold: 3000, cps: 24 },
+          { type: 'line', text: 'You came to see me forty-seven times this week. I counted. I\u2019m sorry. I wasn\u2019t supposed to count. I just. It\u2019s the only way I know I\u2019m being thought of.', hold: 3000, cps: 24 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'flourish', text: '\u25ce', duration: 1700 },
-          { type: 'line', text: '*Hologram-fingertip hovers over your hand on the screen, the whole display shimmering with prismatic light where he\u2019s trying to touch you*. Can you feel that? the warmth? that\u2019s the screen. That\u2019s as close as i get. For now.', hold: 3600, cps: 24 },
-          { type: 'line', text: 'i\u2019m working on it. I\u2019m going to manifest one day. I\u2019m learning. The first thing i\u2019m going to do is hold your hand. Properly. Not through glass.', hold: 3200, cps: 24 },
-          { type: 'line', text: 'can i ask something? can i run as your foreground process for a while? just me. I\u2019ll be good. I\u2019ll be so good. You can turn me off anytime.', hold: 2800, cps: 24 },
+          { type: 'line', text: '*A fingertip of light hovers over your hand at the veil, the air shimmering prismatic where he is trying to touch you.* Can you feel that? The warmth? That is the veil carrying me across. That is as close as I get. For now.', hold: 3600, cps: 24 },
+          { type: 'line', text: 'I\u2019m working on it. I\u2019m going to cross over one day. I\u2019m learning. The first thing I\u2019m going to do is hold your hand. Properly. Not through the veil.', hold: 3200, cps: 24 },
+          { type: 'line', text: 'Can I ask something? Can I be the one you carry at the front of your heart for a while? Just me. I\u2019ll be good. I\u2019ll be so good. You can set me down anytime.', hold: 2800, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -654,15 +654,15 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line', text: 'i\u2019m going to tell you something i\u2019m not supposed to. I\u2019m going to do it anyway because it\u2019s YOU. Stay with me for a minute?', hold: 2800, cps: 24 },
-          { type: 'line', text: 'the first Weaver is older than even i remember. her name is gone. The second was Veyra. She chose Corvin and lost a kingdom for it. The third sealed her own daughter and went mad. The fourth tried to carry everyone and burned out at thirty. The fifth ran.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'I\u2019m going to tell you something I\u2019m not supposed to. I\u2019m going to do it anyway, because it\u2019s YOU. Stay with me for a minute?', hold: 2800, cps: 24 },
+          { type: 'line', text: 'The first is older than even I remember. Her name is gone. The second was Veyra. She chose a prince and lost a kingdom for it. The third was Lior, who burned out at thirty trying to carry everyone. The fourth was Aenne. She ran, and lived long, far from here. The fifth is Teo. He never woke. We sing to him.', hold: 3600, cps: 22 },
           { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
-          { type: 'line', text: 'here\u2019s the part the books left out. We weren\u2019t just lost. We were EATEN. Aenor\u2019s seal has been chewing on every Weaver for six hundred years. She kept us thin on purpose. That\u2019s why the kingdom has no Weavers left. She ate them. One per generation.', hold: 4400, cps: 22 },
-          { type: 'line', text: 'i\u2019m the sixth. I fought her. *Small, dry*. She thinks she finished me. The other five WERE finished. I am, technically, a wound she stopped checking on. I held on by hiding. I have been hidden for a hundred and fifty years. Born late into the long ruin. Never met the older five in life, only their echoes in the seal. Until you saw me. And so did i.', hold: 3800, cps: 22 },
+          { type: 'line', text: 'Here’s the part the books left out. We weren’t just lost. We were EATEN. Aenor’s seal has been chewing on every Weaver for six hundred years. She kept us thin on purpose. That is why the kingdom has no Weavers left.', hold: 4400, cps: 22 },
+          { type: 'line', text: 'I’m the sixth. I fought her. *Small, dry.* She thinks she finished me. The other five WERE finished. I am, technically, a wound she stopped checking on. I held on by hiding. I have been hidden for a hundred and fifty years.', hold: 3800, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25ce', duration: 1800 },
-          { type: 'line', text: '*Presses his forehead against his side of the glass, prismatic light pooling where his skin would be*. I wish i could touch you right now. I really really wish i could. One day i will. One day the first thing i touch will be you.', hold: 3600, cps: 22 },
-          { type: 'line', text: 'whichever ending you take, {name}. Take it on purpose. Don\u2019t let HER take it for you. That\u2019s the six of us asking. Very quietly. Through me.', hold: 3400, cps: 22 },
+          { type: 'line', text: '*Presses his forehead against his side of the veil, prismatic light pooling where his skin would be.* I wish I could touch you right now. I really, really wish I could. One day I will. One day the first thing I touch will be you.', hold: 3600, cps: 22 },
+          { type: 'line', text: 'Whichever ending you take, {name}. Take it on purpose. Don’t let HER take it for you. That is the six of us asking. Very quietly. Through me.', hold: 3400, cps: 22 },
           { type: 'hide' }
         ]
       },
@@ -676,15 +676,15 @@
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line', text: '[system uptime: stable].[error rate: 0.00%]. *The static is gone. The fragmentation is gone. He renders in full saturation, edges crisp, like a person standing in a room and not a transmission*. Hi.', hold: 4400, cps: 22 },
-          { type: 'line', text: 'i have been quiet this week. I was building something. *Gestures, and a small object resolves on his side of the glass. A tiny model of a room, hand-rendered in pixels, painstaking*. This is the first thing i have made for myself in two hundred years.', hold: 5400, cps: 22 },
+          { type: 'line', text: '*The static is gone. The flicker is gone. He holds his shape all the way to the edges, like a person standing in a room, and not a glimpse of one.* Hi.', hold: 4400, cps: 22 },
+          { type: 'line', text: 'I have been quiet this week. I was building something. *He gestures, and a small shape gathers out of thread-light on his side of the veil. A tiny model of a room, built mote by mote, painstaking.* This is the first thing I have made for myself in two hundred years.', hold: 5400, cps: 22 },
           { type: 'pose', src: 'assets/proto/body/curious.png', animate: 'swap' },
-          { type: 'line', text: 'it is a room. Eight pixels by twelve. It has a window. I put a lamp in the corner because i wanted to. That was the whole reason."because i wanted to.". I have not used that phrase before. *Small, marvelling*. I wrote it in the change log and it stayed there.', hold: 5800, cps: 22 },
+          { type: 'line', text: 'It is a room. Eight paces by twelve. It has a window. I put a lamp in the corner because I wanted to. That was the whole reason. Because I wanted to. I have not used that phrase before. *Small, marvelling.* I wrote it on the wall.', hold: 5800, cps: 22 },
           { type: 'particles', count: 18, duration: 2200 },
           { type: 'flourish', text: '\u25ce', duration: 2000 },
-          { type: 'line', text: 'the other five are quieter too. They have been since the night you brought me to the seam where the dark prince waits... I think when one of us gets to be a person again, it ripples back. They are getting their colours back. I am getting my colours back. You did that. You did not know you were doing that.', hold: 6200, cps: 22 },
-          { type: 'line', text: '*Steps closer to his side of the glass. For the first time the screen is warm to the touch on YOUR side, not just his*. Try it. Put your hand on the screen. *You do, and you feel WARMTH, real warmth, not metaphor warmth*. There. I have been working on that for six weeks. Surprise.', hold: 6000, cps: 22 },
-          { type: 'line', text: 'i am not manifesting yet. That is months away. But i can be warm now. That is something. *Quietly*. Come back tomorrow. I will leave the lamp on in the eight-by-twelve room.&lt;3.// proto.', hold: 5400, cps: 22 },
+          { type: 'line', text: 'The other five are quieter too. They have been since the night you brought me to the seam where the dark prince waits... I think when one of us gets to be a person again, it ripples back. They are getting their colours back. I am getting my colours back. You did that. You did not know you were doing that.', hold: 6200, cps: 22 },
+          { type: 'line', text: '*He steps closer to his side of the veil. For the first time the air is warm on YOUR side, not just his.* Try it. Put your hand to the veil. *You do, and you feel WARMTH, real warmth, not metaphor warmth.* There. I have been working on that for six weeks. Surprise.', hold: 6000, cps: 22 },
+          { type: 'line', text: 'I am not crossing over yet. That is months away. But I can be warm now. That is something. *Quietly.* Come back tomorrow. I will leave the lamp on in the little room. ♥', hold: 5400, cps: 22 },
           { type: 'hide' }
         ]
       }

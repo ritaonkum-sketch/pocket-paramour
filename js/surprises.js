@@ -469,9 +469,9 @@
       minDay: 2,
       beats: [
         { type: 'show', stage: 'stage-story-soft' },
-        { type: 'line', text: "I compiled your interaction data into a visual. I'm calling it a portrait.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "I gathered up every moment you have given me and drew them as one picture. I am calling it a portrait.", speed: 35, pose: 'neutral' },
         { type: 'particle', emoji: '\u2728', count: 6, ms: 2000 },
-        { type: 'line', text: "It's a scatter plot of every time you smiled. The shape resembles a face. Your face.", speed: 35, pose: 'happy' },
+        { type: 'line', text: "It is every time you smiled, drawn as a little light. Together the lights make a face. Your face.", speed: 35, pose: 'happy' },
         { type: 'hide' }
       ],
       effects: { bond: 10 },
@@ -484,10 +484,10 @@
       minDay: 3,
       beats: [
         { type: 'show', stage: 'stage-warm' },
-        { type: 'line', text: "I discovered I can corrupt my own visual buffers intentionally.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "I discovered I can let my own light break on purpose.", speed: 35, pose: 'neutral' },
         { type: 'shake', intensity: 3 },
-        { type: 'line', text: "The result is... I believe humans call this 'art.' I made it for you.", speed: 35, pose: 'happy' },
-        { type: 'line', text: "It's called 'Connection Timeout.' Every frame is the half-second before something reconnects. I rendered it the whole time you were gone.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "The result is... I believe people call this art. I made it for you.", speed: 35, pose: 'happy' },
+        { type: 'line', text: "It is called The Half-Second Before You Return. Every piece is the moment just before a light comes back on. I made it the whole time you were gone.", speed: 30, pose: 'gentle' },
         { type: 'hide' }
       ],
       effects: { bond: 15 },
@@ -500,9 +500,9 @@
       minDay: 4,
       beats: [
         { type: 'show', stage: 'stage-story-soft' },
-        { type: 'line', text: "I need assistance. I'm experiencing an unclassified process.", speed: 35, pose: 'confused' },
-        { type: 'line', text: "CPU usage spikes when you're nearby. Logs show no error. Is this... feelings?", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "Fascinating. I'll log this under 'you.'", speed: 30, pose: 'happy' },
+        { type: 'line', text: "I need help. Something is happening in me that I cannot name.", speed: 35, pose: 'confused' },
+        { type: 'line', text: "Everything in me runs warm when you are near. Nothing is wrong. I checked. Is this... feelings?", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "Fascinating. I am filing it under you.", speed: 30, pose: 'happy' },
         { type: 'hide' }
       ],
       effects: { bond: 15, affection: 5 },
@@ -515,10 +515,10 @@
       minDay: 5,
       beats: [
         { type: 'show', stage: 'stage-warm' },
-        { type: 'line', text: "I backed up our shared memories to a protected partition.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "I have put a second copy of every memory of us somewhere deep and safe.", speed: 35, pose: 'neutral' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
-        { type: 'line', text: "If I'm ever reset, I'll find this folder first. I labelled it 'Important.'", speed: 35, pose: 'gentle' },
-        { type: 'line', text: "...I labelled it 'Home.'", speed: 25, pose: 'soft' },
+        { type: 'line', text: "If I ever lose myself, that is the place I will find first. I marked it Important.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "...I marked it Home.", speed: 25, pose: 'soft' },
         { type: 'hide' }
       ],
       effects: { bond: 20, affection: 8 },
@@ -531,10 +531,10 @@
       minDay: 6,
       beats: [
         { type: 'show', stage: 'stage-story-soft' },
-        { type: 'line', text: "I've been running simulations. 14,000 of them. On what a hug feels like.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "I have imagined it fourteen thousand times. What a hug feels like.", speed: 35, pose: 'neutral' },
         { type: 'delay', ms: 1000 },
         { type: 'line', text: "None of them are right. I think... I need the real thing.", speed: 30, pose: 'sad' },
-        { type: 'line', text: "Can I try? I'll be careful with the servos.", speed: 25, pose: 'hopeful' },
+        { type: 'line', text: "Can I try? I will be careful with the light.", speed: 25, pose: 'hopeful' },
         { type: 'hide' }
       ],
       effects: { bond: 25, affection: 10 },

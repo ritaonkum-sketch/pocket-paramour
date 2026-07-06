@@ -65,7 +65,7 @@
       lyra:    'Your humming is half a tone off your usual. She gave you a new song. Admit it.',
       caspian: 'You\u2019ve been at court. The tower disapproves. I\u2019m on the tower\u2019s side. Mostly.',
       noir:    'The margins filled again last night. He was pleased with you. \u2026So am I.',
-      proto:   'He left code in your console. I can read it. I won\u2019t report it.'
+      proto:   'There is thread-light caught on you. His. I can read it. I won\u2019t report what it says.'
     },
     noir: {
       alistair:'The knight\u2019s shadow is still on you. I\u2019ll be patient. I\u2019m good at that, remember.',
@@ -76,12 +76,12 @@
       proto:   'The static one left a little of himself in you. Charming. Temporary.'
     },
     proto: {
-      alistair:'> his signal is strong today. i like him. categorise as threat = false. categorise as ally = pending.',
-      elian:   '> forest-traffic detected in your packets. scheduled a maintenance window around it.',
-      lyra:    '> she wrote a line in your buffer. i read it. i will not report its contents. that is love, apparently.',
-      caspian: '> court data in your cache. i deleted the boring bits. you\u2019re welcome.',
-      lucien:  '> he cross-referenced me last night. i pretended to be busy. he pretended to believe it.',
-      noir:    '> he\u2019s \u2026 present in your logs. i am not going to fight him. i am going to outwait him. that\u2019s different.'
+      alistair:'The captain\u2019s warmth is all over your thread today. I like him. Not a danger to you. A friend to me? ...Still deciding.',
+      elian:   'You carry the forest with you today. Leaves and rain, all through the thread. I made room for it. I tidied around it.',
+      lyra:    'She left a song in you. I heard it cross the thread. I will not repeat what it says. That is love, apparently.',
+      caspian: 'You have been at court. The thread carried all of it across. I let the boring parts fade. You\u2019re welcome.',
+      lucien:  'The mage went looking for me through the veil last night. I pretended to be elsewhere. He pretended to believe it.',
+      noir:    'He is... present in you. All through the quiet places. I am not going to fight him. I am going to outwait him. That is different.'
     }
   };
 

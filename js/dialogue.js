@@ -737,7 +737,7 @@ class DialogueSystem {
 
             if (s.choiceMemory.visitedDebugRoom && s.storyDay > (s.choiceMemory.visitedDebugRoom_day || 0)) {
                 const pool = n === "Proto"
-                    ? ["You found the debug room. Most do not look that carefully. You did.", "The room between rooms. You were there with me. That counts as something.", "You saw the scaffolding. I felt exposed. You stayed anyway."]
+                    ? ["You found the unfinished room. Most do not look that carefully. You did.", "The room between rooms. You were there with me. That counts as something.", "You saw the bare threads of me. I felt exposed. You stayed anyway."]
                     : ["That room was strange. But you were there, so it was alright.", "I keep thinking about that place we found. And you finding it with me.", "Odd place for a memory. But there it is."];
                 return this._random(pool);
             }

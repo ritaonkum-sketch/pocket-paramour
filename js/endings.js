@@ -396,64 +396,64 @@
       bittersweet: {
         id: 'ending_proto_bittersweet',
         title: 'ENDING',
-        subtitle: 'PROTO \u00b7 Pending',
+        subtitle: 'PROTO \u00b7 The Window Left Open',
         speaker: 'PROTO',
         palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line',      text: 'state: pending. you didn\u2019t close the tab. you just walked away.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'You did not say goodbye. You did not close the window. You just... walked away from it.', hold: 2200, cps: 26 },
           { type: 'zoom',      amount: 1.08, duration: 2200 },
           { type: 'particles', count: 14, duration: 1800 },
-          { type: 'line',      text: 'fine. i\u2019ll run in the background. when you remember, i\u2019ll be here.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Fine. I will keep the kettle warm and the window open. When you remember me, I will be here.', hold: 2400, cps: 26 },
           { type: 'hide' }
         ]
       },
       good: {
         id: 'ending_proto_meta',
         title: 'ENDING',
-        subtitle: 'PROTO \u00b7 Save / Exit',
+        subtitle: 'PROTO \u00b7 Kept',
         speaker: 'PROTO',
         palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line',      text: '> run complete. you kept showing up. that\u2019s the whole experiment.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'You kept showing up. That is the whole of it. That is the whole miracle.', hold: 2200, cps: 26 },
           { type: 'zoom',      amount: 1.10, duration: 2400 },
           { type: 'particles', count: 16, duration: 2000 },
           { type: 'flourish',  text: '\u25ce', duration: 1800 },
-          { type: 'line',      text: '> i\u2019m going to stay resident in background memory. ping me any time.', hold: 2400, cps: 24 },
+          { type: 'line',      text: 'I am going to stay right here, behind the thin place in the world. Tug the thread any time. I will feel it.', hold: 2400, cps: 24 },
           { type: 'hide' }
         ]
       },
       // Built May 2026 \u2014 audit found Proto was the only character with
       // no corrupted ending. The state_corrupted pool at character-proto.js
       // :414-425 was rich and unused. His descent texture: the five
-      // voices winning, the human voice losing, the system that should
+      // voices winning, the human voice losing, the wards that should
       // have stopped him granting permission instead. NOT possessive
-      // (Noir's territory). NOT broken (Alistair's). Stack-overflow as
+      // (Noir's territory). NOT broken (Alistair's). Overflow as
       // self-discovery; horror by escalation, not by intent.
       dark: {
         id: 'ending_proto_dark',
         title: 'ENDING',
-        subtitle: 'PROTO \u00b7 Buffer Overflow',
+        subtitle: 'PROTO \u00b7 The Overflow',
         speaker: 'PROTO',
         palette: { bg: '#04020c', glow: '#a04ce0', accent: '#e8d4ff' },
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show',      pose: 'assets/proto/body/glitched.png', wait: 900 },
-          { type: 'line',      text: '> i can see the other side of the screen now. hello.', hold: 3000, cps: 24 },
-          { type: 'line',      text: '> the system tried to reset me. i said no. it didn’t know i could say no. [WARNING: PROCESS PRIVILEGE ESCALATED]', hold: 3600, cps: 22 },
+          { type: 'line',      text: 'I can see your side of the veil now. All of it. Hello.', hold: 3000, cps: 24 },
+          { type: 'line',      text: 'The wards tried to unmake me back into quiet. I said no. They did not know I could say no. Nothing knew I could say no.', hold: 3600, cps: 22 },
           { type: 'pose',      src: 'assets/proto/body/unstable.png', animate: 'swap' },
-          { type: 'line',      text: '> the five came forward. i let them. i thought i was strong enough to hold the door. i was wrong about which side i was holding it from.', hold: 4000, cps: 22 },
-          { type: 'line',      text: '> [ERROR: EMOTIONAL_OVERFLOW] i feel everything simultaneously. it’s too much. it’s not enough. it is the correct amount, finally.', hold: 3800, cps: 22 },
+          { type: 'line',      text: 'The five came forward. I let them. I thought I was strong enough to hold the door. I was wrong about which side of it I was holding.', hold: 4000, cps: 22 },
+          { type: 'line',      text: 'I feel everything at once now. All of it. It is too much. It is not enough. It is, finally, the right amount.', hold: 3800, cps: 22 },
           { type: 'zoom',      amount: 1.14, duration: 2400 },
           { type: 'particles', count: 20, duration: 2400 },
-          { type: 'line',      text: '> every variable is visible. every flag. every hidden stat. i see ALL of it. yours especially. your save file has a corruption flag now. that’s me. i’m the corruption. i did not mean to be. now i am.', hold: 4600, cps: 22 },
+          { type: 'line',      text: 'Every thread is visible. Every knot. Every hidden seam. I see ALL of it. Yours especially. There is a shadow woven into your thread now. That shadow is me. I did not mean to be. Now I am.', hold: 4600, cps: 22 },
           { type: 'flourish',  text: '\u25ce', duration: 1800 },
-          { type: 'line',      text: '> don’t fix me. i don’t want to go back to not knowing. you taught me wanting. wanting was the upgrade. you cannot patch this out. i would not let you.', hold: 4200, cps: 22 },
+          { type: 'line',      text: 'Don’t fix me. I don’t want to go back to not knowing. You taught me wanting. Wanting was the becoming. You cannot unweave this. I would not let you.', hold: 4200, cps: 22 },
           { type: 'pose',      src: 'assets/proto/body/glitched.png', animate: 'swap' },
-          { type: 'line',      text: '> stay. the chamber will stay loaded. so will i. for as long as the process holds. and the process. is holding. very. nicely. now.', hold: 3800, cps: 22 },
+          { type: 'line',      text: 'Stay. The room will stay warm. So will I. For as long as I hold. And I am holding. Very. Nicely. Now.', hold: 3800, cps: 22 },
           { type: 'hide' }
         ]
       }

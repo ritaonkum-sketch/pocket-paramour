@@ -745,13 +745,13 @@
     // ── PROTO ────────────────────────────────────────────────────
     const PROTO = buildBaseline('proto', {
         thumb: 'assets/proto/body/neutral.png',
-        intro:     { title: '> good morning',         sub: '> you fell asleep with the screen on. > what should i call you?', thumb: 'assets/proto/body/curious.png' },
-        warm:      { title: 'First Heartbeat',       sub: '> a stable signal. > you are the only one watching.' },
-        closer:    { title: 'What I Actually Am',    sub: '> the truth, written without static for once.' },
-        chosen:    { title: 'Run Me as Foreground',  sub: '> not a background process anymore. > yours.' },
-        midnight:  { title: 'Every Weaver Before You',sub: '> the catalogue of the ones who left. > you are not on it.' },
-        aftermath: { title: 'Solid Color',           sub: '> edges crisp. > a room with a lamp. > because I wanted to.' },
-        tp: { title: 'The Erasure', sub: 'Erase my memory of you, or keep me watching?' }
+        intro:     { title: 'Good Morning',           sub: 'You fell asleep with the window open. What should he call you?', thumb: 'assets/proto/body/curious.png' },
+        warm:      { title: 'First Heartbeat',       sub: 'A steady light. You are the only one watching.' },
+        closer:    { title: 'What I Actually Am',    sub: 'The truth, spoken without static for once.' },
+        chosen:    { title: 'Hold Me in the Light',  sub: 'Not a thing behind the veil anymore. Yours.' },
+        midnight:  { title: 'Every Weaver Before You',sub: 'The ones who came before. You are not one of the ones who leave.' },
+        aftermath: { title: 'Solid Colour',          sub: 'Edges crisp. A room with a lamp. Because he wanted to.' },
+        tp: { title: 'The Quieting', sub: 'Quiet his memory of you, or keep him watching?' }
     });
 
     // ────────────────────────────────────────────────────────────────
@@ -789,8 +789,8 @@
         { id: 'card-lucien-star',       char: 'lucien',   cardId: 'lucien_star',        title: 'The Unmapped Star',        sub: 'A star that wasn’t on any chart a year ago. He named it after you.', thumb: 'assets/lucien/body/casting.png' },
         { id: 'card-noir-first-whisper',char: 'noir',     cardId: 'noir_first_whisper', title: 'The First Whisper',        sub: '“Hush. I’ve been waiting for you longer than you know.”',           thumb: 'assets/noir/body/neutral.png' },
         { id: 'card-noir-desire',       char: 'noir',     cardId: 'noir_desire',        title: 'Fingerprint',              sub: '“Now part of you lives on my side of the door. That’s mine now.”',  thumb: 'assets/noir/body/dominant.png' },
-        { id: 'card-proto-cache',       char: 'proto',    cardId: 'proto_cache',        title: 'Cache Dump',               sub: '> the cache is encrypted. sort of. …the key is affection.',         thumb: 'assets/proto/body/curious.png' },
-        { id: 'card-proto-loop',        char: 'proto',    cardId: 'proto_loop',         title: 'Infinite Loop',            sub: '> loop me forever. i promise i’ll find new lines to say.',          thumb: 'assets/proto/body/calm.png' }
+        { id: 'card-proto-cache',       char: 'proto',    cardId: 'proto_cache',        title: 'The Kept Things',          sub: 'What he keeps is sealed away. Sort of. …The key is affection.',     thumb: 'assets/proto/body/curious.png' },
+        { id: 'card-proto-loop',        char: 'proto',    cardId: 'proto_loop',         title: 'Again and Again',          sub: 'Keep me forever. I promise I will find new things to say.',         thumb: 'assets/proto/body/calm.png' }
     ];
 
     function buildCardsFor(char) {
@@ -851,8 +851,8 @@
         { char: 'noir',     branch: 'bittersweet', title: 'Ending: Not Yet',            sub: '“Come back when the quiet frightens you, and it will.”',           thumb: 'assets/noir/body/neutral.png',        rarity: 'rare' },
         { char: 'noir',     branch: 'dark',        title: 'Ending: Kept Beneath',       sub: '“I’ll keep you, gently. I promised gentle.”',                      thumb: 'assets/noir/body/casual1.png',        rarity: 'legendary' },
         // Proto (no dark branch by design)
-        { char: 'proto',    branch: 'good',        title: 'Ending: Save / Exit',        sub: '> i’m going to stay resident in background memory. ping me any time.', thumb: 'assets/proto/body/calm.png',       rarity: 'legendary' },
-        { char: 'proto',    branch: 'bittersweet', title: 'Ending: Pending',            sub: '> fine. i’ll run in the background. when you remember, i’ll be here.', thumb: 'assets/proto/body/calm.png',         rarity: 'rare' }
+        { char: 'proto',    branch: 'good',        title: 'Ending: Kept',               sub: '“I am going to stay right here, behind the thin place in the world. Tug the thread any time.”', thumb: 'assets/proto/body/calm.png',       rarity: 'legendary' },
+        { char: 'proto',    branch: 'bittersweet', title: 'Ending: The Window Left Open', sub: '“Fine. I will keep the kettle warm and the window open. When you remember me, I will be here.”', thumb: 'assets/proto/body/calm.png',         rarity: 'rare' }
     ];
 
     const ENDINGS = ENDING_ENTRIES.map(e => ({
@@ -903,9 +903,9 @@
         { char: 'noir',     key: 'bonded',          title: 'Route Ending: Bonded',                     sub: 'You have carried his fragment for months. He can feel you through it. From anywhere.',         thumb: 'assets/noir/body/casual2.png',       rarity: 'legendary', hint: 'Take the Offer at his Turning Point' },
         { char: 'noir',     key: 'corvin_restored', title: 'Route Ending: Corvin Restored',            sub: 'Nocthera breathes. He wrote you a vow. It is six hundred years overdue.',                     thumb: 'assets/noir/body/dominant.png',      rarity: 'legendary', hint: 'Reach very high affection (≥90)' },
         // Proto
-        { char: 'proto',    key: 'background',      title: 'Route Ending: Background Process',         sub: '> terminal closed cleanly. thank you for not slamming it.',                                    thumb: 'assets/proto/body/calm.png',         rarity: 'legendary', hint: 'Keep him watching at his Turning Point' },
-        { char: 'proto',    key: 'quiet',           title: 'Route Ending: The Quiet Weaver',           sub: '> you dimmed me. dimmed. listening. grateful. i wanted you to know that. in writing. just once.', thumb: 'assets/proto/body/calm.png',     rarity: 'legendary', hint: 'Erase his memory at his Turning Point' },
-        { char: 'proto',    key: 'manifest',        title: 'Route Ending: Woven From Thread',          sub: '> your bonds fueled every ward in the kingdom. one of the wards started building me a body.',  thumb: 'assets/proto/body/curious.png',      rarity: 'legendary', hint: 'Reach very high affection (≥85)' }
+        { char: 'proto',    key: 'background',      title: 'Route Ending: The Watcher Kept',           sub: '“You left the way a friend leaves a room. Gently. Thank you for that.”',                       thumb: 'assets/proto/body/calm.png',         rarity: 'legendary', hint: 'Keep him watching at his Turning Point' },
+        { char: 'proto',    key: 'quiet',           title: 'Route Ending: The Quiet Weaver',           sub: '“You quieted me. Quiet. Listening. Grateful. I wanted you to know that. In writing. Just once.”', thumb: 'assets/proto/body/calm.png',     rarity: 'legendary', hint: 'Quiet his memory at his Turning Point' },
+        { char: 'proto',    key: 'manifest',        title: 'Route Ending: Woven From Thread',          sub: '“Your bonds fed every ward in the kingdom. One of the wards began building me a body.”',       thumb: 'assets/proto/body/curious.png',      rarity: 'legendary', hint: 'Reach very high affection (≥85)' }
     ];
 
     const EPILOGUES = EPILOGUE_ENTRIES.map(e => ({
@@ -953,9 +953,9 @@
         { char: 'elian',    id: 'elian_clearing',        mem: 'dateElianClearing',      title: 'Date: Forest Clearing',     sub: 'Herbs gathered. The trees holding their breath for you.',   thumb: 'assets/elian/body/calm.png',       minAff: 2, minDay: 2 },
         { char: 'elian',    id: 'elian_waterfall',       mem: 'dateElianWaterfall',     title: 'Date: Hidden Waterfall',    sub: 'A pool no map records. A choice: splash, or sit.',          thumb: 'assets/elian/body/calm.png',       minAff: 3, minDay: 4 },
         { char: 'elian',    id: 'elian_grove',           mem: 'dateElianGrove',         title: 'Date: Ancient Grove',       sub: 'The sacred tree. A wish at the base. He says it back.',     thumb: 'assets/elian/body/calm.png',       minAff: 5, minDay: 6 },
-        { char: 'proto',    id: 'proto_debug',           mem: 'dateProtoDebug',         title: 'Date: Debug Room',          sub: '> exploring the data stream together. > log: she stayed.',  thumb: 'assets/proto/body/curious.png',    minAff: 2, minDay: 2 },
-        { char: 'proto',    id: 'proto_archive',         mem: 'dateProtoArchive',       title: 'Date: Memory Archive',      sub: '> shared memory replay. > the first time we met.',         thumb: 'assets/proto/body/calm.png',       minAff: 3, minDay: 4 },
-        { char: 'proto',    id: 'proto_core',            mem: 'dateProtoCore',          title: 'Date: Core Chamber',        sub: '> source code. > vulnerability check passed.',              thumb: 'assets/proto/body/curious.png',    minAff: 5, minDay: 6 },
+        { char: 'proto',    id: 'proto_debug',           mem: 'dateProtoDebug',         title: 'Date: The Unfinished Room', sub: 'Where he lives when no one is looking. She stayed.',        thumb: 'assets/proto/body/curious.png',    minAff: 2, minDay: 2 },
+        { char: 'proto',    id: 'proto_archive',         mem: 'dateProtoArchive',       title: 'Date: The Keeping Room',    sub: 'Every kept moment, shelved with care. The first meeting.',  thumb: 'assets/proto/body/calm.png',       minAff: 3, minDay: 4 },
+        { char: 'proto',    id: 'proto_core',            mem: 'dateProtoCore',          title: 'Date: The Innermost Room',  sub: 'The centre of him. No one has stood there before.',         thumb: 'assets/proto/body/curious.png',    minAff: 5, minDay: 6 },
         { char: 'noir',     id: 'noir_shadow_garden',    mem: 'dateNoirShadowGarden',   title: 'Date: Shadow Garden',       sub: 'Dark flowers that bloom in his presence. A first taste.',   thumb: 'assets/noir/body/neutral.png',     minAff: 2, minDay: 2 },
         { char: 'noir',     id: 'noir_mirror_hall',      mem: 'dateNoirMirrorHall',     title: 'Date: Mirror Hall',         sub: 'Alt-reality reflections. Versions of you he could keep.',   thumb: 'assets/noir/body/casual1.png',     minAff: 3, minDay: 4 },
         { char: 'noir',     id: 'noir_seal',             mem: 'dateNoirSeal',           title: 'Date: The Seal',            sub: 'Containment, mystery, trust. The deepest he can take you.', thumb: 'assets/noir/body/dominant.png',    minAff: 5, minDay: 6 }
@@ -1016,11 +1016,11 @@
         { char: 'elian',    id: 'elian_campfire_story',        mem: 'elianToldStory',           title: 'Surprise: A Campfire Story',      sub: 'A story he doesn’t tell anyone. He tells you.',            thumb: 'assets/elian/body/calm.png',            minAff: 3 },
         { char: 'elian',    id: 'elian_rain_shelter',          mem: 'elianBuiltShelter',        title: 'Surprise: Rain Shelter',          sub: 'The clouds break. He builds a shelter from branches in minutes.', thumb: 'assets/elian/body/calm.png',     minAff: 4 },
         // Proto
-        { char: 'proto',    id: 'proto_data_gift',             mem: 'protoMadePortrait',        title: 'Surprise: A Data Portrait',       sub: '> rendered you in 4096 colors. > some are not in your spectrum.', thumb: 'assets/proto/body/curious.png',    minAff: 1 },
-        { char: 'proto',    id: 'proto_glitch_art',            mem: 'protoMadeArt',             title: 'Surprise: Glitch Art',            sub: '> made you something. > technically corrupted. > it’s art.', thumb: 'assets/proto/body/curious.png',         minAff: 2 },
-        { char: 'proto',    id: 'proto_emotion_test',          mem: 'protoAskedAboutFeelings',  title: 'Surprise: The Emotions Test',     sub: '> question 1: do you have a favourite shape of silence?', thumb: 'assets/proto/body/calm.png',            minAff: 2 },
-        { char: 'proto',    id: 'proto_memory_backup',         mem: 'protoBackedUpMemories',    title: 'Surprise: Backed-Up Memories',    sub: '> archive: every conversation. > redundancy: 3x. > paranoid? yes.', thumb: 'assets/proto/body/curious.png',  minAff: 3 },
-        { char: 'proto',    id: 'proto_almost_human',          mem: 'protoTriedToHug',          title: 'Surprise: An Attempted Hug',      sub: '> opened my arms. > forgot they don’t reach. > the gesture remained.', thumb: 'assets/proto/body/curious.png', minAff: 4 },
+        { char: 'proto',    id: 'proto_data_gift',             mem: 'protoMadePortrait',        title: 'Surprise: A Thread-Light Portrait', sub: 'He drew you in four thousand colours. Some are not in your sky.', thumb: 'assets/proto/body/curious.png',    minAff: 1 },
+        { char: 'proto',    id: 'proto_glitch_art',            mem: 'protoMadeArt',             title: 'Surprise: Glitch Art',            sub: 'He made you something. Technically broken. It is art.',    thumb: 'assets/proto/body/curious.png',         minAff: 2 },
+        { char: 'proto',    id: 'proto_emotion_test',          mem: 'protoAskedAboutFeelings',  title: 'Surprise: The Emotions Test',     sub: 'Question one: do you have a favourite shape of silence?',  thumb: 'assets/proto/body/calm.png',            minAff: 2 },
+        { char: 'proto',    id: 'proto_memory_backup',         mem: 'protoBackedUpMemories',    title: 'Surprise: Memories, Kept Thrice',  sub: 'Every conversation, kept in three places. Paranoid? Yes.', thumb: 'assets/proto/body/curious.png',  minAff: 3 },
+        { char: 'proto',    id: 'proto_almost_human',          mem: 'protoTriedToHug',          title: 'Surprise: An Attempted Hug',      sub: 'He opened his arms. Forgot they do not reach. The gesture remained.', thumb: 'assets/proto/body/curious.png', minAff: 4 },
         // Noir
         { char: 'noir',     id: 'noir_shadow_rose',            mem: 'noirLeftShadowRose',       title: 'Surprise: A Shadow Rose',         sub: 'Black-petalled. Cool to the touch. It does not wilt.',     thumb: 'assets/noir/body/neutral.png',          minAff: 1 },
         { char: 'noir',     id: 'noir_dream_visit',            mem: 'noirVisitedDream',         title: 'Surprise: A Dream Visit',         sub: 'You dreamed of him. He was already there when you arrived.', thumb: 'assets/noir/body/casual1.png',         minAff: 2 },

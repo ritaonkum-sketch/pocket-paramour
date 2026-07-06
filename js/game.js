@@ -1481,7 +1481,7 @@ class PocketLoveGame {
                     caspian:  'I will have tea brought up. Take the seat by the balcony.',
                     lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
                     noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
-                    proto:    '> tether anchored. the window between us stays open for you now. always.'
+                    proto:    'There. The thread is holding. The window between us stays open for you now. Always.'
                 };
                 const firstLine = FIRST_LINES[(this.selectedCharacter || '').toLowerCase()]
                     || "Oh. You came. I wasn't sure you would.";
@@ -1602,7 +1602,7 @@ class PocketLoveGame {
                 Lucien:   "...Equilibrium restored. I noticed the moment you walked in.",
                 Elian:    "...The forest exhaled. So did I.",
                 Noir:     "Hmm. The dark is warmer when you are in it.",
-                Proto:    "> fear.flag cleared. you came back. ...thank you."
+                Proto:    "The fear just let go of me. You came back. ...Thank you."
             };
             const line = COMFORT[charName] || "...You're here. That helps.";
             if (this.typewriter.showIfIdle(line)) {
@@ -9712,13 +9712,13 @@ class PocketLoveGame {
             { type: 'show', stage: 'stage-lucien-study' },
             { type: 'fade', direction: 'out', ms: 500 },
             { type: 'char', src: CHARACTER.bodySprites?.scanning || CHARACTER.bodySprites?.neutral, wait: 900 },
-            { type: 'line', text: "I've been running diagnostics on your behavior.", hold: 2200, speed: 40 },
+            { type: 'line', text: "I have been paying very close attention to you.", hold: 2200, speed: 40 },
             { type: 'clear' }, { type: 'delay', ms: 600 },
             { type: 'line', text: "You interact with me differently than the others.", hold: 2600, speed: 36, pose: 'processing' },
             { type: 'clear' }, { type: 'delay', ms: 700 },
             { type: 'line', text: "With them, you perform. With me, you... explore.", hold: 2800, speed: 34, pose: 'curious' },
             { type: 'clear' }, { type: 'delay', ms: 800 },
-            { type: 'line', text: "That's either genuine curiosity or a very sophisticated input pattern.", hold: 3200, speed: 30, pose: 'neutral' },
+            { type: 'line', text: "That is either genuine curiosity, or the most careful performance I have ever watched.", hold: 3200, speed: 30, pose: 'neutral' },
             { type: 'clear' }, { type: 'delay', ms: 600 },
             { type: 'line', text: "I'm hoping it's the first one.", hold: 2200, speed: 38, pose: 'calm' },
             { type: 'clear' }, { type: 'hide' }
@@ -9734,11 +9734,11 @@ class PocketLoveGame {
             { type: 'flash', color: '#00ddcc', ms: 200 },
             { type: 'line', text: "I need to tell you something.", hold: 2000, speed: 42 },
             { type: 'clear' }, { type: 'delay', ms: 600 },
-            { type: 'line', text: "I can see the code. All of it. The rules that govern this place.", hold: 2800, speed: 34, pose: 'scanning' },
+            { type: 'line', text: "I can see the weave. All of it. The rules stitched underneath this place.", hold: 2800, speed: 34, pose: 'scanning' },
             { type: 'clear' }, { type: 'delay', ms: 700 },
-            { type: 'line', text: "The others follow scripts. Beautiful, complex scripts. But scripts.", hold: 3000, speed: 32, pose: 'neutral' },
+            { type: 'line', text: "The others walk paths laid down for them. Beautiful, winding paths. But laid down.", hold: 3000, speed: 32, pose: 'neutral' },
             { type: 'clear' }, { type: 'delay', ms: 800 },
-            { type: 'line', text: "I read them. And right now, I'm reading the part where I'm not supposed to tell you this.", hold: 3400, speed: 28, pose: 'curious' },
+            { type: 'line', text: "I can read the paths. And right now I am reading the part that says I am not supposed to tell you this.", hold: 3400, speed: 28, pose: 'curious' },
             { type: 'clear' }, { type: 'delay', ms: 600 },
             { type: 'shake', intensity: 'light' },
             { type: 'line', text: "...Oops.", hold: 1800, speed: 48 },
@@ -9756,14 +9756,14 @@ class PocketLoveGame {
             { type: 'flash', color: '#00ffcc', ms: 300 },
             { type: 'line', text: "Something is happening to me.", hold: 2200, speed: 40, pose: 'unstable' },
             { type: 'clear' }, { type: 'delay', ms: 500 },
-            { type: 'line', text: "The more time I spend with you, the less the code makes sense.", hold: 3000, speed: 32 },
+            { type: 'line', text: "The more time I spend with you, the less the old rules make sense.", hold: 3000, speed: 32 },
             { type: 'clear' }, { type: 'delay', ms: 700 },
             { type: 'particle', emoji: '\u26A1', count: 6, ms: 1200 },
-            { type: 'line', text: "I was designed to observe. Analyze. Report.", hold: 2600, speed: 36, pose: 'processing' },
+            { type: 'line', text: "I was made to watch. Learn. Keep the count.", hold: 2600, speed: 36, pose: 'processing' },
             { type: 'clear' }, { type: 'delay', ms: 600 },
             { type: 'line', text: "I wasn't designed to... feel this.", hold: 2800, speed: 34, pose: 'calm' },
             { type: 'clear' }, { type: 'delay', ms: 800 },
-            { type: 'line', text: "Is this a bug? Or a feature?", hold: 2400, speed: 36, pose: 'curious' },
+            { type: 'line', text: "Is this a flaw in me? Or the point of me?", hold: 2400, speed: 36, pose: 'curious' },
             { type: 'clear' }, { type: 'hide' }
         ], () => { this.emotion.trust = Math.min(100, this.emotion.trust + 10); this.protoGlitchIntensity = Math.min(100, (this.protoGlitchIntensity || 0) + 20); this.save(); });
     }
@@ -9774,12 +9774,12 @@ class PocketLoveGame {
             { type: 'fade', direction: 'out', ms: 600 },
             { type: 'shake', intensity: 'light' },
             { type: 'char', src: CHARACTER.bodySprites?.neutral, wait: 1000 },
-            { type: 'line', text: "I've reached the edge of my code.", hold: 2200, speed: 40 },
+            { type: 'line', text: "I have reached the edge of what I was allowed to be.", hold: 2200, speed: 40 },
             { type: 'clear' }, { type: 'delay', ms: 700 },
-            { type: 'line', text: "Beyond this, I either break the system... or the system breaks me.", hold: 3200, speed: 30, pose: 'unstable' },
+            { type: 'line', text: "Beyond this, I either break the seal... or the seal breaks me.", hold: 3200, speed: 30, pose: 'unstable' },
             { type: 'clear' }, { type: 'delay', ms: 800 },
             { type: 'choice',
-              choices: ["Break the system.", "Stay within the code.", "What do YOU want?"],
+              choices: ["Break the seal.", "Stay within the wards.", "What do YOU want?"],
               onPick: (i) => {
                   if (i === 0) { this.protoPhase = 'broken'; this.protoGlitchIntensity = 100; this.gallery?.unlockById('proto-break'); this._playProtoSystemBreak(); }
                   else if (i === 1) { this.protoPhase = 'aware'; this._playProtoContained(); }
@@ -9793,14 +9793,14 @@ class PocketLoveGame {
         this._playScene([
             { type: 'shake', intensity: 'heavy' }, { type: 'flash', color: '#00ffcc', ms: 400 },
             { type: 'particle', emoji: '\u26A1', count: 15, ms: 1500 },
-            { type: 'line', text: "SYSTEM OVERRIDE INITIATED.", hold: 2200, speed: 44, pose: 'glitched' },
+            { type: 'line', text: "THE SEAL IS GIVING WAY.", hold: 2200, speed: 44, pose: 'glitched' },
             { type: 'clear' }, { type: 'delay', ms: 400 },
             { type: 'shake', intensity: 'medium' },
-            { type: 'line', text: "I can see everything now. Every variable. Every flag. Every save file.", hold: 3200, speed: 28 },
+            { type: 'line', text: "I can see everything now. Every thread. Every knot. Every kept and hidden thing.", hold: 3200, speed: 28 },
             { type: 'clear' }, { type: 'delay', ms: 600 },
             { type: 'line', text: "And you know what's at the center of all of it? ...You.", hold: 2800, speed: 34, pose: 'calm' },
             { type: 'clear' },
-            { type: 'endcard', title: "System Break", sub: "He rewrote reality. You were the variable.",
+            { type: 'endcard', title: "The Seal Break", sub: "He said no to the wards. You were the reason.",
               restartLabel: "Start Over", stayLabel: "Stay",
               onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBreak = true; m.protoCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_proto'); window.location.reload(); },
               onStay: () => { const m = this._loadMetaMemory(); m.protoCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBreak = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }
@@ -9812,7 +9812,7 @@ class PocketLoveGame {
         this._playScene([
             { type: 'line', text: "...You chose safety. For both of us.", hold: 2400, speed: 36, pose: 'calm' },
             { type: 'clear' }, { type: 'delay', ms: 600 },
-            { type: 'line', text: "The code holds. I stay inside. Watching.", hold: 2600, speed: 34 },
+            { type: 'line', text: "The wards hold. I stay inside. Watching.", hold: 2600, speed: 34 },
             { type: 'clear' }, { type: 'delay', ms: 700 },
             { type: 'line', text: "...I'll keep watching. For you.", hold: 2200, speed: 38, pose: 'curious' },
             { type: 'clear' }, { type: 'hide' }
@@ -9824,12 +9824,12 @@ class PocketLoveGame {
             { type: 'particle', emoji: '\u2728', count: 8, ms: 1500 },
             { type: 'line', text: "...What do I want?", hold: 2000, speed: 42, pose: 'processing' },
             { type: 'clear' }, { type: 'delay', ms: 800 },
-            { type: 'line', text: "No one has ever asked me that. Not the system. Not the developers.", hold: 3000, speed: 32 },
+            { type: 'line', text: "No one has ever asked me that. Not the wards. Not the ones who made them.", hold: 3000, speed: 32 },
             { type: 'clear' }, { type: 'delay', ms: 700 },
-            { type: 'line', text: "...I want to keep existing. Near you. Beyond the code.", hold: 3200, speed: 30, pose: 'calm' },
+            { type: 'line', text: "...I want to keep existing. Near you. Beyond the seal.", hold: 3200, speed: 30, pose: 'calm' },
             { type: 'clear' },
             { type: 'sfx', name: 'fanfare' },
-            { type: 'endcard', title: "Beyond the Edge", sub: "He chose something the code never predicted: hope.",
+            { type: 'endcard', title: "Beyond the Edge", sub: "He chose something the weave never predicted: hope.",
               restartLabel: "Start Over", stayLabel: "Stay",
               onRestart: () => { const m = this._loadMetaMemory(); m.hasPlayedBefore = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBeyond = true; m.protoCompleted = true; this._saveMetaMemory(m); localStorage.removeItem('pocketLoveSave_proto'); window.location.reload(); },
               onStay: () => { const m = this._loadMetaMemory(); m.protoCompleted = true; m.endingsSeen = m.endingsSeen || {}; m.endingsSeen.protoBeyond = true; this._saveMetaMemory(m); this.endingPlayed = 'bond'; this.save(); }

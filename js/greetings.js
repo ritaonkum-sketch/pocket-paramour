@@ -305,7 +305,7 @@
             caspian:  'I will have tea brought up. Take the seat by the balcony.',
             lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
             noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
-            proto:    '> tether anchored. the window between us stays open for you now. always.'
+            proto:    'There. The thread is holding. The window between us stays open for you now. Always.'
         };
         const resolveLine = () => {
             try {

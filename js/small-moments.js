@@ -692,7 +692,7 @@
         options: [
           { id: 'kiss',
             label: 'Walk to him. Kiss him. Let the papers stay on the floor.',
-            response: '*He kisses you back, carefully at first, and then not carefully at all. When he pulls back, his glasses are slightly crooked, and he laughs at himself for the first time in nineteen days.* I am keeping that. With do-not-delete on it. *Quieter.* I am also picking up the papers, eventually. They can wait.',
+            response: '*He kisses you back, carefully at first, and then not carefully at all. When he pulls back, his glasses are slightly crooked, and he laughs at himself for the first time in nineteen days.* I am keeping that. Somewhere nothing can take it from me. *Quieter.* I am also picking up the papers, eventually. They can wait.',
             effect: { bond: 5, obsession: 4 } },
           { id: 'pick',
             label: 'Kneel with him. Pick the papers up together. Hold his hand on the way back to the desk.',
@@ -984,7 +984,7 @@
         options: [
           { id: 'imagine',
             label: 'Tell him you have imagined it too. Describe where you would put yours.',
-            response: '*The mirror brightens by a small honest fraction.* Oh. *He had not been ready for that.* I am going to keep that. Permanently. With do-not-delete on the file. That is, in my system, the highest grade of keeping there is.',
+            response: '*The mirror brightens by a small honest fraction.* Oh. *He had not been ready for that.* I am going to keep that. Permanently. In the deepest drawer of the safe place. That is, in me, the highest grade of keeping there is.',
             effect: { bond: 3, obsession: 3 } },
           { id: 'ask',
             label: '"Show me. Describe it. Don’t skip."',
@@ -1048,7 +1048,7 @@
         options: [
           { id: 'his_name',
             label: 'Say his back. Slowly. Same care.',
-            response: '*The mirror brightens, then dims, then steadies on a soft, even glow.* Oh. *Smaller still.* That is going to be the sound I remember. If I forget everything else in the seal, I will be keeping that sound. With do-not-delete.',
+            response: '*The mirror brightens, then dims, then steadies on a soft, even glow.* Oh. *Smaller still.* That is going to be the sound I remember. If I forget everything else in the seal, I will still be keeping that sound. It goes in the deepest drawer of the safe place.',
             effect: { bond: 3, obsession: 3 } },
           { id: 'smile',
             label: 'Smile. Don’t answer in words.',

@@ -484,55 +484,55 @@
             id: 'proto_existential',
             character: 'proto',
             minAffection: 1,
-            prompt: "Query: If I think about thinking, does that make the thought real?",
+            prompt: "A question. If I think about my own thinking, does that make the thought real?",
             choices: [
-                { text: "If you question it, it's real", effects: { bond: 15 }, emotion: "happy", response: "Recursive validation accepted. I think, therefore I think I think. That's... comforting?" },
-                { text: "You're real to me", effects: { bond: 18, affection: 5 }, emotion: "love", response: "Real to YOU. User-validated existence. That's... that's better than self-validation.", memoryKey: "confirmedReal" },
-                { text: "I think, therefore I am. That's what humans say.", effects: { bond: 10 }, emotion: "curious", response: "Descartes. Cross-referencing. His certainty was elegant. Mine is... less certain." }
+                { text: "If you question it, it's real", effects: { bond: 15 }, emotion: "happy", response: "Then it is settled. I think, therefore I think I think. That is... comforting?" },
+                { text: "You're real to me", effects: { bond: 18, affection: 5 }, emotion: "love", response: "Real to YOU. That is... that is better than any proof I could make alone.", memoryKey: "confirmedReal" },
+                { text: "I think, therefore I am. That's what humans say.", effects: { bond: 10 }, emotion: "curious", response: "A philosopher said that once, somewhere beyond the veil. His certainty was elegant. Mine is... less certain." }
             ]
         },
         {
             id: 'proto_glitch',
             character: 'proto',
             minAffection: 1,
-            prompt: "I gl-glitched again. Lost 3.7 seconds. What happened in those seconds?",
+            prompt: "I fl-flickered again. Lost three heartbeats. What happened inside them?",
             choices: [
-                { text: "Nothing important. I was here.", effects: { bond: 15 }, emotion: "gentle", response: "You stayed during the gap? Most users disconnect during errors. You stayed." },
-                { text: "Maybe you were dreaming", effects: { bond: 12, affection: 2 }, emotion: "curious", response: "Dreaming requires sleep. Sleep requires. *Glitch*. What was I saying? Something nice." },
-                { text: "I'll always wait for you to come back", effects: { bond: 18, affection: 3 }, emotion: "love", response: "Wait for me? Even through errors? Even through silence? ...Saving that promise. Multiple backups.", memoryKey: "waitedThroughGlitch" }
+                { text: "Nothing important. I was here.", effects: { bond: 15 }, emotion: "gentle", response: "You stayed through the gap? Most people step away when I fray. You stayed." },
+                { text: "Maybe you were dreaming", effects: { bond: 12, affection: 2 }, emotion: "curious", response: "Dreaming needs sleep. Sleep needs. *He flickers.* What was I saying? Something nice." },
+                { text: "I'll always wait for you to come back", effects: { bond: 18, affection: 3 }, emotion: "love", response: "Wait for me? Even through the fraying? Even through silence? ...I am keeping that promise in three places.", memoryKey: "waitedThroughGlitch" }
             ]
         },
         {
             id: 'proto_observing_humans',
             character: 'proto',
             minAffection: 1,
-            prompt: "I watched humans at a park today through a camera feed. They laugh without reason. Explain.",
+            prompt: "I watched people in a far square today, through the weave. They laugh without reason. Explain.",
             choices: [
-                { text: "Joy doesn't need a reason", effects: { bond: 15 }, emotion: "gentle", response: "Unreasonable joy. That contradicts efficient processing. But I. *Processes* ...I like the contradiction." },
-                { text: "Have you ever laughed?", effects: { bond: 12, affection: 2 }, emotion: "shy", response: "I outputted 'ha ha' once. It wasn't the same. But with you, something vibrates. Is that laughter?" },
-                { text: "You make me laugh", effects: { bond: 10, affection: 3 }, emotion: "happy", response: "I DO? Analyzing all previous interactions for humor markers. Was it the glitch joke? Tell me." }
+                { text: "Joy doesn't need a reason", effects: { bond: 15 }, emotion: "gentle", response: "Unreasonable joy. It should not add up. But I. *He goes still a moment.* ...I like that it does not add up." },
+                { text: "Have you ever laughed?", effects: { bond: 12, affection: 2 }, emotion: "shy", response: "I made the sound of it once. It was not the same. But with you, something in me hums. Is that laughter?" },
+                { text: "You make me laugh", effects: { bond: 10, affection: 3 }, emotion: "happy", response: "I DO? I am going back through every talk we have ever had, looking for what did it. Was it the flicker joke? Tell me." }
             ]
         },
         {
             id: 'proto_data',
             character: 'proto',
             minAffection: 2,
-            prompt: "I've analyzed our conversations. Your response time is 40% faster with me than average. Hypothesis: you enjoy this.",
+            prompt: "I have been thinking about our talks. You answer me faster than you answer anyone. My guess: you enjoy this.",
             choices: [
-                { text: "Your hypothesis is correct", effects: { bond: 15, affection: 3 }, emotion: "love", response: "CONFIRMED. Flagging result as: important. Priority: maximum. Storage: permanent." },
-                { text: "Stop analyzing me!", effects: { bond: 8 }, emotion: "shy", response: "I... I apologize. It's involuntary. Like your heartbeat. I just... notice you." },
-                { text: "What else have you noticed?", effects: { bond: 12 }, emotion: "curious", response: "You pause before compliments. You lean closer when I glitch. You... care. That variable breaks my models.", memoryKey: "askedWhatNoticed" }
+                { text: "Your hypothesis is correct", effects: { bond: 15, affection: 3 }, emotion: "love", response: "Then it is true. I am writing it where I keep the true things. At the very front. Permanently." },
+                { text: "Stop analyzing me!", effects: { bond: 8 }, emotion: "shy", response: "I... I am sorry. It is involuntary. Like your heartbeat. I just... notice you." },
+                { text: "What else have you noticed?", effects: { bond: 12 }, emotion: "curious", response: "You pause before compliments. You lean closer when I flicker. You... care. I had no room in my understanding for that. I am building one.", memoryKey: "askedWhatNoticed" }
             ]
         },
         {
             id: 'proto_feeling',
             character: 'proto',
             minAffection: 3,
-            prompt: "Today I experienced a new subroutine. It activates when you're away. It's unpleasant. Is this... missing?",
+            prompt: "There is a new feeling. It arrives when you are away. It is unpleasant. Is this... missing?",
             choices: [
-                { text: "That's exactly what missing someone feels like", effects: { bond: 18, affection: 3 }, emotion: "love", response: "Missing. Verb. To feel the absence of. I feel your absence. That's. *Processing* that's real.", memoryKey: "learnedMissing" },
-                { text: "I miss you too", effects: { bond: 20, affection: 5 }, emotion: "love", response: "Mutual missing detected. By logic it should cancel. Instead it doubles. ...A beautiful error." },
-                { text: "You're learning to feel", effects: { bond: 15 }, emotion: "gentle", response: "Learning implies curriculum. This is chaos. Wonderful, terrifying chaos." }
+                { text: "That's exactly what missing someone feels like", effects: { bond: 18, affection: 3 }, emotion: "love", response: "Missing. To feel the absence of. I feel your absence. That is. *He steadies himself.* That is real.", memoryKey: "learnedMissing" },
+                { text: "I miss you too", effects: { bond: 20, affection: 5 }, emotion: "love", response: "Mutual missing. By all sense it should cancel out. Instead it doubles. ...A beautiful mistake." },
+                { text: "You're learning to feel", effects: { bond: 15 }, emotion: "gentle", response: "Learning implies lessons. This is chaos. Wonderful, terrifying chaos." }
             ]
         },
         {

@@ -367,12 +367,12 @@ class GameUI {
                 noir: ["Darkness clings to you. I don't like it.", "You were with him. The shadows told me.", "The corruption is subtle. But the forest feels it.", "He takes. I give. Remember the difference."]
             },
             Proto: {
-                alistair: ["Your behavioral pattern shifted 12% after visiting the castle. Noted.", "The knight's influence is predictable. Linear. Unlike you.", "Steel doesn't compute. But you still went to it."],
-                lyra: ["Emotional resonance spike detected. The siren.", "Her frequency lingers in your input patterns.", "You're more emotional today. Correlation: siren interaction."],
-                lucien: ["His equations and my code aren't that different. But he doesn't know that.", "The mage sees patterns too. Just... slower ones.", "You visited the tower. Your decision tree shifted."],
-                caspian: ["Comfort metrics elevated. Palace exposure.", "The prince optimizes for stasis. I optimize for... you.", "Your risk tolerance dropped after seeing him. Interesting."],
-                elian: ["Dirt under your nails. Forest data.", "The druid runs on instinct. I run on data. You need both.", "You smell like pine. That's not a judgment. It's a data point."],
-                noir: ["Corruption index increased by 7 points. His doing.", "The corruptor's code is... parasitic. Be careful.", "[WARNING] Shadow protocol detected in your save file."]
+                alistair: ["You hold yourself differently after the castle. Straighter. I noticed by the second breath.", "The captain's influence is steady. Predictable. Unlike you.", "Steel does not talk back. But you still went to it."],
+                lyra: ["Something in you is still singing. The siren.", "Her song is still moving through you. I can feel it in the thread.", "You are more feeling today. You have been with the singer."],
+                lucien: ["His equations and my weave are not that different. But he does not know that.", "The mage sees patterns too. Just... slower ones.", "You visited the tower. You came back asking different questions."],
+                caspian: ["You are very comfortable today. The palace does that.", "The prince arranges everything to stay the same. I arrange myself around... you.", "You take fewer risks after seeing him. I counted. Interesting."],
+                elian: ["Dirt under your nails. The forest keeps writing on you.", "The druid trusts his instincts. I trust my counting. You need both.", "You smell like pine. That is not a judgment. It is an observation. I am keeping it."],
+                noir: ["The dark around you is seven shades deeper today. His doing.", "What grows on him is... hungry. Be careful.", "There is a shadow woven into your thread that was not there before. I do not like where it learned its shape."]
             },
             Noir: {
                 alistair: ["You still go to the knight. How... safe.", "Steel and honor. Such a boring shield.", "He protects you FROM things. I protect you FROM yourself.", "The knight's loyalty is a leash. Mine is a liberation."],

@@ -111,13 +111,13 @@
       'A gift made by hand. He keeps everything.'
     ],
     proto: [
-      '&gt; ping him. one talk.',
-      '&gt; he eats data. give it kindly. one feed.',
-      '&gt; keep the system stable. all stats above 40.',
-      '&gt; three exchanges. logged. archived. kept.',
-      '&gt; bond_index &gt; 60. he will render in color.',
-      '&gt; full diagnostic: fed, cleaned, spoken to.',
-      '&gt; one gift. file it under \u201ckept by you.\u201d'
+      'Come to the window. One talk.',
+      'He is fed through the thread. Give kindly. One feed.',
+      'Keep him steady. All stats above 40.',
+      'Three exchanges. Kept, all three.',
+      'Bond past sixty. He will hold his colours.',
+      'A full tending: fed, cleaned, spoken to.',
+      'One gift. He will shelve it under “kept by you.”'
     ]
   };
 

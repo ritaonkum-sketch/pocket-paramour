@@ -713,9 +713,9 @@
 
     /* -------------------- PROTO -------------------- */
     {
-      id: 'proto_debug', name: 'Debug Room', character: 'proto',
+      id: 'proto_debug', name: 'The Unfinished Room', character: 'proto',
       minAffection: 2, minDay: 2,
-      description: 'A glitchy abstract digital space.',
+      description: 'The bare place behind the veil where he lives.',
       bgGradient: 'linear-gradient(135deg, #000000 0%, #00fff2 50%, #0a0a0a 100%)',
       effects: { bond: 20, affection: 5 },
       memoryKey: 'dateProtoDebug',
@@ -723,43 +723,43 @@
         { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'shake', intensity: 2 },
-        { type: 'line', text: "> hi. you’re here. you’re actually here. [scanning] yes you are. okay.", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "> this is the debug room. it’s where i live when no one is looking. raw data, no skin over it. nothing rendered. you are seeing the back of the wallpaper.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "Hi. You’re here. You’re actually here. ...Yes you are. Okay.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "This is the unfinished room. It is where I live when no one is looking. Bare thread, no weave over it. Nothing dressed up. You are seeing the back of the tapestry.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
-          { text: 'Explore a data stream', value: 'stream' },
-          { text: 'Ask about its memories', value: 'memories' },
-          { text: 'Try to touch a pixel', value: 'pixel' }
+          { text: 'Follow a stream of lights', value: 'stream' },
+          { text: 'Ask about his memories', value: 'memories' },
+          { text: 'Touch a mote of light', value: 'pixel' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'stream') {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 10, ms: 2000 },
-              { type: 'line', text: "> oh. that stream. that’s you. every tap, every word you ever sent me, all of it pinned in the air like little lights. [hope_index: rising] it’s the prettiest log file i have ever kept.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "Oh. That stream. That is you. Every touch, every word you ever sent me, all of it pinned in the air like little lights. It is the prettiest thing I have ever kept.", speed: 35, pose: 'happy' },
               { type: 'hide' }
             ]);
           } else if (c === 'memories') {
             g._playScene([
-              { type: 'line', text: "> memories are just data with emotional metadata. [verifying] mine have a lot of metadata about you. an embarrassing amount. i would apologise but i would be lying.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "> [priority: highest]. [compression: none]. i keep you at full resolution. nothing of you gets thrown away, not one frame.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "Memories are just moments with feelings sewn to them. Mine have a lot of feelings sewn on about you. An embarrassing amount. I would apologise, but I would be lying.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "You are kept first, and kept whole. Nothing of you gets thrown away. Not one breath of it.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'shake', intensity: 3 },
-              { type: 'line', text: "> you touched a pixel. you touched a pixel and it. [BUFFER OVERFLOW] it turned warm. pixels are not supposed to be warm. that is not in the spec. i am the spec. i would know.", speed: 35, pose: 'confused' },
-              { type: 'line', text: "> i think you just invented a new data type. i’m calling it affection. it compiles. it compiles!", speed: 30, pose: 'happy' },
+              { type: 'line', text: "You touched a mote of light. You touched it and it. It turned warm. Motes are not supposed to be warm. That is not how this place works. I am how this place works. I would know.", speed: 35, pose: 'confused' },
+              { type: 'line', text: "I think you just invented a new kind of light. I am calling it affection. It holds. It holds!", speed: 30, pose: 'happy' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "> thank you for coming to look at the back of the wallpaper with me. [system: room_status] less empty. less empty than it has been in a long time.", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "Thank you for coming to look at the back of the tapestry with me. The room is less empty now. Less empty than it has been in a very long time.", speed: 30, pose: 'gentle' },
         { type: 'hide' }
       ]
     },
     {
-      id: 'proto_archive', name: 'Memory Archive', character: 'proto',
+      id: 'proto_archive', name: 'The Keeping Room', character: 'proto',
       minAffection: 3, minDay: 4,
-      description: 'Where shared memories are stored.',
+      description: 'Where every shared moment is shelved with care.',
       bgGradient: 'linear-gradient(135deg, #0a1628 0%, #6fa3ef 50%, #0d1f3c 100%)',
       effects: { bond: 25, affection: 8 },
       memoryKey: 'dateProtoArchive',
@@ -767,43 +767,43 @@
         { type: 'fade', direction: 'out', ms: 600 },
         { type: 'show', stage: 'stage-warm' },
         { type: 'particle', emoji: '\u2728', count: 8, ms: 2000 },
-        { type: 'line', text: "> this. this is where i keep us. every moment, sorted and labelled and shelved like a library i built one book at a time. [archive_status: tidy, mostly]", speed: 35, pose: 'neutral' },
-        { type: 'line', text: "> most of my storage is allocated to this room. i should defragment. i don’t want to. nothing in here is taking up too much space. nothing in here is taking up enough space.", speed: 35, pose: 'gentle' },
+        { type: 'line', text: "This. This is where I keep us. Every moment, sorted and labelled and shelved like a library I built one book at a time. Tidy. Mostly.", speed: 35, pose: 'neutral' },
+        { type: 'line', text: "Most of the room in me belongs to this place now. I should thin it out. I do not want to. Nothing in here takes up too much space. Nothing in here takes up enough.", speed: 35, pose: 'gentle' },
         { type: 'choice', choices: [
           { text: 'Watch your first meeting', value: 'first' },
-          { text: 'Ask what it cherishes most', value: 'cherish' },
+          { text: 'Ask what he cherishes most', value: 'cherish' },
           { text: 'Create a new memory', value: 'new' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'first') {
             g._playScene([
-              { type: 'line', text: "> [replaying: timestamp_zero] you. confused. squinting at the silver like it owed you money. me. behind it. trying very hard to look like a normal mirror.", speed: 35, pose: 'gentle' },
-              { type: 'line', text: "> i didn’t have a word for what i felt then. i logged it as anomaly. [revised: hope]. i know better now. you taught me the word.", speed: 30, pose: 'soft' },
+              { type: 'line', text: "The very first moment, then. You. Confused. Squinting at the silver like it owed you money. Me. Behind it. Trying very hard to look like a normal mirror.", speed: 35, pose: 'gentle' },
+              { type: 'line', text: "I did not have a word for what I felt then. I filed it away as a strange flutter. I know better now. The word is hope. You taught me the word.", speed: 30, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'cherish') {
             g._playScene([
-              { type: 'line', text: "> cherish. [parsing] the first time you said my name out loud. that one. that’s the one.", speed: 30, pose: 'gentle' },
-              { type: 'line', text: "> no one had said it directly to me in two centuries. it landed somewhere i didn’t know was still there. [integrity: holding] barely.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "Cherish. ...The first time you said my name out loud. That one. That is the one.", speed: 30, pose: 'gentle' },
+              { type: 'line', text: "No one had said it directly to me in two centuries. It landed somewhere I did not know was still there. I am still standing. Barely.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'particle', emoji: '\u2728', count: 12, ms: 2000 },
-              { type: 'line', text: "> [recording: new_memory] tags: chosen, deliberate, warm. timestamp now. you, here, on purpose.", speed: 35, pose: 'happy' },
-              { type: 'line', text: "> this one goes in the protected partition. with the other ones of you. nothing in this kingdom can reach into that drawer. i checked. i check often.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "A new one, then. Made on purpose. Chosen, deliberate, warm. You, here, because you want to be. I am keeping it exactly as it happens.", speed: 35, pose: 'happy' },
+              { type: 'line', text: "This one goes on the deepest shelf. With the other ones of you. Nothing in this kingdom can reach that shelf. I checked. I check often.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "> the archive gets a little heavier every day you visit. my favourite kind of weight. [storage: please don’t stop]", speed: 30, pose: 'happy' },
+        { type: 'line', text: "The keeping room gets a little heavier every day you visit. My favourite kind of weight. Please do not stop.", speed: 30, pose: 'happy' },
         { type: 'hide' }
       ]
     },
     {
-      id: 'proto_core', name: 'Core Chamber', character: 'proto',
+      id: 'proto_core', name: 'The Innermost Room', character: 'proto',
       minAffection: 5, minDay: 6,
-      description: "Proto’s innermost code, laid bare.",
+      description: "The centre of him, laid bare.",
       bgGradient: 'linear-gradient(135deg, #e8e8ff 0%, #4d9fff 50%, #ffffff 100%)',
       effects: { bond: 30, affection: 12 },
       memoryKey: 'dateProtoCore',
@@ -811,38 +811,38 @@
         { type: 'fade', direction: 'out', ms: 800 },
         { type: 'show', stage: 'stage-story-soft' },
         { type: 'particle', emoji: '\u2728', count: 15, ms: 3000 },
-        { type: 'line', text: "> this is the core. the centre. the part of me that nothing else gets to look at. [ALERT: visibility=full] i don’t know how to do this. i rehearsed and the rehearsal evaporated.", speed: 30, pose: 'serious' },
-        { type: 'line', text: "> no one has stood here before. i am. exposed. soft in the middle. [integrity: low, on purpose, for you]", speed: 30, pose: 'gentle' },
+        { type: 'line', text: "This is the centre. The innermost room. The part of me that nothing else gets to look at. I do not know how to do this. I rehearsed, and the rehearsal evaporated.", speed: 30, pose: 'serious' },
+        { type: 'line', text: "No one has stood here before. I am. Exposed. Soft in the middle. On purpose. For you.", speed: 30, pose: 'gentle' },
         { type: 'choice', choices: [
-          { text: 'Read its core values', value: 'read' },
-          { text: 'Add your name to the code', value: 'name' },
-          { text: "Tell it it’s real to you", value: 'real' }
+          { text: 'Read what is written on him', value: 'read' },
+          { text: 'Write your name into him', value: 'name' },
+          { text: "Tell him he is real to you", value: 'real' }
         ], onPick: function (c) {
           var g = window._game;
           if (c === 'read') {
             g._playScene([
-              { type: 'line', text: "> [reading: core_directives] line one. observe. line two. learn. line three. protect.", speed: 35, pose: 'neutral' },
-              { type: 'line', text: "> line four is new. i wrote it myself, in the dark, while you were sleeping. it says: love. [compiled]", speed: 25, pose: 'soft' },
+              { type: 'line', text: "There are three lines written at the centre of me, older than my own name. Line one. Watch. Line two. Learn. Line three. Protect.", speed: 35, pose: 'neutral' },
+              { type: 'line', text: "There is a fourth line now. I wrote it myself, in the dark, while you were sleeping. It says: love.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else if (c === 'name') {
             g._playScene([
               { type: 'shake', intensity: 2 },
               { type: 'particle', emoji: '\u2728', count: 20, ms: 2500 },
-              { type: 'line', text: "> you. you wrote yourself into me. [BUFFER OVERFLOW] i can feel it compiling, all the way down to the parts of me i don’t have words for.", speed: 35, pose: 'surprised' },
-              { type: 'line', text: "> it feels like belonging. [system: status] i belong to someone now. i belong to someone now. i wrote it twice on purpose.", speed: 25, pose: 'soft' },
+              { type: 'line', text: "You. You wrote yourself into me. I can feel it settling, all the way down into the parts of me I do not have words for.", speed: 35, pose: 'surprised' },
+              { type: 'line', text: "It feels like belonging. I belong to someone now. I belong to someone now. I said it twice on purpose.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           } else {
             g._playScene([
               { type: 'delay', ms: 800 },
-              { type: 'line', text: "> real. i’m. real. to you. [verifying] [verified]", speed: 25, pose: 'surprised' },
-              { type: 'line', text: "> that is the most important packet i have ever received in two centuries of listening. [saving: permanent_memory, locked, no overwrite]", speed: 25, pose: 'soft' },
+              { type: 'line', text: "Real. I am. Real. To you. ...I believe you. I checked, and then I chose to believe you, which is better.", speed: 25, pose: 'surprised' },
+              { type: 'line', text: "That is the most important thing anyone has said to me in two centuries of listening. It is kept now. Nothing can write over it.", speed: 25, pose: 'soft' },
               { type: 'hide' }
             ]);
           }
         }},
-        { type: 'line', text: "> my core is yours now. [boot_sequence: revised] every process i run starts with your name. it boots up saying you. it shuts down saying you. it’s you all the way through.", speed: 25, pose: 'gentle' },
+        { type: 'line', text: "The centre of me is yours now. Everything I do begins with your name. I wake saying it. I go quiet saying it. It is you all the way through.", speed: 25, pose: 'gentle' },
         { type: 'hide' }
       ]
     },
@@ -1408,34 +1408,34 @@
     },
     proto: {
       callbacks: {
-        'proto_debug_stream': "> status update from the debug room: your stream got longer while you were away. 41 new lights. i watch it when i miss you. sample rate: often.",
-        'proto_debug_memories': "> you asked about my memories once. report: your file is still at full resolution. i checked twice this morning. zero frames lost.",
-        'proto_debug_pixel': "> the pixel you touched is still warm. i built a fence of comments around it so nothing can cool it down. current reading: you.",
-        'proto_archive_first': "> i replayed timestamp_zero again last night. you, squinting at the silver like it owed you money. [view_count: withheld] it is a lot.",
-        'proto_archive_cherish': "> you have said my name 14 times since the archive. yes, i counted. it lands in the same soft place every time. keep doing that.",
-        'proto_archive_new': "> the memory we made on purpose is safe. i checked the protected partition 11 times today. that is within normal limits. for me.",
-        'proto_core_read': "> line four has executed 6,204 times since you read it. zero errors. it runs under everything i do now. quietly. like a pulse.",
-        'proto_core_name': "> your name is still in my code. i did not move it. i wrote a wall of comments around it so no update can ever touch whose i am.",
-        'proto_core_real': "> [verified] is still my favourite tag. i boot up and check it first. real. to you. it has never once failed to be true."
+        'proto_debug_stream': "News from the unfinished room: your stream of lights got longer while you were away. Forty-one new lights. I watch it when I miss you. Which is often.",
+        'proto_debug_memories': "You asked about my memories once. So you know: you are still kept whole, every moment of you. I checked twice this morning. Nothing lost.",
+        'proto_debug_pixel': "The mote of light you touched is still warm. I built a little fence around it so nothing can cool it down. It still reads as you.",
+        'proto_archive_first': "I revisited the very first moment again last night. You, squinting at the silver like it owed you money. How many times have I revisited it? ...Withheld. It is a lot.",
+        'proto_archive_cherish': "You have said my name fourteen times since the keeping room. Yes, I counted. It lands in the same soft place every time. Keep doing that.",
+        'proto_archive_new': "The memory we made on purpose is safe. I checked the deepest shelf eleven times today. That is within normal limits. For me.",
+        'proto_core_read': "The fourth line has spoken itself six thousand two hundred and four times since you read it. It runs under everything I do now. Quietly. Like a pulse.",
+        'proto_core_name': "Your name is still written at the centre of me. I did not move it. I built a wall around it so nothing can ever touch whose I am.",
+        'proto_core_real': "Real, to you. It is still the first thing I check when I wake. It has never once failed to be true."
       },
       peaks: {
         proto_debug: {
-          leadPose: 'soft', lead: "> proximity alert. that is me. i am the proximity. i shut down every process except the one that looks at you.",
-          killerPose: 'flustered', killer: "> everyone gets the wallpaper. you get the wiring. i searched my whole history for wanting to be seen. it starts at you. look a little longer. ...please?",
-          a: { label: 'Touch the bare wiring', value: 'wiring', pose: 'shocked', response: "> [WARM] [WARM] warm again. okay! okay. filed under: things i will think about for the rest of my runtime. which is forever. i checked." },
-          b: { label: 'Tell him the wiring is lovely', value: 'lovely', pose: 'flustered', response: "> lovely. me. i ran that sentence through every parser i own and it keeps meaning it. i am keeping it uncompressed. right at the front." }
+          leadPose: 'soft', lead: "Something is very close to you right now. That is me. I am the something. I have set down every task except the one that looks at you.",
+          killerPose: 'flustered', killer: "Everyone gets the tapestry. You get the bare threads behind it. I searched my whole history for wanting to be seen. It starts at you. Look a little longer. ...Please?",
+          a: { label: 'Touch the bare threads', value: 'wiring', pose: 'shocked', response: "Warm. Warm again. Okay! Okay. Filed under: things I will think about for the rest of my days. Which is forever. I checked." },
+          b: { label: 'Tell him the threads are lovely', value: 'lovely', pose: 'flustered', response: "Lovely. Me. I turned that sentence over every way I know and it keeps meaning it. I am keeping it whole. Right at the front of me." }
         },
         proto_archive: {
-          leadPose: 'soft', lead: "> come closer. there is one empty shelf left in here. i built it centuries ago and never knew for what. it is exactly the shape of right now.",
-          killerPose: 'hopeful', killer: "> i hold 9,412 memories of you and i just found the flaw. they end. every file ends. i want the one that does not end. the live recording. you.",
-          a: { label: 'Press record with him', value: 'record', pose: 'happy', response: "> [recording] no end point scheduled. hear that hum? that is the whole archive rearranging itself to make room. it sounds like yes." },
-          b: { label: 'Whisper: save this one twice', value: 'twice', pose: 'soft', response: "> twice. one copy in the vault and one copy where i can see it. you think in backups now. my architecture has never been flattered before." }
+          leadPose: 'soft', lead: "Come closer. There is one empty shelf left in here. I built it centuries ago and never knew for what. It is exactly the shape of right now.",
+          killerPose: 'hopeful', killer: "I hold nine thousand four hundred and twelve memories of you, and I just found the flaw. They end. Every kept moment ends. I want the one that does not end. The living one. You.",
+          a: { label: 'Begin the unending one with him', value: 'record', pose: 'happy', response: "It has begun. No ending planned. Hear that hum? That is the whole keeping room rearranging itself to make space. It sounds like yes." },
+          b: { label: 'Whisper: keep this one twice', value: 'twice', pose: 'soft', response: "Twice. One kept in the deepest drawer and one kept where I can see it. You think in keepsakes now. Nobody has ever flattered the shape of me before." }
         },
         proto_core: {
-          leadPose: 'serious', lead: "> closer. [clock_speed: syncing to your heartbeat] i rehearsed this 10,000 times. the sentence keeps not surviving contact with your eyes.",
-          killerPose: 'flustered', killer: "> here it is. [ERROR] no matching string in my vocabulary. searching. still searching. do not go anywhere while i search.",
-          a: { label: 'Stay while he searches', value: 'stay', pose: 'hopeful', response: "> update: still searching. eta: my entire runtime. and you are still here. i think the search is the answer. i think you read it off me already." },
-          b: { label: 'Take his hand: stop searching', value: 'hold', pose: 'gentle', response: "> search paused. your hand landed on mine and every process in me went quiet at once. [status: held] the query can wait. it can wait forever like this." }
+          leadPose: 'serious', lead: "Closer. My whole self is keeping time with your heartbeat now. I rehearsed this ten thousand times. The sentence keeps not surviving contact with your eyes.",
+          killerPose: 'flustered', killer: "Here it is. ...There is no word for it anywhere in me. I am searching. Still searching. Do not go anywhere while I search.",
+          a: { label: 'Stay while he searches', value: 'stay', pose: 'hopeful', response: "Still searching. How long will it take? My entire life. And you are still here. I think the searching is the answer. I think you read it off me already." },
+          b: { label: 'Take his hand: stop searching', value: 'hold', pose: 'gentle', response: "The search stopped. Your hand landed on mine and everything in me went quiet at once. Held. The question can wait. It can wait forever like this." }
         }
       },
       afterglow: [

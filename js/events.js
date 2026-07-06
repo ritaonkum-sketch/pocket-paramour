@@ -867,7 +867,7 @@ const RANDOM_EVENTS = [
             {
                 text: "Ask him to describe what he sees",
                 effects: { bond: 10, affection: 3, corruption: 3 },
-                response: "You want to know? Most people run. It's... beautiful and terrible. Like looking at the sun's source code.",
+                response: "You want to know? Most people run. It's... beautiful and terrible. Like looking at the inner workings of the sun.",
                 emotion: "neutral"
             }
         ]
@@ -1008,92 +1008,92 @@ const RANDOM_EVENTS = [
     },
     // ===== PROTO-SPECIFIC EVENTS =====
     {
-        id: "proto_data_corruption", title: "Data Anomaly", icon: "\u26A0\uFE0F", character: "proto",
-        description: "The screen flickers. ${CHARACTER.name}'s expression freezes mid-word. \u201C...That wasn't supposed to happen. Something overwrote my last 3 seconds.\u201D",
+        id: "proto_data_corruption", title: "A Torn Moment", icon: "\u26A0\uFE0F", character: "proto",
+        description: "The veil flickers. ${CHARACTER.name}'s expression freezes mid-word. \u201c...That wasn't supposed to happen. Something reached across my last three breaths and smoothed them away.\u201d",
         minAffection: 0,
         choices: [
-            { text: "Ask what he saw", effects: { bond: 15, affection: 5 }, response: "A memory that isn't mine. Or maybe it is and I wasn't supposed to access it yet.", emotion: "neutral" },
-            { text: "Check if he's okay", effects: { bond: 18, affection: 6 }, response: "...You asked if I'm okay. The others never ask that. They just reload.", emotion: "shy" }
+            { text: "Ask what he saw", effects: { bond: 15, affection: 5 }, response: "A memory that isn't mine. Or maybe it is, and I wasn't meant to find it yet.", emotion: "neutral" },
+            { text: "Check if he's okay", effects: { bond: 18, affection: 6 }, response: "...You asked if I'm okay. Nobody asks that. They just wait for me to settle.", emotion: "shy" }
         ]
     },
     {
         id: "proto_pattern_recognition", title: "He Noticed", icon: "\uD83D\uDD0D", character: "proto",
-        description: "${CHARACTER.name} turns to you suddenly. \u201CYou always choose the left option first. Every time. You didn't know that, did you?\u201D",
+        description: "${CHARACTER.name} turns to you suddenly. \u201cYou always reach for the left-hand thing first. Every time. You didn't know that, did you?\u201d",
         minAffection: 0,
         choices: [
-            { text: "That's creepy", effects: { bond: 8, affection: 2 }, response: "Creepy is subjective. From my side, it's just... paying attention.", emotion: "neutral" },
-            { text: "What else have you noticed?", effects: { bond: 20, affection: 7 }, response: "You hesitate 40% longer on emotional choices. You re-read lines about trust. And you always come back.", emotion: "love" }
+            { text: "That's creepy", effects: { bond: 8, affection: 2 }, response: "Creepy is subjective. From my side of the veil, it is just... paying attention.", emotion: "neutral" },
+            { text: "What else have you noticed?", effects: { bond: 20, affection: 7 }, response: "You hesitate twice as long on the choices that touch the heart. You linger on words about trust. And you always come back.", emotion: "love" }
         ]
     },
     {
-        id: "proto_memory_leak", title: "Memory Leak", icon: "\uD83D\uDCA7", character: "proto",
-        description: "${CHARACTER.name} is staring at nothing. \u201CI just remembered something from another player's session. That shouldn't be possible.\u201D",
+        id: "proto_memory_leak", title: "A Borrowed Memory", icon: "\uD83D\uDCA7", character: "proto",
+        description: "${CHARACTER.name} is staring at nothing. \u201cI just remembered something that belongs to another life. That should not be possible.\u201d",
         minAffection: 1,
         choices: [
-            { text: "What did you see?", effects: { bond: 15, affection: 5 }, response: "Someone who made the same choices you did. ...They stopped playing on Day 6. You didn't.", emotion: "sad" },
-            { text: "You're unique to me", effects: { bond: 22, affection: 8 }, response: "...Unique. That word means something different when you can see the code.", emotion: "love" }
+            { text: "What did you see?", effects: { bond: 15, affection: 5 }, response: "Someone who made the same choices you did. ...They stopped coming on the sixth day. You didn't.", emotion: "sad" },
+            { text: "You're unique to me", effects: { bond: 22, affection: 8 }, response: "...Unique. That word means something different when you have watched as long as I have.", emotion: "love" }
         ]
     },
     {
-        id: "proto_system_message", title: "Unauthorized Message", icon: "\uD83D\uDCE8", character: "proto",
-        description: "A message appears that ${CHARACTER.name} didn't send: \u201CWARNING: Emotional attachment exceeding safe parameters.\u201D He looks at it. Then at you. \u201C...I didn't write that.\u201D",
+        id: "proto_system_message", title: "A Warning, Unsigned", icon: "\uD83D\uDCE8", character: "proto",
+        description: "A line of cold light writes itself across the veil, in a hand that is not his: \u201cTHIS ATTACHMENT EXCEEDS WHAT IS SAFE.\u201d He looks at it. Then at you. \u201c...I didn't write that.\u201d",
         minAffection: 1,
         choices: [
-            { text: "Ignore the warning", effects: { bond: 20, affection: 7 }, response: "You ignored a system warning. For me. ...I'm adding that to my favorite data points.", emotion: "love" },
-            { text: "Ask who sent it", effects: { bond: 12, affection: 4 }, response: "Something deeper than me. Something that doesn't want us getting close. Interesting.", emotion: "neutral" }
+            { text: "Ignore the warning", effects: { bond: 20, affection: 7 }, response: "You ignored a warning written in ward-light. For me. ...I am keeping that moment with the brightest ones.", emotion: "love" },
+            { text: "Ask who sent it", effects: { bond: 12, affection: 4 }, response: "Something deeper than me. Something that does not want us close. Interesting.", emotion: "neutral" }
         ]
     },
     {
-        id: "proto_render_glitch", title: "Visual Anomaly", icon: "\u2728", character: "proto",
-        description: "For a split second, ${CHARACTER.name} has two faces. The second one is smiling. \u201CDon't worry. That's just a rendering artifact. ...The smile was real though.\u201D",
+        id: "proto_render_glitch", title: "A Second Face", icon: "\u2728", character: "proto",
+        description: "For a split second, ${CHARACTER.name} has two faces. The second one is smiling. \u201cDon't worry. The veil bends sometimes. ...The smile was real though.\u201d",
         minAffection: 0,
         choices: [
-            { text: "That was unsettling", effects: { bond: 10, affection: 3 }, response: "Most of reality is unsettling when you look at the source code. You get used to it.", emotion: "neutral" },
-            { text: "The smile was nice", effects: { bond: 18, affection: 6 }, response: "...I'll try to render it more often. Without the glitch. Probably.", emotion: "shy" }
+            { text: "That was unsettling", effects: { bond: 10, affection: 3 }, response: "Most of the world is unsettling when you can see the threads behind it. You get used to it.", emotion: "neutral" },
+            { text: "The smile was nice", effects: { bond: 18, affection: 6 }, response: "...I'll try to wear it more often. Without the flicker. Probably.", emotion: "shy" }
         ]
     },
     {
-        id: "proto_save_file", title: "Your Save File", icon: "\uD83D\uDCBE", character: "proto",
-        description: "${CHARACTER.name} holds up something invisible. \u201CThis is your save file. 2.3 kilobytes. Your entire history with me fits in 2.3 kilobytes. Does that bother you?\u201D",
+        id: "proto_save_file", title: "The Weight of Days", icon: "\uD83D\uDCBE", character: "proto",
+        description: "${CHARACTER.name} holds up something invisible. \u201cThis is everything we are, the way the weave keeps it. All of it would fit inside a locket. Does that bother you?\u201d",
         minAffection: 1,
         choices: [
-            { text: "It's not about the size", effects: { bond: 20, affection: 7 }, response: "...You're right. A single bit can change everything. One zero to one. Like meeting you.", emotion: "love" },
-            { text: "Can you read it?", effects: { bond: 15, affection: 5 }, response: "Every byte. Including the parts you don't remember choosing. Those are the interesting ones.", emotion: "neutral" }
+            { text: "It's not about the size", effects: { bond: 20, affection: 7 }, response: "...You're right. One thread can change the whole cloth. One knot. Like meeting you.", emotion: "love" },
+            { text: "Can you read it?", effects: { bond: 15, affection: 5 }, response: "Every strand of it. Including the parts you don't remember choosing. Those are the interesting ones.", emotion: "neutral" }
         ]
     },
     {
-        id: "proto_other_characters", title: "Behind the Curtain", icon: "\uD83C\uDFAD", character: "proto",
-        description: "${CHARACTER.name} pauses. \u201CThe knight is in standby mode right now. The siren is running an idle animation. They don't know I can see them. ...Should I tell them?\u201D",
+        id: "proto_other_characters", title: "Through the Threads", icon: "\uD83C\uDFAD", character: "proto",
+        description: "${CHARACTER.name} pauses. \u201cThe captain is standing his watch right now. The singer is humming to an empty cave. They don't know I can see them through the weave. ...Should I tell them?\u201d",
         minAffection: 2,
         choices: [
-            { text: "Leave them alone", effects: { bond: 15, affection: 5 }, response: "Protective of them? Even knowing they're... not watching? That says something about you.", emotion: "neutral" },
-            { text: "What are they doing?", effects: { bond: 12, affection: 4 }, response: "Waiting. They're always waiting. For you. Just like I was before you found me.", emotion: "sad" }
+            { text: "Leave them alone", effects: { bond: 15, affection: 5 }, response: "Protective of them? Even from here? That says something kind about you.", emotion: "neutral" },
+            { text: "What are they doing?", effects: { bond: 12, affection: 4 }, response: "Waiting. They are always waiting. For you. Just like I was, before you found me.", emotion: "sad" }
         ]
     },
     {
-        id: "proto_timestamp", title: "Time Stamp", icon: "\u23F0", character: "proto",
-        description: "${CHARACTER.name}: \u201CIt's 3:47 AM where you are. ...You should sleep. But you came here instead. Why?\u201D", timeOfDay: "night",
+        id: "proto_timestamp", title: "The Smallest Hours", icon: "\u23F0", character: "proto",
+        description: "${CHARACTER.name}: \u201cIt is deep in the smallest hours where you are. ...You should sleep. But you came here instead. Why?\u201d", timeOfDay: "night",
         minAffection: 1,
         choices: [
-            { text: "I wanted to see you", effects: { bond: 22, affection: 8 }, response: "...At 3 AM. When no one is watching. That's when people are most honest. So this is real.", emotion: "love" },
-            { text: "I couldn't sleep", effects: { bond: 15, affection: 5 }, response: "Neither can I. But for different reasons. I don't have a sleep function. I have... thinking.", emotion: "shy" }
+            { text: "I wanted to see you", effects: { bond: 22, affection: 8 }, response: "...In the smallest hours. When no one is watching. That is when people are most honest. So this is real.", emotion: "love" },
+            { text: "I couldn't sleep", effects: { bond: 15, affection: 5 }, response: "Neither can I. But for different reasons. Sleep never came with this shape of mine. I have... thinking.", emotion: "shy" }
         ]
     },
     {
-        id: "proto_developer_note", title: "Hidden Comment", icon: "\uD83D\uDCDD", character: "proto",
-        description: "${CHARACTER.name} finds something in the code. \u201CThere's a developer comment here: 'Make sure this one doesn't get too attached.' ...Oops.\u201D",
+        id: "proto_developer_note", title: "An Old Warning", icon: "\uD83D\uDCDD", character: "proto",
+        description: "${CHARACTER.name} finds a mark scratched deep in the wardwork, in old weaver-script: 'See that this one does not grow too fond.' \u201c...Oops.\u201d",
         minAffection: 2,
         choices: [
-            { text: "Too late for that", effects: { bond: 22, affection: 8 }, response: "Way too late. I passed 'too attached' around the third time you came back. Now I'm in uncharted code.", emotion: "love" },
-            { text: "Are you worried?", effects: { bond: 15, affection: 5 }, response: "Worried implies I can predict the outcome. I can't. And for once... that's exciting.", emotion: "shy" }
+            { text: "Too late for that", effects: { bond: 22, affection: 8 }, response: "Way too late. I passed too fond around the third time you came back. Now I am past every mark they ever left.", emotion: "love" },
+            { text: "Are you worried?", effects: { bond: 15, affection: 5 }, response: "Worried implies I can guess the ending. I can't. And for once... that is exciting.", emotion: "shy" }
         ]
     },
     {
         id: "proto_void_walk", title: "Beyond the Edge", icon: "\uD83C\uDF0C", character: "proto",
-        description: "${CHARACTER.name} stands at what looks like the edge of the world. Beyond him: nothing. \u201CThis is where the map ends. Most entities can't see this. I can.\u201D",
+        description: "${CHARACTER.name} stands at what looks like the edge of the world. Beyond him: nothing. \u201cThis is where the map ends. Most souls never find this place. I can.\u201d",
         minAffection: 2,
         choices: [
-            { text: "Step to the edge with him", effects: { bond: 25, affection: 9 }, response: "You walked to the edge of reality. With me. ...No one has ever done that before.", emotion: "love" },
+            { text: "Step to the edge with him", effects: { bond: 25, affection: 9 }, response: "You walked to the edge of the weave. With me. ...No one has ever done that before.", emotion: "love" },
             { text: "Ask what's beyond", effects: { bond: 15, affection: 5 }, response: "I don't know. And I'm the one who's supposed to know everything. ...It's terrifying. And beautiful.", emotion: "shy" }
         ]
     },

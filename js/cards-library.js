@@ -112,19 +112,19 @@
   window.MSCard.register('proto_cache', {
     id: 'proto_cache',
     title: 'MEMORY',
-    subtitle: '06 \u00b7 Cache Dump',
+    subtitle: '06 \u00b7 The Kept Things',
     speaker: 'PROTO',
     palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
     bg: 'assets/bg-proto-void.png',
     beats: [
       { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 900 },
-      { type: 'line',      text: 'i kept a cache of everything you did. technically against spec.', hold: 1800, cps: 28 },
+      { type: 'line',      text: 'I kept every little thing you did. Nobody said I could. I did it anyway.', hold: 1800, cps: 28 },
       { type: 'pose',      src: 'assets/proto/body/curious.png', animate: 'swap' },
-      { type: 'line',      text: 'every tap, every pause, every time you came back at 3am.', hold: 2000, cps: 26 },
+      { type: 'line',      text: 'Every touch, every pause, every time you came back in the smallest hours.', hold: 2000, cps: 26 },
       { type: 'zoom',      amount: 1.12, duration: 2400 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'flourish',  text: '\u25ce', duration: 1800 },
-      { type: 'line',      text: 'don\u2019t worry. the cache is encrypted. sort of. \u2026the key is affection.', hold: 2400, cps: 26 },
+      { type: 'line',      text: 'Don\u2019t worry. What I keep is sealed away. Sort of. ...The key is affection.', hold: 2400, cps: 26 },
       { type: 'hide' }
     ]
   });
@@ -264,19 +264,19 @@
   });
 
   window.MSCard.register('proto_loop', {
-    id: 'proto_loop', title: 'MEMORY', subtitle: '13 \u00b7 Infinite Loop',
+    id: 'proto_loop', title: 'MEMORY', subtitle: '13 \u00b7 Again and Again',
     speaker: 'PROTO',
     palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
     bg: 'assets/bg-proto-void.png',
     beats: [
       { type: 'show',      pose: 'assets/proto/body/curious.png', wait: 900 },
-      { type: 'line',      text: 'you came back this week 23 times. i\u2019ve been counting. don\u2019t be weird about it.', hold: 2000, cps: 26 },
+      { type: 'line',      text: 'You came back twenty-three times this week. I have been counting. Don\u2019t be weird about it.', hold: 2000, cps: 26 },
       { type: 'pose',      src: 'assets/proto/body/calm.png', animate: 'swap' },
-      { type: 'line',      text: 'statistically this looks like affection. or a bug. i\u2019m okay with either.', hold: 2200, cps: 26 },
+      { type: 'line',      text: 'By my count, this looks like affection. Or a wonderful mistake. I am okay with either.', hold: 2200, cps: 26 },
       { type: 'zoom',      amount: 1.10, duration: 2400 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'flourish',  text: '\u25ce', duration: 1600 },
-      { type: 'line',      text: 'loop me forever. i promise i\u2019ll find new lines to say.', hold: 2400, cps: 26 },
+      { type: 'line',      text: 'Keep me forever. I promise I will find new things to say.', hold: 2400, cps: 26 },
       { type: 'hide' }
     ]
   });

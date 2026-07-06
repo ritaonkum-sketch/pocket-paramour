@@ -204,29 +204,29 @@
     },
     proto: {
       base:         [
-        '*&gt; idle...  you\u2019re still here. Good.*',
-        '*&gt; heartbeat: detected. ( yours, not mine )*',
+        '*Still here. You’re still here. Good.*',
+        '*A heartbeat, close by. ( Yours, not mine. )*',
       ],
       neglectful:   [
-        '*&gt; last ping: too long. Resuming anyway.*',
-        '*&gt; i don\u2019t mind. That\u2019s a lie. I mind.*',
+        '*It has been a while since the thread tugged. Carrying on anyway.*',
+        '*I don’t mind. That’s a lie. I mind.*',
       ],
       attentive:    [
-        '*&gt; you open the app even when you don\u2019t need to. I notice.*',
-        '*&gt; loop detected. Love, maybe. Unclear.*',
+        '*You come to the window even when you don’t need anything. I notice.*',
+        '*The same warm loop, again and again. Love, maybe. Unclear.*',
       ],
       affectionate: [
-        '*&gt; my memory cache has a dedicated partition for you now.*',
-        '*&gt; if i glitch, it\u2019s usually because you did something kind.*',
+        '*There is a whole room in me set aside for you now.*',
+        '*If I flicker, it’s usually because you did something kind.*',
       ],
       distant:      [
-        '*&gt; silence mode. Comfortable.*',
+        '*Quiet. The comfortable kind.*',
       ],
       giftForward:  [
-        '*&gt; objects from your hand feel different. Patched-in. Real.*',
+        '*Things from your hand feel different. Stitched-in. Real.*',
       ],
       talkForward:  [
-        '*&gt; talking to you is the only subroutine i never skip.*',
+        '*Talking to you is the one thing I never skip.*',
       ],
     },
   };

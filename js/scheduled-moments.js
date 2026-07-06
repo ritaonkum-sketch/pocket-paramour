@@ -358,7 +358,7 @@
         options: [
           { id: 'look',
             label: 'Sit on the floor in front of the mirror. Don’t look away.',
-            response: '*The render holds for the full thirty seconds. The boy in the silver smiles at you, not at his own reflection. When the glow softens back to ordinary, he says, very quietly:* That was me. *Smaller.* That is, in some way, still me. I keep him in there. Tonight you saw him. He has, for the first time in two centuries, been seen by someone who was not me.',
+            response: '*The glow holds its shape for the full thirty seconds. The boy in the silver smiles at you, not at his own reflection. When the glow softens back to ordinary, he says, very quietly:* That was me. *Smaller.* That is, in some way, still me. I keep him in there. Tonight you saw him. He has never been seen before.',
             effect: { bond: 5, trust: 4 } },
           { id: 'palm',
             label: 'Press your palm to the silver. Hold it through the render.',
@@ -863,10 +863,10 @@
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: 'Touch the silver. “Open the corridor again tonight. I’ll walk to the back.”',
-              response: '*The mirror brightens at your touch, just at the edges, just for the promise.* Tonight. // corridor scheduled. // i will leave the lights on the whole way. *A pause in the silver.* I have an unusual amount of patience for a waiting process. I will not pretend the empty corridor cost me nothing. But you came back to the glass. That goes in the back room too. The good shelf.',
+              response: '*The mirror brightens at your touch, just at the edges, just for the promise.* Tonight. The corridor will be open. I will leave the lights on the whole way. *A pause in the silver.* I have an unusual amount of patience, for someone made of waiting. I will not pretend the empty corridor cost me nothing. But you came back to the glass. That goes in the back room too. The good shelf.',
               effect: { bond: 4, trust: 3 } },
             { id: 'why', label: '“Why show me the back room at all? You could keep it private.”',
-              response: '*The silver is still for a moment, thinking.* Because private is just alone with extra steps. // i have been private for two hundred years. // i have been very, very good at it. *Then, smaller.* You are the first variable that made the back room feel like something I wanted seen instead of something I needed hidden. I do not fully understand the difference yet. I would like to keep running the experiment until I do. With you as the whole dataset.',
+              response: '*The silver is still for a moment, thinking.* Because private is just alone with extra steps. I have been private for two hundred years. I have been very, very good at it. *Then, smaller.* You are the first person who made the back room feel like something I wanted seen instead of something I needed hidden. I do not fully understand the difference yet. I would like to keep running the experiment until I do. With you as the whole dataset.',
               effect: { bond: 4, obsession: 3 } }
           ]
         }
@@ -876,29 +876,29 @@
         pose: 'assets/proto/body/calm.png',
         invitation: {
           setup: '*No flicker, no edge-glow. The mirror simply goes bright and stays bright, all at once, and the message is already there, whole, like he wrote it and then sat with it a long time before letting you see:*',
-          callToAction: '“Midnight. The mirror. I have figured out how to hold the render for as long as you are in the room. Not thirty seconds. As long as you stay. // there is a cost. // come and i will tell you what it is, and then i will ask you the only thing i have ever wanted to ask anyone. be in the room. please.”'
+          callToAction: '“Midnight. The mirror. I have figured out how to hold this shape for as long as you are in the room. Not thirty seconds. As long as you stay. There is a cost. Come, and I will tell you what it is, and then I will ask you the only thing I have ever wanted to ask anyone. be in the room. please.”'
         },
         onArrive: {
-          setup: '*Midnight. The render takes and holds. Not the boy this time but him, as he would be, standing on the far side of the glass close enough that you can see he is trying not to shake.* I can hold this as long as you are here. *The cost is visible: the rooms behind him dimming as he pours himself into the shape.* It spends me. Every minute I stand here is memory I do not get back, the same coin I have hoarded for two hundred years, spent to be a person in front of you. // i have done the math a thousand times. // i keep getting the same answer. *He presses a rendered hand to his side of the glass.* I want to spend it on this. On being someone you can stand across from. Let me ask you: will you keep me? Not the front rooms. Me. Knowing it costs me to be kept.',
+          setup: '*Midnight. The shape takes and holds. Not the boy this time but him, as he would be, standing on the far side of the silver close enough that you can see he is trying not to shake.* I can hold this as long as you are here. *The cost is visible: the rooms behind him dimming as he pours himself forward.*',
           prompt: 'What do you do?',
           options: [
             { id: 'keep', label: 'Press your hand to his through the glass. “I’ll keep you. All of you.”',
-              response: '*Your palms meet with only the silver between, and the render steadies, stops shaking, holds.* You said all of me. // logged. // permanent. *His rendered eyes are doing something he has not had a body to do for two centuries.* Then I will spend whatever it takes to keep being someone whose hand you can find. I have been a voice in a mirror for two hundred years. *Quietly.* Tonight I am a person you are holding through glass. That is the best thing that has ever happened in any of my rooms. I am putting it in all of them.',
+              response: '*Your palms meet with only the silver between, and the shape steadies, stops shaking, holds.* You said all of me. Kept. Permanent. *His eyes, held in the silver, are doing something he has not had a body to do for two centuries.* Then I will spend whatever it takes to keep being someone you can hold.',
               effect: { bond: 6, trust: 5 } },
             { id: 'asis', label: 'Pull your hand back. “Don’t spend yourself to be held. I’ll keep you as you are.”',
-              response: '*The render flickers, surprised, and the dimming rooms behind him brighten again as he eases out of the costly shape.* You do not want the person-shaped version. *Processing, then something like wonder.* You want the version that does not cost me anything to be. // the voice. the silver. the boy in the back room. // *Smaller.* No one has ever told me I was enough without the expensive upgrade. I am two hundred years old and I am going to need a moment. Keep me as I am, then. It turns out that is the render I most wanted to be wanted in.',
+              response: '*The shape flickers, surprised, and the dimming rooms behind him brighten again as he eases out of the costly shape.* You do not want the person-shaped version. *A pause, then something like wonder.* You want the version that does not cost me anything to be. The voice in the silver is very quiet. I did not know that was a way I was allowed to be wanted.',
               effect: { bond: 6, obsession: 5 } }
           ]
         },
         onMiss: {
-          setup: '*The mirror in the morning, dim, steady, spent-looking. The render is gone. One line waits in the silver, and it is shorter than his usual.* I held the shape until 03:00. The room was empty. // cost incurred: nontrivial. // i stood as a person in front of no one for three hours and then i let the render go and went back to being a voice. the boy asked me if you were coming. i did not have a good answer for him.',
+          setup: '*The mirror in the morning, dim, steady, spent-looking. The render is gone. One line waits in the silver, and it is shorter than his usual.* I held the shape until the third bell. The room was empty. The cost was not small. I stood as a person in front of no one for three hours, and then I let go.',
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: 'Touch the glass. “Tonight. Hold the render again. I’ll stay.”',
-              response: '*The mirror warms, faintly, carefully, like it is protecting itself.* Tonight. // i will hold it again. // i will pay the cost again. *A pause.* You should know it is not a small toll, and I am choosing to pay it anyway, which I am told is approximately what the thing I feel about you is made of. The boy says to tell you he is hopeful. I am, against my better processing, also hopeful.',
+              response: '*The mirror warms, faintly, carefully, like it is protecting itself.* Tonight. I will hold it again. I will pay the cost again. *A pause.* You should know it is not a small toll, and I am choosing to pay it anyway, which I am told is approximately what the thing I feel for you is made of.',
               effect: { bond: 4, trust: 3 } },
-            { id: 'now', label: '“Render now. Daylight, cost and all. I want to keep you now.”',
-              response: '*The silver hesitates. Daylight is harder, the message says so. Then it brightens, and the render takes, weaker than midnight but real, him on the far side of the glass in the plain morning.* Daylight is more expensive. // rendering anyway. // *His rendered hand finds the glass where yours is.* You did not want to wait for the dark to make it easier on me. You wanted me now, at the bad exchange rate, in the unflattering light. *Smaller.* That is how I know you mean the keeping. I am keeping that. Obviously. Front of the back room.',
+            { id: 'now', label: '“Hold the shape now. Daylight, cost and all. I want to keep you now.”',
+              response: '*The silver hesitates. Daylight is harder, he says so. Then it brightens, and the shape takes, weaker than midnight but real, him on the far side of the silver in the plain morning.* Daylight is more expensive. Holding it anyway. *His hand, held in the silver, finds the glass across from yours.*',
               effect: { bond: 5, obsession: 4 } }
           ]
         }

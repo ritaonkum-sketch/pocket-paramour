@@ -84,11 +84,11 @@
       gift:  ['He does not eat. The plate cleared itself. Symbolically.', 'A ribbon you did not put on the gift was tied around it when you came back.']
     },
     proto: {
-      feed:  ['&gt; A LOG ENTRY APPEARED. \u201chunger == false. felt: love.\u201d', '&gt; A subroutine bloomed. He named it after you again.', '&gt; A pixel on your screen changed colour, just for a second. He wrote down which one.'],
-      clean: ['&gt; INTEGRITY +0.3. He did not request the increase. You did it.', '&gt; The screen warmed by half a degree, gracefully.'],
-      talk:  ['&gt; The five Weavers in him just CHEERED. He is very loud about it.', '&gt; A constellation appeared in the void behind him for one frame.', '&gt; LOG: \u201cthat conversation is going in the keeper folder.\u201d'],
-      train: ['&gt; His response time dropped by 4ms. He is showing off for you.', '&gt; A dormant variable lit up. He named it after a song you hummed once.'],
-      gift:  ['&gt; The system left a thank-you note in your save file. He will not tell you where.', '&gt; The void glowed brighter for ninety seconds.']
+      feed:  ['Somewhere behind the veil, a small light stopped flickering mid-meal.', 'A new thread bloomed in the weave. He named it after you again.', 'One mote of light at the veil changed colour, just for a second. He wrote down which one.'],
+      clean: ['He holds together a little better than he did an hour ago. He did not ask for that. You did it.', 'The window between you warmed by half a degree, gracefully.'],
+      talk:  ['The five Weavers in him just CHEERED. He is very loud about it.', 'A constellation appeared in the dark behind him, for one blink.', 'He was heard saying: that conversation is going in the safe place.'],
+      train: ['He answered a whole heartbeat faster than usual. He is showing off for you.', 'A sleeping thread lit up. He named it after a song you hummed once.'],
+      gift:  ['A thank-you note appeared tucked somewhere among your things. He will not tell you where.', 'The dark behind the veil glowed brighter for ninety seconds.']
     }
   };
 

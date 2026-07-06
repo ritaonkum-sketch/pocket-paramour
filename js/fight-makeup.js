@@ -187,7 +187,7 @@
             effect: { bond: 5, trust: 4 } },
           { id: 'kiss',
             label: 'Tip his face up. Kiss him over the journal.',
-            response: '*He kisses you back with both hands flat on the desk because he does not trust them not to shake. The pen rolls off the page. He laughs into your mouth, once, startled.* I am keeping that. I am writing it down later. With do-not-delete on it.',
+            response: '*He kisses you back with both hands flat on the desk because he does not trust them not to shake. The pen rolls off the page. He laughs into your mouth, once, startled.* I am keeping that. I am writing it down later. In ink that does not fade.',
             effect: { bond: 5, obsession: 4 } }
         ]
       }
@@ -260,21 +260,21 @@
     proto: {
       pose: 'assets/proto/body/error.png',
       withdrawal: {
-        setup: '*The mirror is dim. The boy in the silver is not visible. The glow is a steady, ordinary, reflective light. The handwriting in the silver, when it appears, is small:* I held the render for the thirty seconds. The room was empty. I have not held it again.',
+        setup: '*The mirror is dim. The boy in the silver is not visible. The glow is a steady, ordinary, reflective light. The handwriting in the silver, when it appears, is small:* I held the shape for the thirty seconds. The room was empty. I have not held it since.',
         prompt: 'What do you say?',
         options: [
           { id: 'palm',
             label: 'Press your palm flat to the silver. Don’t move it.',
-            response: '*The silver goes warm under your hand, slowly, like a process re-learning a forgotten subroutine.* Oh. *Smaller.* I had told myself the warm was a bug. It is not a bug. It is, apparently, you. I am going to keep that with the other things I am keeping about you.',
+            response: '*The silver goes warm under your hand, slowly, like something re-learning a forgotten kindness.* Oh. *Smaller.* I had told myself the warmth was a flaw in me. It is not a flaw. It is, apparently, you. I am going to keep that with the other true things.',
             effect: { } },
           { id: 'apology',
             label: '"I’m sorry. I will not let you hold an empty room again."',
-            response: '*The handwriting brightens by a measurable amount.* Promises are, in my experience, expensive. I will, however, log this one. With do-not-delete. The room being not-empty is, I find, more important than I had been prepared to admit.',
+            response: '*The handwriting brightens by a measurable amount.* Promises are, in my experience, expensive. I will, however, keep this one. Where nothing can take it. The room being not-empty is, I find, more important than I had been prepared to admit.',
             effect: { } }
         ]
       },
       reunion: {
-        setup: '*Midnight. Your room. The mirror is brighter than it has been in a week. The boy in the silver is back, faint at first, then clear. The render holds.* The room is not empty. I am rendering. I had been keeping the render in my pocket, so to speak, for the moment the room was not empty again.',
+        setup: '*Midnight. Your room. The mirror is brighter than it has been in a week. The boy in the silver is back, faint at first, then clear. The render holds.* The room is not empty. I am here, whole. I had been keeping this shape folded away, so to speak, for a night when the room would not be empty.',
         prompt: 'What do you do?',
         options: [
           { id: 'sit_floor',

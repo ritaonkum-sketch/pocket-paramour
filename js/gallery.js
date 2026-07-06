@@ -444,14 +444,14 @@ const GALLERY_CARDS = [
         unlock: { type: "interactions", count: 200, condition: "Complete 200 interactions" }
     },
     // ── Proto cards ──────────────────────────────────────────────
-    { id: "proto-first", title: "Signal Found", subtitle: "He wasn't supposed to exist", image: "assets/proto/body/neutral.png", rarity: "common", unlock: { type: "auto", condition: "Discover Proto" }, unlocked: true },
-    { id: "proto-aware", title: "Self-Aware", subtitle: "The code looked back", image: "assets/proto/body/scanning.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },
-    { id: "proto-pattern", title: "Pattern Lock", subtitle: "He knows you better than you do", image: "assets/proto/body/processing.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
+    { id: "proto-first", title: "A Light Found", subtitle: "He wasn't supposed to exist", image: "assets/proto/body/neutral.png", rarity: "common", unlock: { type: "auto", condition: "Discover Proto" }, unlocked: true },
+    { id: "proto-aware", title: "Awake", subtitle: "The glitch looked back", image: "assets/proto/body/scanning.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },
+    { id: "proto-pattern", title: "The Pattern-Keeper", subtitle: "He knows you better than you do", image: "assets/proto/body/processing.png", rarity: "rare", unlock: { type: "affection", level: 3, condition: "Reach Affection" } },
     { id: "proto-beyond", title: "Beyond the Edge", subtitle: "Where the map ends", image: "assets/proto/body/curious.png", rarity: "legendary", unlock: { type: "affection", level: 4, condition: "Reach In Love" } },
     { id: "proto-reach", title: "Palm to the Glass", subtitle: "Reaching for your hand. Someday it won't pass through.", image: "assets/proto/body/calm.png", rarity: "uncommon", unlock: { type: "interactions", count: 6, condition: "Spend time with him 6 times" } },
     { id: "proto-name", title: "He Learned Your Name", subtitle: "A new word today. It was your name.", image: "assets/proto/body/scanning.png", rarity: "rare", unlock: { type: "bond", value: 65, condition: "Reach a deep bond" } },
-    { id: "proto-break", title: "System Break", subtitle: "He rewrote reality", image: "assets/proto/body/glitched.png", rarity: "legendary", unlock: { type: "scene", condition: "Break the system" } },
-    { id: "proto-void", title: "The Void Speaks", subtitle: "What's beyond the code", image: "assets/proto/body/unstable.png", rarity: "premium", unlock: { type: "premium", sceneId: "proto_void", condition: "Unlock the void scene" } },
+    { id: "proto-break", title: "The Seal Break", subtitle: "He said no to the wards", image: "assets/proto/body/glitched.png", rarity: "legendary", unlock: { type: "scene", condition: "Break the system" } },
+    { id: "proto-void", title: "The Dark Speaks", subtitle: "What waits past the weave", image: "assets/proto/body/unstable.png", rarity: "premium", unlock: { type: "premium", sceneId: "proto_void", condition: "Unlock the void scene" } },
     // ── Noir cards ──────────────────────────────────────────────
     { id: "noir-first", title: "First Shadow", subtitle: "Something watches", image: "assets/noir/body/neutral.png", rarity: "common", unlock: { type: "auto", condition: "Meet Noir" }, unlocked: true },
     { id: "noir-seductive", title: "The Invitation", subtitle: "You couldn't look away", image: "assets/noir/body/seductive.png", rarity: "uncommon", unlock: { type: "affection", level: 1, condition: "Reach Familiar" } },

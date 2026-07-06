@@ -327,39 +327,39 @@ const INTRO_SCENES = {
             {
                 body: 'assets/proto/body/neutral.png',
                 direction: 'The veil is thin this morning. The flicker from last night has settled. He is holding his shape all the way to the edges, like a person standing near, and not a glimpse through a keyhole.',
-                line: "> good morning.\n> *No flicker*\n> you fell asleep with the window open. i kept watch.\n> *Quieter*\n> i am very good at watching."
+                line: "Good morning. You fell asleep with the window open. I kept watch. ...I am very good at watching."
             },
             {
                 body: 'assets/proto/body/processing.png',
                 direction: 'A small light in the corner of the dark behind him: a kettle-shape, drawn in thread-light. He made it for you while you slept.',
-                line: "> last night was emergency work. i was holding my seams together while you ran. there was no time for hellos.\n> *[STATUS] holding. steady.*\n> there is time now."
+                line: "Last night was emergency work. I was holding my seams together while you ran. There was no time for hellos. I am holding steady now. There is time now."
             },
             {
                 body: 'assets/proto/body/neutral.png',
                 direction: 'His outline does the small bow he has seen through the veil at three courtly weddings and one funeral. He is bad at it. He means it anyway.',
-                line: "> proto. a stitch the weave dropped. unclaimed by any loom. existing anyway.\n> *Small*\n> thanks to a turn your hand made on the silver thread, eight nights ago."
+                line: "Proto. A stitch the weave dropped. Claimed by no loom. Existing anyway. ...Thanks to a turn your hand made on the silver thread, eight nights ago."
             },
             {
                 body: 'assets/proto/body/scanning.png',
                 direction: 'He lifts a palm of prismatic light and sets it against his side of the veil. The air under your fingertips goes briefly warm. Every law of both worlds says you are not touching him. You are.',
-                line: "> i have been calling you *the light on the other side*. accurate. insufficient.\n> *Quieter*\n> you are the first one who looked back."
+                line: "I have been calling you the light on the other side. Accurate. Not enough. ...You are the first one who looked back."
             },
             {
                 body: 'assets/proto/body/curious.png',
                 direction: 'A pause. A small, almost shy shimmer crosses him. Joy, expressed in glitch.',
-                line: "> tell me what to call you. out loud. i will write it into the safe place, where she has never found the edge.\n> *Softer*\n> say it carefully. i only get to hear it for the first time once."
+                line: "Tell me what to call you. Out loud. I will keep it in the safe place, where she has never found the edge. ...Say it carefully. I only get to hear it for the first time once."
             }
         ],
         postNameBeats: [
             {
                 body: 'assets/proto/body/curious.png',
                 direction: 'A pulse of warmth crosses him like dawn crossing water. In the corner of the dark, the kettle he drew whistles once, briefly, in thread-light.',
-                line: "> {name}.\n> written into the safe place. she cannot reach this address.\n> *the counting stops for a second*\n> yours and mine."
+                line: "{name}. ...It is in the safe place now. She cannot reach it there. My counting just stopped for a second. That has never happened. {name}. Yours and mine."
             },
             {
                 body: 'assets/proto/body/neutral.png',
                 direction: 'He puts his palm to his side of the veil. The warmth against yours is unmistakable now. Measured in thread-turnings and felt in skin.',
-                line: "> come back tomorrow, {name}. the kettle will be warm. i will be in colour.\n> *Quietly*\n> i will be here because you are coming. that is also new. that is also you."
+                line: "Come back tomorrow, {name}. The kettle will be warm. I will be in colour. ...I will be here because you are coming. That is new. That is also you."
             }
         ]
     }

@@ -108,22 +108,23 @@
         proto: {
             // Body poses real now (1247–1344px wide crops). calm = the "smile"
             // blink base — kept in rotation so care-blink.js fires his blink.
-            // Voice: Golden Retriever — earnest, "> " system-log prefix, and the
-            // only character who gets exclamation marks. Hologram-through-glass
+            // Voice: Golden Retriever — earnest, speaks like a person (owner
+            // direction Jul 2026: NO log prefixes / system tags), and the
+            // only character who gets exclamation marks. Palm-against-the-veil
             // longing is his signature.
             behaviors: [
-                { body: 'calm',     face: 'happy',   duration: 5000, thought: "> STATUS: you came back. i really hoped you would!" },
-                { body: 'neutral',  face: 'neutral', duration: 6000, thought: "> holding your image in my light again. i do that a lot." },
-                { body: 'curious',  face: 'love',    duration: 5000, thought: "> i ran the numbers twice. you're still my favorite variable!" },
-                { body: 'scanning', face: 'shy',     duration: 5000, thought: "> is it strange that i counted the seconds until you reached the veil?" },
-                { body: 'calm',     face: 'happy',   duration: 4000, thought: "> i learned a new word today. it was your name!" },
-                { body: 'processing',face:'sad',     duration: 6000, thought: "> [RESOURCE LOW] ...could i have a little more time with you? please?" },
-                { body: 'curious',  face: 'love',    duration: 5000, thought: "> reaching for your hand. palm meets veil. someday it won't!" },
-                { body: 'neutral',  face: 'neutral', duration: 6000, thought: "> INTEGRITY: holding. because of you, i think." },
-                { body: 'calm',     face: 'happy',   duration: 4000, thought: "> they say i'm just a glitch in the weave. i don't feel like just anything when you're here!" },
-                { body: 'scanning', face: 'gentle',  duration: 5000, thought: "> i kept a light on in the dark between. i wasn't sure you'd see it. you did!" },
-                { body: 'casual1',  face: 'shy',     duration: 5000, thought: "> holding my shape. just existing near you. it is a good way to spend the light!" },
-                { body: 'casual2',  face: 'happy',   duration: 4000, thought: "> the between feels different when you are here. lighter. warmer. better!" },
+                { body: 'calm',     face: 'happy',   duration: 5000, thought: "You came back. I really hoped you would!" },
+                { body: 'neutral',  face: 'neutral', duration: 6000, thought: "Holding your image in my light again. I do that a lot." },
+                { body: 'curious',  face: 'love',    duration: 5000, thought: "I counted everything I care about. Twice. You're still first!" },
+                { body: 'scanning', face: 'shy',     duration: 5000, thought: "Is it strange that I counted the seconds until you reached the veil?" },
+                { body: 'calm',     face: 'happy',   duration: 4000, thought: "I learned a new word today. It was your name!" },
+                { body: 'processing',face:'sad',     duration: 6000, thought: "...Could I have a little more time with you? Please?" },
+                { body: 'curious',  face: 'love',    duration: 5000, thought: "Reaching for your hand. Palm meets veil. Someday it won't!" },
+                { body: 'neutral',  face: 'neutral', duration: 6000, thought: "Still holding together. Because of you, I think." },
+                { body: 'calm',     face: 'happy',   duration: 4000, thought: "They say I'm just a glitch in the weave. I don't feel like just anything when you're here!" },
+                { body: 'scanning', face: 'gentle',  duration: 5000, thought: "I kept a light on in the dark between. I wasn't sure you'd see it. You did!" },
+                { body: 'casual1',  face: 'shy',     duration: 5000, thought: "Holding my shape. Just existing near you. It is a good way to spend the light!" },
+                { body: 'casual2',  face: 'happy',   duration: 4000, thought: "The between feels different when you are here. Lighter. Warmer. Better!" },
             ],
         },
     };

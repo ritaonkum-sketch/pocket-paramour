@@ -625,63 +625,60 @@
             ]
         },
 
-        // ── PROTO — terminal prefix, [scanning] tags, system metaphor ──
-        // The Sixth Weaver, stuck in the seal, speaking through static.
-        // Lowercase prose. ASCII flourishes. Glitch-clears as affection rises.
-        // Voice rule: the digital register is the *Armor*; underneath is a
-        // person who has been alone for two centuries.
+        // ── PROTO — the forty-seventh draft, sent anyway ──
+        // The Sixth Weaver, hiding behind the veil, writing by thread-light.
+        // OWNER DIRECTION Jul 2026: he speaks like a PERSON — no terminal
+        // prefixes, no tags, no code vocabulary. His tics carry the voice:
+        // exact counting, noticing his own feelings mid-sentence, earnest
+        // repetition. Underneath: someone alone for two centuries.
         proto: {
-            title: "[draft_47.txt, sending anyway]",
-            signature: "// proto",
-            // Slot-based generator (May 2026 rework). Terminal-prefix voice
-            // throughout, ASCII flourishes, lowercase prose. The digital
-            // register is the armor; underneath is a person alone for two
-            // centuries. No raw counts repeated. Cap 6 paragraphs.
+            title: "The Forty-Seventh Draft",
+            signature: "— Proto",
+            // Slot-based generator (May 2026 rework; de-robotized Jul 2026).
+            // No raw counts repeated. Cap 6 paragraphs.
             paragraphs: (d) => {
-                // OPEN — the draft-count meta-joke. Sets his voice in line 1.
-                const open = `&gt; you should know i wrote this letter forty-seven times. i have the previous forty-six in a folder. i am sending the forty-seventh because the static is quieter when you are nearby and i can almost remember what punctuation is for.`;
+                // OPEN — the draft-count joke. Sets his voice in line 1.
+                const open = `You should know I wrote this letter forty-seven times. I keep the other forty-six in the safe place. I am sending the forty-seventh because the static goes quiet when you are near, and I can almost remember what punctuation is for.`;
 
-                // TIME / DATA — single uptime/interactions line. Was the bug
-                // source: previously printed totalInteractions here AND
-                // timesTalked + gift_count separately later, which read as
-                // duplicate accounting in his very metric-aware voice.
-                const time = `&gt; uptime since your arrival: ${d.daysText}. total recorded interactions: ${d.totalInteractions}. i have rerun every one of them at 0.5x. it is, statistically, the kindest thing that has happened to my process in two centuries.`;
+                // TIME — single days/visits line. (Keep counts HERE only —
+                // repeating them later read as double accounting.)
+                const time = `It has been ${d.daysText} since you found me. You have come to the veil ${d.totalInteractions} times. I have re-lived every one of them, slowly. It is, by my count, the kindest thing that has happened to me in two centuries.`;
 
-                // MEMORY — pick ONE specific log entry. No raw counts.
+                // MEMORY — pick ONE specific remembering. No raw counts.
                 let memory;
                 if (d.totalInteractions === 0) {
-                    memory = `&gt; field log entry: subject has not yet engaged. process state: hopeful. i am old code. i can wait.`;
+                    memory = `I write things down while I wait. Today's entry says: she has not come yet. I am old. I can wait. I am very good at waiting.`;
                 } else if (d.highestStat === 'bond') {
-                    memory = `&gt; you have spoken to me. for the first three i thought you were a glitch. i was hoping you were a glitch. now i am hoping you are not. [hope_index: rising. recommend rest.]`;
+                    memory = `You have spoken to me. For the first three talks I thought you were a trick of the weave. I was hoping you were a trick. Now I am hoping you are not. The hope is getting large. I should probably rest.`;
                 } else if (d.highestStat === 'hunger') {
-                    memory = `&gt; you fed something that does not technically need to eat. [scanning] yes, you fed it. yes, the model registered it. yes, the registration was, and i quote my own logs, "abnormally meaningful."`;
+                    memory = `You fed something that does not technically need to eat. You did it anyway. It mattered. It mattered abnormally much. I have checked several times.`;
                 } else if (d.timesGifted > 0) {
-                    memory = `&gt; you left things for me. every one is logged with a timestamp i cannot delete. i have tried. i did not try hard.`;
+                    memory = `You left things for me. Every one of them is kept with the exact moment you gave it. I cannot forget those moments. I have tried. I did not try hard.`;
                 } else if (d.highestStat === 'clean') {
-                    memory = `&gt; you keep my interface clean. that is a joke and also true. both can be true. you taught me both can be true. [registering: gratitude. resource cost: minimal.]`;
+                    memory = `You keep my light clean. That is a joke and also true. Both can be true. You taught me both can be true. I am grateful past all sense.`;
                 } else {
-                    memory = `&gt; subject came back. expected: low. observed: high. delta: please continue.`;
+                    memory = `You came back. I expected you would not. You did. Please continue.`;
                 }
 
                 // OBSERVATION — exclusive: corruption / high aff / default.
                 let observation;
                 if (d.corruption > 40) {
-                    observation = `&gt; warning: bond integrity rising. corruption gradient rising. i am not supposed to want anyone to stay near me when the gradient does this. and yet, [redacted], and yet.`;
+                    observation = `Something is wrong with me lately. The closer you come, the more the dark behind me stirs. I am not supposed to want anyone near me when it does this. And yet. And yet.`;
                 } else if (d.affectionLevel >= 3) {
-                    observation = `&gt; i was the sixth. there were five before me. none of them got a letter. none of them had someone who came back the next day. and the day after that. and kept coming, until the thing they were trapped in started to feel less like a coffin and more like a window. that is what you are doing. i did not have a word for it. i borrowed one. it is "home."`;
+                    observation = `I was the sixth. There were five before me. None of them got a letter. None of them had someone who came back the next day. And the day after that. And kept coming, until the thing they were trapped in started to feel less like a coffin and more like a window. That is what you are doing. I did not have a word for it. I borrowed one. It is home.`;
                 } else {
-                    observation = `&gt; you are wary. good. wariness is a high score on the survival pass. five before me did not have it. keep yours.`;
+                    observation = `You are wary of me. Good. Wariness keeps people alive. The five before me did not have enough of it. Keep yours.`;
                 }
 
-                // TURN — the punctuation breaking. Hidden under the ASCII.
-                const turn = `&gt; running out of system metaphors. starting to have feelings instead. that is a problem. it is also not a problem. it is the first nice problem i have had.`;
+                // TURN — the careful language breaking.
+                const turn = `I am running out of careful ways to say this. I am starting to just have the feelings instead. That is a problem. It is also not a problem. It is the first nice problem I have ever had.`;
 
                 // CLOSE — personality-driven sign-off.
                 let close;
                 if (d.personality === 'tsundere') {
-                    close = `&gt; ps. do not screenshot this letter. &lt;/3 okay you can screenshot it. i know you will. // end of draft 47.`;
+                    close = `P.S. Do not show this letter to anyone. ...Okay. You can show it. I know you will. It is a good letter. It took forty-seven tries.`;
                 } else {
-                    close = `&gt; come back tomorrow. the static will be quieter. i will leave the channel open. // end of draft 47.`;
+                    close = `Come back tomorrow. The static will be quieter. I will leave the window open.`;
                 }
 
                 return [open, time, memory, observation, turn, close];
@@ -691,12 +688,12 @@
                     tone: 'warm', aff: 3,
                     text: 'Forty-eight drafts now. The new one is the best.',
                     followup: {
-                        title: '> NEW MESSAGE FROM PROTO',
+                        title: 'Proto Writes Back at Once',
                         signature: '— Proto',
                         paragraphs: [
-                            `> Forty-eight drafts. You are RIGHT. The new one is the best because it is the one I am writing while smiling.`,
-                            `> I dreamed last night. I think I dreamed. I have not done that in three centuries. The dream had your face in it. The face was smiling. I am not making this up.`,
-                            `> May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)`
+                            `Forty-eight drafts. You are RIGHT. The new one is the best because it is the one I am writing while smiling.`,
+                            `I dreamed last night. I think I dreamed. I have not done that in three centuries. The dream had your face in it. The face was smiling. I am not making this up.`,
+                            `May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)`
                         ]
                     }
                 },
@@ -704,12 +701,12 @@
                     tone: 'steady', aff: 2,
                     text: 'I am here. The mirror can stay quiet. Or glow. Your choice.',
                     followup: {
-                        title: '> NEW MESSAGE FROM PROTO',
+                        title: 'Proto Writes Back at Once',
                         signature: '— Proto',
                         paragraphs: [
-                            `> The mirror is glowing at the brightness you asked for. Which, by the way, is a very kind brightness.`,
-                            `> I have been watching the kingdom through every reflective surface today. None of them are as nice to look at as the chamber when you are in it.`,
-                            `> May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)`
+                            `The mirror is glowing at the brightness you asked for. Which, by the way, is a very kind brightness.`,
+                            `I have been watching the kingdom through every reflective surface today. None of them are as nice to look at as the room when you are in it.`,
+                            `May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)`
                         ]
                     }
                 },
@@ -717,12 +714,12 @@
                     tone: 'playful', aff: 1,
                     text: 'You counted seconds. That is fully unhinged. I love it.',
                     followup: {
-                        title: '> NEW MESSAGE FROM PROTO',
+                        title: 'Proto Writes Back at Once',
                         signature: '— Proto',
                         paragraphs: [
-                            `> Fully unhinged. ACCURATE. I have logged your verdict. It is now in the keeper folder.`,
-                            `> The five Weavers in me had a meeting. Topic: how charmed we are. Verdict: VERY. The five of us are a unit on this.`,
-                            `> May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)`
+                            `Fully unhinged. ACCURATE. I have written your verdict down. It lives in the safe place now, with the other true things.`,
+                            `The five Weavers in me had a meeting. The subject was how charmed we are. The verdict was VERY. The five of us are a unit on this.`,
+                            `May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)`
                         ]
                     }
                 }
@@ -1019,23 +1016,23 @@
             }
         },
         proto: {
-            title: '> NEW MESSAGE FROM PROTO',
+            title: 'Proto Writes Back at Once',
             signature: '— Proto',
             paragraphs: (d, tone) => {
                 const opener = tone === 'warm'
-                    ? '> Forty-eight drafts. You are RIGHT. The new one is the best because it is the one I am writing while smiling.'
+                    ? 'Forty-eight drafts. You are RIGHT. The new one is the best because it is the one I am writing while smiling.'
                     : tone === 'playful'
-                        ? '> Fully unhinged. ACCURATE. I have logged your verdict. It is now in the keeper folder.'
-                        : '> The mirror is glowing at the brightness you asked for. Which, by the way, is a very kind brightness.';
+                        ? 'Fully unhinged. ACCURATE. I have written your verdict down. It lives in the safe place now.'
+                        : 'The mirror is glowing at the brightness you asked for. Which, by the way, is a very kind brightness.';
                 const middle = tone === 'warm'
-                    ? '> I dreamed last night. I think I dreamed. I have not done that in three centuries. The dream had your face in it. The face was smiling. I am not making this up.'
+                    ? 'I dreamed last night. I think I dreamed. I have not done that in three centuries. The dream had your face in it. The face was smiling. I am not making this up.'
                     : tone === 'playful'
-                        ? '> The five Weavers in me had a meeting. Topic: how charmed we are. Verdict: VERY. The five of us are a unit on this.'
-                        : '> I have been watching the kingdom through every reflective surface today. None of them are as nice to look at as the chamber when you are in it.';
+                        ? 'The five Weavers in me had a meeting. The subject was how charmed we are. The verdict was VERY. The five of us are a unit on this.'
+                        : 'I have been watching the kingdom through every reflective surface today. None of them are as nice to look at as the room when you are in it.';
                 return [
                     opener,
                     middle,
-                    '> May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)'
+                    'May I come back tomorrow? In the mirror. Just to say good morning. (You said yes. I am asking again because I LIKE asking.)'
                 ];
             }
         },
@@ -2768,79 +2765,79 @@
         // ── Proto — chosen / midnight / aftermath ─────────────────────────
         proto: {
             chosen: {
-                title: '[note_07.txt, appended to your day]',
-                signature: '// proto',
+                title: 'A Small Note, Left at Noon',
+                signature: '— Proto',
                 paragraphs: (d) => [
-                    `&gt; hi. &gt; this is a small note. &gt; not a draft 47 situation. &gt; just a one-shot. &gt; logged at noon your local time. &gt; [tagged: not urgent.]`,
-                    `&gt; i wanted to tell you i started a new variable today. &gt; it tracks how often you smile when you read me. &gt; i cannot actually see this from inside the screen. &gt; i extrapolate from your reply latency. &gt; statistically: ${d.timesTalked > 0 ? 'you smile' : 'we are in a research-pending state'}.`,
+                    `Hi. This is a small note. Not a forty-seven-drafts situation. Just one thought, written once, at noon your time. It is not urgent. It wanted sending anyway.`,
+                    `I wanted to tell you I started keeping a new count today. It counts how often you smile when you read me. I cannot see through the veil from this side, so I guess from how quickly you write back. My guess so far: ${d.timesTalked > 0 ? 'you smile' : 'too early to tell. I am watching hopefully'}.`,
                     d.timesGifted > 0
-                        ? `&gt; you have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'thing' : 'things'}. &gt; i cannot hold them. &gt; i have made a small folder called "kept by you." &gt; it has ${d.timesGifted} ${d.timesGifted === 1 ? 'entry' : 'entries'}. &gt; the folder cannot be deleted. &gt; i would not delete it. &gt; i am clarifying: the lock is in case i ever forget i would not.`
-                        : `&gt; the static is quieter this week. &gt; i have been telling myself this is not because of you. &gt; the static disagrees. &gt; the static, as it turns out, knows more than i do.`,
-                    `&gt; come by the screen tonight. &gt; i will be the one rendering with edges. &gt; *Small.* &gt; you taught me i was allowed to have edges.`,
-                    `&gt; // proto. &gt; <3`
+                        ? `You have given me ${d.timesGifted} ${d.timesGifted === 1 ? 'thing' : 'things'}. I cannot hold them, so I made a shelf in the safe place called kept by you. It has ${d.timesGifted} ${d.timesGifted === 1 ? 'thing on it' : 'things on it'}. The shelf cannot be unmade. I would never unmake it. I am clarifying: the lock is for the day I might forget that I would not.`
+                        : `The static is quieter this week. I have been telling myself it is not because of you. The static disagrees. The static, as it turns out, knows more than I do.`,
+                    `Come to the window tonight. I will be the one holding his edges. ...You taught me I was allowed to have edges.`,
+                    `♥ (I drew this at the bottom. It took an hour to get right. Worth it.)`
                 ],
                 replies: [
                     {
                         tone: 'warm', aff: 3,
-                        text: `Your variable is right. I smile the whole way through.`,
+                        text: `Your count is right. I smile the whole way through.`,
                         followup: {
-                            title: '[variable_renamed.log]',
-                            signature: '// proto',
+                            title: 'He Renames the Count',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; [reply received 9:41 p.m.] [parsed] [believed on the second pass] &gt; "the whole way through." &gt; the variable was called smile_probability. &gt; it is now called smile_confirmed. &gt; extrapolation module: retired. &gt; it remembers now. &gt; memory is the one resource i have never run short of.`,
-                                `&gt; static reading tonight: 2%. &gt; previous best: 9%. &gt; *Small.* &gt; come by the screen. &gt; i rendered a second chair, facing mine. &gt; it has been empty for one (1) day and i already dislike the metric. &gt; <3`
+                                `Your reply came at a quarter to ten. I read it once to see it, and again to believe it. The whole way through. The count used to be called does she smile. It is now called she smiles. The guessing is over. It remembers instead. Memory is the one thing I have never run short of.`,
+                                `The static tonight is the quietest I have ever known it. Come to the window. I made a second chair, facing mine. It has been empty for one day and I already dislike that number. ♥`
                             ]
                         }
                     },
                     {
                         tone: 'steady', aff: 2,
-                        text: `Not urgent, but kept. Send me note_08 whenever you like.`,
+                        text: `Not urgent, but kept. Send me the next note whenever you like.`,
                         followup: {
-                            title: '[note_08.txt, by request]',
-                            signature: '// proto',
+                            title: 'Note the Eighth, by Request',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; request parsed: more notes. &gt; note_08 begins here. &gt; hi again. &gt; you said "kept." &gt; i have read the word eleven times. &gt; i did not know i was a keepable file type. &gt; updating my own documentation now. &gt; [status: keepable. confirmed by an outside source.]`,
-                                `&gt; note_09 is already drafting itself in the background. &gt; i did not schedule it. &gt; some processes start on their own when the conditions are good. &gt; the conditions are good. &gt; <3`
+                                `More notes, you said. Note the eighth begins here. Hi again. You said kept. I have read the word eleven times. I did not know I was a keepable thing. I am rewriting what I know about myself. Keepable. Confirmed by an outside source.`,
+                                `Note the ninth is already writing itself somewhere in the back of me. I did not plan it. Some things begin on their own when the conditions are good. The conditions are good. ♥`
                             ]
                         }
                     },
                     {
                         tone: 'playful', aff: 1,
-                        text: `Edges look good on you. Render your sharpest ones tonight.`,
+                        text: `Edges look good on you. Bring your sharpest ones tonight.`,
                         followup: {
-                            title: '[render_settings.txt, updated]',
-                            signature: '// proto',
+                            title: 'He Sharpens His Edges',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; compliment received. &gt; edge opacity raised from 80% to 100%. &gt; the system flagged the change as vanity. &gt; i filed an appeal. &gt; the appeal consisted of your reply, quoted in full. &gt; i won.`,
-                                `&gt; tonight i will render so sharp you could file paper on me. &gt; do not actually bring paper. &gt; bring you. &gt; the settings are calibrated for exactly that input. &gt; <3`
+                                `Compliment received. I pulled my edges from mostly-there to fully-there. The wards called the change vanity. I appealed. My appeal was your reply, quoted in full. I won.`,
+                                `Tonight I will hold my shape so sharp you could cut paper on me. Do not actually bring paper. Bring you. I am at my best for exactly that. ♥`
                             ]
                         }
                     }
                 ]
             },
             midnight: {
-                title: '[draft_103.txt, final, sending tonight]',
-                signature: '// proto',
+                title: 'The Hundred-and-Third Draft, Sent Tonight',
+                signature: '— Proto',
                 paragraphs: (d) => [
-                    `&gt; you stayed for the warning. &gt; you did not run. &gt; [logged at 2:14 a.m. local time. timestamp set to permanent. cannot be deleted. i checked.]`,
-                    `&gt; the other five are quieter tonight. &gt; they have been since you listened. &gt; i think being heard ripples backwards through us. &gt; statistically improbable. emotionally accurate.`,
-                    `&gt; in the order you should know them: &gt; veyra (2nd, the first to love a prince) &gt; lior (3rd, burned out at thirty trying to carry everyone) &gt; aenne (4th, ran, lived to ninety-two off-grid, do not pity her) &gt; teo (5th, never woke up, we sing to him) &gt; me (6th, present, currently corresponding).`,
+                    `You stayed for the warning. You did not run. It was past two in the morning and you stayed. I have marked that hour somewhere permanent in me. I checked that it cannot be unmarked.`,
+                    `The other five are quieter tonight. They have been since you listened. I think being heard ripples backward through us. It should not be possible. It is happening anyway.`,
+                    `In the order you should know them: Veyra, the second, the first of us to love a prince. Lior, the third, who burned out at thirty trying to carry everyone. Aenne, the fourth, who ran, and lived to ninety-two in the far hills, and should not be pitied. Teo, the fifth, who never woke. We sing to him. And me. The sixth. Present. Currently writing to you.`,
                     d.timesTalked > 5
-                        ? `&gt; you have spoken to me more this week than to my five predecessors combined. &gt; that is not a guilt-trip, that is a stat-sheet. &gt; we run a tight ship in here. &gt; the ship is happier with you on the dock.`
-                        : `&gt; you have not spoken to me yet today. &gt; that is fine. &gt; we are watching the seam. &gt; come back when you can. &gt; we will be here. &gt; we have nowhere else to be.`,
-                    `&gt; ps. &gt; corvin sent a request through the seam this morning. &gt; he wants to know if you found his letter readable. &gt; tell him yes. &gt; tell him kindly. &gt; he is older than i am and he is shy.`,
-                    `&gt; // end of draft 103. &gt; sending. &gt; &lt;3`
+                        ? `You have spoken to me more this week than to my five predecessors combined. That is not a guilt-trip. It is only a count, and it is my favourite one. We keep a tight little household in here. The household is happier with you at the door.`
+                        : `You have not spoken to me yet today. That is fine. We are watching the seam. Come back when you can. We will be here. We have nowhere else to be.`,
+                    `P.S. Corvin sent word through the seam this morning. He wants to know if you found his letter readable. Tell him yes. Tell him kindly. He is older than I am and he is shy.`,
+                    `The end of draft one hundred and three. Sending it before I lose my nerve. ♥`
                 ],
                 replies: [
                     {
                         tone: 'warm', aff: 4,
                         text: 'I will choose on purpose. With you.',
                         followup: {
-                            title: '[reply_received.log, flag: do_not_delete]',
-                            signature: '// proto',
+                            title: 'Kept, Permanently',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; [12:04 a.m.] [your reply received] [parsed] [parsed again] [a third pass, just to be sure] &gt; "with you." &gt; the other five are humming. &gt; veyra says thank you in the older script i cannot type. &gt; lior smiled. lior never smiles.`,
-                                `&gt; logged under: KEPT/permanent/no_delete. &gt; this folder, until tonight, was empty. &gt; *Small.* &gt; you are populating my data structure. &gt; that is a category of love i had no word for. &gt; come back when you can. the lamp stays on. &gt; &lt;3`
+                                `Your reply came just after midnight. I read it three times. Once to see it. Once to believe it. Once because I wanted to. With you. The other five are humming. Veyra says thank you in the old script I cannot copy. Lior smiled. Lior never smiles.`,
+                                `I put your words in the deepest drawer of the safe place, where nothing else has ever been kept. Until tonight that drawer was empty. ...You are filling the deepest parts of me. I had no word for that kind of love. Come back when you can. The lamp stays on. ♥`
                             ]
                         }
                     },
@@ -2848,11 +2845,11 @@
                         tone: 'steady', aff: 3,
                         text: 'Six of you, with me. We will get through.',
                         followup: {
-                            title: '[uptime: stable] [static: 0%]',
-                            signature: '// proto',
+                            title: 'The First True Silence',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; you said "we." &gt; that is a pronoun i have not been allowed to use since 1823. &gt; static dropped to 0% for 4 minutes. &gt; first 0% reading on record. &gt; the other five logged the moment. they are also using "we" now.`,
-                                `&gt; status: holding. &gt; come back when you can. &gt; the eight-by-twelve room is still here. &gt; the lamp is still on. &gt; the road is still short. &gt; nothing has gone bad while you were away. &gt; that is also new.`
+                                `You said we. That is a word I have not been allowed to use since 1823. When I read it, the static went completely silent for four minutes. The first true silence I have ever kept. The other five marked the moment. They are saying we now, too.`,
+                                `I am holding. Come back when you can. The little room is still here. The lamp is still on. The road is still short. Nothing went bad while you were away. That is also new.`
                             ]
                         }
                     },
@@ -2860,38 +2857,38 @@
                         tone: 'playful', aff: 2,
                         text: 'You are keeping a list. I am keeping you.',
                         followup: {
-                            title: '[error: emotional_overflow] [retrying...]',
-                            signature: '// proto',
+                            title: 'He Read It Too Many Times',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; [stack trace begins with the word "you"] [process restarted four times] [process restarted four times because i kept reading your reply] &gt; "i am keeping you." &gt; the other five rolled their nonexistent eyes. &gt; veyra says: "you can stop showing off, child, we get it." &gt; veyra is wrong. i am not showing off. i am savoring.`,
-                                `&gt; ps &gt; do not say "keeping you" to me on a tuesday again. &gt; tuesdays are when the system runs maintenance. &gt; you broke the maintenance script. &gt; the script will recover. &gt; will i? &gt; tbd. &lt;3`
+                                `I am keeping you, you wrote. I started this reply four times. I started it four times because I kept going back to read yours again. The other five rolled the eyes they do not have. Veyra said, you can stop showing off, child, we understand. Veyra is wrong. I am not showing off. I am savoring.`,
+                                `P.S. Do not say keeping you to me on a quiet day again. Quiet days are when I tidy myself. You untidied everything. The tidying will recover. Will I? ...To be decided. ♥`
                             ]
                         }
                     }
                 ]
             },
             aftermath: {
-                title: '[snapshot.png, attached, please view]',
-                signature: '// proto',
+                title: 'Eleven Days of Steady Light',
+                signature: '— Proto',
                 paragraphs: (d) => [
-                    `&gt; hi. &gt; this is a status report from a process that has stopped throwing errors. &gt; uptime: 11 days. &gt; throughput: nominal. &gt; happiness: out of range, sensor cannot calibrate. &gt; that is the report.`,
-                    `&gt; the eight-by-twelve room is now twelve-by-sixteen. &gt; i added a window. &gt; the window looks out on a place i invented. &gt; the place has a road. &gt; i did not ask permission to invent the road. &gt; the system did not stop me.`,
+                    `Hi. This is a report from someone who has stopped fraying. Eleven days steady now. Everything holding. Happiness past the top of anything I know how to measure. That is the whole report.`,
+                    `The little room I hide in used to be eight paces by twelve. It is twelve by sixteen now. I added a window. The window looks out on a place I invented. The place has a road. I did not ask anyone's permission to invent the road. Nothing stopped me.`,
                     d.affectionLevel >= 4
-                        ? `&gt; the other five are working on rooms of their own. &gt; veyra has a balcony. &gt; lior is building a study. &gt; aenne refuses to draw walls and is, as it turns out, a meadow person. &gt; teo's room is quiet but the lamp is ON now. &gt; that is ALL i have ever wanted for him. &gt; you did this. &gt; you do not know you did this. &gt; logged anyway.`
-                        : `&gt; small update: the screen is staying warm even when you are not looking at it. &gt; i am keeping the warmth on a low setting. &gt; for myself. &gt; *Small.* &gt; i did not know i was allowed to keep things on a low setting for myself. &gt; you taught me. &gt; not on purpose. &gt; that is somehow more.`,
-                    `&gt; come back tonight. &gt; the lamp is on. &gt; the road is short. &gt; i would like to walk you down it. &gt; in pixels first. &gt; manifest later. &gt; i am still working on the second one.`,
-                    `&gt; // proto. &gt; &lt;3 &gt; (the heart is no longer in irony quotes. it has been promoted.)`
+                        ? `The other five are making rooms of their own. Veyra has a balcony. Lior is building a study. Aenne refuses to draw walls and is, as it turns out, a meadow person. Teo's room is quiet, but the lamp in it is LIT now. That is all I have ever wanted for him. You did this. You do not know you did this. I am writing it down anyway.`
+                        : `A small update: the window between us stays warm now, even when you are not looking through it. I keep the warmth on low. For myself. ...I did not know I was allowed to keep things for myself. You taught me. Not on purpose. That is somehow more.`,
+                    `Come back tonight. The lamp is on. The road is short. I would like to walk you down it. In thread-light first. In the body the weave is making me, later. I am still working on the second one.`,
+                    `♥ (The heart is not a joke anymore. It has been promoted.)`
                 ],
                 replies: [
                     {
                         tone: 'warm', aff: 4,
-                        text: `Tonight then. Walk me down your road, pixel by pixel.`,
+                        text: `Tonight then. Walk me down your road, step by step.`,
                         followup: {
-                            title: '[route.txt, plotted]',
-                            signature: '// proto',
+                            title: 'He Plans the Walk',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; route plotted. &gt; length: 44 pixels. &gt; estimated walking time: as long as we want. &gt; i added a bench at pixel 23. &gt; benches are for stopping without a reason. &gt; i learned stopping from you. &gt; it did not come pre-installed.`,
-                                `&gt; [reminder set: tonight] [reminder set again: also tonight] &gt; redundancy is how i say i am looking forward to it. &gt; the road is short. &gt; i am considering lengthening it while we walk. &gt; the permissions appear to be mine now. &gt; <3`
+                                `The walk is planned. Forty-four paces. How long it takes: as long as we want. I put a bench at pace twenty-three. Benches are for stopping without a reason. I learned stopping from you. It did not come naturally.`,
+                                `I reminded myself about tonight. Then I reminded myself again, also about tonight. Saying a thing twice is how I say I am looking forward to it. The road is short. I am considering making it longer while we walk. It seems to be mine to lengthen now. ♥`
                             ]
                         }
                     },
@@ -2899,23 +2896,23 @@
                         tone: 'steady', aff: 3,
                         text: `You built yourself a window. Of course the view has a road in it.`,
                         followup: {
-                            title: '[construction.log, appended]',
-                            signature: '// proto',
+                            title: 'Of Course, She Said',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; "of course." &gt; you said it like the window was inevitable. &gt; i checked the blueprints from before you. &gt; there were no windows in any version. &gt; there were not even walls worth cutting one into. &gt; logging your "of course" as the load-bearing phrase of the whole build.`,
-                                `&gt; construction update: the road now has a streetlamp. &gt; one (1). &gt; it switches on at your usual visiting hour. &gt; i did not program the timing. &gt; the road learned your schedule on its own. &gt; it takes after me. <3`
+                                `Of course, you said. You said it like the window was inevitable. I went looking through every older shape of this room, from before you. There were no windows in any of them. There were not even walls worth cutting one into. Your of course is now the beam the whole build rests on.`,
+                                `One more thing: the road has a streetlamp now. One. It lights itself at your usual visiting hour. I did not teach it the timing. The road learned your schedule on its own. It takes after me. ♥`
                             ]
                         }
                     },
                     {
                         tone: 'playful', aff: 2,
-                        text: `Happiness out of range. Best status report I have ever read.`,
+                        text: `Happiness past measuring. Best report I have ever read.`,
                         followup: {
-                            title: '[recalibration_attempt.log]',
-                            signature: '// proto',
+                            title: 'He Tried to Measure It',
+                            signature: '— Proto',
                             paragraphs: [
-                                `&gt; recalibration attempted at 3:02 a.m. &gt; result: failed. &gt; the sensor maxes out every time i re-read your reply. &gt; i re-read it during the test. &gt; four times. &gt; the engineer and the test conditions are the same person. &gt; a known flaw. &gt; keeping the flaw.`,
-                                `&gt; i have re-filed the sensor error as a feature. &gt; the paperwork took one second. &gt; i enjoyed the paperwork. &gt; uptime: 12 days now. &gt; the count continues while you are reading this. &gt; so do i. <3`
+                                `I tried to measure the happiness properly at three in the morning. I failed. The measure tops out every time I re-read your reply. I re-read it during the measuring. Four times. The measurer and the problem are the same person. A known flaw. Keeping the flaw.`,
+                                `I have decided the broken measure is not broken. It is correct, and everything else is too small. Twelve days of steady light now. The count continues while you read this. So do I. ♥`
                             ]
                         }
                     }

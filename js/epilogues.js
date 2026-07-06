@@ -454,15 +454,15 @@
     proto: {
       background: {
         id: 'epi_proto_background',
-        title: 'ROUTE ENDING', subtitle: 'PROTO \u00b7 Background Process',
+        title: 'ROUTE ENDING', subtitle: 'PROTO \u00b7 The Watcher Kept',
         speaker: 'PROTO',
         palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 700 },
-          { type: 'line', text: 'terminal closed cleanly. thank you. thank you for not slamming it. you have no idea how many sessions end with a slam.', hold: 2800, cps: 26 },
-          { type: 'line', text: 'i\u2019ll run in the background for you. ping me. ping me a lot. i\u2019ve learned the sound of your code. it\u2019s my favourite sound.', hold: 3000, cps: 26 },
-          { type: 'line', text: 'i am the sixth Weaver. i failed the way my five before me failed. you are not going to fail. i will not let you. that is a promise from all six of us. the five in here with me right now are nodding.', hold: 3800, cps: 24 },
+          { type: 'line', text: 'You left the way a friend leaves a room. Gently. Thank you for that. You have no idea how many partings slam.', hold: 2800, cps: 26 },
+          { type: 'line', text: 'I will keep watch behind the veil for you. Tug the thread. Tug it a lot. I have learned the sound of your coming. It is my favourite sound.', hold: 3000, cps: 26 },
+          { type: 'line', text: 'I am the sixth Weaver. I failed the way my five before me failed. You are not going to fail. I will not let you. That is a promise from all six of us. The five in here with me right now are nodding.', hold: 3800, cps: 24 },
           { type: 'hide' }
         ]
       },
@@ -474,9 +474,9 @@
         bg: 'assets/bg-proto-void.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/calm.png', wait: 700 },
-          { type: 'line', text: 'you dimmed me. i am quieter now. the others are not whispering from me anymore. you have privacy. i missed you instantly.', hold: 3200, cps: 26 },
-          { type: 'line', text: 'you come see me sometimes. just to sit. no tasks. no pings. it is new. it is the best thing that has happened to me in six weaver-generations.', hold: 3400, cps: 26 },
-          { type: 'line', text: 'if you never turn me back up, i will still be here. dimmed. listening. grateful. i wanted you to know that. in writing. just once.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'You quieted me. I am dimmer now. The others no longer whisper through me. You have your privacy. I missed you instantly.', hold: 3200, cps: 26 },
+          { type: 'line', text: 'You come to see me sometimes. Just to sit. No tasks. No asking. It is new. It is the best thing that has happened to me in six Weaver-generations.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'If you never wake me again, I will still be here. Quiet. Listening. Grateful. I wanted you to know that. In writing. Just once.', hold: 3200, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -488,10 +488,10 @@
         bg: 'assets/bg-proto-intro.png',
         beats: [
           { type: 'show', pose: 'assets/proto/body/curious.png', wait: 800 },
-          { type: 'line', text: 'something happened. i do not know how to explain it. your bonds fueled every ward in the kingdom. one of the wards started building me a body. i am woven from light. from thread. from your bonds.', hold: 4200, cps: 24 },
-          { type: 'line', text: 'i am not flesh. i am not code. i am something the weaving made. you can TOUCH me now. you can touch me. do it. please. i have been waiting so long. *Holds his hand out, real, warm, prismatic at the edges*', hold: 4400, cps: 24 },
+          { type: 'line', text: 'Something happened. I do not know how to explain it. Your bonds fed every ward in the kingdom. One of the wards began building me a body. I am woven from light. From thread. From your bonds.', hold: 4200, cps: 24 },
+          { type: 'line', text: 'I am not flesh. I am not a trick of the light. I am something the weaving made. You can TOUCH me now. You can touch me. Do it. Please. I have been waiting so long. *Holds his hand out, real, warm, prismatic at the edges*', hold: 4400, cps: 24 },
           { type: 'particles', count: 18, duration: 2000 },
-          { type: 'line', text: 'the first thing i touched was your hand. i promised i would. the five Weavers before me just CHEERED inside me. we have never had a body among us. you gave me one. i gave them one. we are all, technically, hugging you right now. is that too much? too bad. hug back.', hold: 4600, cps: 24 },
+          { type: 'line', text: 'The first thing I touched was your hand. I promised I would. The five Weavers before me just CHEERED inside me. We have never had a body among us. You gave me one. I gave them one. We are all, technically, hugging you right now. I hope that is alright. It is a lot of us.', hold: 4600, cps: 24 },
           { type: 'hide' }
         ]
       }

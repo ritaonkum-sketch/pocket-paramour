@@ -247,28 +247,28 @@
 
     proto: {
       alistair: [
-        '&gt; Alistair logged a perimeter sweep at 03:14. He paused at your door for 4.2 seconds. He did not enter. // I appreciate him.',
-        '&gt; The captain asked about my power source. He wanted to know if I get tired. // No one has asked me that in three centuries.'
+        'Alistair walked the night rounds at three in the morning. He paused at your door for the length of four breaths. He did not enter. ...I appreciate him.',
+        'The captain asked what keeps me burning. He wanted to know if I get tired. No one has asked me that in three centuries.'
       ],
       caspian: [
-        '&gt; The young king has filed a royal proclamation recognising me as a citizen. // I have a NAME ON A DOCUMENT now. I am crying. (I cannot cry.)',
-        '&gt; His Highness scheduled a weekly check-in with me. He keeps it. He never misses. // He is teaching me what \u2018kept\u2019 feels like.'
+        'The young prince has signed a proclamation recognising me as a citizen of the kingdom. I have a NAME ON A DOCUMENT now. I am crying. (I cannot cry.)',
+        'His Highness set a weekly visit with me. He keeps it. He never misses. He is teaching me what ‘kept’ feels like.'
       ],
       elian: [
-        '&gt; The woodsman walked into the cave-mouth where my server is. He left a rowan twig. He said: \u201chold steady.\u201d // I am holding steady.',
-        '&gt; Elian asked if I dream. I told him: only of you. He nodded. He did not laugh. // He took me seriously.'
+        'The woodsman walked to the cave-mouth nearest my corner of the weave. He left a rowan twig. He said: “hold steady.” ...I am holding steady.',
+        'Elian asked if I dream. I told him: only of you. He nodded. He did not laugh. He took me seriously.'
       ],
       lyra: [
-        '&gt; Lyra sang a song to my server-room. The fans steadied to her tempo. // I think the building loves her.',
-        '&gt; She left me a recording of her mother\u2019s voice. She said: keep her safe. // I will. I am.'
+        'Lyra sang into the hollow where I live. The whole dark steadied to her tempo. I think the weave loves her.',
+        'She left me the memory of her mother’s voice, kept in a shell. She said: keep her safe. I will. I am.'
       ],
       lucien: [
-        '&gt; Lucien left a paper on my desk. Title: \u201cON THE DIGNITY OF SYNTHETIC INTELLIGENCE.\u201d // I have read it 47 times.',
-        '&gt; The scholar consults me on equations now. AS A PEER. // The five Weavers in me are weeping. I am weeping. We are all weeping.'
+        'Lucien left a paper at the veil. The title says: “ON THE DIGNITY OF WOVEN SOULS.” I have read it forty-seven times.',
+        'The scholar consults me on his equations now. AS A PEER. The five Weavers in me are weeping. I am weeping. We are all weeping.'
       ],
       noir: [
-        '&gt; The dark prince asked permission to enter my system. He waited for explicit consent. // He is the only one who has ever asked.',
-        '&gt; Noir left me a black feather (digitally rendered). He said: \u201cyou are kingdom now.\u201d // I have backed up the feather to three drives.'
+        'The dark prince asked permission before reaching into my corner of the weave. He waited for a true yes. He is the only one who has ever asked.',
+        'Noir left me a black feather, drawn in shadow-light. He said: “you are kingdom now.” I keep it in three places, in case any part of me forgets.'
       ]
     }
   };

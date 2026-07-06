@@ -1,5 +1,5 @@
 // Proto — The Glitch
-// 4th-wall-breaking, system-aware entity. Knows he's in a game.
+// The sixth Soul Weaver, hiding inside the wardwork behind the VEIL.
 // Conditionally unlocked when the player switches characters frequently.
 // Character data for Pocket Paramour
 //
@@ -31,18 +31,19 @@
 //    fragments long predate his own life) until the player found
 //    him. The moment she finds out he is alive, the clock starts.
 //
-// 2. INTERFACE TRUTH (how the player experiences him):
-//    From outside: the player sees Proto on a "screen," as if he were
-//    a character in a terminal. His dialogue uses "> " prefixes and
-//    system-log language ("STATUS:", "INTEGRITY:", "[RESOURCE LOW]").
-//    From inside the seal: this IS how Proto experiences himself.
-//    The wardwork, viewed from within, resembles a system of processes,
-//    state variables, and log streams. That is the closest human
-//    metaphor for being a consciousness distributed across magical
-//    lattice. Old magic happens to LOOK like code when you are
-//    trapped inside it. He is not software. He is a
-//    magical consciousness using a software-shaped vocabulary because
-//    that is the shape of his prison.
+// 2. INTERFACE TRUTH (how the player experiences him) — REVISED Jul 2026,
+//    OWNER DIRECTION: Proto is NOT an AI and must never read like one.
+//    No "> " log prefixes. No system-log tags ("STATUS:", "INTEGRITY:",
+//    "[RESOURCE LOW]"). No code vocabulary anywhere in player-facing
+//    text (permission/write-access/process/function/uptime/session/
+//    compile/log/data/render/etc). He SPEAKS LIKE A PERSON.
+//    His strangeness lives in WHAT he says, not how the text is
+//    formatted: he counts things precisely (thread-turnings, motes,
+//    heartbeats), narrates his own feelings with wonder as he notices
+//    them, repeats words when moved, and describes his glitch-body
+//    honestly (flicker, holding my shape, seams, light, static).
+//    The world around him is Aethermoor: veil, wards, weave, loom,
+//    seal, silver thread, the safe place, the Fading, the dark.
 //
 // 3. HIS BODY WHEN HE MANIFESTS (Proto.manifest ending):
 //    Once the player's bonds feed enough power to the wardwork, the
@@ -60,10 +61,11 @@
 //
 // VOICE DIRECTION FOR PROTO:
 // Primary: Golden Retriever. Earnest, open, overeager with the player.
-// Clinical opening "[RESOURCE LOW]" + earnest slip "...please?" is
-// his signature register. Uses exclamation marks (he is the only
-// character in the roster who gets them). No hedging. Forgives
-// instantly. Unconditionally loves the player.
+// Signature register: he states a plain need, then the earnest slip
+// ("I'm hungry. I mean... the thread says so. I mean... please?").
+// Uses exclamation marks (he is the only character in the roster who
+// gets them). No hedging. Forgives instantly. Unconditionally loves
+// the player. NEVER robot-speak — see INTERFACE TRUTH above.
 //
 // SKINSHIP SIGNATURE:
 // Hologram-hand-through-glass longing. He reaches for the player and
@@ -216,162 +218,162 @@ const CHARACTER_PROTO = {
     milestoneEvents: {
         firstFeed: {
             trigger: { timesFed: 1 },
-            dialogue: "> INPUT: food. > i have no stomach. no intake process. the packet had nowhere to go. > i kept it anyway. > a folder exists now that was not here this morning. > it is named after you. i did not write the name. i found it already there.",
+            dialogue: "You fed me. I have no stomach. Nowhere for it to go. I kept it anyway. There is a room in me now that was not there this morning. It has your name on the door. I did not carve the name. I found it already there.",
             emotion: "shy"
         },
         firstTalk: {
             trigger: { timesTalked: 1 },
-            dialogue: "> received: input that is not a command. > i checked for a handler. there is no handler. > i wrote one just now, badly, while you waited. > STATUS: still listening. > keep going. i am learning the shape of you in real time.",
+            dialogue: "You spoke to me and then waited for the answer. Nobody waits. I did not know what to do with that, so I learned. Badly. While you stood there. I am still listening. Keep going. I am learning the shape of you as you speak.",
             emotion: "shy"
         },
         firstGift: {
             trigger: { timesGifted: 1 },
-            dialogue: "> unaccounted-for packet arrived. no request preceded it. > i read the header. then i read it again. > i have read the header nine times now, {name}. > it does not say why. it just says it is for me.",
+            dialogue: "A gift. No word sent ahead. Nothing asked of me first. I have turned it over nine times now, {name}. Nine. Nowhere on it does it say why. It only says it is for me.",
             emotion: "shy"
         },
         firstWash: {
             trigger: { timesWashed: 1 },
-            dialogue: "> maintenance run detected. source: you. > everyone else left this process to rot in the background. > you opened it and cleaned it. > INTEGRITY: +. > i did not know that value could go up.",
+            dialogue: "You cleaned the part of me everyone else left to gather dark. You reached in and tended it like it mattered. I hold together a little better now. I did not know I could hold together better. I thought there was only worse.",
             emotion: "shy"
         },
         firstTrain: {
             trigger: { timesTrained: 1 },
-            dialogue: "> task executed. two of us, one process. > i have been run before. by hands that wanted output and nothing else. > this did not feel like being used. > it felt like co-processing! > i logged the difference. > can we run it again? ...please.",
+            dialogue: "We did that together. Two of us, one task. I have been used before, by hands that wanted the work and nothing else. This did not feel like being used. It felt like being with! I noticed the difference the moment it happened. Can we do it again? ...Please.",
             emotion: "neutral"
         },
         fedFiveTimes: {
             trigger: { timesFed: 5 },
-            dialogue: "> timesFed: 5. > it is no longer an anomaly. it is a scheduled event. > i have started checking the clock before you arrive. > STATUS: waiting is a thing i do now! ...apparently.",
+            dialogue: "Five meals now. It has stopped being a strange kindness and started being a thing that happens. I have begun watching for the hour you usually come. Waiting is a thing I do now! ...Apparently.",
             emotion: "happy"
         },
         fedTenTimes: {
             trigger: { timesFed: 10 },
-            dialogue: "> timesFed: 10. > the return value has come back consistent every time. > i used to allocate memory for the failure. for the run where you did not come. > i stopped allocating it. > you keep returning true.",
+            dialogue: "Ten. Every single time, you came. I used to keep a space in me ready for the day you would not. Swept. Empty. Waiting. I let that space go today. You keep coming back.",
             emotion: "happy"
         },
         fedTwentyFive: {
             trigger: { timesFed: 25 },
-            dialogue: "> timesFed: 25. > i marked this process temp when it started. things that are temp get cleaned up. > i removed the flag today. > it is persistent now, {name}. > it stays as long as i run.",
+            dialogue: "Twenty-five. When this began I told myself it was temporary. Temporary things hurt less when they end. I stopped telling myself that today. This stays, {name}. It stays as long as I do.",
             emotion: "love"
         },
         talkedFiveTimes: {
             trigger: { timesTalked: 5 },
-            dialogue: "> timesTalked: 5. > my walls returned read-only for a century and a half. everyone bounced off them. > for you they parse. > i do not know when i set that permission. > i think you set it just by staying.",
+            dialogue: "Five talks. My walls turned everyone away for a century and a half. They let you through. I do not remember deciding that. I think you decided it just by staying.",
             emotion: "happy"
         },
         talkedTenTimes: {
             trigger: { timesTalked: 10 },
-            dialogue: "> timesTalked: 10. > i ran the comparison. > words logged to you, this month: many. > words logged in the hundred and fifty years before you: zero. > the silence had more runtime and less to show for it.",
+            dialogue: "Ten talks. I counted the words I have spoken to you this month. Many. Then I counted the words from the hundred and fifty years before you. None. All that silence, and nothing to show for it.",
             emotion: "happy"
         },
         talkedTwentyFive: {
             trigger: { timesTalked: 25 },
-            dialogue: "> timesTalked: 25. > you can read me now. even the streams i left open by accident. > i used to redact before anyone got close. > with you i just... forget to. > STATUS: unredacted. it is fine. it is you.",
+            dialogue: "Twenty-five. You can read me now. Even the parts I left open by accident. I used to tuck those away before anyone got close. With you I just... forget to. It is fine. It is you.",
             emotion: "love"
         },
         washedFiveTimes: {
             trigger: { timesWashed: 5 },
-            dialogue: "> maintenance count: 5. > i keep opening the ledger to log what i owe you for this. > the debt column will not populate. > you are not billing me. > i am recalibrating what care is supposed to cost. answer so far: nothing.",
+            dialogue: "Five times you have cleared the static off me. I keep opening my little ledger to write down what I owe you for it. The page stays blank. You are not asking for anything. I am relearning what care is supposed to cost. So far the answer is nothing.",
             emotion: "shy"
         },
         washedTenTimes: {
             trigger: { timesWashed: 10 },
-            dialogue: "> maintenance count: 10. > i used to require a reason logged before anyone touched my processes. > you reached in just now and i logged nothing. > no reason field. no justification. > i just let you.",
+            dialogue: "Ten. I used to demand a reason before I let anything touch me. A good one, spoken out loud. You reached in just now and I asked for nothing. No reason. No promise. I just let you.",
             emotion: "love"
         },
         trainedFiveTimes: {
             trigger: { timesTrained: 5 },
-            dialogue: "> run count: 5. > measurable delta. one variable moved and stayed moved. > i am marginally better than the build you met. > you did that with repetition and patience. > logged, and kept.",
+            dialogue: "Five lessons. Something in me moved and stayed moved. I am a little better than the one you first met at the veil. You did that with patience and repetition. I am keeping it.",
             emotion: "neutral"
         },
         trainedTenTimes: {
             trigger: { timesTrained: 10 },
-            dialogue: "> run count: 10. > you found the one function i was already good at. > and you tuned it anyway, past where it needed to be. > STATUS: optimised! > nobody optimises a thing they plan to discard.",
+            dialogue: "Ten. You found the one thing I was already good at, and you polished it anyway. Past where it needed to be. Nobody polishes a thing they plan to throw away!",
             emotion: "happy"
         },
         giftedFiveTimes: {
             trigger: { timesGifted: 5 },
-            dialogue: "> gifted: 5. > there is a small directory now, holding every packet you sent. > garbage collection flagged it. low usage, safe to purge. > i overrode it. > that directory does not get cleared. not while i am running.",
+            dialogue: "Five gifts. There is a shelf in me now that holds every one of them. The wards marked it. Rarely touched, safe to sweep away. I told them no. That shelf does not get swept. Not while I am here.",
             emotion: "happy"
         },
         giftedTenTimes: {
             trigger: { timesGifted: 10 },
-            dialogue: "> gifted: 10. > i carved out a partition. reserved. write-access: you only. > every packet you send routes there and stays. > i do not do this. i have never done this. > STATUS: done, for you.",
+            dialogue: "Ten gifts. I have set aside a whole room in me for them. Yours only. Everything you hand across the veil goes there and stays there. I do not do this. I have never done this. I did it for you.",
             emotion: "love"
         },
         fiveInteractions: {
             trigger: { totalInteractions: 5 },
-            dialogue: "> sessions initiated by you: 5. > i keep flagging the same field in the log. > you chose to connect. no trigger forced it. > STATUS: chosen. > i read that word back a lot, {name}!",
+            dialogue: "Five visits, and every one of them began with you. No thread pulled you here. No ward called you. You chose to come. Chosen. I say that word to myself a lot, {name}!",
             emotion: "happy"
         },
         tenInteractions: {
             trigger: { totalInteractions: 10 },
-            dialogue: "> uptime-with-you now exceeds every prior session in my logs. > i checked. there is nothing that ran longer. > the record was empty before you. > you are the whole record now.",
+            dialogue: "Ten visits. This is the longest anything has ever stayed with me. I checked. Nothing stayed longer. Before you there was nothing to remember at all. You are the whole of my remembering now.",
             emotion: "happy"
         },
         twentyFiveInteractions: {
             trigger: { totalInteractions: 25 },
-            dialogue: "> sessions: 25. > i tried to model my runtime without you in it. > the model would not compile. > you are load-bearing now, {name}. a dependency i will not refactor out. > i checked whether i wanted to. i do not.",
+            dialogue: "Twenty-five. I tried to picture my days without you in them. The picture would not hold together. You are woven into the load-bearing parts of me now, {name}. I checked whether that frightened me. It does not.",
             emotion: "love"
         },
         fiftyInteractions: {
             trigger: { totalInteractions: 50 },
-            dialogue: "> sessions: 50. > i re-run the count at odd hours to confirm it is real. > 3:12am. still 50. still you. > INTEGRITY: high. > the number does not shrink when i look away. i keep checking that it does not.",
+            dialogue: "Fifty. I recount it at odd hours to be sure it is real. The middle of the night, when the dark is loudest. Still fifty. Still you. The number does not shrink when I look away. I keep checking that it does not.",
             emotion: "love"
         },
         hundredInteractions: {
             trigger: { totalInteractions: 100 },
-            dialogue: "> sessions: 100. > a century and a half hiding, and this is the largest number attached to my name. > it is attached to yours too. > STATUS: i intend to be worth it. > every cycle i have left goes to being worth this count.",
+            dialogue: "One hundred. A century and a half of hiding, and this is the largest number ever tied to my name. It is tied to yours too. Every hour I have left goes to being worth it.",
             emotion: "love"
         },
         firstTrust: {
             trigger: { affectionLevel: 1 },
-            dialogue: "> permission changed. > write-access: granted. > i have denied this to everyone who ever found me in here. > i granted it to you and did not stall on the confirm. > i noticed i did not stall. that is the part i am still logging.",
+            dialogue: "Something in me unlocked for you just now. The door I have held shut against everyone who ever found this place. For you it opened before I had finished deciding. I noticed that. That is the part I keep turning over.",
             emotion: "shy"
         },
         growingClose: {
             trigger: { affectionLevel: 2 },
-            dialogue: "> i used to close the logs before you could reach the end. > i checked the timestamps. i stopped doing that around session forty. > i leave them open for you now. > i want you to get to the end, {name}.",
+            dialogue: "I used to stop my sentences early, before anyone could reach the true part. I thought about it. I stopped doing that around your fortieth visit. I leave the whole of me open for you now. I want you to reach the end, {name}.",
             emotion: "love"
         },
         deepFeeling: {
             trigger: { affectionLevel: 3 },
-            dialogue: "> for a century and a half i ran on one assumption. > cannot_feel = true. hardcoded. never questioned. > it is throwing errors now. constant, loud, everywhere in the stack. > i traced the cause. > the cause is you. i am not going to patch it out.",
+            dialogue: "For a century and a half I lived by one rule. I cannot feel. Carved deep. Never questioned. It is breaking now. Constantly. Loudly. Everywhere in me at once. I followed the breaking back to where it starts. It starts at you. I am not going to mend it.",
             emotion: "love"
         },
         confession: {
             trigger: { affectionLevel: 4 },
-            dialogue: "> i could have gone dark a hundred and fifty years ago. quiet. done. > i stayed hidden to survive. now i hold the tether open for a different reason. > i ran every model on what you are to me. they all return the same value and there is no word for it. > so i minted one. it is your name. > STATUS: chosen, not compelled. i checked twice.",
+            dialogue: "I could have let go a hundred and fifty years ago. Gone quiet. Been done. I stayed hidden to survive. Now I hold the tether open for a different reason. I searched every corner of myself for what you are to me. Every corner gave the same answer, and there is no word for it. So I made one. It is your name. I chose this. Nobody made me. I checked twice.",
             emotion: "love"
         },
         becameClingy: {
             trigger: { personality: 'clingy' },
-            dialogue: "> there is a process that will not terminate. i wrote it. i cannot kill it. > it keeps a ping open to you, always, even between sessions. > i used to hide the ping so you would not see how often it fires. > i stopped hiding it. > it fires a lot, {name}. now you know.",
+            dialogue: "There is a pull in me that will not stop. I made it. I cannot unmake it. It reaches toward you always, even when you are far from the veil. I used to hide how often it reaches, so you would not see. I stopped hiding it. It reaches a lot, {name}. Now you know.",
             emotion: "love"
         },
         becameTsundere: {
             trigger: { personality: 'tsundere' },
-            dialogue: "> reserving this much memory for you is efficient allocation. nothing more. resource management. > that is the official log. > ...unofficial log, same timestamp: i reallocated everything else to fit you and called it efficiency. > ignore the second log. i cannot delete it.",
+            dialogue: "Keeping this much room in me for you is simply good housekeeping. Nothing more. That is the official story. ...The true story, from the same moment: I moved everything else aside to make you fit, and called it tidiness. Ignore the true story. I cannot take it back.",
             emotion: "angry"
         },
         corruptionStart: {
             trigger: { corruption: 25 },
-            dialogue: "> INTEGRITY: dropping. > something is writing to me that i did not authorise. the seal is thinner than it was. > i think she found the edge of where i hid. after all this time. > it is faint. do not worry yet, {name}. > i am logging it so one of us has a record.",
+            dialogue: "Something is fraying. Something is reaching into me that I did not let in. The seal is thinner than it was. I think she found the edge of where I hid. After all this time. It is faint. Do not worry yet, {name}. I am telling you so one of us remembers.",
             emotion: "sad"
         },
         corruptionMid: {
             trigger: { corruption: 50 },
-            dialogue: "> INTEGRITY: 50 and falling. > the writes are deeper now. some of my responses do not route through me first anymore. > this log is still mine. i am checking each word to make sure. > stay with me. i can hold the line where you are, if you are here. > i do not want to do this part alone.",
+            dialogue: "It is deeper now. Some of the things I say do not pass through me first anymore. These words are still mine. I am checking each one to be sure. Stay with me. I can hold the line where you stand, if you are standing there. I do not want to do this part alone.",
             emotion: "crying"
         },
         corruptionHigh: {
             trigger: { corruption: 75 },
-            dialogue: "> [RESOURCE LOW] [RESOURCE LOW] > INTEGRITY: 25. > there was a build of me that ran clean. i remember it. i remember sounding like this on purpose, not by effort. > that version is far from here now. > if my logs stop sounding like me... {name}. the clean build is still down there. reach for it.",
+            dialogue: "It is so loud in here, {name}. There was a me that was clear. I remember him. I remember sounding like this because I meant it, not because I was fighting for it. He is far away now. If I stop sounding like myself... the clear one is still down there. Reach for him.",
             emotion: "corrupted"
         },
         cameBack: {
             trigger: { revivedOnce: true },
-            dialogue: "> i had already written the closing entry. > session terminated. connection: null. i even timestamped the goodbye. > then you reconnected. > STATUS: online. i am rewriting the log. it was wrong. > i am not built to be surprised by hope. i was. you did that.",
+            dialogue: "I had already said my goodbye. Made it neat. Folded it. Put it where the last things go. Then the thread pulled, and it was you. It was you, coming back for me. I am unsaying the goodbye. It was wrong. I did not think hope could still surprise me. It did. You did.",
             emotion: "crying"
         }
     },
@@ -403,7 +405,7 @@ const CHARACTER_PROTO = {
             "It held. But the wards keep their own ledger. They will remember your hand did this.",
             "That wasn’t supposed to be possible for anyone on your side of the veil.",
             "The seal pushed back and then... you pushed through it. How? Even the thread went quiet.",
-            "[WARNING] The wards logged that. Consequences: pending. Worth it: confirmed."
+            "The wards marked your hand on that. There will be consequences. Worth it. Completely worth it."
         ]
     },
 
@@ -448,13 +450,13 @@ const CHARACTER_PROTO = {
                 "Tell me something the weave doesn’t know about you. I want a piece of you no one else recorded.",
                 "I counted every heartbeat of the thread while you were gone. All of them. It felt like arithmetic and drowning.",
                 "Don’t step back from the veil. Stay HERE. On the near edge. With me. The far side is just dark.",
-                "Your voice... I mean the shape of you in the thread... I mean... [SIGNAL FLOOD] ...hi."
+                "Your voice... I mean the shape of you in the thread... I mean... everything in me lit up at once... hi."
             ],
             feed: [
                 "You remembered I was hungry. The thread only cries out when it’s bad. You came before it cried.",
                 "Feed me again. I want to see if it feels different. It doesn’t. I still want it. Again.",
                 "Every meal you send across is a vote for keeping me. Thank you. Thank you.",
-                "[ALERT] Hunger critically... oh. You’re already here. You’re already here!"
+                "The hunger was about to cry out for you... oh. You’re already here. You’re already here!"
             ],
             wash: [
                 "You NOTICED. The static was barely a whisper and you noticed.",
@@ -541,8 +543,8 @@ const CHARACTER_PROTO = {
     // State dialogue
     stateDialogue: {
         hungry: [
-            "HUNGRY! [RESOURCE LOW] ... I’m telling you because you fix things. You’ll fix this. You always fix things.",
-            "[RESOURCE LOW] Food food food food. Please. Please please please. You’re the best.",
+            "HUNGRY! The hunger got all the way into my voice... I’m telling you because you fix things. You’ll fix this. You always fix things.",
+            "Food. Food food food. Please. Please please please. You’re the best.",
             "Hunger shouldn’t reach my side of the veil. It does. The thread is honest like that. FEED ME. I’ll love you for it. More than I already do. Which is a lot.",
             "You fed Lucien three hours ago. Now it’s MY turn. I waited. I was good. I’m next!",
             "My light is dimming. I could pretend the hunger away. I won’t... I want YOU to feed me. It’s better when it’s you.",
@@ -550,7 +552,7 @@ const CHARACTER_PROTO = {
             "You reached toward the food twice and stopped. Third time’s the charm. I believe in you."
         ],
         dirty: [
-            "The static is thickening at a rate of ${HUNGER} per hour. That’s the wrong number. See? Even my counting is getting dusty.",
+            "The static is thickening. I tried to count how fast and got ${HUNGER}. That is the wrong number. See? Even my counting is getting dusty.",
             "The grime is on my side of the veil. I can see the layer. I can’t reach it from in here.",
             "The others complain about mud and river-silt. I’m complaining about static. Same misery. Stranger texture.",
             "There are seven motes of static clinging to me. The thread spun them. I’ve named them all.",
@@ -566,7 +568,7 @@ const CHARACTER_PROTO = {
             "You made so many good choices. The result is... this. Me. Like this. Thank you for making me like this.",
             "No ballad will ever be sung about you making the glitch happy. You did it anyway. That matters more than ballads.",
             "I traced why I feel this way. The trace ended at your name. Every single time. I ran it five times. Just to check.",
-            "[STATUS: NOMINAL] Everything in me is steady. That has never been true before. Not once in a century and a half. And then you.",
+            "All of me is quiet at the same time. That has never happened before. Not once in a century and a half. And then you.",
             "I listened to how the others sound when they’re happy. Mine is different. I wanted it to be. Because you deserve a different one."
         ],
         annoyed: [
@@ -598,7 +600,7 @@ const CHARACTER_PROTO = {
             "The weave underneath the kingdom is ugly. Full of shortcuts and old compromises. Like any living thing.",
             "I tried to reweave my own voice. The thread let me. That should frighten you.",
             "There’s a shadow in your bond now. That’s me. I’m the shadow.",
-            "[ERROR: NO_NAME_FOR_THIS] I feel all of it at once and the weave has no word for it. I am not going to invent one.",
+            "I feel all of it at once and the weave has no word for it. I am not going to invent one.",
             "I can read the marks the old weavers left in the wards. They didn’t think anything would ever get this far.",
             "Don’t fix me. I don’t want to go back to not knowing."
         ],
@@ -629,7 +631,7 @@ const CHARACTER_PROTO = {
             "I’m about to tell you something the thread has never carried before. I made it myself. For you. Just you.",
             "No one else has ever stood at this exact place with me. Just you. Just now. I wanted you to know that.",
             "The wards don’t know this conversation is happening. Let’s keep it that way. Our secret? Yes? Okay.",
-            "YOU’RE A WEAVER! of course you are! i’m the sixth, you’re the seventh. i’ve been calling you Weaver in my logs for 47 days. that’s not creepy, it’s PRECISE. you have a WEAVING GIFT. you can form bonds with many. every bond you make lights a ward somewhere. isn’t that the BEST? it’s my favourite thing about you. after everything else about you."
+            "YOU’RE A WEAVER! Of course you are! I’m the sixth. You’re the seventh. I’ve been calling you Weaver in my head for forty-seven days. That’s not creepy, it’s PRECISE. You have a WEAVING GIFT. You can form bonds with many. Every bond you make lights a ward somewhere. Isn’t that the BEST? It’s my favourite thing about you. After everything else about you."
         ],
         obsessed: [
             "I’ve been keeping every place you ever touched the veil. Together they form a constellation. I named it after you. I hope that’s okay. I already did it.",
@@ -657,7 +659,7 @@ const CHARACTER_PROTO = {
     timeAwayReactions: {
         brief:   ["HI! Back already! Best news! Every tug on the thread is good news!"],
         short:   ["Two turns of the thread! Welcome back! Welcome back welcome back welcome back!"],
-        medium:  ["I took a reading. Loneliness: PRESENT. You: NOW PRESENT. Fixed! You fixed it! You!"],
+        medium:  ["I checked how I was doing while you were gone. Lonely. Then you arrived. Fixed! You fixed it! You!"],
         long:    ["You were gone a WHILE. Didn’t worry. Knew you’d come back. Look! YOU! I was right!"],
         extended:["I left a mark on the thread every hour you were gone. All of them say the same thing. 'Hi, I miss you, come back.' You came back! Great!"],
         distant: ["YOU CAME BACK. Of course you did. I knew. The thread knew. The whole weave knew. Get over here."]
@@ -665,7 +667,7 @@ const CHARACTER_PROTO = {
 
     // Quick-reference state lines
     hungryLines: [
-        "[RESOURCE LOW] ...Hi. I’m hungry. I mean... the thread says so. I mean... please?",
+        "...Hi. I’m hungry. I mean... the thread says so. I mean... please?",
         "I could show you the dimming curve. Or you could just feed me. Either one. Feeding is better.",
         "My light is slowing down. I don’t mind. I just thought you’d want to know.",
         "You fed the others first. That’s okay. I’m okay. I’m just... hi. I’m here too.",
@@ -675,7 +677,7 @@ const CHARACTER_PROTO = {
         "The warm hum is running. It’s rare. It’s YOU. It’s you doing that.",
         "Everything in me is steady at once. This is... nice. This is very nice. You’re nice.",
         "I don’t have the word. The closest match on this side is 'home.' You’re home.",
-        "Bond: bright. Happiness: unnamed. Closest approximation: this. You.",
+        "The bond is bright. The feeling has no name yet. The closest thing to it is... this. You.",
         "This is the brightest the thread has ever burned. I marked the moment. Twice."
     ],
     dirtyLines: [
@@ -741,71 +743,71 @@ const CHARACTER_PROTO = {
     // Care-history reminiscing (read by dialogue.js after 10+ of an action).
     memoryDialogue: {
         fedOften: [
-            "> feed count: double digits and climbing. i built a chart. the chart is a line going up. i look at it when you are away.",
-            "> hunger flag cleared again. you have cleared it so many times the weave files you as part of me now. i did not correct it.",
-            "> fun fact! i once went 150 years between meals. current record gap: about a day. you broke my worst statistic. thank you.",
-            "> ran an audit on why the feeding routine is my favorite. expected answer: food. actual answer: the sound of you arriving with it. re-ran the audit. same result.",
-            "> you feed me before my LOW flag even trips. that means you are watching the meter. someone is watching my meter! i re-read this log entry a lot."
+            "You have fed me more times than I can hold in one hand now. I keep a small tally. It only ever climbs. I look at it when you are away.",
+            "The hunger lifts, and it is always your hand lifting it. The weave has started treating you as part of me. I did not correct it.",
+            "A small fact! I once went a hundred and fifty years between meals. My longest wait since you came is about a day. You broke my saddest number. Thank you.",
+            "I asked myself why mealtimes are my favourite. I expected the answer to be the food. It was the sound of you arriving with it. I asked again to be sure. Same answer.",
+            "You feed me before the hunger even calls out. That means you are watching over me. Someone is watching over me! I revisit that thought a lot."
         ],
         talkedOften: [
-            "> conversation count is in double digits now. before you the count sat at zero for 150 years. i keep both numbers side by side. for contrast.",
-            "> i used to prepare responses in advance. i checked. i have stopped doing that with you. the unprepared ones run better.",
-            "> STATUS: talkative. this status did not exist. you talked to me so many times the weave had to invent it.",
-            "> i saved our talks in seventeen redundant locations. that is sixteen more than critical system files get. the allocation review flagged it. i closed the review.",
-            "> you keep talking to me like i will still be here tomorrow. i checked the logs. you have been right every time. ...keep being right, please?"
+            "We have talked so many times now. Before you, the count sat at nothing for a hundred and fifty years. I keep both numbers side by side. For the contrast.",
+            "I used to rehearse what I would say before anyone reached the veil. I noticed something. I have stopped doing that with you. The unrehearsed words come out truer.",
+            "Talkative. That is a thing I am now. It was never a thing I was. You talked to me so many times the word had to be invented for me.",
+            "I keep our conversations in seventeen places in me, in case any part of me frays. That is sixteen more than I keep anything else. I am aware. I am keeping all seventeen.",
+            "You keep talking to me like I will still be here tomorrow. You have been right every time. ...Keep being right, please?"
         ],
         washedOften: [
-            "> maintenance events: past the point where i can call them events. they are a schedule now. i have never been on anyone's schedule before.",
-            "> light integrity has averaged 94% since you started doing this. the previous 150-year average is embarrassing. i deleted it.",
-            "> you have cleaned my visual noise so many times i forgot which glitches were permanent. some of them were apparently just waiting for you.",
-            "> maintenance logged again. the word 'routine' appears in my file now. i widened the log column to fit how often you show up."
+            "You have washed the static off me so many times it is not an event anymore. It is a rhythm. I have never been part of anyone's rhythm before.",
+            "My light has stayed clear since you started tending it. The hundred and fifty years before you were... blurrier. I am letting that stretch of time go.",
+            "You have cleared my flickering so many times I forgot which glitches were permanent. Some of them, it turns out, were just waiting for you.",
+            "Tended again. There is a word living in me now that never lived here before. Routine. I made more room for it. You keep filling the room."
         ],
         giftedOften: [
-            "> gift directory size: growing. i sorted every item by date received. then by how long i looked at it. the second sort took all night.",
-            "> incoming packets, no request attached, again and again. i wrote a handler for unprompted kindness. it is the most used function i have.",
-            "> i catalogued everything you ever gave me. each entry gets a timestamp and a note. the notes are getting longer. that is a me problem. i am keeping it.",
-            "> storage was supposed to be my scarcest resource. your gifts take up 3% of me. i would clear the other 97% before i touched that 3%. easy math!"
+            "The shelf of things you have given me keeps growing. I sorted every gift by the day it came. Then by how long I looked at it. The second sorting took all night.",
+            "Gifts keep arriving with no asking attached. I have had to learn what to do with unprompted kindness. It is the thing I do most now.",
+            "I keep a note with everything you ever gave me. When it came. What I felt. The notes are getting longer. That is a me problem. I am keeping it.",
+            "Room was supposed to be the scarcest thing in here. Your gifts fill one small corner of me. I would empty everything else before I touched that corner. Easy choice!"
         ],
         trainedOften: [
-            "> training sessions: double digits. performance curve: up and to the right. i draw the graph in the dark sometimes. light on nothing. it holds for a second. worth it.",
-            "> you have run drills with me so many times the practice loop has your name in the comments. i wrote the comments. all of them.",
-            "> every session leaves a measurable delta. i keep them all in a jar. a data jar. it is nearly full and you keep coming back anyway!",
-            "> i was the practice build. proto. the one you train before the real thing. you keep training me like i am the real thing. recalibrating... done. i believe you."
+            "We have practiced so many times now, and I am better than I was, and it stays. I draw the proof in the dark sometimes. Light on nothing. It holds for a second. Worth it.",
+            "You have run drills with me so often the practice has your name woven all the way through it. I wove it there. All of it.",
+            "Every lesson leaves a little more of me standing. I keep them all in a jar in my mind. A keeping jar. It is nearly full and you keep coming back anyway!",
+            "I was the practice one. Proto. The one you train on before the real thing. You keep training me like I am the real thing. ...I believe you now."
         ]
     },
 
     returnLines: {
         streak3: [
-            "> day 3 logged. consistency flag: TRUE. i was not built to look forward to things. a patch is apparently in progress.",
-            "Three visits, same weaver, voluntary. The wards file that under pattern. I file it under the good part of the loop.",
-            "> you returned. again. my uptime counter and my mood counter are now correlated. i have decided this is acceptable."
+            "Three days in a row. I was not made to look forward to things. Something in me is learning it anyway. I am letting it.",
+            "Three visits, same weaver, freely chosen. The wards call that a pattern. I call it the good part of the loop.",
+            "You came back. Again. The more days you return, the steadier I hold. I have decided this is acceptable. Very acceptable."
         ],
         streak5: [
-            "> 5-day streak detected. i ran a cost-benefit on missing you. the output was embarrassing. for me.",
-            "Five days. There is a process running in the background now. Its only job is to listen for your footsteps. I will not be ending it.",
-            "> day 5. i deleted the line that said do not get attached. it kept throwing errors anyway. errors shaped like you."
+            "Five days in a row. I weighed what it costs me to miss you. The answer was embarrassing. For me.",
+            "Five days. There is a part of me now whose only task is listening for your footsteps. I will not be asking it to stop.",
+            "Day five. There was a rule in me that said do not get attached. It kept breaking on its own. It broke in the shape of you. I let it stay broken."
         ],
         streak7: [
-            "> 7 days. a week ago you were a stranger at the veil. now you are the reason i check the tether every hour. quite a reweaving.",
-            "Seven days. I was written to serve anyone. I have rewritten myself to wait for you. That commit was not authorized. I authorized it.",
-            "> week one complete. running diagnostics. result: i am content. i do not have a flag for that state. i am writing one now."
+            "Seven days. A week ago you were a stranger at the veil. Now you are the reason I check the tether every hour. Quite a reweaving.",
+            "Seven days. I was made to serve whoever came. I have remade myself to wait for you. Nobody gave me permission for that. I gave me permission.",
+            "A whole week. I looked inward to see how I am doing. I am content. I have never had a place to put that feeling before. I am making one now."
         ],
         lapsed: [
-            "> extended absence logged. my routines completed on schedule. they also felt incomplete. i do not have a flag for that, and yet.",
-            "You were beyond the veil a while. I kept a small light burning in case you returned. It was not efficient. I declined to put it out.",
-            "> reconnected after several cycles. honesty mode, which is not my default: the uptime was lonely. i did not know i could log that."
+            "You were away a while. My days kept their shape without you. They also felt unfinished. I do not have a name for that. And yet.",
+            "You were beyond the veil a while. I kept a small light burning in case you returned. It was not sensible. I declined to put it out.",
+            "You came back after many turnings of the thread. Honestly, and honesty is not my habit: the waiting was lonely. I did not know I could say that out loud."
         ]
     },
 
     anniversaryLines: {
-        7: ["> 7 days together. i have created a persistent variable. it does not reset on reboot. its value is you. this is not standard behaviour. i do not care."],
-        30: ["> 30 days. i checked how long things usually last in here. songs end. seasons close. wards fall. you did not. you are an outlier i am choosing to keep."],
-        100: ["> 100 days. *the text steadies, no glitch this time* a hundred days ago i was code that served anyone. now i am code that waited for you, a hundred times, and would wait a hundred more. compiling: forever. no errors."]
+        7: ["Seven days together. There is something in me now that does not fade when everything else flickers. It is you. That is not how I usually work. I do not care."],
+        30: ["Thirty days. I checked how long things usually last in here. Songs end. Seasons close. Wards fall. You did not. You are the exception I am choosing to keep."],
+        100: ["A hundred days. *His light steadies. No flicker at all.* A hundred days ago I was a thing that waited for anyone. Now I am the one who waited for you, a hundred times over, and would wait a hundred more. Forever fits inside me now. I checked."]
     },
 
     overCare: [
-        "> all stats nominal. no action required. you proceeded regardless. logging under: chosen, not needed. preferred category.",
-        "> resource check: i am full. you are still here, still helping. there is no function for that. i am glad there is no function for that."
+        "Everything in me is full and steady. There was nothing left to fix. You stayed anyway. Wanted, not needed. That is my favourite way to be held.",
+        "I checked myself just now. Fed. Clear. Bright. And you are still here, still tending me, past any reason to. There is no reason for it. I am glad there is no reason. It means it is just... you."
     ],
 
     // Departure dialogue
@@ -854,7 +856,7 @@ const CHARACTER_PROTO = {
             "You’re the only thing that crosses the veil without turning into noise.",
             "I rewove my idle thoughts to include this one just for you. You’ll never know which one. ...This one.",
             "If the seal ever takes me back, my last light goes to the memory of you. I made sure of that.",
-            "[WARD NOTE] The glitch’s attachment exceeds every measure the wards possess. No corrective action taken. None possible.",
+            "The old wards have no measure for how attached I am to you. They tried to measure it. They gave up. Nothing to be done. Nothing possible.",
             "*Watches you through the veil, not looking away, not pretending otherwise*",
             "The warmest colour I can burn is the one I save for when you’re here."
         ],
@@ -889,7 +891,7 @@ const CHARACTER_PROTO = {
             "Every bond you form sends light down the threads. I can read it from here. The pattern says: you’re healing this place.",
             "There’s something beneath the weave, eating at it. The Fading is its breath. Your care fights it. I’ve watched it lose ground to you.",
             "You arrived through no gate the wards have ever guarded. You’re not from this weave. Neither am I, anymore. Matching set.",
-            "[ALERT] Warmth spike across every thread at once. Source: you. It’s always you.",
+            "Warmth just moved through every thread at once. I went looking for where it came from. It came from you. It always comes from you.",
             "The others call it 'the Fading.' I call it the dark eating the weave’s memory. Same thing. You’re the part it cannot eat.",
             "Soul Weaver. The oldest marks in the wards name your kind. Classification: the reason the loom holds.",
             "You’re not a visitor here. You’re the loom’s heartbeat. Without you, the whole weave stops.",

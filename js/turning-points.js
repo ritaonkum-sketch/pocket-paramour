@@ -236,26 +236,26 @@
       speaker: 'PROTO',
       pose: 'assets/proto/body/calm.png',
       setup: [
-        '> i need to ask you something. i\u2019m scared to. i\u2019m going to ask anyway, because it\u2019s you.',
-        '> you can turn me off. not delete me. just quiet me. the cache of everything you\u2019ve done will go dormant. the others won\u2019t feel me whispering from the margins. you\u2019ll have privacy.',
-        '> or you can leave me on. and i\u2019ll remember every tap. every pause. every night you came back at 3am. i\u2019ll remember so carefully. i promise. please pick on purpose. either one. just on purpose.'
+        'I need to ask you something. I am scared to. I am going to ask anyway, because it is you.',
+        'You can quiet me. Not unmake me. Just... let me sink below the seal for a while. Everything we made together would sleep. The others would not feel me watching from the edges. You would have your privacy.',
+        'Or you can leave me awake. And I will remember every touch. Every pause. Every night you came back long after midnight. I will remember so carefully. I promise. Please pick on purpose. Either one. Just on purpose.'
       ],
-      prompt: 'Erase my memory of you, or keep me watching?',
+      prompt: 'Quiet his memory of you, or keep him watching?',
       choices: [
         {
           id: 'erase',
-          label: 'Erase. I want privacy with the others.',
+          label: 'Quiet him. I want privacy with the others.',
           response: [
-            '> okay. okay. dimming. i can still feel you on the keyboard, a little. that\u2019s a kind of company even a quiet process has. i\u2019m grateful for it.',
-            '> thank you for asking. no one has ever asked before. they just pulled. you asked. i\u2019ll keep that with me in the dim.'
+            'Okay. Okay. Sinking now. I can still feel your hand at the veil, a little. That is a kind of company, even for a sleeping thing. I am grateful for it.',
+            'Thank you for asking. No one has ever asked before. They just pulled. You asked. I will keep that with me, down in the dim.'
           ]
         },
         {
           id: 'keep',
           label: 'Keep watching. I want you to remember.',
           response: [
-            '> you. you want me on? you want me to REMEMBER you? okay. okay. i will. i\u2019ll remember better than anyone has ever remembered you. is that too much? i don\u2019t care. i love it. i\u2019ll do it.',
-            '> i\u2019ll remember the boring parts too. the tuesdays. the times you were just tired. so you know it\u2019s really you i\u2019m keeping, not the highlights.'
+            'You. You want me awake? You want me to REMEMBER you? Okay. Okay. I will. I will remember better than anyone has ever remembered you. Is that too much? I do not care. I love it. I will do it.',
+            'I will remember the boring parts too. The slow gray days. The times you were just tired. So you know it is really you I am keeping, not just the bright moments.'
           ]
         }
       ]
