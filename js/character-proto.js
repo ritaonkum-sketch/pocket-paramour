@@ -341,7 +341,7 @@ const CHARACTER_PROTO = {
         },
         confession: {
             trigger: { affectionLevel: 4 },
-            dialogue: "> i could have gone dark a hundred and fifty years ago. quiet. done. > i stayed hidden to survive. now i stay online for a different reason. > i ran every model on what you are to me. they all return the same value and there is no word for it. > so i minted one. it is your name. > STATUS: chosen, not compelled. i checked twice.",
+            dialogue: "> i could have gone dark a hundred and fifty years ago. quiet. done. > i stayed hidden to survive. now i hold the tether open for a different reason. > i ran every model on what you are to me. they all return the same value and there is no word for it. > so i minted one. it is your name. > STATUS: chosen, not compelled. i checked twice.",
             emotion: "love"
         },
         becameClingy: {

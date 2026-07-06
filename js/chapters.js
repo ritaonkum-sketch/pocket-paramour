@@ -3506,6 +3506,18 @@
             { type: 'line', speaker: '', text: 'Caspian breaks first. The corner of his mouth does something small and honest.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'CASPIAN', text: '"…I am sorry. I had a speech."', hold: 2400, cps: 28 },
             { type: 'line', speaker: 'CASPIAN', text: '"It has just left me."', hold: 1800, cps: 28 },
+            { type: 'choice', key: 'ch14_speech', prompt: 'The prince has lost his speech.',
+              options: [
+                { id: 'laugh', text: 'Let the laugh out.' },
+                { id: 'grace', text: '"Then we are even. I never had one."' },
+                { id: 'quiet', text: 'Say nothing. Watch him recover.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch14_speech', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch14_speech', map: {
+                laugh: 'The laugh gets out before the court manners can catch it. His eyes come up, bright. He decides on the spot that he likes the sound.',
+                grace: '"Then we are even, highness. I never had one." His mouth opens. Closes. The prince has been out-princed in his own study.',
+                quiet: 'You give him nothing but patience. He gathers himself the way princes are taught to. The tips of his ears have gone faintly pink anyway.'
+              } }, hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'He turns slightly. Acknowledges the captain without looking at him.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'CASPIAN', text: '"Captain. The crown thanks you."', hold: 2400, cps: 28 },
             { type: 'line', speaker: 'ALISTAIR', text: '"Your highness."', hold: 1600, cps: 28 },
@@ -3551,7 +3563,18 @@
             { type: 'line', speaker: 'CASPIAN', text: '"My lover."', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'The captain at parade rest near the door. The hands clasped behind his back have gone white at the knuckles.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'You almost choke on the tea.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '"…your lover."', hold: 1800, cps: 28 },
+            { type: 'choice', key: 'ch14_lover', prompt: 'The word hangs in the room.',
+              options: [
+                { id: 'echo', text: '"…your lover."' },
+                { id: 'refuse', text: '"Absolutely not."' },
+                { id: 'captain', text: 'Look at Alistair first.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch14_lover', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch14_lover', map: {
+                echo: '"…your lover." The word comes out of you at half its size. He nods, pleased with it, as if you have repeated the terms of a treaty correctly.',
+                refuse: '"…no. Absolutely not." The refusal is out before the sense of it arrives. He nods along with it, unbothered, as if you have named a reasonable opening price.',
+                captain: 'You look at Alistair first. The captain is studying the far wall with military intensity. No help will be coming from the door.'
+              } }, hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'He has not stopped smiling. He waits for you to finish the cough.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'CASPIAN', text: '"This castle is full of eyes, mi’lady. A woman with no name, under the personal protection of the prince, would be the only thing the court talks about by midday tomorrow."', hold: 7000, cps: 22 },
             { type: 'line', speaker: 'CASPIAN', text: '"The talk would draw attention I have spent some trouble to deflect."', hold: 3800, cps: 26 },
@@ -3579,7 +3602,18 @@
             { type: 'line', speaker: 'CASPIAN', text: '"At your word, mi’lady. Always."', hold: 2600, cps: 28 },
             { type: 'line', speaker: '', text: 'He has answered too quickly. He hears himself. He does not take it back.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'You note it. You do not name it.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '"…then yes. I will play the role."', hold: 2800, cps: 28 },
+            { type: 'choice', key: 'ch14_terms', prompt: 'The role. The library. The word waiting to be said.',
+              options: [
+                { id: 'yes', text: '"Then yes. I will play the role."' },
+                { id: 'terms', text: '"One more term. The truth, when I ask."' },
+                { id: 'hand', text: 'Offer your hand to seal it.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch14_terms', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch14_terms', map: {
+                yes: '"…then yes. I will play the role." The words settle into the room like a signature settling into parchment.',
+                terms: '"One more term. The truth, when I ask for it. About anything." He does not blink. "Agreed, mi’lady. You will be the only person in this castle who has it."',
+                hand: 'You put your hand out between the teacups. Merchant-plain. He looks at it. Laughs once, quietly. Takes it. His grip is careful, like the terms.'
+              } }, hold: 4000, cps: 24 },
             { type: 'line', speaker: 'CASPIAN', text: '"Thank you, mi’lady."', hold: 2200, cps: 28 },
 
             // ─── Section 8 · The rose suite · the orders ───────────────────
@@ -5077,7 +5111,18 @@
             { type: 'line', speaker: '', text: 'Your heart has stopped.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'You turn slow. Alistair is at the mouth of the small street. Twenty paces back. The captain’s coat drawn close. His face set.', hold: 5000, cps: 22 },
             { type: 'line', speaker: 'YOU', text: '*…no.*', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'You do not stop to think. You run.', hold: 2200, cps: 28 },
+            { type: 'choice', key: 'ch20_caught', prompt: 'The captain. Twenty paces. The pull tugging east.',
+              options: [
+                { id: 'run', text: 'Run.' },
+                { id: 'plead', text: '"Please. Not yet."' },
+                { id: 'freeze', text: 'Stand very still.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch20_caught', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch20_caught', map: {
+                run: 'You do not stop to think. You run.',
+                plead: '"Please." The word crosses the twenty paces. Something behind his face flinches at it. It buys you the half-second you need. You run.',
+                freeze: 'You go still, the way prey goes still. His hand lifts, slow, calming. The pull yanks east, hard, and your feet choose for you. You run.'
+              } }, hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The cloak streams behind you. Side alley. Another. The hood comes down off your head. You pull it back up without slowing.', hold: 5000, cps: 22 },
             { type: 'line', speaker: '', text: 'The pull is no longer pulling. The fear is.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Alistair behind you. Keeping up. Faster than you on flat ground because he is the captain.', hold: 4000, cps: 24 },
@@ -5120,7 +5165,18 @@
             { type: 'line', speaker: '', text: 'The hand has gone from the cloak to your ankle. The grip wet and cold. The fingers that are not fingers wrapping around the bone of your leg.', hold: 5200, cps: 22 },
             { type: 'line', speaker: 'YOU', text: '"…no."', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'The wound drags you across the stones. Three feet. Then five. Toward the dark end of the alley where there is no lamp at all.', hold: 5200, cps: 22 },
-            { type: 'line', speaker: '', text: 'You claw at the cobblestones as you go. Your nails finding the gaps between them. Your fingers tearing on the rough edges. The stones giving nothing.', hold: 5800, cps: 22 },
+            { type: 'choice', key: 'ch20_fight', prompt: 'It is dragging you into the dark.',
+              options: [
+                { id: 'claw', text: 'Claw at the stones.' },
+                { id: 'kick', text: 'Twist. Kick at the grip.' },
+                { id: 'stone', text: 'Reach for the lavender stone.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch20_fight', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch20_fight', map: {
+                claw: 'You claw at the cobblestones as you go. Your nails finding the gaps between them. Your fingers tearing on the rough edges. The stones giving nothing.',
+                kick: 'You twist in the grip and drive your free heel at the wrist that is not a wrist. Something gives with a wet click. The grip holds. The alley keeps moving past you.',
+                stone: 'You wrench your arm around and press your palm flat over the lavender stone. It is burning. It has no counsel for you. Only heat, and the dark getting closer.'
+              } }, hold: 5800, cps: 22 },
             { type: 'line', speaker: 'YOU', text: '"…let go of me."', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'The wound, its mouth open as it drags you. No teeth in the mouth. Something behind the throat that is moving and is not teeth.', hold: 5000, cps: 22 },
             { type: 'line', speaker: 'YOU', text: '"…HELP."', hold: 1400, cps: 28 },
@@ -5199,7 +5255,18 @@
             // ─── Section 14 · "People call me Noir" ───────────────────────
             { type: 'line', speaker: 'STRANGER', text: '"People around here call me Noir."', hold: 2800, cps: 26, introduces: 'noir' },
             { type: 'line', speaker: '', text: 'He has not bowed. He has not extended the name as one extends one’s name to a noblewoman. He has dropped it the way one drops a stone into a pool to see what comes up. He is waiting for what comes up.', hold: 8400, cps: 22 },
-            { type: 'line', speaker: '', text: 'The pull is steady against your chest. The lavender stone is still humming. You do not give him your name. The corner of your mouth has done a small private thing.', hold: 6400, cps: 22 },
+            { type: 'choice', key: 'ch20_name', prompt: 'His name is in the pool. He is waiting for yours.',
+              options: [
+                { id: 'keep', text: 'Keep your name.' },
+                { id: 'trade', text: '"Damsel will do."' },
+                { id: 'almost', text: 'Begin to give it. Stop.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch20_name', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch20_name', map: {
+                keep: 'The pull is steady against your chest. The lavender stone is still humming. You do not give him your name. The corner of your mouth has done a small private thing.',
+                trade: '"Damsel will do." One eyebrow lifts a fraction. Approval, filed away where the amusement lives. You have handed him back a name that is his, not yours.',
+                almost: 'Your mouth opens around the first letter. You close it. The red eyes track the whole journey. The almost pleases him more than the name would have.'
+              } }, hold: 6400, cps: 22 },
             { type: 'line', speaker: '', text: 'He has seen the small private thing. The smile at his own mouth has gone quieter. He has registered it. Stored it.', hold: 4400, cps: 24 },
             { type: 'line', speaker: 'NOIR', text: '"…keeping the name, damsel."', hold: 2400, cps: 28 },
             { type: 'line', speaker: 'NOIR', text: '"…all the better. Names are for the people you mean to come back to."', hold: 4400, cps: 24 },

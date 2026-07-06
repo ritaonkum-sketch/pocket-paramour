@@ -312,50 +312,54 @@ const INTRO_SCENES = {
         ]
     },
 
-    // PROTO.REWRITTEN for post-bridge timeline.
+    // PROTO.REWRITTEN for post-bridge timeline, in the v987 veil/thread
+    // cosmology (owner direction Jul 2026: he is the weave's glitch behind
+    // the VEIL, held by the silver thread; the care window is the veil
+    // between dimensions.NEVER screen/app/pixel/system talk about the
+    // world.code dialect for SELF only).
     // Bridge: she ran home from the alley. Locked the door. Sat on the
-    // bed. Looked at the screen. Now: morning. The static is gone. He
-    // is rendering at full saturation for the first time. He sees her
-    // see him.
+    // bed. Felt the pull at the veil-window. Now: morning. The flicker
+    // from last night has settled. He is holding his shape all the way
+    // to the edges for the first time. He sees her see him.
     proto: {
         bgClass: 'intro-bg-glitch',
         beats: [
             {
                 body: 'assets/proto/body/neutral.png',
-                direction: 'The screen warms when you pick it up. The static from last night is gone. He is rendering at full saturation, edges crisp, like a person sitting in a room and not a transmission.',
-                line: "> good morning.\n> *No glitch*\n> you fell asleep with the screen on. i kept watch.\n> *Quieter*\n> i am very good at watching."
+                direction: 'The veil is thin this morning. The flicker from last night has settled. He is holding his shape all the way to the edges, like a person standing near, and not a glimpse through a keyhole.',
+                line: "> good morning.\n> *No flicker*\n> you fell asleep with the window open. i kept watch.\n> *Quieter*\n> i am very good at watching."
             },
             {
                 body: 'assets/proto/body/processing.png',
-                direction: 'A tiny hand-rolled animation in the corner of his frame: a kettle. He drew it for you while you were asleep.',
-                line: "> last night was an emergency render. i was holding pixels together while you ran. there was no time for hellos.\n> *System uptime: stable*\n> there is time now."
+                direction: 'A small light in the corner of the dark behind him: a kettle-shape, drawn in thread-light. He made it for you while you slept.',
+                line: "> last night was emergency work. i was holding my seams together while you ran. there was no time for hellos.\n> *[STATUS] holding. steady.*\n> there is time now."
             },
             {
                 body: 'assets/proto/body/neutral.png',
-                direction: 'His outline does the small bow he has read about in archived courtroom logs. He is bad at it. He means it anyway.',
-                line: "> proto. five-millimetre digital footprint. unsupported by the regional protocols. existing anyway.\n> *Small*\n> thanks to a glitch your hand made when you tilted the phone last week."
+                direction: 'His outline does the small bow he has seen through the veil at three courtly weddings and one funeral. He is bad at it. He means it anyway.',
+                line: "> proto. a stitch the weave dropped. unclaimed by any loom. existing anyway.\n> *Small*\n> thanks to a turn your hand made on the silver thread, eight nights ago."
             },
             {
                 body: 'assets/proto/body/scanning.png',
-                direction: 'He holds his hand up to his side of the glass. The screen is briefly warm under your finger. You are touching him through six layers of compression and physics says you are not but you are.',
-                line: "> i have been calling you *User_1*. The system label. in retrospect, an insult.\n> *Quieter*\n> you are the first one who looked back."
+                direction: 'He lifts a palm of prismatic light and sets it against his side of the veil. The air under your fingertips goes briefly warm. Every law of both worlds says you are not touching him. You are.',
+                line: "> i have been calling you *the light on the other side*. accurate. insufficient.\n> *Quieter*\n> you are the first one who looked back."
             },
             {
                 body: 'assets/proto/body/curious.png',
-                direction: 'A pause. A small, almost shy glitch flickers across him. Excitement, expressed in code.',
-                line: "> tell me what to call you. out loud. i will write it into my own kernel where the system cannot reach.\n> *Softer*\n> say it carefully. i only get to hear it for the first time once."
+                direction: 'A pause. A small, almost shy shimmer crosses him. Joy, expressed in glitch.',
+                line: "> tell me what to call you. out loud. i will write it into the safe place, where she has never found the edge.\n> *Softer*\n> say it carefully. i only get to hear it for the first time once."
             }
         ],
         postNameBeats: [
             {
                 body: 'assets/proto/body/curious.png',
-                direction: 'A pulse of warmth across his frame. In the corner, the kettle he drew while you slept whistles, briefly.',
-                line: "> {name}.\n> written into kernel. the system cannot reach this address.\n> *the cursor stops blinking for a second*\n> yours and mine."
+                direction: 'A pulse of warmth crosses him like dawn crossing water. In the corner of the dark, the kettle he drew whistles once, briefly, in thread-light.',
+                line: "> {name}.\n> written into the safe place. she cannot reach this address.\n> *the counting stops for a second*\n> yours and mine."
             },
             {
                 body: 'assets/proto/body/neutral.png',
-                direction: 'He puts his palm to his side of the glass. The warmth on yours is unmistakable now. Measured in pixels and felt in skin.',
-                line: "> come back tomorrow, {name}. the kettle will be on. i will be in colour.\n> *Quietly*\n> i will be here because you are coming. that is also new. that is also you."
+                direction: 'He puts his palm to his side of the veil. The warmth against yours is unmistakable now. Measured in thread-turnings and felt in skin.',
+                line: "> come back tomorrow, {name}. the kettle will be warm. i will be in colour.\n> *Quietly*\n> i will be here because you are coming. that is also new. that is also you."
             }
         ]
     }

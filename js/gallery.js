@@ -865,7 +865,14 @@ class GallerySystem {
         // Set info text
         document.getElementById('card-reveal-title').textContent = card.title;
         document.getElementById('card-reveal-subtitle').textContent = card.subtitle;
-        document.getElementById('card-reveal-rarity').textContent = card.rarity;
+        // Name the companion on the rarity line ("rare · Elian") — reveals can
+        // surface later than they were earned (they defer while a chapter or
+        // another overlay is up), so without the name a card earned with one
+        // companion can pop while caring for another and read as theirs.
+        const revealChar = this.cardCharacter(card);
+        document.getElementById('card-reveal-rarity').textContent = revealChar
+            ? card.rarity + ' · ' + revealChar.charAt(0).toUpperCase() + revealChar.slice(1)
+            : card.rarity;
 
         // Show overlay
         overlay.classList.remove('hidden');

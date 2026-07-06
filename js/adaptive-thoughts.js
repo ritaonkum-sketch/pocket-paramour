@@ -352,7 +352,6 @@
     if (g.characterLeft) return false;
     // Any panel / cinematic / scene overlay open?
     const openPanel = document.querySelector([
-      ,
       '#gift-panel:not(.hidden)',
       '#training-panel:not(.hidden)',
       '#settings-panel:not(.hidden)',
