@@ -183,6 +183,19 @@
             { type: 'line', speaker: '', text: 'Close on your hand. There is a torn page in it.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'The seal is unfamiliar. Two crossed branches beneath a moon. Burned edge. Silver ink.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your fingers know the shape. You do not know why.', hold: 2800, cps: 26 },
+            // ── Player agency (Jul 2026) — first decision of the game.
+            // Both options are valid; the pick colors the next narration
+            // line and is remembered for later chapters.
+            { type: 'choice', key: 'ch1_page', prompt: 'The page in your hand.',
+              options: [
+                { id: 'hold', text: 'Hold it tighter.' },
+                { id: 'remember', text: 'Try to remember.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch1_page_choice', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch1_page', map: {
+                hold: 'You close your hand around it until the edges bite your palm. Yours. That much is decided.',
+                remember: 'You reach for the memory. It reaches back with nothing. Only the certainty that losing this page would be worse than the dark.'
+              } }, hold: 3400, cps: 26 },
 
             // ─── Section 3 · The horns ────────────────────────────────────
             { type: 'line', speaker: '', text: 'Somewhere through the trees.', hold: 2000, cps: 28 },
@@ -282,6 +295,18 @@
             { type: 'line', speaker: 'YOU', text: '...you don’t know me.', hold: 2400, cps: 28 },
             { type: 'line', text: 'No, mi’lady.', hold: 1800, cps: 28 },
             { type: 'line', text: 'I know I am supposed to.', hold: 2600, cps: 28 },
+            // ── Player agency (Jul 2026) — trust or vigilance. Sets the
+            // player's stance toward Alistair; remembered for callbacks.
+            { type: 'choice', key: 'ch1_stance', prompt: 'Something in you answers.',
+              options: [
+                { id: 'trust', text: 'Let go. Let him help.' },
+                { id: 'guard', text: 'Stay awake. Watch his hands.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch1_stance', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch1_stance', map: {
+                trust: 'You let the tension go, one muscle at a time. If this is a mistake, it is one your body refuses to make twice.',
+                guard: 'You keep your eyes on his sword hand. It stays exactly where a promise would keep it.'
+              } }, hold: 3400, cps: 26 },
 
             // ─── Section 13 · The cloak, the lift ────────────────────────
             { type: 'line', speaker: '', text: 'He wipes the sword clean on dead grass. Sheathes it. Every motion deliberate. Then he removes his cloak and lays it across your lap before touching you again.', hold: 4400, cps: 24 },
@@ -333,6 +358,18 @@
             { type: 'line', speaker: '', text: 'He found yours. You found his.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '*...safe place.*', hold: 2200, cps: 26 },
+            // ── Player agency (Jul 2026) — what the player carries into
+            // sleep. Pure flavor, both warm; remembered for letters later.
+            { type: 'choice', key: 'ch1_keep', prompt: 'Before the dark takes you, you keep one thing.',
+              options: [
+                { id: 'name', text: 'His name. Alistair.' },
+                { id: 'warmth', text: 'The warmth. Names can wait.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch1_keep', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch1_keep', map: {
+                name: 'Alistair. You stitch the name to the pulse under your cheek, so the dark cannot take both.',
+                warmth: 'You let the name blur. Warm is enough truth for one day.'
+              } }, hold: 3200, cps: 26 },
 
             // ─── Section 18 · Final wide shot ────────────────────────────
             { type: 'line', speaker: '', text: 'The horse disappearing down the road. The castle waiting ahead. The forest behind them watching in silence.', hold: 3800, cps: 26 },
@@ -447,6 +484,16 @@
             { type: 'line', speaker: '', text: 'Your fingers have curled around the hem of the shirt you are wearing. His shirt.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'You had not realised you were holding onto it.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not let go.', hold: 2000, cps: 28 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch2_shirt', prompt: 'His shirt. Your hand.',
+              options: [
+                { id: 'keep', text: 'Keep holding it.' },
+                { id: 'release', text: 'Let go before he sees.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch2_shirt', map: {
+                keep: 'You keep your grip. The cloth is worn soft and smells faintly of cedar. If he notices, he says nothing.',
+                release: 'You open your fingers before he turns. Some things you are not ready for him to know.'
+              } }, hold: 3400, cps: 26 },
 
             // ─── Section 5 · Recognition ─────────────────────────────────
             { type: 'line', speaker: 'YOU', text: 'Your name is Alistair.', hold: 2200, cps: 26 },
@@ -535,6 +582,16 @@
             { type: 'line', text: 'Please do not become the eighth person to refuse it.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '...the eighth.', hold: 2000, cps: 28 },
             { type: 'line', text: 'I have tried.', hold: 1800, cps: 28 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch2_vial', prompt: 'The vial in your hand.',
+              options: [
+                { id: 'drink', text: 'Drink it. Let him win this one.' },
+                { id: 'tease', text: 'Hold his eyes a moment longer.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch2_vial', map: {
+                drink: 'Seven refusals before you. You will not be the eighth. Some victories a knight should keep.',
+                tease: 'You hold his gaze a breath longer than mercy allows. He does not blink. Stubborn, this one. Good.'
+              } }, hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You stare at him. Then close your eyes and drink.', hold: 3000, cps: 26 },
 
             // ─── Section 11 · The warmth ─────────────────────────────────
@@ -555,6 +612,18 @@
             { type: 'line', speaker: 'YOU', text: 'There is a piece of paper hidden in my sleeve.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'His eyes shift immediately to your wrist. He does not ask to see it.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Long silence.', hold: 1800, cps: 28 },
+            // ── Player agency (Jul 2026) — the page is the story's spine;
+            // the pick is remembered for later chapters.
+            { type: 'choice', key: 'ch2_page', prompt: 'The silence stretches.',
+              options: [
+                { id: 'show', text: 'Start to show him.' },
+                { id: 'hold', text: 'Say nothing more.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch2_page_choice', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch2_page', map: {
+                show: 'You start to slide it free. His hand lifts, gentle, and stops the motion halfway. Not yet, the gesture says. Not for me.',
+                hold: 'You leave your sleeve untouched. He nods once, as if secrecy were a rank he respects.'
+              } }, hold: 3600, cps: 26 },
             { type: 'line', text: 'Then we leave it there for now.', hold: 2800, cps: 26 },
 
             // ─── Section 13 · Final shot ─────────────────────────────────
@@ -660,6 +729,17 @@
             { type: 'line', text: 'In case you need it.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Need it for what?', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He does not answer.', hold: 2000, cps: 28 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch3_postern', prompt: 'The way out he just handed you.',
+              options: [
+                { id: 'thank', text: 'Thank him for the door.' },
+                { id: 'stay', text: 'Tell him you are not leaving.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch3_postern', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch3_postern', map: {
+                thank: 'Thank you, you say, and mean more than the door. His shoulders ease by a fraction he would deny under oath.',
+                stay: 'You tell him plainly: you are not planning to run. Something crosses his face too fast to read. Relief, wearing duty’s uniform.'
+              } }, hold: 3600, cps: 26 },
 
             // ─── Section 6 · The catch ───────────────────────────────────
             { type: 'line', speaker: '', text: 'Footsteps echo from around the corridor corner.', hold: 2400, cps: 26 },
@@ -683,6 +763,16 @@
             { type: 'line', speaker: '', text: 'Like he almost forgot himself.', hold: 2400, cps: 26 },
             { type: 'line', text: 'I do not hold beautiful things in armour, mi’lady.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Silence. The corridor suddenly feels far too narrow.', hold: 2800, cps: 26 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch3_beautiful', prompt: 'The word hangs between you.',
+              options: [
+                { id: 'tease', text: '“Beautiful, Captain?”' },
+                { id: 'look', text: 'Say nothing. Look at him.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch3_beautiful', map: {
+                tease: 'His ears go faintly red. He stares ahead like a man taking a hill. I misspoke, he says, in the voice of a man who did not.',
+                look: 'You look at him until he has to look back. Whatever he finds in your face, he keeps.'
+              } }, hold: 3600, cps: 26 },
 
             // ─── Section 8 · The pull back ───────────────────────────────
             { type: 'line', speaker: '', text: 'The approaching footsteps fade down another hall. Neither of you noticed them leave.', hold: 3600, cps: 24 },
@@ -692,6 +782,16 @@
             { type: 'line', speaker: '', text: 'Only the slight tremor in his fingers betrays him.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I will walk you back now, mi’lady.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He does not look at you when he says it.', hold: 2400, cps: 26 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch3_walk', prompt: 'The walk back.',
+              options: [
+                { id: 'arm', text: 'Take his arm anyway.' },
+                { id: 'quiet', text: 'Walk beside him in silence.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch3_walk', map: {
+                arm: 'You set your hand in the crook of his elbow, armour and all. He stares straight ahead. He does not move away.',
+                quiet: 'You match his pace and let the quiet carry what neither of you will say yet.'
+              } }, hold: 3400, cps: 26 },
 
             // ─── Section 9 · Final shot ──────────────────────────────────
             { type: 'line', speaker: '', text: 'The kitchen door standing half-open. Warm light spilling through.', hold: 3000, cps: 26 },
@@ -760,11 +860,32 @@
             { type: 'line', speaker: '', text: 'Footsteps pass in the corridor. One after another. None stop.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You pick up the small kitchen knife left with the tray.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Turn it once in your hand. Set it down again.', hold: 2600, cps: 26 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch4_knife', prompt: 'The knife, within reach.',
+              options: [
+                { id: 'keep', text: 'Take it back. Keep it near.' },
+                { id: 'leave', text: 'Leave it. Watch the door instead.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch4_knife', map: {
+                keep: 'You take it back and lay it within reach. Not fear. Arithmetic.',
+                leave: 'You leave it where it lies. If it comes to knives, the door has already failed you.'
+              } }, hold: 3000, cps: 26 },
 
             // ─── Section 5 · The cloak ───────────────────────────────────
             { type: 'line', speaker: '', text: 'Your eyes drift toward the chair. Toward his cloak folded over the back.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You pick it up.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'You are not going to admit you hold it. You hold it anyway.', hold: 3000, cps: 26 },
+            // ── Player agency (Jul 2026) — both roads end wearing it, as
+            // the later beats assume; the pick is the flavor of surrender.
+            { type: 'choice', key: 'ch4_cloak', prompt: 'His cloak in your arms.',
+              options: [
+                { id: 'wear', text: 'Put it on.' },
+                { id: 'resist', text: 'Tell yourself you will put it back.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch4_cloak', map: {
+                wear: 'You settle it over your shoulders. It is far too big. It is exactly the right size.',
+                resist: 'You tell yourself you will put it back. You put it on instead.'
+              } }, hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Day three.', hold: 1800, cps: 28 },
 
             // ─── Section 6 · The second note ─────────────────────────────
@@ -772,6 +893,17 @@
             { type: 'line', speaker: '', text: 'He has not slept. He will come tonight. Wait.', hold: 3800, cps: 24 },
             { type: 'line', speaker: '', text: 'You stare.', hold: 1600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Who are you?', hold: 2400, cps: 26 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch4_note', prompt: 'Two notes. Two strangers.',
+              options: [
+                { id: 'reply', text: 'Leave a note of your own.' },
+                { id: 'watch', text: 'Keep both. Watch the corridor.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch4_note', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch4_note', map: {
+                reply: 'You tear a corner from the second note and write one word on it: Ask. You leave it on the tray, where a ghost will find it.',
+                watch: 'You set the two notes side by side and memorise the hands that wrote them. Someone will slip. They always do.'
+              } }, hold: 3800, cps: 26 },
 
             // ─── Section 7 · Opening the door ────────────────────────────
             { type: 'line', speaker: '', text: 'You stand. Cross to the door. Open it carefully.', hold: 2800, cps: 26 },
@@ -930,6 +1062,16 @@
             { type: 'line', speaker: '', text: 'You remain seated near the door. His cloak around your shoulders. Watching him.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*I do not know my own name.*', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*But I know I will not let anyone through that door tonight.*', hold: 3400, cps: 26 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch5_watch', prompt: 'Your watch. Your rules.',
+              options: [
+                { id: 'near', text: 'Move nearer to him.' },
+                { id: 'door', text: 'Hold the door. That is the post.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch5_watch', map: {
+                near: 'You shift closer, an arm’s reach from the sleeping knight. If something comes through the window instead, it will find you first.',
+                door: 'You stay at the door, your back against the wood. Someone taught you that posts matter. You wish you could remember who.'
+              } }, hold: 3600, cps: 26 },
 
             // ─── Section 9 · Watching him sleep ──────────────────────────
             { type: 'line', speaker: '', text: 'Close on Alistair sleeping. The hard line usually held in his mouth has vanished.', hold: 3400, cps: 26 },
@@ -961,6 +1103,17 @@
             { type: 'line', speaker: '', text: 'Closer. Your eyes drift toward the window. Toward the dark beyond the glass.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The forest is out there. Far off. Calling.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*...what is this.*', hold: 2400, cps: 26 },
+            // ── Player agency (Jul 2026) — first contact with the pull.
+            { type: 'choice', key: 'ch5_pull', prompt: 'The thread pulls.',
+              options: [
+                { id: 'lean', text: 'Lean toward it. One breath.' },
+                { id: 'refuse', text: 'Turn your back on the window.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch5_pull', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch5_pull', map: {
+                lean: 'You lean toward the glass, one breath only. The thread sings once, low, like a struck string underwater. Then you make yourself stop.',
+                refuse: 'You turn from the window. The pull does not weaken. But neither do you.'
+              } }, hold: 3600, cps: 26 },
 
             // ─── Section 13 · Resisting ──────────────────────────────────
             { type: 'line', speaker: '', text: 'You stand. Slowly. Test your ankle. It holds.', hold: 2600, cps: 26 },
@@ -992,6 +1145,17 @@
             { type: 'line', speaker: '', text: 'You sitting near the door, his cloak around your shoulders, your back to the wood. Watching.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'Beyond the window, somewhere far out past the castle walls, the forest breathes in the dark.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'It can wait.', hold: 2200, cps: 28 },
+            // ── Player agency (Jul 2026) — what she does with the secret.
+            { type: 'choice', key: 'ch5_secret', prompt: 'The pull is yours alone, for now.',
+              options: [
+                { id: 'tell', text: '*Tomorrow I ask him about the forest.*' },
+                { id: 'keep', text: '*Some things I carry alone a while longer.*' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch5_secret', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch5_secret', map: {
+                tell: 'Tomorrow you will ask him what lives out there. Tonight you keep the knowledge like a stone in your pocket.',
+                keep: 'You fold the pull away with the rest of your unknowns. The list grows long. Your own name still sits at the top of it.'
+              } }, hold: 3600, cps: 26 },
 
             { type: 'hide' }
           ]
@@ -1090,6 +1254,17 @@
             { type: 'line', speaker: '', text: 'Its jaw hanging slightly open as though the bones no longer fit together correctly.', hold: 3800, cps: 24 },
             { type: 'line', speaker: '', text: 'It moves wrong. Not animal speed. Something faster.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Jerking. Stopping. Then suddenly too close.', hold: 2800, cps: 26 },
+            // ── Player agency (Jul 2026) — both roads lead to running;
+            // the pick is who you are in the moment before.
+            { type: 'choice', key: 'ch6_flight', prompt: 'It sees you.',
+              options: [
+                { id: 'run', text: 'Run. Now.' },
+                { id: 'face', text: 'Grab a branch. Face it.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch6_flight', map: {
+                run: 'Your body chooses before you finish choosing. Distance first. Dignity later.',
+                face: 'Your hand closes on a fallen branch. The creature tilts its ruined head, almost curious. Then it lunges, and your legs overrule your courage.'
+              } }, hold: 3200, cps: 26 },
 
             // ─── Section 8 · The chase ───────────────────────────────────
             { type: 'line', speaker: '', text: 'You run.', hold: 1600, cps: 28 },
@@ -1123,6 +1298,17 @@
             { type: 'line', speaker: 'YOU', text: 'I could say the same thing to you.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'A beat. One corner of his mouth shifts very slightly.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Not amusement. Recognition of audacity.', hold: 2600, cps: 26 },
+            // ── Player agency (Jul 2026) — first tone with the warden.
+            { type: 'choice', key: 'ch6_tone', prompt: 'The hooded stranger waits.',
+              options: [
+                { id: 'bold', text: 'Hold his gaze. You owe him nothing.' },
+                { id: 'grateful', text: 'Thank him for the arrow.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch6_tone', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch6_tone', map: {
+                bold: 'You hold his gaze and do not blink first. Something in his stance recalibrates, like a scale given a heavier weight than expected.',
+                grateful: 'Thank you, you say, nodding at the bow. He looks at you as if gratitude were a dialect he has not heard in years.'
+              } }, hold: 3600, cps: 26 },
             { type: 'line', text: 'You walked into Thornwood alone at night.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I do not think you are in a position to criticise anyone’s decisions.', hold: 3400, cps: 26 },
 
@@ -1145,6 +1331,16 @@
             { type: 'line', text: 'Hungry.', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'That is not an answer.', hold: 2200, cps: 26 },
             { type: 'line', text: 'It is the only one that matters tonight.', hold: 2800, cps: 26 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch6_press', prompt: 'He gives you nothing. You give him...',
+              options: [
+                { id: 'press', text: 'Press him. You have earned an answer.' },
+                { id: 'file', text: 'Let it go. File the evasion away.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch6_press', map: {
+                press: 'Then tell me tomorrow, you say. His eyebrow lifts a fraction. You have assumed a tomorrow with him. He does not correct you.',
+                file: 'You let the silence answer for you. Men who live alone in forests tell you more by what they guard than what they give.'
+              } }, hold: 3600, cps: 26 },
 
             // ─── Section 15 · Smoke spreading ────────────────────────────
             { type: 'line', speaker: '', text: 'He crouches beside the body. Touches the blackened edge of one antler.', hold: 3000, cps: 26 },
@@ -1187,7 +1383,7 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_elian_seen','1'); } catch (_) {}
-        try { localStorage.setItem('pp_met_elian','1'); } catch (_) {}
+        try { if (!localStorage.getItem('pp_met_elian')) localStorage.setItem('pp_met_elian', new Date().toDateString()); } catch (_) {}
         // Stranger Rule (Jun 2026): Elian never speaks the line "I'm
         // Elian" — his name reaches the player through narration in
         // Ch6. So we flip the introduced flag when Ch6 completes, as
@@ -1304,6 +1500,16 @@
             // ─── Section 9 · The bed ─────────────────────────────────────
             { type: 'line', speaker: '', text: 'The bed is a low wooden frame, a wool mattress, a single blanket the colour of moss.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'It smells like he does.', hold: 2000, cps: 28 },
+            // ── Player agency (Jul 2026) ──
+            { type: 'choice', key: 'ch7_bed', prompt: 'A stranger’s bed. A stranger’s herbs.',
+              options: [
+                { id: 'trust', text: 'Take the bed. He earned that much.' },
+                { id: 'wary', text: 'Lie down facing the door.' }
+              ] },
+            { type: 'line', speaker: '', variants: { key: 'ch7_bed', map: {
+                trust: 'A man who wanted you harmed would not have wasted an arrow saving you first. You take the bed.',
+                wary: 'You arrange yourself facing the door, the whole room in view. Old habits from a life you cannot remember having.'
+              } }, hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'You lie down.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'You meant to stay awake long enough to be cautious. You meant to keep a hand near your sleeve.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'The herbs take you before you have made the second decision.', hold: 3000, cps: 26 },
@@ -1395,6 +1601,18 @@
             { type: 'line', text: 'Most people ask the wrong one.', hold: 2400, cps: 26 },
             { type: 'line', text: 'The forest is sick.', hold: 2000, cps: 28 },
             { type: 'line', text: 'It is losing pieces of itself.', hold: 2400, cps: 28 },
+            // ── Player agency (Jul 2026) — she felt the pull in Ch5; does
+            // she tell HIM? Remembered for later chapters.
+            { type: 'choice', key: 'ch7_pull', prompt: 'The thread in your chest tightens at his words.',
+              options: [
+                { id: 'confess', text: 'Tell him about the pull.' },
+                { id: 'quiet', text: 'Keep it behind your teeth.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch7_pull_told', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch7_pull', map: {
+                confess: 'It calls me, you say quietly. At night. Like a thread. His hands go very still on the wrapping. So it is true, he says, mostly to the fire.',
+                quiet: 'You say nothing. The pull hums once under your ribs, patient as ever, keeping your secret with you.'
+              } }, hold: 4000, cps: 24 },
 
             // ─── Section 20 · The deer ───────────────────────────────────
             { type: 'line', speaker: '', text: 'He ties off the new wrap. Does not let go of your ankle yet. Looks at it instead of at you.', hold: 3800, cps: 26 },
@@ -1427,6 +1645,17 @@
             { type: 'line', speaker: '', text: 'He does not look away from you.', hold: 2200, cps: 28 },
             { type: 'line', text: 'So the captain did not tell you.', hold: 2600, cps: 26 },
             { type: 'line', text: 'That is strange of him. He should have reported this by now.', hold: 3600, cps: 26 },
+            // ── Player agency (Jul 2026) — loyalty test between suitors.
+            { type: 'choice', key: 'ch7_captain', prompt: 'Alistair kept something from you.',
+              options: [
+                { id: 'defend', text: 'He had his reasons.' },
+                { id: 'doubt', text: 'Then he will answer for it.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch7_captain', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch7_captain', map: {
+                defend: 'He had his reasons, you say, and are surprised how quickly you say it. The warden studies you. Loyal, he notes, like a symptom.',
+                doubt: 'Then he will answer for it, you say. The warden almost smiles. Good, he says. Make them all answer. Even me.'
+              } }, hold: 4000, cps: 24 },
 
             // ─── Section 24 · The ruin · one survivor ────────────────────
             { type: 'line', speaker: '', text: 'He sets the cup down on the table between you. Carefully.', hold: 2800, cps: 26 },
@@ -1509,7 +1738,7 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_elian_seen','1'); } catch (_) {}
-        try { localStorage.setItem('pp_met_elian','1'); } catch (_) {}
+        try { if (!localStorage.getItem('pp_met_elian')) localStorage.setItem('pp_met_elian', new Date().toDateString()); } catch (_) {}
         markDone(7); setCurrent(nextIdAfter(7));
         if (onDone) onDone();
       }
@@ -1699,7 +1928,7 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_elian_seen','1'); } catch (_) {}
-        try { localStorage.setItem('pp_met_elian','1'); } catch (_) {}
+        try { if (!localStorage.getItem('pp_met_elian')) localStorage.setItem('pp_met_elian', new Date().toDateString()); } catch (_) {}
         markDone(8); setCurrent(nextIdAfter(8));
         if (onDone) onDone();
       }
@@ -2039,7 +2268,7 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_lyra_seen','1'); } catch (_) {}
-        try { localStorage.setItem('pp_met_lyra','1'); } catch (_) {}
+        try { if (!localStorage.getItem('pp_met_lyra')) localStorage.setItem('pp_met_lyra', new Date().toDateString()); } catch (_) {}
         markDone(9); setCurrent(nextIdAfter(9));
         if (onDone) onDone();
       }
@@ -2622,9 +2851,9 @@
           ]
         });
         try { localStorage.setItem('pp_ms_encounter_caspian_seen','1'); } catch (_) {}
-        try { localStorage.setItem('pp_met_caspian','1'); } catch (_) {}
+        try { if (!localStorage.getItem('pp_met_caspian')) localStorage.setItem('pp_met_caspian', new Date().toDateString()); } catch (_) {}
         try { localStorage.setItem('pp_ms_encounter_lucien_seen','1'); } catch (_) {}
-        try { localStorage.setItem('pp_met_lucien','1'); } catch (_) {}
+        try { if (!localStorage.getItem('pp_met_lucien')) localStorage.setItem('pp_met_lucien', new Date().toDateString()); } catch (_) {}
         markDone(11); setCurrent(nextIdAfter(11));
         if (onDone) onDone();
       }

@@ -1138,7 +1138,13 @@ class GameUI {
         // Apply gift effects
         if (gift.hunger)    g.hunger    = Math.min(100, g.hunger    + gift.hunger);
         if (gift.bond)      g.bond      = Math.min(100, g.bond      + gift.bond);
-        if (gift.affection) g.affection = Math.min(100, g.affection + gift.affection);
+        // Jul 2026 playtest fix — EVERY gift warms affection a little (+2
+        // base, plus the item's own affection stat). Previously a practical
+        // gift (Apple, Whetstone) moved NO affection at all, so the player's
+        // first gift read as a dead tap on the meter the whole game is
+        // about. _gainAffection also floats "+n ♥" over the character.
+        if (typeof g._gainAffection === 'function') g._gainAffection(2 + (gift.affection || 0));
+        else if (gift.affection) g.affection = Math.min(100, g.affection + gift.affection);
         if (gift.clean)     g.clean     = Math.min(100, g.clean     + gift.clean);
         g.corruption = Math.max(0, g.corruption - 3);
 

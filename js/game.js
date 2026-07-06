@@ -1465,12 +1465,26 @@ class PocketLoveGame {
                 this.ui.flashEmotion("shy", 3000);
             }
         } else {
-            // First time playing — no save means minutesAway ≈ 0 and no reaction
+            // First time playing — no save means minutesAway ≈ 0 and no reaction.
+            // Jul 2026 playtest fix — this line lands SECONDS after the
+            // character's intro scene walked the player in, so it must
+            // CONTINUE that moment, per character, instead of the shared
+            // "Oh. You came. I wasn't sure you would." (which read absurd
+            // right after he opened the door for us, and repeated verbatim
+            // across characters).
             const isFirstPlay = !localStorage.getItem('pocketLoveSave_' + (this.selectedCharacter || 'alistair'));
             if (isFirstPlay) {
-                const firstLine = CHARACTER.name === "Lyra"
-                    ? "…you can see me?"
-                    : "Oh. You came. I wasn't sure you would.";
+                const FIRST_LINES = {
+                    alistair: 'The chair by the window is yours now. I had it moved nearer the fire.',
+                    elian:    'The fire knows you now. Sit where you like.',
+                    lyra:     '…you can see me?',
+                    caspian:  'I will have tea brought up. Take the seat by the balcony.',
+                    lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
+                    noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
+                    proto:    '> guest profile saved. you have a home here now.'
+                };
+                const firstLine = FIRST_LINES[(this.selectedCharacter || '').toLowerCase()]
+                    || "Oh. You came. I wasn't sure you would.";
                 this.typewriter.show(firstLine);
             } else if (CHARACTER.name === "Lyra") {
                 // Day-based return lines — each day Lyra reacts differently
@@ -2510,6 +2524,44 @@ class PocketLoveGame {
         return lines[Math.floor(Math.random() * lines.length)];
     }
 
+    // ── +♥ affection floater (Jul 2026 playtest fix) ─────────────────────
+    // The currency has floaty "+20" feedback but affection — the stat the
+    // whole game is ABOUT — moved invisibly. Every care-action affection
+    // gain now floats a small "+n ♥" up from the character. Gains inside
+    // scenes/cinematics deliberately keep their own presentation.
+    _gainAffection(n) {
+        const before = this.affection;
+        this.affection = Math.max(0, Math.min(100, this.affection + n));
+        const delta = Math.round((this.affection - before) * 10) / 10;
+        if (delta === 0) return;
+        try {
+            if (!document.body.classList.contains('pp-screen-care')) return;
+            const img = document.getElementById('character-body-img');
+            const r = img ? img.getBoundingClientRect() : null;
+            const f = document.createElement('div');
+            const up = delta > 0;
+            f.textContent = (up ? '+' : '−') + Math.abs(delta) + ' ♥';
+            f.style.cssText = [
+                'position:fixed', 'z-index:14000', 'pointer-events:none',
+                'left:' + (r ? Math.round(r.left + r.width * (0.38 + Math.random() * 0.24)) : Math.round(window.innerWidth / 2)) + 'px',
+                'top:' + (r ? Math.round(r.top + r.height * 0.30) : Math.round(window.innerHeight * 0.35)) + 'px',
+                'font-family:Quicksand,Inter,sans-serif', 'font-weight:800', 'font-size:16px',
+                up ? 'color:#FF9FBE' : 'color:#9FB4CC',
+                up ? 'text-shadow:0 1px 4px rgba(60,4,24,0.8), 0 0 12px rgba(232,76,140,0.6)'
+                   : 'text-shadow:0 1px 4px rgba(8,16,32,0.8), 0 0 10px rgba(110,140,180,0.5)',
+                'opacity:0', 'transform:translateY(6px) scale(0.9)',
+                'transition:opacity 220ms ease, transform 1200ms cubic-bezier(0.22,1,0.36,1)'
+            ].join(';');
+            document.body.appendChild(f);
+            requestAnimationFrame(() => {
+                f.style.opacity = '1';
+                f.style.transform = 'translateY(' + (up ? '-44px' : '-26px') + ') scale(1)';
+            });
+            setTimeout(() => { f.style.opacity = '0'; }, 950);
+            setTimeout(() => { try { f.remove(); } catch (_) {} }, 1500);
+        } catch (_) {}
+    }
+
     feed() {
         if (this.characterLeft) return;
         // Action SFX (Jun 2026 polish pass) — every care tap now has
@@ -2519,7 +2571,7 @@ class PocketLoveGame {
         const _preHunger = this.hunger;
         this.hunger = Math.min(100, this.hunger + 25);
         this.clean = Math.max(0, this.clean - 3);
-        this.affection = Math.min(100, this.affection + 2);
+        this._gainAffection(2);
         this.corruption = Math.max(0, this.corruption - 1);
 
         this.timesFed++;
@@ -2570,7 +2622,7 @@ class PocketLoveGame {
         const _preClean = this.clean;
         this.clean = Math.min(100, this.clean + 25);
         this.bond = Math.max(0, this.bond - 3);
-        this.affection = Math.min(100, this.affection + 2);
+        this._gainAffection(2);
         // Wash gives +2 affection, same as Feed. The 3 starting care actions
         // (Feed/Wash/Talk) all reward affection so the player can actually
         // make progress toward the 25 affection gate that unlocks the next
@@ -2615,7 +2667,7 @@ class PocketLoveGame {
         try { if (window.sounds && sounds.cardFlip) sounds.cardFlip(); } catch (_) {}
 
         this.bond = Math.min(100, this.bond + 15);
-        this.affection = Math.min(100, this.affection + 5);
+        this._gainAffection(5);
         this.corruption = Math.max(0, this.corruption - 3);
 
         this.timesGifted++;
@@ -2674,7 +2726,7 @@ class PocketLoveGame {
         // Stat effects — focus rewards patience, strength costs more hunger
         this.bond      = Math.min(100, this.bond + (type === 'focus' ? 8 : 5));
         this.hunger    = Math.max(0,   this.hunger - (type === 'strength' ? 15 : 8));
-        this.affection = Math.min(100, this.affection + (type === 'focus' ? 5 : 3));
+        this._gainAffection(type === 'focus' ? 5 : 3);
 
         if (this.corruptionState !== "pure") this.corruption += 1;
 
@@ -2793,7 +2845,10 @@ class PocketLoveGame {
         }
 
         this.bond       = Math.max(0,   Math.min(100, this.bond      + bondChange));
-        this.affection  = Math.max(0,   Math.min(100, this.affection + affectionChange));
+        // Floated so the mood-roll texture is LEGIBLE: a warm talk shows
+        // "+5 ♥", the occasional cold one shows "−2 ♥" instead of the
+        // meter silently dipping (playtest: reads as a bug when hidden).
+        this._gainAffection(affectionChange);
         this.hunger     = Math.max(0,   this.hunger  - 5);
         this.corruption = Math.max(0,   this.corruption - 2);
 
@@ -4696,7 +4751,22 @@ class PocketLoveGame {
         const metKey = 'pp_met_' + id;
         let met = null; try { met = store.getItem(metKey); } catch (_) {}
         if (!met) { try { store.setItem(metKey, todayStr); } catch (_) {} return false; }
-        const days = Math.round((new Date(todayStr) - new Date(met)) / 86400000);
+        // Jul 2026 playtest fix — HEAL the two-convention collision. Several
+        // writers (chapters.js completion code, storage-guard backfill, the
+        // Chronicle) historically stored '1' as a "met" boolean, but this
+        // system stores a DATE STRING. new Date('1') parses to ~2001, so a
+        // brand-new companion greeted the player with the hundred-days
+        // anniversary speech at first meeting (confirmed live for Elian AND
+        // Lyra). Any value that doesn't parse to a sane date within the last
+        // 20 years re-stamps as today — the true first-meeting day.
+        const metDate = new Date(met);
+        if (isNaN(metDate.getTime()) ||
+            metDate.getTime() < Date.now() - 20 * 365 * 86400000 ||
+            metDate.getTime() > Date.now() + 86400000) {
+            try { store.setItem(metKey, todayStr); } catch (_) {}
+            return false;
+        }
+        const days = Math.round((new Date(todayStr) - metDate) / 86400000);
         const lines = CHARACTER.anniversaryLines;
         if (!lines || days < 7) return false;
         const milestones = [7, 30, 100];

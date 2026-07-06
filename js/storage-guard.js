@@ -104,10 +104,16 @@
     function repair() {
         const repaired = [];
 
-        // 1. encounter_seen implies met
+        // 1. encounter_seen implies met.
+        // Jul 2026 playtest fix — pp_met_ stores a DATE STRING (game.js
+        // days-together system), not a boolean. The old `!== '1'` check
+        // clobbered valid dates back to '1' on EVERY boot, which made
+        // new Date('1') parse to ~2001 and fired the hundred-days
+        // anniversary at first meeting. Only backfill when the key is
+        // truly absent, and stamp today's date.
         CHARS.forEach(char => {
-            if (lsGet('pp_ms_encounter_' + char + '_seen') === '1' && lsGet('pp_met_' + char) !== '1') {
-                lsSet('pp_met_' + char, '1');
+            if (lsGet('pp_ms_encounter_' + char + '_seen') === '1' && !lsGet('pp_met_' + char)) {
+                lsSet('pp_met_' + char, new Date().toDateString());
                 repaired.push('met_' + char + ' (from encounter_seen)');
             }
         });
@@ -116,8 +122,9 @@
         Object.keys(CHAPTER_CHAR_MAP).forEach(n => {
             const char = CHAPTER_CHAR_MAP[n];
             if (lsGet('pp_chapter_done_' + n) === '1') {
-                if (lsGet('pp_met_' + char) !== '1') {
-                    lsSet('pp_met_' + char, '1');
+                // Date-string convention — see rule 1's Jul 2026 note.
+                if (!lsGet('pp_met_' + char)) {
+                    lsSet('pp_met_' + char, new Date().toDateString());
                     repaired.push('met_' + char + ' (from chapter_done_' + n + ')');
                 }
                 if (lsGet('pp_ms_encounter_' + char + '_seen') !== '1') {

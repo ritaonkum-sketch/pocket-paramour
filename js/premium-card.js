@@ -574,6 +574,11 @@
     // ── VN controls state (Jul 2026) ──
     let _skipFast = false;          // replay fast-forward latch
     const _history = [];            // every line shown this card, for the 📜 log
+    // ── Choice memory (Jul 2026 — chapter agency pass) ──
+    // A choice beat with `key` stores its picked option id here; a later
+    // line beat with `variants: {key, map}` renders the text for the
+    // player's pick. Card-scoped: replays re-ask.
+    const _choices = {};
     const vn = buildVNControls(n, card, {
       onExit: () => {
         // Silent abort: never counts as completing the card. If this card
@@ -905,9 +910,20 @@
                 n.line.style.textAlign = 'left';
               }
             }
+            // Variant line (Jul 2026 chapter-agency pass): render the text
+            // matching an earlier choice's picked id. Falls back to the
+            // first map entry so a missing/aborted pick can never blank
+            // the line.
+            let beatText = beat.text || '';
+            if (beat.variants && beat.variants.key && beat.variants.map) {
+              const pick = _choices[beat.variants.key];
+              beatText = beat.variants.map[pick]
+                || beat.variants.map[Object.keys(beat.variants.map)[0]]
+                || beatText;
+            }
             // 📜 backlog — record every line as it is shown (Jul 2026).
-            _history.push({ s: resolvedSpeaker || '', t: beat.text || '' });
-            await typeToS(n.line, beat.text || '', beat.cps || 32);
+            _history.push({ s: resolvedSpeaker || '', t: beatText });
+            await typeToS(n.line, beatText, beat.cps || 32);
             // BULLETPROOF tap-to-advance. Don't reuse skipPromise — it can
             // be racing with stale state from the typewriter phase. Register
             // a brand-new one-shot tap listener and wait for it. The first
@@ -1107,6 +1123,9 @@
 
             // Restore dialogue layer for any subsequent beats.
             n.dialogue.style.opacity = prevDialogueOpacity || '1';
+
+            // Remember the pick for later `variants` lines (Jul 2026).
+            if (beat.key) _choices[beat.key] = pickedId;
 
             // Fire the onChoose hook with the selected id. Wrapped in
             // try/catch so a faulty hook doesn't kill the card.

@@ -1573,10 +1573,13 @@
   }
 
   function shouldShowButton (g) {
-    // Only surface the button once the player is on day 2+, so day 1
-    // doesn't feel cluttered with a locked affordance. From then on
-    // show a locked state until affection catches up.
-    return (g.storyDay || 1) >= UNLOCK_DAY;
+    // Jul 2026 playtest fix — the button was invisible for the ENTIRE
+    // first session (day-2 gate), so players never learned dates exist
+    // at all. Now it surfaces as a locked promise once the bond has
+    // started (affection level 1), or on day 2+ regardless. The very
+    // first minutes (level 0, day 1) stay clutter-free; tapping the
+    // locked button explains exactly what unlocks it.
+    return (g.affectionLevel || 0) >= 1 || (g.storyDay || 1) >= UNLOCK_DAY;
   }
 
   function showUnlockToast () {

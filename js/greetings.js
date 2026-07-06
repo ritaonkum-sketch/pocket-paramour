@@ -292,28 +292,30 @@
         const lines = GREETINGS[charKey][tod];
         if (!lines || lines.length === 0) return;
 
-        let line = pick(lines);
-
-        // Jul 2026 playtest fix — if the character's intro scene JUST played
-        // (he literally walked the player in seconds ago), a random pool
-        // greeting like "Oh. You came. I wasn't sure you would." breaks the
-        // fiction. Use a settling-in line that continues the intro instead.
-        // Session-scoped: next launch greets normally.
-        try {
-            if (sessionStorage.getItem('pp_intro_just_done') === charKey) {
-                sessionStorage.removeItem('pp_intro_just_done');
-                const INTRO_FOLLOWUP = {
-                    alistair: 'The chair by the window is yours now. I had it moved nearer the fire.',
-                    elian:    'The fire knows you now. Sit where you like.',
-                    lyra:     'You stayed past the song. Most never do.',
-                    caspian:  'I will have tea brought up. Take the seat by the balcony.',
-                    lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
-                    noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
-                    proto:    '> guest profile saved. you have a home here now.'
-                };
-                if (INTRO_FOLLOWUP[charKey]) line = INTRO_FOLLOWUP[charKey];
-            }
-        } catch (_) {}
+        // Jul 2026 playtest fix (v2) — the intro-continuation line must be
+        // resolved AT FIRE TIME, not here: showGreeting runs at T+1.5s while
+        // the character intro is often still playing, and the intro only
+        // sets pp_intro_just_done at its fade-out. Resolving early meant the
+        // pool line ("Oh. You came.") always won the race. resolveLine() is
+        // called inside tryFire, after every defer has cleared.
+        const INTRO_FOLLOWUP = {
+            alistair: 'The chair by the window is yours now. I had it moved nearer the fire.',
+            elian:    'The fire knows you now. Sit where you like.',
+            lyra:     'You stayed past the song. Most never do.',
+            caspian:  'I will have tea brought up. Take the seat by the balcony.',
+            lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
+            noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
+            proto:    '> guest profile saved. you have a home here now.'
+        };
+        const resolveLine = () => {
+            try {
+                if (sessionStorage.getItem('pp_intro_just_done') === charKey && INTRO_FOLLOWUP[charKey]) {
+                    sessionStorage.removeItem('pp_intro_just_done');
+                    return INTRO_FOLLOWUP[charKey];
+                }
+            } catch (_) {}
+            return pick(lines);
+        };
 
         // Mark seen now so we don't double-fire if the retry path runs.
         markGreetingShown(tod);
@@ -343,7 +345,7 @@
                 }
                 return;
             }
-            tw && tw.show(line, () => {});
+            tw && tw.show(resolveLine(), () => {});
         };
 
         // T+1.5s. Earlier than the old 2s window; gives the greeting first

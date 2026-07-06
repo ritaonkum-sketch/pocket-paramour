@@ -285,6 +285,18 @@ class TypewriterEffect {
         if (typeof window._game?._resolveProtoDialogue === 'function' && window._game?.selectedCharacter === 'proto') {
             rawText = window._game._resolveProtoDialogue(rawText);
         }
+        // ── *Stage directions* (Jul 2026 playtest fix) ────────────────────
+        // The care bubble renders plain text, so authored *asterisk* beats
+        // ("*Pause.*", "*her voice catches, half a note*") printed literally
+        // with the asterisks. Per the owner's v957 convention: pure TIMING
+        // beats become an ellipsis; DESCRIBED actions keep their words in
+        // classic parenthetical stage style. (MSCard chapters have their own
+        // italic renderer — this only affects the care-screen typewriter.)
+        rawText = rawText.replace(/\*([^*\n]{1,80})\*/g, function (_, inner) {
+            const t = inner.trim().replace(/\.$/, '').toLowerCase();
+            if (/^(a )?(long |short |brief |half a )?(pause|beat|silence|quiet|breath)$/.test(t)) return '...';
+            return '(' + inner.trim().replace(/\.$/, '') + ')';
+        });
         let cleanText = '';
         let i = 0;
 

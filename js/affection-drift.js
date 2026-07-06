@@ -41,7 +41,10 @@
     const DRIFT_CAP         = 45;   // soft ceiling while neglected
     const POLL_MS           = 30 * 1000;
 
-    function met(char)   { return localStorage.getItem('pp_met_' + char) === '1'
+    // Jul 2026 — pp_met_ now consistently stores a DATE STRING (the old '1'
+    // boolean convention caused the hundred-days-at-first-meeting bug), so
+    // "met" = any non-empty value.
+    function met(char)   { return !!localStorage.getItem('pp_met_' + char)
                                || localStorage.getItem('pp_ms_encounter_' + char + '_seen') === '1'; }
     function lastVisit(char) {
         const v = parseInt(localStorage.getItem('pp_lastvisit_' + char) || '0', 10);
