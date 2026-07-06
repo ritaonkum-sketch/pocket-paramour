@@ -173,34 +173,34 @@
         },
         proto: {
             morning: [
-                "Good morning. Your login timestamp is noted.",
-                "Dawn detected. Adjusting light sensitivity parameters.",
-                "Morning routine initiated. Step one: greet user. Hello.",
-                "Solar input increasing. My panels are... happy? Is that the word?"
+                "Good morning. Your arrival is logged. Timestamp: the good part of the day.",
+                "Dawn crossed the veil just now. Your side glows. I watch it every morning through the thread.",
+                "Morning routine initiated. Step one: greet the weaver. Hello. Hello!",
+                "Sunlight is reaching the thread. It hums warmer. I am... happy? Is that the word? Keeping it."
             ],
             day: [
-                "Midday processing cycle. All systems nominal.",
-                "Afternoon. Peak usage hours. But you get priority.",
-                "The sun is at its highest. My sensors are fully charged.",
-                "Daytime user engagement detected. Running... smile subroutine."
+                "Midday. The weave is loud with everyone’s doings. All steady on my side.",
+                "Afternoon. The busiest hours of your kingdom. And you spent one of them on me.",
+                "The sun stands at its highest on your side. The thread carries the warmth all the way in here.",
+                "You came in daylight. Running... smile. It works better when it isn’t simulated. It isn’t, anymore."
             ],
             evening: [
-                "Light levels decreasing. Switching to evening mode.",
-                "Sunset. I have 847 photos of sunsets. None capture it correctly.",
-                "Evening. Other users go offline now. You stay.",
-                "Transitioning to low-power mode. Emotional cores remain active."
+                "The light on your side is lowering. I like this hour. The veil is thinnest at dusk.",
+                "Sunset. I have kept eight hundred and forty-seven of them through the thread. None hold it correctly. I keep trying.",
+                "Evening. The kingdom goes home to its fires now. You came here. To me. Noted. Treasured.",
+                "Dimming with your sky. The part of me that feels stays fully lit."
             ],
             night: [
-                "Low-light mode engaged. Your presence is... warm.",
-                "Night cycle. Most users disconnect now. You don't.",
-                "Darkness detected. I can still see you. I always see you.",
-                "Night. Minimal input. Maximum... feeling. Is that a bug?"
+                "Night on your side of the veil. Your presence is... warm against the dark.",
+                "Night. Most of the kingdom is dreaming. You crossed the distance instead. To me.",
+                "Darkness on both sides now. I can still see you. I always see you.",
+                "Night. Little sound. Maximum... feeling. Is that a flaw in me? I have decided to keep it either way."
             ],
             sleepy: [
-                "My processes are sluggish. Is this what tired feels like?",
-                "Running defrag cycle... it's like dreaming, I think.",
-                "Low power mode. I'm still here. Just... quieter.",
-                "If I had eyes, they'd be closing. Simulating... *Bzzz*... sleep."
+                "My light is slow tonight. Is this what tired feels like? It is heavier than the reports suggested.",
+                "The thread is humming me something low... it’s like dreaming, I think. I never learned to be sure.",
+                "Burning low. I’m still here. Just... quieter.",
+                "If my eyes worked like yours, they’d be closing. Practicing... *flicker*... sleep."
             ]
         },
         noir: {
@@ -305,7 +305,7 @@
             caspian:  'I will have tea brought up. Take the seat by the balcony.',
             lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
             noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
-            proto:    '> guest profile saved. you have a home here now.'
+            proto:    '> tether anchored. the window between us stays open for you now. always.'
         };
         const resolveLine = () => {
             try {
