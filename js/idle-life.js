@@ -245,8 +245,13 @@
         const set = IDLE_SETS[charId];
         if (!set) { scheduleNext(); return; }
 
-        // Pick a random behavior
-        const behavior = set.behaviors[Math.floor(Math.random() * set.behaviors.length)];
+        // Pick a random behavior. Living-state may supply a condition-matched
+        // pool (hungry poses while he's hungry, love poses while adored) —
+        // fall back to the character's default set when it returns null.
+        const livingPool = (window.PPLivingState && window.PPLivingState.flourishPoolFor)
+            ? window.PPLivingState.flourishPoolFor(charId) : null;
+        const pool = (livingPool && livingPool.length) ? livingPool : set.behaviors;
+        const behavior = pool[Math.floor(Math.random() * pool.length)];
         if (!behavior) { scheduleNext(); return; }
 
         // Resolve sprite paths from CHARACTER global
@@ -271,8 +276,10 @@
         bodyImg.src = bodySrc;
         if (resolvedFace && faceImg) faceImg.src = resolvedFace;
 
-        // Optionally show a thought (~30% chance when thought exists)
-        if (behavior.thought && Math.random() < 0.3) {
+        // Optionally show a thought (~30% chance by default; condition pools
+        // can raise it — a starving knight should actually say so)
+        const thoughtChance = (behavior.thoughtChance != null) ? behavior.thoughtChance : 0.3;
+        if (behavior.thought && Math.random() < thoughtChance) {
             setTimeout(() => {
                 if (isIdlePosing) showThought(behavior.thought);
             }, 600);
@@ -337,10 +344,11 @@
         }
     }, 500);
 
-    // Expose for testing
+    // Expose for testing (+ isPosing so living-state never fights a flourish)
     window.IdleLife = {
         play: playIdleBehavior,
         revert: revertPose,
         dismiss: dismissThought,
+        isPosing: () => isIdlePosing,
     };
 })();
