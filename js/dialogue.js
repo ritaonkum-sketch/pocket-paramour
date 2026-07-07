@@ -533,7 +533,7 @@ class DialogueSystem {
                     : n === "Elian"
                     ? ["You asked if I was hurt. My hands went still for a second.", "Nobody usually asks. You did, and you meant it.", "I’ve been thinking about that. you checking, like it was the most natural thing."]
                     : n === "Proto"
-                    ? ["Query: are you hurt. Your concern registered as anomalous. I have not stopped processing it.", "You asked if I was functioning correctly. I think you meant something else. I think I understood.", "Concern detected. Origin: you. Still calculating what to do with that data."]
+                    ? ["You asked if I was hurt. Nobody asks the glitch that. I have not stopped turning it over.", "You asked if I was holding together. I think you meant something gentler. I think I understood.", "You were worried. About me. I am still deciding where to keep that. Somewhere near the front."]
                     : ["You asked if I was hurt. I remember how that felt. being asked.", "That question stayed with me longer than I expected.", "You checked on me. I haven’t forgotten."];
                 return this._random(pool);
             }
@@ -952,6 +952,27 @@ class DialogueSystem {
         // NEGLECT CHECK (more than 30 seconds since last action)
         if (s.lastInteractionTime > 0 && (Date.now() - s.lastInteractionTime) > 30000) {
             return this._pickFresh(CHARACTER.stateDialogue.neglected, this.state);
+        }
+
+        // ── LIVING LOVER · Pillar 4 — the ritual deepens ──────────────
+        // At affection 2+ the same care actions earn closer lines; at 4+
+        // they are a lover's. Sits ABOVE the reminiscing + generic flavour
+        // pools (intimacy outranks filler) but BELOW corruption, milestone,
+        // reunion and neglect logic (states of emergency keep the mic).
+        // Urgent-need guard so a starving reaction still wins. 60% mix-in
+        // so the older pools keep breathing. (Data: js/living-pools.js)
+        if (!(s.hunger < 25 || s.clean < 25)) {
+            const _lp = window.PP_LIVING_POOLS && window.PP_LIVING_POOLS[s.selectedCharacter];
+            const _tiers = _lp && _lp.careTiers && _lp.careTiers[action];
+            if (_tiers) {
+                const _lvl = s.affectionLevel || 0;
+                let _tierPool = null;
+                if (_lvl >= 4 && _tiers[4]) _tierPool = _tiers[4].concat(_tiers[2] || []);
+                else if (_lvl >= 2 && _tiers[2]) _tierPool = _tiers[2];
+                if (_tierPool && _tierPool.length && Math.random() < 0.6) {
+                    return this._pickFresh(_tierPool, this.state);
+                }
+            }
         }
 
         // MEMORY-BASED (after enough interactions)
