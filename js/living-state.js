@@ -156,34 +156,24 @@
         return true;
     }
 
-    // ── Soft pose swap — a 150ms breath-out/in instead of a hard cut ────
-    // Shared with idle-life (window.PPSoftSwap) so every idle pose change
-    // on the care screen blends. Actions/scenes keep their instant swaps —
-    // a sword-swing SHOULD snap.
+    // ── Pose swap — gapless (owner Jul 2026) ────────────────────────────
+    // The old opacity fade-out/in left the sprite BLANK for ~160ms between
+    // poses. Fixed by PRE-DECODING the next PNG and only swapping once it is
+    // ready, so the old pose holds until the new one can paint the same
+    // frame — no blank, no fade, no pop. Shared with idle-life via
+    // window.PPSoftSwap.
     function softSwap(img, src) {
         if (!img || !src) return;
         if (img.getAttribute('src') === src) return;
         try {
-            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduce || off()) { img.src = src; return; }
-        } catch (_) { img.src = src; return; }
-        if (img._ppSwapping) { img.src = src; return; }  // mid-fade: just take newest
-        img._ppSwapping = true;
-        var prevTransition = img.style.transition;
-        img.style.transition = 'opacity 150ms ease';
-        img.style.opacity = '0';
-        setTimeout(function () {
+            var pre = new Image();
+            pre.onload = function () { try { if (img && document.contains(img)) img.src = src; } catch (_) {} };
+            pre.onerror = function () { try { img.src = src; } catch (_) {} };
+            pre.src = src;
+            if (pre.complete && pre.naturalWidth) img.src = src;   // already cached → instant
+        } catch (_) {
             img.src = src;
-            requestAnimationFrame(function () {
-                setTimeout(function () {
-                    img.style.opacity = '';
-                    setTimeout(function () {
-                        img.style.transition = prevTransition;
-                        img._ppSwapping = false;
-                    }, 170);
-                }, 30);
-            });
-        }, 160);
+        }
     }
     window.PPSoftSwap = softSwap;
 

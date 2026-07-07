@@ -1691,94 +1691,24 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
      --mo-sway-x / --mo-tilt / --mo-dur  (weight-shift reach + period)
      --mo-base-x                  (elian's baked centering offset)     */
 
-/* BREATH with squash-and-stretch (the #1 principle that makes a drawing
-   read as ALIVE, not zoomed). Feet-anchored. Inhale: the body rises and
-   lengthens (taller + a touch narrower). Exhale: settles back through a
-   small squash overshoot (shorter + a touch wider) before rest. This
-   owns the VERTICAL axis only, so it never fights the weight-shift. */
-@keyframes ppmo-breathe {
-    0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); }
-    42%      { transform: translateY(var(--mo-breathe-y, -6px))
-                          scaleY(var(--mo-breathe-scale, 1.024))
-                          scaleX(var(--mo-breathe-sqz, 0.992)); }   /* inhale — stretch up */
-    66%      { transform: translateY(calc(var(--mo-breathe-y, -6px) * 0.22))
-                          scaleY(0.994) scaleX(1.005); }            /* exhale — squash settle */
-}
-/* WEIGHT-SHIFT — he stands on one leg, settles his weight onto that hip
-   (the knee-bend dip = scaleY down + scaleX out + a hair lower), drifts
-   back through centre, leans onto the other leg. Uneven stops on purpose:
-   a metronome reads mechanical; a living body pauses on each hip. Owns
-   the HORIZONTAL axis + the knee-bend squash. */
-@keyframes ppmo-life {
-    0%   { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scaleY(1) scaleX(1); }
-    19%  { transform: translateX(calc(var(--mo-base-x, 0px) - var(--mo-sway-x, 7px)))
-                      rotate(calc(var(--mo-tilt, 1deg) * -1)) scaleY(1) scaleX(1); }
-    30%  { transform: translateX(calc(var(--mo-base-x, 0px) - var(--mo-sway-x, 7px) * 0.86)) translateY(1px)
-                      rotate(calc(var(--mo-tilt, 1deg) * -0.72)) scaleY(0.986) scaleX(1.01); }   /* settle onto left hip */
-    50%  { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scaleY(1) scaleX(1); }
-    77%  { transform: translateX(calc(var(--mo-base-x, 0px) + var(--mo-sway-x, 7px)))
-                      rotate(var(--mo-tilt, 1deg)) scaleY(1) scaleX(1); }
-    88%  { transform: translateX(calc(var(--mo-base-x, 0px) + var(--mo-sway-x, 7px) * 0.86)) translateY(1px)
-                      rotate(calc(var(--mo-tilt, 1deg) * 0.72)) scaleY(0.986) scaleX(1.01); }    /* settle onto right hip */
-    100% { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scaleY(1) scaleX(1); }
-}
-
+/* IDLE MOTION REMOVED (owner, Jul 2026): the squash-and-stretch pass read
+   as FLOATING (translateY lifted him off the ground) and STRETCHING
+   (scaleX/scaleY squash), not breathing. The character now rests grounded
+   and still. These rules override the legacy per-character idle rules
+   above (breathe + pp-idle-sway/lyraSway/pp-proto-idle/pp-noir-idle) by
+   specificity, and win over care-ambiance (which no longer sets transform).
+   Elian keeps only his art-centering offset. Combat fight classes carry
+   higher specificity + !important, so training still animates. */
 body.pp-screen-care #character-fullbody {
-    transform-origin: 50% 100%;
-    animation: ppmo-breathe var(--mo-breathe-dur, 4.2s) ease-in-out infinite;
+    animation: none;
+    transform: none;
 }
-body.pp-screen-care #game-container[class*="character-"] #character-body-img {
-    transform-origin: 50% 100%;
-    animation: ppmo-life var(--mo-dur, 10s) ease-in-out infinite;
+body.pp-screen-care #character-body-img {
+    animation: none;
+    transform: none;
 }
-
-/* Per-character motion personalities. Bolder than the v992 first pass —
-   the amplitudes are now meant to READ as a living idle, not hide. Tune
-   any single character here in seconds. */
-body.pp-screen-care .character-alistair {
-    --mo-breathe-scale: 1.024; --mo-breathe-sqz: 0.992; --mo-breathe-y: -6px; --mo-breathe-dur: 4s;
-    --mo-sway-x: 7px; --mo-tilt: 1deg; --mo-dur: 9s;
-}
-body.pp-screen-care .character-lyra {
-    --mo-breathe-scale: 1.03; --mo-breathe-sqz: 0.987; --mo-breathe-y: -8px; --mo-breathe-dur: 3.4s;  /* buoyant, tidal */
-    --mo-sway-x: 9px; --mo-tilt: 1.4deg; --mo-dur: 7s;
-}
-body.pp-screen-care .character-caspian {
-    --mo-breathe-scale: 1.02; --mo-breathe-sqz: 0.993; --mo-breathe-y: -5px; --mo-breathe-dur: 4.4s;  /* composed, court-trained */
-    --mo-sway-x: 6px; --mo-tilt: 0.9deg; --mo-dur: 10s;
-}
-body.pp-screen-care .character-elian {
-    --mo-breathe-scale: 1.017; --mo-breathe-sqz: 0.995; --mo-breathe-y: -4px; --mo-breathe-dur: 5s;   /* deep + slow, old tree */
-    --mo-sway-x: 3px; --mo-tilt: 0.5deg; --mo-dur: 12s;                       /* stoic: shifts little, but breathes */
-    --mo-base-x: 5%;                                    /* head-left art centering (owner fix, Aug 2026) */
-}
-body.pp-screen-care .character-lucien {
-    --mo-breathe-scale: 1.021; --mo-breathe-sqz: 0.993; --mo-breathe-y: -5px; --mo-breathe-dur: 4.2s;
-    --mo-sway-x: 6px; --mo-tilt: 0.9deg; --mo-dur: 9s;
-}
-body.pp-screen-care .character-noir {
-    --mo-breathe-scale: 1.02; --mo-breathe-sqz: 0.992; --mo-breathe-y: -5px; --mo-breathe-dur: 5.4s;  /* six centuries of calm */
-    --mo-sway-x: 7px; --mo-tilt: 1.1deg; --mo-dur: 12s;
-}
-body.pp-screen-care .character-proto {
-    --mo-breathe-scale: 1.028; --mo-breathe-sqz: 0.99; --mo-breathe-y: -6px; --mo-breathe-dur: 3s;    /* quick, eager */
-    --mo-sway-x: 5px; --mo-tilt: 0.8deg; --mo-dur: 6s;
-}
-/* Signature accents ride ALONGSIDE the life cycle (comma-joined) */
-body.pp-screen-care .character-proto #character-body-img {
-    animation: ppmo-life var(--mo-dur, 7s) ease-in-out infinite,
-               pp-proto-idle 2s ease-in-out infinite;             /* his glitch flicker */
-}
-body.pp-screen-care .character-noir #character-body-img {
-    animation: ppmo-life var(--mo-dur, 13s) ease-in-out infinite,
-               pp-noir-idle 8s ease-in-out infinite;              /* the gathering shadow */
-}
-
-@media (prefers-reduced-motion: reduce) {
-    body.pp-screen-care #character-fullbody,
-    body.pp-screen-care #game-container[class*="character-"] #character-body-img {
-        animation: none;
-    }
+body.pp-screen-care .character-elian #character-body-img {
+    transform: translateX(5%);   /* head-left art centering (owner fix, Aug 2026) */
 }
 
 #character-fullbody.bounce {
