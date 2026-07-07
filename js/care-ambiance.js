@@ -47,16 +47,11 @@
     ].join(',');
 
     var CSS = [
-        LIVE_SEL_FB + '{transform-origin:50% 100%;animation:ppca-breathe 4.8s ease-in-out infinite;}',
-        '@keyframes ppca-breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.016);}}',
-        LIVE_SEL_IMG + '{transform-origin:50% 100%;animation:ppca-weight 11s ease-in-out infinite;}',
-        '@keyframes ppca-weight{',
-        '  0%{transform:translateX(0) rotate(0deg);}',
-        '  25%{transform:translateX(-3px) rotate(-0.6deg);}',
-        '  50%{transform:translateX(0) rotate(0deg);}',
-        '  75%{transform:translateX(3px) rotate(0.6deg);}',
-        '  100%{transform:translateX(0) rotate(0deg);}',
-        '}',
+        // ppca-breathe / ppca-weight RETIRED (Jul 2026) — LIVING MOTION v2 in
+        // style.css is now the single owner of care-screen breath + weight
+        // (these two used to lose the specificity war anyway, which is why
+        // the care screen read as motionless). This module keeps what it
+        // does best: the per-character rim-glow and the drifting dust.
         // Per-character glow tint (custom prop set on #game-container.character-*,
         // inherits down to the glow div inside #character-area).
         '.character-alistair{--ppca-glow:255,198,112;}',   // warm gold/steel

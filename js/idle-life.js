@@ -272,8 +272,9 @@
         savedFaceSrc = faceImg ? faceImg.getAttribute('src') : null;
         isIdlePosing = true;
 
-        // Swap to idle pose
-        bodyImg.src = bodySrc;
+        // Swap to idle pose — soft cross-fade when living-state provides it
+        if (window.PPSoftSwap) window.PPSoftSwap(bodyImg, bodySrc);
+        else bodyImg.src = bodySrc;
         if (resolvedFace && faceImg) faceImg.src = resolvedFace;
 
         // Optionally show a thought (~30% chance by default; condition pools
@@ -299,7 +300,10 @@
 
         const bodyImg = document.getElementById('character-body-img');
         const faceImg = document.getElementById('character-face-img');
-        if (bodyImg && savedBodySrc) bodyImg.src = savedBodySrc;
+        if (bodyImg && savedBodySrc) {
+            if (window.PPSoftSwap) window.PPSoftSwap(bodyImg, savedBodySrc);
+            else bodyImg.src = savedBodySrc;
+        }
         if (faceImg && savedFaceSrc) faceImg.src = savedFaceSrc;
         savedBodySrc = null;
         savedFaceSrc = null;

@@ -156,6 +156,37 @@
         return true;
     }
 
+    // ── Soft pose swap — a 150ms breath-out/in instead of a hard cut ────
+    // Shared with idle-life (window.PPSoftSwap) so every idle pose change
+    // on the care screen blends. Actions/scenes keep their instant swaps —
+    // a sword-swing SHOULD snap.
+    function softSwap(img, src) {
+        if (!img || !src) return;
+        if (img.getAttribute('src') === src) return;
+        try {
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || off()) { img.src = src; return; }
+        } catch (_) { img.src = src; return; }
+        if (img._ppSwapping) { img.src = src; return; }  // mid-fade: just take newest
+        img._ppSwapping = true;
+        var prevTransition = img.style.transition;
+        img.style.transition = 'opacity 150ms ease';
+        img.style.opacity = '0';
+        setTimeout(function () {
+            img.src = src;
+            requestAnimationFrame(function () {
+                setTimeout(function () {
+                    img.style.opacity = '';
+                    setTimeout(function () {
+                        img.style.transition = prevTransition;
+                        img._ppSwapping = false;
+                    }, 170);
+                }, 30);
+            });
+        }, 160);
+    }
+    window.PPSoftSwap = softSwap;
+
     // ── Sprite resolution (bodySprites key → fallback to real filename) ─
     function resolve(charId, entry) {
         if (typeof CHARACTER === 'undefined' || !CHARACTER) return null;
@@ -198,7 +229,7 @@
         var bodyImg = document.getElementById('character-body-img');
         var faceImg = document.getElementById('character-face-img');
         if (!bodyImg) return;
-        if (bodyImg.getAttribute('src') !== target.body) bodyImg.src = target.body;
+        softSwap(bodyImg, target.body);
         if (target.face && faceImg && faceImg.getAttribute('src') !== target.face) faceImg.src = target.face;
     }
 
