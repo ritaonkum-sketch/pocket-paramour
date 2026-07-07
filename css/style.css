@@ -1691,19 +1691,36 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
      --mo-sway-x / --mo-tilt / --mo-dur  (weight-shift reach + period)
      --mo-base-x                  (elian's baked centering offset)     */
 
+/* BREATH with squash-and-stretch (the #1 principle that makes a drawing
+   read as ALIVE, not zoomed). Feet-anchored. Inhale: the body rises and
+   lengthens (taller + a touch narrower). Exhale: settles back through a
+   small squash overshoot (shorter + a touch wider) before rest. This
+   owns the VERTICAL axis only, so it never fights the weight-shift. */
 @keyframes ppmo-breathe {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50%      { transform: translateY(var(--mo-breathe-y, -4px)) scale(var(--mo-breathe-scale, 1.014)); }
+    0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); }
+    42%      { transform: translateY(var(--mo-breathe-y, -6px))
+                          scaleY(var(--mo-breathe-scale, 1.024))
+                          scaleX(var(--mo-breathe-sqz, 0.992)); }   /* inhale — stretch up */
+    66%      { transform: translateY(calc(var(--mo-breathe-y, -6px) * 0.22))
+                          scaleY(0.994) scaleX(1.005); }            /* exhale — squash settle */
 }
-/* Uneven stops on purpose — a metronome reads mechanical; a body pauses,
-   settles its weight (the 41% dip), drifts back, leans the other way. */
+/* WEIGHT-SHIFT — he stands on one leg, settles his weight onto that hip
+   (the knee-bend dip = scaleY down + scaleX out + a hair lower), drifts
+   back through centre, leans onto the other leg. Uneven stops on purpose:
+   a metronome reads mechanical; a living body pauses on each hip. Owns
+   the HORIZONTAL axis + the knee-bend squash. */
 @keyframes ppmo-life {
-    0%   { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scale(1); }
-    22%  { transform: translateX(calc(var(--mo-base-x, 0px) - var(--mo-sway-x, 5px))) rotate(calc(var(--mo-tilt, 0.8deg) * -1)) scale(1); }
-    41%  { transform: translateX(calc(var(--mo-base-x, 0px) - var(--mo-sway-x, 5px) * 0.45)) rotate(calc(var(--mo-tilt, 0.8deg) * -0.3)) scale(0.997); }
-    58%  { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scale(1); }
-    79%  { transform: translateX(calc(var(--mo-base-x, 0px) + var(--mo-sway-x, 5px))) rotate(var(--mo-tilt, 0.8deg)) scale(1); }
-    100% { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scale(1); }
+    0%   { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scaleY(1) scaleX(1); }
+    19%  { transform: translateX(calc(var(--mo-base-x, 0px) - var(--mo-sway-x, 7px)))
+                      rotate(calc(var(--mo-tilt, 1deg) * -1)) scaleY(1) scaleX(1); }
+    30%  { transform: translateX(calc(var(--mo-base-x, 0px) - var(--mo-sway-x, 7px) * 0.86)) translateY(1px)
+                      rotate(calc(var(--mo-tilt, 1deg) * -0.72)) scaleY(0.986) scaleX(1.01); }   /* settle onto left hip */
+    50%  { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scaleY(1) scaleX(1); }
+    77%  { transform: translateX(calc(var(--mo-base-x, 0px) + var(--mo-sway-x, 7px)))
+                      rotate(var(--mo-tilt, 1deg)) scaleY(1) scaleX(1); }
+    88%  { transform: translateX(calc(var(--mo-base-x, 0px) + var(--mo-sway-x, 7px) * 0.86)) translateY(1px)
+                      rotate(calc(var(--mo-tilt, 1deg) * 0.72)) scaleY(0.986) scaleX(1.01); }    /* settle onto right hip */
+    100% { transform: translateX(var(--mo-base-x, 0px)) rotate(0deg) scaleY(1) scaleX(1); }
 }
 
 body.pp-screen-care #character-fullbody {
@@ -1715,35 +1732,37 @@ body.pp-screen-care #game-container[class*="character-"] #character-body-img {
     animation: ppmo-life var(--mo-dur, 10s) ease-in-out infinite;
 }
 
-/* Per-character motion personalities */
+/* Per-character motion personalities. Bolder than the v992 first pass —
+   the amplitudes are now meant to READ as a living idle, not hide. Tune
+   any single character here in seconds. */
 body.pp-screen-care .character-alistair {
-    --mo-breathe-scale: 1.014; --mo-breathe-y: -4px; --mo-breathe-dur: 4.2s;
-    --mo-sway-x: 5px; --mo-tilt: 0.8deg; --mo-dur: 10s;
+    --mo-breathe-scale: 1.024; --mo-breathe-sqz: 0.992; --mo-breathe-y: -6px; --mo-breathe-dur: 4s;
+    --mo-sway-x: 7px; --mo-tilt: 1deg; --mo-dur: 9s;
 }
 body.pp-screen-care .character-lyra {
-    --mo-breathe-scale: 1.016; --mo-breathe-y: -5px; --mo-breathe-dur: 3.6s;  /* buoyant, tidal */
-    --mo-sway-x: 6px; --mo-tilt: 1deg; --mo-dur: 8s;
+    --mo-breathe-scale: 1.03; --mo-breathe-sqz: 0.987; --mo-breathe-y: -8px; --mo-breathe-dur: 3.4s;  /* buoyant, tidal */
+    --mo-sway-x: 9px; --mo-tilt: 1.4deg; --mo-dur: 7s;
 }
 body.pp-screen-care .character-caspian {
-    --mo-breathe-scale: 1.012; --mo-breathe-y: -3px; --mo-breathe-dur: 4.6s;  /* composed, court-trained */
-    --mo-sway-x: 4px; --mo-tilt: 0.7deg; --mo-dur: 11s;
+    --mo-breathe-scale: 1.02; --mo-breathe-sqz: 0.993; --mo-breathe-y: -5px; --mo-breathe-dur: 4.4s;  /* composed, court-trained */
+    --mo-sway-x: 6px; --mo-tilt: 0.9deg; --mo-dur: 10s;
 }
 body.pp-screen-care .character-elian {
-    --mo-breathe-scale: 1.012; --mo-breathe-y: -3px; --mo-breathe-dur: 5.4s;  /* deep and slow, old tree */
-    --mo-sway-x: 1.5px; --mo-tilt: 0.2deg; --mo-dur: 14s;                     /* stoic: barely shifts */
+    --mo-breathe-scale: 1.017; --mo-breathe-sqz: 0.995; --mo-breathe-y: -4px; --mo-breathe-dur: 5s;   /* deep + slow, old tree */
+    --mo-sway-x: 3px; --mo-tilt: 0.5deg; --mo-dur: 12s;                       /* stoic: shifts little, but breathes */
     --mo-base-x: 5%;                                    /* head-left art centering (owner fix, Aug 2026) */
 }
 body.pp-screen-care .character-lucien {
-    --mo-breathe-scale: 1.013; --mo-breathe-y: -3.5px; --mo-breathe-dur: 4.4s;
-    --mo-sway-x: 4px; --mo-tilt: 0.8deg; --mo-dur: 9.5s;
+    --mo-breathe-scale: 1.021; --mo-breathe-sqz: 0.993; --mo-breathe-y: -5px; --mo-breathe-dur: 4.2s;
+    --mo-sway-x: 6px; --mo-tilt: 0.9deg; --mo-dur: 9s;
 }
 body.pp-screen-care .character-noir {
-    --mo-breathe-scale: 1.012; --mo-breathe-y: -3px; --mo-breathe-dur: 6s;    /* six centuries of calm */
-    --mo-sway-x: 5px; --mo-tilt: 0.9deg; --mo-dur: 13s;
+    --mo-breathe-scale: 1.02; --mo-breathe-sqz: 0.992; --mo-breathe-y: -5px; --mo-breathe-dur: 5.4s;  /* six centuries of calm */
+    --mo-sway-x: 7px; --mo-tilt: 1.1deg; --mo-dur: 12s;
 }
 body.pp-screen-care .character-proto {
-    --mo-breathe-scale: 1.015; --mo-breathe-y: -4px; --mo-breathe-dur: 3.2s;  /* quick, eager */
-    --mo-sway-x: 3px; --mo-tilt: 0.5deg; --mo-dur: 7s;
+    --mo-breathe-scale: 1.028; --mo-breathe-sqz: 0.99; --mo-breathe-y: -6px; --mo-breathe-dur: 3s;    /* quick, eager */
+    --mo-sway-x: 5px; --mo-tilt: 0.8deg; --mo-dur: 6s;
 }
 /* Signature accents ride ALONGSIDE the life cycle (comma-joined) */
 body.pp-screen-care .character-proto #character-body-img {
