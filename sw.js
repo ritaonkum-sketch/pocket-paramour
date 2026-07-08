@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v995';
+const CACHE_NAME = 'pocket-love-v996';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
