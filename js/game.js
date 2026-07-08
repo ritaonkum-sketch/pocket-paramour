@@ -599,6 +599,13 @@ class PocketLoveGame {
         // Character must be set before load() is called in init()
         this.selectedCharacter = characterId || 'alistair';
 
+        // STRANGER-RULE fix (owner Jul 2026): the "STRANGER" speaker mask is a
+        // main-story first-meeting device. Once you are on a companion's CARE
+        // route the whole UI names him, so any care-side MSCard scene (affection
+        // scene, turning point, scheduled moment) must show his real name — not
+        // "STRANGER". Loading his care game means you know him: mark introduced.
+        try { localStorage.setItem('pp_introduced_' + this.selectedCharacter, '1'); } catch (_) {}
+
         // Stats
         this.hunger = 100;
         this.clean = 100;

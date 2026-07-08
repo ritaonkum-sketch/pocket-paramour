@@ -770,6 +770,12 @@
         _playing = true;
         _mountedFor = charId;
         markSeen(charId, t.key);
+        // STRANGER-RULE fix (owner Jul 2026): inside a care-route scene the
+        // player is deep in this companion's route and the whole care UI
+        // already names him — masking his speaker label to "STRANGER" (the
+        // main-story first-meeting device) is wrong here. Mark him introduced
+        // so his affection scenes show his real name.
+        try { localStorage.setItem('pp_introduced_' + charId, '1'); } catch (_) {}
         window.MSCard.show(scene, () => { _playing = false; _mountedFor = null; });
         return;
       }
