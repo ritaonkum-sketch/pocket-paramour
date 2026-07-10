@@ -1819,13 +1819,10 @@ class PocketLoveGame {
             // Lyra reacts to being spammed — she notices the rush and doesn't like it
             if (CHARACTER.name === 'Lyra' && !this.sceneActive) {
                 const spamLines = [
-                    "You're rushing.",
-                    "...slow down.",
+                    "You're rushing. Slow down.",
                     "You don't have to press everything.",
-                    "Stop.",
-                    "...not everything at once.",
-                    "I'm not going anywhere.",
-                    "...you don't have to do all of this."
+                    "Stop. Not everything at once.",
+                    "I'm not going anywhere. You don't have to do all of this."
                 ];
                 setTimeout(() => this.typewriter.show(
                     spamLines[Math.floor(Math.random() * spamLines.length)]

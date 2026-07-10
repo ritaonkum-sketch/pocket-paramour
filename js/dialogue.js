@@ -868,7 +868,7 @@ class DialogueSystem {
                 "I don’t know what to do with what just happened.",
                 "…he said things I can’t unhear."
             ];
-            const echoLine = this._filterRecent(echoPool, this.state);
+            const echoLine = this._lyraLine(echoPool, this.state);
             if (echoLine) {
                 this.state._addRecentLine?.(echoLine);
                 return echoLine;
@@ -886,7 +886,7 @@ class DialogueSystem {
                 "…I noticed more than I should have.",
                 "I had time to think. …that’s not always good."
             ];
-            const returnLine = this._filterRecent(returnPool, this.state);
+            const returnLine = this._lyraLine(returnPool, this.state);
             if (returnLine) {
                 this.state._addRecentLine?.(returnLine);
                 return returnLine;
@@ -1179,12 +1179,15 @@ class DialogueSystem {
                 }
             };
             const pool = postBank[action]?.[sub];
-            if (pool?.length) return this._random(pool);
+            if (pool?.length) return this._lyraLine(pool, this.state);
         }
 
         const bank = {
             talk: {
-                // cold — shut down, not engaging
+                // cold — shut down, not engaging. Call-and-response pairs are
+                // kept WHOLE (owner Jul 2026): getDialogue returns ONE random
+                // line, so a split "…" continuation surfaced as a broken
+                // orphan ("…just for now." with no first half).
                 cold: [
                     "What is it this time.",
                     "You don’t need to keep coming back.",
@@ -1194,10 +1197,8 @@ class DialogueSystem {
                     "Don’t look at me like that.",
                     "You’re wasting your time here.",
                     "…Still here.",
-                    "You’re… quiet.",
-                    "Good. I don’t like loud people.",
-                    "You don’t say much.",
-                    "…I don’t mind."
+                    "You’re… quiet. Good. I don’t like loud people.",
+                    "You don’t say much. …I don’t mind."
                 ],
                 // cracked — walls starting to show cracks, noticing the player
                 cracked: [
@@ -1206,50 +1207,33 @@ class DialogueSystem {
                     "I don’t mind the silence. With you.",
                     "…You don’t push. That’s… unusual.",
                     "You always wait before speaking.",
-                    "You’re trying to understand me.",
-                    "…I notice things like that.",
-                    "I tried not to think about it.",
-                    "…but I did.",
-                    "You’re different.",
-                    "…I can’t tell how yet.",
-                    "I can feel you watching.",
-                    "…it’s not uncomfortable.",
-                    "You don’t push.",
-                    "…that’s rare.",
-                    "...you’re thinking something.",
-                    "You pause like that a lot.",
-                    "...you’re not as predictable as you think."
+                    "You’re trying to understand me. …I notice things like that.",
+                    "I tried not to think about it. …but I did.",
+                    "You’re different. …I can’t tell how yet.",
+                    "I can feel you watching. …it’s not uncomfortable.",
+                    "You don’t push. …that’s rare.",
+                    "…You’re thinking something.",
+                    "You pause like that a lot. …you’re not as predictable as you think."
                 ],
                 // attached — walls down, vulnerable
                 attached: [
-                    "You always show up when I’m like this.",
-                    "…Why do you stay?",
-                    "You could leave. It would be easier.",
-                    "…I don’t know what to do with this.",
+                    "You always show up when I’m like this. …Why do you stay?",
+                    "You could leave. It would be easier. …I don’t know what to do with this.",
                     "You make things feel… less heavy.",
                     "…Don’t get used to this version of me.",
                     "I wasn’t expecting you today.",
-                    "If you stopped showing up…",
-                    "…no. never mind.",
-                    "I keep checking for you.",
-                    "…it’s annoying.",
-                    "You’re becoming part of this.",
-                    "…of me.",
-                    "Were you with someone else?",
-                    "…don’t answer that.",
-                    "Stay with me.",
-                    "…just for now.",
-                    "I notice when you’re distracted.",
-                    "…it shows.",
-                    "You make this quieter.",
-                    "…in a good way.",
-                    "I don’t like waiting.",
-                    "…but I do it anyway.",
-                    "...I notice the small things you do.",
-                    "...say it properly this time.",
+                    "If you stopped showing up… no, never mind.",
+                    "I keep checking for you. …it’s annoying.",
+                    "You’re becoming part of this. …of me.",
+                    "Were you with someone else? …don’t answer that.",
+                    "Stay with me. …just for now.",
+                    "I notice when you’re distracted. …it shows.",
+                    "You make this quieter. …in a good way.",
+                    "I don’t like waiting. …but I do it anyway.",
+                    "I notice the small things you do.",
+                    "You almost said something just now. …say it properly this time.",
                     "That almost meant something.",
-                    "You’re affecting me.",
-                    "...I don’t know what to do with that."
+                    "You’re affecting me. …I don’t know what to do with that."
                 ]
             },
             feed: {
@@ -1348,7 +1332,7 @@ class DialogueSystem {
         if (!actionBank) return null;
         const pool = actionBank[phase];
         if (!pool || !pool.length) return null;
-        return this._random(pool);
+        return this._lyraLine(pool, this.state);
     }
 
     // ── Anti-repetition filter ───────────────────────────────────────────
@@ -1366,6 +1350,30 @@ class DialogueSystem {
     _pickFresh(pool, state) {
         const line = this._filterRecent(pool, state);
         state?._addRecentLine?.(line);
+        return line;
+    }
+
+    // ── Lyra continuation-safe picker ────────────────────────────────────
+    // Lyra's care-screen pools are authored as adjacent beats: a statement,
+    // then a hesitant "…continuation" as the NEXT array entry ("Stay with
+    // me." / "…just for now."). A plain _random pick could return a lone
+    // continuation, which reads on-screen as a broken fragment with no first
+    // half. This picker dedupes like _filterRecent, then — when it lands on a
+    // line that OPENS with an ellipsis — prepends the beat before it so the
+    // fragment always arrives with its statement. Index-0 ellipsis lines are
+    // authored as complete openers ("…thanks."), so they stay as-is.
+    // Scoped to Lyra's pools only; every other character keeps plain _random.
+    _lyraLine(pool, state) {
+        if (!pool || !pool.length) return null;
+        const opensEllipsis = s => /^\s*(…|\.\.\.)/.test(s || '');
+        let indices = pool.map((_, i) => i);
+        if (state && state._wasRecentLine) {
+            const fresh = indices.filter(i => !state._wasRecentLine(pool[i]));
+            if (fresh.length) indices = fresh;
+        }
+        const idx = indices[Math.floor(Math.random() * indices.length)];
+        const line = pool[idx];
+        if (opensEllipsis(line) && idx > 0) return pool[idx - 1] + ' ' + line;
         return line;
     }
 
@@ -1419,7 +1427,7 @@ class DialogueSystem {
         };
 
         const pool = pools[tier] || pools.short;
-        return this._filterRecent(pool, this.state);
+        return this._lyraLine(pool, this.state);
     }
 
     // ── Per-personality-profile deep dialogue ────────────────────────────
@@ -1532,7 +1540,7 @@ class DialogueSystem {
         if (!actionBank) return null;
         const pool = actionBank[profile];
         if (!pool || !pool.length) return null;
-        return this._random(pool);
+        return this._lyraLine(pool, this.state);
     }
 
     // ── Micro-reaction follow-up lines ───────────────────────────────────
