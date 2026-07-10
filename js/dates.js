@@ -1677,7 +1677,20 @@
     btn.innerHTML = '<span class="btn-icon">\uD83D\uDCAB</span><span class="btn-label">Date</span>';
     btn.addEventListener('click', function () {
       var g = window._game;
-      if (!g || g.sceneActive || g.characterLeft) return;
+      if (!g) return;
+      // Self-heal a stuck scene lock: an orphaned cinematic (e.g. a return
+      // scene hidden by the care-screen transition) can leave sceneActive true
+      // with NO scene actually on screen, which silently killed this button —
+      // the recurring "Date not working" bug. If the flag is set but the
+      // cinematic overlay is not genuinely visible, clear it so dates open.
+      if (g.sceneActive) {
+        var _co = document.getElementById('cinematic-overlay');
+        var _sceneOnScreen = _co && _co.classList.contains('visible') &&
+                             !_co.classList.contains('hidden') &&
+                             getComputedStyle(_co).display !== 'none';
+        if (!_sceneOnScreen) { g.sceneActive = false; try { g._sceneQueue = []; } catch (_e) {} }
+      }
+      if (g.sceneActive || g.characterLeft) return;
       if (window.PPOverlay && window.PPOverlay.anyOpen()) return; // not over another overlay
       if (!isUnlocked(g)) {
         // Gentle shake + "locked" hint instead of opening the picker

@@ -1061,11 +1061,21 @@ class PocketLoveGame {
         if (this.characterLeft) {
             this.ui.showGameOver("I left... but maybe we can try again?");
         } else {
-            this.showReturnMessage();
-            // Consistency echo — fires 4.5s later so it doesn't clash with return line
-            if (CHARACTER.name === 'Lyra' && (this.dailyStreak >= 2 || (this.playerMicro?.attachment ?? 0) >= 0.70) && Math.random() < 0.25) {
-                setTimeout(() => this._checkConsistencyEcho(), 4500);
-            }
+            // Defer past the select->care screen transition. Fired synchronously
+            // during the transition, the return cinematic's `show` beat made the
+            // shared #cinematic-overlay visible, but the transition then stripped
+            // that visibility mid-scene — so the cinematic's tap-to-advance line
+            // beat waited on a hidden (untappable) overlay forever, leaving
+            // sceneActive stuck true and silently disabling the Date button. Letting
+            // the screen settle first lets the cinematic actually play. (The
+            // _playScene orphan watchdog is the belt-and-suspenders backstop.)
+            setTimeout(() => {
+                this.showReturnMessage();
+                // Consistency echo — fires 4.5s later so it doesn't clash with return line
+                if (CHARACTER.name === 'Lyra' && (this.dailyStreak >= 2 || (this.playerMicro?.attachment ?? 0) >= 0.70) && Math.random() < 0.25) {
+                    setTimeout(() => this._checkConsistencyEcho(), 4500);
+                }
+            }, 950);
         }
 
         // Start game loop (10 ticks per second)
@@ -3781,6 +3791,7 @@ class PocketLoveGame {
             return;
         }
         this.sceneActive = true;
+        try {
         // Reset overlay sub-elements before each new scene
         const overlay = document.getElementById('cinematic-overlay');
         if (overlay) {
@@ -3803,15 +3814,54 @@ class PocketLoveGame {
             overlay.querySelectorAll('.pp-particle').forEach(p => p.remove());
         }
         for (const beat of beats) {
-            await this._runBeat(beat);
+            await this._runBeatSafe(beat);
         }
-        this.sceneActive = false;
+        } catch (err) {
+            // A single malformed / hanging beat must NEVER brick the care screen by
+            // leaving sceneActive stuck true — that silently disables the Date button
+            // and the whole event system until a reload. Fail the scene soft instead.
+            try { console.warn('[_playScene] beat failed, ending scene early', err); } catch (_) {}
+        } finally {
+            // ALWAYS clear the scene lock, no matter how the beat loop exited.
+            this.sceneActive = false;
+        }
         if (onComplete) { try { onComplete(); } catch (_) {} }
         // Drain any scene that was queued while this one was running.
         if (this._sceneQueue && this._sceneQueue.length) {
             const nx = this._sceneQueue.shift();
             this._playScene(nx.beats, nx.onComplete);
         }
+    }
+
+    // ── Beat runner + orphan watchdog ────────────────────────────────
+    // Wraps _runBeat for the beats that BLOCK on a player tap/choice
+    // (line / choice / endcard). Those resolve only when the player taps
+    // #cinematic-overlay — but if a screen transition or navigation hides
+    // that shared overlay out from under a running scene, the tap can never
+    // land and the await hangs forever, leaving sceneActive stuck true. If the
+    // overlay is no longer genuinely on screen while we wait, resolve so the
+    // scene can finish and clean up. Fully tap-to-advance preserving: for a
+    // normal (visible) scene the watchdog condition is never met, so it does
+    // nothing and the player still controls the pace.
+    _runBeatSafe(beat) {
+        const p = this._runBeat(beat);
+        const t = beat && beat.type;
+        if (t !== 'line' && t !== 'choice' && t !== 'endcard') return p;
+        return new Promise(resolve => {
+            let settled = false;
+            const done = () => { if (settled) return; settled = true; clearInterval(iv); resolve(); };
+            p.then(done, done);
+            const iv = setInterval(() => {
+                const ov = document.getElementById('cinematic-overlay');
+                // A live scene keeps the overlay shown (no 'hidden' class, painted)
+                // from its `show` beat until the terminal `hide`. So a blocking beat
+                // sitting on a hidden/unpainted overlay means the scene was orphaned.
+                if (!ov || !ov.isConnected || ov.classList.contains('hidden') ||
+                    getComputedStyle(ov).display === 'none') {
+                    done();
+                }
+            }, 400);
+        });
     }
 
     _runBeat(beat) {
