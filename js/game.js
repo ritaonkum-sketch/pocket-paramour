@@ -1061,21 +1061,18 @@ class PocketLoveGame {
         if (this.characterLeft) {
             this.ui.showGameOver("I left... but maybe we can try again?");
         } else {
-            // Defer past the select->care screen transition. Fired synchronously
-            // during the transition, the return cinematic's `show` beat made the
-            // shared #cinematic-overlay visible, but the transition then stripped
-            // that visibility mid-scene — so the cinematic's tap-to-advance line
-            // beat waited on a hidden (untappable) overlay forever, leaving
-            // sceneActive stuck true and silently disabling the Date button. Letting
-            // the screen settle first lets the cinematic actually play. (The
-            // _playScene orphan watchdog is the belt-and-suspenders backstop.)
-            setTimeout(() => {
-                this.showReturnMessage();
-                // Consistency echo — fires 4.5s later so it doesn't clash with return line
-                if (CHARACTER.name === 'Lyra' && (this.dailyStreak >= 2 || (this.playerMicro?.attachment ?? 0) >= 0.70) && Math.random() < 0.25) {
-                    setTimeout(() => this._checkConsistencyEcho(), 4500);
-                }
-            }, 950);
+            // NOTE (v999): the v998 attempt to DEFER this ~950ms was reverted —
+            // it made the return cinematic pop up a full second AFTER the care
+            // screen had already rendered, reading as a glitchy overlay appearing
+            // out of nowhere. It now fires with the screen load as before. The
+            // Date-button brick this was meant to dodge is already prevented by
+            // the _playScene orphan watchdog + the Date button's own self-heal, so
+            // no timing hack is needed here.
+            this.showReturnMessage();
+            // Consistency echo — fires 4.5s later so it doesn't clash with return line
+            if (CHARACTER.name === 'Lyra' && (this.dailyStreak >= 2 || (this.playerMicro?.attachment ?? 0) >= 0.70) && Math.random() < 0.25) {
+                setTimeout(() => this._checkConsistencyEcho(), 4500);
+            }
         }
 
         // Start game loop (10 ticks per second)
@@ -3791,6 +3788,7 @@ class PocketLoveGame {
             return;
         }
         this.sceneActive = true;
+        this._sceneAbort = false;
         try {
         // Reset overlay sub-elements before each new scene
         const overlay = document.getElementById('cinematic-overlay');
@@ -3814,6 +3812,11 @@ class PocketLoveGame {
             overlay.querySelectorAll('.pp-particle').forEach(p => p.remove());
         }
         for (const beat of beats) {
+            // Orphan watchdog can request a clean stop (overlay hidden out from
+            // under us). Break the loop rather than fast-forwarding the remaining
+            // beats — running more line beats into a dead overlay would overlap
+            // typewriters and garble the text.
+            if (this._sceneAbort) break;
             await this._runBeatSafe(beat);
         }
         } catch (err) {
@@ -3824,6 +3827,7 @@ class PocketLoveGame {
         } finally {
             // ALWAYS clear the scene lock, no matter how the beat loop exited.
             this.sceneActive = false;
+            this._sceneAbort = false;
         }
         if (onComplete) { try { onComplete(); } catch (_) {} }
         // Drain any scene that was queued while this one was running.
@@ -3858,6 +3862,9 @@ class PocketLoveGame {
                 // sitting on a hidden/unpainted overlay means the scene was orphaned.
                 if (!ov || !ov.isConnected || ov.classList.contains('hidden') ||
                     getComputedStyle(ov).display === 'none') {
+                    // Tell _playScene to stop cleanly after this beat instead of
+                    // fast-forwarding the rest (which would overlap typewriters).
+                    this._sceneAbort = true;
                     done();
                 }
             }, 400);
