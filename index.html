@@ -1086,6 +1086,15 @@
         </div>
     </div>
 
+    <!-- Error guard loads BEFORE everything else so it captures boot-time
+         errors from every subsequent module. Surfaces the bugs the ~385
+         try/catch blocks would otherwise swallow (window.PPErrors). -->
+    <script defer src="js/error-guard.js"></script>
+
+    <!-- Self-test harness — provable stability invariants on demand
+         (PPSelfTest.run / .stress / .selectorAudit). Passive until called. -->
+    <script defer src="js/selftest.js"></script>
+
     <!-- Storage guard runs FIRST — repairs partial/corrupt saves before any
          other module tries to read localStorage. -->
     <script defer src="js/storage-guard.js"></script>
