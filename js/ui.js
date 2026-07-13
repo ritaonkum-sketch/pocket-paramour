@@ -2876,6 +2876,41 @@ class GameUI {
         });
     }
 
+    // ── Forage sequence (Elian) — dedicated wrapper ────────────────
+    // Like playPuzzleSequence but tailored to the forage catch-game:
+    // header reads "Foraging", rewards are applied INSIDE playForage
+    // (performance-scaled + moonpetal + personal best), so this wrapper
+    // only opens the panel and closes it promptly when the player taps
+    // Done — no generic +3/+2 double-dip, no 2.2s lingering close.
+    playForageSequence(onComplete) {
+        if (!this.game._puzzleSystem) {
+            this.game._puzzleSystem = new PuzzleSystem(this.game);
+        }
+        const panel = document.getElementById('training-panel');
+        const grid = document.getElementById('training-grid');
+        if (!panel || !grid) { onComplete && onComplete(); return; }
+
+        clearTimeout(this._trainingCloseTimer);
+        this.closeAllPanels('training');
+        panel.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => panel.classList.add('visible'));
+        });
+
+        const panelHeader = panel.querySelector('#training-panel-header span');
+        if (panelHeader) panelHeader.textContent = 'Foraging';
+        const closeBtn = document.getElementById('training-close');
+        if (closeBtn) closeBtn.style.display = 'none';
+        this._seqActive = true;
+
+        this.game._puzzleSystem.playForage(grid, () => {
+            if (closeBtn) closeBtn.style.display = '';
+            this.closeTrainingPanel();
+            this._seqActive = false;
+            onComplete && onComplete();
+        });
+    }
+
     // ── Spawn floating music notes (for singing scene) ────────────
     _spawnMusicNotes() {
         const area = document.getElementById('character-area');
