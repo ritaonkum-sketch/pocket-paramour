@@ -130,7 +130,11 @@
         try {
             if (!document.body.classList.contains('pp-screen-care')) return;
             // Never wink over a story scene / overlay on top of care.
-            if (document.querySelector(
+            // Canonical overlay authority (pp-overlay.js) + module backdrops;
+            // hand list is only the fallback if PPOverlay isn't loaded.
+            if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+                if (window.PPOverlay.busy('#pp-aci-backdrop, #pp-ch6-unlock-backdrop, #pp-soul-frag-overlay')) return;
+            } else if (document.querySelector(
                 '#mscard-root:not(:empty), #chp-page:not(.hidden):not(:empty),' +
                 '#intro-overlay.visible, #cinematic-overlay.visible,' +
                 '#pp-aci-backdrop, #pp-ch6-unlock-backdrop, #pp-soul-frag-overlay'

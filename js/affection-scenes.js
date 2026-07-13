@@ -714,6 +714,12 @@
     const gc = document.getElementById('game-container');
     if (!gc || gc.classList.contains('hidden') ||
         getComputedStyle(gc).display === 'none') return false;
+    // Canonical overlay authority first (pp-overlay.js) — extras keep this
+    // module's bare-presence checks for surfaces outside the registry.
+    // Hand list below is only the fallback if PPOverlay isn't loaded.
+    if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+      return !window.PPOverlay.busy('#chp-finale-choice, #pp-ready-overlay, #pp-chain-toast');
+    }
     const block = document.querySelector([
       '#ms-encounter-root', '#mscard-root', '#chp-page', '#chp-finale-choice',
       '#mg-overlay', '#mon-bundle-back', '#settings-overlay:not(.hidden)',

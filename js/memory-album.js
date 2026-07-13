@@ -286,6 +286,11 @@
         // overlay is mounted but body.pp-chapter-active is still set) counts as
         // "a story scene is up" — so the pill never bleeds into the Main Story.
         if (document.body.classList.contains('pp-chapter-active')) return true;
+        // Canonical overlay authority (pp-overlay.js) + this module's
+        // card-reveal '.visible' variant; hand list is only the fallback.
+        if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+            return window.PPOverlay.busy('#card-reveal-overlay.visible');
+        }
         return !!document.querySelector(
             '#mscard-root:not(:empty), #ms-encounter-root:not(:empty),' +
             '#chp-page:not(.hidden):not(:empty), #tp-root:not(:empty),' +

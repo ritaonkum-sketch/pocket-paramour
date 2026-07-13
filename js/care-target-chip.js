@@ -490,6 +490,12 @@
         // Owner reported the chip showing during Alistair's first
         // intro (#intro-overlay.visible). Gate it out of every story
         // moment, not just MSCard.
+        // Canonical overlay authority (pp-overlay.js) — every surface this
+        // hand list enumerated is in the shared registry now; the list is
+        // only the fallback if PPOverlay isn't loaded.
+        if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+            return window.PPOverlay.busy();
+        }
         return !!document.querySelector(
             '#mscard-root:not(:empty), ' +
             '#ms-encounter-root:not(:empty), ' +

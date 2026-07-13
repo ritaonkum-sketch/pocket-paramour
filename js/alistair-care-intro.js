@@ -177,7 +177,11 @@
         // Jul 2026: also defer to the onboarding tour and the card-reveal
         // popup — the playtest caught this guide stacked under BOTH (four
         // overlays deep). One tutorial at a time.
-        if (document.querySelector(
+        // Canonical overlay authority (pp-overlay.js) covers every surface
+        // this hand list enumerated; the list is only the fallback now.
+        if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+            if (window.PPOverlay.busy()) return false;
+        } else if (document.querySelector(
             '#mscard-root:not(:empty), #chp-page:not(.hidden):not(:empty),' +
             '#intro-overlay.visible, #cinematic-overlay.visible,' +
             '#tp-root:not(:empty), #ms-encounter-root:not(:empty),' +

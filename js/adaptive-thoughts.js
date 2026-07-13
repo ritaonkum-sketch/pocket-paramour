@@ -351,6 +351,13 @@
     if (g.sceneActive) return false;
     if (g.characterLeft) return false;
     // Any panel / cinematic / scene overlay open?
+    // Canonical overlay authority first (pp-overlay.js) — extras cover the
+    // few module-specific panels not in the shared registry. Hand list
+    // below is only the fallback if PPOverlay isn't loaded.
+    if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+      return !window.PPOverlay.busy(
+        '.letter-overlay:not(.hidden), #settings-panel:not(.hidden), #gallery-panel:not(.hidden)');
+    }
     const openPanel = document.querySelector([
       '#gift-panel:not(.hidden)',
       '#training-panel:not(.hidden)',

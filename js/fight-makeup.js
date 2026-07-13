@@ -475,6 +475,11 @@
   let _lastInteractionStats = {}; // per-char: snapshot of stat sums for delta detection
 
   function blockingOverlay() {
+    // Canonical overlay authority (pp-overlay.js) — one list, no drift.
+    // The hand list below is only the fallback if PPOverlay isn't loaded.
+    if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+      return window.PPOverlay.busy();
+    }
     return document.querySelector('#pp-fm-root, #pp-sm-root, #pp-sched-root, #mscard-root, #tp-root, #ms-encounter-root, #cinematic-overlay.visible, #event-overlay:not(.hidden), #gift-panel:not(.hidden), #training-panel:not(.hidden), #story-overlay:not(.hidden), #letter-overlay:not(.hidden), #intro-overlay.visible');
   }
 

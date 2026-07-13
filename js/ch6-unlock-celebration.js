@@ -130,6 +130,12 @@
         // over any active scene card / cinematic / other modal. (The calm
         // chapter LIST is now an allowed surface, so #chp-page is not a blocker.)
         if (document.body.classList.contains('pp-chapter-active')) return false;
+        // Canonical overlay authority (pp-overlay.js) + this module's
+        // celebration backdrops; hand list is only the fallback.
+        if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+            return !window.PPOverlay.busy(
+                '#pp-aci-backdrop, #pp-first-care-modal-backdrop, #pp-ms-gate-backdrop, #pp-soul-frag-overlay');
+        }
         if (document.querySelector(
             '#mscard-root:not(:empty),' +
             '#intro-overlay.visible, #cinematic-overlay.visible,' +

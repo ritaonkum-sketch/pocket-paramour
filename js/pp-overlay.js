@@ -80,7 +80,26 @@
         // The Talk-choice conversation modal (talk-choices.js). Full-screen
         // modal created on demand; counts as open until it starts closing, so
         // ambient content + card reveals never fire on top of an active choice.
-        '#talk-choice-overlay:not(.closing)'
+        '#talk-choice-overlay:not(.closing)',
+        // ── Aug 2026 stabilization — surfaces that previously lived ONLY in
+        // per-module selector copies (aenor-presence, adaptive-thoughts,
+        // fight-makeup, alistair-arc, the game.js tick watchdog, ...). Those
+        // hand-copied lists drifted (two had literal comma-hole typos that
+        // silently disabled their modules for months). This list is now the
+        // union; the modules consume PPOverlay.busy() instead of their own.
+        '#pp-fm-root:not(:empty)',        // fight-&-makeup scene card
+        '#pp-sm-root:not(:empty)',        // small-moments scene card
+        '#pp-sched-root:not(:empty)',     // scheduled-moment arrival card
+        '#mg-overlay',                    // minigame overlay (removed on close)
+        '#mon-bundle-back',               // monetization bundle modal
+        '#pp-onboarding-overlay.show',    // first-run tour
+        '#mst-confirm-overlay',           // main-story toggle confirm
+        '#pp-chain-lock-overlay',         // chapter-chain lock explainer
+        '.pp-bridge-root',                // between-chapter bridge scenes
+        '#main-story-page:not(.hidden)',  // main-story page surface
+        '#card-reveal-overlay:not(.hidden)', // gallery card reveal
+        '#pp-day-one-overlay',            // day-one welcome (removed on close)
+        '#pp-confirm-modal'               // shared confirm dialog (game.js)
     ];
     // Floating care-screen chips that must hide while any overlay is up.
     const HIDDEN_CHIPS = ['#pp-care-progress', '#dp-banner', '#pp-letters-btn', '#chp-orb',
@@ -264,15 +283,40 @@
 
     // ── BLACK-SCREEN RECOVERY ──────────────────────────────────────────
     // If NO base screen is visible and NO overlay is genuinely open for
-    // two consecutive ticks, the player is staring at a dead black
+    // several consecutive ticks, the player is staring at a dead black
     // screen (only an app relaunch used to recover). Force the Chronicle
     // back on stage — it is always a safe landing.
+    //
+    // Aug 2026 stabilization — this used to be TOO eager and became its own
+    // bug: it fired during legitimate blank windows (mid screen-switch, or a
+    // background tab whose throttled timers stalled a transition at its blank
+    // midpoint) and restored select-screen WHILE a care load was in flight,
+    // fighting the load in a loop (observed: 198 recoveries in one session,
+    // care screen never initialized). Now it: (1) never runs in a hidden tab
+    // — nobody is looking, and throttled timers make every transition look
+    // stuck; (2) grants a grace period after any pp-screen-* body change so
+    // real navigations can finish; (3) needs 4 consecutive blank ticks (~8s),
+    // a real dead screen can afford the wait; (4) throttles its log.
     let _blankTicks = 0;
+    let _lastScreenClass = '';
+    let _screenChangedAt = 0;
+    let _lastRecoveryLogAt = 0;
     function recoverBlackScreen() {
         try {
+            if (document.hidden) { _blankTicks = 0; return; }
             if (document.body.classList.contains('cinematic-transition') ||
                 document.body.classList.contains('pp-chapter-active') ||
                 document.body.classList.contains('pp-chain-in-progress')) { _blankTicks = 0; return; }
+            // A scene engine may legitimately blank everything for a beat.
+            if (window._game && window._game.sceneActive) { _blankTicks = 0; return; }
+            // Grace period after a screen switch (title→select→care...) —
+            // the switch has its own blank window; let it land.
+            const screenClass = (document.body.className.match(/pp-screen-\S+/) || [''])[0];
+            if (screenClass !== _lastScreenClass) {
+                _lastScreenClass = screenClass;
+                _screenChangedAt = Date.now();
+            }
+            if (Date.now() - _screenChangedAt < 6000) { _blankTicks = 0; return; }
             const ids = ['title-screen', 'world-intro', 'loading-screen', 'game-container', 'select-screen'];
             const anyVisible = ids.some(function (id) {
                 const el = document.getElementById(id);
@@ -282,7 +326,7 @@
                 OVERLAY_SELECTORS.some(function (s) { const el = document.querySelector(s); return el && !isInvisible(el); });
             if (anyVisible || overlayUp) { _blankTicks = 0; return; }
             _blankTicks++;
-            if (_blankTicks < 2) return;
+            if (_blankTicks < 4) return;
             _blankTicks = 0;
             const select = document.getElementById('select-screen');
             if (!select) return;
@@ -293,7 +337,10 @@
             if (window.PPScene && typeof window.PPScene.set === 'function') {
                 try { window.PPScene.set('select'); } catch (_) {}
             }
-            try { console.warn('[pp-overlay] black-screen recovery: restored select-screen'); } catch (_) {}
+            if (Date.now() - _lastRecoveryLogAt > 30000) {
+                _lastRecoveryLogAt = Date.now();
+                try { console.warn('[pp-overlay] black-screen recovery: restored select-screen'); } catch (_) {}
+            }
         } catch (_) { /* swallow */ }
     }
 
@@ -325,7 +372,22 @@
         // Exposed so other modules can stop maintaining their own copies of
         // "is an overlay open" — use PPOverlay.anyOpen() / .selectors instead.
         selectors: OVERLAY_SELECTORS,
-        anyOpen: function () { return OVERLAY_SELECTORS.some(function (s) { return document.querySelector(s); }); }
+        anyOpen: function () { return OVERLAY_SELECTORS.some(function (s) { return document.querySelector(s); }); },
+        // ── busy(extraSel?) — THE one call ambient/trigger modules should
+        // gate on before firing content (Aug 2026 stabilization). True when
+        // any canonical blocking surface is open, OR when the caller's
+        // module-specific extras match (e.g. a sibling ambient bubble that
+        // isn't a blocking overlay but should still space itself out).
+        // Replaces the 17 hand-copied per-module selector lists whose drift
+        // (missing entries, comma typos) caused recurring "X fired on top of
+        // Y" and "module silently dead" bugs.
+        busy: function (extraSel) {
+            if (this.anyOpen()) return true;
+            if (extraSel) {
+                try { return !!document.querySelector(extraSel); } catch (_) { /* bad extra — ignore */ }
+            }
+            return false;
+        }
     };
 
     // ============================================================

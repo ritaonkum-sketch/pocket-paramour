@@ -1137,6 +1137,51 @@ class PocketLoveGame {
         // Auto-save every 30 seconds. Same handle-capture pattern.
         this._autoSaveInterval = setInterval(() => this.save(), 30000);
 
+        // ── Scene-lock watchdog (Aug 2026 stabilization) ─────────────────
+        // ~14 scene players set this.sceneActive = true and clear it inside
+        // nested setTimeout / typewriter-callback chains (meta scenes, path
+        // endings, tension/drift/rupture, whale stages, jealousy, reunion,
+        // private moment, almost-confession...). Any broken chain — element
+        // removed mid-scene, exception in a callback, overlay torn down by a
+        // screen switch — leaks the lock FOREVER, silently disabling the Date
+        // button, the event system, and every sceneActive guard: the
+        // recurring "button is dead until reload" class of bug. _playScene
+        // hardened itself in v998 (try/finally + orphan watchdog), but the
+        // typewriter-based scenes can't each be rewritten safely.
+        // This is the ONE backstop that covers every leak path, past and
+        // future: if the lock has been held ~2 minutes with NO scene surface
+        // actually on screen, it's a zombie — release it.
+        // It never fires during real scenes: cinematic/card surfaces reset
+        // the counter (a player can read a tap-to-advance line forever), and
+        // typewriter scenes finish in well under a minute by construction
+        // (their end() runs on timers, not taps).
+        this._sceneLockTicks = 0;
+        this._sceneLockWatchdog = setInterval(() => {
+            try {
+                if (!this.sceneActive) { this._sceneLockTicks = 0; return; }
+                const co = document.getElementById('cinematic-overlay');
+                const cinematicUp = co && co.classList.contains('visible') &&
+                                    !co.classList.contains('hidden');
+                const cardSceneUp = !!document.querySelector(
+                    '#mscard-root:not(:empty), #ms-encounter-root:not(:empty), ' +
+                    '#tp-root:not(:empty), #chp-page:not(:empty), .pp-bridge-root');
+                if (cinematicUp || cardSceneUp) { this._sceneLockTicks = 0; return; }
+                this._sceneLockTicks++;
+                if (this._sceneLockTicks < 24) return; // 24 × 5s = 2 min of limbo
+                this._sceneLockTicks = 0;
+                this.sceneActive = false;
+                this._sceneAbort = false;
+                this._sceneQueue = [];
+                try { if (this.ui && this.ui.setFocusMode) this.ui.setFocusMode(false); } catch (_) {}
+                // Tidy an overlay stuck in limbo (scene classes but no visibility)
+                if (co && !co.classList.contains('visible')) {
+                    co.classList.remove('char-visible', 'dialogue-visible');
+                    co.classList.add('hidden');
+                }
+                try { console.warn('[scene-watchdog] released a stuck scene lock (no scene on screen for 2 min)'); } catch (_) {}
+            } catch (_) { /* never let the watchdog itself throw */ }
+        }, 5000);
+
         // Last Line on tab hide + session_end analytics (all characters)
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'hidden' && !this._lastLineShown) {
@@ -3326,6 +3371,7 @@ class PocketLoveGame {
         // character switch stacks live intervals from old game instances.
         if (this._watchdogInterval) { clearInterval(this._watchdogInterval); this._watchdogInterval = null; }
         if (this._autoSaveInterval) { clearInterval(this._autoSaveInterval); this._autoSaveInterval = null; }
+        if (this._sceneLockWatchdog) { clearInterval(this._sceneLockWatchdog); this._sceneLockWatchdog = null; }
         if (settingsOverlay) settingsOverlay.classList.add('hidden');
         document.getElementById('game-container').classList.add('hidden');
         if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
@@ -3366,6 +3412,14 @@ class PocketLoveGame {
             try { window.PPScene.set('select'); } catch (_) {}
         }
         this.sceneActive = false;
+        // Aug 2026 stabilization — ALSO drop any queued scenes + abort flag.
+        // The _playScene re-entrancy guard queues overlapping scenes; clearing
+        // only sceneActive here left that queue populated, so a scene queued
+        // for character A would drain and play on character B's care screen
+        // (cross-character leak). The queue is meaningless outside this
+        // character's session — empty it on every exit to select.
+        this._sceneQueue = [];
+        this._sceneAbort = false;
         document.querySelectorAll('.visible').forEach(el => {
             if (el.id !== 'select-screen') el.classList.remove('visible');
         });

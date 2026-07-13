@@ -314,6 +314,11 @@
   }
 
   function sceneActive() {
+    // Canonical overlay authority (pp-overlay.js) — one list, no drift.
+    // The hand list below is only the fallback if PPOverlay isn't loaded.
+    if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
+      return window.PPOverlay.busy('#world-intro:not(.hidden)');
+    }
     return !!document.querySelector([
       '#mscard-root','#tp-root','#chp-page','#ms-encounter-root',
       '#mg-overlay','#mon-bundle-back','#settings-overlay:not(.hidden)',
