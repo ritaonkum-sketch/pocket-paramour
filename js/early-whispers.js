@@ -24,6 +24,19 @@
 (function () {
     'use strict';
 
+    // ── DISABLED (owner request, Jul 2026) ───────────────────────────────
+    // The mysterious "voice in the wall" / unattributed-whisper feature is
+    // REMOVED from every character's care route. It read as an intrusion on
+    // the calm care screen. Kept as an inert no-op (rather than deleted) so it
+    // can be revived later if wanted — nothing below runs: no styles, no
+    // timers, no listeners, and #ew-whisper is never created. This was the
+    // ONLY live source of that whisper (the referenced "noir-whispers.js"
+    // sibling was never built), so no other file needs to change.
+    window.EarlyWhispers = { force: function () {}, reset: function () {}, isOff: function () { return true; } };
+    return;
+
+    // ---- original implementation retained below, permanently inert ----
+
     // Pool of unattributed whispers. Ordered so the first ones are curious,
     // later ones grow more specific — mirroring the player's investment curve.
     // Jun 2026 — owner asked for attribution so the player isn't left
