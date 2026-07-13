@@ -98,6 +98,16 @@
 
     // ── Global listeners ─────────────────────────────────────────
     window.addEventListener('error', function (e) {
+        // Resource-load errors fire on the ELEMENT (img/audio/script/link),
+        // which has a .tagName; genuine JS errors fire on window (no .tagName).
+        // Resource errors here are dominated by benign net::ERR_ABORTED — the
+        // browser cancelling a superseded request when the game rapidly swaps a
+        // sprite's .src (blink / idle / preload). Those are 200-OK-but-aborted,
+        // NOT crashes, and would make this guard cry wolf. A genuinely missing
+        // asset shows up as a broken image + in DevTools' network panel, which
+        // is the right tool for an art audit. So the CRASH guard ignores
+        // resource-load events and tracks only real JS errors.
+        if (e && e.target && e.target !== window && e.target.tagName) return;
         _record('error', (e && e.message) || 'error', {
             line: e && e.lineno, col: e && e.colno,
             source: e && e.filename && String(e.filename).split('/').slice(-1)[0],
