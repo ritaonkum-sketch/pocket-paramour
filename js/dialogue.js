@@ -292,7 +292,15 @@ class TypewriterEffect {
         // beats become an ellipsis; DESCRIBED actions keep their words in
         // classic parenthetical stage style. (MSCard chapters have their own
         // italic renderer — this only affects the care-screen typewriter.)
-        rawText = rawText.replace(/\*([^*\n]{1,80})\*/g, function (_, inner) {
+        //
+        // Jul 2026 (v1004) — the inner match was capped at {1,80} chars, so a
+        // LONGER action (e.g. Lucien's ~95-char "*Traces a line from your
+        // temple down your jaw with his ink-stained fingertip, leaving a faint
+        // mark*") slipped the pattern and printed its raw asterisks in the
+        // italic bubble — reading as a glitch. The cap was arbitrary; `[^*\n]`
+        // already bounds each pair (it can't cross another asterisk or a
+        // newline), so a single `*…*` beat of any length now converts cleanly.
+        rawText = rawText.replace(/\*([^*\n]+)\*/g, function (_, inner) {
             const t = inner.trim().replace(/\.$/, '').toLowerCase();
             if (/^(a )?(long |short |brief |half a )?(pause|beat|silence|quiet|breath)$/.test(t)) return '...';
             return '(' + inner.trim().replace(/\.$/, '') + ')';
