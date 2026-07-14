@@ -2883,6 +2883,26 @@ class GameUI {
     // only opens the panel and closes it promptly when the player taps
     // Done — no generic +3/+2 double-dip, no 2.2s lingering close.
     playForageSequence(onComplete) {
+        // ── Daily play cap (owner: 5 forage plays/day) ─────────────────
+        // Stops bond/affection grinding through the mini-game and gives a
+        // daily reason to return. Fighting stays available for training.
+        try {
+            var _day = new Date().toDateString();
+            var _plays = (localStorage.getItem('pp_forage_plays_day') === _day)
+                ? (parseInt(localStorage.getItem('pp_forage_plays') || '0', 10) || 0) : 0;
+            if (_plays >= 5) {
+                try { this.closeTrainingPanel(); } catch (_) {}
+                this._seqActive = false;
+                if (typeof this.showNotification === 'function') {
+                    this.showNotification('Foraged out for today (5/5). The wood rests until tomorrow.');
+                }
+                onComplete && onComplete();
+                return;
+            }
+            localStorage.setItem('pp_forage_plays_day', _day);
+            localStorage.setItem('pp_forage_plays', String(_plays + 1));
+        } catch (_) {}
+
         if (!this.game._puzzleSystem) {
             this.game._puzzleSystem = new PuzzleSystem(this.game);
         }

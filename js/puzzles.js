@@ -296,12 +296,13 @@ class PuzzleSystem {
         ".fg-k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8a8570;margin-bottom:4px}"+
         ".fg-v{font-size:19px;font-weight:600;color:#e9dfd0;font-variant-numeric:tabular-nums}"+
         ".fg-mid .fg-v{color:#a7c957;font-style:italic}"+
-        ".fg-bars{margin-top:auto;display:flex;flex-direction:column;gap:5px}"+
+        ".fg-bottom{margin-top:auto;display:flex;flex-direction:column;gap:7px}"+
+        ".fg-bars{display:flex;flex-direction:column;gap:5px}"+
         ".fg-bar{height:6px;border-radius:5px;background:rgba(255,255,255,.09);overflow:hidden}"+
         ".fg-bar>i{display:block;height:100%;width:0%;border-radius:5px}"+
         ".fg-pouchfill{background:linear-gradient(90deg,#6f9a3f,#a7c957)}"+
         ".fg-timefill{background:linear-gradient(90deg,#c9a24a,#e8c979)}"+
-        ".fg-say{position:absolute;left:14px;right:14px;bottom:46px;pointer-events:none;text-align:center;font-style:italic;font-size:14px;line-height:1.4;color:#f0e8da;text-shadow:0 1px 2px rgba(6,11,7,.95),0 2px 10px rgba(0,0,0,.85);opacity:0;transition:opacity .35s;z-index:2}"+
+        ".fg-say{min-height:32px;display:flex;align-items:flex-end;justify-content:center;text-align:center;padding:0 6px;pointer-events:none;font-style:italic;font-size:13.5px;line-height:1.3;color:#f0e8da;text-shadow:0 1px 2px rgba(6,11,7,.95),0 2px 10px rgba(0,0,0,.85);opacity:0;transition:opacity .3s}"+
         ".fg-say.show{opacity:1}"+
         ".fg-veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:rgba(6,11,7,.74);z-index:3}"+
         ".fg-veil[hidden]{display:none}"+
@@ -335,8 +336,7 @@ class PuzzleSystem {
             '<div class="fg-stat"><span class="fg-k">Pouch</span><span class="fg-v fg-score">0</span></div>'+
             '<div class="fg-stat fg-mid"><span class="fg-k">Sync</span><span class="fg-v fg-combo">&times;1</span></div>'+
             '<div class="fg-stat fg-r"><span class="fg-k">Light</span><span class="fg-v fg-clock">30</span></div></div>'+
-            '<div class="fg-bars"><div class="fg-bar"><i class="fg-pouchfill"></i></div><div class="fg-bar"><i class="fg-timefill"></i></div></div></div>'+
-          '<div class="fg-say"></div>'+
+            '<div class="fg-bottom"><div class="fg-say"></div><div class="fg-bars"><div class="fg-bar"><i class="fg-pouchfill"></i></div><div class="fg-bar"><i class="fg-timefill"></i></div></div></div></div>'+
           '<div class="fg-veil fg-start"><div class="fg-line">&ldquo;The good ones grow low, near the roots. The red ones are not for eating. Fill the pouch before the light turns.&rdquo;</div><button class="fg-btn fg-begin">Begin</button></div>'+
           '<div class="fg-veil fg-end" hidden><div class="fg-grade"></div><div class="fg-big">0</div><div class="fg-meta"></div><div class="fg-line fg-endline"></div><button class="fg-btn fg-doneb">Done</button></div>'+
           '</div>';
@@ -432,12 +432,14 @@ class PuzzleSystem {
           game.bond = Math.min(100,(game.bond||0)+bb);
           game.affection = Math.min(100,(game.affection||0)+ab);
           game.foragingScore = (game.foragingScore||0)+1;
-          var best=+(localStorage.getItem('pp_forage_best_elian')||0), nb=score>best;
-          if(nb){ try{ localStorage.setItem('pp_forage_best_elian',String(score)); }catch(e){} }
+          var best=+(localStorage.getItem('pp_forage_best_elian')||0), nb=score>best, roseReward=0;
+          if(nb){ try{ localStorage.setItem('pp_forage_best_elian',String(score)); }catch(e){}
+            // Owner: new personal best pays 5 Roses (the "beat yourself" hook).
+            try{ if(window.PPCurrency && PPCurrency.add){ PPCurrency.add(5,'forage record'); roseReward=5; } }catch(e){} }
           try{ if(game.save) game.save(); }catch(e){}
           container.querySelector('.fg-grade').textContent=gr.g;
           container.querySelector('.fg-big').textContent=score;
-          container.querySelector('.fg-meta').innerHTML=(nb?'<b>New best pouch</b>':'Best '+Math.max(best,score))+(moon?' &middot; '+moon+' moonpetal'+(moon>1?'s':''):'');
+          container.querySelector('.fg-meta').innerHTML=(nb?('<b>New best pouch'+(roseReward?' &middot; +'+roseReward+' Roses':'')+'</b>'):'Best '+Math.max(best,score))+(moon?' &middot; '+moon+' moonpetal'+(moon>1?'s':''):'');
           container.querySelector('.fg-endline').textContent='“'+gr.l+'”';
           endV.removeAttribute('hidden'); if(nb) sfx('pop'); }
 

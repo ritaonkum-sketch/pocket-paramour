@@ -391,8 +391,7 @@ const CHARACTER_ELIAN = {
     },
 
     trainingOptions: [
-        { type: 'herbs',      icon: '\uD83C\uDF3F', label: 'Herbs',      desc: 'Gather and identify' },
-        { type: 'tracking',   icon: '\uD83D\uDC3E', label: 'Tracking',   desc: 'Read the land' },
+        { type: 'herbs',      icon: '\uD83C\uDF3F', label: 'Foraging',   desc: 'Gather with the warden' },
         { type: 'fighting',   icon: '\u2694\uFE0F', label: 'Fighting',   desc: 'Spar and strike' }
     ],
 
