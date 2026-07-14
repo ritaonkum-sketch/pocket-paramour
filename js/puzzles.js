@@ -301,7 +301,7 @@ class PuzzleSystem {
         ".fg-bar>i{display:block;height:100%;width:0%;border-radius:5px}"+
         ".fg-pouchfill{background:linear-gradient(90deg,#6f9a3f,#a7c957)}"+
         ".fg-timefill{background:linear-gradient(90deg,#c9a24a,#e8c979)}"+
-        ".fg-say{position:absolute;left:14px;right:14px;bottom:12px;pointer-events:none;font-style:italic;font-size:14px;line-height:1.4;color:#f0e8da;text-shadow:0 2px 8px rgba(0,0,0,.75);opacity:0;transition:opacity .35s;z-index:2}"+
+        ".fg-say{position:absolute;left:14px;right:14px;bottom:46px;pointer-events:none;text-align:center;font-style:italic;font-size:14px;line-height:1.4;color:#f0e8da;text-shadow:0 1px 2px rgba(6,11,7,.95),0 2px 10px rgba(0,0,0,.85);opacity:0;transition:opacity .35s;z-index:2}"+
         ".fg-say.show{opacity:1}"+
         ".fg-veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:rgba(6,11,7,.74);z-index:3}"+
         ".fg-veil[hidden]{display:none}"+
