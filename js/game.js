@@ -2830,7 +2830,7 @@ class PocketLoveGame {
             modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             override:   { emotion: 'love',    duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             // Noir shadow arts types — timing game + corruption spread
-            temptation:  { emotion: 'love',    duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playPuzzleSequence('timing', unlock); } },
+            temptation:  { emotion: 'love',    duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playHuntSequence(unlock); } },
             domination:  { emotion: 'angry',   duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(3); this.ui.playPuzzleSequence('timing', unlock); } },
             dissolution: { emotion: 'neutral', duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playPuzzleSequence('timing', unlock); } },
             // Caspian court etiquette types — timing game

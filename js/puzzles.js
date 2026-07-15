@@ -1082,8 +1082,233 @@ class PuzzleSystem {
         raf = requestAnimationFrame(loop);
     }
 
+    _injectHuntCSS() {
+        if (document.getElementById('hn-css')) return;
+        var s = document.createElement('style'); s.id = 'hn-css';
+        s.textContent = [
+        ".hn-wrap{grid-column:1/-1;position:relative;width:100%;height:min(58vh,470px);border-radius:14px;overflow:hidden;background:#08040a;font-family:inherit;touch-action:none;user-select:none}",
+        ".hn-cv{position:absolute;inset:0;width:100%;height:100%;display:block}",
+        ".hn-hud{position:absolute;inset:0;pointer-events:none;padding:12px 13px;display:flex;flex-direction:column;color:#c9b9c6}",
+        ".hn-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;font-family:system-ui,sans-serif}",
+        ".hn-stat{display:flex;flex-direction:column;gap:2px}.hn-stat.mid{align-items:center}.hn-stat.r{align-items:flex-end}",
+        ".hn-k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7d6b78}",
+        ".hn-v{font-size:16px;font-weight:600;color:#c9b9c6;font-variant-numeric:tabular-nums}.hn-v.esc{color:#e0a15a}.hn-v.lives{letter-spacing:2px;font-size:15px}",
+        ".hn-say{margin-top:auto;text-align:center;font-style:italic;font-size:13.5px;line-height:1.35;color:#d8c6d2;text-shadow:0 1px 3px rgba(6,3,10,.95);opacity:0;transition:opacity .35s;padding:0 6px;min-height:34px;display:flex;align-items:flex-end;justify-content:center}.hn-say.show{opacity:1}",
+        ".hn-veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px;padding:22px;background:radial-gradient(80% 80% at 50% 42%,rgba(30,10,20,.8),rgba(8,4,10,.96));z-index:3}",
+        ".hn-veil[hidden]{display:none}",
+        ".hn-vk{font-family:system-ui,sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:10px;color:#e0556a}",
+        ".hn-vt{font-size:21px;color:#e9dbe2}.hn-vp{max-width:34ch;color:#d5c3cf;font-size:13px;font-style:italic;line-height:1.5}",
+        ".hn-rec{color:#e0556a;font-weight:600;font-family:system-ui,sans-serif;font-size:12.5px}",
+        ".hn-stats{display:flex;gap:22px;font-family:system-ui,sans-serif}.hn-stats div{display:flex;flex-direction:column;gap:2px}.hn-stats b{font-size:22px;color:#e0a15a;font-variant-numeric:tabular-nums}.hn-stats span{font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:#7d6b78}",
+        ".hn-btn{font-family:system-ui,sans-serif;cursor:pointer;border-radius:999px;padding:11px 28px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#180810;border:none;background:linear-gradient(180deg,#e0556a,#c23148);box-shadow:0 8px 22px -8px rgba(194,49,72,.5)}.hn-btn:active{transform:translateY(1px)}"
+        ].join('');
+        document.head.appendChild(s);
+    }
+
+    // ── Noir's mini-game: "The Hunter" (chase + evasion) ───────────────
+    // The seal's shadow-hound prowls the dark; it locks on when it sees you
+    // and runs you down. Juke it around cover, break line of sight, gather
+    // the shards and reach his eyes. Three lives. Distinct genre (active
+    // evasion). Rewards inside: chamber/score-scaled bond+affection + best +
+    // 5 Roses on a new record. Bond-scaled hound speed/sight (his hunt).
+    playHunt(container, onDone) {
+        this._injectHuntCSS();
+        var game = this.game;
+        var reduce = false; try { reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+        var bond = (game && game.bond) || 0, diff = Math.max(0, Math.min(1, bond / 100));
+        var T = { hound: 1.0 + diff * 0.4, sight: 1.0 + diff * 0.3, cover: Math.max(0.7, 1.0 - diff * 0.2), motion: reduce ? 0.35 : 0.7 };
+
+        container.innerHTML =
+            '<div class="hn-wrap"><canvas class="hn-cv"></canvas>' +
+              '<div class="hn-hud"><div class="hn-top">' +
+                '<div class="hn-stat"><span class="hn-k">Escaped</span><span class="hn-v esc hn-esc">0</span></div>' +
+                '<div class="hn-stat mid"><span class="hn-k">Lives</span><span class="hn-v lives hn-lives">&#9829;&#9829;&#9829;</span></div>' +
+                '<div class="hn-stat r"><span class="hn-k">Best</span><span class="hn-v hn-best">0</span></div>' +
+              '</div><div class="hn-say"></div></div>' +
+              '<div class="hn-veil hn-start"><div class="hn-vk">something hunts in the black</div><div class="hn-vt">Do not be caught</div><div class="hn-vp">Drag your ember through the dark. Gather all three shards, then reach his eyes at the top. A hound prowls, and the moment it sees you it gives chase. Cut sharp around the pillars and break its line of sight to shake it. Three lives.</div><button class="hn-btn hn-begin">Into the dark</button></div>' +
+              '<div class="hn-veil hn-end" hidden></div>' +
+            '</div>';
+
+        var cv = container.querySelector('.hn-cv'), ctx = cv.getContext('2d');
+        var elEsc = container.querySelector('.hn-esc'), elLives = container.querySelector('.hn-lives'),
+            elBest = container.querySelector('.hn-best'), elSay = container.querySelector('.hn-say'),
+            startV = container.querySelector('.hn-start'), endV = container.querySelector('.hn-end');
+        var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+        function resize() { var r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+        resize();
+
+        var ac = null, master = null, drone = null, droneG = null;
+        function initAudio() { try { if (ac) return; var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; ac = new AC(); master = ac.createGain(); master.gain.value = 0.5; master.connect(ac.destination);
+            drone = ac.createOscillator(); droneG = ac.createGain(); drone.type = 'sine'; drone.frequency.value = 46; droneG.gain.value = 0.03; drone.connect(droneG); droneG.connect(master); drone.start(); } catch (e) {} }
+        function tone(freq, type, peak, dur, delay) { try { if (!ac) return; var t = ac.currentTime + (delay || 0), g = ac.createGain(), o = ac.createOscillator(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur); o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05); } catch (e) {} }
+        function sShard(n) { tone(523.25 * Math.pow(1.12, n || 0), 'triangle', 0.09, 0.3); }
+        function sEscape() { var f = [294, 392, 523]; for (var n = 0; n < 3; n++) tone(f[n], 'sine', 0.09, 0.5, n * 0.08); }
+        function sCaught() { tone(70, 'sawtooth', 0.18, 0.7); tone(48, 'sine', 0.14, 0.9); }
+
+        var state = 'idle', tRun = 0, last = 0, running = true, raf = 0, finished = false;
+        var px = 0, py = 0, fx = 0, fy = 0, pillars = [], shards = [], hunters = [], got = 0, need = 3, chamber = 0, lives = 3, score = 0, invuln = 0, seenAlert = 0, flash = 0, epops = [], floats = [], sayT = 0, ended = false, exitOpen = false, eyeGlow = 0.4;
+        function say(t) { elSay.textContent = t; elSay.classList.add('show'); clearTimeout(sayT); sayT = setTimeout(function () { elSay.classList.remove('show'); }, 3200); }
+        function pick(a) { return a[(Math.random() * a.length) | 0]; }
+        function rnd(a, b) { return a + Math.random() * (b - a); }
+        function dist(ax, ay, bx, by) { return Math.hypot(ax - bx, ay - by); }
+
+        var vStart = ["Into the black. Gather what the seal scattered, and come to me. ...Mind the hound. It is not gentle.", "It hunts by sight, not scent. ...Stay behind the stones. Come to me quietly."];
+        var vEsc = ["Deeper. ...Good.", "You slip its teeth. ...I am almost impressed.", "Closer. ...Do not make me wait long."];
+        var vCaught = ["Caught. ...The dark has you. For a moment.", "It dragged you back. ...Rise. Try again.", "So close. ...Again. I will still be here."];
+        var vShard = ["One more of me, gathered. ...Bring them all.", "Yes. ...The seal weakens with each."];
+
+        function segBlocked(ax, ay, bx, by) { for (var i = 0; i < pillars.length; i++) { var p = pillars[i]; var dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy;
+            var t = L > 0 ? Math.max(0, Math.min(1, ((p.x - ax) * dx + (p.y - ay) * dy) / L)) : 0; var qx = ax + dx * t, qy = ay + dy * t;
+            if (dist(qx, qy, p.x, p.y) < p.r + 4) return true; } return false; }
+        function pushOutPillars(o, rad) { for (var i = 0; i < pillars.length; i++) { var p = pillars[i]; var d = dist(o.x, o.y, p.x, p.y), min = p.r + rad;
+            if (d < min && d > 0.01) { var nx = (o.x - p.x) / d, ny = (o.y - p.y) / d; o.x = p.x + nx * min; o.y = p.y + ny * min; } } }
+        function nearAnyPillar(x, y, pad) { for (var i = 0; i < pillars.length; i++) { if (dist(x, y, pillars[i].x, pillars[i].y) < pillars[i].r + pad) return true; } return false; }
+
+        function buildChamber() {
+            pillars = []; var np = Math.round((4 + Math.min(4, Math.floor(chamber / 1.3))) * T.cover);
+            for (var i = 0; i < np; i++) { var tries = 0, x, y;
+                do { x = rnd(W * 0.14, W * 0.86); y = rnd(H * 0.24, H * 0.74); tries++; } while (tries < 12 && (dist(x, y, W / 2, H * 0.86) < 90 || dist(x, y, W / 2, H * 0.14) < 80));
+                pillars.push({ x: x, y: y, r: rnd(20, 30) }); }
+            shards = []; got = 0; for (var s = 0; s < need; s++) { var tx, ty, tr = 0; do { tx = rnd(W * 0.12, W * 0.88); ty = rnd(H * 0.24, H * 0.72); tr++; }
+                while (tr < 16 && (nearAnyPillar(tx, ty, 20) || dist(tx, ty, W / 2, H * 0.86) < 70)); shards.push({ x: tx, y: ty, got: false }); }
+            hunters = []; var nh = chamber >= 3 ? 2 : 1; var spd = (118 + chamber * 16) * T.hound;
+            for (var h = 0; h < nh; h++) { hunters.push({ x: rnd(W * 0.2, W * 0.8), y: H * 0.2, vx: 0, vy: 0, locked: false, lose: 0, lx: 0, ly: 0, prowl: { x: rnd(0, W), y: rnd(0, H) }, spd: spd, r: 13 }); }
+            exitOpen = false;
+        }
+
+        function reset() { tRun = 0; last = 0; px = W / 2; py = H * 0.86; fx = px; fy = py; chamber = 0; lives = 3; score = 0; invuln = 0; seenAlert = 0; flash = 0; epops = []; floats = []; ended = false; eyeGlow = 0.4;
+            buildChamber(); setEsc(); setLives(); elBest.textContent = (+localStorage.getItem('pp_noir_hunt_best') || 0); }
+        function beginRun() { reset(); state = 'playing'; startV.setAttribute('hidden', ''); endV.setAttribute('hidden', ''); say(pick(vStart)); }
+
+        function collectShard(sh) { sh.got = true; got++; score += 10; sShard(got); floatT(sh.x, sh.y - 16, '+', '#e0a15a'); say(pick(vShard));
+            if (got >= need) { exitOpen = true; floatT(W / 2, H * 0.16, 'the way opens', '#e0556a'); } }
+        function escapeChamber() { score += 50; chamber++; setEsc(); sEscape(); if (T.motion > 0.03) epops.push({ x: W / 2, y: H * 0.16, vx: 0, vy: -30, life: 1, em: '🖤', size: 20 });
+            say(pick(vEsc)); buildChamber(); px = W / 2; py = H * 0.86; fx = px; fy = py; invuln = 0.8; }
+        function caught(h) { lives--; setLives(); invuln = 1.3; flash = 1; sCaught();
+            floatT(px, py - 22, 'caught', '#c23148'); if (T.motion > 0.03) { for (var i = 0; i < 4; i++) epops.push({ x: px + (Math.random() - .5) * 40, y: py, vx: (Math.random() - .5) * 40, vy: -(20 + Math.random() * 30), life: 1, em: '🥀', size: 16 }); }
+            var a = Math.atan2(py - h.y, px - h.x); px += Math.cos(a) * 70; py += Math.sin(a) * 70; px = Math.max(12, Math.min(W - 12, px)); py = Math.max(12, Math.min(H - 12, py)); fx = px; fy = py;
+            h.x -= Math.cos(a) * 40; h.y -= Math.sin(a) * 40; h.locked = false; h.lose = 0;
+            say(pick(vCaught)); if (lives <= 0) endGame(); }
+
+        function floatT(x, y, t, c) { floats.push({ x: x, y: y, t: t, c: c, life: 1 }); }
+        function setEsc() { elEsc.textContent = chamber; }
+        function setLives() { var s = ''; for (var i = 0; i < 3; i++) s += i < lives ? '♥' : '<span style="opacity:.2">♥</span>'; elLives.innerHTML = s; }
+
+        function loop(ts) {
+            if (!running || !cv.isConnected) { running = false; return; }
+            if (!ts) ts = 0; if (!last) last = ts; var dt = Math.min(.05, (ts - last) / 1000); last = ts;
+            if (state === 'playing') {
+                tRun += dt;
+                var pe = Math.min(1, dt * 16); px += (fx - px) * pe; py += (fy - py) * pe; px = Math.max(12, Math.min(W - 12, px)); py = Math.max(12, Math.min(H - 12, py));
+                pushOutPillars({ get x() { return px; }, set x(v) { px = v; }, get y() { return py; }, set y(v) { py = v; } }, 9);
+                if (invuln > 0) invuln -= dt;
+                for (var s = 0; s < shards.length; s++) { if (!shards[s].got && dist(px, py, shards[s].x, shards[s].y) < 16) collectShard(shards[s]); }
+                if (exitOpen && py < H * 0.15 && Math.abs(px - W / 2) < 70) escapeChamber();
+                var anyLock = false;
+                for (var h = 0; h < hunters.length; h++) { var hu = hunters[h];
+                    var see = (dist(hu.x, hu.y, px, py) < 250 * T.sight) && !segBlocked(hu.x, hu.y, px, py) && invuln <= 0;
+                    if (see) { hu.locked = true; hu.lose = 0; hu.lx = px; hu.ly = py; anyLock = true; }
+                    else if (hu.locked) { hu.lose += dt; if (hu.lose > 1.1) hu.locked = false; }
+                    var tx, ty;
+                    if (hu.locked) { tx = px; ty = py; }
+                    else if (hu.lx !== 0 || hu.ly !== 0) { tx = hu.lx; ty = hu.ly; if (dist(hu.x, hu.y, tx, ty) < 24) { hu.lx = 0; hu.ly = 0; } }
+                    else { tx = hu.prowl.x; ty = hu.prowl.y; if (dist(hu.x, hu.y, tx, ty) < 30) { hu.prowl = { x: rnd(W * 0.1, W * 0.9), y: rnd(H * 0.1, H * 0.8) }; } }
+                    var da = Math.atan2(ty - hu.y, tx - hu.x); var dvx = Math.cos(da) * hu.spd, dvy = Math.sin(da) * hu.spd;
+                    for (var pi = 0; pi < pillars.length; pi++) { var p = pillars[pi]; var dp = dist(hu.x, hu.y, p.x, p.y);
+                        if (dp < p.r + 46 && dp > 0.1) { var axx = (hu.x - p.x) / dp, ayy = (hu.y - p.y) / dp, w = (p.r + 46 - dp) / (p.r + 46); dvx += axx * hu.spd * w * 1.4; dvy += ayy * hu.spd * w * 1.4; } }
+                    var turn = Math.min(1, dt * (hu.locked ? 3.6 : 2.4));
+                    hu.vx += (dvx - hu.vx) * turn; hu.vy += (dvy - hu.vy) * turn;
+                    var sp = Math.hypot(hu.vx, hu.vy); if (sp > hu.spd) { hu.vx = hu.vx / sp * hu.spd; hu.vy = hu.vy / sp * hu.spd; }
+                    hu.x += hu.vx * dt; hu.y += hu.vy * dt; hu.x = Math.max(hu.r, Math.min(W - hu.r, hu.x)); hu.y = Math.max(hu.r, Math.min(H - hu.r, hu.y));
+                    pushOutPillars(hu, hu.r);
+                    if (invuln <= 0 && dist(hu.x, hu.y, px, py) < hu.r + 11) { caught(hu); }
+                }
+                seenAlert = anyLock ? Math.min(1, seenAlert + dt * 4) : Math.max(0, seenAlert - dt * 2);
+                eyeGlow += ((0.45 + got / need * 0.4) - eyeGlow) * dt * 3;
+                if (droneG) { try { droneG.gain.setTargetAtTime((0.03 + seenAlert * 0.09) * 0.5, ac.currentTime, 0.1); drone.frequency.setTargetAtTime(46 + seenAlert * 30, ac.currentTime, 0.1); } catch (e) {} }
+                flash = Math.max(0, flash - dt * 1.6);
+            }
+            for (var e2 = epops.length - 1; e2 >= 0; e2--) { var e = epops[e2]; e.x += e.vx * dt; e.y += e.vy * dt; e.vy += 18 * dt; e.life -= dt * 0.8; if (e.life <= 0) epops.splice(e2, 1); }
+            for (var fq = floats.length - 1; fq >= 0; fq--) { var fl = floats[fq]; fl.y -= 22 * dt; fl.life -= dt * 1.0; if (fl.life <= 0) floats.splice(fq, 1); }
+            draw(); raf = requestAnimationFrame(loop);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#08040a'; ctx.fillRect(0, 0, W, H);
+            ctx.strokeStyle = 'rgba(120,88,176,0.05)'; ctx.lineWidth = 1;
+            for (var gx = 0; gx < W; gx += 46) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
+            for (var gy = 0; gy < H; gy += 46) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+            for (var i = 0; i < pillars.length; i++) { var p = pillars[i]; var pg = ctx.createRadialGradient(p.x, p.y - p.r * 0.3, 2, p.x, p.y, p.r);
+                pg.addColorStop(0, '#2a2140'); pg.addColorStop(1, '#140e22'); ctx.fillStyle = pg; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.29); ctx.fill();
+                ctx.strokeStyle = 'rgba(118,88,176,0.25)'; ctx.lineWidth = 1; ctx.stroke(); }
+            var ex = W / 2, ey = H * 0.12, eg = (exitOpen ? 1 : 0.4) * (0.5 + eyeGlow * 0.5);
+            if (exitOpen) { var xg = ctx.createRadialGradient(ex, ey, 4, ex, ey, 90); xg.addColorStop(0, 'rgba(224,85,106,0.22)'); xg.addColorStop(1, 'rgba(224,85,106,0)'); ctx.fillStyle = xg; ctx.fillRect(ex - 90, ey - 40, 180, 90); }
+            for (var s2 = -1; s2 <= 1; s2 += 2) { var xx = ex + s2 * 18; var er = ctx.createRadialGradient(xx, ey, 0, xx, ey, 22);
+                er.addColorStop(0, 'rgba(224,85,106,' + (0.75 * eg) + ')'); er.addColorStop(1, 'rgba(118,88,176,0)'); ctx.fillStyle = er; ctx.beginPath(); ctx.arc(xx, ey, 22, 0, 6.29); ctx.fill();
+                ctx.fillStyle = 'rgba(255,150,120,' + (0.5 + eg * 0.4) + ')'; ctx.beginPath(); ctx.ellipse(xx, ey, 6, 8, 0, 0, 6.29); ctx.fill();
+                ctx.fillStyle = 'rgba(10,3,8,0.9)'; ctx.beginPath(); ctx.ellipse(xx, ey, 1.4, 6, 0, 0, 6.29); ctx.fill(); }
+            for (var sh = 0; sh < shards.length; sh++) { if (shards[sh].got) continue; var S = shards[sh]; var pul = 0.5 + 0.5 * Math.sin(tRun * 4 + sh);
+                var sg = ctx.createRadialGradient(S.x, S.y, 0, S.x, S.y, 18); sg.addColorStop(0, 'rgba(224,85,106,' + (0.4 + pul * 0.3) + ')'); sg.addColorStop(1, 'rgba(224,85,106,0)');
+                ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(S.x, S.y, 18, 0, 6.29); ctx.fill();
+                ctx.fillStyle = '#e0556a'; ctx.beginPath(); ctx.moveTo(S.x, S.y - 7); ctx.lineTo(S.x + 5, S.y); ctx.lineTo(S.x, S.y + 7); ctx.lineTo(S.x - 5, S.y); ctx.closePath(); ctx.fill(); }
+            for (var h = 0; h < hunters.length; h++) { var hu = hunters[h];
+                if (hu.locked) { ctx.strokeStyle = 'rgba(224,49,72,0.18)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(hu.x, hu.y); ctx.lineTo(px, py); ctx.stroke(); }
+                var hg = ctx.createRadialGradient(hu.x, hu.y, 2, hu.x, hu.y, hu.r * 1.8); hg.addColorStop(0, 'rgba(20,6,14,0.95)'); hg.addColorStop(1, 'rgba(20,6,14,0)');
+                ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(hu.x, hu.y, hu.r * 1.8, 0, 6.29); ctx.fill();
+                var ang = Math.atan2(hu.vy, hu.vx); for (var s3 = -1; s3 <= 1; s3 += 2) { var eyx = hu.x + Math.cos(ang) * 4 - Math.sin(ang) * s3 * 4, eyy = hu.y + Math.sin(ang) * 4 + Math.cos(ang) * s3 * 4;
+                    ctx.fillStyle = hu.locked ? '#ff5a4a' : '#c23148'; ctx.beginPath(); ctx.arc(eyx, eyy, 2.2, 0, 6.29); ctx.fill(); } }
+            var pl = ctx.createRadialGradient(px, py, 0, px, py, 15); pl.addColorStop(0, 'rgba(255,214,160,0.9)'); pl.addColorStop(1, 'rgba(224,120,90,0)');
+            ctx.fillStyle = pl; ctx.beginPath(); ctx.arc(px, py, 15, 0, 6.29); ctx.fill();
+            ctx.fillStyle = invuln > 0 && Math.floor(tRun * 12) % 2 ? '#8a5a4a' : '#ffdca0'; ctx.beginPath(); ctx.arc(px, py, 5, 0, 6.29); ctx.fill();
+            var vig = ctx.createRadialGradient(px, py, 60, px, py, Math.max(W, H) * 0.62); vig.addColorStop(0, 'rgba(8,4,10,0)'); vig.addColorStop(1, 'rgba(6,3,8,0.72)');
+            ctx.fillStyle = vig; ctx.fillRect(0, 0, W, H);
+            if (seenAlert > 0.02) { ctx.strokeStyle = 'rgba(224,49,72,' + (seenAlert * 0.5) + ')'; ctx.lineWidth = 6; ctx.strokeRect(3, 3, W - 6, H - 6); }
+            if (flash > 0.02) { ctx.fillStyle = 'rgba(150,14,30,' + (flash * 0.4) + ')'; ctx.fillRect(0, 0, W, H); }
+            ctx.fillStyle = 'rgba(224,161,90,0.75)'; ctx.font = '11px system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.fillText('shards  ' + got + ' / ' + need, W / 2, H - 14);
+            for (var fi = 0; fi < floats.length; fi++) { var flo = floats[fi]; ctx.globalAlpha = Math.max(0, flo.life); ctx.fillStyle = flo.c; ctx.font = 'italic 600 15px "Iowan Old Style",Georgia,serif'; ctx.textAlign = 'center'; ctx.fillText(flo.t, flo.x, flo.y); } ctx.globalAlpha = 1;
+            for (var ei = 0; ei < epops.length; ei++) { var epp = epops[ei]; ctx.globalAlpha = Math.max(0, epp.life); ctx.font = epp.size + 'px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(epp.em, epp.x, epp.y); ctx.textBaseline = 'alphabetic'; } ctx.globalAlpha = 1;
+        }
+
+        function endGame() {
+            if (ended) return; ended = true; state = 'done';
+            if (droneG) { try { droneG.gain.setTargetAtTime(0.0001, ac.currentTime, 0.2); } catch (e) {} }
+            var sc = score, best = +(localStorage.getItem('pp_noir_hunt_best') || 0), rec = sc > best;
+            var bb = chamber >= 6 ? 10 : chamber >= 3 ? 7 : chamber >= 1 ? 4 : 2, ab = chamber >= 4 ? 2 : chamber >= 1 ? 1 : 0;
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.huntScore = (game.huntScore || 0) + 1; }
+            var rose = 0; if (rec) { try { localStorage.setItem('pp_noir_hunt_best', String(sc)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'hunt record'); rose = 5; } } catch (e) {} }
+            try { if (game && game.save) game.save(); } catch (e) {}
+            elBest.textContent = Math.max(best, sc);
+            var line;
+            if (chamber >= 6) line = "Six chambers of the dark, and you still breathe. ...You are wasted on the living. Come back to me.";
+            else if (chamber >= 3) line = "It caught you in the end. They always do. ...But you went deep. Deeper than most. Again.";
+            else if (chamber >= 1) line = "The hound took its due. ...You will learn its turns. Come back, and take one more from it.";
+            else line = "Down at the first. ...No shame in it. The dark is mine, and you are new to it. Come closer next time.";
+            endV.innerHTML = '<div class="hn-vk">the hound withdraws</div>' +
+                '<div class="hn-vt">' + (chamber >= 3 ? 'You stole deep into the dark' : 'The hunt took you') + '</div>' +
+                (rec ? '<div class="hn-rec">&#10024; The deepest you have stolen' + (rose ? ' &middot; +' + rose + ' Roses' : '') + '</div>' : '') +
+                '<div class="hn-stats"><div><b>' + chamber + '</b><span>Chambers escaped</span></div><div><b>' + sc + '</b><span>Score</span></div></div>' +
+                '<div class="hn-vp">' + line + '</div><button class="hn-btn hn-doneb">Done</button>';
+            endV.removeAttribute('hidden'); elSay.classList.remove('show');
+            var db = endV.querySelector('.hn-doneb'); if (db) db.addEventListener('click', function () { finish(); });
+        }
+        function finish() { if (finished) return; finished = true; running = false; if (raf) cancelAnimationFrame(raf); if (onDone) onDone(chamber >= 1); }
+
+        function setFinger(e) { var r = cv.getBoundingClientRect(); fx = e.clientX - r.left; fy = e.clientY - r.top; }
+        cv.addEventListener('pointerdown', function (e) { if (state !== 'playing') return; e.preventDefault(); setFinger(e); try { cv.setPointerCapture(e.pointerId); } catch (_) {} });
+        cv.addEventListener('pointermove', function (e) { if (state !== 'playing') return; setFinger(e); });
+        container.querySelector('.hn-begin').addEventListener('click', function () { initAudio(); try { if (ac && ac.state === 'suspended') ac.resume(); } catch (e) {} beginRun(); });
+
+        reset(); draw();
+        elBest.textContent = (+localStorage.getItem('pp_noir_hunt_best') || 0);
+        raf = requestAnimationFrame(loop);
+    }
+
     play(type, container, onComplete) {
         switch (type) {
+            case 'hunt':
+                this.playHunt(container, onComplete);
+                break;
             case 'runes':
                 this.playRunes(container, onComplete);
                 break;
