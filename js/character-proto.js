@@ -380,9 +380,9 @@ const CHARACTER_PROTO = {
 
     // System command training
     trainingOptions: [
-        { type: 'inspect', icon: '\uD83D\uDD0D', label: 'Inspect',  desc: 'Scan and analyze' },
-        { type: 'modify',  icon: '\uD83D\uDD27', label: 'Modify',   desc: 'Alter parameters' },
-        { type: 'override',icon: '\u26A1',        label: 'Override', desc: 'Force execution' }
+        { type: 'inspect', icon: '\uD83E\uDD32', label: 'Reach',   desc: 'Hold on to him across the veil' },
+        { type: 'modify',  icon: '\u2728',        label: 'Steady',  desc: 'Help him hold his shape' },
+        { type: 'override',icon: '\uD83E\uDDF5', label: 'Weave',   desc: 'Strengthen the thread' }
     ],
 
     trainingDialogue: {

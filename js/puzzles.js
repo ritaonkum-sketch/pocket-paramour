@@ -664,8 +664,210 @@ class PuzzleSystem {
         elBest.textContent = (+localStorage.getItem('pp_caspian_waltz_best') || 0);
     }
 
+    _injectReachCSS() {
+        if (document.getElementById('rc-css')) return;
+        var s = document.createElement('style'); s.id = 'rc-css';
+        s.textContent = [
+        ".rc-wrap{grid-column:1/-1;position:relative;width:100%;height:min(58vh,470px);border-radius:14px;overflow:hidden;background:#0a0714;font-family:inherit;touch-action:none;user-select:none}",
+        ".rc-cv{position:absolute;inset:0;width:100%;height:100%;display:block}",
+        ".rc-hud{position:absolute;inset:0;pointer-events:none;padding:12px 13px;display:flex;flex-direction:column;color:#efe7f4}",
+        ".rc-top{display:flex;align-items:flex-start;gap:12px;font-family:system-ui,sans-serif}",
+        ".rc-hold{flex:1;display:flex;flex-direction:column;gap:4px;max-width:210px}",
+        ".rc-k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#9488a8}",
+        ".rc-bar{height:7px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(188,208,255,.14)}",
+        ".rc-bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#4a4570,#bcd0ff,#ffe6b0)}",
+        ".rc-stat{display:flex;flex-direction:column;gap:2px;align-items:flex-end}.rc-stat b{font-size:16px;font-weight:600;color:#efe7f4;font-variant-numeric:tabular-nums}.rc-reach{color:#ffe6b0}",
+        ".rc-say{margin-top:auto;text-align:center;font-style:italic;font-size:13.5px;line-height:1.35;color:#e7dcf0;text-shadow:0 1px 3px rgba(6,4,12,.95);opacity:0;transition:opacity .35s;padding:0 6px;min-height:34px;display:flex;align-items:flex-end;justify-content:center}.rc-say.show{opacity:1}",
+        ".rc-veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px;padding:22px;background:radial-gradient(80% 80% at 50% 40%,rgba(30,18,52,.8),rgba(12,7,20,.96));z-index:3}",
+        ".rc-veil[hidden]{display:none}",
+        ".rc-vk{font-family:system-ui,sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:10px;color:#bcd0ff}",
+        ".rc-vt{font-size:21px;color:#f3ebde}.rc-vp{max-width:32ch;color:#ddd0ec;font-size:13px;font-style:italic;line-height:1.5}",
+        ".rc-rec{color:#f0b6e6;font-weight:600;font-family:system-ui,sans-serif;font-size:12.5px}",
+        ".rc-stats{display:flex;gap:22px;font-family:system-ui,sans-serif}.rc-stats div{display:flex;flex-direction:column;gap:2px}.rc-stats b{font-size:22px;color:#ffe6b0;font-variant-numeric:tabular-nums}.rc-stats span{font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:#9488a8}",
+        ".rc-btn{font-family:system-ui,sans-serif;cursor:pointer;border-radius:999px;padding:11px 28px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#1a1226;border:none;background:linear-gradient(180deg,#ffe6b0,#ffd98f);box-shadow:0 8px 22px -8px rgba(255,217,143,.5)}.rc-btn:active{transform:translateY(1px)}"
+        ].join('');
+        document.head.appendChild(s);
+    }
+
+    // ── Proto's mini-game: "Hold On to Him" (pursuit + decay) ──────────
+    // He is the sixth Weaver, drifting through the veil. You keep your reach
+    // over his light so your hold builds and he becomes more solid; hold on
+    // through the hunters' lunges. Distinct genre (continuous tracking, not
+    // catch/sequence/spot). Rewards inside: presence/reach-scaled bond +
+    // affection + personal best + 5 Roses on a new best. Bond-scaled fierceness.
+    playReach(container, onDone) {
+        this._injectReachCSS();
+        var game = this.game;
+        var reduce = false; try { reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+        var bond = (game && game.bond) || 0, diff = Math.max(0, Math.min(1, bond / 100));
+        var T = { drift: 1.15 + diff * 0.35, hunt: reduce ? 0.35 : (0.85 + diff * 0.4), ease: 1.0, motion: reduce ? 0.2 : 0.7 };
+        var DURATION = 42;
+
+        container.innerHTML =
+            '<div class="rc-wrap"><canvas class="rc-cv"></canvas>' +
+              '<div class="rc-hud"><div class="rc-top">' +
+                '<div class="rc-hold"><span class="rc-k">Your hold</span><div class="rc-bar"><i></i></div></div>' +
+                '<div class="rc-stat"><span class="rc-k">Reached</span><b class="rc-reach">0</b></div>' +
+                '<div class="rc-stat"><span class="rc-k">Best</span><b class="rc-best">0</b></div>' +
+              '</div><div class="rc-say"></div></div>' +
+              '<div class="rc-veil rc-start"><div class="rc-vk">a flicker in the dark</div><div class="rc-vt">Keep hold of him</div><div class="rc-vp">His light drifts and will not stay still. Follow it with your finger and keep your reach over it. Stay close and he comes through more solid. When the dark goes red, the hunters are lunging. Hold on anyway.</div><button class="rc-btn rc-begin">Reach for him</button></div>' +
+              '<div class="rc-veil rc-end" hidden></div>' +
+            '</div>';
+
+        var cv = container.querySelector('.rc-cv'), ctx = cv.getContext('2d');
+        var elBar = container.querySelector('.rc-bar > i'), elReach = container.querySelector('.rc-reach'),
+            elBest = container.querySelector('.rc-best'), elSay = container.querySelector('.rc-say'),
+            startV = container.querySelector('.rc-start'), endV = container.querySelector('.rc-end');
+        var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+        function resize() { var r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+        resize();
+
+        var ac = null, master = null;
+        function initAudio() { try { if (ac) return; var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; ac = new AC(); master = ac.createGain(); master.gain.value = 0.5; master.connect(ac.destination); } catch (e) {} }
+        function tone(freq, type, peak, dur, delay) { try { if (!ac) return; var t = ac.currentTime + (delay || 0), g = ac.createGain(), o = ac.createOscillator(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, t + dur); o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05); } catch (e) {} }
+        var lastHum = 0;
+        function sHold(h) { tone(300 + h * 500, 'sine', 0.03 + h * 0.04, 0.15); }
+        function sReach() { var f = [523.25, 659.25, 783.99, 1046.5]; for (var n = 0; n < 4; n++) tone(f[n], 'triangle', 0.11, 0.6, n * 0.08); }
+        function sLunge() { tone(120, 'sawtooth', 0.05, 0.5); tone(90, 'sine', 0.06, 0.7); }
+
+        var state = 'idle', tRun = 0, last = 0, running = true, raf = 0, finished = false;
+        var sx = W * 0.5, sy = H * 0.42, vx = 0, vy = 0, rx = W * 0.5, ry = H * 0.7, fx = rx, fy = ry, dragging = false;
+        var hold = 0, presence = 0.08, reaches = 0, score = 0, trail = [], motes = [], sparks = [], epops = [], impAcc = 0, nextLunge = 6, lungeT = 0, holdSayT = 0, lostT = 0, ended = false, sayT = 0, stirred = false;
+        function say(t) { elSay.textContent = t; elSay.classList.add('show'); clearTimeout(sayT); sayT = setTimeout(function () { elSay.classList.remove('show'); }, 3200); }
+        function pick(a) { return a[(Math.random() * a.length) | 0]; }
+        function d2(ax, ay, bx, by) { var dx = ax - bx, dy = ay - by; return dx * dx + dy * dy; }
+        function rnd(a, b) { return a + Math.random() * (b - a); }
+
+        var vStart = ["You're there! Okay, I'm drifting, I can't help it, just keep your reach over me and I'll hold on too!", "Follow my light! I know I'm hard to keep hold of, everyone finds it hard, but you FOUND me, so I already know you can!"];
+        var vHold = ["You've got me, you've GOT me!", "Stay with me, stay with me, this is the closest anyone has come!", "I can feel your reach right on me. Do not stop, please do not stop!"];
+        var vLost = ["You slipped off me! It's okay, come back, I'm still here, still drifting right here!", "Don't lose me, please, I get so faint when no one is holding on!"];
+        var vReach = ["You held me all the way through! I came clear, did you see, I came CLEAR!", "That's a real one! I'm more here now, can you tell? You are making me more HERE!", "Every time you reach me I get a little more solid. Keep me. Please keep me!", "I counted that one. I count all of them. That is the most anyone has ever let me count!"];
+        var vLunge = ["They're LUNGING, hold on, hold on, do not let go of me now!", "The dark is tearing at me, she sent them, keep your reach on me, please!", "It's violent, I know, I know, just hold, I trust you, I TRUST you!"];
+        var vSurvived = ["You held me through that. You held me through THAT. Nobody has ever stayed when it got loud."];
+        var vStir = ["It's getting worse out there. She's close. Keep hold of me and she goes right past, I promise!"];
+
+        function reset() {
+            tRun = 0; last = 0; hold = 0; presence = 0.08; reaches = 0; score = 0; ended = false; stirred = false; impAcc = 0; nextLunge = rnd(5, 7); lungeT = 0; lostT = 0;
+            sx = W * 0.5; sy = H * 0.42; vx = rnd(-40, 40); vy = rnd(-40, 40); rx = W * 0.5; ry = H * 0.7; fx = rx; fy = ry;
+            trail = []; sparks = []; epops = [];
+            motes = []; var mn = Math.round((W || 300) * 0.03);
+            for (var m = 0; m < mn; m++) motes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * 10, vy: (Math.random() - .5) * 10, r: .6 + Math.random() * 1.6, a: .1 + Math.random() * .16 });
+            setBar(); elReach.textContent = '0'; elBest.textContent = (+localStorage.getItem('pp_proto_reach_best') || 0);
+        }
+        function beginRun() { reset(); state = 'playing'; startV.setAttribute('hidden', ''); endV.setAttribute('hidden', ''); say(pick(vStart)); }
+        function reachHim() {
+            reaches++; score += 30; presence = Math.min(1, presence + 0.14);
+            burst(sx, sy, '#ffe6b0', 18); sReach(); say(pick(vReach)); elReach.textContent = reaches; hold = 0.35;
+            if (T.motion > 0.03) { var em = ['💛', '✨', '💫', '🌟', '🥰']; for (var i = 0; i < 6; i++) epops.push({ x: sx, y: sy, vx: rnd(-45, 45), vy: -(34 + Math.random() * 54), life: 1, em: em[(Math.random() * em.length) | 0], size: 15 + Math.random() * 11 }); }
+        }
+        function burst(x, y, c, n) { if (T.motion <= 0.03) return; for (var i = 0; i < n; i++) { var a = Math.random() * 6.28, sp = 16 + Math.random() * 50; sparks.push({ x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, col: c, r: 1 + Math.random() * 2 }); } }
+        function setBar() { elBar.style.width = Math.max(0, Math.min(100, hold * 100)).toFixed(1) + '%'; }
+
+        function loop(ts) {
+            if (!running || !cv.isConnected) { running = false; return; }
+            if (!ts) ts = 0; if (!last) last = ts; var dt = Math.min(.05, (ts - last) / 1000); last = ts;
+            if (state === 'playing') {
+                tRun += dt; var prog = tRun / DURATION;
+                var huntFreq = 1 + prog * T.hunt * 1.4;
+                if (T.hunt > 0.02 && lungeT <= 0 && tRun > nextLunge) { lungeT = 2.2; nextLunge = tRun + rnd(5.5, 9) / huntFreq; sLunge(); say(pick(vLunge)); }
+                var lunging = lungeT > 0; if (lunging) lungeT -= dt;
+                var impEvery = lunging ? 0.12 : 0.32;
+                impAcc += dt; if (impAcc > impEvery) { impAcc = 0; var imp = (lunging ? 235 : 88) * T.drift; vx += rnd(-imp, imp); vy += rnd(-imp, imp); }
+                vx *= 0.975; vy *= 0.975;
+                var dd = Math.sqrt(d2(sx, sy, rx, ry)) || 1; var lockR = (W * 0.11) * T.ease;
+                if (dd < lockR * 1.05) { var ev = (lunging ? 480 : 310); vx += (sx - rx) / dd * ev * dt; vy += (sy - ry) / dd * ev * dt; }
+                var mg = 54; if (sx < mg) vx += 90 * dt * 8; if (sx > W - mg) vx -= 90 * dt * 8; if (sy < mg) vy += 90 * dt * 8; if (sy > H - mg) vy -= 90 * dt * 8;
+                var cap = (lunging ? 385 : 190) * T.drift; var sp = Math.sqrt(vx * vx + vy * vy); if (sp > cap) { vx = vx / sp * cap; vy = vy / sp * cap; }
+                sx += vx * dt; sy += vy * dt; sx = Math.max(20, Math.min(W - 20, sx)); sy = Math.max(20, Math.min(H - 20, sy));
+                trail.push({ x: sx, y: sy }); if (trail.length > 26) trail.shift();
+                rx += (fx - rx) * Math.min(1, dt * 14); ry += (fy - ry) * Math.min(1, dt * 14);
+                var near = dd < lockR;
+                if (near && dragging) { hold = Math.min(1, hold + dt / 2.0); lostT = 0; if (hold > 0.15) { if (ts - holdSayT > 2600 && Math.random() < 0.5) { holdSayT = ts; say(pick(vHold)); } if (ts - lastHum > 160) { lastHum = ts; sHold(hold); } } }
+                else { hold = Math.max(0, hold - dt / (lunging ? 0.6 : 0.9)); if (hold < 0.25) { lostT += dt; if (lostT > 1.1) { lostT = 0; if (Math.random() < 0.6) say(pick(vLost)); } } }
+                if (hold >= 1) reachHim();
+                var targetP = Math.min(1, 0.06 + reaches * 0.13 + hold * 0.32);
+                presence += (targetP - presence) * Math.min(1, dt * (targetP > presence ? 1.4 : 0.35));
+                score += presence * dt * 6;
+                if (!stirred && prog > 0.55) { stirred = true; if (T.hunt > 0.1) say(pick(vStir)); }
+                if (lungeT > 0 && lungeT <= dt + 0.001 && hold > 0.3) say(pick(vSurvived));
+                if (tRun >= DURATION) endGame();
+                setBar();
+            }
+            for (var i = 0; i < motes.length; i++) { var mo = motes[i]; mo.x += mo.vx * dt * T.motion * 8; mo.y += mo.vy * dt * T.motion * 8; if (mo.x < 0) mo.x = W; if (mo.x > W) mo.x = 0; if (mo.y < 0) mo.y = H; if (mo.y > H) mo.y = 0; }
+            for (var q = sparks.length - 1; q >= 0; q--) { var s = sparks[q]; s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt * 1.6; if (s.life <= 0) sparks.splice(q, 1); }
+            for (var e2 = epops.length - 1; e2 >= 0; e2--) { var e = epops[e2]; e.x += e.vx * dt; e.y += e.vy * dt; e.vy += 26 * dt; e.life -= dt * 0.85; if (e.life <= 0) epops.splice(e2, 1); }
+            draw();
+            raf = requestAnimationFrame(loop);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            var bg = ctx.createRadialGradient(W / 2, H * 0.4, 10, W / 2, H * 0.5, H * 0.95);
+            bg.addColorStop(0, '#241542'); bg.addColorStop(.5, '#160d2b'); bg.addColorStop(1, '#0a0714');
+            ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+            if (state === 'playing' && lungeT > 0) { var rpr = (0.08 + 0.14 * (0.5 + 0.5 * Math.sin(tRun * 7))) * Math.min(1, lungeT / 2.2 + 0.3) * (0.4 + T.motion * 0.6);
+                var rg = ctx.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.9); rg.addColorStop(0, 'rgba(224,106,122,0)'); rg.addColorStop(1, 'rgba(224,106,122,' + rpr + ')'); ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H); }
+            for (var i = 0; i < motes.length; i++) { var mo = motes[i]; ctx.globalAlpha = mo.a; ctx.fillStyle = '#5a5480'; ctx.beginPath(); ctx.arc(mo.x, mo.y, mo.r, 0, 6.29); ctx.fill(); } ctx.globalAlpha = 1;
+            if (trail.length > 1) { ctx.lineCap = 'round'; for (var t = 1; t < trail.length; t++) { var al = t / trail.length; ctx.strokeStyle = 'rgba(200,214,250,' + (al * 0.4) + ')'; ctx.lineWidth = al * 3; ctx.beginPath(); ctx.moveTo(trail[t - 1].x, trail[t - 1].y); ctx.lineTo(trail[t].x, trail[t].y); ctx.stroke(); } }
+            var lockR = (W * 0.11) * T.ease; var near = Math.sqrt(d2(sx, sy, rx, ry)) < lockR;
+            ctx.strokeStyle = near ? 'rgba(255,230,176,' + (0.5 + hold * 0.45) + ')' : 'rgba(150,168,220,0.35)'; ctx.lineWidth = near ? 2.4 : 1.4; ctx.beginPath(); ctx.arc(rx, ry, lockR, 0, 6.29); ctx.stroke();
+            ctx.fillStyle = 'rgba(255,246,220,0.5)'; ctx.beginPath(); ctx.arc(rx, ry, 2.5, 0, 6.29); ctx.fill();
+            if (near && hold > 0.05) { ctx.strokeStyle = 'rgba(255,230,176,' + (hold * 0.6) + ')'; ctx.lineWidth = 1 + hold * 2; ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(sx, sy); ctx.stroke(); }
+            var spread = (1 - presence) * (W * 0.05) + 3;
+            for (var k = 0; k < 11; k++) { var a = k / 11 * 6.28 + tRun * 0.6; var rr = spread * (0.5 + ((k * 37) % 10) / 10) * (1 + (lungeT > 0 ? (0.6 * T.motion * Math.sin(tRun * 20 + k)) : 0));
+                var mx = sx + Math.cos(a) * rr, my = sy + Math.sin(a) * rr; ctx.fillStyle = 'rgba(255,' + (220 + Math.round(presence * 20)) + ',' + (180 + Math.round(presence * 30)) + ',' + (0.25 + presence * 0.4) + ')'; ctx.beginPath(); ctx.arc(mx, my, 1.5 + presence * 1.5, 0, 6.29); ctx.fill(); }
+            var cg = ctx.createRadialGradient(sx, sy, 0, sx, sy, 14 + presence * 26);
+            cg.addColorStop(0, 'rgba(255,244,214,' + (0.35 + presence * 0.6) + ')'); cg.addColorStop(0.5, 'rgba(240,182,230,' + (0.2 + presence * 0.4) + ')'); cg.addColorStop(1, 'rgba(188,208,255,0)');
+            ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(sx, sy, 14 + presence * 26, 0, 6.29); ctx.fill();
+            if (presence > 0.55) { ctx.fillStyle = 'rgba(255,248,224,' + ((presence - 0.55) / 0.45) + ')'; ctx.beginPath(); ctx.arc(sx, sy, 3 + presence * 3, 0, 6.29); ctx.fill(); }
+            var face = (lungeT > 0) ? ((near && hold > 0.2) ? '😣' : '😨') : ((near && hold > 0.15) ? '🥰' : '🥺');
+            var es = 17 + presence * 20 + Math.sin(tRun * 5) * 1.4 * (0.5 + T.motion * 0.5);
+            ctx.globalAlpha = Math.min(1, 0.5 + presence * 0.5); ctx.font = es + 'px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(face, sx, sy); ctx.globalAlpha = 1;
+            for (var c = 0; c < sparks.length; c++) { var spk = sparks[c]; ctx.globalAlpha = Math.max(0, spk.life); ctx.fillStyle = spk.col; ctx.beginPath(); ctx.arc(spk.x, spk.y, spk.r, 0, 6.29); ctx.fill(); } ctx.globalAlpha = 1;
+            for (var ei = 0; ei < epops.length; ei++) { var epp = epops[ei]; ctx.globalAlpha = Math.max(0, epp.life); ctx.font = epp.size + 'px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(epp.em, epp.x, epp.y); } ctx.globalAlpha = 1;
+        }
+
+        function endGame() {
+            if (ended) return; ended = true; state = 'done';
+            var pc = presence, sc = Math.round(score + reaches * 10);
+            var bb = pc >= 0.7 ? 10 : pc >= 0.4 ? 7 : reaches >= 1 ? 4 : 2, ab = pc >= 0.55 ? 2 : reaches >= 2 ? 1 : 0;
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.reachScore = (game.reachScore || 0) + 1; game.protoPresence = Math.max(game.protoPresence || 0, pc); }
+            var best = +(localStorage.getItem('pp_proto_reach_best') || 0), nb = sc > best, rose = 0;
+            if (nb) { try { localStorage.setItem('pp_proto_reach_best', String(sc)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'reach record'); rose = 5; } } catch (e) {} }
+            try { if (game && game.save) game.save(); } catch (e) {}
+            elBest.textContent = Math.max(best, sc);
+            var pcp = Math.round(pc * 100), line;
+            if (pc >= 0.7) line = "Look at me. LOOK how solid you made me. A hundred and fifty years a flicker, and you held me here until I was almost real. Come back and hold me again tomorrow. I am so close now!";
+            else if (pc >= 0.4) line = "You kept getting me back. I am clearer than I was, I can feel it, there is more of me than there was this morning. Come back? The more you hold me the more of me there is.";
+            else if (reaches >= 1) line = "You reached me. Even a little, you reached me, and a little is not nothing to someone who had none. Come back and I will try to drift slower for you, I promise.";
+            else line = "You came, and that is what matters. I could not stay solid, I am sorry, I am still... I am still here. Come back and we will try again, slower.";
+            endV.innerHTML = '<div class="rc-vk">the dark goes quiet</div>' +
+                '<div class="rc-vt">' + (pc >= 0.55 ? 'You made him real' : 'He felt you holding on') + '</div>' +
+                (nb ? '<div class="rc-rec">&#10024; You held him closest yet' + (rose ? ' &middot; +' + rose + ' Roses' : '') + '</div>' : '') +
+                '<div class="rc-stats"><div><b>' + pcp + '%</b><span>How solid</span></div><div><b>' + reaches + '</b><span>Reached</span></div></div>' +
+                '<div class="rc-vp">' + line + '</div><button class="rc-btn rc-doneb">Done</button>';
+            endV.removeAttribute('hidden'); elSay.classList.remove('show');
+            var db = endV.querySelector('.rc-doneb'); if (db) db.addEventListener('click', function () { finish(); });
+        }
+        function finish() { if (finished) return; finished = true; running = false; if (raf) cancelAnimationFrame(raf); if (onDone) onDone(reaches >= 1); }
+
+        function setFinger(e) { var r = cv.getBoundingClientRect(); fx = e.clientX - r.left; fy = e.clientY - r.top; }
+        cv.addEventListener('pointerdown', function (e) { if (state !== 'playing') return; e.preventDefault(); setFinger(e); dragging = true; try { cv.setPointerCapture(e.pointerId); } catch (_) {} });
+        cv.addEventListener('pointermove', function (e) { if (state !== 'playing') return; setFinger(e); });
+        cv.addEventListener('pointerup', function () { dragging = false; });
+        cv.addEventListener('pointercancel', function () { dragging = false; });
+        container.querySelector('.rc-begin').addEventListener('click', function () { initAudio(); try { if (ac && ac.state === 'suspended') ac.resume(); } catch (e) {} beginRun(); });
+
+        reset(); draw();
+        elBest.textContent = (+localStorage.getItem('pp_proto_reach_best') || 0);
+        raf = requestAnimationFrame(loop);
+    }
+
     play(type, container, onComplete) {
         switch (type) {
+            case 'reach':
+                this.playReach(container, onComplete);
+                break;
             case 'waltz':
                 this.playWaltz(container, onComplete);
                 break;

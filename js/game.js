@@ -2826,7 +2826,7 @@ class PocketLoveGame {
             herbs:      { emotion: 'happy',   duration: 8000, seq: () => this.ui.playForageSequence(unlock) },
             fighting:   { emotion: 'angry',   duration: 2600, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playFightingSequence(unlock); } },
             // Proto system command types
-            inspect:    { emotion: 'neutral', duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            inspect:    { emotion: 'love',    duration: 8000, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.playReachSequence(unlock); } },
             modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             override:   { emotion: 'love',    duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             // Noir shadow arts types — timing game + corruption spread
