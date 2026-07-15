@@ -486,8 +486,189 @@ class PuzzleSystem {
     }
 
     // ── Entry point: play a random puzzle of the given type ──────
+    _injectWaltzCSS() {
+        if (document.getElementById('wz-css')) return;
+        var s = document.createElement('style'); s.id = 'wz-css';
+        s.textContent = [
+        ".wz-wrap{grid-column:1/-1;position:relative;width:100%;padding:12px 12px 10px;border-radius:14px;overflow:hidden;font-family:inherit;color:#f3ebde;background:radial-gradient(120% 70% at 50% -10%,rgba(244,224,166,.14),rgba(244,224,166,0) 60%),linear-gradient(180deg,#271a30,#1a1122);box-shadow:inset 0 1px 0 rgba(244,224,166,.07)}",
+        ".wz-top{display:flex;align-items:center;justify-content:flex-end;gap:4px;font-family:system-ui,sans-serif;font-size:11px;color:#a596a6;margin-bottom:6px}",
+        ".wz-top .wz-k{text-transform:uppercase;letter-spacing:.16em;font-size:9px}.wz-top .wz-kr{margin-left:8px}",
+        ".wz-top b{color:#f3ebde;font-variant-numeric:tabular-nums;font-size:14px;margin-left:5px}.wz-top .wz-long{color:#e6a4b4}",
+        ".wz-close{height:8px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(244,224,166,.12);margin-bottom:10px}",
+        ".wz-close>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#c9788c,#e6a4b4,#f4e0a6);transition:width .25s ease-out}",
+        ".wz-status{text-align:center;font-size:15px;min-height:22px;margin-bottom:3px;color:#a596a6;transition:color .25s}",
+        ".wz-status.lead{color:#f4e0a6}.wz-status.echo{color:#e6a4b4}.wz-status.win{color:#e8c979}.wz-status.miss{color:#c9788c}",
+        ".wz-lives{text-align:center;min-height:20px;letter-spacing:3px;font-size:15px;margin-bottom:6px}.wz-lives .spent{opacity:.18;filter:grayscale(1)}",
+        ".wz-dots{display:flex;gap:6px;justify-content:center;min-height:10px;margin-bottom:10px}",
+        ".wz-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.16);transition:.18s}.wz-dots i.on{background:#f4e0a6;transform:scale(1.25)}",
+        ".wz-pads{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:380px;margin:0 auto}",
+        ".wz-pad{position:relative;border:none;cursor:pointer;border-radius:14px;padding:16px 8px 11px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);color:#f3ebde;font-family:inherit;transition:transform .12s,box-shadow .2s,background .2s}",
+        ".wz-pad .wz-sym{display:block;font-size:30px;line-height:1}.wz-pad .wz-nm{display:block;margin-top:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#a596a6;font-family:system-ui,sans-serif}",
+        ".wz-pad[data-k=left] .wz-sym{color:#e6a4b4}.wz-pad[data-k=right] .wz-sym{color:#e8c979}.wz-pad[data-k=turn] .wz-sym{color:#bda4e6}.wz-pad[data-k=close] .wz-sym{color:#ec8fb0}",
+        ".wz-wrap.leading .wz-pad{pointer-events:none;opacity:.72}.wz-wrap.busy .wz-pad{pointer-events:none}.wz-pad.lit{transform:translateY(-2px)}",
+        ".wz-pad[data-k=left].lit{background:radial-gradient(120% 120% at 50% 40%,rgba(230,164,180,.55),rgba(230,164,180,.06));box-shadow:inset 0 0 0 1px rgba(230,164,180,.6),0 0 24px rgba(230,164,180,.4)}",
+        ".wz-pad[data-k=right].lit{background:radial-gradient(120% 120% at 50% 40%,rgba(232,201,121,.55),rgba(232,201,121,.06));box-shadow:inset 0 0 0 1px rgba(232,201,121,.6),0 0 24px rgba(232,201,121,.4)}",
+        ".wz-pad[data-k=turn].lit{background:radial-gradient(120% 120% at 50% 40%,rgba(189,164,230,.55),rgba(189,164,230,.06));box-shadow:inset 0 0 0 1px rgba(189,164,230,.6),0 0 24px rgba(189,164,230,.4)}",
+        ".wz-pad[data-k=close].lit{background:radial-gradient(120% 120% at 50% 40%,rgba(236,143,176,.55),rgba(236,143,176,.06));box-shadow:inset 0 0 0 1px rgba(236,143,176,.6),0 0 24px rgba(236,143,176,.4)}",
+        ".wz-pad.hit{animation:wzhit .4s ease}.wz-pad.miss{animation:wzmiss .5s ease}",
+        "@keyframes wzhit{0%{box-shadow:inset 0 0 0 2px #f4e0a6,0 0 26px rgba(244,224,166,.6)}100%{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}}",
+        "@keyframes wzmiss{0%,60%{box-shadow:inset 0 0 0 2px #c9788c,0 0 20px rgba(201,120,140,.5)}100%{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}}",
+        "@media (prefers-reduced-motion:reduce){.wz-pad,.wz-pad.hit,.wz-pad.miss{animation:none;transition:none}}",
+        ".wz-say{text-align:center;min-height:20px;margin-top:10px;font-style:italic;font-size:13.5px;line-height:1.35;color:#ecdccf;opacity:0;transition:opacity .35s;padding:0 6px}.wz-say.show{opacity:1}",
+        ".wz-petal{position:absolute;pointer-events:none;font-size:15px;animation:wzfloat 1.6s ease-out forwards}",
+        "@keyframes wzfloat{0%{opacity:0;transform:translateY(0) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translateY(-80px) scale(1.1)}}",
+        ".wz-veil{position:absolute;inset:0;border-radius:14px;background:radial-gradient(80% 80% at 50% 40%,rgba(40,26,52,.8),rgba(23,14,30,.96));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px;text-align:center}",
+        ".wz-veil[hidden]{display:none}",
+        ".wz-vk{font-family:system-ui,sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:10px;color:#e6a4b4}",
+        ".wz-vt{font-size:21px;color:#f3ebde}.wz-vp{max-width:34ch;color:#e2d2cb;font-size:13.5px;font-style:italic;line-height:1.5}",
+        ".wz-rec{color:#e6a4b4;font-weight:600;font-family:system-ui,sans-serif;font-size:12.5px}",
+        ".wz-stats{display:flex;gap:22px;font-family:system-ui,sans-serif}.wz-stats div{display:flex;flex-direction:column;gap:2px}",
+        ".wz-stats b{font-size:22px;color:#f4e0a6;font-variant-numeric:tabular-nums}.wz-stats span{font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:#a596a6}",
+        ".wz-btn{font-family:system-ui,sans-serif;cursor:pointer;border-radius:999px;padding:11px 28px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#2a1420;border:none;background:linear-gradient(180deg,#f4e0a6,#e8c979);box-shadow:0 8px 22px -8px rgba(232,201,121,.6)}.wz-btn:active{transform:translateY(1px)}"
+        ].join('');
+        document.head.appendChild(s);
+    }
+
+    // ── Caspian's Waltz: "Follow His Lead" (sequence-memory dance) ──────
+    // He leads a growing pattern of steps; the player dances them back.
+    // Distinct genre from Elian's forage (memory, not catch). Forgiving:
+    // a few missteps re-show the steps, no timer. Rewards applied INSIDE
+    // here (bond/affection scaled by longest chain + personal best + 5
+    // Roses on a new best), like playForage. Bond-scaled difficulty.
+    playWaltz(container, onDone) {
+        this._injectWaltzCSS();
+        var game = this.game;
+        var reduce = false; try { reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+        var bond = (game && game.bond) || 0, diff = Math.max(0, Math.min(1, bond / 100));
+        var BI = 0.68 - diff * 0.10;              // lead step interval (s), a touch quicker at high Bond
+        var START = 2 + Math.round(diff);         // 2..3 opening steps
+        var FORGIVE = 3 + Math.floor(diff * 2);   // 3..5 gentle missteps
+        var motion = reduce ? 0.15 : 0.7;
+        var MOVES = [{ k: 'left', freq: 329.63 }, { k: 'right', freq: 392.00 }, { k: 'turn', freq: 493.88 }, { k: 'close', freq: 587.33 }];
+
+        container.innerHTML =
+            '<div class="wz-wrap">' +
+              '<div class="wz-top"><span class="wz-k">Longest</span><b class="wz-long">0</b><span class="wz-k wz-kr">Best</span><b class="wz-best">0</b></div>' +
+              '<div class="wz-close"><i></i></div>' +
+              '<div class="wz-status">&nbsp;</div>' +
+              '<div class="wz-lives"></div>' +
+              '<div class="wz-dots"></div>' +
+              '<div class="wz-pads">' +
+                '<button class="wz-pad" data-k="left" data-i="0"><span class="wz-sym">&#8630;</span><span class="wz-nm">Glide left</span></button>' +
+                '<button class="wz-pad" data-k="right" data-i="1"><span class="wz-sym">&#8631;</span><span class="wz-nm">Glide right</span></button>' +
+                '<button class="wz-pad" data-k="turn" data-i="2"><span class="wz-sym">&#8635;</span><span class="wz-nm">Twirl</span></button>' +
+                '<button class="wz-pad" data-k="close" data-i="3"><span class="wz-sym">&#9825;</span><span class="wz-nm">Close</span></button>' +
+              '</div>' +
+              '<div class="wz-say"></div>' +
+              '<div class="wz-veil wz-start"><div class="wz-vk">a waltz begins</div><div class="wz-vt">Let him lead</div><div class="wz-vp">Caspian shows you a few steps, lighting each in turn. Dance them back in the same order and he adds one more. Missteps are forgiven, and there is no rush.</div><button class="wz-btn wz-begin">Take his hand</button></div>' +
+              '<div class="wz-veil wz-end" hidden></div>' +
+            '</div>';
+
+        var wrap = container.querySelector('.wz-wrap');
+        var elStatus = container.querySelector('.wz-status'), elLives = container.querySelector('.wz-lives'),
+            elDots = container.querySelector('.wz-dots'), elClose = container.querySelector('.wz-close > i'),
+            elLong = container.querySelector('.wz-long'), elBest = container.querySelector('.wz-best'),
+            elSay = container.querySelector('.wz-say'), startV = container.querySelector('.wz-start'),
+            endV = container.querySelector('.wz-end'), pads = [].slice.call(container.querySelectorAll('.wz-pad'));
+
+        var state = 'idle', seq = [], echoIndex = 0, lives = FORGIVE, longest = 0, closeness = 0, round = 0,
+            goal = (START + 6) * 8, timers = [], ended = false, finished = false;
+        function clearTimers() { for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]); timers = []; }
+        function later(fn, ms) { var id = setTimeout(function () { if (!container.isConnected) { clearTimers(); return; } fn(); }, ms); timers.push(id); return id; }
+        function randMove() { var i = (Math.random() * 4) | 0; if (seq.length >= 2 && seq[seq.length - 1] === i && seq[seq.length - 2] === i) i = (i + 1) % 4; return i; }
+
+        // audio (guarded, lazy — the 4 step tones carry the memory feel)
+        var ac = null, master = null;
+        function initAudio() { try { if (ac) return; var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; ac = new AC(); master = ac.createGain(); master.gain.value = 0.5; master.connect(ac.destination); } catch (e) {} }
+        function tone(freq, type, peak, dur) { try { if (!ac) return; var t = ac.currentTime, g = ac.createGain(), o = ac.createOscillator(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur); o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05); } catch (e) {} }
+        function toneMove(i) { tone(MOVES[i].freq, 'sine', 0.16, 0.4); tone(MOVES[i].freq * 2, 'triangle', 0.05, 0.3); }
+        function toneMiss() { tone(174.6, 'sine', 0.14, 0.5); }
+        function toneWin() { var f = [523.25, 659.25, 783.99]; for (var n = 0; n < 3; n++) (function (nn) { later(function () { tone(f[nn], 'sine', 0.12, 0.4); }, nn * 90); })(n); }
+
+        var leadFirst = ["Give me your hand. Watch my feet, and only my feet. Ready?", "No court, no crown tonight. Just the count. Watch how I lead."];
+        var leadMore = ["One step longer this time. Watch.", "Again, and I am adding a turn. Keep your eyes on me.", "You are doing beautifully. Follow this."];
+        var echoLines = ["Now you. Lead me back.", "Your turn. I will follow wherever you take me.", "Show me you had it."];
+        var winLines = ["Yes. Exactly there.", "Perfect. You did not even look down.", "That is the whole conversation, right there.", "Mm. Keep going."];
+        var missLines = ["Almost. Do not chase the count, feel it.", "There, I have you. Let me show it once more.", "No harm. Watch again, and breathe."];
+
+        function setStatus(t, cls) { elStatus.innerHTML = t; elStatus.className = 'wz-status ' + (cls || ''); }
+        function say(t) { elSay.textContent = t; elSay.classList.add('show'); }
+        function pick(a) { return a[(Math.random() * a.length) | 0]; }
+        function setClose() { elClose.style.width = Math.min(100, closeness / goal * 100).toFixed(1) + '%'; }
+        function renderLives() { var s = ''; for (var i = 0; i < FORGIVE; i++) s += '<span class="' + (i < lives ? '' : 'spent') + '">&#127801;</span>'; elLives.innerHTML = s; }
+        function renderDots() { var s = ''; if (state === 'echo' || state === 'leading') { for (var i = 0; i < seq.length; i++) s += '<i class="' + (i < echoIndex ? 'on' : '') + '"></i>'; } elDots.innerHTML = s; }
+        function litPad(i) { pads[i].classList.add('lit'); }
+        function unlitPad(i) { pads[i].classList.remove('lit'); }
+        function resetPadFx() { for (var i = 0; i < pads.length; i++) pads[i].classList.remove('lit', 'hit', 'miss'); }
+        function hitFx(i) { var p = pads[i]; p.classList.remove('hit'); void p.offsetWidth; p.classList.add('hit'); }
+        function missFx(i) { var p = pads[i]; p.classList.remove('miss'); void p.offsetWidth; p.classList.add('miss'); }
+        function petals(n) { if (motion <= 0.03) return; var em = ['🌹', '💛', '✨', '🌷']; for (var i = 0; i < n; i++) { var sp = document.createElement('span'); sp.className = 'wz-petal'; sp.textContent = em[(Math.random() * em.length) | 0]; sp.style.left = (20 + Math.random() * 60) + '%'; sp.style.bottom = (28 + Math.random() * 30) + '%'; sp.style.animationDelay = (Math.random() * 0.3) + 's'; wrap.appendChild(sp); (function (node) { later(function () { if (node && node.remove) node.remove(); }, 1900); })(sp); } }
+
+        function startGame() {
+            clearTimers(); seq = []; echoIndex = 0; closeness = 0; longest = 0; lives = FORGIVE; ended = false;
+            for (var i = 0; i < START; i++) seq.push(randMove());
+            renderLives(); setClose(); elLong.textContent = '0';
+            elBest.textContent = (+localStorage.getItem('pp_caspian_waltz_best') || 0);
+            startV.setAttribute('hidden', ''); endV.setAttribute('hidden', '');
+            round = 1; lead();
+        }
+        function lead() {
+            state = 'leading'; wrap.classList.add('leading', 'busy'); setStatus('Watch his lead', 'lead'); resetPadFx(); renderDots();
+            say(pick(round === 1 ? leadFirst : leadMore));
+            var t0 = 560, on = BI * 0.56 * 1000;
+            for (var i = 0; i < seq.length; i++) { (function (idx) { var at = t0 + idx * BI * 1000; later(function () { litPad(seq[idx]); toneMove(seq[idx]); }, at); later(function () { unlitPad(seq[idx]); }, at + on); })(i); }
+            later(beginEcho, t0 + seq.length * BI * 1000 + 240);
+        }
+        function beginEcho() { state = 'echo'; echoIndex = 0; wrap.classList.remove('leading', 'busy'); setStatus('Your turn. Lead me back', 'echo'); renderDots(); say(pick(echoLines)); }
+        function onTap(i) {
+            if (state !== 'echo') return;
+            if (i === seq[echoIndex]) {
+                hitFx(i); toneMove(i); echoIndex++; renderDots();
+                if (echoIndex >= seq.length) roundWin();
+            } else {
+                missFx(i); toneMiss(); lives--; renderLives();
+                if (lives <= 0) { endGame(); return; }
+                state = 'leading'; wrap.classList.add('busy'); setStatus('Almost. Watch once more', 'miss'); say(pick(missLines));
+                later(function () { echoIndex = 0; lead(); }, 1250);
+            }
+        }
+        function roundWin() {
+            closeness += 8 + seq.length * 3; longest = Math.max(longest, seq.length); elLong.textContent = longest; setClose();
+            state = 'leading'; wrap.classList.add('busy'); setStatus('Beautiful', 'win'); say(pick(winLines)); toneWin(); petals(Math.round(7 * motion));
+            round++; later(function () { seq.push(randMove()); lead(); }, 1200);
+        }
+        function endGame() {
+            if (ended) return; ended = true; state = 'done'; clearTimers(); wrap.classList.remove('leading'); wrap.classList.add('busy');
+            var lc = longest, bb = lc >= 8 ? 10 : lc >= 5 ? 7 : lc >= 3 ? 4 : 2, ab = lc >= 6 ? 2 : lc >= 3 ? 1 : 0;
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.waltzScore = (game.waltzScore || 0) + 1; }
+            var best = +(localStorage.getItem('pp_caspian_waltz_best') || 0), nb = closeness > best, rose = 0;
+            if (nb) { try { localStorage.setItem('pp_caspian_waltz_best', String(closeness)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'waltz record'); rose = 5; } } catch (e) {} }
+            try { if (game && game.save) game.save(); } catch (e) {}
+            elBest.textContent = Math.max(best, closeness);
+            var line = lc >= 8 ? "We could have danced until dawn and called it a short evening. Do not tell the court their prince was grinning."
+                : lc >= 5 ? "You led me through every turn without once looking at your feet. That is not a beginner's gift. That is trust."
+                : lc >= 3 ? "A few more evenings like this and you will out-dance the whole court, and I will let you, gladly."
+                : "We lost the count more than we kept it. I did not mind a single stumble. Come back tomorrow and we begin again, slower.";
+            endV.innerHTML = '<div class="wz-vk">the music settles</div>' +
+                '<div class="wz-vt">' + (lc >= 5 ? 'A waltz worth remembering' : 'One dance, kept') + '</div>' +
+                (nb ? '<div class="wz-rec">&#10024; Closest yet' + (rose ? ' &middot; +' + rose + ' Roses' : '') + '</div>' : '') +
+                '<div class="wz-stats"><div><b>' + lc + '</b><span>Longest chain</span></div><div><b>' + closeness + '</b><span>Closeness</span></div></div>' +
+                '<div class="wz-vp">' + line + '</div><button class="wz-btn wz-doneb">Done</button>';
+            endV.removeAttribute('hidden'); elSay.classList.remove('show');
+            var db = endV.querySelector('.wz-doneb'); if (db) db.addEventListener('click', function () { finish(lc >= 2); });
+        }
+        function finish(success) { if (finished) return; finished = true; clearTimers(); if (onDone) onDone(success); }
+
+        for (var pi = 0; pi < pads.length; pi++) { (function (p) { p.addEventListener('click', function () { onTap(+p.getAttribute('data-i')); }); })(pads[pi]); }
+        container.querySelector('.wz-begin').addEventListener('click', function () { initAudio(); try { if (ac && ac.state === 'suspended') ac.resume(); } catch (e) {} startGame(); });
+        elBest.textContent = (+localStorage.getItem('pp_caspian_waltz_best') || 0);
+    }
+
     play(type, container, onComplete) {
         switch (type) {
+            case 'waltz':
+                this.playWaltz(container, onComplete);
+                break;
             case 'forage':
                 this.playForage(container, onComplete);
                 break;

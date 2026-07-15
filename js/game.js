@@ -2834,7 +2834,7 @@ class PocketLoveGame {
             domination:  { emotion: 'angry',   duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(3); this.ui.playPuzzleSequence('timing', unlock); } },
             dissolution: { emotion: 'neutral', duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playPuzzleSequence('timing', unlock); } },
             // Caspian court etiquette types — timing game
-            dance:     { emotion: 'happy',   duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
+            dance:     { emotion: 'happy',   duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playWaltzSequence(unlock); } },
             diplomacy: { emotion: 'neutral', duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
             poetry:    { emotion: 'love',    duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
             // Lucien puzzle types
