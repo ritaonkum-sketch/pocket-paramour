@@ -2839,7 +2839,7 @@ class PocketLoveGame {
             poetry:    { emotion: 'love',    duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
             // Lucien puzzle types
             logic:    { emotion: 'neutral', duration: 8000, seq: () => this.ui.playPuzzleSequence('logic', unlock)  },
-            arcane:   { emotion: 'gentle',  duration: 8000, seq: () => this.ui.playPuzzleSequence('arcane', unlock) },
+            arcane:   { emotion: 'gentle',  duration: 8000, seq: () => this.ui.playRunesSequence(unlock) },
             memory:   { emotion: 'neutral', duration: 8000, seq: () => this.ui.playPuzzleSequence('memory', unlock) }
         };
         const c = config[type] || config.sword;

@@ -863,8 +863,230 @@ class PuzzleSystem {
         raf = requestAnimationFrame(loop);
     }
 
+    _injectRunesCSS() {
+        if (document.getElementById('rn-css')) return;
+        var s = document.createElement('style'); s.id = 'rn-css';
+        s.textContent = [
+        ".rn-wrap{grid-column:1/-1;position:relative;width:100%;height:min(58vh,470px);border-radius:14px;overflow:hidden;background:#0c081a;font-family:inherit;touch-action:none;user-select:none}",
+        ".rn-cv{position:absolute;inset:0;width:100%;height:100%;display:block}",
+        ".rn-hud{position:absolute;inset:0;pointer-events:none;padding:12px 13px;display:flex;flex-direction:column;color:#ece3d0}",
+        ".rn-top{display:flex;align-items:flex-start;gap:12px;font-family:system-ui,sans-serif}",
+        ".rn-att{flex:1;display:flex;flex-direction:column;gap:4px;max-width:210px}",
+        ".rn-k{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8f86a8}",
+        ".rn-bar{height:7px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(183,156,255,.16)}",
+        ".rn-bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#6a5aa0,#b79cff,#ffe6b0)}",
+        ".rn-stat{display:flex;flex-direction:column;gap:2px;align-items:flex-end}.rn-stat b{font-size:16px;font-weight:600;color:#ece3d0;font-variant-numeric:tabular-nums}.rn-cast{color:#ffe6b0}",
+        ".rn-say{margin-top:auto;text-align:center;font-style:italic;font-size:13.5px;line-height:1.35;color:#e5dcc8;text-shadow:0 1px 3px rgba(8,6,18,.95);opacity:0;transition:opacity .35s;padding:0 6px;min-height:34px;display:flex;align-items:flex-end;justify-content:center}.rn-say.show{opacity:1}",
+        ".rn-veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px;padding:22px;background:radial-gradient(80% 80% at 50% 40%,rgba(30,22,58,.82),rgba(12,8,26,.96));z-index:3}",
+        ".rn-veil[hidden]{display:none}",
+        ".rn-vk{font-family:system-ui,sans-serif;text-transform:uppercase;letter-spacing:.28em;font-size:10px;color:#b79cff}",
+        ".rn-vt{font-size:21px;color:#f3ecd8}.rn-vp{max-width:33ch;color:#ddd4ea;font-size:13px;font-style:italic;line-height:1.5}",
+        ".rn-rec{color:#b79cff;font-weight:600;font-family:system-ui,sans-serif;font-size:12.5px}",
+        ".rn-stats{display:flex;gap:22px;font-family:system-ui,sans-serif}.rn-stats div{display:flex;flex-direction:column;gap:2px}.rn-stats b{font-size:22px;color:#ffe6b0;font-variant-numeric:tabular-nums}.rn-stats span{font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:#8f86a8}",
+        ".rn-btn{font-family:system-ui,sans-serif;cursor:pointer;border-radius:999px;padding:11px 28px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#211a34;border:none;background:linear-gradient(180deg,#ffe6b0,#e8c979);box-shadow:0 8px 22px -8px rgba(232,201,121,.5)}.rn-btn:active{transform:translateY(1px)}"
+        ].join('');
+        document.head.appendChild(s);
+    }
+
+    // ── Lucien's mini-game: "Rune-work" (trace sigils to cast) ─────────
+    // The Grand Mage sets his pen down and you trace glowing arcane sigils
+    // node-to-node, in one stroke, to cast them; each cast he catalogues a
+    // feeling he cannot name. A library of DISTINCT single-stroke patterns
+    // (stars at random rotation + authored glyphs). Distinct genre (drawing).
+    // Rewards inside: cast/attunement-scaled bond+affection + best + 5 Roses.
+    playRunes(container, onDone) {
+        this._injectRunesCSS();
+        var game = this.game;
+        var reduce = false; try { reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+        var bond = (game && game.bond) || 0, diff = Math.max(0, Math.min(1, bond / 100));
+        var T = { intr: Math.max(0, Math.min(3, Math.round(bond / 33))), focus: 1.05 - diff * 0.2, ease: 1.0, motion: reduce ? 0.2 : 0.7 };
+        var DURATION = 45;
+        var PATTERNS = [
+            { t: 0, star: [3, 1] }, { t: 0, path: [[.5, .16], [.84, .8], [.16, .8]], close: true },
+            { t: 1, path: [[.3, .2], [.6, .44], [.4, .54], [.7, .82]] },
+            { t: 1, path: [[.22, .24], [.78, .24], [.22, .76], [.78, .76]], close: true }, { t: 1, star: [5, 2] },
+            { t: 2, star: [7, 2] }, { t: 2, star: [7, 3] },
+            { t: 2, path: [[.5, .14], [.66, .3], [.6, .52], [.4, .52], [.34, .3]], close: true }, { t: 2, spiral: true },
+            { t: 2, path: [[.2, .5], [.5, .3], [.8, .5], [.5, .7]], close: true, dot: true },
+            { t: 3, star: [8, 3] }, { t: 3, path: [[.2, .3], [.72, .24], [.34, .7], [.8, .62], [.3, .46], [.66, .82], [.5, .18]] },
+            { t: 3, star: [9, 2] }, { t: 4, star: [9, 4] }, { t: 4, star: [12, 5] }
+        ];
+        function starPts(n, k) { var order = [], idx = 0, rot = Math.random() * 6.28, out = [];
+            for (var c = 0; c < n; c++) { order.push(idx); idx = (idx + k) % n; }
+            for (var j = 0; j < n; j++) { var a = rot + order[j] * 2 * Math.PI / n; out.push([0.5 + Math.cos(a) * 0.42, 0.5 + Math.sin(a) * 0.42]); }
+            out.push(out[0].slice()); return out; }
+        function spiralPts() { var out = []; for (var i = 0; i < 8; i++) { var a = i * 0.95, r = 0.42 * (1 - i / 9.5); out.push([0.5 + Math.cos(a) * r, 0.5 + Math.sin(a) * r]); } return out; }
+        function buildNodes(p) { var norm;
+            if (p.star) norm = starPts(p.star[0], p.star[1]);
+            else if (p.spiral) norm = spiralPts();
+            else { norm = p.path.map(function (q) { return q.slice(); }); if (p.close) norm.push(norm[0].slice()); if (p.dot) norm.push([0.5, 0.5]); }
+            var cx = W / 2, cy = H * 0.46, S = Math.min(W, H) * 0.60;
+            return norm.map(function (q) { return { x: cx + (q[0] - 0.5) * S, y: cy + (q[1] - 0.5) * S }; }); }
+
+        container.innerHTML =
+            '<div class="rn-wrap"><canvas class="rn-cv"></canvas>' +
+              '<div class="rn-hud"><div class="rn-top">' +
+                '<div class="rn-att"><span class="rn-k">Attunement</span><div class="rn-bar"><i></i></div></div>' +
+                '<div class="rn-stat"><span class="rn-k">Cast</span><b class="rn-cast">0</b></div>' +
+                '<div class="rn-stat"><span class="rn-k">Best</span><b class="rn-best">0</b></div>' +
+              '</div><div class="rn-say"></div></div>' +
+              '<div class="rn-veil rn-start"><div class="rn-vk">the tower is quiet</div><div class="rn-vt">Trace the working</div><div class="rn-vp">A sigil glows on the page. Press the pulsing node, then draw through the others in order without lifting, and the ink follows your hand. Close the form to cast it. Do not dawdle. There is no failing here, only how much you attune.</div><button class="rn-btn rn-begin">Take up the ink</button></div>' +
+              '<div class="rn-veil rn-end" hidden></div>' +
+            '</div>';
+
+        var cv = container.querySelector('.rn-cv'), ctx = cv.getContext('2d');
+        var elBar = container.querySelector('.rn-bar > i'), elCast = container.querySelector('.rn-cast'),
+            elBest = container.querySelector('.rn-best'), elSay = container.querySelector('.rn-say'),
+            startV = container.querySelector('.rn-start'), endV = container.querySelector('.rn-end');
+        var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+        function resize() { var r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+        resize();
+
+        var ac = null, master = null;
+        function initAudio() { try { if (ac) return; var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; ac = new AC(); master = ac.createGain(); master.gain.value = 0.5; master.connect(ac.destination); } catch (e) {} }
+        function tone(freq, type, peak, dur, delay) { try { if (!ac) return; var t = ac.currentTime + (delay || 0), g = ac.createGain(), o = ac.createOscillator(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur); o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05); } catch (e) {} }
+        function sNode(step) { tone(440 * Math.pow(1.0595, step), 'triangle', 0.07, 0.25); }
+        function sCast(grand) { var f = grand ? [392, 523.25, 659.25, 783.99, 1046.5] : [523.25, 659.25, 783.99]; for (var n = 0; n < f.length; n++) tone(f[n], 'sine', 0.1, 0.6, n * 0.07); }
+        function sFade() { tone(220, 'sine', 0.05, 0.5); }
+
+        var state = 'idle', tRun = 0, last = 0, running = true, raf = 0, finished = false;
+        var sigil = null, progress = 0, dragging = false, fx = 0, fy = 0, focus = 1, casts = 0, att = 0, score = 0, dev = 0, sparks = [], epops = [], sayT = 0, ended = false;
+        function say(t) { elSay.textContent = t; elSay.classList.add('show'); clearTimeout(sayT); sayT = setTimeout(function () { elSay.classList.remove('show'); }, 3400); }
+        function pick(a) { return a[(Math.random() * a.length) | 0]; }
+        function d2(ax, ay, bx, by) { var dx = ax - bx, dy = ay - by; return dx * dx + dy * dy; }
+        function segDist(px, py, ax, ay, bx, by) { var dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy; if (L < 1) return Math.sqrt(d2(px, py, ax, ay)); var t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / L)); return Math.sqrt(d2(px, py, ax + dx * t, ay + dy * t)); }
+
+        var vStart = ["The circle is drawn. Trace the working, node to node, in order. I will observe. ...I observe you rather a lot lately. Note that for later.", "Ink, and a steady hand. Follow the form and close it. I have done this ten thousand times. Not once with company I wanted."];
+        var vCast = ["Clean. The resonance held.", "Yes. That is the form exactly.", "A steadier hand than any apprentice I have had. I am recording this.", "The light closed. So did something in my chest. I am still naming it."];
+        var vClean = ["Flawless. I felt the working land, and myself with it. Twelve candidate terms. None fit. I am inventing one.", "Not one stray line. Do you know how rare that is? ...I do. I keep records. You are ruining my averages, delightfully."];
+        var vGrand = ["A greater working. Do not rush it. ...I never say that to anyone. Interesting.", "A hundred years of theory, and your hand made it look inevitable. I am amending a footnote in your favour."];
+        var vFade = ["It slipped the form. No matter, ink is cheap and I have you here. Again.", "The resonance frayed. Curious. I am not annoyed. I catalogue that as unusual, for me."];
+        var vAtt = ["We are in rhythm now. I did not budget for enjoying this.", "The tower has not resonated like this in thirty years. Neither, I am forced to note, have I."];
+
+        function makeSigil() {
+            var tier = Math.min(4, Math.floor(T.intr) + Math.floor(casts / 2));
+            var grand = casts > 1 && Math.random() < 0.18; if (grand) tier = Math.min(4, tier + 1);
+            var cands = PATTERNS.filter(function (p) { return p.t <= tier && p.t >= Math.max(0, tier - 1); });
+            if (!cands.length) cands = PATTERNS.filter(function (p) { return p.t <= tier; });
+            if (!cands.length) cands = [PATTERNS[0]];
+            var p = cands[(Math.random() * cands.length) | 0];
+            var nodes = buildNodes(p);
+            sigil = { nodes: nodes, n: nodes.length - 1, grand: grand, value: (grand ? 3 : 1) * (1 + nodes.length * 0.16) };
+            progress = 0; focus = 1; dev = 0; dragging = false;
+        }
+        function focusMax() { return (sigil && sigil.grand ? 5.5 : 2.8 + (sigil ? sigil.n : 6) * 0.26) * T.focus; }
+        function capR() { return Math.max(20, Math.min(W, H) * 0.05) * T.ease; }
+
+        function reset() { tRun = 0; last = 0; casts = 0; att = 0; score = 0; ended = false; sparks = []; epops = []; makeSigil();
+            setBar(); elCast.textContent = '0'; elBest.textContent = (+localStorage.getItem('pp_lucien_rune_best') || 0); }
+        function beginRun() { reset(); state = 'playing'; startV.setAttribute('hidden', ''); endV.setAttribute('hidden', ''); say(pick(vStart)); }
+
+        function castSigil() {
+            var clean = dev < (sigil.n * 10);
+            var mult = 1 + Math.min(2, att * 0.15);
+            var gain = Math.round(sigil.value * 10 * mult * (clean ? 1.5 : 1));
+            score += gain; casts++; att++; elCast.textContent = casts;
+            var cx = W / 2, cy = H * 0.46;
+            burst(cx, cy, sigil.grand ? '#ffe6b0' : '#b79cff', sigil.grand ? 22 : 14);
+            if (T.motion > 0.03) { var em = sigil.grand ? ['🔮', '✨', '🌟', '📖'] : ['✨', '✦', '💜']; for (var i = 0; i < (sigil.grand ? 7 : 5); i++) epops.push({ x: cx + (Math.random() - .5) * 60, y: cy + (Math.random() - .5) * 60, vx: (Math.random() - .5) * 50, vy: -(30 + Math.random() * 50), life: 1, em: em[(Math.random() * em.length) | 0], size: 15 + Math.random() * 11 }); }
+            sCast(sigil.grand);
+            say(sigil.grand ? pick(vGrand) : (clean ? pick(vClean) : (att >= 4 && Math.random() < .5 ? pick(vAtt) : pick(vCast))));
+            makeSigil();
+        }
+        function fadeSigil() { att = 0; sFade(); say(pick(vFade)); burst(W / 2, H * 0.46, '#6a5aa0', 8); makeSigil(); }
+        function burst(x, y, c, n) { if (T.motion <= 0.03) return; for (var i = 0; i < n; i++) { var a = Math.random() * 6.28, sp = 16 + Math.random() * 46; sparks.push({ x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, col: c, r: 1 + Math.random() * 2 }); } }
+        function setBar() { elBar.style.width = Math.max(0, Math.min(100, Math.min(2, att * 0.15) / 2 * 100)).toFixed(1) + '%'; }
+
+        function loop(ts) {
+            if (!running || !cv.isConnected) { running = false; return; }
+            if (!ts) ts = 0; if (!last) last = ts; var dt = Math.min(.05, (ts - last) / 1000); last = ts;
+            if (state === 'playing') {
+                tRun += dt;
+                if (progress > 0 && progress < sigil.nodes.length) { focus -= dt / focusMax(); if (focus <= 0) { focus = 0; fadeSigil(); } }
+                if (dragging && sigil) {
+                    var tgt = sigil.nodes[progress]; var cr = capR();
+                    if (progress > 0) { var pv = sigil.nodes[progress - 1]; dev += segDist(fx, fy, pv.x, pv.y, tgt.x, tgt.y) * dt * 3; }
+                    if (d2(fx, fy, tgt.x, tgt.y) < cr * cr) { progress++; sNode(progress); burst(tgt.x, tgt.y, '#e8c979', 5); if (progress >= sigil.nodes.length) castSigil(); }
+                }
+                if (tRun >= DURATION) endGame();
+                setBar();
+            }
+            for (var q = sparks.length - 1; q >= 0; q--) { var s = sparks[q]; s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt * 1.5; if (s.life <= 0) sparks.splice(q, 1); }
+            for (var e2 = epops.length - 1; e2 >= 0; e2--) { var e = epops[e2]; e.x += e.vx * dt; e.y += e.vy * dt; e.vy += 24 * dt; e.life -= dt * 0.85; if (e.life <= 0) epops.splice(e2, 1); }
+            draw(); raf = requestAnimationFrame(loop);
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            var bg = ctx.createRadialGradient(W * 0.22, H * 0.1, 10, W / 2, H * 0.5, H * 1.05);
+            bg.addColorStop(0, '#2a2050'); bg.addColorStop(.5, '#171130'); bg.addColorStop(1, '#0c081a');
+            ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+            var cx = W / 2, cy = H * 0.46, R = Math.min(W, H) * 0.30;
+            ctx.strokeStyle = 'rgba(183,156,255,0.10)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(cx, cy, R * 1.18, 0, 6.29); ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, R * 0.5, 0, 6.29); ctx.stroke();
+            if (!sigil) { drawSparks(); return; }
+            var nodes = sigil.nodes;
+            ctx.strokeStyle = 'rgba(106,90,160,0.5)'; ctx.lineWidth = 1.4; ctx.lineJoin = 'round'; ctx.beginPath();
+            ctx.moveTo(nodes[0].x, nodes[0].y); for (var i = 1; i < nodes.length; i++) ctx.lineTo(nodes[i].x, nodes[i].y); ctx.stroke();
+            if (progress > 0) { ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                ctx.strokeStyle = 'rgba(183,156,255,0.35)'; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(nodes[0].x, nodes[0].y); for (var j = 1; j <= Math.min(progress, nodes.length - 1); j++) ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                ctx.strokeStyle = '#d9c8ff'; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.moveTo(nodes[0].x, nodes[0].y); for (var j2 = 1; j2 <= Math.min(progress, nodes.length - 1); j2++) ctx.lineTo(nodes[j2].x, nodes[j2].y); ctx.stroke(); }
+            if (dragging && progress > 0 && progress < nodes.length) { var pv = nodes[progress - 1]; ctx.strokeStyle = 'rgba(255,230,176,0.8)'; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(pv.x, pv.y); ctx.lineTo(fx, fy); ctx.stroke();
+                var tp = ctx.createRadialGradient(fx, fy, 0, fx, fy, 14); tp.addColorStop(0, 'rgba(255,244,214,0.9)'); tp.addColorStop(1, 'rgba(255,214,143,0)'); ctx.fillStyle = tp; ctx.beginPath(); ctx.arc(fx, fy, 14, 0, 6.29); ctx.fill(); }
+            for (var k = 0; k < nodes.length - 1; k++) { var nd = nodes[k]; var done = k < progress; var isNext = (k === progress);
+                if (isNext) { var pul = 0.5 + 0.5 * Math.sin(tRun * 6); ctx.strokeStyle = 'rgba(255,230,176,' + (0.5 + 0.4 * pul) + ')'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(nd.x, nd.y, 9 + pul * 4, 0, 6.29); ctx.stroke(); }
+                ctx.fillStyle = done ? '#ffe6b0' : '#2a2450'; ctx.strokeStyle = sigil.grand ? '#ffe6b0' : '#e8c979'; ctx.lineWidth = 1.6;
+                ctx.beginPath(); ctx.arc(nd.x, nd.y, 5, 0, 6.29); ctx.fill(); ctx.stroke(); }
+            if (progress > 0) { ctx.strokeStyle = 'rgba(232,201,121,0.5)'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(cx, cy, R * 1.30, -Math.PI / 2, -Math.PI / 2 + 6.283 * focus); ctx.stroke(); }
+            drawSparks();
+        }
+        function drawSparks() {
+            for (var c = 0; c < sparks.length; c++) { var spk = sparks[c]; ctx.globalAlpha = Math.max(0, spk.life); ctx.fillStyle = spk.col; ctx.beginPath(); ctx.arc(spk.x, spk.y, spk.r, 0, 6.29); ctx.fill(); } ctx.globalAlpha = 1;
+            for (var ei = 0; ei < epops.length; ei++) { var epp = epops[ei]; ctx.globalAlpha = Math.max(0, epp.life); ctx.font = epp.size + 'px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(epp.em, epp.x, epp.y); } ctx.globalAlpha = 1;
+        }
+
+        function endGame() {
+            if (ended) return; ended = true; state = 'done';
+            var sc = Math.round(score), best = +(localStorage.getItem('pp_lucien_rune_best') || 0), rec = sc > best;
+            var bb = casts >= 9 ? 10 : casts >= 5 ? 7 : casts >= 2 ? 4 : 2, ab = casts >= 6 ? 2 : casts >= 3 ? 1 : 0;
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.runeScore = (game.runeScore || 0) + 1; }
+            var rose = 0; if (rec) { try { localStorage.setItem('pp_lucien_rune_best', String(sc)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'rune record'); rose = 5; } } catch (e) {} }
+            try { if (game && game.save) game.save(); } catch (e) {}
+            elBest.textContent = Math.max(best, sc);
+            var line;
+            if (casts >= 9) line = "Extraordinary. I am amending my whole theory about you tonight, and I will need a fresh page for it. ...Come back tomorrow. That is not the tower asking. That is me.";
+            else if (casts >= 5) line = "Good work. My margins are fuller than they were when you arrived. They usually are, after you. Come again, and bring that hand.";
+            else if (casts >= 1) line = "The forms fought you today. They fight everyone at first. ...I would like to teach you the rest. Slowly. Come back.";
+            else line = "You barely touched the ink. That is alright. Sit with me anyway. The circle keeps. So, it seems, do I.";
+            endV.innerHTML = '<div class="rn-vk">he sets the pen down</div>' +
+                '<div class="rn-vt">' + (casts >= 5 ? 'A page worth keeping' : 'The ink remembers you') + '</div>' +
+                (rec ? '<div class="rn-rec">&#10024; Deepest attunement yet' + (rose ? ' &middot; +' + rose + ' Roses' : '') + '</div>' : '') +
+                '<div class="rn-stats"><div><b>' + casts + '</b><span>Runes cast</span></div><div><b>' + sc + '</b><span>Resonance</span></div></div>' +
+                '<div class="rn-vp">' + line + '</div><button class="rn-btn rn-doneb">Done</button>';
+            endV.removeAttribute('hidden'); elSay.classList.remove('show');
+            var db = endV.querySelector('.rn-doneb'); if (db) db.addEventListener('click', function () { finish(); });
+        }
+        function finish() { if (finished) return; finished = true; running = false; if (raf) cancelAnimationFrame(raf); if (onDone) onDone(casts >= 1); }
+
+        function setFinger(e) { var r = cv.getBoundingClientRect(); fx = e.clientX - r.left; fy = e.clientY - r.top; }
+        cv.addEventListener('pointerdown', function (e) { if (state !== 'playing') return; e.preventDefault(); setFinger(e); dragging = true; try { cv.setPointerCapture(e.pointerId); } catch (_) {}
+            if (sigil && progress === 0 && d2(fx, fy, sigil.nodes[0].x, sigil.nodes[0].y) < capR() * capR()) { progress = 1; sNode(1); burst(sigil.nodes[0].x, sigil.nodes[0].y, '#e8c979', 5); } });
+        cv.addEventListener('pointermove', function (e) { if (state !== 'playing') return; setFinger(e); });
+        cv.addEventListener('pointerup', function () { dragging = false; if (state === 'playing' && sigil && progress > 0 && progress < sigil.nodes.length && T.ease < 1.3) progress = Math.max(1, progress - 1); });
+        cv.addEventListener('pointercancel', function () { dragging = false; });
+        container.querySelector('.rn-begin').addEventListener('click', function () { initAudio(); try { if (ac && ac.state === 'suspended') ac.resume(); } catch (e) {} beginRun(); });
+
+        reset(); draw();
+        elBest.textContent = (+localStorage.getItem('pp_lucien_rune_best') || 0);
+        raf = requestAnimationFrame(loop);
+    }
+
     play(type, container, onComplete) {
         switch (type) {
+            case 'runes':
+                this.playRunes(container, onComplete);
+                break;
             case 'reach':
                 this.playReach(container, onComplete);
                 break;

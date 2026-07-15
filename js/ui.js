@@ -3032,6 +3032,56 @@ class GameUI {
         });
     }
 
+    // ── Rune-work sequence (Lucien) — dedicated wrapper ────────────
+    // Trace arcane sigils to cast them; rewards applied INSIDE playRunes
+    // (cast/attunement-scaled bond+affection + personal best + 5 Roses on a
+    // new record), so this wrapper only opens/closes the panel. 5 plays/day.
+    playRunesSequence(onComplete) {
+        try {
+            var _day = new Date().toDateString();
+            var _plays = (localStorage.getItem('pp_runes_plays_day') === _day)
+                ? (parseInt(localStorage.getItem('pp_runes_plays') || '0', 10) || 0) : 0;
+            if (_plays >= 5) {
+                try { this.closeTrainingPanel(); } catch (_) {}
+                this._seqActive = false;
+                if (typeof this.showNotification === 'function') {
+                    this.showNotification('The ink is spent for today (5/5). He will draw a fresh circle tomorrow.');
+                }
+                onComplete && onComplete();
+                return;
+            }
+            localStorage.setItem('pp_runes_plays_day', _day);
+            localStorage.setItem('pp_runes_plays', String(_plays + 1));
+        } catch (_) {}
+
+        if (!this.game._puzzleSystem) {
+            this.game._puzzleSystem = new PuzzleSystem(this.game);
+        }
+        const panel = document.getElementById('training-panel');
+        const grid = document.getElementById('training-grid');
+        if (!panel || !grid) { onComplete && onComplete(); return; }
+
+        clearTimeout(this._trainingCloseTimer);
+        this.closeAllPanels('training');
+        panel.classList.remove('hidden');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => panel.classList.add('visible'));
+        });
+
+        const panelHeader = panel.querySelector('#training-panel-header span');
+        if (panelHeader) panelHeader.textContent = 'Rune-work';
+        const closeBtn = document.getElementById('training-close');
+        if (closeBtn) closeBtn.style.display = 'none';
+        this._seqActive = true;
+
+        this.game._puzzleSystem.playRunes(grid, () => {
+            if (closeBtn) closeBtn.style.display = '';
+            this.closeTrainingPanel();
+            this._seqActive = false;
+            onComplete && onComplete();
+        });
+    }
+
     // ── Spawn floating music notes (for singing scene) ────────────
     _spawnMusicNotes() {
         const area = document.getElementById('character-area');
