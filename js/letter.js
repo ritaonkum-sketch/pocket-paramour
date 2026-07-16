@@ -3224,29 +3224,74 @@
         return null;
     }
 
+    // ── Care-route gate (owner bug, Jul 2026) ───────────────────────────────
+    // An UNPROMPTED letter is care-route content: it may only arrive while the
+    // player is actually standing in that character's care screen. game.tick()
+    // — which drives check() every ~4s — keeps running after you navigate away,
+    // and check() used to gate on nothing but sceneActive, so the parchment
+    // reader slammed itself open on top of whatever page you were on. Owner:
+    // "The letter of Alistair bleeding and force open when I was in the
+    // companion page." This is the ONE gate every unprompted delivery passes
+    // through, so it covers all 7 characters at once.
+    //
+    // Archive re-reads are deliberately NOT gated — those come in via
+    // showStored() / the Letters archive and are player-initiated from any page.
+    function onCareRoute(game) {
+        try {
+            if (!game || !game.selectedCharacter) return false;
+            if (game.sceneActive) return false;
+            if (!document.body.classList.contains('pp-screen-care')) return false;
+            // Never slam over an open panel either (gift, training, gallery…).
+            if (window.PPOverlay && typeof PPOverlay.anyOpen === 'function' && PPOverlay.anyOpen()) return false;
+            return true;
+        } catch (_) { return false; }
+    }
+
+    // Deliveries are deferred a beat for pacing, and the player can walk off the
+    // care screen inside that window — so re-check the gate when the timer
+    // actually fires, not only when it was scheduled.
+    //
+    // LOAD-BEARING: a skipped delivery must not CONSUME the letter. Callers mark
+    // the 'fired' state INSIDE fn (never before deferring), so bailing leaves the
+    // letter armed and the next check() tick simply re-delivers it once the
+    // player is back on the care screen. Marking it first would strand the
+    // letter as "already sent" and the player would never receive it.
+    function deferDelivery(game, ms, fn) {
+        setTimeout(function () { if (onCareRoute(game)) fn(); }, ms);
+    }
+
     function check(game) {
-        if (game && game.sceneActive) return false;
+        if (!onCareRoute(game)) return false;
         if (shouldFire(game)) {
-            setTimeout(() => present(game, 'first'), 400);
+            deferDelivery(game, 400, function () { present(game, 'first'); });
             return true;
         }
         // Neglect letter — he writes, unprompted, when you've let him decline.
         if (shouldFireNeglect(game)) {
-            try { lsSet('pp_letter_neglect_state_' + game.selectedCharacter, 'fired'); } catch (_) {}
-            setTimeout(() => present(game, 'milestone', { char: game.selectedCharacter, tier: 'neglect' }), 600);
+            var nChar = game.selectedCharacter;
+            deferDelivery(game, 600, function () {
+                try { lsSet('pp_letter_neglect_state_' + nChar, 'fired'); } catch (_) {}
+                present(game, 'milestone', { char: nChar, tier: 'neglect' });
+            });
             return true;
         }
         // Devoted letter — he writes, unprompted, when you've been devoted.
         if (shouldFireDevoted(game)) {
-            try { lsSet('pp_letter_devoted_state_' + game.selectedCharacter, 'fired'); } catch (_) {}
-            setTimeout(() => present(game, 'milestone', { char: game.selectedCharacter, tier: 'devoted' }), 600);
+            var dChar = game.selectedCharacter;
+            deferDelivery(game, 600, function () {
+                try { lsSet('pp_letter_devoted_state_' + dChar, 'fired'); } catch (_) {}
+                present(game, 'milestone', { char: dChar, tier: 'devoted' });
+            });
             return true;
         }
         // Milestone follow-up letter — fires once after each peak scene
         // (currently 'midnight'; 'chosen' and 'aftermath' authored later).
         const milestoneTier = shouldFireMilestone(game);
         if (milestoneTier) {
-            setTimeout(() => present(game, 'milestone', { char: game.selectedCharacter, tier: milestoneTier }), 800);
+            var mChar = game.selectedCharacter;
+            deferDelivery(game, 800, function () {
+                present(game, 'milestone', { char: mChar, tier: milestoneTier });
+            });
             return true;
         }
         return false;
