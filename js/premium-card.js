@@ -1057,9 +1057,9 @@
               'display:flex', 'flex-direction:column', 'gap:10px',
               'padding:18px 18px 16px',
               'background:rgba(10,6,22,0.94)',
-              'border:1px solid rgba(200,170,240,0.30)',
+              'border:1px solid rgba(212,168,91,0.30)',
               'border-radius:18px',
-              'box-shadow:0 12px 40px rgba(0,0,0,0.65), 0 0 22px rgba(180,140,220,0.18) inset',
+              'box-shadow:0 12px 40px rgba(0,0,0,0.65), 0 0 22px rgba(212,168,91,0.14) inset',
               'backdrop-filter:blur(8px)',
               'opacity:0', 'transition:opacity 360ms ease, transform 360ms ease',
               'transform:translateY(-50%) scale(0.96)',
@@ -1070,7 +1070,7 @@
               const promptEl = document.createElement('div');
               promptEl.style.cssText = [
                 'font-size:11px', 'letter-spacing:2px',
-                'color:rgba(244,230,255,0.7)', 'text-align:center',
+                'color:rgba(212,168,91,0.85)', 'text-align:center',
                 'margin-bottom:6px', 'text-transform:uppercase'
               ].join(';');
               promptEl.textContent = beat.prompt;
@@ -1081,23 +1081,24 @@
               opts.forEach((opt) => {
                 const btn = document.createElement('button');
                 btn.style.cssText = [
-                  'padding:13px 16px',
-                  'background:linear-gradient(180deg, rgba(50,32,80,0.95), rgba(34,22,60,0.95))',
-                  'border:1px solid rgba(200,170,240,0.32)',
-                  'color:#f4e6ff', 'font-family:inherit',
-                  'font-size:14px', 'line-height:1.45',
+                  'padding:15px 17px',
+                  'background:linear-gradient(180deg, rgba(212,168,91,0.12), rgba(212,168,91,0.04))',
+                  'border:1px solid rgba(212,168,91,0.32)',
+                  'color:#F4ECDC', 'font-family:inherit',
+                  'font-size:15px', 'line-height:1.4',
                   'border-radius:14px', 'cursor:pointer',
                   'text-align:left',
-                  'transition:background 0.18s, border-color 0.18s, transform 0.12s'
+                  'box-shadow:inset 0 1px 0 rgba(255,255,255,0.05)',
+                  'transition:background 0.2s, border-color 0.2s, transform 0.1s'
                 ].join(';');
                 btn.textContent = opt.text;
                 btn.addEventListener('mouseenter', () => {
-                  btn.style.background = 'linear-gradient(180deg, rgba(80,52,130,0.95), rgba(60,38,100,0.95))';
-                  btn.style.borderColor = 'rgba(220,190,255,0.5)';
+                  btn.style.background = 'linear-gradient(180deg, rgba(212,168,91,0.24), rgba(212,168,91,0.10))';
+                  btn.style.borderColor = 'rgba(212,168,91,0.65)';
                 });
                 btn.addEventListener('mouseleave', () => {
-                  btn.style.background = 'linear-gradient(180deg, rgba(50,32,80,0.95), rgba(34,22,60,0.95))';
-                  btn.style.borderColor = 'rgba(200,170,240,0.32)';
+                  btn.style.background = 'linear-gradient(180deg, rgba(212,168,91,0.12), rgba(212,168,91,0.04))';
+                  btn.style.borderColor = 'rgba(212,168,91,0.32)';
                 });
                 btn.addEventListener('click', (e) => {
                   if (e && e.stopPropagation) e.stopPropagation();
