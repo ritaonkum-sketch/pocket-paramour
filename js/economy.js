@@ -666,7 +666,7 @@
                     '#pp-ht-reward-burst.show{opacity:1;}',
                     '#pp-ht-reward-burst.out{opacity:0;}',
                     '#pp-ht-reward-burst .ht-rb-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;',
-                    'padding:20px 26px 15px;border-radius:20px;',   // owner: tighter frame
+                    'padding:14px 20px 11px;border-radius:18px;',   // owner: tighter frame (2nd pass)
                     'background:linear-gradient(180deg,rgba(48,30,20,0.97),rgba(26,15,10,0.98));',
                     'border:1px solid rgba(232,180,110,0.55);',
                     'box-shadow:0 22px 64px -14px rgba(0,0,0,0.78),inset 0 1px 0 rgba(255,235,200,0.14);',
@@ -679,7 +679,7 @@
                     '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:32px;line-height:1.05;margin-top:4px;',
                     'background:linear-gradient(180deg,#FBE8B8,#D4A85B);-webkit-background-clip:text;background-clip:text;color:transparent;}',
                     '#pp-ht-reward-burst .ht-rb-label{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,236,209,0.74);margin-top:3px;}',
-                    '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.42);margin-top:14px;}',
+                    '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.42);margin-top:9px;}',
                     '#pp-ht-reward-burst .ht-rb-spark{position:absolute;left:50%;top:40%;z-index:0;color:#FBE0A0;font-size:14px;opacity:0;pointer-events:none;',
                     'text-shadow:0 0 6px rgba(251,224,160,0.8);animation:ht-rb-spark 1s ease-out forwards;}',
                     '@keyframes ht-rb-pulse{0%,100%{transform:scale(0.9);opacity:.55;}50%{transform:scale(1.12);opacity:1;}}',
