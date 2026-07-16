@@ -713,6 +713,25 @@ class GameUI {
                     }
                 }
 
+                // ── Behaviour-reactive thought (care-thoughts.js) ────────
+                // The old adaptive-thoughts module floated its own bubble over
+                // the character and was removed as a duplicate of this box, so
+                // its thoughts now speak HERE, in the one bubble he says
+                // everything else in. Gated two ways: never while a need is
+                // urgent (need still trumps romance — let him say he's hungry),
+                // and rolled so it flavours the idle stream instead of owning
+                // it. Falls through to the normal pools when it declines.
+                if (g.hunger >= 25 && g.clean >= 25 && Math.random() < 0.45
+                    && window.PPCareThoughts && typeof PPCareThoughts.line === 'function') {
+                    var thoughtLine = PPCareThoughts.line(g);
+                    if (thoughtLine) {
+                        g.typewriter.show(thoughtLine);
+                        if (Math.random() > 0.6) sounds.ambientNote();
+                        this.scheduleIdleDialogue();
+                        return;
+                    }
+                }
+
                 let lines;
                 const c = CHARACTER;
 
