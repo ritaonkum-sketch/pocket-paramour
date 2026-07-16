@@ -386,7 +386,7 @@ class PuzzleSystem {
             say('That one bites. Leave it be.'); flashCombo(); return; }
           streak++; if(streak>maxStreak)maxStreak=streak; mult=Math.min(3,1+Math.floor(streak/4)*.5);
           var base=it.type==='moon'?50:10, g=Math.round(base*mult); score+=g;
-          if(it.type==='moon'){ moon++; popParts(it.x,it.y,P.gold,16); floatT(it.x,it.y,'+'+g,P.gold2); sfx('pop'); comboGlow=1;
+          if(it.type==='moon'){ moon++; try{ if(game&&game.gallery&&game.gallery.unlockById) game.gallery.unlockById('elian-forage-moonpetal'); }catch(_g){} popParts(it.x,it.y,P.gold,16); floatT(it.x,it.y,'+'+g,P.gold2); sfx('pop'); comboGlow=1;
             say('Moonpetal. It shows for a breath, then it is gone. Quick eyes.'); }
           else { popParts(it.x,it.y,it.type==='berry'?P.berry2:P.sage,7); floatT(it.x,it.y,'+'+g,P.sage); sfx('pop'); }
           if(streak%4===0){ comboGlow=1; if(it.type!=='moon') say(praise[(streak/4-1)%praise.length]); }
@@ -640,7 +640,7 @@ class PuzzleSystem {
         function endGame() {
             if (ended) return; ended = true; state = 'done'; clearTimers(); wrap.classList.remove('leading'); wrap.classList.add('busy');
             var lc = longest, bb = lc >= 8 ? 10 : lc >= 5 ? 7 : lc >= 3 ? 4 : 2, ab = lc >= 6 ? 2 : lc >= 3 ? 1 : 0;
-            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.waltzScore = (game.waltzScore || 0) + 1; }
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.waltzScore = (game.waltzScore || 0) + 1; try { if (lc >= 6 && game.gallery && game.gallery.unlockById) game.gallery.unlockById('caspian-waltz-kept'); } catch (_g) {} }
             var best = +(localStorage.getItem('pp_caspian_waltz_best') || 0), nb = closeness > best, rose = 0;
             if (nb) { try { localStorage.setItem('pp_caspian_waltz_best', String(closeness)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'waltz record'); rose = 5; } } catch (e) {} }
             try { if (game && game.save) game.save(); } catch (e) {}
@@ -831,7 +831,9 @@ class PuzzleSystem {
             if (ended) return; ended = true; state = 'done';
             var pc = presence, sc = Math.round(score + reaches * 10);
             var bb = pc >= 0.7 ? 10 : pc >= 0.4 ? 7 : reaches >= 1 ? 4 : 2, ab = pc >= 0.55 ? 2 : reaches >= 2 ? 1 : 0;
-            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.reachScore = (game.reachScore || 0) + 1; game.protoPresence = Math.max(game.protoPresence || 0, pc); }
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.reachScore = (game.reachScore || 0) + 1; game.protoPresence = Math.max(game.protoPresence || 0, pc);
+                try { localStorage.setItem('pp_proto_presence', String(Math.max(pc, +(localStorage.getItem('pp_proto_presence') || 0)))); } catch (_p) {}
+                try { if (pc >= 0.7 && game.gallery && game.gallery.unlockById) game.gallery.unlockById('proto-reach-almost'); } catch (_g) {} }
             var best = +(localStorage.getItem('pp_proto_reach_best') || 0), nb = sc > best, rose = 0;
             if (nb) { try { localStorage.setItem('pp_proto_reach_best', String(sc)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'reach record'); rose = 5; } } catch (e) {} }
             try { if (game && game.save) game.save(); } catch (e) {}
@@ -990,6 +992,7 @@ class PuzzleSystem {
             burst(cx, cy, sigil.grand ? '#ffe6b0' : '#b79cff', sigil.grand ? 22 : 14);
             if (T.motion > 0.03) { var em = sigil.grand ? ['🔮', '✨', '🌟', '📖'] : ['✨', '✦', '💜']; for (var i = 0; i < (sigil.grand ? 7 : 5); i++) epops.push({ x: cx + (Math.random() - .5) * 60, y: cy + (Math.random() - .5) * 60, vx: (Math.random() - .5) * 50, vy: -(30 + Math.random() * 50), life: 1, em: em[(Math.random() * em.length) | 0], size: 15 + Math.random() * 11 }); }
             sCast(sigil.grand);
+            try { if (sigil.grand && game.gallery && game.gallery.unlockById) game.gallery.unlockById('lucien-runes-grand'); } catch (_g) {}
             say(sigil.grand ? pick(vGrand) : (clean ? pick(vClean) : (att >= 4 && Math.random() < .5 ? pick(vAtt) : pick(vCast))));
             makeSigil();
         }
@@ -1275,7 +1278,7 @@ class PuzzleSystem {
             if (droneG) { try { droneG.gain.setTargetAtTime(0.0001, ac.currentTime, 0.2); } catch (e) {} }
             var sc = score, best = +(localStorage.getItem('pp_noir_hunt_best') || 0), rec = sc > best;
             var bb = chamber >= 6 ? 10 : chamber >= 3 ? 7 : chamber >= 1 ? 4 : 2, ab = chamber >= 4 ? 2 : chamber >= 1 ? 1 : 0;
-            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.huntScore = (game.huntScore || 0) + 1; }
+            if (game) { game.bond = Math.min(100, (game.bond || 0) + bb); game.affection = Math.min(100, (game.affection || 0) + ab); game.huntScore = (game.huntScore || 0) + 1; try { if (chamber >= 3 && game.gallery && game.gallery.unlockById) game.gallery.unlockById('noir-hunt-deep'); } catch (_g) {} }
             var rose = 0; if (rec) { try { localStorage.setItem('pp_noir_hunt_best', String(sc)); } catch (e) {} try { if (window.PPCurrency && PPCurrency.add) { PPCurrency.add(5, 'hunt record'); rose = 5; } } catch (e) {} }
             try { if (game && game.save) game.save(); } catch (e) {}
             elBest.textContent = Math.max(best, sc);

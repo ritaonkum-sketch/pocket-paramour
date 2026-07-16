@@ -1868,6 +1868,27 @@ class GameUI {
                 }
             }
         }
+
+        // Proto "becoming touchable": his care sprite resolves from a faint
+        // flicker toward solid as pp_proto_presence rises across sessions (set
+        // by his Reach mini-game). Reset cleanly for every other character.
+        try {
+            var _pbody = document.getElementById('character-body-img');
+            if (_pbody) {
+                var _cid = ((this.game && this.game.selectedCharacter) || '').toLowerCase();
+                if (_cid === 'proto') {
+                    var _pp = Math.max(0, Math.min(1, +(localStorage.getItem('pp_proto_presence') || 0)));
+                    _pbody.style.transition = 'opacity 0.6s ease, filter 0.6s ease';
+                    _pbody.style.opacity = (0.5 + _pp * 0.5).toFixed(3);
+                    _pbody.style.filter = _pp >= 0.98 ? '' : ('drop-shadow(0 0 ' + (5 + _pp * 9).toFixed(1) + 'px rgba(188,208,255,' + (0.12 + _pp * 0.33).toFixed(3) + '))');
+                    _pbody.dataset.protoResolve = '1';
+                } else if (_pbody.dataset.protoResolve === '1') {
+                    _pbody.style.opacity = '';
+                    _pbody.style.filter = '';
+                    delete _pbody.dataset.protoResolve;
+                }
+            }
+        } catch (_pe) {}
     }
 
     // Dims + blurs the background for dramatic scenes

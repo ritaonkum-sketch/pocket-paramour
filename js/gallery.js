@@ -597,6 +597,50 @@ const GALLERY_CARDS = [
         // card fired almost immediately. It now gates on the real consecutive
         // daily-check-in streak (game.dailyStreak), matching the subtitle.
         unlock: { type: "streak", value: 14, condition: "Care 14 days without missing one" }
+    },
+    // ── Care mini-game "peak moment" keepsakes (Jul 2026) ────────────────
+    // Unlocked DIRECTLY by each character's care mini-game at its best
+    // outcome via gallery.unlockById() (see puzzles.js). type:'minigame' is
+    // inert to checkUnlocks(), so these never auto-unlock — only the game does.
+    {
+        id: "elian-forage-moonpetal",
+        title: "The Moonpetal",
+        subtitle: "It shows for a breath. You were quicker.",
+        image: "assets/elian/body/neutral.png",
+        rarity: "rare",
+        unlock: { type: "minigame", condition: "Catch a moonpetal while foraging" }
+    },
+    {
+        id: "caspian-waltz-kept",
+        title: "The Long Waltz",
+        subtitle: "The music stopped. Neither of you did.",
+        image: "assets/caspian/body/adoring.png",
+        rarity: "rare",
+        unlock: { type: "minigame", condition: "Keep a long waltz with Caspian" }
+    },
+    {
+        id: "proto-reach-almost",
+        title: "Almost Real",
+        subtitle: "You held him until he was nearly here.",
+        image: "assets/proto/body/calm.png",
+        rarity: "rare",
+        unlock: { type: "minigame", condition: "Hold Proto solid across the veil" }
+    },
+    {
+        id: "lucien-runes-grand",
+        title: "The Greater Working",
+        subtitle: "A hundred years of theory, and your hand.",
+        image: "assets/lucien/body/neutral.png",
+        rarity: "rare",
+        unlock: { type: "minigame", condition: "Cast a grand sigil in Rune-work" }
+    },
+    {
+        id: "noir-hunt-deep",
+        title: "Deep in the Dark",
+        subtitle: "You slipped the hound, and slipped it again.",
+        image: "assets/noir/body/seductive.png",
+        rarity: "rare",
+        unlock: { type: "minigame", condition: "Steal deep into Noir's dark" }
     }
 ];
 
