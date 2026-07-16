@@ -420,10 +420,10 @@ const CHARACTER_CASPIAN = {
     },
 
     // Court Etiquette training
+    // Trimmed to his one signature game (the waltz). Diplomacy/Poetry used
+    // to route to the reused timing bar; retired Jul 2026.
     trainingOptions: [
-        { type: 'dance',     icon: '\uD83D\uDC83', label: 'Dance',     desc: 'Grace in motion' },
-        { type: 'diplomacy', icon: '\uD83D\uDC51', label: 'Diplomacy', desc: 'Words as weapons' },
-        { type: 'poetry',    icon: '\uD83D\uDCDC', label: 'Poetry',    desc: 'Beauty in language' }
+        { type: 'dance', icon: '\uD83D\uDC83', label: 'Dance', desc: 'A waltz, just the two of you' }
     ],
 
     trainingDialogue: {

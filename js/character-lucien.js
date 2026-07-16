@@ -443,10 +443,10 @@ const CHARACTER_LUCIEN = {
     },
 
     // Puzzle-based training (replaces physical training)
+    // Trimmed to his one signature game (Rune-work). Logic/Memory used to
+    // route to the dated repeat-a-sequence puzzles; retired Jul 2026.
     trainingOptions: [
-        { type: 'logic',  icon: '\uD83E\uDDE9', label: 'Logic', desc: 'Sequence and pattern' },
-        { type: 'arcane', icon: '\uD83D\uDD2E', label: 'Arcane', desc: 'Magical theory' },
-        { type: 'memory', icon: '\uD83E\uDDE0', label: 'Memory', desc: 'Rune recall' }
+        { type: 'arcane', icon: '\uD83D\uDD2E', label: 'Arcane', desc: 'Trace the living sigils' }
     ],
 
     trainingDialogue: {

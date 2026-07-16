@@ -2468,6 +2468,9 @@ class GameUI {
         const options = CHARACTER.trainingOptions || [
             { type: 'sword', icon: '⚔️', label: 'Train', desc: '' }
         ];
+        // A character with a single signature game skips the picker and
+        // launches straight into it — no lonely one-button panel.
+        if (options.length === 1) { onSelect(options[0].type); return; }
         const grid = document.getElementById('training-grid');
         grid.innerHTML = options.map(opt => `
             <button class="training-option" data-type="${opt.type}">

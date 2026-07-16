@@ -441,10 +441,10 @@ const CHARACTER_NOIR = {
     },
 
     // Shadow Arts training
+    // Trimmed to his one signature game (The Hunt). Domination/Dissolution
+    // used to route to the reused timing bar; retired Jul 2026.
     trainingOptions: [
-        { type: 'temptation',   icon: '\uD83D\uDDA4', label: 'Temptation',   desc: 'The art of wanting' },
-        { type: 'domination',   icon: '\u26D3\uFE0F',  label: 'Domination',   desc: 'The weight of will' },
-        { type: 'dissolution',  icon: '\uD83C\uDF2B\uFE0F',  label: 'Dissolution',  desc: 'Letting go of limits' }
+        { type: 'temptation', icon: '\uD83D\uDDA4', label: 'Temptation', desc: 'Into the dark after him' }
     ],
 
     trainingDialogue: {
