@@ -9183,32 +9183,32 @@
           // External-onDone path may not reopen chp-page. Clear the
           // body flag after the 420ms close fade window.
           setTimeout(clearChapterActive, 500);
-        } else if (!isBridge && wasReplay) {
-          // Manual-replay path from the chapter menu.restore the menu.
-          // Bridges skip this so the route-open toast lands on a clean
-          // background. openPage() itself clears the body flag once
-          // chp-page is mounted — see its body below.
+        } else if (!isBridge) {
+          // A finished chapter returns to the STORY page (the chapter menu) —
+          // for BOTH a manual replay and a first completion.
+          //
+          // Owner (Jul 2026): "when the chapters are finish ready it go
+          // straigth to the companion page not the main story page... It's not
+          // suppose to happen!" This used to fork: replays came back to the
+          // menu, but a FIRST completion jumped to the Chronicle/Companions
+          // grid (a Jul-2026 playtest call — land on the unlock ceremony and
+          // the CARE invite). It broke reading flow: finish a chapter, get
+          // thrown out of the story. Both paths now land back in the menu, so
+          // the next chapter is right there.
+          //
+          // The newly-open card ceremony is NOT lost by this — the grid
+          // refreshes when the player actually opens Companions, and the badge
+          // pass in game.js only celebrates while that grid is on screen, so
+          // it waits for them instead of burning unseen.
+          //
+          // Bridges still skip this so the route-open toast lands on a clean
+          // background. openPage() clears the body flag once chp-page mounts.
           refreshOrb();
           openPageSoftly();
           // Safety net: clear after a longer-than-openPageSoftly delay
           // in case openPage() short-circuits (e.g. chp-page already
           // exists). Idempotent — openPage() also clears it.
           setTimeout(clearChapterActive, 1200);
-        } else if (!isBridge) {
-          // Jul 2026 playtest fix — FIRST completion lands on the
-          // CHRONICLE, not back in the chapter menu. The player just
-          // lived an emotional ending; the Chronicle is where the
-          // unlock ceremony (gold glow, newly-open card) plays and
-          // where the CARE button invites the next step. The menu is
-          // one tap away via the STORY tab whenever they want it.
-          refreshOrb();
-          try {
-            if (typeof window._refreshUnlockedCards === 'function') window._refreshUnlockedCards();
-            var sel = document.getElementById('select-screen');
-            if (sel) { sel.classList.remove('hidden'); sel.style.opacity = ''; sel.style.visibility = ''; }
-            if (window.PPScene && typeof window.PPScene.set === 'function') window.PPScene.set('select');
-          } catch (_) {}
-          setTimeout(clearChapterActive, 500);
         } else {
           // Bridge tapped from chp-page.show the orb (so the player can
           // re-open the chapter list manually if they want), but don't
