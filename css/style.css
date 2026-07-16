@@ -3426,7 +3426,12 @@ body.pp-screen-care .character-elian #character-body-img {
    Matches the gothic-romantasy brand instead of fortune-cookie. */
 .achievement-popup {
     position: absolute;
-    top: 120px;
+    /* Waist height (owner). Was a flat 120px, which on the care screen landed
+       across his face. The care sprite runs ~4%–77% of #game-container, so its
+       belt line sits near 37% — a % (not px) keeps it at the waist as the
+       container scales, and it stays clear of the NEXT chip above (~18–26%)
+       and the dialogue box below (~66%). */
+    top: 37%;
     right: 10px;
     left: auto;
     bottom: auto;
