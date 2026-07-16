@@ -930,6 +930,11 @@ class GameUI {
     closeTrainingPanel() {
         const panel = document.getElementById('training-panel');
         if (!panel) return;
+        // Deregister from the overlay queue so body.pp-overlay-active clears and
+        // the care screen's topbar / chips return. Single close point for every
+        // training path (picker + all 5 mini-games), so it's uniform across all
+        // routes. Harmless no-op if it was never registered.
+        try { if (window.PPOverlay) PPOverlay.hide('training'); } catch (_) {}
         clearTimeout(this._trainingCloseTimer);
         panel.classList.remove('visible');
         this._trainingCloseTimer = setTimeout(() => panel.classList.add('hidden'), 320);
@@ -2511,6 +2516,7 @@ class GameUI {
         this.closeAllPanels('training');
         clearTimeout(this._trainingCloseTimer);
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
         });
@@ -2864,6 +2870,7 @@ class GameUI {
         // Force show training panel with puzzle content
         this.closeAllPanels('training');
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         // Must use double-rAF to ensure 'hidden' removal is painted before adding 'visible'
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
@@ -2937,6 +2944,7 @@ class GameUI {
         clearTimeout(this._trainingCloseTimer);
         this.closeAllPanels('training');
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
         });
@@ -2988,6 +2996,7 @@ class GameUI {
         clearTimeout(this._trainingCloseTimer);
         this.closeAllPanels('training');
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
         });
@@ -3038,6 +3047,7 @@ class GameUI {
         clearTimeout(this._trainingCloseTimer);
         this.closeAllPanels('training');
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
         });
@@ -3088,6 +3098,7 @@ class GameUI {
         clearTimeout(this._trainingCloseTimer);
         this.closeAllPanels('training');
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
         });
@@ -3138,6 +3149,7 @@ class GameUI {
         clearTimeout(this._trainingCloseTimer);
         this.closeAllPanels('training');
         panel.classList.remove('hidden');
+        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
         requestAnimationFrame(() => {
             requestAnimationFrame(() => panel.classList.add('visible'));
         });
