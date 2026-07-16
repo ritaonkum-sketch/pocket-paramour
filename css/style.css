@@ -1004,13 +1004,17 @@ body {
     #affection-display button { font-size: 14px; padding: 3px 5px; }
 
     #action-buttons {
-        gap: 6px;
-        padding: 8px 6px;
+        gap: 5px;
+        padding: 8px 6px max(14px, env(safe-area-inset-bottom, 14px));
     }
     .action-btn {
-        min-width: 52px;
-        padding: 8px 4px;
+        /* was min-width:52px — with 6 buttons (Date is injected) that floor
+           forced the row wider than a ≤360px screen and clipped Date off the
+           right edge. min-width:0 lets all six shrink to fit one row. */
+        min-width: 0;
+        padding: 8px 3px;
     }
+    .action-btn .btn-icon svg { width: 22px; height: 22px; }
     .btn-icon  { font-size: 20px; }
     .btn-label { font-size: 10px; }
 
@@ -1956,6 +1960,10 @@ body.pp-screen-care .character-elian #character-body-img {
        — cascades from #game-container[data-character="X"] now that
        we wire that attribute on care-loop entry. */
     flex: 1;
+    /* min-width:0 lets the row shrink each button below its content size so
+       all SIX actions (Feed·Wash·Gift·Train·Talk·Date — Date is injected at
+       runtime) always fit one row without the last one clipping off-screen. */
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
