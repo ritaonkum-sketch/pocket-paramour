@@ -12040,6 +12040,49 @@ let selectedCharacter = 'alistair';
                 var alistairCard = document.querySelector('.cc-thread-card[data-character="alistair"], #alistair-card');
                 if (alistairCard) applyCeremony(alistairCard, 'alistair');
             }
+
+            // ── "NEWLY OPEN" badge for ALL 7 (owner) ─────────────────────
+            // The ceremony above existed but was wired to exactly three
+            // characters: chapters.js stamps 'alistair' at Ch1, and the two
+            // blocks above stamp noir/proto. Elian, Lyra, Caspian and Lucien
+            // open through the care-route ladder and nothing ever stamped
+            // them, so their cards just silently appeared. Owner: "when the
+            // character is newly unlock we need a notification... like when
+            // the Alistair is unlock it got a notification on it profile...
+            // I wonder why Others does not have it."
+            //
+            // Rather than add four more hardcoded branches, drive it off the
+            // ladder authority (PPRouteGates.careRouteOpen — the same source
+            // the grid already trusts for lock state). First time we ever see
+            // a route open, badge that card once and remember it. Covers all
+            // 7, and any character added later, with no new wiring.
+            try {
+                var rg = window.PPRouteGates;
+                if (rg && typeof rg.careRouteOpen === 'function') {
+                    // One-time migration: on the first run after this ships,
+                    // record every ALREADY-open route as seen WITHOUT
+                    // celebrating it, so existing saves don't suddenly throw a
+                    // "newly open" party for someone unlocked days ago. Only
+                    // genuinely new opens celebrate from here on.
+                    var INIT_KEY = 'pp_select_open_seen_init';
+                    var firstRun = localStorage.getItem(INIT_KEY) !== '1';
+                    ['alistair','elian','lyra','caspian','lucien','noir','proto'].forEach(function (cid) {
+                        var seenKey = 'pp_select_open_seen_' + cid;
+                        if (localStorage.getItem(seenKey) === '1') return;   // already celebrated
+                        if (!rg.careRouteOpen(cid)) return;                  // still locked
+                        localStorage.setItem(seenKey, '1');
+                        if (firstRun) return;                                // migrating, stay quiet
+                        var c = document.querySelector('.cc-thread-card[data-character="' + cid + '"], #' + cid + '-card');
+                        if (!c) return;
+                        // Its own branch above may have already badged it this
+                        // pass (noir/proto/alistair) — don't double-fire.
+                        if (c.querySelector('.select-card-new-badge')) return;
+                        justUnlocked = cid;   // applyCeremony gates on this
+                        applyCeremony(c, cid);
+                    });
+                    if (firstRun) { try { localStorage.setItem(INIT_KEY, '1'); } catch (e) {} }
+                }
+            } catch (e) { /* ladder missing — the three legacy branches still work */ }
         } catch(e) {}
     }
     // Expose so the in-game "Switch Character" path can call it too.
