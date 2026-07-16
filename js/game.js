@@ -2775,7 +2775,58 @@ class PocketLoveGame {
         }
     }
 
+    // ── Daily training cap ──────────────────────────────────────────────
+    // Owner: "we can limit training like 4 per day."
+    //
+    // The gate lives HERE, at the top of _doTrain, because this is the single
+    // choke point every one of the 7 routes passes through AND the place the
+    // reward is paid. The previous caps lived in ui.js's per-mini-game wrappers
+    // and were effectively decorative: they refused to OPEN the game, but
+    // _doTrain had already granted bond +5 / affection +3 by the time they ran.
+    // Verified before this change — with forage at 5/5, three more Train presses
+    // still paid +15 bond. Alistair and Lyra had no cap at all, since their
+    // training is a sprite animation rather than a mini-game. So: gate first,
+    // pay after, one number, all 7 characters.
+    //
+    // Per character (each companion has their own daily loop), day-keyed so it
+    // rolls over at midnight without a timer.
+    _trainCapPerDay() { return 4; }
+    _trainsToday() {
+        try {
+            const day = new Date().toDateString();
+            if (localStorage.getItem('pp_train_day_' + this.selectedCharacter) !== day) return 0;
+            return parseInt(localStorage.getItem('pp_train_count_' + this.selectedCharacter) || '0', 10) || 0;
+        } catch (_) { return 0; }
+    }
+    _recordTrainToday() {
+        try {
+            // Read the count BEFORE stamping the day, or a new day would read
+            // its own fresh stamp and keep yesterday's count.
+            const n = this._trainsToday() + 1;
+            localStorage.setItem('pp_train_day_' + this.selectedCharacter, new Date().toDateString());
+            localStorage.setItem('pp_train_count_' + this.selectedCharacter, String(n));
+        } catch (_) { /* storage blocked — training just stays uncapped */ }
+    }
+
     _doTrain(type) {
+        // Trained out for today? Say so in his own voice and pay nothing.
+        const cap = this._trainCapPerDay();
+        if (this._trainsToday() >= cap) {
+            const spent = {
+                elian:    'Foraged out for today. The wood rests until tomorrow.',
+                caspian:  'We have danced our fill today. The floor is yours again tomorrow.',
+                proto:    'He has to drift a while and gather his strength. Reach for him again tomorrow.',
+                lucien:   'The ink is spent for today. He will draw a fresh circle tomorrow.',
+                noir:     'The hound has your scent for today. It hunts again tomorrow.',
+                alistair: 'The drills are done for today. Even a knight is allowed to stop.',
+                lyra:     'She has sung herself out for today. The cave rests until tomorrow.'
+            };
+            const msg = spent[this.selectedCharacter] || 'Training is done for today.';
+            try { this.ui.showNotification(msg + ' (' + cap + '/' + cap + ')'); } catch (_) {}
+            return;
+        }
+        this._recordTrainToday();
+
         // Action SFX — swoosh for the practice/swing/study feel.
         try { if (window.sounds && sounds.swoosh) sounds.swoosh(); } catch (_) {}
 

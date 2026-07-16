@@ -2933,25 +2933,9 @@ class GameUI {
     // only opens the panel and closes it promptly when the player taps
     // Done — no generic +3/+2 double-dip, no 2.2s lingering close.
     playForageSequence(onComplete) {
-        // ── Daily play cap (owner: 5 forage plays/day) ─────────────────
-        // Stops bond/affection grinding through the mini-game and gives a
-        // daily reason to return. Fighting stays available for training.
-        try {
-            var _day = new Date().toDateString();
-            var _plays = (localStorage.getItem('pp_forage_plays_day') === _day)
-                ? (parseInt(localStorage.getItem('pp_forage_plays') || '0', 10) || 0) : 0;
-            if (_plays >= 5) {
-                try { this.closeTrainingPanel(); } catch (_) {}
-                this._seqActive = false;
-                if (typeof this.showNotification === 'function') {
-                    this.showNotification('Foraged out for today (5/5). The wood rests until tomorrow.');
-                }
-                onComplete && onComplete();
-                return;
-            }
-            localStorage.setItem('pp_forage_plays_day', _day);
-            localStorage.setItem('pp_forage_plays', String(_plays + 1));
-        } catch (_) {}
+        // Daily cap removed here — game.js _doTrain() now gates ALL training
+        // before the reward is paid (its old 5/day only closed the game, not
+        // the bond payout). One cap, one number, all 7 routes.
 
         if (!this.game._puzzleSystem) {
             this.game._puzzleSystem = new PuzzleSystem(this.game);
@@ -2987,23 +2971,8 @@ class GameUI {
     // bond/affection + personal best + 5 Roses on a new record), so this
     // wrapper only opens/closes the panel — no generic +3/+2 double-dip.
     playWaltzSequence(onComplete) {
-        // ── Daily play cap (owner: 5 waltz plays/day) — same as forage.
-        try {
-            var _day = new Date().toDateString();
-            var _plays = (localStorage.getItem('pp_waltz_plays_day') === _day)
-                ? (parseInt(localStorage.getItem('pp_waltz_plays') || '0', 10) || 0) : 0;
-            if (_plays >= 5) {
-                try { this.closeTrainingPanel(); } catch (_) {}
-                this._seqActive = false;
-                if (typeof this.showNotification === 'function') {
-                    this.showNotification('We have danced our fill today (5/5). The floor is yours again tomorrow.');
-                }
-                onComplete && onComplete();
-                return;
-            }
-            localStorage.setItem('pp_waltz_plays_day', _day);
-            localStorage.setItem('pp_waltz_plays', String(_plays + 1));
-        } catch (_) {}
+        // Daily cap removed here — see playForageSequence; game.js _doTrain()
+        // is the single gate now.
 
         if (!this.game._puzzleSystem) {
             this.game._puzzleSystem = new PuzzleSystem(this.game);
@@ -3039,22 +3008,8 @@ class GameUI {
     // scaled bond+affection + personal best + 5 Roses on a new record),
     // so this wrapper only opens/closes the panel. 5 plays/day cap.
     playReachSequence(onComplete) {
-        try {
-            var _day = new Date().toDateString();
-            var _plays = (localStorage.getItem('pp_reach_plays_day') === _day)
-                ? (parseInt(localStorage.getItem('pp_reach_plays') || '0', 10) || 0) : 0;
-            if (_plays >= 5) {
-                try { this.closeTrainingPanel(); } catch (_) {}
-                this._seqActive = false;
-                if (typeof this.showNotification === 'function') {
-                    this.showNotification('He has to drift a while and gather his strength. Reach for him again tomorrow (5/5).');
-                }
-                onComplete && onComplete();
-                return;
-            }
-            localStorage.setItem('pp_reach_plays_day', _day);
-            localStorage.setItem('pp_reach_plays', String(_plays + 1));
-        } catch (_) {}
+        // Daily cap removed here — see playForageSequence; game.js _doTrain()
+        // is the single gate now.
 
         if (!this.game._puzzleSystem) {
             this.game._puzzleSystem = new PuzzleSystem(this.game);
@@ -3090,22 +3045,8 @@ class GameUI {
     // (cast/attunement-scaled bond+affection + personal best + 5 Roses on a
     // new record), so this wrapper only opens/closes the panel. 5 plays/day.
     playRunesSequence(onComplete) {
-        try {
-            var _day = new Date().toDateString();
-            var _plays = (localStorage.getItem('pp_runes_plays_day') === _day)
-                ? (parseInt(localStorage.getItem('pp_runes_plays') || '0', 10) || 0) : 0;
-            if (_plays >= 5) {
-                try { this.closeTrainingPanel(); } catch (_) {}
-                this._seqActive = false;
-                if (typeof this.showNotification === 'function') {
-                    this.showNotification('The ink is spent for today (5/5). He will draw a fresh circle tomorrow.');
-                }
-                onComplete && onComplete();
-                return;
-            }
-            localStorage.setItem('pp_runes_plays_day', _day);
-            localStorage.setItem('pp_runes_plays', String(_plays + 1));
-        } catch (_) {}
+        // Daily cap removed here — see playForageSequence; game.js _doTrain()
+        // is the single gate now.
 
         if (!this.game._puzzleSystem) {
             this.game._puzzleSystem = new PuzzleSystem(this.game);
@@ -3141,22 +3082,8 @@ class GameUI {
     // score-scaled bond+affection + personal best + 5 Roses on a new record),
     // so this wrapper only opens/closes the panel. 5 plays/day cap.
     playHuntSequence(onComplete) {
-        try {
-            var _day = new Date().toDateString();
-            var _plays = (localStorage.getItem('pp_hunt_plays_day') === _day)
-                ? (parseInt(localStorage.getItem('pp_hunt_plays') || '0', 10) || 0) : 0;
-            if (_plays >= 5) {
-                try { this.closeTrainingPanel(); } catch (_) {}
-                this._seqActive = false;
-                if (typeof this.showNotification === 'function') {
-                    this.showNotification('The hound has your scent for today (5/5). It hunts again tomorrow.');
-                }
-                onComplete && onComplete();
-                return;
-            }
-            localStorage.setItem('pp_hunt_plays_day', _day);
-            localStorage.setItem('pp_hunt_plays', String(_plays + 1));
-        } catch (_) {}
+        // Daily cap removed here — see playForageSequence; game.js _doTrain()
+        // is the single gate now.
 
         if (!this.game._puzzleSystem) {
             this.game._puzzleSystem = new PuzzleSystem(this.game);
