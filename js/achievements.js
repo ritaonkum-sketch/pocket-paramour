@@ -577,6 +577,13 @@ const ACHIEVEMENTS = [
     }
 ];
 
+// Roses paid for unlocking any achievement (owner). Safe to pay from
+// unlock() because that is the ONLY once-ever path per achievement: the
+// Set guard inside it blocks repeats, checkAll() skips already-unlocked,
+// and loadSaveData() restores the Set directly instead of replaying
+// unlock() — so reloading a save never re-pays.
+const ACHIEVEMENT_ROSES = 5;
+
 class AchievementSystem {
     constructor(game) {
         this.game = game;
@@ -607,20 +614,34 @@ class AchievementSystem {
 
         this.unlocked.add(ach.id);
         this.pendingNotifications.push(ach);
-        this.showNotification(ach);
+
+        // Pay the Rose bounty. Only claim it on the popup if the wallet
+        // actually took it, so the card can never promise Roses it didn't give.
+        let paid = 0;
+        try {
+            if (window.PPCurrency && typeof PPCurrency.add === 'function') {
+                PPCurrency.add(ACHIEVEMENT_ROSES, 'achievement: ' + ach.name);
+                paid = ACHIEVEMENT_ROSES;
+            }
+        } catch (_) { /* economy not up — achievement still unlocks */ }
+
+        this.showNotification(ach, paid);
         sounds.fanfare();
         this.game.save();
     }
 
     // Show popup notification
-    showNotification(ach) {
+    showNotification(ach, reward) {
         // QUIET FIRST HOUR: don't pop achievement notifications during a
         // chain transition, scene, or modal — they look like spam there.
-        // Defer; the achievement is already unlocked & saved.
+        // Defer; the achievement is already unlocked & saved. (Carry `reward`
+        // through the retry or the deferred card loses its Rose line.)
         if (window.PPAmbient && window.PPAmbient.firstHourBusy && window.PPAmbient.firstHourBusy()) {
-            setTimeout(() => { try { this.showNotification(ach); } catch (_) {} }, 4000);
+            setTimeout(() => { try { this.showNotification(ach, reward); } catch (_) {} }, 4000);
             return;
         }
+        // Same rose emblem as the wallet, so the payout reads as the currency.
+        const rose = (window.PPCurrency && PPCurrency.icon) || '🌹';
         const popup = document.createElement('div');
         popup.className = 'achievement-popup';
         popup.innerHTML = `
@@ -628,6 +649,7 @@ class AchievementSystem {
             <div class="achievement-popup-info">
                 <div class="achievement-popup-label">Achievement Unlocked!</div>
                 <div class="achievement-popup-name">${ach.name}</div>
+                ${reward ? `<div class="achievement-popup-reward">+${reward} ${rose}</div>` : ''}
             </div>
         `;
 
