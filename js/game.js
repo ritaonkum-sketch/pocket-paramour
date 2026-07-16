@@ -2790,7 +2790,7 @@ class PocketLoveGame {
     //
     // Per character (each companion has their own daily loop), day-keyed so it
     // rolls over at midnight without a timer.
-    _trainCapPerDay() { return 4; }
+    _trainCapPerDay() { return 5; }
     _trainsToday() {
         try {
             const day = new Date().toDateString();
