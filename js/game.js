@@ -3511,15 +3511,8 @@ class PocketLoveGame {
     // ===== AFFECTION =====
 
     onAffectionLevelUp() {
-        // LIVING LOVER · Pillar 6 — each tier-up mends a wound in the
-        // bond-fabric (LORE.md §4.3: the romance IS the plot). living-state
-        // waits for the level-up scene to finish, then shows the weaver
-        // mend-moment + kingdom bar shimmer.
-        try {
-            if (window.PPLivingState && window.PPLivingState.onTierUp) {
-                window.PPLivingState.onTierUp(this.affectionLevel);
-            }
-        } catch (_) {}
+        // (Living Lover Pillar 6 "the mend" tier-up toast was removed — it
+        //  had no player value. The level-up scene + audio cue below remain.)
         // Audio cue: affection-level-up was previously silent — a missed
         // dopamine hit. Heartbeat for early levels (subtle), fanfare for the
         // confession-tier jump. Production audit flagged this as a key

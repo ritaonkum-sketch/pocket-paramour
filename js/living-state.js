@@ -9,9 +9,9 @@
 //            his own voice and the matching button breathes.
 // Pillar 5 · He remembers us: echoes of your chapter choices and shared
 //            memories surface in the idle stream.
-// Pillar 6 · You mend the world: on affection tier-up, a Weaver mend-moment —
-//            his wound in the bond-fabric closes a little (game.js calls
-//            PPLivingState.onTierUp).
+// Pillar 6 · (removed) "the mend" tier-up toast — retired at owner request;
+//            it served no player purpose. Inert mend: pools remain in
+//            living-pools.js but are no longer read.
 // (Pillar 4 · the deepening care ritual lives in dialogue.js getDialogue,
 //            reading careTiers from PP_LIVING_POOLS.)
 //
@@ -97,26 +97,15 @@
             // ── the ask: the matching care button breathes, three times ──
             '.pp-care-pulse{animation:ppls-ask 1.3s ease-in-out 3;}',
             '@keyframes ppls-ask{0%,100%{box-shadow:0 0 0 0 rgba(240,190,120,0);}50%{box-shadow:0 0 14px 3px rgba(240,190,120,.55);}}',
-            '@media (prefers-reduced-motion: reduce){.pp-care-pulse{animation:none;box-shadow:0 0 10px 2px rgba(240,190,120,.4);}}',
-            // ── the mend: a golden weaver toast + a shimmer along the kingdom bar ──
-            '#pp-mend-toast{position:fixed;bottom:112px;left:50%;transform:translateX(-50%) translateY(12px);',
-            'max-width:86vw;padding:11px 18px;font-family:inherit;font-size:12.5px;line-height:1.5;font-style:italic;',
-            'color:#f6ecd8;background:linear-gradient(180deg, rgba(38,28,14,.92), rgba(52,36,16,.86));',
-            'border:1px solid rgba(214,178,110,.45);border-radius:14px;text-align:center;letter-spacing:.2px;',
-            'box-shadow:0 8px 24px rgba(0,0,0,.5), 0 0 22px rgba(214,170,90,.22) inset;opacity:0;pointer-events:auto;',
-            'z-index:9200;transition:opacity 520ms ease, transform 520ms ease;cursor:pointer;user-select:none;}',
-            '#pp-mend-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}',
-            '#pp-mend-toast .pp-mend-rule{display:block;font-style:normal;font-size:10px;letter-spacing:.28em;',
-            'text-transform:uppercase;color:rgba(224,192,132,.85);margin-bottom:5px;}',
-            '#fading-bar-fill.pp-mend-shimmer{animation:ppls-mend 2.6s ease;}',
-            '@keyframes ppls-mend{0%{box-shadow:0 0 0 0 rgba(240,208,140,0);}35%{box-shadow:0 0 12px 2px rgba(240,208,140,.75);}100%{box-shadow:0 0 0 0 rgba(240,208,140,0);}}'
+            '@media (prefers-reduced-motion: reduce){.pp-care-pulse{animation:none;box-shadow:0 0 10px 2px rgba(240,190,120,.4);}}'
+            // Pillar 6 "the mend" toast + kingdom-bar shimmer removed (owner: no player value).
         ].join('\n');
         document.head.appendChild(s);
     }
 
     // ── Shared bubble (same look + dedupe class as idle-life thoughts) ──
     function bubbleBusy() {
-        return !!document.querySelector('#ew-whisper, .pp-idle-thought, .noir-whisper, .pp-aenor-bubble, .pp-multirom-bubble, .adaptive-thought, #pp-care-thread-toast, #pp-mend-toast');
+        return !!document.querySelector('#ew-whisper, .pp-idle-thought, .noir-whisper, .pp-aenor-bubble, .pp-multirom-bubble, .adaptive-thought, #pp-care-thread-toast');
     }
     function ensureBubbleStyles() {
         if (document.getElementById('pp-idle-thought-styles') || document.getElementById('pp-ls-bubble-styles')) return;
@@ -292,49 +281,10 @@
         }
     }
 
-    // ── Pillar 6: the mend ──────────────────────────────────────────────
-    function showMendToast(charId, level) {
-        var cp = charPools(charId);
-        var lines = cp && cp.mend && (level >= 3 ? cp.mend.deep : cp.mend.early);
-        var line = (lines && lines.length) ? lines[Math.floor(Math.random() * lines.length)] : 'Somewhere in the weave, a wound closes where you love.';
-        var el = document.createElement('div');
-        el.id = 'pp-mend-toast';
-        el.innerHTML = '<span class="pp-mend-rule">✦ the weave mends ✦</span>' + line;
-        document.body.appendChild(el);
-        void el.offsetHeight;
-        el.classList.add('show');
-        var bar = document.getElementById('fading-bar-fill');
-        if (bar) {
-            bar.classList.remove('pp-mend-shimmer');
-            void bar.offsetWidth;
-            bar.classList.add('pp-mend-shimmer');
-            setTimeout(function () { bar.classList.remove('pp-mend-shimmer'); }, 2800);
-        }
-        function close() {
-            el.classList.remove('show');
-            setTimeout(function () { try { el.remove(); } catch (_) {} }, 540);
-        }
-        el.addEventListener('click', close, { once: true });
-        el.addEventListener('touchstart', close, { once: true, passive: true });
-        setTimeout(close, 7000);
-    }
-    function onTierUp(level) {
-        if (off()) return;
-        var g = getGame();
-        if (!g) return;
-        var charId = g.selectedCharacter;
-        // the level-up moment plays its story scene first; the mend arrives
-        // once the screen is calm again (retry up to ~40s, then let it go)
-        var tries = 0;
-        (function attempt() {
-            if (tries++ > 13) return;
-            if (!onCalmCare(getGame()) || document.getElementById('pp-mend-toast')) {
-                setTimeout(attempt, 3000);
-                return;
-            }
-            showMendToast(charId, level);
-        })();
-    }
+    // ── Pillar 6 "the mend" removed (owner: the "✦ the weave mends ✦"
+    //    tier-up toast served no player purpose). Trigger, render, CSS, and
+    //    public hooks all gone; the inert mend: pools in living-pools.js are
+    //    now unused. ──────────────────────────────────────────────────────
 
     // ── Public API ──────────────────────────────────────────────────────
     window.PPLivingState = {
@@ -347,11 +297,9 @@
             return (set && set.flourishes && set.flourishes.length) ? set.flourishes : null;
         },
         refresh: function () { applyBaseline(getGame()); },
-        onTierUp: onTierUp,
         _force: function (cond) { forced = cond || null; lastActionAt = 0; applyBaseline(getGame()); },
         _testMood: function () { lsSet('pp_mood_shown_' + (getGame() || {}).selectedCharacter, ''); maybeShowMood(getGame()); },
-        _testRequest: function () { lastActivityAt = 0; lastRequestAt = 0; maybeRequest(getGame()); },
-        _testMend: function (lvl) { showMendToast((getGame() || {}).selectedCharacter, lvl || 4); }
+        _testRequest: function () { lastActivityAt = 0; lastRequestAt = 0; maybeRequest(getGame()); }
     };
 
     // ── Wiring ──────────────────────────────────────────────────────────
