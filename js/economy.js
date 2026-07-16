@@ -444,7 +444,7 @@
             '#affection-display:not(.topbar-collapsed) #' + COUNTER_ID + '{display:none !important;}',
             '#' + COUNTER_ID + ' .ht-ico{font-size:13px;line-height:1;filter:drop-shadow(0 0 4px rgba(232,120,140,0.5));}',
             '.cur-ico{display:inline-block;width:24px;height:24px;object-fit:contain;vertical-align:middle;margin-top:-2px;}',
-            '#pp-ht-reward-burst .cur-ico{width:86px;height:86px;}',
+            '#pp-ht-reward-burst .cur-ico{width:104px;height:104px;}',   // owner: rose is the hero of this card
             '#' + COUNTER_ID + ' .ht-amt{min-width:8px;text-align:right;letter-spacing:0.02em;}',
             '#' + COUNTER_ID + '.ht-bump{animation:ht-bump 0.4s cubic-bezier(0.22,1,0.36,1);}',
             '@keyframes ht-bump{0%{transform:scale(1);}40%{transform:scale(1.18);}100%{transform:scale(1);}}',
@@ -666,7 +666,7 @@
                     '#pp-ht-reward-burst.show{opacity:1;}',
                     '#pp-ht-reward-burst.out{opacity:0;}',
                     '#pp-ht-reward-burst .ht-rb-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;',
-                    'padding:30px 46px 24px;border-radius:24px;',
+                    'padding:20px 26px 15px;border-radius:20px;',   // owner: tighter frame
                     'background:linear-gradient(180deg,rgba(48,30,20,0.97),rgba(26,15,10,0.98));',
                     'border:1px solid rgba(232,180,110,0.55);',
                     'box-shadow:0 22px 64px -14px rgba(0,0,0,0.78),inset 0 1px 0 rgba(255,235,200,0.14);',
@@ -676,7 +676,7 @@
                     '#pp-ht-reward-burst .ht-rb-glow{position:absolute;width:210px;height:210px;border-radius:50%;z-index:0;',
                     'background:radial-gradient(circle,rgba(232,150,120,0.34),transparent 68%);filter:blur(7px);animation:ht-rb-pulse 1.7s ease-in-out infinite;}',
                     '#pp-ht-reward-burst .ht-rb-ico{font-size:48px;line-height:1;z-index:1;filter:drop-shadow(0 0 18px rgba(232,140,150,0.72));animation:ht-rb-bob 1.9s ease-in-out infinite;}',
-                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:44px;line-height:1.05;margin-top:6px;',
+                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:32px;line-height:1.05;margin-top:4px;',
                     'background:linear-gradient(180deg,#FBE8B8,#D4A85B);-webkit-background-clip:text;background-clip:text;color:transparent;}',
                     '#pp-ht-reward-burst .ht-rb-label{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,236,209,0.74);margin-top:3px;}',
                     '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.42);margin-top:14px;}',
