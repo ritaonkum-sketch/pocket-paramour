@@ -9528,11 +9528,14 @@
         margin-bottom: var(--s-1);
       }
       #${PAGE_ID} .chp-text .c2 {
-        font-family: var(--font-sans);
+        /* Chapter title — serif, to match the Companions page card names
+           (.cc-thread-name / .cc-active-name use var(--font-serif)). Owner:
+           "change these font to match companion page." Was --font-sans. */
+        font-family: var(--font-serif);
         font-weight: 600;
         font-size: var(--text-lg);
         line-height: var(--lh-snug);
-        letter-spacing: var(--ls-tight);
+        letter-spacing: 0.01em;
         color: var(--c-ink-emphasis);
       }
       #${PAGE_ID} .chp-text .c3 {
