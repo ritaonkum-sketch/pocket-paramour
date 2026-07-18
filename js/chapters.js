@@ -9527,7 +9527,7 @@
         /* Left corners square (they bleed to the card edge and are rounded by
            the card's own overflow-clip); right corners rounded, inner side. */
         border-radius: 0 12px 12px 0;
-        border: 1px solid var(--c-accent-gold);
+        /* Gold frame border removed (owner test: clean bleed, no framing). */
         background: var(--c-bg-elevated);
         display: flex;
         align-items: center;
@@ -9537,13 +9537,12 @@
         font-weight: 600;
         font-size: var(--text-lg);
         overflow: hidden;
-        box-shadow:
-          inset 0 1px 0 rgba(255,255,255,0.4),
-          0 2px 8px rgba(184,146,62,0.18);
       }
       #${PAGE_ID} .chp-thumb img {
         width: 100%; height: 100%;
-        border-radius: 10px;
+        /* No inner radius — the thumb's own overflow-clip (0 12px 12px 0)
+           shapes the image now that the gold frame is gone. */
+        border-radius: 0;
         object-fit: cover;
       }
 
