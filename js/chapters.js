@@ -9284,7 +9284,7 @@
         color: var(--c-bg-page);
         border: 1.5px solid var(--c-accent-gold);
         border-radius: var(--r-pill);
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 700;
         font-size: var(--text-sm);
         letter-spacing: var(--ls-wider);
@@ -9340,7 +9340,7 @@
         border-bottom: 1px solid var(--c-line-fine);
       }
       #${PAGE_ID} .chp-title {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 600;
         font-size: var(--text-lg);          /* 12px -> 22px, the hero */
         letter-spacing: var(--ls-wider);
@@ -9349,7 +9349,7 @@
         margin-bottom: 2px;
       }
       #${PAGE_ID} .chp-sub {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 500;
         font-size: var(--text-sm);          /* 28px -> 14px, subtitle */
         line-height: var(--lh-snug);
@@ -9400,7 +9400,7 @@
         align-items: baseline;
         gap: var(--s-3);
         margin-bottom: var(--s-2);
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 500;
         font-size: var(--text-xs);
         letter-spacing: var(--ls-wider);
@@ -9408,7 +9408,7 @@
         color: var(--c-ink-mute);
       }
       #${PAGE_ID} .chp-progress-next {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 400;
         font-size: var(--text-sm);
         letter-spacing: var(--ls-base);
@@ -9434,7 +9434,7 @@
       /* ──────────────────────── INTRO ──────────────────────── */
       #${PAGE_ID} .chp-intro {
         padding: var(--s-3) var(--s-6) var(--s-4);
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 400;
         font-size: var(--text-sm);
         line-height: var(--lh-base);
@@ -9498,7 +9498,7 @@
         align-items: center;
         justify-content: center;
         color: var(--c-accent-gold);
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 600;
         font-size: var(--text-lg);
         overflow: hidden;
@@ -9519,7 +9519,7 @@
         color: var(--c-ink-body);
       }
       #${PAGE_ID} .chp-text .c1 {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 500;
         font-size: var(--text-xs);
         letter-spacing: var(--ls-wider);
@@ -9539,7 +9539,7 @@
         color: var(--c-ink-emphasis);
       }
       #${PAGE_ID} .chp-text .c3 {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 400;
         font-size: var(--text-sm);
         line-height: var(--lh-base);
@@ -9553,16 +9553,19 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 44px;
-        padding: var(--s-2) var(--s-5);
+        /* Smaller, serif — to match the Companions CARE button (owner:
+           "make these UI box smaller and change the font"). Was 44px tall,
+           8px/24px padding, 12px sans. */
+        min-height: 32px;
+        padding: 6px 16px;
         background: linear-gradient(180deg, var(--c-accent-gold), var(--c-accent-gold-soft));
         color: var(--c-bg-page);
         border: 1px solid var(--c-accent-gold);
         border-radius: var(--r-md);
-        font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: var(--text-xs);
-        letter-spacing: var(--ls-wider);
+        font-family: var(--font-serif);
+        font-weight: 500;
+        font-size: 11px;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         white-space: nowrap;
         cursor: pointer;
@@ -9620,7 +9623,7 @@
         text-align: center;
       }
       #${PAGE_ID} .chp-tbc-title {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 600;
         font-size: var(--text-xs);
         letter-spacing: var(--ls-widest);
@@ -9629,7 +9632,7 @@
         margin-bottom: var(--s-2);
       }
       #${PAGE_ID} .chp-tbc-body {
-        font-family: var(--font-sans);
+        font-family: var(--font-serif);
         font-weight: 400;
         font-size: var(--text-sm);
         line-height: var(--lh-base);
