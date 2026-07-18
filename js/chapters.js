@@ -9523,7 +9523,9 @@
            the old portrait thumb but SHORTER, so the card/box does not grow
            taller — owner: "now the whole box of chapters are bigger... I didn't
            want that. I just want the frame profile bigger." */
-        width: 96px; height: 96px;
+        /* Wider frame — owner: "expand the profile more to the right". Still
+           full card height (96) so it stays flush top/bottom. */
+        width: 120px; height: 96px;
         /* Left corners square (they bleed to the card edge and are rounded by
            the card's own overflow-clip); right corners rounded, inner side. */
         border-radius: 0 12px 12px 0;
@@ -9597,16 +9599,21 @@
         /* Smaller, serif — to match the Companions CARE button (owner:
            "make these UI box smaller and change the font"). Was 44px tall,
            8px/24px padding, 12px sans. */
-        min-height: 32px;
-        padding: 6px 16px;
+        /* Fixed width + border-box so REPLAY / BEGIN / LOCKED are all the
+           IDENTICAL size regardless of label length (owner: "make UI button
+           smaller and have them same size"). */
+        box-sizing: border-box;
+        width: 84px;
+        min-height: 28px;
+        padding: 5px 8px;
         background: linear-gradient(180deg, var(--c-accent-gold), var(--c-accent-gold-soft));
         color: var(--c-bg-page);
         border: 1px solid var(--c-accent-gold);
         border-radius: var(--r-md);
         font-family: var(--font-serif);
         font-weight: 500;
-        font-size: 11px;
-        letter-spacing: 0.14em;
+        font-size: 10px;
+        letter-spacing: 0.10em;
         text-transform: uppercase;
         white-space: nowrap;
         cursor: pointer;
