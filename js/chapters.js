@@ -9471,6 +9471,43 @@
       }
       #${PAGE_ID} .chp-list::-webkit-scrollbar { display: none; }
 
+      /* ───────────────────── AMBIENT STAR FIELD ───────────────────── */
+      /* A fixed twinkling backdrop behind the scrolling cards so the night
+         sky feels alive (owner: "star blinking at the back to make it feel
+         alive"). Sits above the bg image, below every card/text layer. */
+      #${PAGE_ID} .chp-stars {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      /* Content rides above the star layer. */
+      #${PAGE_ID} .chp-head,
+      #${PAGE_ID} .chp-progress,
+      #${PAGE_ID} .chp-intro,
+      #${PAGE_ID} .chp-list {
+        position: relative;
+        z-index: 1;
+      }
+      #${PAGE_ID} .chp-star {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.5;
+        will-change: opacity, transform;
+        animation-name: chpTwinkle;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+      @keyframes chpTwinkle {
+        0%, 100% { opacity: 0.10; transform: scale(0.6); }
+        50%      { opacity: 0.95; transform: scale(1); }
+      }
+      /* Motion-sensitive players: hold the stars still, just dimly lit. */
+      @media (prefers-reduced-motion: reduce) {
+        #${PAGE_ID} .chp-star { animation: none; opacity: 0.45; }
+      }
+
       /* ──────────────────────── CARD ──────────────────────── */
       /* Velvet Hour mode: dark wine-velvet surface with subtle gold-glow
          sheen across the top. Replaces the parchment-cream gradient. */
@@ -9559,12 +9596,12 @@
         text-align: center;
       }
       #${PAGE_ID} .chp-text .c1 {
-        /* PROLOGUE / CHAPTER N — the centered hero line of the card. Kept on
-           ONE line (nowrap + tighter tracking): the bigger thumb narrows the
-           text column, and without this "CHAPTER 2" broke to "CHAPTER / 2". */
+        /* PROLOGUE / CHAPTER N — the centered hero line of the card. Thicker +
+           bigger (owner). Kept on ONE line (nowrap); removing the play button
+           freed the text column so 18px fits without "CHAPTER 2" wrapping. */
         font-family: var(--font-serif);
-        font-weight: 600;
-        font-size: 15px;
+        font-weight: 700;
+        font-size: 18px;
         letter-spacing: 0.05em;
         white-space: nowrap;
         text-transform: uppercase;
@@ -9815,6 +9852,35 @@
     // screen's gothic-romantasy direction.
     root.setAttribute('data-theme', 'velvet');
 
+    // Ambient twinkling star field (behind all content, above the bg image).
+    // Owner: "star blinking at the back to make it feel alive." Fixed to the
+    // page box so it stays put as the card list scrolls over it. Regenerated
+    // fresh each open — a new random scatter every visit.
+    const stars = document.createElement('div');
+    stars.className = 'chp-stars';
+    stars.setAttribute('aria-hidden', 'true');
+    {
+      let sHTML = '';
+      for (let i = 0; i < 42; i++) {
+        const left  = (Math.random() * 100).toFixed(2);
+        const top   = (Math.random() * 100).toFixed(2);
+        const size  = (Math.random() * 1.8 + 1).toFixed(2);   // 1.0–2.8px
+        const dur   = (Math.random() * 2.6 + 3.2).toFixed(2); // 3.2–5.8s
+        const delay = (Math.random() * 5.5).toFixed(2);       // staggered
+        const gold  = Math.random() < 0.32;
+        const color = gold ? 'rgba(232,201,138,0.95)' : 'rgba(255,255,255,0.92)';
+        const bright = Math.random() < 0.28;                  // a few glow
+        const glow = bright
+          ? 'box-shadow:0 0 ' + (size * 2.6).toFixed(1) + 'px ' + (size * 0.7).toFixed(1) + 'px ' + color + ';'
+          : '';
+        sHTML += '<span class="chp-star" style="left:' + left + '%;top:' + top +
+                 '%;width:' + size + 'px;height:' + size + 'px;background:' + color +
+                 ';animation-duration:' + dur + 's;animation-delay:' + delay + 's;' + glow + '"></span>';
+      }
+      stars.innerHTML = sHTML;
+    }
+    root.appendChild(stars);
+
     const head = document.createElement('div');
     head.className = 'chp-head';
     // Back arrow first (left), then title block (right).
@@ -9976,7 +10042,10 @@
         // instead of the character portrait (owner: "cannot see it... add just
         // icon"). Circle-cropped by the thumb's border-radius.
         const img = document.createElement('img');
-        img.src = 'assets/ui/chapter-lock.jpg';
+        // Smaller lock medallion on black (owner: "make the heart lock
+        // smaller"). The image is pre-composed at the thumb aspect so it
+        // fills flush and the lock just sits smaller inside the black.
+        img.src = 'assets/ui/chapter-lock2.jpg';
         img.alt = 'Locked';
         img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
         thumb.appendChild(img);
@@ -9986,7 +10055,9 @@
         const img = document.createElement('img');
         img.src = 'assets/ui/prologue-thumb.jpg';
         img.alt = 'Prologue';
-        img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+        // Shift the crop toward the top so the castle spire shows (owner: "the
+        // castle is a bit high, we cannot see the top... lower a bit").
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center 22%;';
         thumb.appendChild(img);
       } else if (ch.charId && CHAR_PORTRAIT[ch.charId]) {
         const img = document.createElement('img');
@@ -10084,12 +10155,14 @@
         }
         playChapter(ch.id);
       });
-      row.appendChild(btn);
+      // Button intentionally NOT appended (owner: "remove the button out").
+      // `btn` still exists with ALL its click logic (play / lock-popups);
+      // the whole-card tap below fires btn.click(), so a detached button keeps
+      // navigation working with no visible pill.
 
-      // Jul 2026 playtest fix — the WHOLE card is the tap target, not just
-      // the small Begin pill (players tap the big pretty card first; on
-      // mobile the pill is a precision target). Locked cards route to the
-      // same explain-why popup, replays to Replay — identical to the pill.
+      // Jul 2026 playtest fix — the WHOLE card is the tap target. Locked cards
+      // route to the explain-why popup, replays to Replay, current to Begin —
+      // all via the (now invisible) button's handler.
       row.style.cursor = 'pointer';
       row.addEventListener('click', function () { btn.click(); });
 
