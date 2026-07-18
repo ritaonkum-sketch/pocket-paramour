@@ -9513,9 +9513,12 @@
          image to the rounded rect. */
       #${PAGE_ID} .chp-thumb {
         flex-shrink: 0;
-        /* Bigger frame (owner drew a larger one). Kept the thin 1px border. */
-        width: 88px; height: 94px;
-        border-radius: 14px;
+        /* LANDSCAPE frame, like the owner's reference (2nd picture). Wider than
+           the old portrait thumb but SHORTER, so the card/box does not grow
+           taller — owner: "now the whole box of chapters are bigger... I didn't
+           want that. I just want the frame profile bigger." */
+        width: 96px; height: 64px;
+        border-radius: 12px;
         border: 1px solid var(--c-accent-gold);
         background: var(--c-bg-elevated);
         display: flex;
