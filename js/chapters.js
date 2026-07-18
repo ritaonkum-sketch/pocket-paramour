@@ -9317,9 +9317,17 @@
         display: flex;
         flex-direction: column;
         background-color: var(--c-bg-page);
+        /* Owner: main-story page background is the aubergine velvet texture
+           (assets/bg-main-story.jpg). A gentle top-to-bottom darkening layered
+           over it keeps the cards and text legible without hiding the art.
+           Relative URL (no leading slash) so it resolves under both localhost
+           root and the GitHub Pages /pocket-paramour/ subpath. */
         background-image:
-          radial-gradient(ellipse at top, rgba(184,146,62,0.12) 0%, transparent 55%),
-          linear-gradient(180deg, var(--c-bg-page) 0%, var(--c-bg-recessed) 100%);
+          linear-gradient(180deg, rgba(15,8,22,0.18) 0%, rgba(15,8,22,0.52) 100%),
+          url("assets/bg-main-story.jpg");
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
         padding-top: env(safe-area-inset-top, 0);
         padding-bottom: env(safe-area-inset-bottom, 0);
         opacity: 0;
