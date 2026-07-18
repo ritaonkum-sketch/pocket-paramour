@@ -9520,28 +9520,32 @@
         object-fit: cover;
       }
 
-      /* Card text */
+      /* Card text — centered, with the CHAPTER label as the prominent line and
+         the chapter name smaller beneath it (owner: "make the text prologue and
+         chapters ... in the middle, instead of the name; make name under it and
+         smaller than it is now"). */
       #${PAGE_ID} .chp-text {
         flex: 1;
         min-width: 0;
         color: var(--c-ink-body);
+        text-align: center;
       }
       #${PAGE_ID} .chp-text .c1 {
+        /* PROLOGUE / CHAPTER N — now the centered hero line of the card. */
         font-family: var(--font-serif);
-        font-weight: 500;
-        font-size: var(--text-xs);
+        font-weight: 600;
+        font-size: 15px;                 /* was --text-xs (12px) */
         letter-spacing: var(--ls-wider);
         text-transform: uppercase;
         color: var(--c-accent-gold);
-        margin-bottom: var(--s-1);
+        margin-bottom: 2px;
       }
       #${PAGE_ID} .chp-text .c2 {
-        /* Chapter title — serif, to match the Companions page card names
-           (.cc-thread-name / .cc-active-name use var(--font-serif)). Owner:
-           "change these font to match companion page." Was --font-sans. */
+        /* Chapter name — serif (matches Companions card names), now the smaller
+           subtitle UNDER the chapter label. Was --text-lg (22px). */
         font-family: var(--font-serif);
-        font-weight: 600;
-        font-size: var(--text-lg);
+        font-weight: 500;
+        font-size: var(--text-sm);       /* 22px -> 14px */
         line-height: var(--lh-snug);
         letter-spacing: 0.01em;
         color: var(--c-ink-emphasis);
