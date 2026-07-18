@@ -9328,38 +9328,43 @@
       #${PAGE_ID}.visible { opacity: 1; }
 
       /* ──────────────────────── HEADER ──────────────────────── */
+      /* Owner UX pass (Jul 2026): "MAIN STORY" is now the big centered hero
+         title, "Aethermoor" a smaller subtitle beneath it, and the back
+         circle is smaller + pinned to the corner so the title can truly
+         centre on the page (was a flex row that shoved the title to the
+         right). */
       #${PAGE_ID} .chp-head {
+        position: relative;
         padding: var(--s-5) var(--s-5) var(--s-3);
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: var(--s-3);
+        text-align: center;
         border-bottom: 1px solid var(--c-line-fine);
       }
       #${PAGE_ID} .chp-title {
         font-family: var(--font-sans);
-        font-weight: 500;
-        font-size: var(--text-xs);
+        font-weight: 600;
+        font-size: var(--text-lg);          /* 12px -> 22px, the hero */
         letter-spacing: var(--ls-wider);
         text-transform: uppercase;
         color: var(--c-accent-gold);
-        margin-bottom: var(--s-1);
+        margin-bottom: 2px;
       }
       #${PAGE_ID} .chp-sub {
         font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: var(--text-xl);
+        font-weight: 500;
+        font-size: var(--text-sm);          /* 28px -> 14px, subtitle */
         line-height: var(--lh-snug);
-        letter-spacing: var(--ls-tight);
-        color: var(--c-ink-emphasis);
+        letter-spacing: 0.03em;
+        color: var(--c-ink-mute);
       }
       #${PAGE_ID} .chp-close {
-        /* Back-arrow icon button (replaces the old "close" pill).
-           Square, centered, larger glyph for clear back affordance. */
-        flex-shrink: 0;
-        width: 44px;
-        height: 44px;
-        min-height: 44px;
+        /* Back-arrow icon button, pinned top-left (absolute) so it is out of
+           flow and the title block can centre across the full width. */
+        position: absolute;
+        left: var(--s-5);
+        top: var(--s-5);
+        width: 34px;
+        height: 34px;
+        min-height: 34px;
         padding: 0;
         background: transparent;
         color: var(--c-ink-mute);
@@ -9367,7 +9372,7 @@
         border-radius: 50%;
         font-family: var(--font-serif);
         font-weight: 400;
-        font-size: 22px;
+        font-size: 18px;
         line-height: 1;
         text-transform: none;
         cursor: pointer;
@@ -9470,17 +9475,8 @@
                     border-color var(--dur-base) var(--ease-tender);
       }
 
-      /* Gold filigree corner accent (top-right) */
-      #${PAGE_ID} .chp-card::before {
-        content: '';
-        position: absolute;
-        top: 6px; right: 6px;
-        width: 22px; height: 22px;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B8923E' stroke-width='1' opacity='0.55'><path d='M2 2 L18 2 Q22 2 22 6 L22 22' stroke-linecap='round'/><circle cx='4' cy='4' r='0.8' fill='%23B8923E' stroke='none'/></svg>");
-        background-repeat: no-repeat;
-        pointer-events: none;
-        opacity: 0.7;
-      }
+      /* Gold filigree corner accent removed (owner: "remove the corner decor
+         in the box out"). The .chp-card.locked::before rule below is now inert. */
 
       #${PAGE_ID} .chp-card:not(.locked):hover {
         transform: translateY(-2px);
@@ -9592,7 +9588,6 @@
 
       /* Locked chapter */
       #${PAGE_ID} .chp-card.locked { opacity: 0.45; cursor: default; }
-      #${PAGE_ID} .chp-card.locked::before { opacity: 0.3; }
       #${PAGE_ID} .chp-card.locked .chp-thumb { border-color: var(--c-ink-mute); color: var(--c-ink-mute); }
       #${PAGE_ID} .chp-card.locked .chp-text .c1 { color: var(--c-ink-mute); }
       #${PAGE_ID} .chp-card.locked .chp-play {
