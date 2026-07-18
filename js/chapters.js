@@ -9323,14 +9323,14 @@
         font-variant-numeric: lining-nums;
         font-feature-settings: "lnum" 1;
         background-color: var(--c-bg-page);
-        /* Owner: main-story page background is the aubergine velvet texture
-           (assets/bg-main-story.jpg). A gentle top-to-bottom darkening layered
-           over it keeps the cards and text legible without hiding the art.
-           Relative URL (no leading slash) so it resolves under both localhost
-           root and the GitHub Pages /pocket-paramour/ subpath. */
+        /* Owner: main-story page background is the moonlit gothic balcony
+           (assets/bg-main-story-v2.jpg). A gentle top-to-bottom darkening
+           layered over it keeps the cards and text legible without hiding the
+           art. Relative URL (no leading slash) so it resolves under both
+           localhost root and the GitHub Pages /pocket-paramour/ subpath. */
         background-image:
-          linear-gradient(180deg, rgba(15,8,22,0.18) 0%, rgba(15,8,22,0.52) 100%),
-          url("assets/bg-main-story.jpg");
+          linear-gradient(180deg, rgba(15,8,22,0.30) 0%, rgba(15,8,22,0.58) 100%),
+          url("assets/bg-main-story-v3.jpg");
         background-size: cover;
         background-position: center top;
         background-repeat: no-repeat;
@@ -9630,7 +9630,10 @@
       }
       #${PAGE_ID} .chp-play:active { transform: translateY(0); box-shadow: inset 0 1px 2px rgba(0,0,0,0.15); }
 
-      /* Current chapter (next to play). soft gold-glow elevation */
+      /* Current chapter (next to play). Soft gold-glow elevation that gently
+         PULSES so the eye is drawn to the next chapter to read (owner: "add a
+         blinking glow effect when it's the next chapter"). Slow ease-in-out
+         breathe — deliberately gentle, not a harsh strobe. */
       #${PAGE_ID} .chp-card.current {
         border-color: var(--c-accent-gold);
         background-image: linear-gradient(165deg, rgba(212,168,91,0.10) 0%, rgba(122,18,36,0.25) 100%);
@@ -9638,6 +9641,26 @@
           inset 0 1px 0 rgba(212,168,91,0.18),
           0 14px 40px -10px rgba(184,146,62,0.35),
           0 0 0 1px rgba(212,168,91,0.40);
+        animation: chpCurrentGlow 2.4s ease-in-out infinite;
+      }
+      @keyframes chpCurrentGlow {
+        0%, 100% {
+          box-shadow:
+            inset 0 1px 0 rgba(212,168,91,0.18),
+            0 14px 40px -10px rgba(184,146,62,0.28),
+            0 0 0 1px rgba(212,168,91,0.35);
+        }
+        50% {
+          box-shadow:
+            inset 0 1px 0 rgba(212,168,91,0.32),
+            0 16px 48px -8px rgba(184,146,62,0.75),
+            0 0 0 2px rgba(212,168,91,0.85),
+            0 0 26px 3px rgba(212,168,91,0.50);
+        }
+      }
+      /* Respect reduced-motion — hold the static glow, no pulsing. */
+      @media (prefers-reduced-motion: reduce) {
+        #${PAGE_ID} .chp-card.current { animation: none; }
       }
 
       /* Locked chapter */
@@ -9758,7 +9781,9 @@
   // ---------------------------------------------------------------
   // PAGE
   const CHAR_PORTRAIT = {
-    alistair: 'assets/alistair/select-portrait.png',
+    // Alistair uses his own chapter-card crop (owner-supplied "Al realm" render,
+    // head+shoulders); other chars still share their select-grid portrait.
+    alistair: 'assets/alistair/chapter-portrait2.jpg',
     elian: 'assets/elian/select-portrait.png',
     lyra: 'assets/lyra/select-portrait.png',
     caspian: 'assets/caspian/select-portrait.png',
