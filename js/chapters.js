@@ -9316,6 +9316,12 @@
         z-index: var(--z-modal);
         display: flex;
         flex-direction: column;
+        /* Full-height lining figures everywhere on this page. The serif
+           (Cormorant Garamond) defaults to old-style numerals that sit small
+           like lowercase, so chapter numbers read tiny (owner: "we barely see
+           the number of the chapters"). lining-nums makes them cap-height. */
+        font-variant-numeric: lining-nums;
+        font-feature-settings: "lnum" 1;
         background-color: var(--c-bg-page);
         /* Owner: main-story page background is the aubergine velvet texture
            (assets/bg-main-story.jpg). A gentle top-to-bottom darkening layered
@@ -9349,11 +9355,14 @@
       }
       #${PAGE_ID} .chp-title {
         font-family: var(--font-serif);
-        font-weight: 600;
-        font-size: var(--text-lg);          /* 12px -> 22px, the hero */
-        letter-spacing: var(--ls-wider);
+        font-weight: 700;
+        font-size: var(--text-xl);          /* 22px -> 28px, bigger (owner) */
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: var(--c-accent-gold);
+        /* Deeper gold + a dark halo so the letters read over the bright warm
+           glow in the background (owner: "some letters we barely see it"). */
+        color: #C08A2E;
+        text-shadow: 0 2px 10px rgba(6,2,10,0.75), 0 1px 2px rgba(0,0,0,0.55);
         margin-bottom: 2px;
       }
       #${PAGE_ID} .chp-sub {
@@ -9363,6 +9372,8 @@
         line-height: var(--lh-snug);
         letter-spacing: 0.03em;
         color: var(--c-ink-mute);
+        text-align: right;                  /* owner: move Aethermoor to the right */
+        text-shadow: 0 1px 4px rgba(0,0,0,0.5);
       }
       #${PAGE_ID} .chp-close {
         /* Back-arrow icon button, pinned top-left (absolute) so it is out of
@@ -9605,9 +9616,20 @@
       }
 
       /* Locked chapter */
-      #${PAGE_ID} .chp-card.locked { opacity: 0.45; cursor: default; }
-      #${PAGE_ID} .chp-card.locked .chp-thumb { border-color: var(--c-ink-mute); color: var(--c-ink-mute); }
-      #${PAGE_ID} .chp-card.locked .chp-text .c1 { color: var(--c-ink-mute); }
+      #${PAGE_ID} .chp-card.locked {
+        cursor: default;
+        /* "More black" — a near-opaque dark seal instead of the aubergine card,
+           so a locked chapter clearly reads as locked and gives nothing away
+           (owner). No blanket opacity dimming, so the lock medallion stays
+           crisp. */
+        background-color: rgba(7,3,10,0.92);
+        background-image: none;
+        border-color: rgba(150,150,170,0.08);
+        box-shadow: inset 0 0 34px rgba(0,0,0,0.55);
+      }
+      #${PAGE_ID} .chp-card.locked .chp-thumb { border-color: rgba(184,146,62,0.35); color: var(--c-ink-mute); }
+      #${PAGE_ID} .chp-card.locked .chp-text .c1 { color: rgba(170,160,185,0.5); }
+      #${PAGE_ID} .chp-card.locked .chp-text .c2 { color: rgba(160,150,175,0.45); }
       #${PAGE_ID} .chp-card.locked .chp-play {
         background: transparent;
         color: var(--c-ink-mute);
@@ -9893,11 +9915,22 @@
       );
       // Per-character left-border tint via .char-<id> class (design-tokens A4)
       const charClass = ch.charId ? ' char-' + ch.charId : '';
-      row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '') + charClass;
+      // Locked chapters drop the per-character colour tint (the left-border
+      // accent) too, so they give nothing away about who they belong to.
+      row.className = 'chp-card' + (locked ? ' locked' : '') + (isCurrent ? ' current' : '') + (locked ? '' : charClass);
 
       const thumb = document.createElement('div');
       thumb.className = 'chp-thumb';
-      if (ch.charId && CHAR_PORTRAIT[ch.charId]) {
+      if (locked) {
+        // Locked chapters hide who they belong to — show the lock medallion
+        // instead of the character portrait (owner: "cannot see it... add just
+        // icon"). Circle-cropped by the thumb's border-radius.
+        const img = document.createElement('img');
+        img.src = 'assets/ui/chapter-lock.jpg';
+        img.alt = 'Locked';
+        img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+        thumb.appendChild(img);
+      } else if (ch.charId && CHAR_PORTRAIT[ch.charId]) {
         const img = document.createElement('img');
         img.src = CHAR_PORTRAIT[ch.charId];
         img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
@@ -9924,8 +9957,10 @@
 
       const text = document.createElement('div');
       text.className = 'chp-text';
+      // Checkmark removed at owner request — REPLAY vs BEGIN already signals
+      // which chapters are done.
       text.innerHTML =
-        `<div class="c1">${ch.title}${done ? ' · ✓' : ''}</div>` +
+        `<div class="c1">${ch.title}</div>` +
         `<div class="c2">${locked ? '(locked)' : ch.subtitle}</div>`;
       // Teaser line removed at owner's request — was visually noisy.
       // Locked-chapter unlock instructions still surface via the
