@@ -9530,6 +9530,17 @@
         border-radius: 50%;
         object-fit: cover;
       }
+      /* Rectangular thumb variant — used by the Prologue's scene image (owner:
+         "put into rectangle instead of circle"). Portrait rounded rect; the
+         parent's overflow:hidden does the corner clipping. */
+      #${PAGE_ID} .chp-thumb.chp-thumb-rect {
+        width: 54px;
+        height: 68px;
+        border-radius: 10px;
+      }
+      #${PAGE_ID} .chp-thumb.chp-thumb-rect img {
+        border-radius: 8px;
+      }
 
       /* Card text — centered, with the CHAPTER label as the prominent line and
          the chapter name smaller beneath it (owner: "make the text prologue and
@@ -9929,6 +9940,17 @@
         img.src = 'assets/ui/chapter-lock.jpg';
         img.alt = 'Locked';
         img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+        thumb.appendChild(img);
+      } else if (ch.id === 0) {
+        // Prologue — a rectangular scene thumbnail (owner: "change prologue
+        // circle to this picture... put into rectangle instead of circle")
+        // instead of the ✦ star glyph. The rect + rounding come from
+        // .chp-thumb-rect; overflow:hidden on .chp-thumb clips the image.
+        thumb.classList.add('chp-thumb-rect');
+        const img = document.createElement('img');
+        img.src = 'assets/ui/prologue-thumb.jpg';
+        img.alt = 'Prologue';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
         thumb.appendChild(img);
       } else if (ch.charId && CHAR_PORTRAIT[ch.charId]) {
         const img = document.createElement('img');
