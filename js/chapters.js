@@ -9861,7 +9861,7 @@
     stars.setAttribute('aria-hidden', 'true');
     {
       let sHTML = '';
-      for (let i = 0; i < 42; i++) {
+      for (let i = 0; i < 90; i++) {
         const left  = (Math.random() * 100).toFixed(2);
         const top   = (Math.random() * 100).toFixed(2);
         const size  = (Math.random() * 1.8 + 1).toFixed(2);   // 1.0–2.8px
