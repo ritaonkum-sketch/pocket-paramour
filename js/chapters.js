@@ -9479,10 +9479,13 @@
         display: flex;
         align-items: center;
         gap: var(--s-4);
-        /* Tight vertical padding so the thumbnail frame fills the card top to
-           bottom (owner: "expand the frame... fit the top and bottom of the
-           inner side of the chapter box") without the box growing taller. */
-        padding: 8px var(--s-5);
+        /* No padding on top/bottom/left so the thumbnail bleeds flush to those
+           three card edges (owner: "the portrait frame need to touch the upper
+           and bottom... and leave no gap on the left side"). Only the right
+           side keeps padding, to hold the button off the edge. overflow:hidden
+           clips the bleeding thumbnail to the card's rounded corners. */
+        padding: 0 var(--s-5) 0 0;
+        overflow: hidden;
         margin-bottom: var(--s-3);
         background-color: var(--c-bg-surface);
         background-image: linear-gradient(165deg, rgba(43,17,51,0.0) 0%, rgba(122,18,36,0.18) 100%);
@@ -9520,8 +9523,10 @@
            the old portrait thumb but SHORTER, so the card/box does not grow
            taller — owner: "now the whole box of chapters are bigger... I didn't
            want that. I just want the frame profile bigger." */
-        width: 96px; height: 82px;
-        border-radius: 12px;
+        width: 96px; height: 96px;
+        /* Left corners square (they bleed to the card edge and are rounded by
+           the card's own overflow-clip); right corners rounded, inner side. */
+        border-radius: 0 12px 12px 0;
         border: 1px solid var(--c-accent-gold);
         background: var(--c-bg-elevated);
         display: flex;
