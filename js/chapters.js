@@ -9513,8 +9513,9 @@
          image to the rounded rect. */
       #${PAGE_ID} .chp-thumb {
         flex-shrink: 0;
-        width: 62px; height: 80px;
-        border-radius: 12px;
+        /* Bigger frame (owner drew a larger one). Kept the thin 1px border. */
+        width: 88px; height: 94px;
+        border-radius: 14px;
         border: 1px solid var(--c-accent-gold);
         background: var(--c-bg-elevated);
         display: flex;
@@ -9546,11 +9547,14 @@
         text-align: center;
       }
       #${PAGE_ID} .chp-text .c1 {
-        /* PROLOGUE / CHAPTER N — now the centered hero line of the card. */
+        /* PROLOGUE / CHAPTER N — the centered hero line of the card. Kept on
+           ONE line (nowrap + tighter tracking): the bigger thumb narrows the
+           text column, and without this "CHAPTER 2" broke to "CHAPTER / 2". */
         font-family: var(--font-serif);
         font-weight: 600;
-        font-size: 15px;                 /* was --text-xs (12px) */
-        letter-spacing: var(--ls-wider);
+        font-size: 15px;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
         text-transform: uppercase;
         color: var(--c-accent-gold);
         margin-bottom: 2px;
