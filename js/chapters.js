@@ -9506,12 +9506,16 @@
           0 0 0 1px rgba(212,168,91,0.28);
       }
 
-      /* Card thumb (portrait or glyph) */
+      /* Card thumb — a rounded RECTANGLE for every card now (owner: "change all
+         the border to match the rectangle"), bigger than before and with a
+         thinner gold frame. Character portraits, the Prologue scene, and the
+         lock medallion all sit in this same shape. overflow:hidden clips the
+         image to the rounded rect. */
       #${PAGE_ID} .chp-thumb {
         flex-shrink: 0;
-        width: 56px; height: 56px;
-        border-radius: 50%;
-        border: 1.5px solid var(--c-accent-gold);
+        width: 62px; height: 80px;
+        border-radius: 12px;
+        border: 1px solid var(--c-accent-gold);
         background: var(--c-bg-elevated);
         display: flex;
         align-items: center;
@@ -9527,19 +9531,8 @@
       }
       #${PAGE_ID} .chp-thumb img {
         width: 100%; height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-      /* Rectangular thumb variant — used by the Prologue's scene image (owner:
-         "put into rectangle instead of circle"). Portrait rounded rect; the
-         parent's overflow:hidden does the corner clipping. */
-      #${PAGE_ID} .chp-thumb.chp-thumb-rect {
-        width: 54px;
-        height: 68px;
         border-radius: 10px;
-      }
-      #${PAGE_ID} .chp-thumb.chp-thumb-rect img {
-        border-radius: 8px;
+        object-fit: cover;
       }
 
       /* Card text — centered, with the CHAPTER label as the prominent line and
@@ -9939,14 +9932,11 @@
         const img = document.createElement('img');
         img.src = 'assets/ui/chapter-lock.jpg';
         img.alt = 'Locked';
-        img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
         thumb.appendChild(img);
       } else if (ch.id === 0) {
-        // Prologue — a rectangular scene thumbnail (owner: "change prologue
-        // circle to this picture... put into rectangle instead of circle")
-        // instead of the ✦ star glyph. The rect + rounding come from
-        // .chp-thumb-rect; overflow:hidden on .chp-thumb clips the image.
-        thumb.classList.add('chp-thumb-rect');
+        // Prologue — the moonlit castle-gate scene instead of the ✦ star glyph
+        // (owner). All thumbs are rectangular now, so no special class needed.
         const img = document.createElement('img');
         img.src = 'assets/ui/prologue-thumb.jpg';
         img.alt = 'Prologue';
@@ -9955,7 +9945,7 @@
       } else if (ch.charId && CHAR_PORTRAIT[ch.charId]) {
         const img = document.createElement('img');
         img.src = CHAR_PORTRAIT[ch.charId];
-        img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
         img.onerror = () => { thumb.textContent = ch.charId[0].toUpperCase(); };
         thumb.appendChild(img);
       } else {
