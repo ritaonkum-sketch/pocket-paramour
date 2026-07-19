@@ -432,7 +432,9 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     font-family: var(--font-serif);
     font-style: normal;       /* override the older italic */
     font-weight: 500;
-    font-size: 18px;
+    /* Bigger now that it's just "COMPANION" on one line (owner: "remove
+       chronicle out, make Companion bigger"). */
+    font-size: 32px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     background: linear-gradient(135deg, #C9A24F 0%, #F2D690 50%, #C9A24F 100%);
