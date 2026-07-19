@@ -201,12 +201,7 @@
     s.id = 'ms-style';
     s.textContent = `
       .select-card.ms-locked { filter: grayscale(0.78) brightness(0.62); cursor: default; position: relative; }
-      .select-card.ms-locked::after {
-        content: '\u2728';
-        position: absolute; top: 8px; right: 10px;
-        font-size: 14px; opacity: 0.85;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-      }
+      /* Corner \u2728 sparkle removed (owner: "remove all icon corner out"). */
       /* Visual audit fix: locked names were unreadable at opacity 0.4 on top
          of a 55% brightness card. Pull the name back up to 0.75 + add a hard
          text-shadow so the silver-on-grey contrast becomes legible. The

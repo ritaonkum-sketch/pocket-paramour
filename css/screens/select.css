@@ -377,10 +377,11 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     display: grid;
     grid-template-columns: 44px 1fr 44px;
     align-items: center;
-    /* Less top padding so the ornament + title sit higher up (owner). */
+    /* Less top padding + negative top margin so the ornament + title sit
+       higher up (owner: "put the line frame heart more upper"). */
     padding: 2px 14px 12px;
     max-width: 480px;
-    margin: 0 auto;
+    margin: -18px auto 0;
 }
 
 .cc-corner-btn {
@@ -1438,12 +1439,8 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-thread-card.select-card { position: relative; }
 .cc-thread-card.select-card::before,
 .cc-thread-card.select-card::after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    pointer-events: none;
-    border: 1px solid rgba(212, 168, 91, 0.55);
+    /* Corner brackets removed (owner: "remove all icon corner out"). */
+    content: none;
 }
 .cc-thread-card.select-card::before {
     top: 3px; left: 3px;
@@ -1681,10 +1678,10 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-heart-divider::before,
 .cc-heart-divider::after { content: none; }
 .cc-hdr-divider-img {
-    /* Bigger ornament (owner: "make it bigger"). */
-    height: 46px;
+    /* Bigger ornament (owner: "a bit bigger"). */
+    height: 54px;
     width: auto;
-    max-width: 92%;
+    max-width: 96%;
     object-fit: contain;
     display: block;
     filter: drop-shadow(0 0 10px rgba(232, 76, 140, 0.35));
@@ -1739,7 +1736,9 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     display: block;
     height: 13px;
     margin: 0 0 8px;
-    background: url('../../assets/ui/chronicle/divider-slim.png') left center / auto 13px no-repeat;
+    /* Longer divider — stretch the flourish across the full column width
+       (owner: "the line flower make it longer, longer to the right"). */
+    background: url('../../assets/ui/chronicle/divider-slim.png') center center / 100% 13px no-repeat;
     opacity: 0.55;
 }
 
