@@ -9248,12 +9248,14 @@
         top: calc(14px + env(safe-area-inset-top, 0));
         left: 14px;
         z-index: 11050;
-        width: 40px; height: 40px;
+        /* Smaller back circle to match the Main Story list + world-intro ‹
+           (owner: "make the back circle smaller for every chapters"). */
+        width: 34px; height: 34px;
         display: none;
         align-items: center; justify-content: center;
         padding: 0 4px 3px 0;
         font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: 28px; line-height: 1;
+        font-size: 20px; line-height: 1;
         color: rgba(244, 235, 220, 0.94);
         background: linear-gradient(180deg, rgba(43,17,51,0.82) 0%, rgba(21,8,26,0.9) 100%);
         border: 1px solid rgba(212, 168, 91, 0.45);
