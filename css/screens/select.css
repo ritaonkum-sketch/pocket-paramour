@@ -662,11 +662,11 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     grid-column: 1 / -1;
     text-align: center;
     font-family: var(--font-serif);
-    font-size: 10px;
+    font-size: 13px;
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--c-gold-soft, #D4B26E);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 .cc-active-name {
     font-family: var(--font-serif);
@@ -751,14 +751,20 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     margin: 0 0 12px;
 }
 .cc-action-row {
+    /* Full-width footer, centred across the whole card (owner: button "in the
+       middle"). */
+    grid-column: 1 / -1;
     display: flex;
     justify-content: center;
     gap: 6px;
-    margin-top: 14px;
+    margin-top: 10px;
 }
 .cc-action-btn.cc-action-care {
-    min-width: 160px;
-    padding: 11px 26px;
+    /* Slimmer one-line pill now that it has the full width to sit in
+       (owner: "make the button slimmer"). */
+    min-width: 210px;
+    padding: 8px 30px;
+    white-space: nowrap;
     background: linear-gradient(180deg, rgba(122, 18, 36, 0.55) 0%, rgba(74, 10, 26, 0.78) 100%);
     border-color: rgba(232, 200, 138, 0.7);
     box-shadow:
@@ -840,6 +846,21 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     background: url('../../assets/ui/lock-medallion.png') center / contain no-repeat;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.55));
     z-index: 2;
+    /* Make the lock feel alive (owner) — a gentle breathe + glow pulse. */
+    animation: ccLockAlive 2.8s ease-in-out infinite;
+}
+@keyframes ccLockAlive {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 5px rgba(210, 50, 70, 0.25));
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.07);
+        filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 18px rgba(228, 72, 96, 0.72));
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cc-active-companion.is-locked .cc-active-portrait::after { animation: none; }
 }
 .cc-active-companion.is-locked .cc-active-portrait-glow {
     opacity: 0 !important;
