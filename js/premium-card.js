@@ -472,7 +472,18 @@
       bar.appendChild(skipBtn);
     }
 
-    const autoBtn = mk('AUTO', 'Auto-advance lines');
+    const autoBtn = mk('A', 'Auto-advance lines');
+    // Compact circle instead of the wide "AUTO" pill (owner: "just put letter
+    // A and make it in smaller circle"). Same 30px height as its neighbours so
+    // the control row stays aligned; border-radius:999px + square = circle.
+    autoBtn.style.minWidth = '30px';
+    autoBtn.style.width = '30px';
+    autoBtn.style.padding = '0';
+    autoBtn.style.fontSize = '13px';
+    autoBtn.style.fontWeight = '700';
+    autoBtn.style.display = 'inline-flex';
+    autoBtn.style.alignItems = 'center';
+    autoBtn.style.justifyContent = 'center';
     const paintAuto = () => {
       const on = localStorage.getItem(AUTO_KEY) === '1';
       autoBtn.style.background = on ? 'linear-gradient(180deg,#C46A8D,#7A2B4D)' : 'rgba(10,6,22,0.62)';
