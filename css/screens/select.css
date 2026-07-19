@@ -620,7 +620,8 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    /* Lower the silhouette a touch (owner: "the profile is a bit high"). */
+    object-position: center 6%;
     display: block;
     /* Soft vignette mask so the portrait edges fade gracefully into the
        card background instead of cutting hard at the rectangle. */
@@ -817,23 +818,18 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     transition: filter 600ms ease;
 }
 .cc-active-companion.is-locked .cc-active-portrait::after {
-    /* Lock badge over the silhouette portrait */
-    content: '🔒';
+    /* Wax-seal badge over the silhouette instead of a lock emoji
+       (owner: replace the lock with the "P" seal, Logo (5)). */
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 44px;
-    height: 44px;
+    width: 62px;
+    height: 62px;
     border-radius: 50%;
-    background: rgba(15, 8, 26, 0.78);
-    border: 1px solid rgba(232, 200, 138, 0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: rgba(232, 200, 138, 0.85);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    background: url('../../assets/ui/seal-lock.jpg') center / cover no-repeat;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
     z-index: 2;
 }
 .cc-active-companion.is-locked .cc-active-portrait-glow {
@@ -1137,6 +1133,34 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     50%      { opacity: 1;   transform: scale(1.3); }
 }
 
+/* Per-card variety (owner: "the thread looks the same and it's in sync... make
+   it random", and "the stars move in sync"). Each card flips/rotates its thread
+   pattern so no two look identical, and runs its thread-pulse + sparkle-dot
+   animations at a different speed so they drift out of sync. The within-card
+   odd/even + 1/2/3 delays are preserved. */
+#select-grid .cc-thread-card:nth-child(2) .cc-locked-thread { transform: scaleX(-1); }
+#select-grid .cc-thread-card:nth-child(3) .cc-locked-thread { transform: scaleY(-1) rotate(4deg); }
+#select-grid .cc-thread-card:nth-child(4) .cc-locked-thread { transform: scaleX(-1) rotate(-3deg); }
+#select-grid .cc-thread-card:nth-child(5) .cc-locked-thread { transform: rotate(3deg); }
+#select-grid .cc-thread-card:nth-child(6) .cc-locked-thread { transform: scaleX(-1) scaleY(-1); }
+#select-grid .cc-thread-card:nth-child(7) .cc-locked-thread { transform: scaleY(-1) rotate(-4deg); }
+
+#select-grid .cc-thread-card:nth-child(1) .cc-locked-thread path { animation-duration: 4.0s; }
+#select-grid .cc-thread-card:nth-child(2) .cc-locked-thread path { animation-duration: 5.3s; }
+#select-grid .cc-thread-card:nth-child(3) .cc-locked-thread path { animation-duration: 3.4s; }
+#select-grid .cc-thread-card:nth-child(4) .cc-locked-thread path { animation-duration: 4.7s; }
+#select-grid .cc-thread-card:nth-child(5) .cc-locked-thread path { animation-duration: 3.8s; }
+#select-grid .cc-thread-card:nth-child(6) .cc-locked-thread path { animation-duration: 5.0s; }
+#select-grid .cc-thread-card:nth-child(7) .cc-locked-thread path { animation-duration: 4.3s; }
+
+#select-grid .cc-thread-card:nth-child(1) .cc-locked-thread circle { animation-duration: 3.0s; }
+#select-grid .cc-thread-card:nth-child(2) .cc-locked-thread circle { animation-duration: 4.1s; }
+#select-grid .cc-thread-card:nth-child(3) .cc-locked-thread circle { animation-duration: 2.6s; }
+#select-grid .cc-thread-card:nth-child(4) .cc-locked-thread circle { animation-duration: 3.6s; }
+#select-grid .cc-thread-card:nth-child(5) .cc-locked-thread circle { animation-duration: 2.9s; }
+#select-grid .cc-thread-card:nth-child(6) .cc-locked-thread circle { animation-duration: 4.4s; }
+#select-grid .cc-thread-card:nth-child(7) .cc-locked-thread circle { animation-duration: 3.3s; }
+
 /* Deeper silhouette via a mix-blend-mode shadow overlay sitting between
    the image and the thread. Per ChatGPT: dark fantasy needs restrained,
    low-opacity layering, not flat blackness. */
@@ -1205,10 +1229,14 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
         0 2px 4px rgba(0, 0, 0, 0.55);
     z-index: 3;
 }
-.cc-locked-lock-icon {
-    font-size: 14px;
-    line-height: 1;
-    filter: grayscale(0.6) brightness(0.85);
+.cc-locked-lock-icon { display: none; } /* replaced by the heart-lock image */
+/* Heart-lock medallion instead of the 🔒 emoji on locked thread cards
+   (owner: change the lock to the heart-padlock icon). */
+.cc-thread-locked .cc-locked-pill,
+.cc-thread-card.ms-locked .cc-locked-pill,
+.cc-thread-card.select-card-locked .cc-locked-pill {
+    background: url('../../assets/ui/chapter-lock.jpg') center / cover no-repeat;
+    border-color: rgba(232, 200, 138, 0.75);
 }
 
 /* "LOCKED" pill badge below the role */
@@ -1776,12 +1804,12 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-active-quote::before {
     content: "";
     display: block;
-    height: 13px;
+    height: 16px;
     margin: 0 0 8px;
-    /* Longer divider — stretch the flourish across the full column width
-       (owner: "the line flower make it longer, longer to the right"). */
-    background: url('../../assets/ui/chronicle/divider-slim.png') center center / 100% 13px no-repeat;
-    opacity: 0.55;
+    /* Crisp, undistorted flourish (owner: better quality) — natural aspect
+       via contain instead of the horizontal 100% stretch that blurred it. */
+    background: url('../../assets/ui/chronicle/divider-slim.png') center center / contain no-repeat;
+    opacity: 0.6;
 }
 
 /* ─── BOND MEDALLION — jewel rose-heart with the level number ─── */
