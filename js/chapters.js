@@ -9379,13 +9379,15 @@
       }
       #${PAGE_ID} .chp-close {
         /* Back-arrow icon button, pinned top-left (absolute) so it is out of
-           flow and the title block can centre across the full width. */
+           flow and the title block can centre across the full width. Smaller +
+           tucked further into the corner (owner: "make the circle back smaller
+           and more to the left"). */
         position: absolute;
-        left: var(--s-5);
+        left: 10px;
         top: var(--s-5);
-        width: 34px;
-        height: 34px;
-        min-height: 34px;
+        width: 28px;
+        height: 28px;
+        min-height: 28px;
         padding: 0;
         background: transparent;
         color: var(--c-ink-mute);
@@ -9393,7 +9395,7 @@
         border-radius: 50%;
         font-family: var(--font-serif);
         font-weight: 400;
-        font-size: 18px;
+        font-size: 15px;
         line-height: 1;
         text-transform: none;
         cursor: pointer;
