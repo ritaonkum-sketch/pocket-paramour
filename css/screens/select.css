@@ -610,6 +610,9 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     position: relative;
     width: 130px;
     height: 160px;
+    /* Nudge the whole silhouette + seal lower in the card (owner: "the
+       profile needs to be lower") — object-position alone was at its limit. */
+    transform: translateY(16px);
     /* No frame — the character art floats with just the per-character
        glow halo. Background, border, and inset shadow removed June 2026. */
     border-radius: 0;
@@ -825,9 +828,11 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 62px;
-    height: 62px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
+    /* Re-cropped seal now has margin, so cover fills the disc without cutting
+       the scalloped edge (owner: "the wax seal is not cropped properly"). */
     background: url('../../assets/ui/seal-lock.jpg') center / cover no-repeat;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
     z-index: 2;
@@ -1230,13 +1235,19 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     z-index: 3;
 }
 .cc-locked-lock-icon { display: none; } /* replaced by the heart-lock image */
-/* Heart-lock medallion instead of the 🔒 emoji on locked thread cards
-   (owner: change the lock to the heart-padlock icon). */
+/* Heart-lock medallion instead of the 🔒 emoji — bigger, and with the pill's
+   circular frame removed (owner: "remove the circle out and make the heart
+   lock icon bigger"). The medallion art is on black, so it blends onto the
+   dark card with no visible frame. */
 .cc-thread-locked .cc-locked-pill,
 .cc-thread-card.ms-locked .cc-locked-pill,
 .cc-thread-card.select-card-locked .cc-locked-pill {
-    background: url('../../assets/ui/chapter-lock.jpg') center / cover no-repeat;
-    border-color: rgba(232, 200, 138, 0.75);
+    width: 56px;
+    height: 56px;
+    bottom: 8px;
+    background: url('../../assets/ui/chapter-lock.jpg') center / contain no-repeat;
+    border: none;
+    box-shadow: none;
 }
 
 /* "LOCKED" pill badge below the role */
