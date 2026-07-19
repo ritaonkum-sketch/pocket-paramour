@@ -610,9 +610,10 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     position: relative;
     width: 130px;
     height: 160px;
-    /* Nudge the whole silhouette + seal lower in the card (owner: "the
-       profile needs to be lower") — object-position alone was at its limit. */
-    transform: translateY(16px);
+    /* Vertically centre the silhouette in the card (owner: "make the profile
+       lower, like in the middle") — the taller info column sets the row height,
+       so align-self centres the portrait against it. */
+    align-self: center;
     /* No frame — the character art floats with just the per-character
        glow halo. Background, border, and inset shadow removed June 2026. */
     border-radius: 0;
@@ -656,12 +657,16 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 }
 .cc-active-info { min-width: 0; }
 .cc-active-label {
+    /* Full-width centred header across the whole card (owner: "make the
+       active companion in the middle of the page"). */
+    grid-column: 1 / -1;
+    text-align: center;
     font-family: var(--font-serif);
-    font-size: 9px;
-    letter-spacing: 0.22em;
+    font-size: 10px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--c-gold-soft, #D4B26E);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 .cc-active-name {
     font-family: var(--font-serif);
@@ -828,13 +833,12 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    /* Re-cropped seal now has margin, so cover fills the disc without cutting
-       the scalloped edge (owner: "the wax seal is not cropped properly"). */
-    background: url('../../assets/ui/seal-lock.jpg') center / cover no-repeat;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    width: 82px;
+    height: 82px;
+    /* New padlock-medallion icon (owner-supplied); transparent PNG shown whole
+       via contain, so the gem points aren't clipped and there's no red bg. */
+    background: url('../../assets/ui/lock-medallion.png') center / contain no-repeat;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.55));
     z-index: 2;
 }
 .cc-active-companion.is-locked .cc-active-portrait-glow {
