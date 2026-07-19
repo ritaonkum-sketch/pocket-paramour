@@ -377,16 +377,13 @@
                     <p class="cc-active-quote" id="cc-active-quote">Begin Chapter 1 to meet your first companion.</p>
                     <div class="cc-action-row">
                         <button class="cc-action-btn cc-action-care" type="button" data-action="begin-ch1">
-                            <span class="cc-action-icon">✦</span>
-                            <span class="cc-action-label">BEGIN CHAPTER 1</span>
+                            <span class="cc-action-label">BEGIN CHAPTER <span class="cc-chapnum">1</span></span>
                         </button>
                     </div>
                 </div>
-                <button class="cc-favorite-btn" type="button" aria-label="Favourite">♡</button>
-                <span class="cc-bracket cc-bracket-tl" aria-hidden="true"></span>
-                <span class="cc-bracket cc-bracket-tr" aria-hidden="true"></span>
-                <span class="cc-bracket cc-bracket-bl" aria-hidden="true"></span>
-                <span class="cc-bracket cc-bracket-br" aria-hidden="true"></span>
+                <!-- Favourite heart + 4 rose corner brackets removed
+                     (owner: "remove the corners out"). -->
+
             </section>
 
             <!-- Other Threads of Fate -->
@@ -1476,7 +1473,7 @@
                 if (tierEl)  tierEl.hidden = true;
                 if (careBtn) {
                     careBtn.setAttribute('data-action', 'begin-ch1');
-                    careBtn.innerHTML = '<span class="cc-action-icon">✦</span><span class="cc-action-label">BEGIN CHAPTER 1</span>';
+                    careBtn.innerHTML = '<span class="cc-action-label">BEGIN CHAPTER <span class="cc-chapnum">1</span></span>';
                 }
                 return;
             }

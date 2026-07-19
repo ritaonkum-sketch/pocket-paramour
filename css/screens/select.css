@@ -377,7 +377,8 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     display: grid;
     grid-template-columns: 44px 1fr 44px;
     align-items: center;
-    padding: 16px 14px 14px;
+    /* Less top padding so the ornament + title sit higher up (owner). */
+    padding: 2px 14px 12px;
     max-width: 480px;
     margin: 0 auto;
 }
@@ -783,6 +784,8 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
    removed task #111). Only .cc-action-care remains in HTML. */
 .cc-action-icon { color: var(--c-rose, #E84C8C); font-size: 12px; line-height: 1; }
 .cc-action-btn.cc-action-care .cc-action-icon { color: #E84C8C; }
+/* Bigger chapter number on the BEGIN CHAPTER button (owner). */
+.cc-chapnum { font-size: 1.55em; font-weight: 700; line-height: 1; vertical-align: -0.06em; }
 .cc-favorite-btn {
     position: absolute;
     top: 10px;
@@ -1678,9 +1681,10 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-heart-divider::before,
 .cc-heart-divider::after { content: none; }
 .cc-hdr-divider-img {
-    height: 30px;
+    /* Bigger ornament (owner: "make it bigger"). */
+    height: 46px;
     width: auto;
-    max-width: 78%;
+    max-width: 92%;
     object-fit: contain;
     display: block;
     filter: drop-shadow(0 0 10px rgba(232, 76, 140, 0.35));
