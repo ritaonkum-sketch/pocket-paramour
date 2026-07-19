@@ -459,11 +459,11 @@
 #world-intro-back {
     position: absolute;
     top: calc(var(--s-5) + env(safe-area-inset-top, 0));
-    left: var(--s-5);
-    /* Smaller back circle (owner: "make the back circle smaller for every
-       chapters"), matching the Main Story list's 34px ‹ button. */
-    width: 34px;
-    height: 34px;
+    left: 10px;
+    /* Small back circle tucked into the corner, matching the Main Story
+       list's 28px ‹ button (owner: "make it smaller"). */
+    width: 28px;
+    height: 28px;
     padding: 0;
     z-index: 3;                /* above bg + text + hint */
     background: rgba(0, 0, 0, 0.55);
@@ -472,7 +472,7 @@
     border-radius: 50%;
     font-family: var(--font-serif);
     font-weight: 400;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1;
     display: none;             /* shown via .show-back when applicable */
     align-items: center;
