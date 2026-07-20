@@ -1358,16 +1358,16 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     pointer-events: none;
 }
 .cc-bottom-nav::after {
-    content: "✦";
+    /* Rose-heart ornament centrepiece (owner-supplied) replaces the ✦. */
+    content: "";
     position: absolute;
-    top: -7px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 9px;
-    color: #D4B26E;
-    background: rgba(11, 4, 16, 0.96);
-    padding: 0 6px;
-    text-shadow: 0 0 8px rgba(212, 168, 91, 0.65);
+    width: 26px;
+    height: 34px;
+    background: url('../../assets/ui/nav-rose.png') center bottom / contain no-repeat;
+    filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.6));
     pointer-events: none;
 }
 
