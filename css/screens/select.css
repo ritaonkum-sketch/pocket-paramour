@@ -375,7 +375,10 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-header {
     position: relative;
     display: grid;
-    grid-template-columns: 44px 1fr 44px;
+    /* Flexible side columns (was fixed 44px) so the header always fits the
+       viewport and stays centred — the fixed corners + the big COMPANION title
+       made it 402px wide on a 376px screen, pushing the ornament ~13px right. */
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     /* Less top padding + negative top margin so the ornament + title sit
        higher up (owner: "put the line frame heart more upper"). */
