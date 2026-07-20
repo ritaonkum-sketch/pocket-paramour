@@ -444,7 +444,7 @@
             '#affection-display:not(.topbar-collapsed) #' + COUNTER_ID + '{display:none !important;}',
             '#' + COUNTER_ID + ' .ht-ico{font-size:13px;line-height:1;filter:drop-shadow(0 0 4px rgba(232,120,140,0.5));}',
             '.cur-ico{display:inline-block;width:24px;height:24px;object-fit:contain;vertical-align:middle;margin-top:-2px;}',
-            '#pp-ht-reward-burst .cur-ico{width:104px;height:104px;}',   // owner: rose is the hero of this card
+            '#pp-ht-reward-burst .cur-ico{width:72px;height:72px;}',   // owner: smaller frame (3rd pass)
             '#' + COUNTER_ID + ' .ht-amt{min-width:8px;text-align:right;letter-spacing:0.02em;}',
             '#' + COUNTER_ID + '.ht-bump{animation:ht-bump 0.4s cubic-bezier(0.22,1,0.36,1);}',
             '@keyframes ht-bump{0%{transform:scale(1);}40%{transform:scale(1.18);}100%{transform:scale(1);}}',
@@ -666,17 +666,17 @@
                     '#pp-ht-reward-burst.show{opacity:1;}',
                     '#pp-ht-reward-burst.out{opacity:0;}',
                     '#pp-ht-reward-burst .ht-rb-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;',
-                    'padding:14px 20px 11px;border-radius:18px;',   // owner: tighter frame (2nd pass)
+                    'padding:9px 15px 9px;border-radius:16px;',   // owner: smaller frame (3rd pass)
                     'background:linear-gradient(180deg,rgba(48,30,20,0.97),rgba(26,15,10,0.98));',
                     'border:1px solid rgba(232,180,110,0.55);',
                     'box-shadow:0 22px 64px -14px rgba(0,0,0,0.78),inset 0 1px 0 rgba(255,235,200,0.14);',
                     'transform:scale(0.55);opacity:0;transition:transform .46s cubic-bezier(.16,1,.3,1),opacity .3s ease;}',
                     '#pp-ht-reward-burst.show .ht-rb-card{transform:scale(1);opacity:1;}',
                     '#pp-ht-reward-burst.out .ht-rb-card{transform:scale(0.92);opacity:0;transition:transform .3s ease,opacity .3s ease;}',
-                    '#pp-ht-reward-burst .ht-rb-glow{position:absolute;width:210px;height:210px;border-radius:50%;z-index:0;',
+                    '#pp-ht-reward-burst .ht-rb-glow{position:absolute;width:150px;height:150px;border-radius:50%;z-index:0;',
                     'background:radial-gradient(circle,rgba(232,150,120,0.34),transparent 68%);filter:blur(7px);animation:ht-rb-pulse 1.7s ease-in-out infinite;}',
                     '#pp-ht-reward-burst .ht-rb-ico{font-size:48px;line-height:1;z-index:1;filter:drop-shadow(0 0 18px rgba(232,140,150,0.72));animation:ht-rb-bob 1.9s ease-in-out infinite;}',
-                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:32px;line-height:1.05;margin-top:4px;',
+                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:26px;line-height:1.05;margin-top:2px;',
                     'background:linear-gradient(180deg,#FBE8B8,#D4A85B);-webkit-background-clip:text;background-clip:text;color:transparent;}',
                     '#pp-ht-reward-burst .ht-rb-label{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,236,209,0.74);margin-top:3px;}',
                     '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.42);margin-top:9px;}',
@@ -695,7 +695,7 @@
                 '<div class="ht-rb-ico">' + CUR.icon + '</div>' +
                 '<div class="ht-rb-amt">+' + n + '</div>' +
                 '<div class="ht-rb-label">' + CUR.name + '</div>' +
-                '<div class="ht-rb-tip">tap to continue</div>' +
+                '<div class="ht-rb-tip">tap</div>' +
                 '</div>';
             document.body.appendChild(ov);
             // Sparkle ring radiating from the icon.
@@ -725,7 +725,8 @@
                 setTimeout(function () { try { ov.remove(); } catch (_) {} }, 340);
             };
             ov.addEventListener('click', close);
-            setTimeout(close, 6000); // safety fallback only — the player taps to continue
+            // No auto-dismiss timer (owner: "remove the countdown"). The reward
+            // stays until the player taps to collect — tap-to-dismiss rule.
         } catch (_) {}
     }
 
