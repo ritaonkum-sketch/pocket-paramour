@@ -305,25 +305,32 @@
             /* Modal overlay — shown when button is tapped. */
             #pp-today-overlay {
                 position: fixed; inset: 0; z-index: 9650;
-                background: rgba(8,4,16,0.78);
-                backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-                display: flex; align-items: flex-end; justify-content: center;
+                background: rgba(3,1,8,0.94);
+                backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+                /* Full page (owner: "make it 1 full page") — the hub stretches
+                   edge to edge instead of sitting as a bottom sheet. */
+                display: flex; align-items: stretch; justify-content: center;
                 opacity: 0; pointer-events: none;
                 transition: opacity 280ms ease;
             }
             #pp-today-overlay.show { opacity: 1; pointer-events: auto; }
             #pp-today-hub {
+                position: relative;
                 width: 100%; max-width: 460px;
-                max-height: 86vh; overflow-y: auto;
+                height: 100%; max-height: 100%;
+                overflow-y: auto; overflow-x: hidden;
                 scrollbar-width: none; -ms-overflow-style: none; /* owner: no visible scrollbar */
-                background: linear-gradient(180deg, #2a1840 0%, #110820 100%);
-                border-top-left-radius: 22px; border-top-right-radius: 22px;
-                border: 1px solid rgba(200,170,240,0.30);
-                padding: 14px 14px 26px;
+                /* owner: darker background */
+                background: linear-gradient(180deg, #150a26 0%, #05020c 100%);
+                border-radius: 0;
+                border-left: 1px solid rgba(200,170,240,0.14);
+                border-right: 1px solid rgba(200,170,240,0.14);
+                /* top room clears the status bar + the corner ✕ exit button */
+                padding: calc(48px + env(safe-area-inset-top, 0px)) 15px calc(26px + env(safe-area-inset-bottom, 0px));
                 color: #f4e6ff;
                 font-family: inherit; font-size: 13px;
-                box-shadow: 0 -10px 40px rgba(0,0,0,0.65);
-                transform: translateY(40px);
+                box-shadow: 0 0 40px rgba(0,0,0,0.65);
+                transform: translateY(22px);
                 transition: transform 320ms cubic-bezier(0.2,0.9,0.3,1.2);
             }
             #pp-today-hub::-webkit-scrollbar { width: 0; height: 0; display: none; }
@@ -345,6 +352,25 @@
                 font-family: inherit;
             }
             #pp-today-close:active { background: rgba(255,255,255,0.10); }
+            /* ✕ exit button — always-visible top-right corner (owner: "add an X
+               for exit"). Lives on the overlay (not the scrolling hub) so it
+               stays put while the page scrolls, and is pinned to the hub's
+               right edge whether the hub is full-width (phone) or centred. */
+            #pp-today-x {
+                position: absolute;
+                top: calc(10px + env(safe-area-inset-top, 0px));
+                right: calc(50% - min(50vw, 230px) + 12px);
+                z-index: 6;
+                width: 36px; height: 36px; border-radius: 50%;
+                background: rgba(22,12,34,0.78);
+                border: 1px solid rgba(200,170,240,0.34);
+                color: #ecdcff; font-size: 18px; line-height: 1;
+                display: flex; align-items: center; justify-content: center;
+                cursor: pointer; padding: 0;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+                transition: background 180ms ease, transform 160ms ease;
+            }
+            #pp-today-x:active { background: rgba(44,22,64,0.92); transform: scale(0.9); }
             .pp-today-title {
                 font-size: 10px; letter-spacing: 1.8px; font-weight: 600;
                 color: #c8b8e8; opacity: 0.7;
@@ -406,7 +432,7 @@
                 color: #d8c8f0; font-style: italic;
             }
             @media (max-width: 380px) {
-                #pp-today-hub { bottom: 80px; padding: 8px 10px; }
+                #pp-today-hub { padding: calc(44px + env(safe-area-inset-top, 0px)) 11px calc(20px + env(safe-area-inset-bottom, 0px)); }
                 .pp-today-row { padding: 6px 8px; }
                 .pp-today-text { font-size: 12px; }
             }
@@ -436,6 +462,15 @@
         _hub = document.createElement('div');
         _hub.id = 'pp-today-hub';
         _overlay.appendChild(_hub);
+        // ✕ exit button — persistent (lives on the overlay, NOT inside _hub,
+        // so the 4s content re-render that clears _hub.innerHTML never wipes it).
+        const xBtn = document.createElement('button');
+        xBtn.id = 'pp-today-x';
+        xBtn.type = 'button';
+        xBtn.setAttribute('aria-label', 'Close');
+        xBtn.innerHTML = '&#10005;';
+        xBtn.addEventListener('click', closeOverlay);
+        _overlay.appendChild(xBtn);
         document.body.appendChild(_overlay);
         // Tap backdrop to close
         _overlay.addEventListener('click', (e) => {

@@ -675,11 +675,14 @@
                     '#pp-ht-reward-burst.out .ht-rb-card{transform:scale(0.92);opacity:0;transition:transform .3s ease,opacity .3s ease;}',
                     '#pp-ht-reward-burst .ht-rb-glow{position:absolute;width:150px;height:150px;border-radius:50%;z-index:0;',
                     'background:radial-gradient(circle,rgba(232,150,120,0.34),transparent 68%);filter:blur(7px);animation:ht-rb-pulse 1.7s ease-in-out infinite;}',
-                    '#pp-ht-reward-burst .ht-rb-ico{font-size:48px;line-height:1;z-index:1;filter:drop-shadow(0 0 18px rgba(232,140,150,0.72));animation:ht-rb-bob 1.9s ease-in-out infinite;}',
-                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:26px;line-height:1.05;margin-top:2px;',
+                    // owner: rose icon nudged down + pulled close to the number
+                    '#pp-ht-reward-burst .ht-rb-ico{font-size:48px;line-height:1;z-index:1;margin-top:3px;filter:drop-shadow(0 0 18px rgba(232,140,150,0.72));animation:ht-rb-bob 1.9s ease-in-out infinite;}',
+                    '#pp-ht-reward-burst .ht-rb-amt{z-index:1;font-family:"Cinzel","Marcellus",serif;font-weight:600;font-size:26px;line-height:1.05;margin-top:-6px;',
                     'background:linear-gradient(180deg,#FBE8B8,#D4A85B);-webkit-background-clip:text;background-clip:text;color:transparent;}',
-                    '#pp-ht-reward-burst .ht-rb-label{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,236,209,0.74);margin-top:3px;}',
-                    '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.42);margin-top:9px;}',
+                    // owner: smaller "ROSES" label
+                    '#pp-ht-reward-burst .ht-rb-label{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-weight:600;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.74);margin-top:3px;}',
+                    // owner: fainter "TAP" hint
+                    '#pp-ht-reward-burst .ht-rb-tip{z-index:1;font-family:"Quicksand","Inter",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,236,209,0.22);margin-top:9px;}',
                     '#pp-ht-reward-burst .ht-rb-spark{position:absolute;left:50%;top:40%;z-index:0;color:#FBE0A0;font-size:14px;opacity:0;pointer-events:none;',
                     'text-shadow:0 0 6px rgba(251,224,160,0.8);animation:ht-rb-spark 1s ease-out forwards;}',
                     '@keyframes ht-rb-pulse{0%,100%{transform:scale(0.9);opacity:.55;}50%{transform:scale(1.12);opacity:1;}}',
