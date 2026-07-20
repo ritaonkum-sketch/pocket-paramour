@@ -249,11 +249,10 @@
             { type: 'line', speaker: '', text: 'Slowly, you realise you are still alive.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes open halfway. The canopy above you shifts strangely. Not wind. Something else.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your trembling hand lowers from your face. The cold has finally reached you. The fear has burned itself out.', hold: 3600, cps: 26 },
-            // Motion-CG (Jul 2026): the rescue clearing comes alive —
-            // looping video of Alistair in the silver-thread forest,
-            // cloak swaying, black smoke curling at his feet. Plays
-            // behind Sections 8–13, cleared at Section 14 (the horse).
-            { type: 'bg', url: 'assets/motion/ch1-rescue.mp4' },
+            // Static rescue-clearing still (owner: removed the motion-CG video).
+            // Alistair in the silver-thread forest. Shows behind Sections 8–13,
+            // cleared at Section 14 (the horse).
+            { type: 'bg', url: 'assets/motion/ch1-rescue-still.jpg' },
             { type: 'line', speaker: '', text: 'A man stands over the fallen creature. Red cloak. Sword lowered at his side.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet. Not soot-black. Absence-black. It curls toward the trees in thin ribbons. Like it wants to go home.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'The man watches the smoke instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
