@@ -1358,17 +1358,8 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     pointer-events: none;
 }
 .cc-bottom-nav::after {
-    /* "P" wax-seal crest centrepiece (owner-supplied, adf.png). */
-    content: "";
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 40px;
-    background: url('../../assets/ui/nav-crest.png') center bottom / contain no-repeat;
-    filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.6));
-    pointer-events: none;
+    /* Top-centre ornament removed (owner changed their mind). */
+    content: none;
 }
 
 .cc-nav-tab:focus-visible {
