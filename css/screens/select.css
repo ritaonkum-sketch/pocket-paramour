@@ -1414,6 +1414,13 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 }
 .cc-nav-tab:hover .cc-nav-icon { opacity: 0.9; }
 
+/* Raster STORY icon (golden grimoire). Sits in the same 26px slot and
+   dims/brightens with the tab via the .cc-nav-icon opacity, plus a soft
+   glow when active — so it reads consistently with the line icons. */
+.cc-nav-img { display: block; width: 26px; height: 26px; object-fit: contain; }
+.cc-nav-tab.is-active .cc-nav-icon { opacity: 1; }
+.cc-nav-tab.is-active .cc-nav-img { filter: drop-shadow(0 0 5px rgba(232, 180, 110, 0.55)); }
+
 /* ACTIVE STATE — magenta-rose pill background + gold top accent + glowing icon */
 .cc-nav-tab.is-active {
     color: #FFE0EC;
