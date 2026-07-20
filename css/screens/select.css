@@ -630,17 +630,25 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     /* Lower the silhouette a touch (owner: "the profile is a bit high"). */
     object-position: center 6%;
     display: block;
-    /* Soft vignette mask so the portrait edges fade gracefully into the
-       card background instead of cutting hard at the rectangle. */
+    /* S-tier float (owner: "the glow is cut off rectangular"). The portrait is
+       a clean transparent bust, so instead of a cropped rectangle we dissolve
+       it into the card: a bottom linear fade melts his chest/armor into the
+       panel (no hard horizontal cut), intersected with a soft oval vignette
+       that rounds the sides + top. He emerges from his own glow. */
     -webkit-mask-image:
-        radial-gradient(ellipse at 50% 45%, #000 50%, transparent 95%);
+        linear-gradient(to bottom, #000 55%, rgba(0, 0, 0, 0.5) 79%, transparent 100%),
+        radial-gradient(86% 84% at 50% 42%, #000 58%, rgba(0, 0, 0, 0.5) 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
     mask-image:
-        radial-gradient(ellipse at 50% 45%, #000 50%, transparent 95%);
-    /* Apply the per-character glow as a drop-shadow on the image itself
-       so the halo follows the actual portrait silhouette, not a box. */
+        linear-gradient(to bottom, #000 55%, rgba(0, 0, 0, 0.5) 79%, transparent 100%),
+        radial-gradient(86% 84% at 50% 42%, #000 58%, rgba(0, 0, 0, 0.5) 82%, transparent 100%);
+    mask-composite: intersect;
+    /* Layered per-character glow — the drop-shadows follow the DISSOLVED
+       silhouette (not a box), so the halo reads as an intentional aura. */
     filter:
-        drop-shadow(0 0 14px var(--cc-char-glow, rgba(232, 76, 140, 0.5)))
-        drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55));
+        drop-shadow(0 0 20px var(--cc-char-glow, rgba(232, 76, 140, 0.5)))
+        drop-shadow(0 0 42px var(--cc-char-glow, rgba(232, 76, 140, 0.28)))
+        drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
     /* Jun 2026 — user reported a visible delay on this image when
        returning to the Chronicle from care. Cause: the two stacked
        drop-shadow filters (14px blur each) are re-rasterised by the
@@ -650,11 +658,14 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     will-change: filter;
 }
 .cc-active-portrait-glow {
-    /* Now used only as a faint upward backdrop glow behind the silhouette */
+    /* Soft aura pool behind the silhouette — larger + warmer so he sits in an
+       intentional halo of his own colour, with extra room at the bottom where
+       he dissolves into it. */
     position: absolute;
-    inset: -10px;
+    inset: -22px -16px -36px -16px;
     background:
-        radial-gradient(ellipse at 50% 55%, var(--cc-char-glow, rgba(232, 76, 140, 0.32)) 0%, transparent 65%);
+        radial-gradient(ellipse 72% 66% at 50% 46%, var(--cc-char-glow, rgba(232, 76, 140, 0.42)) 0%, transparent 72%);
+    filter: blur(5px);
     pointer-events: none;
     z-index: -1;
 }
