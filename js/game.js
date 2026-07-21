@@ -3603,45 +3603,50 @@ class PocketLoveGame {
             // defensive code so a future character shipping without the block
             // cannot crash this path.
             const event = CHARACTER.milestoneEvents?.[storyInfo.key];
-            if (event) {
-                // Capture the character name AT QUEUE TIME so we can
-                // re-check at fire time. Without this, the player could
-                // switch character during the 1500ms delay and the queued
-                // milestone dialogue (e.g. Alistair's firstTrust) would
-                // render on the new character's care screen — owner saw
-                // Alistair's 'I trust you' bubble fire on Elian's route.
-                const queuedFor = CHARACTER.name;
-                setTimeout(() => {
-                    if (CHARACTER && CHARACTER.name === queuedFor) {
-                        this.ui.showStoryScene(event.dialogue, event.emotion || storyInfo.emotion);
-                    }
-                }, 1500);
-            } else {
-                // No bespoke milestoneEvents scene (everyone except Alistair +
-                // Lyra) used to fall SILENT here: the storyInfo branch claimed
-                // the level-up, marked the key shown, and the affectionDialogue
-                // fallback below never ran. So 5 of 7 characters said nothing at
-                // the exact moment the bond deepened. Speak their affection line
-                // instead — same queuedFor guard so a mid-delay character switch
-                // can't bleed the line onto another route.
-                const _affLine = CHARACTER.affectionDialogue && CHARACTER.affectionDialogue[this.affectionLevel];
-                if (_affLine) {
-                    // affectionDialogue lines carry an inline [emotion] cue
-                    // (e.g. "...[tender]...") that nothing downstream strips —
-                    // this fallback was effectively dead until now, so the leak
-                    // never surfaced. Remove every cue so the player never sees
-                    // a literal "[tender]" in the bubble, and collapse any
-                    // double space the removal leaves behind.
-                    const msg = _affLine.replace(/\[[a-z]+\]/ig, '').replace(/\s{2,}/g, ' ').trim();
-                    const queuedFor = CHARACTER.name;
-                    setTimeout(() => {
-                        if (CHARACTER && CHARACTER.name === queuedFor) {
-                            this.typewriter.show(msg);
-                            this.ui.flashEmotion('love', 3000);
-                        }
-                    }, 1500);
+            // Capture the character name AT QUEUE TIME so a mid-delay character
+            // switch can't render this milestone on another route (owner saw
+            // Alistair's 'I trust you' bubble fire on Elian's route).
+            const queuedFor = CHARACTER.name;
+            const _msEmotion = event ? (event.emotion || storyInfo.emotion) : 'love';
+            let _msTries = 0;
+            const fireMilestoneScene = () => {
+                // Character switched away — abandon so it can't bleed elsewhere.
+                if (!CHARACTER || CHARACTER.name !== queuedFor) return;
+                // Only surface a care milestone on a CALM care screen — NEVER over
+                // a chapter, the chapter list, the Companions page, or any overlay.
+                // Owner bug: finishing a gateway chapter (Ch5) awards affection,
+                // which crossed a milestone level and force-opened Alistair's care
+                // scene while the player was transitioning to the Companions page
+                // ("Alistair care route is bleeding out"). Deferring until the
+                // player is genuinely caring also stops it from BLOCKING the
+                // route-open popup (ch6-unlock-celebration defers over any scene).
+                const calm = document.body.classList.contains('pp-screen-care')
+                    && !document.body.classList.contains('pp-chapter-active')
+                    && !document.body.classList.contains('pp-overlay-active')
+                    && !document.getElementById('chp-page')
+                    && !document.getElementById('mscard-root')
+                    && !(window.PPOverlay && typeof window.PPOverlay.busy === 'function' && window.PPOverlay.busy());
+                if (!calm) {
+                    // Retry on the next care beat; cap the wait (~3 min) so it
+                    // can't spin forever if the player never returns to the route.
+                    if (_msTries++ < 150) setTimeout(fireMilestoneScene, 1200);
+                    return;
                 }
-            }
+                if (event) {
+                    this.ui.showStoryScene(event.dialogue, _msEmotion);
+                } else {
+                    // No bespoke milestoneEvents scene — speak the affection line
+                    // instead (strip inline [emotion] cues so no literal "[tender]"
+                    // shows, collapse the leftover double space).
+                    const _affLine = CHARACTER.affectionDialogue && CHARACTER.affectionDialogue[this.affectionLevel];
+                    if (_affLine) {
+                        const msg = _affLine.replace(/\[[a-z]+\]/ig, '').replace(/\s{2,}/g, ' ').trim();
+                        this.typewriter.show(msg);
+                        this.ui.flashEmotion('love', 3000);
+                    }
+                }
+            };
+            setTimeout(fireMilestoneScene, 1500);
         } else {
             // Fallback to normal milestone check
             const milestone = this.dialogueSystem.checkMilestone("affection");
