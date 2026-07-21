@@ -10280,7 +10280,14 @@
     setTimeout(finalize, 440);
   }
 
-  function openPageSoftly() { setTimeout(openPage, 300); }
+  // Re-mount the chapter list almost immediately after a chapter ends. The old
+  // 300ms gap left a visible seam between the cinematic vanishing and the Main
+  // Story list appearing — a passive viewer (Auto/'A' on) caught the screen
+  // behind flashing for a beat before landing on Main Story (owner: "with Auto
+  // it goes to the companion page then back to Main Story"). The mscard is
+  // already removed synchronously before this runs, so there's nothing to
+  // overlap — mount on the next frame instead.
+  function openPageSoftly() { setTimeout(openPage, 32); }
 
   // ---------------------------------------------------------------
   // INLINE MAIN STORY BUTTON — wires up the static button in index.html
