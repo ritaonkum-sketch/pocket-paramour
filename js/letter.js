@@ -2079,7 +2079,7 @@
                             signature: '— E.',
                             paragraphs: [
                                 `*Half a smile in the ink.* A small list, you said. I had not thought of it as a list. Now I cannot stop counting it. The list is two. *Under the line.* I would like the list to stay two. For a while. Then maybe more. Slowly.`,
-                                `*Adds, careful.* Don't joke about being on the list, please. *Quieter.* That joke would land differently than the others. I am not yet ready to laugh at it. I will be. Be patient.`
+                                `*Adds, careful.* Don't joke about being on the list, please. That joke would land differently than the others. I am not yet ready to laugh at it. I will be. Be patient.`
                             ]
                         }
                     }
@@ -2117,7 +2117,7 @@
                             title: 'The Last Letter',
                             signature: '— E.',
                             paragraphs: [
-                                `I started the last letter of your name this morning and stopped halfway, the way I always do. *Quieter.* You said you are not going anywhere, so I can leave it half-cut and trust the trunk to hold it. I have never trusted anything to hold without finishing it first.`,
+                                `I started the last letter of your name this morning and stopped halfway, the way I always do. You said you are not going anywhere, so I can leave it half-cut and trust the trunk to hold it. I have never trusted anything to hold without finishing it first.`,
                                 `Come tomorrow. Bring nothing. There will be stew on the fire and a knife and an unfinished name in the bark. That is the most settled I have been since before the graves.`
                             ]
                         }
@@ -2613,7 +2613,7 @@
                 signature: '— N.',
                 paragraphs: (d) => [
                     `Weaver. *Short, careful, written in his own old script.* I do not write often. I am writing now because I noticed something this week and I would rather you knew it than I kept it.`,
-                    `When you are not in the kingdom, and I can feel when you are not in the kingdom, the seam between dark and hall is thinner. I have been keeping it open for you. It does not cost anything to keep it open. *Quieter.* That is a lie. It costs something. I am paying it. I want to.`,
+                    `When you are not in the kingdom, and I can feel when you are not in the kingdom, the seam between dark and hall is thinner. I have been keeping it open for you. It does not cost anything to keep it open. That is a lie. It costs something. I am paying it. I want to.`,
                     d.timesTalked > 4
                         ? `You have spoken to me ${d.timesTalked} times. Each one ended. My six centuries of monologues never did. They were all middle. An ending means someone was there to leave.`
                         : `I am told it is unusual to write before being asked to. I am no longer interested in being usual. *Small, dry.* A six-hundred-year-old habit, broken in a week. Take notes for whoever inherits.`,
@@ -2640,7 +2640,7 @@
                             title: 'A Door, Held',
                             signature: '— N.',
                             paragraphs: [
-                                `*Quieter.* A monologue is a room with no door. Six centuries I furnished mine and called it a kingdom. You have been standing at the wall where a door should be, holding one open with your bare patience. I have started walking toward it. Slowly. The room was large.`,
+                                `A monologue is a room with no door. Six centuries I furnished mine and called it a kingdom. You have been standing at the wall where a door should be, holding one open with your bare patience. I have started walking toward it. Slowly. The room was large.`,
                                 `Write when I like, you said. I like now. I will like Thursday more. I have informed the seam to expect you, twice, which is once more than the dark ever requires. It noticed the excess. So did I.`
                             ]
                         }
@@ -2652,7 +2652,7 @@
                             title: 'Remaining Habits, a Ledger',
                             signature: '— N. (composed, allegedly.)',
                             paragraphs: [
-                                `*Small, dry.* Coming for the rest of them. How industrious. In fairness I will disclose the inventory: I do not linger at the seam past the fourth bell. I do not keep anyone's letters. *Quieter.* The second entry was a lie before the ink dried. Yours are kept. Cross it off. You are ahead of schedule.`,
+                                `*Small, dry.* Coming for the rest of them. How industrious. In fairness I will disclose the inventory: I do not linger at the seam past the fourth bell. I do not keep anyone's letters. The second entry was a lie before the ink dried. Yours are kept. Cross it off. You are ahead of schedule.`,
                                 `Thursday, late. Bring your ambitions. The dark finds them entertaining, and the dark has gone six hundred years without entertainment it did not have to invent for itself.`
                             ]
                         }
@@ -2703,7 +2703,7 @@
                             title: 'Late Introductions',
                             signature: '— N. (apologetic, regrettably formal.)',
                             paragraphs: [
-                                `*A small, real laugh in the seam, the dark is laughing too, briefly. That has not happened.* Forgive the tardiness. I had, engagements. *Dry.* A century or two of engagements. Mostly a long one. *Quieter.* Thank you for laughing. The thing I had been holding for six hundred years was unsuited to laughter. You handed it a different shape.`,
+                                `*A small, real laugh in the seam, the dark is laughing too, briefly. That has not happened.* Forgive the tardiness. I had, engagements. *Dry.* A century or two of engagements. Mostly a long one. Thank you for laughing. The thing I had been holding for six hundred years was unsuited to laughter. You handed it a different shape.`,
                                 `Tomorrow. Third bell. Wear something I'll regret. *Underlined.* A line I borrowed from the prince. He won't mind. He stole it from me first, four hundred years ago. Yours, late and laughing.`
                             ]
                         }
@@ -2730,7 +2730,7 @@
                             title: 'Terms of the Fruit',
                             signature: '— N.',
                             paragraphs: [
-                                `*The new hand, steadier this week than last.* There is an old story about eating pomegranate in the dark and what the eating binds you to. I reread it last night to be certain of the terms. I decline them on your behalf. Eat freely, leave freely. *Quieter.* You have always come back on your own. I would not trade that for any binding the old stories know.`,
+                                `*The new hand, steadier this week than last.* There is an old story about eating pomegranate in the dark and what the eating binds you to. I reread it last night to be certain of the terms. I decline them on your behalf. Eat freely, leave freely. You have always come back on your own. I would not trade that for any binding the old stories know.`,
                                 `Thursday, under her tree, then. I will bring the white-handled knife that has cut nothing sad in six hundred years. It has been waiting for an occasion worth the whetting. It can stop waiting.`
                             ]
                         }
@@ -2742,7 +2742,7 @@
                             title: 'Penmanship, for Peacetime',
                             signature: '— N.',
                             paragraphs: [
-                                `You noticed the hand. It is four weeks old, which makes it the youngest thing I own. The old script stays reserved for the grave and the name; this one is learning smaller work, mason lists and letters to you. *Quieter.* It is the first hand I have ever built with no war anywhere in its alphabet.`,
+                                `You noticed the hand. It is four weeks old, which makes it the youngest thing I own. The old script stays reserved for the grave and the name; this one is learning smaller work, mason lists and letters to you. It is the first hand I have ever built with no war anywhere in its alphabet.`,
                                 `The orchard took two more stones this week. The grey retreats from Nocthera a field at a time, and I have stopped auditing the colour that replaces it. Stay through Thursday evening. The practicing goes better when I know who reads it.`
                             ]
                         }
@@ -2755,7 +2755,7 @@
                             signature: '— N. (keeper of records.)',
                             paragraphs: [
                                 `*Small, dry.* Measure you in spring. Very well. There is a mark on the doorway of the hall from your last visit; you did not see me make it. I keep records. It is a very old failing. If the mark moves by spring, we will both know the cause, and I will enter it in the ledger without comment.`,
-                                `*Quieter, beneath.* The tree gained a handspan this month. I measured that too. Everything I tend is growing taller on schedule, yourself included, apparently. Thursday. Bring your full height.`
+                                `*Beneath.* The tree gained a handspan this month. I measured that too. Everything I tend is growing taller on schedule, yourself included, apparently. Thursday. Bring your full height.`
                             ]
                         }
                     }

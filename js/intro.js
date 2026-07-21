@@ -96,7 +96,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/pose3.png',
                 direction: 'A small bow, half-mocking, half-real. Her hand on her chest like a court lady or a ghost.',
-                line: "Lyra. Half-siren, half-something the registries do not have a word for. I sing for nobody most nights. *Quieter* Recently, fewer most nights."
+                line: "Lyra. Half-siren, half-something the registries do not have a word for. I sing for nobody most nights. Recently, fewer most nights."
             },
             {
                 body: 'assets/lyra/body/sad3.png',
@@ -140,7 +140,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/elian/body/stern.png',
                 direction: 'A small, considered nod. The forest equivalent of a court bow.',
-                line: "Elian. I keep this forest. Since before there was a king who put up the wards. *Quieter* I have not had a guest survive their first night in a long time. You did. That is the introduction that matters."
+                line: "Elian. I keep this forest. Since before there was a king who put up the wards. I have not had a guest survive their first night in a long time. You did. That is the introduction that matters."
             },
             {
                 body: 'assets/elian/body/warm.png',
@@ -192,7 +192,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/caspian/body/tender.png',
                 direction: 'He nudges the cup toward you. The saucer is one of the everyday ones, not court porcelain. He chose that on purpose.',
-                line: "I have spent the morning calling you *The guest*. Courteous, and also a way of pretending you are anyone. *Quieter* You are not."
+                line: "I have spent the morning calling you *The guest*. Courteous, and also a way of pretending you are anyone. You are not."
             },
             {
                 body: 'assets/caspian/body/tender.png',
@@ -233,7 +233,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lucien/body/neutral.png',
                 direction: 'A small, considered bow. The kind of formality only the truly precise people still observe.',
-                line: "Lucien, of the Seventh Tower. Cataloguer of patterns the kingdom prefers I do not name. A scholar, mostly. Recently *Quieter* also a witness."
+                line: "Lucien, of the Seventh Tower. Cataloguer of patterns the kingdom prefers I do not name. A scholar, mostly. Recently also a witness."
             },
             {
                 body: 'assets/lucien/body/curious.png',
@@ -280,7 +280,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/whisper.png',
                 direction: 'He does not lean forward. He does not rise. He has practiced not crowding people for a very long time.',
-                line: "Last night I was the dark current you fell into. That is one of the introductions I have. *Quieter* It is not the one I prefer to give. This is."
+                line: "Last night I was the dark current you fell into. That is one of the introductions I have. It is not the one I prefer to give. This is."
             },
             {
                 body: 'assets/noir/body/neutral.png',
@@ -290,7 +290,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/seductive.png',
                 direction: 'A small, almost shy gesture. He turns the chair very slightly toward you. The half-step toward presence rather than predation.',
-                line: "I have been calling you *The one I felt coming* in my head. That is dread shaped like hope. *Quieter* You deserve a name from me, not a prophecy."
+                line: "I have been calling you *The one I felt coming* in my head. That is dread shaped like hope. You deserve a name from me, not a prophecy."
             },
             {
                 body: 'assets/noir/body/neutral.png',

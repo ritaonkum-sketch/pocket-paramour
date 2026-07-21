@@ -73,7 +73,7 @@
         options: [
           { id: 'sit',
             label: 'Sit across from him. Wait.',
-            response: '*He polishes for another minute before he sets the cloth down. He still does not look up.* I am not asking you to explain. I am letting you know I noticed. *Quieter.* The not-noticing would have been worse.',
+            response: '*He polishes for another minute before he sets the cloth down. He still does not look up.* I am not asking you to explain. I am letting you know I noticed. The not-noticing would have been worse.',
             effect: { } },
           { id: 'apology',
             label: '"I’m sorry. I should have come sooner."',
@@ -87,7 +87,7 @@
         options: [
           { id: 'cross',
             label: 'Cross to him. Take both his hands.',
-            response: '*He lets you. The shaking stops once the holding starts.* I would not have asked. *Quieter.* I am, however, very glad you came back without my asking. The bench at the south gate has been sleeping alone. It will not be sleeping alone tonight either.',
+            response: '*He lets you. The shaking stops once the holding starts.* I would not have asked. I am, however, very glad you came back without my asking. The bench at the south gate has been sleeping alone. It will not be sleeping alone tonight either.',
             effect: { bond: 5, trust: 4 } },
           { id: 'forehead',
             label: 'Step into him. Forehead to his chest.',
@@ -105,7 +105,7 @@
         options: [
           { id: 'apologise',
             label: '"I’m sorry. The week ran away from me."',
-            response: '*She turns then, and her face is the face of a witch who has been working very hard at not minding.* The week ran away from a great many of us. *Quieter.* I would prefer it had not run away with you specifically.',
+            response: '*She turns then, and her face is the face of a witch who has been working very hard at not minding.* The week ran away from a great many of us. I would prefer it had not run away with you specifically.',
             effect: { } },
           { id: 'quiet',
             label: 'Sit beside her on the rock. Don’t say anything yet.',
@@ -155,7 +155,7 @@
             effect: { bond: 5, trust: 4 } },
           { id: 'crown',
             label: 'Pick up the gold band. Set it on the throne. "Stays there tonight."',
-            response: '*He breathes out the breath he had been holding for a week.* Stays there tonight. Stays there next Sunday too. *Quieter.* You being the kind of person who would set it on the throne instead of on me. That, more than anything, is what I had been missing.',
+            response: '*He breathes out the breath he had been holding for a week.* Stays there tonight. Stays there next Sunday too. You being the kind of person who would set it on the throne instead of on me. That, more than anything, is what I had been missing.',
             effect: { bond: 5, obsession: 3 } }
         ]
       }
@@ -201,7 +201,7 @@
         options: [
           { id: 'sit_silent',
             label: 'Sit on the log. Don’t reach for a bowl. Wait.',
-            response: '*He waits longer than you do. Then he reaches into his pack and pulls out a second bowl.* I had set this aside. I told myself it was for tomorrow. I told myself wrong. *Quieter.* Eat.',
+            response: '*He waits longer than you do. Then he reaches into his pack and pulls out a second bowl.* I had set this aside. I told myself it was for tomorrow. I told myself wrong. Eat.',
             effect: { } },
           { id: 'apology',
             label: '"The week kept me. I should have come sooner."',
@@ -215,7 +215,7 @@
         options: [
           { id: 'sit_close',
             label: 'Sit beside him on the log. Shoulder against his.',
-            response: '*He lets you stay there for the full bowl of stew. When you set the bowl down, he does not move his shoulder away.* The forest asked me to tell you something. I am going to tell it to you in the forest’s voice, since I am clearly bad at it in mine. *Quieter, woodsmoke.* It is glad you are back. So am I.',
+            response: '*He lets you stay there for the full bowl of stew. When you set the bowl down, he does not move his shoulder away.* The forest asked me to tell you something. I am going to tell it to you in the forest’s voice, since I am clearly bad at it in mine. *Woodsmoke.* It is glad you are back. So am I.',
             effect: { bond: 5, trust: 4 } },
           { id: 'hand',
             label: 'Take his hand over the fire. Don’t let go through the meal.',

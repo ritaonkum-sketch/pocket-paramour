@@ -122,7 +122,7 @@
             effect: { bond: 4, trust: 3 } },
           { id: 'kiss',
             label: 'Step into him. Kiss him without speaking.',
-            response: '*He kisses you back, properly, the way a captain who has been holding the inside of his own restraint together kisses someone he has finally been allowed to.* The bell rings differently from up here. *Quieter, against your hair.* Or it does tonight, with you. I will not be hearing it the same way again.',
+            response: '*He kisses you back, properly, the way a captain who has been holding the inside of his own restraint together kisses someone he has finally been allowed to.* The bell rings differently from up here. *Against your hair.* Or it does tonight, with you. I will not be hearing it the same way again.',
             effect: { bond: 5, obsession: 4 } }
         ]
       },
@@ -212,7 +212,7 @@
         options: [
           { id: 'never',
             label: 'Take both his hands. "Never stop sending them."',
-            response: '*The court-mask cracks for half a second.* Good. *Quieter.* I had been preparing the speech where I told myself I had been a fool. I am pleased not to have to deliver it. To anyone. Especially myself.',
+            response: '*The court-mask cracks for half a second.* Good. I had been preparing the speech where I told myself I had been a fool. I am pleased not to have to deliver it. To anyone. Especially myself.',
             effect: { bond: 4, trust: 3 } },
           { id: 'tonight_tonight',
             label: '"Tonight. Same place. The candle stays lit this time."',
@@ -233,7 +233,7 @@
         callToAction: '“Tower, second bell. The sky above the dome is doing something I have been waiting for. Not predicted. Anomalous. I would like a witness. I would like, specifically, you.”'
       },
       onArrive: {
-        setup: '*The tower at the second bell. The dome is open. The sky is doing something he has not seen before in nine years of charts. A long, slow streak of green-edged light, the kind that should not exist in the established mathematics of this kingdom’s weather. He is at the telescope. He looks up when you climb in.* You came. *Quieter.* Look up first. The light will not wait. I will.',
+        setup: '*The tower at the second bell. The dome is open. The sky is doing something he has not seen before in nine years of charts. A long, slow streak of green-edged light, the kind that should not exist in the established mathematics of this kingdom’s weather. He is at the telescope. He looks up when you climb in.* You came. Look up first. The light will not wait. I will.',
         prompt: 'What do you do?',
         options: [
           { id: 'look',
@@ -318,7 +318,7 @@
         options: [
           { id: 'in',
             label: 'Take his hand. Step into the dark with him.',
-            response: '*The dark closes around you both, gently. Inside it you can see the outline of a kingdom that does not exist anymore. He turns to you in the half-light. The minute lasts longer than minutes are supposed to.* I wanted you to see it once. *Quieter.* It does not look like much. It is, however, mine. You being in it is the first time it has been more than that.',
+            response: '*The dark closes around you both, gently. Inside it you can see the outline of a kingdom that does not exist anymore. He turns to you in the half-light. The minute lasts longer than minutes are supposed to.* I wanted you to see it once. It does not look like much. It is, however, mine. You being in it is the first time it has been more than that.',
             effect: { bond: 5, obsession: 4, corruption: 1 } },
           { id: 'threshold',
             label: 'Stay at the seam-edge. Hold the open with him.',
@@ -336,7 +336,7 @@
             effect: { bond: 3, trust: 2 } },
           { id: 'choose_me',
             label: '"You don’t need to open it for me to choose you. I already have."',
-            response: '*Something in his face cracks. He covers it slower than usual.* That is more answer than I had asked for. *Quieter.* I will keep it. With everything else of yours I have been keeping. The list is short. You are, I notice, on it three times.',
+            response: '*Something in his face cracks. He covers it slower than usual.* That is more answer than I had asked for. I will keep it. With everything else of yours I have been keeping. The list is short. You are, I notice, on it three times.',
             effect: { bond: 4, obsession: 3 } }
         ]
       }
@@ -429,7 +429,7 @@
           options: [
             { id: 'hold',
               label: 'Hold out both hands. Ask to hold it.',
-              response: '*He lays it across your palms with both of his, careful, the way you hand someone a sleeping child, and keeps one hand under yours, taking the weight he is pretending to let you carry.* Mind the balance, it runs heavy at the hilt. *Quieter.* He taught me on this blade. I will teach you, if you want the teaching. I find I would rather it were me than anyone else.',
+              response: '*He lays it across your palms with both of his, careful, the way you hand someone a sleeping child, and keeps one hand under yours, taking the weight he is pretending to let you carry.* Mind the balance, it runs heavy at the hilt. He taught me on this blade. I will teach you, if you want the teaching. I find I would rather it were me than anyone else.',
               effect: { bond: 5, trust: 4 } },
             { id: 'him',
               label: 'Leave the sword. Put your hand against his face instead.',
@@ -650,7 +650,7 @@
               response: '*He lets you, holds painfully still under it, a prince being examined for the flaw he has hidden his whole life.* You did not step back. *His court voice is entirely gone.* Everyone steps back, eventually, when they understand what I am going to become. You looked for it and stayed. I have no charm prepared for that. I have nothing prepared for you at all, which is new, and which I find I prefer.',
               effect: { bond: 5, trust: 4 } },
             { id: 'curse', label: '“Then we carry it. I’m not going anywhere.”',
-              response: '*The candle shakes very slightly in his hand.* Do not say that here, in front of them, unless you mean it. *He looks at the ruined faces, then back.* They all heard someone say it once. None of those someones stayed. *Quieter.* If you stay, you will be the first thing in this gallery that did not turn. I would like that more than I have words arranged for.',
+              response: '*The candle shakes very slightly in his hand.* Do not say that here, in front of them, unless you mean it. *He looks at the ruined faces, then back.* They all heard someone say it once. None of those someones stayed. If you stay, you will be the first thing in this gallery that did not turn. I would like that more than I have words arranged for.',
               effect: { bond: 5, obsession: 4 } }
           ]
         },
@@ -783,7 +783,7 @@
           prompt: 'What do you do?',
           options: [
             { id: 'walk', label: 'Take his arm. Walk the dead city with him.',
-              response: '*He lets you take his arm, and walks you through his kept kingdom naming the streets, the markets, the people, all of it gone, all of it held.* I have given this tour to no one because there was no one I trusted to be gentle with a thing that is only memory. *He covers your hand on his arm.* You are being gentle with it. With them. *Quieter.* With me, who is also mostly a thing that is only memory. I notice. I keep what I notice. The list is no longer short.',
+              response: '*He lets you take his arm, and walks you through his kept kingdom naming the streets, the markets, the people, all of it gone, all of it held.* I have given this tour to no one because there was no one I trusted to be gentle with a thing that is only memory. *He covers your hand on his arm.* You are being gentle with it. With them. With me, who is also mostly a thing that is only memory. I notice. I keep what I notice. The list is no longer short.',
               effect: { bond: 5, trust: 4 } },
             { id: 'stay', label: 'Stop walking. “It’s beautiful. You don’t have to hold it alone now.”',
               response: '*He goes very still in the middle of the silent street.* Do not offer that lightly. *He looks at the spires he has carried six centuries.* Holding it alone is the one labour I know how to do. If you offer to share it, I will accept, and I do not give things back. *He meets your eyes.* I am telling you the terms before you decide. Most people I would let assume. You, I want to choose it knowing.',

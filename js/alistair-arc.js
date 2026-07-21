@@ -107,7 +107,7 @@
       { type: 'flourish', text: '✦', duration: 1600 },
       { type: 'pose', src: 'assets/alistair/body/shy3.png', animate: 'swap' },
       { type: 'line', text: '*Lowers himself onto one knee, the wounded side wincing as he does, but he does not stop, does not let you stop him*. I have knelt for kings. I have knelt for captains. I am kneeling for you. Not because you are above me. Because I owe you something I cannot pay standing up.', hold: 6200, cps: 22 },
-      { type: 'line', text: 'I have said “I would die for you” a hundred times in my life. To kings. To captains. To strangers in burning villages. *Quieter*. I always meant it the easy way. The kind a soldier says without thinking. …I am saying it now and it is not easy. I would die for you, mi’lady. The way I never meant before.', hold: 6800, cps: 20 },
+      { type: 'line', text: 'I have said “I would die for you” a hundred times in my life. To kings. To captains. To strangers in burning villages. I always meant it the easy way. The kind a soldier says without thinking. …I am saying it now and it is not easy. I would die for you, mi’lady. The way I never meant before.', hold: 6800, cps: 20 },
       { type: 'line', text: 'Forgive me. Or do not. *Head still bowed, voice steady*. Either way I will be here tomorrow. I will be on time. I will be on time for the rest of my life. That is the oath I am taking now. Out loud. So you have heard it.', hold: 6000, cps: 22 },
       { type: 'hide' }
     ]
@@ -133,7 +133,7 @@
       { type: 'flourish', text: '✦', duration: 1600 },
       { type: 'pose', src: 'assets/alistair/body/shy3.png', animate: 'swap' },
       { type: 'line', text: '*Lowers himself onto one knee in front of you, awkwardly, the way a man kneels who has only ever knelt to crowns and is making the gesture mean something different*. I knelt to a king at fifteen. I knelt to a captain at twenty. I am kneeling now without a title to offer you. Just the man. He is all you get. He is yours, if you still want him.', hold: 7000, cps: 20 },
-      { type: 'line', text: 'I have said “I would die for you” a hundred times. To kings. To captains. To strangers I owed a debt to. I always meant it the easy way. *Quieter*. I am saying it now and it is not the easy way. I would die for you, mi’lady. I have already died for the man I used to be. I would do that one again, too. Without flinching.', hold: 7400, cps: 20 },
+      { type: 'line', text: 'I have said “I would die for you” a hundred times. To kings. To captains. To strangers I owed a debt to. I always meant it the easy way. I am saying it now and it is not the easy way. I would die for you, mi’lady. I have already died for the man I used to be. I would do that one again, too. Without flinching.', hold: 7400, cps: 20 },
       { type: 'line', text: 'Forgive me for arriving smaller than I left. *Head bowed*. I will be here tomorrow. Without the armour. Without the rank. …Hopefully that is still enough.', hold: 6000, cps: 22 },
       { type: 'hide' }
     ]
@@ -164,7 +164,7 @@
       { type: 'line', text: '*Lifts your hand to his lips, presses his mouth to the inside of your wrist, not theatrical, just held there, a long quiet moment*. …It costs me everything tonight. That is the difference. I wanted you to hear me say it the way it is supposed to sound.', hold: 6800, cps: 20 },
       { type: 'pose', src: 'assets/alistair/body/smile1.png', animate: 'swap' },
       { type: 'line', text: '*Does not let go of your hand. Keeps it between both of his, like a thing he is finally allowed to be careless with*. I will not break another promise to you. I cannot promise to be a knight anymore. I can promise to be on time. *Softly*. That is a smaller oath. …I will keep it better.', hold: 7000, cps: 20 },
-      { type: 'line', text: '*Looks at you for a long moment, the careful look from the maid’s chamber returned but warmer now*. I told you once I would not ask you what you are. I am still not asking. *Quieter*. But I have stopped wondering. I know what you are to me. That is the only answer I needed.', hold: 6800, cps: 20 },
+      { type: 'line', text: '*Looks at you for a long moment, the careful look from the maid’s chamber returned but warmer now*. I told you once I would not ask you what you are. I am still not asking. But I have stopped wondering. I know what you are to me. That is the only answer I needed.', hold: 6800, cps: 20 },
       { type: 'particles', count: 18, duration: 2000 },
       { type: 'line', text: 'Stay until I fall asleep. *Almost a whisper*. I have never asked anyone that. I am asking you. Out loud. So you have heard it.', hold: 5400, cps: 22 },
       { type: 'hide' }

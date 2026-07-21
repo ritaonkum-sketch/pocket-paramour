@@ -126,8 +126,8 @@
           //  wholly different register. The first time was a vow not to
           //  pry. The late callback is a confession that he has been
           //  asking, silently, for months.)
-          { type: 'line', text: '*Quieter, almost into your hair*. I told you, the night I found you in the moss, that I would not ask you what you are. *A beat*. I have asked. Many nights. Not aloud. The asking did not get easier. *Still quieter*. I am not asking now. I think this is what I have been doing. Telling you what you are, by sitting here, by sleeping through, by being the wall behind your back. You can correct me if I am wrong. I will not be insulted.', hold: 6200, cps: 22 },
-          { type: 'line', text: '*Lifts your hands to his lips, kisses the inside of each wrist, lingers, holds you there for a long moment*. Stay through the bells. Then I will go relieve the watch. *Quieter*. Tonight I will come back. That is also new.', hold: 5000, cps: 22 },
+          { type: 'line', text: '*Almost into your hair*. I told you, the night I found you in the moss, that I would not ask you what you are. *A beat*. I have asked. Many nights. Not aloud. The asking did not get easier. I am not asking now. I think this is what I have been doing. Telling you what you are, by sitting here, by sleeping through, by being the wall behind your back. You can correct me if I am wrong. I will not be insulted.', hold: 6200, cps: 22 },
+          { type: 'line', text: '*Lifts your hands to his lips, kisses the inside of each wrist, lingers, holds you there for a long moment*. Stay through the bells. Then I will go relieve the watch. Tonight I will come back. That is also new.', hold: 5000, cps: 22 },
           { type: 'hide' }
         ]
       }
@@ -153,7 +153,7 @@
         beats: [
           { type: 'show', pose: 'assets/elian/body/calm.png', wait: 700 },
           { type: 'line', text: 'There is a hollow in an oak by the stream. I have never shown it to anyone.\u2026Tomorrow, then.', hold: 2800, cps: 28 },
-          { type: 'line', text: '*Quieter*. I am afraid to. Not of you. Of what showing it might bring. The forest hides what it loves. I am the forest now. \u2026Tomorrow, then.', hold: 3400, cps: 26 },
+          { type: 'line', text: 'I am afraid to. Not of you. Of what showing it might bring. The forest hides what it loves. I am the forest now. \u2026Tomorrow, then.', hold: 3400, cps: 26 },
           { type: 'flourish', text: '\u2726', duration: 1400 },
           { type: 'line', text: '*At the creek, holds out his hand without a word, waits*. Take it. The stones are slick. *Keeps holding your hand after the water is behind you, does not explain*', hold: 3200, cps: 28 },
           // (Slow-burn arc \u2014 torn-page beat in Elian's closer tier. The
@@ -177,7 +177,7 @@
           { type: 'line', text: 'The forest decides who stays. It decided you weeks ago. I am a slower creature. I decide tonight.', hold: 2800, cps: 26 },
           { type: 'particles', count: 16, duration: 1800 },
           { type: 'line', text: 'I do not age like other men. My mother was something older than human. I have watched this kingdom be four kingdoms. I have not wanted to follow anyone out of these trees. You are the first thing that has made me consider the road.', hold: 3400, cps: 26 },
-          { type: 'line', text: '*Quieter, eyes on the ground*. There is a black place under the rowan that has been growing for sixty years. I have been patrolling its edges. I have not told anyone. Tonight I am telling you.', hold: 4200, cps: 22 },
+          { type: 'line', text: '*Eyes on the ground*. There is a black place under the rowan that has been growing for sixty years. I have been patrolling its edges. I have not told anyone. Tonight I am telling you.', hold: 4200, cps: 22 },
           { type: 'line', text: '*Takes your face in both rough hands, presses his forehead to yours, breathes. Just breathes. For a long time. *. Stay. With me. Past the markers, if you want.', hold: 3400, cps: 26 },
           { type: 'hide' }
         ]
@@ -221,7 +221,7 @@
           { type: 'particles', count: 14, duration: 2200 },
           { type: 'flourish', text: '\u2726', duration: 1800 },
           { type: 'line', text: '*Hands you the knife, handle first, calloused fingers wrapping yours around it*. I want you to do the next letter. A keeper carves alone. A pair carves together. I have been alone in this forest for as long as it has been a forest. I am not asking to be alone in it anymore.', hold: 5800, cps: 22 },
-          { type: 'line', text: '*As you carve, his hand stays over yours, steady, unhurried*. Slow is fine. The tree is patient. *Quieter, against your hair*. So am I. But not as patient as I used to be. I have started counting nights you spend in the cabin. I am at twenty-three. I would like there to be many more.', hold: 5400, cps: 22 },
+          { type: 'line', text: '*As you carve, his hand stays over yours, steady, unhurried*. Slow is fine. The tree is patient. *Against your hair*. So am I. But not as patient as I used to be. I have started counting nights you spend in the cabin. I am at twenty-three. I would like there to be many more.', hold: 5400, cps: 22 },
           { type: 'line', text: '*Sets the knife down, looks at the new letters in the bark, then at you*. I have been afraid for six centuries. Tonight I am carving anyway. That is the most honest thing I have done since.', hold: 4800, cps: 22 },
           { type: 'line', text: '*When the letter is done, he lifts your hand, kisses the knuckle that pressed the blade*. Come back tomorrow. I will start the next letter without you. You will catch up.', hold: 4400, cps: 22 },
           { type: 'hide' }
@@ -400,7 +400,7 @@
           { type: 'particles', count: 14, duration: 1800 },
           { type: 'flourish', text: '\u266b', duration: 1600 },
           { type: 'line', text: 'I want to be the prince who got to keep the morning. *Fingertips along your collarbone, slow, no destination*. The fourth prince in our line who looked at someone like this. The first one to wake up beside them.', hold: 4400, cps: 22 },
-          { type: 'line', text: '*Soft, against your temple*. I am going to walk into court at noon. I am going to be charming. I am going to do it as a tool now, not as a wall. *Quieter*. If anyone asks who taught me the difference, I am giving them your name. Tell me now if you do not want me to.', hold: 5000, cps: 22 },
+          { type: 'line', text: '*Soft, against your temple*. I am going to walk into court at noon. I am going to be charming. I am going to do it as a tool now, not as a wall. If anyone asks who taught me the difference, I am giving them your name. Tell me now if you do not want me to.', hold: 5000, cps: 22 },
           { type: 'line', text: '*You do not say no. He exhales like a man who had been holding it for a year. *. Stay until the bells. Then I will go be a king for you. *Lifts your hand, kisses each knuckle, unhurried, devout*', hold: 4400, cps: 22 },
           { type: 'hide' }
         ]
@@ -430,7 +430,7 @@
           { type: 'line', text: 'I have been factoring you out of my equations. The equations resist. *Small admission, surprised by it*. I think I have been misidentifying the variable. The unknown is not you. The unknown is whatever I am, when you are in the room.', hold: 3400, cps: 26 },
           { type: 'flourish', text: '\u221e', duration: 1500 },
           { type: 'line', text: '*Slides a book across the desk, opens it to a margin page where YOUR NAME is written in his hand*. I have labeled thirty-seven books \u201cabout you.\u201d I told myself the category was too broad to be meaningful. I kept adding books... I am beginning to suspect I felt something every time I added one. I did not have the word for it.', hold: 4000, cps: 26 },
-          { type: 'line', text: '*Ink-stained fingers cup your face, realises he has done it without deciding to, does not pull back*. I had filed cataloguing-by-touch under \u201cthings I do not do.\u201d Apparently the filing was incorrect. *Quieter*. I have marked you. I am not going to wipe it off.', hold: 3800, cps: 26 },
+          { type: 'line', text: '*Ink-stained fingers cup your face, realises he has done it without deciding to, does not pull back*. I had filed cataloguing-by-touch under \u201cthings I do not do.\u201d Apparently the filing was incorrect. I have marked you. I am not going to wipe it off.', hold: 3800, cps: 26 },
           { type: 'hide' }
         ]
       },
@@ -443,14 +443,14 @@
           { type: 'show', pose: 'assets/lucien/body/casual1.png', wait: 700 },
           { type: 'line', text: 'I have been working on a theorem for months. It states: any room you walk into becomes my favourite room. The proof requires me to admit I have favourites... That admission is, by itself, longer than the theorem.', hold: 3000, cps: 26 },
           { type: 'particles', count: 18, duration: 1800 },
-          { type: 'line', text: 'I should tell you something I have not told anyone. *Eyes down, then up*. I do not feel things the way other people feel them. I have not, since I was eight. I decided emotion was inefficient. I built a whole life on that decision. *Quieter*. Then you walked in, and the arithmetic stopped working. You are the reason it stopped.', hold: 4400, cps: 24 },
+          { type: 'line', text: 'I should tell you something I have not told anyone. *Eyes down, then up*. I do not feel things the way other people feel them. I have not, since I was eight. I decided emotion was inefficient. I built a whole life on that decision. Then you walked in, and the arithmetic stopped working. You are the reason it stopped.', hold: 4400, cps: 24 },
           { type: 'line', text: '*Reaches across the desk, takes your hand, keeps reading with his other, ink-stained fingers warming against yours*. I noticed the warming. I had filed warm-hands under "thermodynamic event." I am revising the file. *Small breath*. The file is now under "yours."', hold: 4000, cps: 24 },
           // (Slow-burn arc — Lucien drip beat. He follows through on the
           //  catch in Ch14: he begins giving her the slow version of what
           //  is on her page. Not all of it. The first ring of it — what the
           //  symbol IS, structurally. Saves the WHO and the WHY for later
           //  midnight/aftermath beats.)
-          { type: 'line', text: '*Slides a fresh sheet across the desk. Draws the symbol from your page on it without asking. Two crossed branches, a moon. Perfectly accurate, from memory*. The slow version, then. Smallest part first. This is a Weaver-mark. It is older than the kingdom that has been quietly removing it from its libraries. Each Weaver in the line carried a variant. *Taps the moon*. This particular phase is the second Weaver’s. Her name is on a list I will not show you tonight. *Quieter*. You should know that the list is short and that the kingdom would rather it not be added to.', hold: 5400, cps: 22 },
+          { type: 'line', text: '*Slides a fresh sheet across the desk. Draws the symbol from your page on it without asking. Two crossed branches, a moon. Perfectly accurate, from memory*. The slow version, then. Smallest part first. This is a Weaver-mark. It is older than the kingdom that has been quietly removing it from its libraries. Each Weaver in the line carried a variant. *Taps the moon*. This particular phase is the second Weaver’s. Her name is on a list I will not show you tonight. You should know that the list is short and that the kingdom would rather it not be added to.', hold: 5400, cps: 22 },
           { type: 'line', text: '*Folds the sheet, hands it back to you, ink-side toward your palm so it does not smudge his hand on the way*. Tomorrow we add the next ring. Tonight, the moon. That is enough.', hold: 3800, cps: 24 },
           { type: 'line', text: 'Stay. The theorem needs more data. *Almost a whisper*. So do I.', hold: 2800, cps: 26 },
           { type: 'hide' }
@@ -466,12 +466,12 @@
           { type: 'line', text: 'This is the page. The one I have been hiding. I told you it was maths. It is not maths.', hold: 2800, cps: 24 },
           { type: 'pose', src: 'assets/lucien/body/casting.png', animate: 'swap' },
           { type: 'line', text: 'It is a page from my father\u2019s family register. It records a second child. Born to a siren. Half of me. My father caged her when her mother died. She escaped at fifteen. I was told she was dead. I was told this by the man who cradled me in the next room.', hold: 4400, cps: 22 },
-          { type: 'line', text: 'I have a sister. I have passed her name a hundred times in books and not known it was hers. There was a crib in the west tower when I was seven. It was warm. *Quietest*. I felt something when I read the page. I did not have a category for it. I built a category. The category is grief. I had not used grief before. I am thirty years old.', hold: 4800, cps: 22 },
+          { type: 'line', text: 'I have a sister. I have passed her name a hundred times in books and not known it was hers. There was a crib in the west tower when I was seven. It was warm. I felt something when I read the page. I did not have a category for it. I built a category. The category is grief. I had not used grief before. I am thirty years old.', hold: 4800, cps: 22 },
           { type: 'pose', src: 'assets/lucien/body/amused.png', animate: 'swap' },
-          { type: 'line', text: '*Slides the page across the desk, ink-stained hands flat against the paper*. I can burn it. The bloodline holds its lie. My father never knows I knew. Or I can keep it. And find her. I do not know which is the braver thing. *Quieter*. I do not know how to weigh it. I have never had to weigh anything in this currency before.', hold: 4400, cps: 22 },
+          { type: 'line', text: '*Slides the page across the desk, ink-stained hands flat against the paper*. I can burn it. The bloodline holds its lie. My father never knows I knew. Or I can keep it. And find her. I do not know which is the braver thing. I do not know how to weigh it. I have never had to weigh anything in this currency before.', hold: 4400, cps: 22 },
           { type: 'particles', count: 18, duration: 2000 },
           { type: 'flourish', text: '\u221e', duration: 1800 },
-          { type: 'line', text: '*Forehead against your shoulder, eyes closed, voice almost steady*. Stay, {name}. I have learned three new emotions in the last hour. I would like a witness. *Quieter*. I would like the witness to be you.', hold: 4200, cps: 22 },
+          { type: 'line', text: '*Forehead against your shoulder, eyes closed, voice almost steady*. Stay, {name}. I have learned three new emotions in the last hour. I would like a witness. I would like the witness to be you.', hold: 4200, cps: 22 },
           { type: 'hide' }
         ]
       },
@@ -486,13 +486,13 @@
         beats: [
           { type: 'show', pose: 'assets/lucien/body/amused.png', wait: 800 },
           { type: 'line', text: '*You find him at the desk in better light than usual. East window open, plant on the sill, a teapot that has actually been used*. I have started a new catalogue. *Gestures at a slim leather book*. The old one is on the bottom shelf. I no longer need it.', hold: 4800, cps: 22 },
-          { type: 'line', text: '*Opens it. The first page reads, in his hand:*. EMOTIONS, A WORKING LIST. *Quieter*. I am thirty years old. I am cataloguing my first feelings the way other people catalogue stamps. There are forty-one entries. The footnotes are extensive.', hold: 5400, cps: 22 },
+          { type: 'line', text: '*Opens it. The first page reads, in his hand:*. EMOTIONS, A WORKING LIST. I am thirty years old. I am cataloguing my first feelings the way other people catalogue stamps. There are forty-one entries. The footnotes are extensive.', hold: 5400, cps: 22 },
           { type: 'pose', src: 'assets/lucien/body/casual1.png', animate: 'swap' },
           { type: 'line', text: 'I spent thirty years certain emotion was an inefficiency. I had a whole proof. *Quiet, marvelling*. The proof is in this drawer. I have not burned it. I am keeping it as evidence of how thoroughly a clever man can be wrong about himself.', hold: 5400, cps: 22 },
           { type: 'particles', count: 18, duration: 2000 },
           { type: 'flourish', text: '\u221e', duration: 1800 },
-          { type: 'line', text: '*Turns the book toward you, taps a specific entry. It reads:*. "Tenderness. Symptom: ink-stained hands cannot stop moving toward her face. Tested: confirmed Wednesday." *Small, embarrassed*. I am sorry the methodology is so banal. *Quieter*. The variable is not banal. The variable is you.', hold: 6200, cps: 22 },
-          { type: 'line', text: '*Takes your hand across the desk, ink-stained fingers slotting between yours, watches the join like it is a small theorem he has been refining for months*. I used to be afraid I had been BUILT this way. Hollow on purpose. *Quieter*. It turns out I had only chosen it. A choice can be revised. I am revising. The man at this desk is full of you and not particularly sure how to live with the volume.', hold: 6400, cps: 22 },
+          { type: 'line', text: '*Turns the book toward you, taps a specific entry. It reads:*. "Tenderness. Symptom: ink-stained hands cannot stop moving toward her face. Tested: confirmed Wednesday." *Small, embarrassed*. I am sorry the methodology is so banal. The variable is not banal. The variable is you.', hold: 6200, cps: 22 },
+          { type: 'line', text: '*Takes your hand across the desk, ink-stained fingers slotting between yours, watches the join like it is a small theorem he has been refining for months*. I used to be afraid I had been BUILT this way. Hollow on purpose. It turns out I had only chosen it. A choice can be revised. I am revising. The man at this desk is full of you and not particularly sure how to live with the volume.', hold: 6400, cps: 22 },
           { type: 'line', text: '*Leans across the desk, presses his mouth to your forehead, then to the bridge of your nose, then. Finally, careful, precise. To the corner of your mouth*. Stay through the next page. I am writing the entry on this kiss in real time. *Small smile*. The footnote will be substantial.', hold: 5800, cps: 22 },
           { type: 'hide' }
         ]

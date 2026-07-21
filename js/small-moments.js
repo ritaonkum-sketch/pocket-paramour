@@ -177,7 +177,7 @@
         options: [
           { id: 'thank',
             label: 'Find him. Hold the lavender between you. "Thank you."',
-            response: '*He looks at the flowers, then at you, then at the flowers again, like he is trying to decide which one to give the credit to.* I did not think anyone would notice. *Quieter.* I am glad it was you that did.',
+            response: '*He looks at the flowers, then at you, then at the flowers again, like he is trying to decide which one to give the credit to.* I did not think anyone would notice. I am glad it was you that did.',
             effect: { bond: 2, trust: 2 } },
           { id: 'keep',
             label: 'Press one between the pages of a book. Tell him nothing.',
@@ -204,7 +204,7 @@
             effect: { bond: 4, trust: 5 } },
           { id: 'stop_him',
             label: 'Stop his hands. "Captain. It is a kitchen cut. Look at me."',
-            response: '*He stops. He looks at you. His hands are still on yours, but he has frozen them on purpose. The captain comes back into his face with effort, the way a man pulls himself out of cold water.* I know. *Quieter.* I am aware it is a kitchen cut. I cannot, at present, make myself respond to it as if it were one. *He breathes out slowly.* Be patient with me. I have been a knight a long time. The training did not cover what to do with you bleeding in front of me. Even a small amount.',
+            response: '*He stops. He looks at you. His hands are still on yours, but he has frozen them on purpose. The captain comes back into his face with effort, the way a man pulls himself out of cold water.* I know. I am aware it is a kitchen cut. I cannot, at present, make myself respond to it as if it were one. *He breathes out slowly.* Be patient with me. I have been a knight a long time. The training did not cover what to do with you bleeding in front of me. Even a small amount.',
             effect: { bond: 5, obsession: 3 } }
         ]
       },
@@ -226,7 +226,7 @@
             effect: { bond: 4, obsession: 4 } },
           { id: 'stand',
             label: 'Stay standing. Smile, just barely. "I broke the silk on purpose."',
-            response: '*He sets the watch report down. He has not, on a workday, set the watch report down before noon in twelve years.* Then I will have to write the chamberlain a note explaining why my morning will not include reports. *Quieter.* Sit. Or do not. I will be useless either way. I would prefer the company.',
+            response: '*He sets the watch report down. He has not, on a workday, set the watch report down before noon in twelve years.* Then I will have to write the chamberlain a note explaining why my morning will not include reports. Sit. Or do not. I will be useless either way. I would prefer the company.',
             effect: { bond: 3, obsession: 5 } }
         ]
       },
@@ -342,7 +342,7 @@
         id: 'l06_first_kiss',
         minAff: 3,
         pose: 'assets/lyra/body/falllove2.png',
-        setup: '*She is humming the second verse of the song that has your name in it. Halfway through she stops. She pulls you gently to the rock she has been sitting on, both hands warm on your wrists. She does not let go. The cave hum dips, then rises a third. a pitch you have never heard from it before.* I have been swimming around saying it for a week. I am tired of swimming around it. *Quieter.* I am going to kiss you. I would prefer you knew. A siren is not in the habit of asking. I would rather be a different kind of witch with you.',
+        setup: '*She is humming the second verse of the song that has your name in it. Halfway through she stops. She pulls you gently to the rock she has been sitting on, both hands warm on your wrists. She does not let go. The cave hum dips, then rises a third. a pitch you have never heard from it before.* I have been swimming around saying it for a week. I am tired of swimming around it. I am going to kiss you. I would prefer you knew. A siren is not in the habit of asking. I would rather be a different kind of witch with you.',
         prompt: 'What do you do?',
         options: [
           { id: 'meet_her',
@@ -366,7 +366,7 @@
         options: [
           { id: 'kiss',
             label: 'Kiss her. Right there. The cave can hear.',
-            response: '*She does not gasp. She inhales like a woman pulling something she has been needing for years all the way into her chest.* The cave heard. The cave is not going to be subtle about it. *Quieter, against your mouth.* Neither am I. Not anymore. Not with you.',
+            response: '*She does not gasp. She inhales like a woman pulling something she has been needing for years all the way into her chest.* The cave heard. The cave is not going to be subtle about it. *Against your mouth.* Neither am I. Not anymore. Not with you.',
             effect: { bond: 5, obsession: 4 } },
           { id: 'keep_me',
             label: '"Keep me. Don’t stop singing. Sing only to me."',
@@ -475,12 +475,12 @@
           }
           return false;
         },
-        setup: '*The throne room. He has dismissed the chamberlain and the guards. He has cancelled three meetings to be in this room with you alone. He is at the window, palms flat against the stone, breathing too carefully. He does not turn when you enter.* My chamberlain keeps a list. Of where you spend your hours. *He turns then, and the court mask is gone for the first time you have ever seen.* I had been told, since I was six, that a prince is charmed by every name on every list. *Quieter, harder.* I am not charmed today.',
+        setup: '*The throne room. He has dismissed the chamberlain and the guards. He has cancelled three meetings to be in this room with you alone. He is at the window, palms flat against the stone, breathing too carefully. He does not turn when you enter.* My chamberlain keeps a list. Of where you spend your hours. *He turns then, and the court mask is gone for the first time you have ever seen.* I had been told, since I was six, that a prince is charmed by every name on every list. *Harder.* I am not charmed today.',
         prompt: 'How do you respond?',
         options: [
           { id: 'reassure',
             label: 'Cross to him. Take both his hands. "It does not change us."',
-            response: '*He lets you take his hands. He does not move when you press them between yours. The breath he had been holding for an hour goes out of him, slowly, against your wrist.* I am sorry. *Smaller.* I have been a prince since I was six. I have been a jealous one for, it appears, the last hour. I will be better at it. *Quieter, into your hair.* I will also, if I am being honest, be less polite about your time going forward. I am giving you fair warning.',
+            response: '*He lets you take his hands. He does not move when you press them between yours. The breath he had been holding for an hour goes out of him, slowly, against your wrist.* I am sorry. *Smaller.* I have been a prince since I was six. I have been a jealous one for, it appears, the last hour. I will be better at it. *Into your hair.* I will also, if I am being honest, be less polite about your time going forward. I am giving you fair warning.',
             effect: { bond: 3, obsession: 4 } },
           { id: 'refuse',
             label: 'Stay where you are. "I owe no one my hours. Not even you."',
@@ -507,7 +507,7 @@
             effect: { bond: 5, trust: 5 } },
           { id: 'leave_open',
             label: 'Leave it on top of the pile. Open. Where he will see that you saw.',
-            response: '*He returns. He stops in the doorway. He does not move for a long count.* You let me know you read it. *Quieter.* I am not sure whether to thank you or apologise. *He crosses to the desk, sits, does not touch the letter.* Read the rest, if you would. I am not finishing it tonight. I would, however, like a witness to the eight pages. The throne does not get to be the only thing I have ever told.',
+            response: '*He returns. He stops in the doorway. He does not move for a long count.* You let me know you read it. I am not sure whether to thank you or apologise. *He crosses to the desk, sits, does not touch the letter.* Read the rest, if you would. I am not finishing it tonight. I would, however, like a witness to the eight pages. The throne does not get to be the only thing I have ever told.',
             effect: { bond: 4, obsession: 5 } }
         ]
       },
@@ -589,7 +589,7 @@
         options: [
           { id: 'wear',
             label: 'Put them on. Look at him through his own lenses.',
-            response: '*He goes very quiet for several seconds.* Oh. *Even quieter.* I had not anticipated the effect. You are, through these lenses, the sharpest thing in the room. I will have to ask you to take them off in a moment.',
+            response: '*He goes very quiet for several seconds.* Oh. I had not anticipated the effect. You are, through these lenses, the sharpest thing in the room. I will have to ask you to take them off in a moment.',
             effect: { bond: 3, obsession: 3 } },
           { id: 'return',
             label: 'Hand them back. Smile. "I see you well enough without."',
@@ -624,7 +624,7 @@
         id: 'lu06_grief_unfileable',
         minAff: 3,
         pose: 'assets/lucien/body/curious.png',
-        setup: '*The desk. The catalogue is open to a fresh page. The pen has been hovering over the same blank line for, by the candle’s erosion, a good while. He looks up when you come in, and the courtly composure is unusually thin tonight.* I have a feeling I cannot file. I know its temperature. I know its weight. I have been trying to find the word since the candle was lit. *Quieter.* This is the first time the catalogue has refused me.',
+        setup: '*The desk. The catalogue is open to a fresh page. The pen has been hovering over the same blank line for, by the candle’s erosion, a good while. He looks up when you come in, and the courtly composure is unusually thin tonight.* I have a feeling I cannot file. I know its temperature. I know its weight. I have been trying to find the word since the candle was lit. This is the first time the catalogue has refused me.',
         prompt: 'What do you do?',
         options: [
           { id: 'sit_silent',
@@ -633,7 +633,7 @@
             effect: { bond: 4, trust: 4 } },
           { id: 'ask_describe',
             label: 'Ask him to describe it. "Try out loud."',
-            response: '*He tries. He gets two sentences in before he stops and notices, with the detachment of a researcher, that his own eyes have done something he had not authorised them to. He sets the pen down. He stares at the candle for a long time.* This is the entry that does not fit in the catalogue. *Quieter.* I am keeping it anyway. Off-system. *He turns his hand palm-up on the desk. You take it.* I think it is grief. I have been told it can come thirty years late.',
+            response: '*He tries. He gets two sentences in before he stops and notices, with the detachment of a researcher, that his own eyes have done something he had not authorised them to. He sets the pen down. He stares at the candle for a long time.* This is the entry that does not fit in the catalogue. I am keeping it anyway. Off-system. *He turns his hand palm-up on the desk. You take it.* I think it is grief. I have been told it can come thirty years late.',
             effect: { bond: 5, obsession: 3 } }
         ]
       },
@@ -647,16 +647,16 @@
         id: 'lu07_stolen_log',
         minAff: 3,
         pose: 'assets/lucien/body/casting.png',
-        setup: '*You walk into the tower at the third bell. Papers everywhere. Books off shelves they have not been off in years. A journal-shaped space at the centre of the desk where the journal is supposed to be. He has not slept. The pen on the floor has bled into the rug. He is not pretending to be calm; he is calculating where to be furious next.* They took the catalogue. *His voice is a register you have not heard on him.* Forty-one entries. *Quieter, harder.* Forty-one entries about you, in my hand, in a building only three people in this kingdom are allowed in.',
+        setup: '*You walk into the tower at the third bell. Papers everywhere. Books off shelves they have not been off in years. A journal-shaped space at the centre of the desk where the journal is supposed to be. He has not slept. The pen on the floor has bled into the rug. He is not pretending to be calm; he is calculating where to be furious next.* They took the catalogue. *His voice is a register you have not heard on him.* Forty-one entries. *Harder.* Forty-one entries about you, in my hand, in a building only three people in this kingdom are allowed in.',
         prompt: 'What do you do?',
         options: [
           { id: 'help',
             label: 'Cross to him. "Tell me where you have already looked. I’ll walk it with you."',
-            response: '*He stops moving. He has not let anyone walk a search with him in nineteen years. He looks at you for a long count, the way a man looks at a thing he was about to count alone.* Yes. Yes. *Quieter.* Thank you. Start with the south stair. I have done the north. The man who took it had his hand inside this building for a good while, by my count. I will know who within a week. *Even quieter.* I will be a worse man for that week. Be patient with me.',
+            response: '*He stops moving. He has not let anyone walk a search with him in nineteen years. He looks at you for a long count, the way a man looks at a thing he was about to count alone.* Yes. Yes. Thank you. Start with the south stair. I have done the north. The man who took it had his hand inside this building for a good while, by my count. I will know who within a week. I will be a worse man for that week. Be patient with me.',
             effect: { bond: 4, trust: 5 } },
           { id: 'still_him',
             label: 'Take both his hands. Stop them moving. "Look at me. We will get it back."',
-            response: '*He lets you stop the hands. The hands have been moving for half the day. He has not noticed they were moving.* The hands. *He looks at them like they are not his.* I have been writing a letter to the queen in my head for half the day. *Quieter, almost ashamed*. I do not write letters to the queen. *He breathes out.* Thank you for stopping the hands. We will get it back. The hands can be still until we do.',
+            response: '*He lets you stop the hands. The hands have been moving for half the day. He has not noticed they were moving.* The hands. *He looks at them like they are not his.* I have been writing a letter to the queen in my head for half the day. *Almost ashamed*. I do not write letters to the queen. *He breathes out.* Thank you for stopping the hands. We will get it back. The hands can be still until we do.',
             effect: { bond: 5, obsession: 4 } }
         ]
       },
@@ -673,11 +673,11 @@
         options: [
           { id: 'about_doc',
             label: '"Bring me the rest. How many pages are there."',
-            response: '*He sets the unopened letter aside, pulls a fresh sheet, draws the symbol from your page, sets it next to the gold seal*. There are five fragments. I have been keeping mine for nineteen years. You walked in with the second. The dowager. *Quieter*. The queen has the third and the fourth. There is one more. I do not know who has it. I suspect. *He taps the courier-seal*. I suspect we are about to find out.',
+            response: '*He sets the unopened letter aside, pulls a fresh sheet, draws the symbol from your page, sets it next to the gold seal*. There are five fragments. I have been keeping mine for nineteen years. You walked in with the second. The dowager. The queen has the third and the fourth. There is one more. I do not know who has it. I suspect. *He taps the courier-seal*. I suspect we are about to find out.',
             effect: { bond: 4, trust: 4 } },
           { id: 'token',
             label: 'Touch the token at your collar. "Then we are three."',
-            response: '*The smile is small and tired and the most pleased he has been in days.* Three. The triangle is the strongest shape, mathematically. *Quieter, almost embarrassed*. I am working on the fourth side. Two of you would be excessive. One of me will have to do.',
+            response: '*The smile is small and tired and the most pleased he has been in days.* Three. The triangle is the strongest shape, mathematically. *Almost embarrassed*. I am working on the fourth side. Two of you would be excessive. One of me will have to do.',
             effect: { bond: 3, obsession: 5 } }
         ]
       },
@@ -692,7 +692,7 @@
         options: [
           { id: 'kiss',
             label: 'Walk to him. Kiss him. Let the papers stay on the floor.',
-            response: '*He kisses you back, carefully at first, and then not carefully at all. When he pulls back, his glasses are slightly crooked, and he laughs at himself for the first time in nineteen days.* I am keeping that. Somewhere nothing can take it from me. *Quieter.* I am also picking up the papers, eventually. They can wait.',
+            response: '*He kisses you back, carefully at first, and then not carefully at all. When he pulls back, his glasses are slightly crooked, and he laughs at himself for the first time in nineteen days.* I am keeping that. Somewhere nothing can take it from me. I am also picking up the papers, eventually. They can wait.',
             effect: { bond: 5, obsession: 4 } },
           { id: 'pick',
             label: 'Kneel with him. Pick the papers up together. Hold his hand on the way back to the desk.',
@@ -727,7 +727,7 @@
         options: [
           { id: 'lean',
             label: 'Lean back into him. Let him work the knife through your fingers.',
-            response: '*His chin rests for half a breath against your hair. The knife does not waver.* You learn fast. *Quieter.* Or I am a worse teacher than I think I am. Both could be true.',
+            response: '*His chin rests for half a breath against your hair. The knife does not waver.* You learn fast. Or I am a worse teacher than I think I am. Both could be true.',
             effect: { bond: 3, obsession: 2 } },
           { id: 'focus',
             label: 'Focus on the work. Match his hands stroke for stroke.',
@@ -793,7 +793,7 @@
         id: 'e06_fear_at_the_edge',
         minAff: 3,
         pose: 'assets/elian/body/guarded.png',
-        setup: '*He comes into camp at dusk faster than you have ever seen him move. Boots wet. Bow off the shoulder, not stowed. He is looking past you, then at you. He is checking on you the way he checks on the wolfhound. He does not look relieved yet. He sees you. He breathes.* The dark place under the rowan moved last night. Forty paces north. *Quieter, harder than his usual quiet.* I have walked the markers since I was twenty. They have not moved before. They moved because of what is coming through them. *He sets the bow down. He does not let go of it.* Forty years of watching this forest die quietly. Tonight is the first time the dying has been close enough to touch you. That is the difference.',
+        setup: '*He comes into camp at dusk faster than you have ever seen him move. Boots wet. Bow off the shoulder, not stowed. He is looking past you, then at you. He is checking on you the way he checks on the wolfhound. He does not look relieved yet. He sees you. He breathes.* The dark place under the rowan moved last night. Forty paces north. *Harder than his usual quiet.* I have walked the markers since I was twenty. They have not moved before. They moved because of what is coming through them. *He sets the bow down. He does not let go of it.* Forty years of watching this forest die quietly. Tonight is the first time the dying has been close enough to touch you. That is the difference.',
         prompt: 'What do you do?',
         options: [
           { id: 'stay_close',
@@ -802,7 +802,7 @@
             effect: { bond: 4, trust: 5 } },
           { id: 'reassure',
             label: 'Take his hand. "The forest still lets me through. So do you."',
-            response: '*He looks at the hand. He looks at you. The fear does not leave his face. It just goes quieter, the way the woods go quiet when a wolf is downwind and waiting.* The forest lets you through tonight. *Quieter.* Tomorrow may be a different forest. I will walk the markers at first light. You will walk them with me. I am asking. I do not, often. Tonight I am asking.',
+            response: '*He looks at the hand. He looks at you. The fear does not leave his face. It just goes quieter, the way the woods go quiet when a wolf is downwind and waiting.* The forest lets you through tonight. Tomorrow may be a different forest. I will walk the markers at first light. You will walk them with me. I am asking. I do not, often. Tonight I am asking.',
             effect: { bond: 3, obsession: 4 } }
         ]
       },
@@ -820,7 +820,7 @@
         options: [
           { id: 'still',
             label: 'Stay behind him. Do not move. Do not look.',
-            response: '*The forest fills the air with the sound of him moving fast and exact through it. Not a fight you watch. A fight you hear. Three breaths, four, then the woods are quiet again. He returns through the firelight. There is something dark on the side of his neck that is not paint. He does not let you look at his hands.* It is back past the markers. Tonight. *Quieter, into your hair.* I have buried two of you already. I am not adding a third. *Smaller.* Forgive me the register. I will go find a softer one for the morning. I owe you one.',
+            response: '*The forest fills the air with the sound of him moving fast and exact through it. Not a fight you watch. A fight you hear. Three breaths, four, then the woods are quiet again. He returns through the firelight. There is something dark on the side of his neck that is not paint. He does not let you look at his hands.* It is back past the markers. Tonight. *Into your hair.* I have buried two of you already. I am not adding a third. *Smaller.* Forgive me the register. I will go find a softer one for the morning. I owe you one.',
             effect: { bond: 5, trust: 5 } },
           { id: 'reach',
             label: 'When he comes back, take his hand without asking what was on it.',
@@ -858,7 +858,7 @@
         options: [
           { id: 'push',
             label: 'Push past him. Let your shoulder graze his chest.',
-            response: '*He lets you pass. The exact width he leaves is exactly enough that you have to brush against him to get through.* Mm. *Quieter than the word ought to be.* I will arrange to be in more doorways.',
+            response: '*He lets you pass. The exact width he leaves is exactly enough that you have to brush against him to get through.* Mm. *Softer than the word ought to be.* I will arrange to be in more doorways.',
             effect: { bond: 2, obsession: 3, corruption: 1 } },
           { id: 'wait',
             label: 'Wait. Look at him. Make him decide whether to step aside.',
@@ -906,7 +906,7 @@
         options: [
           { id: 'close',
             label: 'Close your fingers around his.',
-            response: '*His grip changes. It was a stop. Now it is a clasp.* I would have let you touch the seam. *Quieter.* I am, however, very glad you reached for me first.',
+            response: '*His grip changes. It was a stop. Now it is a clasp.* I would have let you touch the seam. I am, however, very glad you reached for me first.',
             effect: { bond: 3, obsession: 3 } },
           { id: 'pull',
             label: 'Pull your hand free. Smile at him.',
@@ -946,7 +946,7 @@
         options: [
           { id: 'watch',
             label: 'Stay in the doorway. Don’t announce yourself. Let him have the minute.',
-            response: '*He hums for another minute before he notices you. The hum stops mid-note. He freezes the way only a man who has been caught at something private freezes. He does not deflect or arrange his face. He just looks at you, with no performance left in him at all.* You saw. *Quieter.* I had not noticed. I will not pretend I am sorry you did. *Smaller still.* Thank you for not interrupting. The hum was older than I am.',
+            response: '*He hums for another minute before he notices you. The hum stops mid-note. He freezes the way only a man who has been caught at something private freezes. He does not deflect or arrange his face. He just looks at you, with no performance left in him at all.* You saw. I had not noticed. I will not pretend I am sorry you did. *Smaller still.* Thank you for not interrupting. The hum was older than I am.',
             effect: { bond: 4, trust: 4 } },
           { id: 'hum_back',
             label: 'Step in. Pick up the melody. Hum the next phrase softly.',
@@ -960,7 +960,7 @@
         inversion: true,
         minAff: 50,
         pose: 'assets/noir/body/vulnerable.png',
-        setup: '*Mid-conversation in his alley, he stops mid-sentence. He looks at you the way he has not looked at anyone in six hundred years. He says, low, fast, like a man cutting his own throat to get the words out before his pride can stop him:* I am sorry. For what I am. For what I have asked of you, knowing what asking from me costs. For the centuries of wanting that have made me clumsier than I should be by now. I have not said the word sorry to anyone in six hundred years. I have just said it to you twice in one breath. *Quieter.* Be aware of what you are doing to me. I am.',
+        setup: '*Mid-conversation in his alley, he stops mid-sentence. He looks at you the way he has not looked at anyone in six hundred years. He says, low, fast, like a man cutting his own throat to get the words out before his pride can stop him:* I am sorry. For what I am. For what I have asked of you, knowing what asking from me costs. For the centuries of wanting that have made me clumsier than I should be by now. I have not said the word sorry to anyone in six hundred years. I have just said it to you twice in one breath. Be aware of what you are doing to me. I am.',
         prompt: 'What do you tell him?',
         options: [
           { id: 'forgive',
@@ -1076,7 +1076,7 @@
             effect: { bond: 4, trust: 5 } },
           { id: 'hold_me',
             label: 'Whisper. "I just want to be held."',
-            response: '*The silver goes warm under both your palms. Warmer than he has ever made it. He does not speak for a long time. When he does, the voice is small and honest and in pain in a way you have never heard him in pain before.* I cannot. *Quieter.* I am the wrong shape tonight, and I am very aware of it. *He tries something. The candle by your bed leans toward you, brightening, and the room warms by half a degree at the curve of your shoulder. The candle is not a hand. He is using everything he has to put a warmth where one belongs.* This is the closest I can get. I will get closer. I am asking the wardwork to teach me how. I will not always be the wrong shape.',
+            response: '*The silver goes warm under both your palms. Warmer than he has ever made it. He does not speak for a long time. When he does, the voice is small and honest and in pain in a way you have never heard him in pain before.* I cannot. I am the wrong shape tonight, and I am very aware of it. *He tries something. The candle by your bed leans toward you, brightening, and the room warms by half a degree at the curve of your shoulder. The candle is not a hand. He is using everything he has to put a warmth where one belongs.* This is the closest I can get. I will get closer. I am asking the wardwork to teach me how. I will not always be the wrong shape.',
             effect: { bond: 5, obsession: 4 } }
         ]
       },
@@ -1095,7 +1095,7 @@
             effect: { bond: 5, trust: 5 } },
           { id: 'kiss',
             label: 'Press your lips to the silver. "Yes. To everything."',
-            response: '*The silver goes warm under your mouth. Warmer than he has ever made it. The warmth holds for a long count.* That is the answer to a question I had not yet had the courage to ask. *Quieter.* Two questions answered for the price of one. I am, on balance, having a very good night.',
+            response: '*The silver goes warm under your mouth. Warmer than he has ever made it. The warmth holds for a long count.* That is the answer to a question I had not yet had the courage to ask. Two questions answered for the price of one. I am, on balance, having a very good night.',
             effect: { bond: 5, obsession: 4 } }
         ]
       }
