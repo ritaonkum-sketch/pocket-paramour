@@ -9834,6 +9834,15 @@
     proto: 'assets/proto/select-portrait.png'
   };
 
+  // Per-chapter thumbnail overrides (owner-supplied art). Take precedence over
+  // the per-character CHAR_PORTRAIT default so a specific chapter can show a
+  // specific piece. `pos` tunes the object-position of the cover-crop (these
+  // portraits have the face in the upper third, so bias the crop upward).
+  const CHAPTER_THUMB = {
+    6: { src: 'assets/elian/chapter-6-thumb.jpg', pos: 'center 20%' },
+    7: { src: 'assets/elian/chapter-7-thumb.jpg', pos: 'center 16%' }
+  };
+
   function openPage() {
     if (document.getElementById(PAGE_ID)) return;
     injectStyles();
@@ -10064,11 +10073,12 @@
         // castle is a bit high, we cannot see the top... lower a bit").
         img.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center 22%;';
         thumb.appendChild(img);
-      } else if (ch.charId && CHAR_PORTRAIT[ch.charId]) {
+      } else if (CHAPTER_THUMB[ch.id] || (ch.charId && CHAR_PORTRAIT[ch.charId])) {
+        const _ov = CHAPTER_THUMB[ch.id];
         const img = document.createElement('img');
-        img.src = CHAR_PORTRAIT[ch.charId];
-        img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
-        img.onerror = () => { thumb.textContent = ch.charId[0].toUpperCase(); };
+        img.src = _ov ? _ov.src : CHAR_PORTRAIT[ch.charId];
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;' + (_ov && _ov.pos ? 'object-position:' + _ov.pos + ';' : '');
+        img.onerror = () => { thumb.textContent = ch.charId ? ch.charId[0].toUpperCase() : '✦'; };
         thumb.appendChild(img);
       } else {
         // Glyph fallback for chapters with no character portrait. Numeric
