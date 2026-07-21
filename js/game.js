@@ -3590,7 +3590,18 @@ class PocketLoveGame {
         };
 
         const storyInfo = storyMilestones[this.affectionLevel];
-        if (storyInfo && !this.storyMilestonesShown.includes(storyInfo.key)) {
+        // STORY-GATED MILESTONES (owner): some big affection scenes must wait
+        // until the player has read a specific Main Story chapter, so the romance
+        // beat lands in step with the plot — e.g. Alistair's growingClose ("I took
+        // my gauntlets off... I think it's you") only after Chapter 2. If the gate
+        // isn't met we do NOT claim the milestone; it stays eligible and surfaces
+        // on a later affection tick once the chapter is read (the generic affection
+        // line in the else branch still speaks meanwhile so the moment isn't silent).
+        const MILESTONE_CHAPTER_GATE = { growingClose: 2 };
+        const _msGateCh = storyInfo ? MILESTONE_CHAPTER_GATE[storyInfo.key] : null;
+        let _msGateMet = true;
+        if (_msGateCh) { try { _msGateMet = localStorage.getItem('pp_chapter_done_' + _msGateCh) === '1'; } catch (_) { _msGateMet = false; } }
+        if (storyInfo && _msGateMet && !this.storyMilestonesShown.includes(storyInfo.key)) {
             this.storyMilestonesShown.push(storyInfo.key);
             // (Removed orphan 'pp_storymilestone_<char>_<key>' write
             //  May 2026 — comment claimed stories.js read it for archive
