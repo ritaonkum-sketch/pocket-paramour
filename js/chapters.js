@@ -249,10 +249,9 @@
             { type: 'line', speaker: '', text: 'Slowly, you realise you are still alive.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes open halfway. The canopy above you shifts strangely. Not wind. Something else.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your trembling hand lowers from your face. The cold has finally reached you. The fear has burned itself out.', hold: 3600, cps: 26 },
-            // Static rescue-clearing still (owner: removed the motion-CG video).
-            // Alistair in the silver-thread forest. Shows behind Sections 8–13,
-            // cleared at Section 14 (the horse).
-            { type: 'bg', url: 'assets/motion/ch1-rescue-still.jpg' },
+            // (Rescue-clearing knight image removed — owner: "remove this out of
+            //  chapter 1." Sections 8–13 now play over the plain palette bg like
+            //  the rest of the chapter, no full-body knight standee.)
             { type: 'line', speaker: '', text: 'A man stands over the fallen creature. Red cloak. Sword lowered at his side.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet. Not soot-black. Absence-black. It curls toward the trees in thin ribbons. Like it wants to go home.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'The man watches the smoke instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
@@ -326,9 +325,6 @@
             { type: 'line', text: 'A wound, mi’lady.', hold: 2200, cps: 28 },
 
             // ─── Section 14 · The horse ──────────────────────────────────
-            // Scene leaves the clearing — clear the motion-CG back to
-            // the chapter's palette gradient.
-            { type: 'bg', url: null },
             { type: 'line', speaker: '', text: 'At the treeline waits a horse, reins looped over a low branch. It lifts its head as he approaches. Calm.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'He settles you against the saddle and swings up behind you. One arm braced around your ribs as he gathers the reins.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'You are suddenly aware of his warmth. You have not been warm since waking.', hold: 3000, cps: 26 },
