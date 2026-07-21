@@ -260,7 +260,9 @@ const GALLERY_CARDS = [
         subtitle: "When the castle sleeps...",
         image: "assets/gallery/card-bedroom.png",
         rarity: "rare",
-        unlock: { type: "bond", value: 90, condition: "Reach 90+ bond" }
+        // Owner: gate this behind reading Chapter 4 (was a care-bond threshold
+        // that a diligent player crosses inside Day 1).
+        unlock: { type: "chapter", chapter: 4, condition: "Read Chapter 4" }
     },
     {
         id: "heart-unveiled",
