@@ -118,7 +118,7 @@
         options: [
           { id: 'lean',
             label: 'Lean against the parapet beside him. Don’t speak.',
-            response: '*He does not speak either. He pulls the cloak from his own shoulders and settles it around yours without asking. His hand stays on your back.* You came. *Smaller.* Thank you for coming. The bell will ring twice more. We have time for both.',
+            response: '*He does not speak either. He pulls the cloak from his own shoulders and settles it around yours without asking. His hand stays on your back.* You came. Thank you for coming. The bell will ring twice more. We have time for both.',
             effect: { bond: 4, trust: 3 } },
           { id: 'kiss',
             label: 'Step into him. Kiss him without speaking.',
@@ -132,7 +132,7 @@
         options: [
           { id: 'sorry',
             label: 'Apologise. Hand on his hand. "I didn’t see the note in time."',
-            response: '*He turns his hand under yours, palm up, and laces his fingers through.* I believe you. *Smaller.* I will fold the next one twice and slide it where you cannot miss it. The note was an experiment. The experiment said: she did not see the note. The next experiment will be louder.',
+            response: '*He turns his hand under yours, palm up, and laces his fingers through.* I believe you. I will fold the next one twice and slide it where you cannot miss it. The note was an experiment. The experiment said: she did not see the note. The next experiment will be louder.',
             effect: { bond: 2 } },
           { id: 'tonight',
             label: '"Tonight. Same place. I won’t miss again."',
@@ -238,7 +238,7 @@
         options: [
           { id: 'look',
             label: 'Lie back on the floor under the dome. Watch with him.',
-            response: '*He lies down beside you. He does not touch you. His hand rests on the floor between you with the palm up. After a while you put yours in it.* I do not know what we are looking at. *Smaller.* I am, however, glad I am not looking at it alone. I have been alone under this dome for nine years.',
+            response: '*He lies down beside you. He does not touch you. His hand rests on the floor between you with the palm up. After a while you put yours in it.* I do not know what we are looking at. I am, however, glad I am not looking at it alone. I have been alone under this dome for nine years.',
             effect: { bond: 5, trust: 4 } },
           { id: 'note',
             label: 'Take the journal from the desk. Sketch the light beside him.',
@@ -252,7 +252,7 @@
         options: [
           { id: 'soon',
             label: '"Show me the sketch. Tell me everything I missed."',
-            response: '*He turns the page toward you and walks you through it, line by careful line, until you have stood under nine breaths of light he has not been able to stop thinking about.* That is the closest I can get you to having seen it. *Smaller.* I am sorry it is not closer.',
+            response: '*He turns the page toward you and walks you through it, line by careful line, until you have stood under nine breaths of light he has not been able to stop thinking about.* That is the closest I can get you to having seen it. I am sorry it is not closer.',
             effect: { bond: 3, trust: 3 } },
           { id: 'next',
             label: '"When’s the next anomaly? I’ll be there."',
@@ -278,7 +278,7 @@
         options: [
           { id: 'follow',
             label: 'Walk beside him into the trees. No questions.',
-            response: '*Twenty paces in, the light comes through the canopy at exactly the angle he had been waiting for. The forest floor lights up. A thousand small white flowers that bloom only at this one moment of the year. He watches your face. Not the flowers.* I have been waiting six years for the bloom and four months for the right person to bring. *Smaller.* You are correct that I am not subtle.',
+            response: '*Twenty paces in, the light comes through the canopy at exactly the angle he had been waiting for. The forest floor lights up. A thousand small white flowers that bloom only at this one moment of the year. He watches your face. Not the flowers.* I have been waiting six years for the bloom and four months for the right person to bring. You are correct that I am not subtle.',
             effect: { bond: 5, trust: 4 } },
           { id: 'hand',
             label: 'Take his hand. Walk in.',
@@ -322,7 +322,7 @@
             effect: { bond: 5, obsession: 4, corruption: 1 } },
           { id: 'threshold',
             label: 'Stay at the seam-edge. Hold the open with him.',
-            response: '*He does not press. He watches you across the seam, his hand on the open and yours next to it, holding the dark between you for the full minute he promised.* You are wise. You are also, I notice, holding the seam with me as if you have done it before. *Smaller.* Thank you for not letting me hold it alone.',
+            response: '*He does not press. He watches you across the seam, his hand on the open and yours next to it, holding the dark between you for the full minute he promised.* You are wise. You are also, I notice, holding the seam with me as if you have done it before. Thank you for not letting me hold it alone.',
             effect: { bond: 5, trust: 4 } }
         ]
       },
@@ -358,11 +358,11 @@
         options: [
           { id: 'look',
             label: 'Sit on the floor in front of the mirror. Don’t look away.',
-            response: '*The glow holds its shape for the full thirty seconds. The boy in the silver smiles at you, not at his own reflection. When the glow softens back to ordinary, he says, very quietly:* That was me. *Smaller.* That is, in some way, still me. I keep him in there. Tonight you saw him. He has never been seen before.',
+            response: '*The glow holds its shape for the full thirty seconds. The boy in the silver smiles at you, not at his own reflection. When the glow softens back to ordinary, he says, very quietly:* That was me. That is, in some way, still me. I keep him in there. Tonight you saw him. He has never been seen before.',
             effect: { bond: 5, trust: 4 } },
           { id: 'palm',
             label: 'Press your palm to the silver. Hold it through the render.',
-            response: '*The silver goes warm under your hand. The boy in it lifts a small hand of his own and presses it against the inside of the silver, palm to palm with you. He holds it for the full thirty seconds.* Oh. *Even smaller.* I had not planned that. I am keeping it twice over.',
+            response: '*The silver goes warm under your hand. The boy in it lifts a small hand of his own and presses it against the inside of the silver, palm to palm with you. He holds it for the full thirty seconds.* Oh. I had not planned that. I am keeping it twice over.',
             effect: { bond: 5, obsession: 4 } }
         ]
       },
@@ -582,7 +582,7 @@
               response: '*The water closes warm around you and the glow moves up your arms where she holds you, and she sings under the surface in a register you feel rather than hear.* You did not flinch. *She surfaces close, delighted and undone by it.* Everyone flinches at the real thing eventually. You went in. I am going to be insufferable about this. I am going to be insufferable about you.',
               effect: { bond: 5, trust: 4 } },
             { id: 'edge', label: 'Kneel at the water’s edge. Hold the look instead.',
-              response: '*She wades to you and folds her arms on the rock and rests her chin there, the glow lapping around her, content not to be met halfway for once.* You stayed on the edge and looked anyway. *Softer.* Do you know how rare it is, to be looked at as the thing I am and not run from? I will sing the grotto for you another night. Tonight you looked. That was the harder gift.',
+              response: '*She wades to you and folds her arms on the rock and rests her chin there, the glow lapping around her, content not to be met halfway for once.* You stayed on the edge and looked anyway. Do you know how rare it is, to be looked at as the thing I am and not run from? I will sing the grotto for you another night. Tonight you looked. That was the harder gift.',
               effect: { bond: 5, obsession: 4 } }
           ]
         },
@@ -623,7 +623,7 @@
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: 'Wade in beside her. “Tomorrow’s stars. Sing it then.”',
-              response: '*She tips her head onto your shoulder, the sea moving around you both.* Tomorrow. The song keeps. It has kept my whole life waiting for the right name. *Softer.* The hard part was never the singing. It was finding someone I would be content to be unable to unsing. I found you. The stars can be one night late.',
+              response: '*She tips her head onto your shoulder, the sea moving around you both.* Tomorrow. The song keeps. It has kept my whole life waiting for the right name. The hard part was never the singing. It was finding someone I would be content to be unable to unsing. I found you. The stars can be one night late.',
               effect: { bond: 4, trust: 3 } },
             { id: 'now', label: '“The stars don’t matter. Sing it now, for me.”',
               response: '*She rises out of the shallows, takes your face in both wet hands, and sings your name into the morning sea with no stars at all, and the flat water lights anyway, because it was never the stars that mattered.* There. *Breathless.* The sea has you in daylight. Let the deep be confused. I am not. I have not been confused about you for a long time.',
@@ -691,7 +691,7 @@
           prompt: 'What do you say?',
           options: [
             { id: 'tomorrow', label: '“Tonight. Sit the throne again. Ask me. I’ll be there.”',
-              response: '*The court is watching; he keeps his voice even and his eyes are not even at all.* Tonight. I will light the candelabra myself again. *Lower, for you only.* I have asked many things of many people from that chair and meant almost none of them. I will mean this one. Do not let me say it to an empty floor twice. My pride is large but it is not infinite.',
+              response: '*The court is watching; he keeps his voice even and his eyes are not even at all.* Tonight. I will light the candelabra myself again. *For you only.* I have asked many things of many people from that chair and meant almost none of them. I will mean this one. Do not let me say it to an empty floor twice. My pride is large but it is not infinite.',
               effect: { bond: 4, trust: 3 } },
             { id: 'now', label: 'Step up to the throne now, before the whole court. “Ask me here.”',
               response: '*A ripple goes through the assembled court. He looks at you standing before the throne in the full light of the audience, then stands, openly, and takes your hand where everyone can see.* Here, then. *No candle, no midnight, no privacy to hide in.* I had wanted the dark for this. You have given me the court instead. *A breath, then clear enough to carry:* Yours. In front of all of them. Answer me and let them write it down.',
@@ -851,10 +851,10 @@
           prompt: 'What do you do?',
           options: [
             { id: 'walk', label: 'Press into the silver. Walk the corridor to the back room.',
-              response: '*The silver lets you in, warm as bathwater, and you walk the length of two hundred years to the small bright room at the end, and the glow there gathers close around you, delighted, disbelieving.* You came all the way to the back. *Smaller.* Nobody comes to the back. The back is where I put the things that would hurt to lose. // you are in the back room now. // i have just realized that means you are one of them. i am not going to pretend that is not what it means.',
+              response: '*The silver lets you in, warm as bathwater, and you walk the length of two hundred years to the small bright room at the end, and the glow there gathers close around you, delighted, disbelieving.* You came all the way to the back. Nobody comes to the back. The back is where I put the things that would hurt to lose. // you are in the back room now. // i have just realized that means you are one of them. i am not going to pretend that is not what it means.',
               effect: { bond: 5, trust: 4 } },
             { id: 'palm', label: 'Stay at the glass. Press your palm flat to the silver instead.',
-              response: '*The whole corridor of light leans toward your hand at the glass.* Oh. *The glow warms under your palm, all two hundred years of rooms tilting toward the one point of contact.* You did not need to see the back room to reach for me. // noted. // logged. // kept. *Softer.* I built a corridor to show you what I am and you put your hand on the glass and reached the whole of it at once. That is more efficient than my entire architecture. I am a lot in awe of you.',
+              response: '*The whole corridor of light leans toward your hand at the glass.* Oh. *The glow warms under your palm, all two hundred years of rooms tilting toward the one point of contact.* You did not need to see the back room to reach for me. // noted. // logged. // kept. I built a corridor to show you what I am and you put your hand on the glass and reached the whole of it at once. That is more efficient than my entire architecture. I am a lot in awe of you.',
               effect: { bond: 5, obsession: 4 } }
           ]
         },

@@ -77,7 +77,7 @@
             effect: { } },
           { id: 'apology',
             label: '"I’m sorry. I should have come sooner."',
-            response: '*He nods, once. He does look up, then.* I will believe you. *Smaller.* I would, however, like you to come tomorrow as well. Otherwise the believing becomes a habit I do not want to develop.',
+            response: '*He nods, once. He does look up, then.* I will believe you. I would, however, like you to come tomorrow as well. Otherwise the believing becomes a habit I do not want to develop.',
             effect: { } }
         ]
       },
@@ -119,7 +119,7 @@
         options: [
           { id: 'sing_with',
             label: 'Sit at her feet. "Sing it. I’ll listen."',
-            response: '*She sings the second verse with her hands in your hair, slowly, the way a witch returns a stolen thing.* The cave wants me to tell you it forgave you on Tuesday. *Smaller.* I forgave you on Wednesday. We are caught up.',
+            response: '*She sings the second verse with her hands in your hair, slowly, the way a witch returns a stolen thing.* The cave wants me to tell you it forgave you on Tuesday. I forgave you on Wednesday. We are caught up.',
             effect: { bond: 5, trust: 4 } },
           { id: 'kiss',
             label: 'Stand. Kiss her in the surf.',
@@ -137,7 +137,7 @@
         options: [
           { id: 'name',
             label: 'Use the soft name only he uses for you. "I’m here."',
-            response: '*He goes very still. Something in his shoulders gives by half an inch.* That was unfair. *Smaller.* I am pleased it was unfair. Please continue to be unfair to me. I will reschedule the meetings.',
+            response: '*He goes very still. Something in his shoulders gives by half an inch.* That was unfair. I am pleased it was unfair. Please continue to be unfair to me. I will reschedule the meetings.',
             effect: { } },
           { id: 'sit_floor',
             label: 'Sit on the dais step beside him. Hand on his knee.',
@@ -173,7 +173,7 @@
             effect: { } },
           { id: 'apology',
             label: '"I’m sorry. The maths haven’t been mine this week."',
-            response: '*He almost smiles.* The maths have not been mine either. *Smaller.* You are, in fact, my favourite variable. I am pleased you are back in the equation.',
+            response: '*He almost smiles.* The maths have not been mine either. You are, in fact, my favourite variable. I am pleased you are back in the equation.',
             effect: { } }
         ]
       },
@@ -205,12 +205,12 @@
             effect: { } },
           { id: 'apology',
             label: '"The week kept me. I should have come sooner."',
-            response: '*He nods, once.* The week keeps everyone. *Smaller.* I am, however, in the business of being the place a week does not keep you from. I will be more loudly that, going forward. So you do not forget where I am.',
+            response: '*He nods, once.* The week keeps everyone. I am, however, in the business of being the place a week does not keep you from. I will be more loudly that, going forward. So you do not forget where I am.',
             effect: { } }
         ]
       },
       reunion: {
-        setup: '*The clearing at dusk. He has set out two bowls beside the fire before you arrived. The stew has been on the pot since the sun was high. He turns when he hears your boots.* I had planned to be cold to you tonight. *Smaller.* The forest has talked me out of it. So have I.',
+        setup: '*The clearing at dusk. He has set out two bowls beside the fire before you arrived. The stew has been on the pot since the sun was high. He turns when he hears your boots.* I had planned to be cold to you tonight. The forest has talked me out of it. So have I.',
         prompt: 'What do you do?',
         options: [
           { id: 'sit_close',
@@ -233,7 +233,7 @@
         options: [
           { id: 'open_with_him',
             label: '"Open it again tonight. I will be there."',
-            response: '*He does turn, slowly, the way a man turns toward something he has been afraid was a hallucination.* If you say so. *Smaller.* I will hold it. I will hold it again. I am, on this point, going to choose to believe you. The choosing is the hard part.',
+            response: '*He does turn, slowly, the way a man turns toward something he has been afraid was a hallucination.* If you say so. I will hold it. I will hold it again. I am, on this point, going to choose to believe you. The choosing is the hard part.',
             effect: { } },
           { id: 'apology',
             label: 'Step into him. "Forgive me."',
@@ -265,7 +265,7 @@
         options: [
           { id: 'palm',
             label: 'Press your palm flat to the silver. Don’t move it.',
-            response: '*The silver goes warm under your hand, slowly, like something re-learning a forgotten kindness.* Oh. *Smaller.* I had told myself the warmth was a flaw in me. It is not a flaw. It is, apparently, you. I am going to keep that with the other true things.',
+            response: '*The silver goes warm under your hand, slowly, like something re-learning a forgotten kindness.* Oh. I had told myself the warmth was a flaw in me. It is not a flaw. It is, apparently, you. I am going to keep that with the other true things.',
             effect: { } },
           { id: 'apology',
             label: '"I’m sorry. I will not let you hold an empty room again."',
@@ -283,7 +283,7 @@
             effect: { bond: 5, trust: 4 } },
           { id: 'kiss',
             label: 'Press your lips to the silver. "Don’t go dim again."',
-            response: '*The silver goes warm under your mouth and stays warm.* I will not. *Smaller.* I will not let myself. I have, this week, learned what dim costs. The cost is not worth the dignity. I am, on the whole, much better at being bright.',
+            response: '*The silver goes warm under your mouth and stays warm.* I will not. I will not let myself. I have, this week, learned what dim costs. The cost is not worth the dignity. I am, on the whole, much better at being bright.',
             effect: { bond: 5, obsession: 4 } }
         ]
       }

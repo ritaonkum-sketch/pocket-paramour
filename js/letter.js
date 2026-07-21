@@ -1868,7 +1868,7 @@
                             signature: '— A.',
                             paragraphs: [
                                 `You wrote "Captain." I felt it in the candle wax before I read the ink. *Small.* I have been Captain to a thousand men. Tonight it sounded different.`,
-                                `I would like to make Sundays a thing between us. A precedent. A knight without armour at sunset, on the wall, with you. Will you say yes? *Softer.* Of course you will. You already did.`
+                                `I would like to make Sundays a thing between us. A precedent. A knight without armour at sunset, on the wall, with you. Will you say yes? Of course you will. You already did.`
                             ]
                         }
                     },

@@ -101,7 +101,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/sad3.png',
                 direction: 'Her eyes drop to the water. When they rise the centuries-patience is gone. Just her, asking.',
-                line: "I have been calling you *Little listener* in my head. It is gentle, but it is not a name. Tell me what to call you. Out loud. *Softer* So when I sing, I can sing it."
+                line: "I have been calling you *Little listener* in my head. It is gentle, but it is not a name. Tell me what to call you. Out loud. So when I sing, I can sing it."
             }
         ],
         postNameBeats: [
@@ -150,7 +150,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/elian/body/calm.png',
                 direction: 'His eyes drop to the embers. When they rise, the careful assessment has gone soft.',
-                line: "Tell me what to call you. Out loud, once. *Softer* The forest remembers names spoken kindly. I would like it to learn yours."
+                line: "Tell me what to call you. Out loud, once. The forest remembers names spoken kindly. I would like it to learn yours."
             }
         ],
         postNameBeats: [
@@ -187,7 +187,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/caspian/body/casual1.png',
                 direction: 'A small, formal bow from his seat. Half-mocking the convention, half-meaning it.',
-                line: "Caspian, of Aethermoor. Crown prince by birth, slightly less by inclination. *Softer* A man, mostly, when no one is watching."
+                line: "Caspian, of Aethermoor. Crown prince by birth, slightly less by inclination. A man, mostly, when no one is watching."
             },
             {
                 body: 'assets/caspian/body/tender.png',
@@ -275,7 +275,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/neutral.png',
                 direction: 'You wake to a room you do not remember entering. Soft grey morning light. He is sitting in a chair across from the bed, fully dressed, hands folded. Like he has been waiting six hundred years and one night extra.',
-                line: "You are awake. *Quiet, no theatre* I did not move while you slept. *Softer* You should know that. Some things matter more than they should."
+                line: "You are awake. *Quiet, no theatre* I did not move while you slept. You should know that. Some things matter more than they should."
             },
             {
                 body: 'assets/noir/body/whisper.png',
@@ -285,7 +285,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/neutral.png',
                 direction: 'A small bow from his seat. Old-court formal. The bow of a king nobody has bowed to in six centuries.',
-                line: "Noir. Once Nocthera, a long time ago, of a kingdom the maps no longer print. A man, mostly. A waiting one, recently. *Softer* You shortened the wait."
+                line: "Noir. Once Nocthera, a long time ago, of a kingdom the maps no longer print. A man, mostly. A waiting one, recently. You shortened the wait."
             },
             {
                 body: 'assets/noir/body/seductive.png',
