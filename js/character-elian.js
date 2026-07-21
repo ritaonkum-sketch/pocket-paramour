@@ -340,7 +340,7 @@ const CHARACTER_ELIAN = {
         },
         firstTrust: {
             trigger: { affectionLevel: 1 },
-            dialogue: "The wood does not give its trust to everyone who wanders in. Neither do I. It has decided about you. Quietly, so have I.",
+            dialogue: "The wood does not give its trust to everyone who wanders in. Neither do I. It has decided about you. So have I.",
             emotion: "shy"
         },
         growingClose: {
