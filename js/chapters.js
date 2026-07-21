@@ -9428,6 +9428,8 @@
         letter-spacing: var(--ls-wider);
         text-transform: uppercase;
         color: var(--c-ink-mute);
+        /* Dark halo so "2 OF 34" reads over the bright moon in the bg (owner polish). */
+        text-shadow: 0 1px 5px rgba(6,2,10,0.85);
       }
       #${PAGE_ID} .chp-progress-next {
         font-family: var(--font-serif);
@@ -9436,6 +9438,7 @@
         letter-spacing: var(--ls-base);
         text-transform: none;
         color: var(--c-accent-gold);
+        text-shadow: 0 1px 6px rgba(6,2,10,0.85), 0 1px 2px rgba(0,0,0,0.6);
         max-width: 60%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -9461,7 +9464,10 @@
         font-size: var(--text-sm);
         line-height: var(--lh-base);
         text-align: center;
-        color: var(--c-ink-mute);
+        /* Brighter + a dark halo so it reads over the bright moon in the bg
+           (owner polish: was low-contrast grey sitting on the glow). */
+        color: rgba(228, 216, 234, 0.92);
+        text-shadow: 0 1px 6px rgba(6,2,10,0.9), 0 0 3px rgba(0,0,0,0.7);
       }
 
       /* ──────────────────────── LIST ──────────────────────── */
