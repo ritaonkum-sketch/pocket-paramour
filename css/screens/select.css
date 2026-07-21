@@ -707,6 +707,9 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-bond-row {
     display: flex;
     align-items: center;
+    /* Centre the BOND LEVEL block under the name/role/tier (owner: "move the
+       bond level to the middle") — the flex row defaulted to left. */
+    justify-content: center;
     gap: 10px;
     margin-bottom: 10px;
 }
