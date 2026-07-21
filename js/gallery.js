@@ -226,7 +226,9 @@ const GALLERY_CARDS = [
         subtitle: "A knight of unwavering duty",
         image: "assets/gallery/card-loyal-knight.png",
         rarity: "common",
-        unlock: { type: "affection", level: 1, condition: "Reach Familiar affection" }
+        // Owner: hold this card back until the player has read Chapter 3 (was
+        // unlocking on Day 1 at the first sliver of affection).
+        unlock: { type: "chapter", chapter: 3, condition: "Read Chapter 3" }
     },
     {
         id: "silver-bulwark",
@@ -734,6 +736,13 @@ class GallerySystem {
                     break;
                 case "premium":
                     shouldUnlock = !!(g.premiumScenes && g.premiumScenes[u.sceneId]);
+                    break;
+                case "chapter":
+                    // Gated behind a Main Story chapter being read/completed —
+                    // pp_chapter_done_<id> is set to '1' when that chapter finishes
+                    // (see chapters.js markDone). So the card stays locked until the
+                    // player has actually read it.
+                    try { shouldUnlock = localStorage.getItem('pp_chapter_done_' + u.chapter) === '1'; } catch (_) { shouldUnlock = false; }
                     break;
             }
 
@@ -1522,6 +1531,20 @@ class GallerySystem {
             GALLERY_CARDS.forEach(c => {
                 if (c.unlocked && this.cardCharacter(c) === active) this.unlockedCards.add(c.id);
             });
+            // Migration (owner, Jul 2026): a chapter-gated card must never sit
+            // unlocked before its chapter has been read. Older saves may have
+            // opened such a card under a previous rule (loyal-knight used to
+            // unlock at Day-1 affection). Re-lock any that jumped the gate, then
+            // persist so it stays fixed.
+            let _relocked = false;
+            GALLERY_CARDS.forEach(c => {
+                if (c.unlock && c.unlock.type === 'chapter' && this.unlockedCards.has(c.id)) {
+                    let done = false;
+                    try { done = localStorage.getItem('pp_chapter_done_' + c.unlock.chapter) === '1'; } catch (_) {}
+                    if (!done) { this.unlockedCards.delete(c.id); this.newCards.delete(c.id); _relocked = true; }
+                }
+            });
+            if (_relocked) this.save();
         } catch (e) {}
     }
 }
