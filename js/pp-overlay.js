@@ -154,7 +154,14 @@
     var CARE_SURFACE_SELECTORS = ['#game-container'];
     var COVERING_SURFACES = [
         '#chp-page:not(:empty)', '#main-story-page:not(.hidden)',
-        '#story-overlay:not(.hidden)', '#mscard-root:not(:empty)',
+        // #mscard-root is created per-card and removed on teardown, so key on
+        // its mere presence — NOT :not(:empty). During a chapter's 560ms
+        // fade-out the card can momentarily empty (bg/hide beats clear it) while
+        // the root is still on screen; with :not(:empty) the care-bleed guard
+        // dropped for those frames and the care screen behind flashed through the
+        // fading card (owner: "after chapter 5 ends the care route appears then
+        // goes away"). Presence-only keeps care hidden for the whole teardown.
+        '#story-overlay:not(.hidden)', '#mscard-root',
         '#ms-encounter-root:not(:empty)', '#tp-root:not(:empty)',
         '#cinematic-overlay.visible'
     ];
