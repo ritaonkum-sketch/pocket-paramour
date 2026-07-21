@@ -173,12 +173,12 @@
     show(pickLine());
   }
 
-  function boot() {
-    setTimeout(() => {
-      tick();
-      setInterval(tick, POLL_MS);
-    }, FIRST_DELAY_MS);
-  }
+  // FEATURE DISABLED (owner: "remove this feature from every character care
+  // route!"). The Aenor ambient-dread "she is watching" bubbles no longer
+  // schedule or fire on ANY care screen. The module still loads (pools + show()
+  // + debug hooks stay intact for a possible future re-enable), but boot() no
+  // longer starts the 30s poll, so tick() never runs on its own.
+  function boot() { /* disabled — no ambient poll */ }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });
