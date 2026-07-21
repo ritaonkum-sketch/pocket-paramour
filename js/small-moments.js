@@ -894,7 +894,7 @@
             effect: { bond: 3, obsession: 3, corruption: 1 } },
           { id: 'turn',
             label: 'Turn around. Look at him directly.',
-            response: '*He does not flinch. He tilts his head, the hunter assessing the doe that turned.* Brave. *Soft.* Reckless, but brave. I prefer that combination over any other this kingdom has to offer.',
+            response: '*He does not flinch. He tilts his head, the hunter assessing the doe that turned.* Brave. Reckless, but brave. I prefer that combination over any other this kingdom has to offer.',
             effect: { bond: 2, obsession: 3 } }
         ]
       },

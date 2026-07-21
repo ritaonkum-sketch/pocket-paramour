@@ -162,7 +162,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/elian/body/calm.png',
                 direction: 'He gestures at the clearing. The path you came down. The path that opened for you, that does not open for most.',
-                line: "Walk back when you must, {name}. Walk back here whenever you can. *Small* The path will be open. That is also new. That is also you."
+                line: "Walk back when you must, {name}. Walk back here whenever you can. The path will be open. That is also new. That is also you."
             }
         ]
     },
@@ -209,7 +209,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/caspian/body/gentle.png',
                 direction: 'He gestures at the room. Sun, cushions, the second cup. Yours.',
-                line: "This wing of the palace is yours, {name}. Whenever the rest of it is too loud. I will be here. Almost always am. *Small* That is not new. You being here is."
+                line: "This wing of the palace is yours, {name}. Whenever the rest of it is too loud. I will be here. Almost always am. That is not new. You being here is."
             }
         ]
     },

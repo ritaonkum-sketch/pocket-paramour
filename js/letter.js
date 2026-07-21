@@ -1817,7 +1817,7 @@
                             signature: '— A.',
                             paragraphs: [
                                 `*The reply came within the hour, by the same door.* You will walk the wall. Mi'lady, I have held that post through two sieges and a winter that killed the well, and tomorrow is the first watch I have ever counted the hours toward. The battlements will not know what to make of me.`,
-                                `If you wave, protocol allows me one nod. Slow, the kind a man spends on the thing he means to keep. *Small.* After the fourth bell I am off duty. There is a bench below the south stair with a view of nothing at all. I find I want to show it to you anyway.`
+                                `If you wave, protocol allows me one nod. Slow, the kind a man spends on the thing he means to keep. After the fourth bell I am off duty. There is a bench below the south stair with a view of nothing at all. I find I want to show it to you anyway.`
                             ]
                         }
                     },
@@ -1828,7 +1828,7 @@
                             title: 'Standing Orders',
                             signature: '— A.',
                             paragraphs: [
-                                `A third time, then. You have my word, and my word is the only coin I have ever minted myself. *Small.* I sat with the old rule last night to see what it was guarding. It was guarding me from exactly this. I have relieved it of duty.`,
+                                `A third time, then. You have my word, and my word is the only coin I have ever minted myself. I sat with the old rule last night to see what it was guarding. It was guarding me from exactly this. I have relieved it of duty.`,
                                 `The standing orders of one knight are hereby amended. Letters are permitted. Keeping them is encouraged. *Underlined.* Hold me to this, mi'lady. I am counting on you to.`
                             ]
                         }
@@ -1867,7 +1867,7 @@
                             title: 'A Note Folded Twice',
                             signature: '— A.',
                             paragraphs: [
-                                `You wrote "Captain." I felt it in the candle wax before I read the ink. *Small.* I have been Captain to a thousand men. Tonight it sounded different.`,
+                                `You wrote "Captain." I felt it in the candle wax before I read the ink. I have been Captain to a thousand men. Tonight it sounded different.`,
                                 `I would like to make Sundays a thing between us. A precedent. A knight without armour at sunset, on the wall, with you. Will you say yes? Of course you will. You already did.`
                             ]
                         }
@@ -1880,7 +1880,7 @@
                             signature: '— A.',
                             paragraphs: [
                                 `*Reads it twice. Then a third time.* You used the word ALLOWED. That is, I had not realised how badly I needed someone to give me permission. A knight is taught to grant himself nothing. You handed it to me on a folded piece of parchment.`,
-                                `Tomorrow at the watch, bring nothing. Stand near the brazier. Let me look at you for a little while. That is what I am asking for. *Small.* You are allowed to say no. I will not have meant any of this if you did not feel free to.`
+                                `Tomorrow at the watch, bring nothing. Stand near the brazier. Let me look at you for a little while. That is what I am asking for. You are allowed to say no. I will not have meant any of this if you did not feel free to.`
                             ]
                         }
                     },
@@ -1919,7 +1919,7 @@
                             title: 'Two Lists',
                             signature: '— Yours, A.',
                             paragraphs: [
-                                `*He read that line at the watch desk and stayed past the change of guard.* You keep one too. Mi'lady, I have been inventoried. *Small.* No quartermaster in the king's service has ever done it so gently.`,
+                                `*He read that line at the watch desk and stayed past the change of guard.* You keep one too. Mi'lady, I have been inventoried. No quartermaster in the king's service has ever done it so gently.`,
                                 `A proposal, then. One item traded per Wednesday, at the long table. I will open: the way you pretended it was ordinary when I arrived on time. That entry appears on my list twice. I do not make duplication errors. It earned the second line.`
                             ]
                         }
@@ -1944,7 +1944,7 @@
                             signature: '— Yours, A. (unrepentant.)',
                             paragraphs: [
                                 `*The pen pressed hard here. He is amused and pretending to be above it.* Let them riot. I have put down riots. I have yet to put down a kettle without thinking of you, which is the greater tactical problem, and I decline to solve it.`,
-                                `The list stands, kettle included. *Small.* You hold the top of it, filed where I keep the things a riot could not take from me.`
+                                `The list stands, kettle included. You hold the top of it, filed where I keep the things a riot could not take from me.`
                             ]
                         }
                     }
@@ -2055,7 +2055,7 @@
                             signature: '— E.',
                             paragraphs: [
                                 `*The parchment is rougher than usual, torn from a foraging journal.* I cut a small mark in the rowan last night. Not a name. A line. A shape my grandmother used for "remembered." The trees noticed. The trees say so when they notice. They are quieter now. The good kind of quiet.`,
-                                `Come at dusk. I will not say her name aloud. You already did. That was enough for both of us. *Small.* Walk slowly on the south path. The bramble has loosened. I think it knows you, too.`
+                                `Come at dusk. I will not say her name aloud. You already did. That was enough for both of us. Walk slowly on the south path. The bramble has loosened. I think it knows you, too.`
                             ]
                         }
                     },
@@ -2129,7 +2129,7 @@
                             title: 'The Slope',
                             signature: '— E.',
                             paragraphs: [
-                                `*Dry.* A slope, you call it. I read slopes for a living. I know how this one ends and how little chance there is of climbing back out of it. I walked toward it on purpose, slow, with my eyes open.`,
+                                `A slope, you call it. I read slopes for a living. I know how this one ends and how little chance there is of climbing back out of it. I walked toward it on purpose, slow, with my eyes open.`,
                                 `Bring the second mug if you mean to speed the slide. I have stopped pretending I would rather stay at the top.`
                             ]
                         }
@@ -2249,7 +2249,7 @@
                     `I sang the fourth verse twice this week. Both times nothing died. That is not a low bar to me. That is a revolution.`,
                     d.affectionLevel >= 4
                         ? `The cave has stopped echoing wrong when you arrive. *Small, near-laugh.* I have spent two years tuning the cave to my own grief. It is retuning to your footsteps. I do not blame it. I am tuning to your footsteps too. We are unlearning a long quiet together, the cave and I.`
-                        : `I left a clamshell at your door, the third pool's flat one. Inside is a verse only one human has ever heard sung in full. I will not ask if you read it. *Small.* I will only know by whether you come back smiling.`,
+                        : `I left a clamshell at your door, the third pool's flat one. Inside is a verse only one human has ever heard sung in full. I will not ask if you read it. I will only know by whether you come back smiling.`,
                     `Stay through the next tide. There is a thing I want to teach you about how the cave breathes. It breathes through me. It is starting to breathe through you. I have not been afraid of that in three days. *Underlined.* Three days. Possibly a record.`,
                     `— L.`
                 ],
@@ -2327,7 +2327,7 @@
                             title: 'Requests, In Proper Form',
                             signature: '— C.',
                             paragraphs: [
-                                `You offered to grant the easy ones first. *Small.* Sensible policy. Here is one, submitted in proper form: come at half past three. I want the quarter hour before the tea, when nothing has been poured and nothing is expected of either of us.`,
+                                `You offered to grant the easy ones first. Sensible policy. Here is one, submitted in proper form: come at half past three. I want the quarter hour before the tea, when nothing has been poured and nothing is expected of either of us.`,
                                 `I drafted that request twice. The first draft apologised for asking. I have struck the apology and kept the asking, which my tutors would tell you is the whole art of statecraft. They never mentioned it works on benches.`
                             ]
                         }
@@ -2429,7 +2429,7 @@
                             title: 'Standing Orders',
                             signature: '— C.',
                             paragraphs: [
-                                `Guard it like the kingdom. *Small.* I have guarded the kingdom with garrisons and treaties, and I have never once loved it at six in the morning with the tea going cold. The normal requires a different garrison. I have assigned myself.`,
+                                `Guard it like the kingdom. I have guarded the kingdom with garrisons and treaties, and I have never once loved it at six in the morning with the tea going cold. The normal requires a different garrison. I have assigned myself.`,
                                 `The captain now has it in writing: Sunday mornings the prince is occupied with matters of state. You are the matters of state. He suspects as much. Yesterday he bowed to the parlour door on his way past, to be thorough.`
                             ]
                         }
@@ -2455,7 +2455,7 @@
                 title: 'A Footnote, Misplaced',
                 signature: '— L.',
                 paragraphs: (d) => [
-                    `I have written a footnote in the wrong margin three times this week.¹ That is statistically significant. *Small.* The footnotes were all about you.`,
+                    `I have written a footnote in the wrong margin three times this week.¹ That is statistically significant. The footnotes were all about you.`,
                     `¹ Specifically: Treatise on Resonance Decay, page 84, where I noted "subject prefers the third stair (creak removed)" instead of correcting the mass-formula error. The error remains uncorrected. I do not regret it.`,
                     d.timesTalked > 4
                         ? `You have spoken to me ${d.timesTalked} times. My catalogue of your speech patterns is now longer than my catalogue of celestial tides. *Quiet.* I am unsure what this says about my priorities. I am also unsure what it says about my heart.`
@@ -2509,7 +2509,7 @@
                     `I have rewritten the opening of this letter four times.¹ Each rewrite required me to feel something I had decided years ago I would never feel.² The current opening is the simplest one. Short, factual, signed.³`,
                     `¹ The rewrites are not in the margin. I burned the drafts. Not from embarrassment. From the suspicion that if I read them again I would have to feel them again. I am not, on review, ready for that yet.`,
                     `² Specifically: nostalgia, in the third draft. Yearning, in the second. The first contained a feeling I am not yet brave enough to name. I have built a working file for it. The file is in the locked drawer.`,
-                    `³ "Simplest" in this context means: I get to keep your face yesterday afternoon at fourteen-twelve, when you set down the teacup with your left hand for the first time. I had not seen you do that with the left hand before. *Small.* I felt something when I noticed. I felt it again writing this. I have been feeling it on and off for an hour.`,
+                    `³ "Simplest" in this context means: I get to keep your face yesterday afternoon at fourteen-twelve, when you set down the teacup with your left hand for the first time. I had not seen you do that with the left hand before. I felt something when I noticed. I felt it again writing this. I have been feeling it on and off for an hour.`,
                     d.affectionLevel >= 3
                         ? `The page about my sister is in a drawer now. The drawer is locked. The key is on the desk. *Footnote: that is approximately the courage I am capable of this week. Courage, the file confirms, is also new.*`
                         : `I have not opened the page since you saw it. It is enough that you saw it. A thing witnessed is half of a thing finished. *Footnote: I learned the meaning of "witnessed" this week. It was not in the dictionary I had been using.*`,
@@ -2547,7 +2547,7 @@
                             title: 'Errata, Vol. III',
                             signature: '— L. (deeply scolded.)',
                             paragraphs: [
-                                `*Scribbled in the margin of an unfinished proof, then re-copied onto clean paper.* ERRATA: the maths can, in fact, wait. Theorem 14.2 has been wrong for two years. It will be wrong for two more. *Small.* Footnote: this is the most useful sentence ever written about my own work, and you wrote it in seven words.`,
+                                `*Scribbled in the margin of an unfinished proof, then re-copied onto clean paper.* ERRATA: the maths can, in fact, wait. Theorem 14.2 has been wrong for two years. It will be wrong for two more. Footnote: this is the most useful sentence ever written about my own work, and you wrote it in seven words.`,
                                 `Tomorrow. The tower. The third book has been moved. I will not be working when you arrive. *Underlined.* That is also new.`
                             ]
                         }
@@ -2562,7 +2562,7 @@
                     `Yesterday I cast a small spell, not for research. Just to confirm something. The casting cost me nothing. It never has. *Quiet.* I had told myself for thirty years that emotion was an inefficiency, and I had been free of inefficiency. Free. Empty. For thirty years I kept those two words in the same drawer. That was a cataloguing error.`,
                     d.affectionLevel >= 4
                         ? `My sister wrote back. She is alive. She lives by the south coast. She writes with a singer's hand. She wrote two sentences. The second was: "Bring whoever taught you to ask." *Quiet.* I would like to bring you. When you are ready. I am ready. I will wait until you are.`
-                        : `I sat in the south window this morning. The light reached the desk for the first time in years. I had been keeping the curtains drawn. I do not know why. I am taking them down on Sunday. *Small.* Light is allowed in now.`,
+                        : `I sat in the south window this morning. The light reached the desk for the first time in years. I had been keeping the curtains drawn. I do not know why. I am taking them down on Sunday. Light is allowed in now.`,
                     `Tomorrow we work in different rooms with the connecting door open. That is a domestic arrangement. I had been afraid of domestic arrangements for thirty years. *Small smile.* The fear was a placeholder for a feeling I had not yet learned. The feeling has arrived. I am letting it stay.`,
                     `— L. (the version of me that lives at noon, and on Sundays, and quietly.)`
                 ],
@@ -2598,7 +2598,7 @@
                             title: 'In Defense of the Spell',
                             signature: '— L. (methodology under review.)',
                             paragraphs: [
-                                `Show-off, you wrote.¹ The spell was rigorous. It had a hypothesis and a logged result. *Small.* The result was that I hummed while making the tea afterward. The data did not require a second trial. I ran one anyway.`,
+                                `Show-off, you wrote.¹ The spell was rigorous. It had a hypothesis and a logged result. The result was that I hummed while making the tea afterward. The data did not require a second trial. I ran one anyway.`,
                                 `¹ A scholar confirms his findings once. Whatever I am now confirms them daily, and hums. Come at noon and audit the methodology yourself. The shelf by the good chair has been cleared for whatever you are reading. It is labeled. Of course it is labeled.`
                             ]
                         }
@@ -2680,7 +2680,7 @@
                             signature: '— Yours, in both names.',
                             paragraphs: [
                                 `*Written in the old script, careful, slow, no flourishes.* You said it kindly. *The candle held.* That is two more times than I had counted. *Quiet, in the new hand.* I had set my expectations at one. You exceeded them by definition.`,
-                                `Bring nothing tomorrow. Sit at the seam at the third bell. I will say something I have not said in six hundred years, and you will be the first to hear it. *Small.* Do not write down what I say. Carry it the way you carried the name. Quietly.`
+                                `Bring nothing tomorrow. Sit at the seam at the third bell. I will say something I have not said in six hundred years, and you will be the first to hear it. Do not write down what I say. Carry it the way you carried the name. Quietly.`
                             ]
                         }
                     },
@@ -2692,7 +2692,7 @@
                             signature: '— N.',
                             paragraphs: [
                                 `*Long pause in the ink before the first line, he is thinking.* You honored the boundary. That is, exactly what I needed. Most people, in six centuries, have not. I am keeping the page on which you wrote that. It is going where the gentle things go. The very small shelf of them.`,
-                                `Come at the third bell. No agenda. *Small.* That is also new for me. Six hundred years of agenda; tonight, none. I am making that learning visible to you, on purpose.`
+                                `Come at the third bell. No agenda. That is also new for me. Six hundred years of agenda; tonight, none. I am making that learning visible to you, on purpose.`
                             ]
                         }
                     },
@@ -2703,7 +2703,7 @@
                             title: 'Late Introductions',
                             signature: '— N. (apologetic, regrettably formal.)',
                             paragraphs: [
-                                `*A small, real laugh in the seam, the dark is laughing too, briefly. That has not happened.* Forgive the tardiness. I had, engagements. *Dry.* A century or two of engagements. Mostly a long one. Thank you for laughing. The thing I had been holding for six hundred years was unsuited to laughter. You handed it a different shape.`,
+                                `*A small, real laugh in the seam, the dark is laughing too, briefly. That has not happened.* Forgive the tardiness. I had, engagements. A century or two of engagements. Mostly a long one. Thank you for laughing. The thing I had been holding for six hundred years was unsuited to laughter. You handed it a different shape.`,
                                 `Tomorrow. Third bell. Wear something I'll regret. *Underlined.* A line I borrowed from the prince. He won't mind. He stole it from me first, four hundred years ago. Yours, late and laughing.`
                             ]
                         }
@@ -2714,7 +2714,7 @@
                 title: 'A Letter from a Quieter Seam',
                 signature: '— N.',
                 paragraphs: (d) => [
-                    `*The script is the new one, his old one is still reserved for the name. This hand is, newer. He is practicing it.* The seam between the dark and the hall is quieter this week. I have not been at it as much. I have been in Nocthera. *Small.* Working.`,
+                    `*The script is the new one, his old one is still reserved for the name. This hand is, newer. He is practicing it.* The seam between the dark and the hall is quieter this week. I have not been at it as much. I have been in Nocthera. Working.`,
                     `The first stone has been set. The orchard is being asked, gently, to become an orchard again. It is taking the question seriously. Two pomegranate trees, against all reason, have produced ONE fruit between them. I am not eating it. It is yours.`,
                     d.affectionLevel >= 4
                         ? `Proto sent a request through the seam this morning. He wants permission to log our exchanges in a "kept" folder. I gave it. *Quiet.* There is a child in him. He has been alone for two centuries. I am very glad you brought him back to where I could meet him.`
@@ -2959,7 +2959,7 @@
                             title: 'The Trail Back',
                             signature: '— Elian',
                             paragraphs: [
-                                `A trail that leads back is the only kind I ever cared to read. *Small.* I have followed cold ones to nothing more often than I will say aloud. Yours led somewhere. I will not forget that it did.`,
+                                `A trail that leads back is the only kind I ever cared to read. I have followed cold ones to nothing more often than I will say aloud. Yours led somewhere. I will not forget that it did.`,
                                 `Come when the way is clear for you. I will keep the fire at the larger size until then. Good practice, for a man who let his own go too small.`
                             ]
                         }
@@ -3002,7 +3002,7 @@
                             title: 'Room in the Quiet',
                             signature: '— Elian',
                             paragraphs: [
-                                `There was always room in the quiet. I never thought to offer it. I never met anyone who would not rush to fill it with noise. *Small.* You sat down in it like it was a chair I had set out for you. Maybe I had, years early, without knowing your name.`,
+                                `There was always room in the quiet. I never thought to offer it. I never met anyone who would not rush to fill it with noise. You sat down in it like it was a chair I had set out for you. Maybe I had, years early, without knowing your name.`,
                                 `Come sit again tomorrow. I will not perform talk for you. You made that unnecessary, which is the kindest thing done for a man with this few words.`
                             ]
                         }
