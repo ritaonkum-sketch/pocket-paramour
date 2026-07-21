@@ -630,19 +630,18 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     /* Lower the silhouette a touch (owner: "the profile is a bit high"). */
     object-position: center 6%;
     display: block;
-    /* Clean floating bust (owner: "portrait is blur and I can see the rectangle
-       shape around the character — remove it"). The art is a transparent cutout,
-       so we simply fade every edge softly into the card — a vignette on the
-       sides/top intersected with a bottom fade for the chest — leaving NO hard
-       rectangle. Kept crisp: only a subtle dark depth shadow, no coloured glow
-       haze (the old gold halo read as blur). */
+    /* Clean floating bust (owner: no rectangle, and keep the FACE sharp — an
+       earlier vignette faded his mouth/jaw/neck). Big opaque core (72%) so his
+       whole face and neck stay fully crisp; only the collar/chest at the very
+       bottom (below 80%) fades out, and the far side/top edges soften — leaving
+       NO hard rectangle. Crisp: just a subtle dark depth shadow, no colour haze. */
     -webkit-mask-image:
-        radial-gradient(74% 80% at 50% 40%, #000 50%, transparent 84%),
-        linear-gradient(to bottom, #000 60%, transparent 98%);
+        radial-gradient(82% 96% at 50% 42%, #000 72%, transparent 96%),
+        linear-gradient(to bottom, #000 80%, transparent 100%);
     -webkit-mask-composite: source-in;
     mask-image:
-        radial-gradient(74% 80% at 50% 40%, #000 50%, transparent 84%),
-        linear-gradient(to bottom, #000 60%, transparent 98%);
+        radial-gradient(82% 96% at 50% 42%, #000 72%, transparent 96%),
+        linear-gradient(to bottom, #000 80%, transparent 100%);
     mask-composite: intersect;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
     /* Jun 2026 — user reported a visible delay on this image when
