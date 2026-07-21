@@ -617,33 +617,28 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
        lower, like in the middle") — the taller info column sets the row height,
        so align-self centres the portrait against it. */
     align-self: center;
-    /* No frame — the character art floats with just the per-character
-       glow halo. Background, border, and inset shadow removed June 2026. */
-    border-radius: 0;
-    overflow: visible;
+    /* Framed like the thread cards (owner chose "big & filling, like the lower
+       portrait") — rounded corners + clip so the cover-filled bust reads as a
+       clean portrait, not a raw rectangle. */
+    border-radius: 14px;
+    overflow: hidden;
     background: none;
 }
 .cc-active-portrait img {
     width: 100%;
     height: 100%;
-    /* Show his WHOLE figure — full hair, no side crop (owner: "his hair is cut
-       off on the left ... make it like he is popping out, no cut into portrait").
-       The art is a transparent bust, so `contain` shows every strand and a small
-       scale-up lets him fill the space and lift off the card. His own alpha
-       silhouette is the shape — no box. */
-    object-fit: contain;
-    object-position: center bottom;
-    transform: scale(1.18);
-    transform-origin: center bottom;
+    /* Big & filling, like the thread cards (owner: "clearer like the lower
+       portrait ... big & filling, full hair shown"). object-fit:cover fills the
+       frame with his face at NATIVE resolution — crisp, no upscale blur (the
+       earlier transform:scale softened it). His full hair shows; only his
+       shoulders/chest run off the edges. A very gentle edge softening (opaque
+       well past the frame) keeps his hair sharp, not faded. */
+    object-fit: cover;
+    object-position: center 16%;
     display: block;
-    /* No vignette — only a soft fade on the flat chest cut at the very bottom,
-       so every face/hair edge stays his natural silhouette (owner: no rectangle,
-       no border). */
-    -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
-    /* Depth shadow follows his silhouette (transparent cutout), not a box, so
-       there is no rectangle shadow behind him. */
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+    -webkit-mask-image: radial-gradient(120% 100% at 50% 42%, #000 74%, transparent 100%);
+    mask-image: radial-gradient(120% 100% at 50% 42%, #000 74%, transparent 100%);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
     /* Jun 2026 — user reported a visible delay on this image when
        returning to the Chronicle from care. Cause: the two stacked
        drop-shadow filters (14px blur each) are re-rasterised by the
