@@ -626,24 +626,24 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-active-portrait img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    /* Lower the silhouette a touch (owner: "the profile is a bit high"). */
-    object-position: center 6%;
+    /* Show his WHOLE figure — full hair, no side crop (owner: "his hair is cut
+       off on the left ... make it like he is popping out, no cut into portrait").
+       The art is a transparent bust, so `contain` shows every strand and a small
+       scale-up lets him fill the space and lift off the card. His own alpha
+       silhouette is the shape — no box. */
+    object-fit: contain;
+    object-position: center bottom;
+    transform: scale(1.18);
+    transform-origin: center bottom;
     display: block;
-    /* Clean floating bust (owner: no rectangle, and keep the FACE sharp — an
-       earlier vignette faded his mouth/jaw/neck). Big opaque core (72%) so his
-       whole face and neck stay fully crisp; only the collar/chest at the very
-       bottom (below 80%) fades out, and the far side/top edges soften — leaving
-       NO hard rectangle. Crisp: just a subtle dark depth shadow, no colour haze. */
-    -webkit-mask-image:
-        radial-gradient(82% 96% at 50% 42%, #000 72%, transparent 96%),
-        linear-gradient(to bottom, #000 80%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-        radial-gradient(82% 96% at 50% 42%, #000 72%, transparent 96%),
-        linear-gradient(to bottom, #000 80%, transparent 100%);
-    mask-composite: intersect;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+    /* No vignette — only a soft fade on the flat chest cut at the very bottom,
+       so every face/hair edge stays his natural silhouette (owner: no rectangle,
+       no border). */
+    -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+    /* Depth shadow follows his silhouette (transparent cutout), not a box, so
+       there is no rectangle shadow behind him. */
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
     /* Jun 2026 — user reported a visible delay on this image when
        returning to the Chronicle from care. Cause: the two stacked
        drop-shadow filters (14px blur each) are re-rasterised by the
