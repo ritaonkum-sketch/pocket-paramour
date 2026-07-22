@@ -135,7 +135,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/elian/body/calm.png',
                 direction: 'He passes you the tin cup without ceremony. Bark and pine needle. The taste of the forest in liquid form.',
-                line: "I should have introduced myself properly last night. The wolves were closer than I let on. The introduction was *Get behind me*. Not, in hindsight, a complete one."
+                line: "I should have introduced myself properly last night. The wolves were closer than I let on. The introduction was 'Get behind me'. Not, in hindsight, a complete one."
             },
             {
                 body: 'assets/elian/body/stern.png',
@@ -290,7 +290,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/seductive.png',
                 direction: 'A small, almost shy gesture. He turns the chair very slightly toward you. The half-step toward presence rather than predation.',
-                line: "I have been calling you *The one I felt coming* in my head. That is dread shaped like hope. You deserve a name from me, not a prophecy."
+                line: "I have been calling you 'The one I felt coming' in my head. That is dread shaped like hope. You deserve a name from me, not a prophecy."
             },
             {
                 body: 'assets/noir/body/neutral.png',
@@ -366,6 +366,19 @@ const INTRO_SCENES = {
 };
 
 class IntroScene {
+    // Strip authored *stage cues* from a spoken line. This overlay renders
+    // plain textContent (no markup), so "*Small, relieved*" would print its
+    // literal asterisks (owner playtest, Jul 2026). Cues are actor directions,
+    // not speech — remove them and tidy the leftover spacing. Quoted
+    // nicknames ('City-walker') are plain text and pass through.
+    static _cleanLine(s) {
+        return (s || '')
+            .replace(/\*[^*\n]+\*/g, '')
+            .replace(/\s{2,}/g, ' ')
+            .replace(/\s+([.,!?;:])/g, '$1')
+            .trim();
+    }
+
     constructor() {
         this.overlay    = document.getElementById('intro-overlay');
         this.bgEl       = document.getElementById('intro-bg');
@@ -508,8 +521,13 @@ class IntroScene {
         this.typing = true;
 
         // Typewriter.starts slightly after direction appears
+        // NOTE: this renderer prints RAW text (textContent, no markup), so any
+        // authored *stage cue* would show its literal asterisks (owner playtest:
+        // Caspian's "*Small, relieved*" printed on screen). Cues are actor
+        // directions, not speech — strip them at render time; quoted nicknames
+        // are plain text and pass through untouched.
         let i = 0;
-        const text  = beat.line;
+        const text  = IntroScene._cleanLine(beat.line);
         const speed = 30; // ms per char.readable but not slow
 
         const type = () => {
@@ -548,10 +566,11 @@ class IntroScene {
         if (this.finishing) return;
 
         if (this.typing) {
-            // Skip typewriter.show full text immediately
+            // Skip typewriter.show full text immediately (same *cue* strip as
+            // the typewriter path, or the tap-fill would resurrect asterisks)
             clearTimeout(this._typeTimer);
             this.typing = false;
-            this.lineEl.textContent = this.beats[this.current].line;
+            this.lineEl.textContent = IntroScene._cleanLine(this.beats[this.current].line);
             setTimeout(() => this.hintEl.classList.add('show'), 150);
             return;
         }
