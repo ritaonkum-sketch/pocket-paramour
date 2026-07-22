@@ -1310,6 +1310,16 @@
     if (!g) return;
     const charId = g.characterId || g.selectedCharacter;
     if (!charId) return;
+    // Jul 2026 (playtest): a tier-1 invitation fired ~60 seconds into the
+    // very FIRST care session — Day 1, before a single Feed — a romantic
+    // balcony note from a near-stranger, interrupting the first care
+    // battery. Two floors, per the calm-first-session principle:
+    //   1. never during the first care session (same PPAmbient signal
+    //      aenor-presence respects);
+    //   2. never before a minimum relationship — affection >= 10, i.e. the
+    //      invitation register presumes at least "acquainted".
+    if (window.PPAmbient && window.PPAmbient.firstCareSession && window.PPAmbient.firstCareSession()) return;
+    if ((g.affection || 0) < 10) return;
     // Pick the best invitation for this character + relationship state.
     // Lowest-tier UNSEEN first (so the reaching-out escalates as the bond
     // deepens), then a rested recurrence pick once the pool is exhausted.
