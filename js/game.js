@@ -9712,7 +9712,28 @@ class PocketLoveGame {
             { type: 'hide' }
         ];
 
-        setTimeout(() => {
+        // QUEUE — never force-open over another popup. The fragment reveal
+        // unlocks at affection level 3, the SAME beat as onAffectionLevelUp()
+        // (the level-up celebration AND the milestone story scene / MSCard), so
+        // a blind 2s timer used to stack this cinematic ON TOP of those — owner
+        // saw it "force open on other pop up", landing over a black transition.
+        // Wait for a genuinely calm care screen (no scene / chapter / overlay /
+        // popup up) before playing. This method is character-generic, so the
+        // fix covers all 7 care routes at once.
+        let _fragTries = 0;
+        const _fragPlay = () => {
+            const calm = document.body.classList.contains('pp-screen-care')
+                && !document.body.classList.contains('pp-chapter-active')
+                && !document.body.classList.contains('pp-overlay-active')
+                && !this.sceneActive
+                && !document.getElementById('chp-page')
+                && !document.getElementById('mscard-root')
+                && !(window.PPOverlay && typeof window.PPOverlay.busy === 'function' && window.PPOverlay.busy());
+            if (!calm) {
+                // Retry on the next beat; cap ~3 min so it can never spin forever.
+                if (_fragTries++ < 150) setTimeout(_fragPlay, 1200);
+                return;
+            }
             this._playScene(beats, () => {
                 // Update meta-save with fragment progress
                 try {
@@ -9723,7 +9744,8 @@ class PocketLoveGame {
                 } catch(e) {}
                 this.save();
             });
-        }, 2000);
+        };
+        setTimeout(_fragPlay, 2000);
     }
 
     // ── Noir global corruption spread ──────────────────────────────
