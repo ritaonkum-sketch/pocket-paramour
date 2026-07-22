@@ -132,6 +132,17 @@
         if (document.body.classList.contains('pp-chapter-active')) return false;
         // Canonical overlay authority (pp-overlay.js) + this module's
         // celebration backdrops; hand list is only the fallback.
+        //
+        // MUST exclude '#chp-page:not(:empty)' from the union: the chapter
+        // LIST is this module's allowed surface (see onCalm above), but it is
+        // also a registered overlay — plain busy() is therefore ALWAYS true
+        // there, which silently re-broke the "announce on the Main Story
+        // page" fix (caught in playtest, Jul 2026: Ch6 unlocked after Ch5,
+        // ready=true, uncelebrated, yet shouldFire=false on the open list).
+        if (window.PPOverlay && typeof window.PPOverlay.busyExcluding === 'function') {
+            return !window.PPOverlay.busyExcluding('#chp-page:not(:empty)',
+                '#pp-aci-backdrop, #pp-first-care-modal-backdrop, #pp-ms-gate-backdrop, #pp-soul-frag-overlay');
+        }
         if (window.PPOverlay && typeof window.PPOverlay.busy === 'function') {
             return !window.PPOverlay.busy(
                 '#pp-aci-backdrop, #pp-first-care-modal-backdrop, #pp-ms-gate-backdrop, #pp-soul-frag-overlay');

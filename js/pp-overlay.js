@@ -394,6 +394,27 @@
                 try { return !!document.querySelector(extraSel); } catch (_) { /* bad extra — ignore */ }
             }
             return false;
+        },
+        // ── busyExcluding(excludeSel, extraSel?) — busy() for callers whose
+        // OWN allowed surface is part of the union. The route-unlock
+        // celebration is ALLOWED on the open chapter list (#chp-page) — the
+        // Jun 2026 "never fired on the Main Story page" fix — but busy()
+        // counts #chp-page as blocking, which silently re-broke that fix the
+        // moment the module migrated to busy() (caught in playtest, Jul 2026:
+        // ready=true, uncelebrated, shouldFire=false on the open list).
+        // excludeSel is matched against the union's selector STRINGS
+        // (exact entries), so the registry stays the single authority.
+        busyExcluding: function (excludeSel, extraSel) {
+            var ex = Array.isArray(excludeSel) ? excludeSel : [excludeSel];
+            var open = OVERLAY_SELECTORS.some(function (s) {
+                if (ex.indexOf(s) !== -1) return false;
+                try { return !!document.querySelector(s); } catch (_) { return false; }
+            });
+            if (open) return true;
+            if (extraSel) {
+                try { return !!document.querySelector(extraSel); } catch (_) { /* bad extra — ignore */ }
+            }
+            return false;
         }
     };
 
