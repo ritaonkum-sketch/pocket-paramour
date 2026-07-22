@@ -9841,8 +9841,8 @@
   const CHAPTER_THUMB = {
     6: { src: 'assets/elian/chapter-6-thumb.jpg', pos: 'center 20%' },
     7: { src: 'assets/elian/chapter-7-thumb.jpg', pos: 'center 16%' },
-    10: { src: 'assets/lyra/chapter-10-thumb.jpg', pos: 'center 15%' },
-    11: { src: 'assets/caspian/chapter-11-thumb.jpg', pos: 'center 20%' }
+    10: { src: 'assets/lyra/chapter-10-thumb.jpg', pos: 'center 6%' },
+    11: { src: 'assets/caspian/chapter-11-thumb.jpg', pos: 'center 10%' }
   };
 
   function openPage() {
