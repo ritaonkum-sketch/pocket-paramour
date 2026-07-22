@@ -1310,10 +1310,29 @@
         // display, scale aggressively at low values so even small care shows
         // some bond progress.
         function bondLevel(c) {
-            var raw = parseInt(lsGet('pp_affection_' + c) || '0', 10) || 0;
-            if (raw < 0) raw = 0;
-            // 0 affection = level 0, then steps. Tuned to feel rewarding.
-            if (raw === 0) return 0;
+            // CARE bond only. Deliberately does NOT read pp_affection_<c>:
+            // that key is a mixed currency — main-story chapter completions
+            // add to it (route-gates.js reward), so reading a character's
+            // chapter used to inflate their care "bond level" even with zero
+            // care (owner flagged Lyra at 3/9 without ever caring for her).
+            // The true care affection lives on the live game (active
+            // companion) and, when idle, in pocketLoveSave_<c>.affection.
+            // No care save = never opened their care screen = level 0.
+            var raw = 0;
+            try {
+                var g = window._game;
+                if (g && (g.characterId === c || g.selectedCharacter === c) &&
+                        typeof g.affection === 'number') {
+                    raw = g.affection;
+                } else {
+                    var save = lsGet('pocketLoveSave_' + c);
+                    if (save) {
+                        var s = JSON.parse(save);
+                        if (s && typeof s.affection === 'number') raw = s.affection;
+                    }
+                }
+            } catch (_) { raw = 0; }
+            if (!(raw > 0)) return 0;
             if (raw < 10)  return 1;
             if (raw < 20)  return 2;
             if (raw < 35)  return 3;
