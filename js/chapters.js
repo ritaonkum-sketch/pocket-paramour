@@ -62,11 +62,10 @@
   function isDone(id) { try { return localStorage.getItem('pp_chapter_done_' + id) === '1'; } catch (e) { return false; } }
   function markDone(id) {
     try { localStorage.setItem('pp_chapter_done_' + id, '1'); } catch (e) {}
-    // Aug 2026 — chapter completion awards a modest bond bump to the
-    // chapter's primary suitor (route-gates.js). First-play only;
-    // replays don't re-award (latched in pp_chapter_bond_awarded_<id>).
-    // The award helper is the route system's "reward half" — locks
-    // ask the player to care, completions repay that care.
+    // Jul 2026 (owner) — chapter completion no longer awards care bond.
+    // Reading the story must not advance the care relationship; care is
+    // the sole driver. onChapterDone() is now a no-op (kept so this call
+    // stays valid); the gates still READ care affection to lock chapters.
     try {
       if (window.PPRouteGates && typeof window.PPRouteGates.onChapterDone === 'function') {
         window.PPRouteGates.onChapterDone(id);

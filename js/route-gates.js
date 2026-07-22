@@ -495,60 +495,23 @@
         try { window.location.reload(); } catch (_) {}
     }
 
-    // ── Chapter-complete bond reward ──────────────────────────────────
-    // Called by chapters.js after markDone(id). Awards the chapter's
-    // configured reward to its charId. Latched per chapter id so
-    // replays don't re-award. Bond ticks land both on the live in-game
-    // value (if active companion matches) AND on the localStorage key
-    // (so the bond is visible whether you switch companions or not).
+    // ── Chapter-complete: NO care reward (owner, Jul 2026) ────────────
+    // Called by chapters.js after markDone(id). Deliberately a NO-OP.
     //
-    // Also fires a single "bond +N" toast via ActionFeedback if it's
-    // loaded, so the reward feels good rather than silent.
+    // Reading the main story must NOT advance the care relationship —
+    // not the Bond Level display, not the ladder unlock. Care is the
+    // sole driver ("care route" = care only). This used to add
+    // GATES[id].reward to pp_affection_<char> (and bump live g.affection),
+    // which inflated an un-cared character's Bond Level (Lyra showed 3/9
+    // just from reading Ch10) and could open the next ladder rung with
+    // zero care.
+    //
+    // The GATES themselves stay intact — evaluate()/careRouteOpen() still
+    // READ care affection to lock chapters behind a care bond. Only the
+    // completion "reward half" is removed. GATES[id].reward is now unused
+    // by this path (kept in the table as documentation of former values).
     function onChapterDone(id) {
-        var gate = GATES[id];
-        if (!gate || !gate.charId || !gate.reward) return;
-        var awardedKey = 'pp_chapter_bond_awarded_' + id;
-        if (lsGet(awardedKey) === '1') return; // already rewarded — replay
-        lsSet(awardedKey, '1');
-
-        var charId = gate.charId;
-        var reward = gate.reward;
-
-        // Bump in-memory affection if the active companion matches.
-        // This is the value the care HUD displays and reads from.
-        try {
-            var g = window._game;
-            if (g && typeof g.affection === 'number') {
-                var live = (g.selectedCharacter || g.characterId);
-                if (live === charId) {
-                    g.affection = Math.max(0, g.affection + reward);
-                    if (typeof g.updateUI === 'function') {
-                        try { g.updateUI(); } catch (_) {}
-                    }
-                }
-            }
-        } catch (_) {}
-
-        // Mirror to localStorage so the bond persists across companion
-        // swaps and across sessions.
-        try {
-            var key = 'pp_affection_' + charId;
-            var prev = parseInt(lsGet(key) || '0', 10) || 0;
-            lsSet(key, String(Math.max(0, prev + reward)));
-        } catch (_) {}
-
-        // Subtle reward feedback if the toast layer is around.
-        try {
-            var name = (SUITORS[charId] && SUITORS[charId].name) || charId;
-            if (window.PPActionFeedback && typeof window.PPActionFeedback.toast === 'function') {
-                window.PPActionFeedback.toast('Bond with ' + name + ' deepened (+' + reward + ')');
-            } else {
-                // Quiet console breadcrumb for dev visibility — no UI noise.
-                if (typeof console !== 'undefined' && console.info) {
-                    console.info('[PPRouteGates] bond reward +' + reward + ' → ' + charId);
-                }
-            }
-        } catch (_) {}
+        return;
     }
 
     // ── Popup styles ──────────────────────────────────────────────────
