@@ -86,7 +86,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/pose2.png',
                 direction: 'She pats the stone beside her. The gesture is small and considered, like she practiced it before you arrived.',
-                line: "Sit. Closer than that. *Small smile* I have not been within an arm of anyone in a long time. I would like to remember what it costs."
+                line: "Sit. Closer than that. I have not been within an arm of anyone in a long time. I would like to remember what it costs."
             },
             {
                 body: 'assets/lyra/body/neutral1.png',
@@ -101,7 +101,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lyra/body/sad3.png',
                 direction: 'Her eyes drop to the water. When they rise the centuries-patience is gone. Just her, asking.',
-                line: "I have been calling you *Little listener* in my head. It is gentle, but it is not a name. Tell me what to call you. Out loud. So when I sing, I can sing it."
+                line: "I have been calling you 'Little listener' in my head. It is gentle, but it is not a name. Tell me what to call you. Out loud. So when I sing, I can sing it."
             }
         ],
         postNameBeats: [
@@ -145,7 +145,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/elian/body/warm.png',
                 direction: 'He looks at you the way he reads tracks. Patiently, without conclusion.',
-                line: "I have been calling you *City-walker* in my head. Accurate, but unkind. You walked here on purpose. That deserves better."
+                line: "I have been calling you 'City-walker' in my head. Accurate, but unkind. You walked here on purpose. That deserves better."
             },
             {
                 body: 'assets/elian/body/calm.png',
@@ -192,12 +192,12 @@ const INTRO_SCENES = {
             {
                 body: 'assets/caspian/body/tender.png',
                 direction: 'He nudges the cup toward you. The saucer is one of the everyday ones, not court porcelain. He chose that on purpose.',
-                line: "I have spent the morning calling you *The guest*. Courteous, and also a way of pretending you are anyone. You are not."
+                line: "I have spent the morning calling you 'The guest'. Courteous, and also a way of pretending you are anyone. You are not."
             },
             {
                 body: 'assets/caspian/body/tender.png',
                 direction: 'His eyes drop to the cup. When they rise, the prince is briefly off and only the man is asking.',
-                line: "Tell me your name. Properly. I want to use it across a dinner table sometime. Want to write it on a card without checking the spelling. *Small smile* Allow me that."
+                line: "Tell me your name. Properly. I want to use it across a dinner table sometime. Want to write it on a card without checking the spelling. Allow me that."
             }
         ],
         postNameBeats: [
@@ -238,7 +238,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lucien/body/curious.png',
                 direction: 'He gestures at the journal. Twenty-three small marginalia in his hand. All of them, when you look closely, are about you.',
-                line: "I have been writing *The visitor* in the margins for an entire night. I am running out of margin. A pattern this loud deserves a name. Otherwise it goes unnoted, and I do not let things go unnoted."
+                line: "I have been writing 'The visitor' in the margins for an entire night. I am running out of margin. A pattern this loud deserves a name. Otherwise it goes unnoted, and I do not let things go unnoted."
             },
             {
                 body: 'assets/lucien/body/shy3.png',
@@ -255,7 +255,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/lucien/body/gentle.png',
                 direction: 'He turns the journal toward you. A new section, indexed. The header in his hand: your name, underlined twice.',
-                line: "From this morning forward, {name}, you are the first chapter and not a footnote. A scholar should not have favourites. I do. *Small smile* I am revising my model."
+                line: "From this morning forward, {name}, you are the first chapter and not a footnote. A scholar should not have favourites. I do. I am revising my model."
             }
         ]
     },
@@ -295,7 +295,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/neutral.png',
                 direction: 'His eyes drop to his folded hands. When they rise, the dread is gone. Only the patience, and a question.',
-                line: "Tell me what to call you. Out loud, slowly. *Softest* I have been guessing for centuries. I would like to be right, finally. I would like to be told."
+                line: "Tell me what to call you. Out loud, slowly. I have been guessing for centuries. I would like to be right, finally. I would like to be told."
             }
         ],
         postNameBeats: [
@@ -307,7 +307,7 @@ const INTRO_SCENES = {
             {
                 body: 'assets/noir/body/neutral.png',
                 direction: 'He extends his hand. Not to take. To offer. Open palm up, on the arm of the chair. Yours if you ever choose.',
-                line: "Come find me when you wish to, {name}. Not because I am pulling. Because you are choosing. *Softest* That is the version I have been waiting for."
+                line: "Come find me when you wish to, {name}. Not because I am pulling. Because you are choosing. That is the version I have been waiting for."
             }
         ]
     },
