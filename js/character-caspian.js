@@ -198,10 +198,10 @@ const CHARACTER_CASPIAN = {
         dirty1:      "assets/caspian/body/neutral.png",
         dirty2:      "assets/caspian/body/hurt.png",
         // Sleep
-        sleepy1:     "assets/caspian/body/reading.png",
+        sleepy1:     "assets/caspian/body/neutral.png",
         sleepy2:     "assets/caspian/body/neutral.png",
         yawn1:       "assets/caspian/body/neutral.png",
-        bored1:      "assets/caspian/body/reading.png",
+        bored1:      "assets/caspian/body/casual2.png",
         // Eating.real 5-frame portrait animation
         eating1:     "assets/caspian/body/eating1.png",
         eating2:     "assets/caspian/body/eating2.png",
@@ -222,12 +222,12 @@ const CHARACTER_CASPIAN = {
     emotionToBody: {
         happy:      ["gentle", "adoring"],
         love:       ["adoring", "tender"],
-        neutral:    ["neutral", "reading", "formal"],
+        neutral:    ["neutral", "formal"],
         sad:        ["melancholy", "hurt"],
         angry:      ["angry"],
         shy:        ["shy", "tender"],
         corrupted:  ["corrupted"],
-        sleeping:   ["reading"]
+        sleeping:   ["melancholy"]
     },
 
     actionToBody: {

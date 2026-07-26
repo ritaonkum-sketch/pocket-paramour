@@ -257,7 +257,7 @@
                 ]
             },
             hungry: {
-                baseline: [{ body: 'reading', face: 'neutral' }],
+                baseline: [{ body: 'neutral', face: 'neutral' }],
                 flourishes: [
                     { body: 'melancholy', face: 'neutral', duration: 5000, thoughtChance: 0.5, thought: "I skipped the luncheon. The company was inedible and so, therefore, was the food." },
                     { body: 'neutral', face: 'neutral', duration: 5000, thoughtChance: 0.4, thought: "A prince does not raid the pantry. A prince delegates the raid. ...There is no one to delegate to." }
@@ -267,13 +267,13 @@
                 baseline: [{ body: 'casual2', face: 'neutral' }, { body: 'neutral', face: 'neutral' }],
                 flourishes: [
                     { body: 'casual2', face: 'melancholy', duration: 5000, thoughtChance: 0.65, thought: "If the court saw me like this, three duchesses would faint from opportunity." },
-                    { body: 'reading', face: 'neutral', duration: 5000, thoughtChance: 0.5, thought: "I dismissed the valet today. Some days I cannot bear to be arranged." }
+                    { body: 'casual2', face: 'neutral', duration: 5000, thoughtChance: 0.5, thought: "I dismissed the valet today. Some days I cannot bear to be arranged." }
                 ]
             },
             weary: {
-                baseline: [{ body: 'reading', face: 'melancholy' }, { body: 'melancholy', face: 'melancholy' }],
+                baseline: [{ body: 'neutral', face: 'melancholy' }, { body: 'melancholy', face: 'melancholy' }],
                 flourishes: [
-                    { body: 'reading', face: 'melancholy', duration: 6500, thoughtChance: 0.6, thought: "The crown is heaviest at this hour. I take it off and my head still remembers it." },
+                    { body: 'melancholy', face: 'melancholy', duration: 6500, thoughtChance: 0.6, thought: "The crown is heaviest at this hour. I take it off and my head still remembers it." },
                     { body: 'melancholy', face: 'hurt', duration: 6000, thoughtChance: 0.55, thought: "It is late. The palace pretends to sleep. So do I. We are both performing." }
                 ]
             },
@@ -282,7 +282,7 @@
                 flourishes: [
                     { body: 'hurt', face: 'melancholy', duration: 6000, thoughtChance: 0.7, thought: "The palace is very loud and completely empty. A magic trick only royalty learns." },
                     { body: 'melancholy', face: 'hurt', duration: 6000, thoughtChance: 0.65, thought: "I reached for the bell to send for company. There is no bell for the company I wanted." },
-                    { body: 'reading', face: 'melancholy', duration: 5500, thoughtChance: 0.5, thought: "I have read this page four times. It keeps being about you. It is a treatise on grain tax." }
+                    { body: 'melancholy', face: 'melancholy', duration: 5500, thoughtChance: 0.5, thought: "I read the same page four times tonight. It kept being about you. It was a treatise on grain tax." }
                 ]
             },
             warm: {
