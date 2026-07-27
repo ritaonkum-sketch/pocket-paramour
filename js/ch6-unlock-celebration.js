@@ -382,17 +382,20 @@
         // (the care-only rung, e.g. → Proto) → "Care for <Name>" (switches
         // the active companion). Content is built from careLadderProgress so
         // every handoff gets the same rich treatment.
-        var chapterCardHtml = gateway ? (
+        // Owner redesign (Jul 2026): the unlock is a new CARE ROUTE, so the
+        // popup invites the player to go MEET them now, or stay with the story.
+        // The callout names who just opened (their role sells the "go see them"
+        // choice); the buttons carry the two paths.
+        var chapterCardHtml =
             '<div class="pp-ch6-chapter-card">' +
-            '<div class="pp-ch6-chapter-num">Chapter ' + gateway + '</div>' +
-            '<div class="pp-ch6-chapter-title">' + nextName + '’s story begins</div>' +
-            '<div class="pp-ch6-chapter-char">' + nextName + (nextRole ? ' · ' + nextRole : '') + '</div>' +
-            '</div>'
-        ) : '';
+            '<div class="pp-ch6-chapter-num">Care route now open</div>' +
+            '<div class="pp-ch6-chapter-title">' + nextName + '</div>' +
+            (nextRole ? '<div class="pp-ch6-chapter-char">' + nextRole + '</div>' : '') +
+            '</div>';
         var bodyText = gateway
-            ? ('The bond you wove held. ' + nextName + '’s chapter is yours to walk now.')
-            : ('The bond you wove held. ' + nextName + '’s thread is open to you now.');
-        var primaryLabel = gateway ? 'Read now' : ('Care for ' + nextName);
+            ? ('The bond you wove has held, and ' + nextName + '’s door is open to you now. Go to them, or stay with the story?')
+            : ('The bond you wove has held, and ' + nextName + '’s door is open to you now. Go to them whenever you are ready.');
+        var primaryLabel = 'Go to ' + nextName;
 
         var bd = document.createElement('div');
         bd.id = BACKDROP;
@@ -406,7 +409,7 @@
             '<p class="pp-ch6-body">' + bodyText + '</p>' +
             chapterCardHtml +
             '<div class="pp-ch6-buttons">' +
-            '<button type="button" class="pp-ch6-btn secondary pp-ch6-later">Later</button>' +
+            '<button type="button" class="pp-ch6-btn secondary pp-ch6-later">' + (gateway ? 'Stay with the story' : 'Later') + '</button>' +
             '<button type="button" class="pp-ch6-btn primary pp-ch6-now">' + primaryLabel + '</button>' +
             '</div>' +
             '</div>';
@@ -436,8 +439,7 @@
         bd.querySelector('.pp-ch6-now').addEventListener('click', function () {
             if ((Date.now() - _shownAt) < MIN_VISIBLE_MS) return;
             markCelebrated(nextChar);
-            if (gateway) goToChapter();
-            else careForNext(nextChar);
+            goToCare(nextChar);   // straight into the new companion's care (owner choice, Jul 2026)
         });
         bd.addEventListener('click', function (e) {
             // Ignore stray taps in the first moment after showing — a tap that
@@ -455,13 +457,62 @@
         _shownAt = Date.now();
     }
 
-    // Care-only rung (→ Proto): switch the active companion to the newly
-    // opened character so the player lands on their care screen.
-    function careForNext(nextChar) {
+    // Owner redesign (Jul 2026): the primary CTA takes the player STRAIGHT into
+    // the newly opened companion's care screen, from wherever the popup fired.
+    //   - on another companion's care screen → _switchToSelect (clean care exit)
+    //   - on the Main Story list / Chronicle   → close the list, show the hub
+    // Then make the new character active and route in via the SAME path the
+    // Chronicle CARE button uses (a tagged click on their thread card), retrying
+    // briefly while the hub settles. If routing can't complete it degrades
+    // gracefully to the Chronicle with the new character active — still one tap
+    // from their care, never a dead end.
+    function goToCare(nextChar) {
         dismiss();
         setTimeout(function () {
-            try { if (typeof window.setActive === 'function') window.setActive(nextChar); } catch (_) {}
+            try {
+                if (document.body.classList.contains('pp-screen-care') &&
+                    window._game && typeof window._game._switchToSelect === 'function') {
+                    try { window._game._switchToSelect(); } catch (_) {}
+                } else {
+                    if (document.getElementById('chp-page') && window.MSChapters &&
+                        typeof window.MSChapters.close === 'function') {
+                        try { window.MSChapters.close(); } catch (_) {}
+                    }
+                    var sel = document.getElementById('select-screen');
+                    if (sel && sel.classList.contains('hidden')) {
+                        sel.classList.remove('hidden');
+                        sel.style.opacity = ''; sel.style.visibility = '';
+                    }
+                    if (typeof window._refreshUnlockedCards === 'function') {
+                        try { window._refreshUnlockedCards(); } catch (_) {}
+                    }
+                }
+                if (typeof window.setActive === 'function') {
+                    try { window.setActive(nextChar); } catch (_) {}
+                }
+                _enterCareWhenReady(nextChar, 0);
+            } catch (_) {}
         }, 420);
+    }
+
+    // Poll for the Chronicle's thread card, then route into care exactly the way
+    // the CARE button does (bypass flag + click). Gives up after ~3.6s, leaving
+    // the player on the hub with the new character active.
+    function _enterCareWhenReady(nextChar, tries) {
+        try {
+            var sel  = document.getElementById('select-screen');
+            var seen = sel && !sel.classList.contains('hidden');
+            var card = document.querySelector('.cc-thread-card[data-character="' + nextChar + '"]');
+            var locked = card && (card.classList.contains('cc-thread-locked') ||
+                                  card.classList.contains('ms-locked') ||
+                                  card.classList.contains('select-card-locked'));
+            if (seen && card && !locked) {
+                card.__ccCareBypass = true;
+                card.click();
+                return;
+            }
+        } catch (_) {}
+        if (tries < 24) setTimeout(function () { _enterCareWhenReady(nextChar, tries + 1); }, 150);
     }
 
     function dismiss() {
@@ -469,21 +520,6 @@
         if (!bd) return;
         bd.classList.remove('show');
         setTimeout(function () { if (bd.parentNode) bd.parentNode.removeChild(bd); }, 380);
-    }
-
-    function goToChapter() {
-        dismiss();
-        // Open the chapters page (chp-page) after the modal fades out.
-        // MSChapters.open() is the canonical entry the in-game Main Story
-        // button uses; it lands on the chapter list with Chapter 6 ready
-        // to tap. Don't auto-play (player should choose to begin).
-        setTimeout(function () {
-            try {
-                if (window.MSChapters && typeof window.MSChapters.open === 'function') {
-                    window.MSChapters.open();
-                }
-            } catch (_) { /* fail gracefully */ }
-        }, 420);
     }
 
     // ── Boot + poll ────────────────────────────────────────────────
