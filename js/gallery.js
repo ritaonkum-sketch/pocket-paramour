@@ -807,6 +807,22 @@ class GallerySystem {
         const id = this._revealQueue.shift();
         const card = GALLERY_CARDS.find(c => c.id === id);
         if (!card) { this._flushRevealQueue(); return; }   // skip unknown id, keep going
+        // Don't reveal another character's card in this route (owner: "why is
+        // Alistair appearing in Elian's care route?"). Cards UNLOCK scoped to
+        // their character (see checkUnlocks), but a reveal deferred over a busy
+        // screen can carry into the NEXT character's route once the player moves
+        // on — the queue persists across the switch. Skip any card that isn't the
+        // active companion's; streak / player-wide cards are route-agnostic and
+        // always allowed. Skipped cards stay unlocked and viewable in the gallery
+        // (with their "new" badge) — only the wrong-route cinematic is dropped.
+        try {
+            const activeChar = this.game.selectedCharacter || this.game.characterId || 'alistair';
+            const playerWide = card.unlock && card.unlock.type === 'streak';
+            if (!playerWide && this.cardCharacter(card) !== activeChar) {
+                this._flushRevealQueue();   // discard the mismatched reveal, keep going
+                return;
+            }
+        } catch (_) { /* if scoping can't be computed, fall through and reveal */ }
         this._revealActive = true;
         const next = () => { this._revealActive = false; this._flushRevealQueue(); };
         // EVERY rarity gets the full card-art reveal so the player always SEES
