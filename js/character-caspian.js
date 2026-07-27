@@ -423,7 +423,8 @@ const CHARACTER_CASPIAN = {
     // Trimmed to his one signature game (the waltz). Diplomacy/Poetry used
     // to route to the reused timing bar; retired Jul 2026.
     trainingOptions: [
-        { type: 'dance', icon: '\uD83D\uDC83', label: 'Dance', desc: 'A waltz, just the two of you' }
+        { type: 'dance', icon: '\uD83D\uDC83', label: 'Dance', desc: 'A waltz, just the two of you' },
+        { type: 'study', icon: '\uD83D\uDCD6', label: 'Study', desc: 'A quiet hour at his desk' }
     ],
 
     trainingDialogue: {
@@ -433,6 +434,13 @@ const CHARACTER_CASPIAN = {
             "You stepped on my foot. I didn’t mind.",
             "The music stopped but you didn’t let go... Neither did I.",
             "Dancing with you makes the court disappear."
+        ],
+        study: [
+            "The treaty can wait. It has waited three hundred years. You, I would not keep waiting.",
+            "Read over my shoulder. I write better when someone I trust is watching the ink dry.",
+            "Four hundred signatures today. Only the last one felt like mine, because you were here to see it.",
+            "The court believes a prince studies alone. Let them believe it. This hour is ours.",
+            "You closed the book before I finished. You were right. It was dull, and you are the opposite of dull."
         ],
         diplomacy: [
             "You chose the difficult answer. That took courage.",

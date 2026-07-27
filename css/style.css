@@ -1641,6 +1641,24 @@ body.pp-screen-care .character-elian #character-body-img.fight-impact {
     animation: ppElianFightImpact 0.4s ease-in-out both !important;
     transform-origin: 50% 100% !important;
 }
+/* Caspian — "Study" animation training: a calm settle at the desk, then a
+   soft glance up (owner Jul 2026). !important to override the idle breathe. */
+@keyframes ppCaspianStudySettle {
+    0%   { transform: translateY(8px) scale(0.985); opacity: 0.82; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes ppCaspianStudyGlance {
+    0%   { transform: translateY(3px) scale(0.99); opacity: 0.9; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+body.pp-screen-care .character-caspian #character-body-img.study-settle {
+    animation: ppCaspianStudySettle 0.7s cubic-bezier(0.22,1,0.36,1) both !important;
+    transform-origin: 50% 100% !important;
+}
+body.pp-screen-care .character-caspian #character-body-img.study-glance {
+    animation: ppCaspianStudyGlance 0.5s ease-out both !important;
+    transform-origin: 50% 100% !important;
+}
 .character-proto #character-body-img {
     animation: breathe 3s ease-in-out infinite, pp-proto-idle 2s ease-in-out infinite;
 }

@@ -2721,6 +2721,46 @@ class GameUI {
         }, 2400);
     }
 
+    // ── Study sequence (Caspian: a quiet hour at his desk) ─────────
+    // A calm ANIMATION training (owner, Jul 2026) — not a mini-game. Caspian
+    // settles at his writing desk (the seated pose that no longer appears at
+    // idle, given its true home here), works a beat, then glances up at you.
+    // The reward is paid by game.js _doTrain(); this is purely the visual, and
+    // his reflective line lands via trainingDialogue.study.
+    playStudySequence(onComplete) {
+        const poses   = CHARACTER.bodySprites || CHARACTER.bodyPoses;
+        const bodyImg = document.getElementById('character-body-img');
+        if (!poses || !bodyImg) { this.bounceCharacter(); onComplete && onComplete(); return; }
+
+        const desk   = poses.reading || poses.neutral || poses.default;   // the desk-writing pose
+        const lookUp = poses.gentle  || poses.tender  || poses.neutral || poses.default;
+        const base   = poses.neutral || poses.default;
+
+        const set = (src, cls) => {
+            bodyImg.classList.remove('study-settle', 'study-glance', 'bounce');
+            void bodyImg.offsetWidth;
+            if (src) bodyImg.src = src;
+            if (cls) bodyImg.classList.add(cls);
+        };
+
+        this._seqActive = true;
+        bodyImg.classList.remove('in-love', 'strength-strain', 'strength-glow', 'strength-peak');
+
+        // Settle at the desk
+        set(desk, 'study-settle');
+        try { if (window.sounds && sounds.blip) sounds.blip(); } catch (_) {}
+        // A quiet beat of work, then he looks up at you
+        setTimeout(() => { set(lookUp, 'study-glance'); }, 1500);
+        // Return to neutral, release the button lock
+        setTimeout(() => {
+            bodyImg.classList.remove('study-settle', 'study-glance', 'in-love');
+            bodyImg.src = base;
+            this._seqActive = false;
+            onComplete && onComplete();
+            if (this._idleTimer) { clearTimeout(this._idleTimer); this.scheduleIdleDialogue(); }
+        }, 2600);
+    }
+
     // ── Focus / Drift sequence (Lyra: mermaid ocean swim) ─────────
     playFocusSequence(onComplete) {
         const poses = CHARACTER.bodySprites || CHARACTER.bodyPoses;
