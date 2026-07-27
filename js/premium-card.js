@@ -416,15 +416,16 @@
       b.textContent = label;
       b.title = title;
       b.style.cssText = [
-        // Owner (Jul 2026): smaller control circles. 28px compact, cleanly
-        // centred (min-width lets the ✕ grow to its "Leave?" armed state).
+        // Owner (Jul 2026): bare-icon controls — no circular background or
+        // border, just the glyphs. Active states (✕ "Leave?", A on, ⏩ on) still
+        // paint a fill as an on-indicator. Shadow keeps the glyphs legible.
         'pointer-events:auto', 'min-width:28px', 'height:28px', 'padding:0 9px',
-        'border-radius:999px', 'border:1px solid rgba(232,200,138,0.4)',
-        'background:rgba(10,6,22,0.62)', 'color:rgba(244,235,220,0.88)',
+        'border-radius:999px', 'border:none',
+        'background:transparent', 'color:rgba(244,235,220,0.94)',
         'display:inline-flex', 'align-items:center', 'justify-content:center',
         'font-family:Quicksand,Inter,sans-serif', 'font-size:10px', 'font-weight:600',
-        'letter-spacing:0.08em', 'cursor:pointer', 'backdrop-filter:blur(4px)',
-        '-webkit-backdrop-filter:blur(4px)'
+        'letter-spacing:0.08em', 'cursor:pointer',
+        'text-shadow:0 1px 4px rgba(0,0,0,0.8), 0 0 2px rgba(0,0,0,0.6)'
       ].join(';');
       const eat = (e) => { e.stopPropagation(); };
       b.addEventListener('touchstart', eat, { passive: true });
@@ -449,7 +450,7 @@
           if (!exitBtn._armed) return;
           exitBtn._armed = false;
           exitBtn.textContent = '✕';
-          exitBtn.style.background = 'rgba(10,6,22,0.62)';
+          exitBtn.style.background = 'transparent';
         }, 3200);
         return;
       }
@@ -470,7 +471,7 @@
       skipBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const on = hooks.toggleSkip();
-        skipBtn.style.background = on ? 'linear-gradient(180deg,#8E1E33,#5A0E1F)' : 'rgba(10,6,22,0.62)';
+        skipBtn.style.background = on ? 'linear-gradient(180deg,#8E1E33,#5A0E1F)' : 'transparent';
         skipBtn.style.color = on ? '#FFEFF5' : 'rgba(244,235,220,0.88)';
       });
       bar.appendChild(skipBtn);
@@ -490,7 +491,7 @@
     autoBtn.style.justifyContent = 'center';
     const paintAuto = () => {
       const on = localStorage.getItem(AUTO_KEY) === '1';
-      autoBtn.style.background = on ? 'linear-gradient(180deg,#C46A8D,#7A2B4D)' : 'rgba(10,6,22,0.62)';
+      autoBtn.style.background = on ? 'linear-gradient(180deg,#C46A8D,#7A2B4D)' : 'transparent';
       autoBtn.style.color = on ? '#FFF6FA' : 'rgba(244,235,220,0.88)';
     };
     autoBtn.addEventListener('click', (e) => {
