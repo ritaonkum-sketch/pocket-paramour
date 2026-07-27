@@ -163,7 +163,7 @@
                 '  <div id="' + MODAL_ID + '-eyebrow">Care Route Open</div>' +
                 '  <h2 id="' + MODAL_ID + '-title">A door has opened.</h2>' +
                 '  <p id="' + MODAL_ID + '-body">Alistair’s care route is yours to walk now. Tap below, then return to the Chronicle to begin.</p>' +
-                '  <button id="' + MODAL_ID + '-ack" type="button">Got it</button>' +
+                '  <button id="' + MODAL_ID + '-ack" type="button">Meet him</button>' +
                 '</div>';
             document.body.appendChild(bd);
 

@@ -416,10 +416,13 @@
       b.textContent = label;
       b.title = title;
       b.style.cssText = [
-        'pointer-events:auto', 'min-width:34px', 'height:30px', 'padding:0 10px',
+        // Owner (Jul 2026): smaller control circles. 28px compact, cleanly
+        // centred (min-width lets the ✕ grow to its "Leave?" armed state).
+        'pointer-events:auto', 'min-width:28px', 'height:28px', 'padding:0 9px',
         'border-radius:999px', 'border:1px solid rgba(232,200,138,0.4)',
         'background:rgba(10,6,22,0.62)', 'color:rgba(244,235,220,0.88)',
-        'font-family:Quicksand,Inter,sans-serif', 'font-size:11px', 'font-weight:600',
+        'display:inline-flex', 'align-items:center', 'justify-content:center',
+        'font-family:Quicksand,Inter,sans-serif', 'font-size:10px', 'font-weight:600',
         'letter-spacing:0.08em', 'cursor:pointer', 'backdrop-filter:blur(4px)',
         '-webkit-backdrop-filter:blur(4px)'
       ].join(';');
@@ -434,6 +437,7 @@
     exitBtn.style.top = 'calc(10px + env(safe-area-inset-top, 0px))';
     exitBtn.style.left = '10px';
     exitBtn.style.zIndex = '30';
+    exitBtn.style.fontSize = '12px';   // keep the ✕ legible in the smaller circle
     exitBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       // inline two-tap confirm: first tap arms, second leaves.
@@ -476,10 +480,10 @@
     // Compact circle instead of the wide "AUTO" pill (owner: "just put letter
     // A and make it in smaller circle"). Same 30px height as its neighbours so
     // the control row stays aligned; border-radius:999px + square = circle.
-    autoBtn.style.minWidth = '30px';
-    autoBtn.style.width = '30px';
+    autoBtn.style.minWidth = '28px';
+    autoBtn.style.width = '28px';
     autoBtn.style.padding = '0';
-    autoBtn.style.fontSize = '13px';
+    autoBtn.style.fontSize = '12px';
     autoBtn.style.fontWeight = '700';
     autoBtn.style.display = 'inline-flex';
     autoBtn.style.alignItems = 'center';
@@ -500,6 +504,11 @@
     bar.appendChild(autoBtn);
 
     const logBtn = mk('📜', 'Story so far');
+    // Compact circle to match the A button (owner: smaller control circles).
+    logBtn.style.minWidth = '28px';
+    logBtn.style.width = '28px';
+    logBtn.style.padding = '0';
+    logBtn.style.fontSize = '14px';
     logBtn.addEventListener('click', (e) => { e.stopPropagation(); openLog(); });
     bar.appendChild(logBtn);
     n.root.appendChild(bar);
