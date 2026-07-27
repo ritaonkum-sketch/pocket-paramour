@@ -3386,7 +3386,7 @@ class PocketLoveGame {
         const cancel = document.createElement('button');
         cancel.textContent = opts.cancelLabel || 'Cancel';
         cancel.style.cssText = 'padding:10px 22px;border:1px solid rgba(232,200,138,0.35);background:rgba(0,0,0,0.45);color:rgba(244,235,220,0.85);border-radius:999px;font-family:"Quicksand","Inter",sans-serif;font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;cursor:pointer;';
-        cancel.onclick = () => modal.remove();
+        cancel.onclick = () => { modal.remove(); try { opts.onCancel && opts.onCancel(); } catch (e) { console.error('[_ppConfirm]', e); } };
         btns.appendChild(cancel);
 
         const confirm = document.createElement('button');

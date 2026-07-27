@@ -959,6 +959,70 @@ class GameUI {
         this._trainingCloseTimer = setTimeout(() => panel.classList.add('hidden'), 320);
     }
 
+    // ===== MINI-GAME EXIT (shared by all 5 care mini-games) =====
+    // Every mini-game renders into #training-panel. Previously the panel's ✕ was
+    // HIDDEN for the whole game, so the only way out was to finish. Now the ✕
+    // stays live: on the intro / results screen it leaves at once; mid-play it
+    // asks first (and freezes the game behind the confirm so nothing can catch
+    // the player while they decide). The base Train reward is paid up-front in
+    // game.js _doTrain(), so leaving only forfeits the in-game bonus — no economy
+    // side-effects, no refund needed.
+
+    // Phase is read straight from each game's own veil DOM, so no per-game flags
+    // are needed. Start veil visible = intro; end veil visible = results; else mid-play.
+    _miniGamePhase(grid) {
+        if (!grid) return 'done';
+        const start = grid.querySelector('.fg-start,.wz-start,.rc-start,.rn-start,.hn-start');
+        const end   = grid.querySelector('.fg-end,.wz-end,.rc-end,.rn-end,.hn-end');
+        if (end && !end.hasAttribute('hidden')) return 'done';
+        if (!start) return 'playing';   // legacy puzzle (no veils) → treat as in-play
+        return start.hasAttribute('hidden') ? 'playing' : 'intro';
+    }
+
+    // Called by each mini-game wrapper in place of hiding the ✕.
+    _armMiniGameExit(onComplete) {
+        const closeBtn = document.getElementById('training-close');
+        if (!closeBtn) return;
+        closeBtn.style.display = '';
+        closeBtn.setAttribute('aria-label', 'Leave');
+        closeBtn.onclick = () => {
+            const grid = document.getElementById('training-grid');
+            const ctrl = this.game && this.game._puzzleSystem && this.game._puzzleSystem._activeControl;
+            if (this._miniGamePhase(grid) === 'playing') {
+                if (ctrl && ctrl.pause) { try { ctrl.pause(); } catch (_) {} }   // freeze behind the confirm
+                this.game._ppConfirm(
+                    'Leave the game?',
+                    "This round will end and won't be saved. You can play again anytime.",
+                    () => this._doMiniGameExit(onComplete),
+                    {
+                        confirmLabel: 'Leave',
+                        cancelLabel: 'Keep playing',
+                        onCancel: () => { if (ctrl && ctrl.resume) { try { ctrl.resume(); } catch (_) {} } }
+                    }
+                );
+            } else {
+                this._doMiniGameExit(onComplete);   // intro / results → leave at once
+            }
+        };
+    }
+
+    _doMiniGameExit(onComplete) {
+        const ps = this.game && this.game._puzzleSystem;
+        const ctrl = ps && ps._activeControl;
+        if (ctrl && typeof ctrl.abort === 'function') {
+            ps._activeControl = null;               // one-shot — block re-entry
+            // abort() runs the game's own finish(), which fires the wrapper's
+            // onDone (closes the panel + re-enables Train). No bonus is paid.
+            try { ctrl.abort(); return; } catch (e) { console.error('[mini-game exit]', e); }
+        }
+        // Fallback for a game with no control (legacy puzzle): tear down by hand.
+        const grid = document.getElementById('training-grid');
+        if (grid) grid.innerHTML = '';
+        this._seqActive = false;
+        this.closeTrainingPanel();
+        try { onComplete && onComplete(); } catch (_) {}
+    }
+
 
     // ===== ACHIEVEMENT PANEL =====
 
@@ -2955,7 +3019,7 @@ class GameUI {
         const panelHeader = panel.querySelector('#training-panel-header span');
         if (panelHeader) panelHeader.textContent = 'Foraging';
         const closeBtn = document.getElementById('training-close');
-        if (closeBtn) closeBtn.style.display = 'none';
+        this._armMiniGameExit(onComplete);
         this._seqActive = true;
 
         this.game._puzzleSystem.playForage(grid, () => {
@@ -2992,7 +3056,7 @@ class GameUI {
         const panelHeader = panel.querySelector('#training-panel-header span');
         if (panelHeader) panelHeader.textContent = 'A Waltz';
         const closeBtn = document.getElementById('training-close');
-        if (closeBtn) closeBtn.style.display = 'none';
+        this._armMiniGameExit(onComplete);
         this._seqActive = true;
 
         this.game._puzzleSystem.playWaltz(grid, () => {
@@ -3029,7 +3093,7 @@ class GameUI {
         const panelHeader = panel.querySelector('#training-panel-header span');
         if (panelHeader) panelHeader.textContent = 'Across the Veil';
         const closeBtn = document.getElementById('training-close');
-        if (closeBtn) closeBtn.style.display = 'none';
+        this._armMiniGameExit(onComplete);
         this._seqActive = true;
 
         this.game._puzzleSystem.playReach(grid, () => {
@@ -3066,7 +3130,7 @@ class GameUI {
         const panelHeader = panel.querySelector('#training-panel-header span');
         if (panelHeader) panelHeader.textContent = 'Rune-work';
         const closeBtn = document.getElementById('training-close');
-        if (closeBtn) closeBtn.style.display = 'none';
+        this._armMiniGameExit(onComplete);
         this._seqActive = true;
 
         this.game._puzzleSystem.playRunes(grid, () => {
@@ -3103,7 +3167,7 @@ class GameUI {
         const panelHeader = panel.querySelector('#training-panel-header span');
         if (panelHeader) panelHeader.textContent = 'The Hunt';
         const closeBtn = document.getElementById('training-close');
-        if (closeBtn) closeBtn.style.display = 'none';
+        this._armMiniGameExit(onComplete);
         this._seqActive = true;
 
         this.game._puzzleSystem.playHunt(grid, () => {

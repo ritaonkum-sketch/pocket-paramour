@@ -483,6 +483,15 @@ class PuzzleSystem {
           running=false; if(rafId) cancelAnimationFrame(rafId); if(onDone) onDone(wasSuccess); });
 
         rafId=requestAnimationFrame(loop);
+
+        // Exit control — ui.js reads this so the panel ✕ can leave/pause the game.
+        // abort reuses the Done teardown (no bonus: rewards live in resolve());
+        // pause/resume stop and restart the draw loop while the confirm is up.
+        this._activeControl = {
+          abort:  function(){ running=false; if(rafId) cancelAnimationFrame(rafId); if(onDone) onDone(wasSuccess); },
+          pause:  function(){ running=false; },
+          resume: function(){ running=true; if(rafId) cancelAnimationFrame(rafId); rafId=requestAnimationFrame(loop); }
+        };
     }
 
     // ── Entry point: play a random puzzle of the given type ──────
@@ -662,6 +671,14 @@ class PuzzleSystem {
         for (var pi = 0; pi < pads.length; pi++) { (function (p) { p.addEventListener('click', function () { onTap(+p.getAttribute('data-i')); }); })(pads[pi]); }
         container.querySelector('.wz-begin').addEventListener('click', function () { initAudio(); try { if (ac && ac.state === 'suspended') ac.resume(); } catch (e) {} startGame(); });
         elBest.textContent = (+localStorage.getItem('pp_caspian_waltz_best') || 0);
+
+        // Exit control — abort reuses finish() (no bonus: that lives in endGame).
+        // The waltz is turn-based and forgiving, so no pause is needed.
+        this._activeControl = {
+          abort:  function(){ finish(false); },
+          pause:  function(){},
+          resume: function(){}
+        };
     }
 
     _injectReachCSS() {
@@ -863,6 +880,14 @@ class PuzzleSystem {
         reset(); draw();
         elBest.textContent = (+localStorage.getItem('pp_proto_reach_best') || 0);
         raf = requestAnimationFrame(loop);
+
+        // Exit control — abort reuses finish() (no bonus: that lives in endGame);
+        // pause/resume freeze and restart the loop while the leave-confirm is up.
+        this._activeControl = {
+          abort:  function(){ finish(); },
+          pause:  function(){ running=false; },
+          resume: function(){ if(finished) return; running=true; if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+        };
     }
 
     _injectRunesCSS() {
@@ -1083,6 +1108,14 @@ class PuzzleSystem {
         reset(); draw();
         elBest.textContent = (+localStorage.getItem('pp_lucien_rune_best') || 0);
         raf = requestAnimationFrame(loop);
+
+        // Exit control — abort reuses finish() (no bonus: that lives in endGame);
+        // pause/resume freeze and restart the loop while the leave-confirm is up.
+        this._activeControl = {
+          abort:  function(){ finish(); },
+          pause:  function(){ running=false; },
+          resume: function(){ if(finished) return; running=true; if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+        };
     }
 
     _injectHuntCSS() {
@@ -1305,6 +1338,14 @@ class PuzzleSystem {
         reset(); draw();
         elBest.textContent = (+localStorage.getItem('pp_noir_hunt_best') || 0);
         raf = requestAnimationFrame(loop);
+
+        // Exit control — abort reuses finish() (no bonus: that lives in endGame);
+        // pause/resume freeze and restart the loop while the leave-confirm is up.
+        this._activeControl = {
+          abort:  function(){ finish(); },
+          pause:  function(){ running=false; },
+          resume: function(){ if(finished) return; running=true; if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+        };
     }
 
     play(type, container, onComplete) {
