@@ -318,13 +318,20 @@
 
         var seqDone = true;
         if (gateway) {
-            seqDone = chapterDone(gateway - 1);   // linear: read up to the chapter before the gateway
+            // Normally a route opens after reading the chapter BEFORE the next
+            // character's intro (gateway - 1). Elian's door should open AFTER
+            // Chapter 6 — Elian's own intro chapter — so the story introduces
+            // Elian first, then the care route opens (owner, Jul 2026). Other
+            // rungs keep the (gateway - 1) timing. This gate feeds both the
+            // route-open celebration AND careRouteOpen(), so they stay in sync.
+            var readThrough = (next === 'elian') ? gateway : (gateway - 1);
+            seqDone = chapterDone(readThrough);
             var cur = parseInt(lsGet('pp_chapter_current') || '1', 10) || 1;
             milestones.push({
                 key: 'sequence',
-                label: 'Read the story through Chapter ' + (gateway - 1),
-                progress: seqDone ? 'Reached' : ('Chapter ' + Math.min(cur, gateway - 1) + ' of ' + (gateway - 1)),
-                pct: seqDone ? 1 : Math.max(0, Math.min(1, cur / gateway)),
+                label: 'Read the story through Chapter ' + readThrough,
+                progress: seqDone ? 'Reached' : ('Chapter ' + Math.min(cur, readThrough) + ' of ' + readThrough),
+                pct: seqDone ? 1 : Math.max(0, Math.min(1, cur / (readThrough + 1))),
                 done: seqDone
             });
         }
