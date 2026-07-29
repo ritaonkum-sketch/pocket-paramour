@@ -242,6 +242,7 @@
     function prettyChapter(id) {
         // ids are integers or short slugs; show a friendly label.
         var n = parseInt(id, 10);
+        if (n === 0) return 'Prologue';   // chapter id 0 is the Prologue, not "Chapter 0"
         return isNaN(n) ? ('Chapter · ' + esc(String(id))) : ('Chapter ' + n);
     }
 
