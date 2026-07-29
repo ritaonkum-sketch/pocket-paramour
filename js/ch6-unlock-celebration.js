@@ -69,6 +69,19 @@
         try { return rg.careLadderProgress(prev); } catch (_) { return null; }
     }
 
+    // The chapter that opens by CARING for the newly-unlocked character — their
+    // first care-gated chapter right after their intro. Elian → Ch7, Caspian →
+    // Ch15. null when the next chapter isn't gated on that character (Lyra /
+    // Lucien / Noir / the care-only Proto rung), so the popup omits the line.
+    function careUnlocksChapter(charId, gatewayCh) {
+        try {
+            var gates = window.PPRouteGates && window.PPRouteGates._gates;
+            if (!gates || !gatewayCh || !charId) return null;
+            var nxt = gatewayCh + 1;
+            return (gates[nxt] && gates[nxt].charId === charId) ? nxt : null;
+        } catch (_) { return null; }
+    }
+
     // The handoff to announce. CRITICAL FIX (Jun 2026): a route opens from the
     // PREVIOUS character's progress — their care target PLUS reading the gateway
     // chapter in the Main Story — which is INDEPENDENT of who you're actively
@@ -392,10 +405,21 @@
             '<div class="pp-ch6-chapter-title">' + nextName + '</div>' +
             (nextRole ? '<div class="pp-ch6-chapter-char">' + nextRole + '</div>' : '') +
             '</div>';
-        var bodyText = gateway
-            ? ('The bond you wove has held, and ' + nextName + '’s door is open to you now. Go to them, or stay with the story?')
-            : ('The bond you wove has held, and ' + nextName + '’s door is open to you now. Go to them whenever you are ready.');
-        var primaryLabel = 'Go to ' + nextName;
+        // Owner (Jul 2026): single call-to-action — go CARE for the newly opened
+        // companion (the "stay with the story" choice was removed; a backdrop tap
+        // still dismisses). Where the very next chapter is gated by caring for
+        // them (Elian → Ch7, Caspian → Ch15), say so — it teaches the care→story
+        // loop. (Other rungs whose next chapter isn't care-gated omit the line.)
+        var unlockCh = careUnlocksChapter(nextChar, gateway);
+        var bodyText;
+        if (unlockCh) {
+            bodyText = 'The bond you wove has held, and ' + nextName + '’s door is open to you now. Care for ' + nextName + ' to deepen your bond and unlock Chapter ' + unlockCh + '.';
+        } else if (gateway) {
+            bodyText = 'The bond you wove has held, and ' + nextName + '’s door is open to you now. Go to ' + nextName + ' and begin.';
+        } else {
+            bodyText = 'The bond you wove has held, and ' + nextName + '’s door is open to you now. Go to ' + nextName + ' whenever you are ready.';
+        }
+        var primaryLabel = 'Care for ' + nextName;
 
         var bd = document.createElement('div');
         bd.id = BACKDROP;
@@ -409,7 +433,6 @@
             '<p class="pp-ch6-body">' + bodyText + '</p>' +
             chapterCardHtml +
             '<div class="pp-ch6-buttons">' +
-            '<button type="button" class="pp-ch6-btn secondary pp-ch6-later">' + (gateway ? 'Stay with the story' : 'Later') + '</button>' +
             '<button type="button" class="pp-ch6-btn primary pp-ch6-now">' + primaryLabel + '</button>' +
             '</div>' +
             '</div>';
@@ -432,10 +455,6 @@
         // "seen" + dismissed it in the same gesture, before the player ever
         // registered it. (That's how Lucien's AND Noir's latched unseen.)
         // Ignore taps until the popup has been visible long enough to read.
-        bd.querySelector('.pp-ch6-later').addEventListener('click', function () {
-            if ((Date.now() - _shownAt) < MIN_VISIBLE_MS) return;
-            markCelebrated(nextChar); dismiss();
-        });
         bd.querySelector('.pp-ch6-now').addEventListener('click', function () {
             if ((Date.now() - _shownAt) < MIN_VISIBLE_MS) return;
             markCelebrated(nextChar);
