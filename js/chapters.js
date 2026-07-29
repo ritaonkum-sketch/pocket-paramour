@@ -84,6 +84,33 @@
     });
   }
 
+  // Owner (Jul 2026): Ch1-8 dialogue was written WITHOUT the "quotes" that
+  // Ch9-33 use for spoken lines, so the story read inconsistently. Rather than
+  // hand-edit hundreds of strings, normalize spoken lines to quotes here at
+  // render time, for chapters 1-8 ONLY. A beat is SPEECH when its effective
+  // speaker (its own, else the card's default) is non-empty — exactly the
+  // beats the renderer already shows with a character/YOU label. Narration
+  // uses speaker:'' and player THOUGHTS start with '*' — both skipped, as are
+  // lines already quoted. Idempotent + scoped, so it can never double-quote
+  // and never touches the already-correct Ch9+.
+  function quoteEarlyChapters(cardData) {
+    try {
+      const m = String(cardData && cardData.id || '').match(/^chp_(\d+)/);
+      if (!m) return;
+      const n = parseInt(m[1], 10);
+      if (!(n >= 1 && n <= 8) || !Array.isArray(cardData.beats)) return;
+      const cardSpeaker = cardData.speaker;
+      cardData.beats.forEach(function (b) {
+        if (!b || b.type !== 'line' || typeof b.text !== 'string' || !b.text) return;
+        const sp = (b.speaker !== undefined) ? b.speaker : cardSpeaker;   // effective speaker
+        if (!sp) return;                          // narration (speaker '') → no quotes
+        const c0 = b.text.charAt(0);
+        if (c0 === '"' || c0 === '“' || c0 === '*') return;          // already quoted / thought / action
+        b.text = '"' + b.text + '"';              // wrap the spoken line in quotes
+      });
+    } catch (_) { /* never block a chapter over quoting */ }
+  }
+
   function runCard(cardData) {
     // Jul 2026 — REPLAY fast-forward. A chapter the player has already
     // completed gets MSCard's ⏩ Skip control; a first read never does
@@ -94,6 +121,7 @@
       const m = String(cardData && cardData.id || '').match(/^chp_(\d+)/);
       if (m && isDone(parseInt(m[1], 10))) cardData._skippable = true;
     } catch (_) {}
+    quoteEarlyChapters(cardData);
     return new Promise((resolve) => {
       if (!window.MSCard || typeof window.MSCard.show !== 'function') { resolve(); return; }
       try { window.MSCard.show(cardData, () => resolve()); } catch (_) { resolve(); }
