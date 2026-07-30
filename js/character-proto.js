@@ -818,6 +818,9 @@ const CHARACTER_PROTO = {
         "I’ll be here when you come back. Not because the seal holds me. Because I choose to keep the light on."
     ],
 
+    // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.
+    recoveryDialogue: "Proto loosened his hold and let the veil take him back. Your silence told him the wanting had been his alone. He keeps the light on even now, because he chose to. Reach across the dark again, and make the choice worth it.",
+
     // Idle dialogue
     idleDialogue: {
         hungry: [

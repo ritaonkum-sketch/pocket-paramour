@@ -919,6 +919,9 @@ const CHARACTER_CASPIAN = {
         "The gates are always open. Even when my heart isn’t."
     ],
 
+    // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.
+    recoveryDialogue: "Caspian went back to his court of a thousand faces, and not one of them was yours. Your silence taught a prince the fear beneath the crown, that he is a simple thing to leave. Come back to him, and teach him otherwise.",
+
     idleDialogue: {
         hungry: [
             "...", "The servants seem to have forgotten lunch.", "... The kitchens are so far away.",

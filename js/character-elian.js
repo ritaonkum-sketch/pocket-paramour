@@ -799,6 +799,9 @@ const CHARACTER_ELIAN = {
         "Go. But remember the way back."
     ],
 
+    // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.
+    recoveryDialogue: "Elian went back to the trees, half certain from the first day it would end here. Your silence proved his oldest fear, that everything he lets close finds a way to leave. Walk the trail back to him, and show that fear it was wrong.",
+
     idleDialogue: {
         hungry: ["...", "The snares need checking.", "I can smell the campfire smoke. My stomach hears it too.", "I have gone longer on less. You are here, so I will mention it.", "*Glances at the snare line, then back at you.* Later. This is better."],
         dirty: ["...", "*Brushes dirt from sleeve, gives up*", "The river’s fifty paces east.", "Mud washes off. I have worn worse and called it camouflage.", "Walk to the river with me. I do not like leaving you behind, even for clean water."],

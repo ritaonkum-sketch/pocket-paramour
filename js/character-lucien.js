@@ -947,6 +947,9 @@ const CHARACTER_LUCIEN = {
         "The data suggests I should stay. But the data is wrong sometimes."
     ],
 
+    // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.
+    recoveryDialogue: "Lucien went back to his equations. They balance. He does not. Your silence became the one variable he cannot solve for. Return to the tower, and let the proof end differently.",
+
     // Idle dialogue
     idleDialogue: {
         hungry: [

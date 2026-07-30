@@ -888,6 +888,9 @@ const CHARACTER_NOIR = {
         "You’ll come back. They always come back. But only you will be welcome."
     ],
 
+    // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.
+    recoveryDialogue: "Noir let the dark fold shut over the place you used to stand. Your silence was one more door closing, and he has counted too many of those. Step back into the shadow. He is there still, and he remembers the warmth you left.",
+
     // Idle dialogue
     idleDialogue: {
         hungry: [

@@ -1009,6 +1009,11 @@ const CHARACTER_ALISTAIR = {
         "Farewell. I hope whatever you chose instead was worth what you left behind."
     ],
 
+    // Neglect-RECOVERY bubble — shown by game.js when the player returns to a
+    // companion who left (the "Try Again" modal). Per-character voice; the
+    // shared name-aware line in game.js is the fallback (owner, Jul 2026).
+    recoveryDialogue: "Alistair stood his post long after the one he stood it for was gone. Your silence told him the oath ran only one way. Take the watch beside him again, and show him a knight was worth keeping.",
+
     storyMilestones: {
         affection1: {
             title: "The Oath Softens",

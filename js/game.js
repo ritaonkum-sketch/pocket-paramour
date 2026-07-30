@@ -1059,14 +1059,18 @@ class PocketLoveGame {
 
         // Show welcome or return message
         if (this.characterLeft) {
-            // Owner (Jul 2026): make the neglect prompt land harder — the
-            // character's hurt at being un-cared-for + a real call to win them
-            // back. Name-aware because this ONE modal is shared across all 7
-            // companions (a hardcoded "He left" would misgender the women).
-            const _leftWho = (typeof CHARACTER !== 'undefined' && CHARACTER && CHARACTER.name) ? CHARACTER.name : '';
-            const _leftMsg = _leftWho
-                ? (_leftWho + ' is gone. Your silence made ' + _leftWho + ' believe you had no care to give. Walk your days together again, and show how wrong that was.')
-                : 'They are gone. Your silence made them believe you had no care to give. Walk your days together again, and show how wrong that was.';
+            // Owner (Jul 2026): the neglect-RECOVERY bubble ("Try Again" on return)
+            // is now PER-CHARACTER — each companion's own hurt voice, from their
+            // recoveryDialogue field (character-*.js / character.js). Falls back to
+            // a shared, name-aware line if a character ever lacks one (uses the
+            // name, so it never misgenders).
+            let _leftMsg = (typeof CHARACTER !== 'undefined' && CHARACTER && CHARACTER.recoveryDialogue) || '';
+            if (!_leftMsg) {
+                const _leftWho = (typeof CHARACTER !== 'undefined' && CHARACTER && CHARACTER.name) ? CHARACTER.name : '';
+                _leftMsg = _leftWho
+                    ? (_leftWho + ' is gone. Your silence made ' + _leftWho + ' believe you had no care to give. Walk your days together again, and show how wrong that was.')
+                    : 'They are gone. Your silence made them believe you had no care to give. Walk your days together again, and show how wrong that was.';
+            }
             this.ui.showGameOver(_leftMsg);
         } else {
             // NOTE (v999): the v998 attempt to DEFER this ~950ms was reverted —

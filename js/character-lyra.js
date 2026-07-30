@@ -446,6 +446,9 @@ const CHARACTER_LYRA = {
         "The waves will carry me far from here..."
     ],
 
+    // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.
+    recoveryDialogue: "Lyra followed the tide out and took her song with her. Your silence taught her she was easy to let go. The sea gives back what it loves. Call her home, and give her a reason to sing again.",
+
     // Idle dialogue
     idleDialogue: {
         hungry: ["...", "The sea provides... but I’m still hungry...", "Could you find me something to eat?"],
