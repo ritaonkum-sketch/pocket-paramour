@@ -1059,7 +1059,15 @@ class PocketLoveGame {
 
         // Show welcome or return message
         if (this.characterLeft) {
-            this.ui.showGameOver("I left... but maybe we can try again?");
+            // Owner (Jul 2026): make the neglect prompt land harder — the
+            // character's hurt at being un-cared-for + a real call to win them
+            // back. Name-aware because this ONE modal is shared across all 7
+            // companions (a hardcoded "He left" would misgender the women).
+            const _leftWho = (typeof CHARACTER !== 'undefined' && CHARACTER && CHARACTER.name) ? CHARACTER.name : '';
+            const _leftMsg = _leftWho
+                ? (_leftWho + ' is gone. Your silence made ' + _leftWho + ' believe you had no care to give. Walk your days together again, and show how wrong that was.')
+                : 'They are gone. Your silence made them believe you had no care to give. Walk your days together again, and show how wrong that was.';
+            this.ui.showGameOver(_leftMsg);
         } else {
             // NOTE (v999): the v998 attempt to DEFER this ~950ms was reverted —
             // it made the return cinematic pop up a full second AFTER the care
