@@ -4000,7 +4000,19 @@ body.pp-screen-care .character-elian #character-body-img {
 
 /* ===== DIALOGUE FADE TRANSITION ===== */
 #dialogue-text {
-    animation: fadeIn 0.3s ease;
+    /* Opacity-only fade — deliberately NO translateY. A transform on live
+       text nudges it sub-pixel as it settles, which reads as a momentary
+       blur/"fuzz" every time the box re-appears (a screen re-entry re-fires
+       this animation). A crisp opacity fade keeps the voice sharp.
+       (Owner: "it looks like fuzzy text".) Scoped to its own keyframe so the
+       shared fadeIn — used by other elements with an intentional slide —
+       is left untouched. */
+    animation: dlgTextFade 0.3s ease;
+}
+
+@keyframes dlgTextFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 @keyframes fadeIn {

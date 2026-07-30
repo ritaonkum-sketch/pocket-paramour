@@ -205,6 +205,17 @@
 
     function showThought(text) {
         if (!text) return;
+        // Never speak over the MAIN care dialogue box. If a care line is
+        // typing OR is still on screen waiting for a tap, this floating
+        // thought becomes a SECOND competing text — the "2 texts fighting /
+        // switching / popping up" the owner reported on the care screen.
+        // Mirrors the busy() gate the other ambient bubbles (early-whispers,
+        // aenor-presence, multi-romance, care-weaver-thread) already use;
+        // idle-life was the one module missing it.
+        try {
+            const gg = (typeof getGame === 'function') ? getGame() : window._game;
+            if (gg && gg.typewriter && typeof gg.typewriter.busy === 'function' && gg.typewriter.busy()) return;
+        } catch (_) {}
         // Don't stack on top of an early-whisper or any other top-strip
         // ambient bubble. Coordinator-friendly: bail if anything else
         // is already presenting at the top.
@@ -318,6 +329,11 @@
     // ── Player tap detection (pause idle for 10s) ───────────────
     function onPlayerTap() {
         lastTapTime = Date.now();
+        // A player action is about to speak in the MAIN dialogue box — clear
+        // any lingering floating thought this instant so the two never sit on
+        // screen together (the "2 texts" the owner saw). revertPose() also
+        // dismisses, but the thought can outlive its pose, so dismiss here too.
+        dismissThought();
         // If we're mid-idle-pose, revert immediately so the action
         // response (from action-feedback.js) isn't fighting a wrong pose.
         if (isIdlePosing) {
