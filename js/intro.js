@@ -656,7 +656,7 @@ class IntroScene {
             elian:    "Your name. Quick. Before the rain starts.",
             caspian:  "Your name? I want to say it properly.",
             lucien:   "Your name. For the records. ...And for me.",
-            proto:    "Input your identifier. ...I mean, what's your name?",
+            proto:    "Tell me the word that means you. ...I mean... what's your name?",
             noir:     "Your name. I want to know what to whisper."
         };
         prompt.textContent = prompts[this.characterId] || "What's your name?";

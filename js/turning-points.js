@@ -206,26 +206,26 @@
       speaker: 'NOIR',
       pose: 'assets/noir/body/casual1.png',
       setup: [
-        'I want to give you something. Not a gift. I don\u2019t own things to give. A piece of me.',
-        'Once given, I can\u2019t take it back. It will mark you. Anything magical in the kingdom will sense I\u2019ve touched you. So. Be certain.',
-        'There\u2019s no \u201cjust curious\u201d here. Yes is yes. No is no. Both are honest. Both will cost you something. Decide on purpose.'
+        'I want to give you something. Not a gift. I do not own things to give. A piece of me.',
+        'Once given, I cannot take it back. It will mark you. Anything magical in the kingdom will sense I have touched you. So. Be certain.',
+        'There is no \u201cjust curious\u201d here. Yes is yes. No is no. Both are honest. Both will cost you something. Decide on purpose.'
       ],
-      prompt: 'Take what I\u2019m offering, or don\u2019t?',
+      prompt: 'Take what I am offering, or refuse it?',
       choices: [
         {
           id: 'yes',
           label: 'Yes. Give it to me.',
           response: [
-            'Hold still. It\u2019s warmer than you expected. I was a kinder thing once, before Aenor. There. It\u2019s yours.',
-            'You\u2019re the first in six centuries with a piece of me on the outside. I find I\u2019m a little undone by that. Don\u2019t look at me like that. Not yet.'
+            'Hold still. It is warmer than you expected. I was a kinder thing once, before Aenor. There. It is yours.',
+            'You are the first in six centuries with a piece of me on the outside. I find I am a little undone by that. Do not look at me like that. Not yet.'
           ]
         },
         {
           id: 'no',
           label: 'No. Not yet. Maybe not ever.',
           response: [
-            'Good. Thank you for not taking what I offered lightly. I needed to know you could refuse me. That\u2019s almost better.',
-            'I\u2019ll keep the piece I meant to give. It keeps for a long time. If you change your mind, I\u2019ll still be here. Six centuries of practice at that.'
+            'Good. Thank you for not taking what I offered lightly. I needed to know you could refuse me. That is almost better.',
+            'I will keep the piece I meant to give. It keeps for a long time. If you change your mind, I will still be here. Six centuries of practice at that.'
           ]
         }
       ]

@@ -95,7 +95,7 @@
             behaviors: [
                 { body: 'neutral',   face: 'neutral',   duration: 6000, thought: "You came back. Hm." },
                 { body: 'casual1',   face: 'wink',      duration: 4000, thought: "Caught looking. Again." },
-                { body: 'casual2',   face: 'neutral',   duration: 6000, thought: "Eight hundred years behind that seal. None of it was this." },
+                { body: 'casual2',   face: 'neutral',   duration: 6000, thought: "Six hundred years behind that seal. None of it was this." },
                 { body: 'whisper',   face: 'gentle',    duration: 5000, thought: "Sit. The dark keeps better company when it is watched." },
                 { body: 'shadow',    face: 'sad',       duration: 6000, thought: "Mortals burn so quickly. You, I would ration." },
                 { body: 'seductive', face: 'happy',     duration: 4000, thought: "Closer. I bite rarely." },

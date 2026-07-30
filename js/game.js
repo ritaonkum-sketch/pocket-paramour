@@ -694,7 +694,7 @@ class PocketLoveGame {
             lucien:   { unlocked: false, title: "The Pattern", text: "Equations flash behind your eyes. You understood magic once. Deeply. The symbols feel like a language you forgot." },
             caspian:  { unlocked: false, title: "The Crown", text: "A throne room. Not this one. Somewhere warmer. You stood beside someone important. You were important too." },
             elian:    { unlocked: false, title: "The Root", text: "Soil between your fingers. A forest that spoke to you. You healed something once. Not a person, but a place." },
-            proto:    { unlocked: false, title: "The Code", text: "A flash of data. Your summoning wasn't random. Someone, or something, chose you specifically. The selection criteria: capacity for connection." },
+            proto:    { unlocked: false, title: "The Thread", text: "A flash of silver thread. Your summoning wasn't random. Someone, or something, chose you on purpose. The reason they chose you: your capacity for connection." },
             noir:     { unlocked: false, title: "The Loss", text: "A face in shadow. Someone who loved the last Soul Weaver. Someone who broke when they died. Someone who is still here... waiting." }
         };
         this.fragmentsUnlocked = 0;
@@ -1551,7 +1551,7 @@ class PocketLoveGame {
                     lyra:     '…you can see me?',
                     caspian:  'I will have tea brought up. Take the seat by the balcony.',
                     lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
-                    noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
+                    noir:     'Six hundred years of quiet in that seal. And now you, close enough to touch.',
                     proto:    'There. The thread is holding. The window between us stays open for you now. Always.'
                 };
                 const firstLine = FIRST_LINES[(this.selectedCharacter || '').toLowerCase()]

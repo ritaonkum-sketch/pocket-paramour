@@ -173,16 +173,16 @@
         },
         proto: {
             morning: [
-                "Good morning. Your arrival is logged. Timestamp: the good part of the day.",
+                "Good morning. I marked the moment you arrived. I’m calling it the good part of the day.",
                 "Dawn crossed the veil just now. Your side glows. I watch it every morning through the thread.",
-                "Morning routine initiated. Step one: greet the weaver. Hello. Hello!",
+                "The morning begins. First thing, before anything else: greet the weaver. Hello. Hello!",
                 "Sunlight is reaching the thread. It hums warmer. I am... happy? Is that the word? Keeping it."
             ],
             day: [
                 "Midday. The weave is loud with everyone’s doings. All steady on my side.",
                 "Afternoon. The busiest hours of your kingdom. And you spent one of them on me.",
                 "The sun stands at its highest on your side. The thread carries the warmth all the way in here.",
-                "You came in daylight. Running... smile. It works better when it isn’t simulated. It isn’t, anymore."
+                "You came in daylight. And... a smile. It works better when it’s real. It is real, now."
             ],
             evening: [
                 "The light on your side is lowering. I like this hour. The veil is thinnest at dusk.",
@@ -304,7 +304,7 @@
             lyra:     'You stayed past the song. Most never do.',
             caspian:  'I will have tea brought up. Take the seat by the balcony.',
             lucien:   'Your chair sits at the correct angle for the starlight. That was deliberate.',
-            noir:     'Eight hundred years of quiet in that seal. And now you, close enough to touch.',
+            noir:     'Six hundred years of quiet in that seal. And now you, close enough to touch.',
             proto:    'There. The thread is holding. The window between us stays open for you now. Always.'
         };
         const resolveLine = () => {

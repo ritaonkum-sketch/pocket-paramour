@@ -1905,6 +1905,18 @@
             { type: 'line', text: 'I have buried two of you in this clearing.', hold: 2800, cps: 26 },
             { type: 'line', text: 'I will not bury a third.', hold: 3200, cps: 26 },
 
+            // ── Player agency (Jul 2026) — meet his grief, or look to what grew back.
+            { type: 'choice', key: 'ch8_graves', prompt: 'Two graves behind him. His voice gone level over them.',
+              options: [
+                { id: 'stay', text: 'Hold his eyes. Let him see you are not the third.' },
+                { id: 'grass', text: 'Look to the green grown back between the stones.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch8_graves', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch8_graves', map: {
+                stay: 'You hold his gaze and do not look away from the two graves or the man who dug them. Something in his shoulders eases by a single degree. It is not comfort. It is being seen.',
+                grass: 'You look to the green that has grown back kinder between the stones. He follows your gaze. Neither of you says that things grow anyway. You both hear it.'
+              } }, hold: 3600, cps: 24 },
+
             // ─── Section 17 · Grief that becomes yours ───────────────────
             { type: 'line', speaker: '', text: 'Close on your hand at your side. It has gone cold. Not from the wind. The cold is older than the wind.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'Closer on your face.', hold: 1800, cps: 28 },
@@ -2225,6 +2237,17 @@
             { type: 'line', speaker: 'LYRA', text: '"You have forgotten it."', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'You are stunned by her words.', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'LYRA', text: '"We will find yours when you are ready to carry it."', hold: 3400, cps: 26 },
+            // ── Player agency (Jul 2026) — let the hope in, or guard the empty place.
+            { type: 'choice', key: 'ch9_name', prompt: 'A stranger has just named the hole where your name should be.',
+              options: [
+                { id: 'hope', text: 'Let the hope in. Maybe she can find it.' },
+                { id: 'guard', text: 'Guard the empty place. Names have teeth.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch9_name', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch9_name', map: {
+                hope: 'Something unlocks in your chest at the thought that the name is not gone, only waiting. You let yourself want it back.',
+                guard: 'You keep the empty place close and unopened. Whatever your name is, you will be the one to lift it first.'
+              } }, hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'She steps toward you. Bare feet on the paving. Slow. Careful.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'She raises her free hand. Reaches for your face.', hold: 2600, cps: 28 },
             { type: 'line', speaker: '', text: 'Her fingertips touch the side of your cheek. Cold. Cooler than the sea air.', hold: 3400, cps: 26 },
@@ -2413,6 +2436,17 @@
             { type: 'line', speaker: 'LYRA', text: '"You are the seventh."', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'LYRA', text: '"We have been waiting a long time."', hold: 2800, cps: 28 },
             { type: 'line', speaker: 'LYRA', text: '"I am very glad it is you."', hold: 2800, cps: 28 },
+            // ── Player agency (Jul 2026) — hold the gladness, or count the graves.
+            { type: 'choice', key: 'ch10_seventh', prompt: 'Seventh. The other six are in the ground. She says she is glad.',
+              options: [
+                { id: 'gladness', text: 'Hold onto the gladness in her voice. Let it be true.' },
+                { id: 'six', text: 'Count the six graves behind her smile.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch10_seventh', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch10_seventh', map: {
+                gladness: 'You choose to hear the gladness and not the arithmetic. She has waited through six endings to say it. You let her mean it.',
+                six: 'You cannot help the counting. Six before you, all of them dead, and a sea that kept waiting anyway. The gladness and the graves sit side by side.'
+              } }, hold: 3400, cps: 24 },
             { type: 'line', speaker: 'YOU',  text: '"…oh. That is a lot to digest."', hold: 2800, cps: 28 },
             { type: 'line', speaker: '', text: 'Lyra smiles. Soft. Real.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'She holds your eyes a beat too long.', hold: 2400, cps: 28 },
@@ -5652,6 +5686,18 @@
             { type: 'line', speaker: '', text: 'He goes. The door closes.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '*…he hid me in his own chamber. He did not tell me. He did not tell the prince either.*', hold: 4800, cps: 22 },
 
+            // ── Player agency (Jul 2026) — let the omission wound, or wait for his reason.
+            { type: 'choice', key: 'ch21_hidden', prompt: 'The captain hid you in his own chamber and told no one. Not even the prince.',
+              options: [
+                { id: 'wound', text: 'Let it wound you. He kept you in the dark too.' },
+                { id: 'reason', text: 'Hold the anger. Get his reason before you name it betrayal.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch21_hidden', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch21_hidden', map: {
+                wound: 'The hurt lands before the logic can stop it. He decided what you could be trusted to know. You file it where you keep the things you will make him answer for.',
+                reason: 'You set the anger down where you can find it again. A man does not hide someone in the one room he cannot explain unless the truth is worse than the hiding. You will have his reason first.'
+              } }, hold: 4200, cps: 24 },
+
             // ─── Section 14 · The west wing · the silk room ───────────────
             { type: 'line', speaker: '', text: 'ELSEWHERE. The west wing. The sealed door of the queen’s wing is open.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'A long corridor, disused for years. The dust on the floor disturbed in one line. Bare feet. The line goes one way and does not yet come back.', hold: 6000, cps: 22 },
@@ -6255,6 +6301,17 @@
             { type: 'line', speaker: 'LUCIEN', text: '"I take it off to read, mi’lady. Or to be read."', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU',    text: '"…which am I."', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'LUCIEN', text: '"I have not decided yet."', hold: 2200, cps: 28 },
+            // ── Player agency (Jul 2026) — be read, or give the scholar his distance.
+            { type: 'choice', key: 'ch23_read', prompt: 'The monocle is off. The pale eyes unshielded. He has not decided what you are to him.',
+              options: [
+                { id: 'hold', text: 'Hold his gaze. Let yourself be read.' },
+                { id: 'tea', text: 'Look to the tea. Give the scholar his distance.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch23_read', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch23_read', map: {
+                hold: 'You do not look away. You let the pale, unshielded eyes take their reading of you, and you take yours of him. Whatever he decides, let him decide it from the truth.',
+                tea: 'You lower your eyes to the tea and let him keep the distance the monocle usually keeps for him. Some things are read faster when they are not watched being read.'
+              } }, hold: 3600, cps: 24 },
             { type: 'line', speaker: '', text: 'The smallest stretch of quiet you have had in any room in this castle since the inland road.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'You do not press the question. He has answered enough for today.', hold: 3400, cps: 26 },
 
@@ -6551,6 +6608,17 @@
             { type: 'line', speaker: 'CHAMBERLAIN', text: '"Your highness. Mi’lady. Her majesty has been receiving since fifth bell. The court is gathered. The hall is full."', hold: 7000, cps: 22 },
             { type: 'line', speaker: '', text: 'He looks at you. Not the favourite. You.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'CASPIAN', text: '"…whatever happens tonight, mi’lady. Stay near me."', hold: 3400, cps: 26 },
+            // ── Player agency (Jul 2026) — promise aloud, or let the look answer.
+            { type: 'choice', key: 'ch24_stay', prompt: 'The great doors, about to open on the queen’s hall. He asks you to stay near.',
+              options: [
+                { id: 'promise', text: 'Promise it. Stay at his side.' },
+                { id: 'eyes', text: 'Let your eyes answer. Promise the room nothing.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch24_stay', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch24_stay', map: {
+                promise: 'You mean it before you say it. Whatever the hall is about to become, the space beside him is the one place in it you trust.',
+                eyes: 'You hold his look a beat before you answer, and let it carry what the word will not. In a room full of people who read faces for a living, the smaller the promise sounds, the safer it keeps.'
+              } }, hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU',     text: '"…yes, Caspian."', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'The use of his name has reached him a second time in two days.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'He turns back to the chamberlain. He nods once.', hold: 2400, cps: 28 },

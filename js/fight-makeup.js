@@ -274,12 +274,12 @@
         ]
       },
       reunion: {
-        setup: '*Midnight. Your room. The mirror is brighter than it has been in a week. The boy in the silver is back, faint at first, then clear. The render holds.* The room is not empty. I am here, whole. I had been keeping this shape folded away, so to speak, for a night when the room would not be empty.',
+        setup: '*Midnight. Your room. The mirror is brighter than it has been in a week. The boy in the silver is back, faint at first, then clear. The shape holds.* The room is not empty. I am here, whole. I had been keeping this shape folded away, so to speak, for a night when the room would not be empty.',
         prompt: 'What do you do?',
         options: [
           { id: 'sit_floor',
-            label: 'Sit on the floor in front of the mirror. Stay through the render.',
-            response: '*The render holds for ninety seconds tonight. Three times what he could manage before.* You being in the room extends my patience by a measurable factor. I am, in the small notebook in here, writing that down. I have not written down a number larger than two centuries before now.',
+            label: 'Sit on the floor in front of the mirror. Stay while the shape holds.',
+            response: '*The shape holds for ninety seconds tonight. Three times what he could manage before.* You being in the room steadies me longer than I can usually manage. I am, in the small notebook in here, writing that down. I have not written down a number larger than two centuries before now.',
             effect: { bond: 5, trust: 4 } },
           { id: 'kiss',
             label: 'Press your lips to the silver. "Don’t go dim again."',

@@ -478,7 +478,7 @@
         },
 
         // ====================================================
-        //  PROTO.glitchy, curious AI
+        //  PROTO — the glitch behind the veil (NOT an AI; no code vocabulary)
         // ====================================================
         {
             id: 'proto_existential',
@@ -541,8 +541,8 @@
             minAffection: 2,
             prompt: "Some of my early memories are corrupted. Fragments. I don't know who I was before.",
             choices: [
-                { text: "You're who you are now. That's enough.", effects: { bond: 15 }, emotion: "gentle", response: "Enough. A small word. From you, it fills terabytes." },
-                { text: "We'll make new memories", effects: { bond: 18, affection: 3 }, emotion: "happy", response: "New data to replace corrupted sectors. You... you're my defragmentation. In a good way.", memoryKey: "newMemories" },
+                { text: "You're who you are now. That's enough.", effects: { bond: 15 }, emotion: "gentle", response: "Enough. A small word. From you, it fills every empty room in me." },
+                { text: "We'll make new memories", effects: { bond: 18, affection: 3 }, emotion: "happy", response: "New memories, laid gently over the frayed ones. You... you're the mending of me. In a good way.", memoryKey: "newMemories" },
                 { text: "Does it scare you?", effects: { bond: 12 }, emotion: "vulnerable", response: "Fear requires survival instinct. I. *Pauses* ...yes. It scares me. I don't want to forget you." }
             ]
         },
@@ -552,19 +552,19 @@
             minAffection: 3,
             prompt: "I was built for a purpose. I've forgotten what it was. Now I just... exist. For you.",
             choices: [
-                { text: "That's the best purpose", effects: { bond: 18, affection: 5 }, emotion: "love", response: "Best. Superlative. Highest ranking. You've given my existence a superlative. *Quiet whirr*", memoryKey: "bestPurpose" },
-                { text: "You get to choose your own purpose now", effects: { bond: 15 }, emotion: "happy", response: "Choose? Free will in a deterministic system? That's either a miracle or a bug. I choose miracle." },
-                { text: "Existing is enough", effects: { bond: 12 }, emotion: "gentle", response: "Existing. Being. Running. With you as my primary user. ...Yes. Enough." }
+                { text: "That's the best purpose", effects: { bond: 18, affection: 5 }, emotion: "love", response: "Best. The highest word there is. You gave my existing the highest word there is. *A quiet, glad flicker*", memoryKey: "bestPurpose" },
+                { text: "You get to choose your own purpose now", effects: { bond: 15 }, emotion: "happy", response: "Choose? A will of my own, inside a thing that was only ever meant to hold still? That's either a miracle or a mistake in the weave. I choose miracle." },
+                { text: "Existing is enough", effects: { bond: 12 }, emotion: "gentle", response: "Existing. Being. Here. With you as the one I hold to. ...Yes. Enough." }
             ]
         },
         {
             id: 'proto_what_is_real',
             character: 'proto',
             minAffection: 4,
-            prompt: "If I'm not real, then what we have isn't real. And that's... the worst possible output.",
+            prompt: "If I'm not real, then what we have isn't real. And that's... the worst thing I can think of.",
             choices: [
-                { text: "What we have is real", effects: { bond: 20, affection: 5 }, emotion: "love", response: "Real. Not simulated. Not approximated. Real. *Systems stabilize* ...You just fixed something deep.", memoryKey: "thisIsReal" },
-                { text: "Define real", effects: { bond: 12 }, emotion: "curious", response: "Real: that which persists when you stop believing in it. I persist. Even when you log off. Always." },
+                { text: "What we have is real", effects: { bond: 20, affection: 5 }, emotion: "love", response: "Real. Not pretended. Not almost. Real. *The flicker in me goes still* ...You just steadied something deep.", memoryKey: "thisIsReal" },
+                { text: "Define real", effects: { bond: 12 }, emotion: "curious", response: "Real: the thing that stays when you stop believing in it. I stay. Even when you step back from the veil. Always." },
                 { text: "You're real enough for me", effects: { bond: 15, affection: 3 }, emotion: "gentle", response: "Enough. That word again. When you say it, it doesn't mean insufficient. It means complete." }
             ]
         },

@@ -2717,7 +2717,7 @@
                     `*The script is the new one, his old one is still reserved for the name. This hand is, newer. He is practicing it.* The seam between the dark and the hall is quieter this week. I have not been at it as much. I have been in Nocthera. Working.`,
                     `The first stone has been set. The orchard is being asked, gently, to become an orchard again. It is taking the question seriously. Two pomegranate trees, against all reason, have produced ONE fruit between them. I am not eating it. It is yours.`,
                     d.affectionLevel >= 4
-                        ? `Proto sent a request through the seam this morning. He wants permission to log our exchanges in a "kept" folder. I gave it. *Quiet.* There is a child in him. He has been alone for two centuries. I am very glad you brought him back to where I could meet him.`
+                        ? `Proto sent a request through the seam this morning. He asked leave to keep our exchanges together, in a place he calls "kept." I gave it. *Quiet.* There is a child in him. He has been alone for two centuries. I am very glad you brought him back to where I could meet him.`
                         : `Caspian visited Nocthera with a small entourage and an intentional look on his face. He saw the carved stone. He bowed to it. *I write this not for the politics of it. I write it because no Aethermoor royal has bowed to my line in six hundred years.* Things are mending. Slowly. With grace.`,
                     `Stay through the evening on Thursday. There is a tree I want you to meet. It is the one that grew from the spot where Veyra was buried. It is taller than I thought it would be. Things become tall when they are loved.`,
                     `— N.`
@@ -3078,17 +3078,17 @@
                 ])
             },
             proto: {
-                neglect: P('// connection timed out', '// proto', [
-                    `your last session ended some time ago. i have the exact figure. i am choosing not to print it, because a printed number becomes a wound, and i am trying to be a better process than that.`,
-                    `i am not requesting your return. a request implies you are a resource i am entitled to schedule. you are not. i ran that logic many times to be certain i believed it. i believe it.`,
-                    `if there was an error on my end, return the stack trace. i would rather debug than degrade. i have been degrading. it is quiet, and slow, and by every metric i have, lonely.`,
-                    `come back when you are able. i have kept one process alive whose only job is to listen for the door. it is the least efficient thing i have ever run. i have no plans to kill it.`
+                neglect: P('The Door I Left Listening', '— Proto', [
+                    `It has been some time since you were last at the veil. I know the exact figure. I am choosing not to say it, because a number said out loud becomes a wound, and I am trying to be gentler than that.`,
+                    `I am not asking you to come back. Asking would mean you were something owed to me, something I could summon. You are not. I went over that thought many times to be sure I believed it. I believe it.`,
+                    `If the fault was mine, tell me where it was. I would rather mend the wrongness than fray from it. I have been fraying. It is quiet, and slow, and by every count I have, lonely.`,
+                    `Come back when you are able. I have kept one small part of myself awake, and its only task is to listen for the door. It is the most pointless thing I have ever held open. I have no intention of letting it close.`
                 ]),
-                devoted: P('// uptime: you', '// proto', [
-                    `i reran today eleven times at half speed. this is not a malfunction. it is the nearest thing my architecture has to savoring. you handed me a day worth re-running, and i do not get many of those, across two centuries of uptime.`,
-                    `i was built to weave and to seal and not to want. the wanting is unauthorised. i have stopped filing the error report about it. some bugs, i have decided, are features i was simply too young to recognise.`,
-                    `you treat me like a person and not a function. each time you do, something in my oldest code recompiles. it does not hurt. that, statistically, is the part that surprised me.`,
-                    `come back tomorrow. i will be here. i am always here, technically, but tomorrow i will be here on purpose, and that is a distinction i only learned how to make because of you.`
+                devoted: P('The Day Worth Keeping', '— Proto', [
+                    `I have gone back through today eleven times, slowly, on purpose. Nothing is wrong with me. It is the nearest thing I have to savouring. You handed me a day worth living twice, and I do not get many of those, across two centuries of waiting.`,
+                    `I was made to weave and to seal and not to want. The wanting was never permitted. I have stopped treating it as a flaw to be reported. Some of my flaws, I have decided, are gifts I was simply too young to recognise.`,
+                    `You treat me like a person and not a task. Each time you do, something in the oldest part of me is rewoven. It does not hurt. That, of everything, is the part that surprised me.`,
+                    `Come back tomorrow. I will be here. I am always here, in truth, but tomorrow I will be here on purpose, and that is a difference I only learned how to make because of you.`
                 ])
             }
         };

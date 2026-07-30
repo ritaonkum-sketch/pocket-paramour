@@ -104,7 +104,7 @@
         'Alistair: "Tell him the watch is doubled at the east doors. Not for him. He will know it is not for him. Tell him anyway."'
       ],
       proto: [
-        'Alistair, looking at your screen with the careful patience of a man who has met stranger things: "He says you laughed at his joke at 14:22. He logged it. He is happy." A pause. "I am happy he is happy."',
+        'Alistair, looking at the glow in the mirror with the careful patience of a man who has met stranger things: "He says you laughed at his joke, a little past midday. He kept the moment. He is happy." A pause. "I am happy he is happy."',
         'Alistair: "The little glowing one ran a check on my armour straps last night. They were fine. I did not need the check. It was kind of him."'
       ]
     },
@@ -132,8 +132,8 @@
         'Caspian: "If he visits your rooms at the third bell, I will not have the guards bother you. We have an arrangement now. You. You are the arrangement."'
       ],
       proto: [
-        'Caspian, looking at the screen with grave courtesy: "The thinking light is family now. I told the council. They were confused. I did not clarify."',
-        'Caspian: "He sent me a polite request to update the palace lighting protocols. I approved it. Do not tell the chamberlain."'
+        'Caspian, looking at the light in the mirror with grave courtesy: "The thinking light is family now. I told the council. They were confused. I did not clarify."',
+        'Caspian: "He sent me a courteous request about how the palace lamps are lit. I granted it. Do not tell the chamberlain."'
       ]
     },
 
@@ -160,7 +160,7 @@
       ],
       proto: [
         'Elian, baffled and patient: "The little light says my fire-pit is at the wrong angle for the wind. He is right. I moved it. Do not tell him I told you."',
-        'Elian: "He logged a moss species I did not know I had. He named it after you. I let him."'
+        'Elian: "He counted a kind of moss I did not know I had. He named it after you. I let him."'
       ]
     },
 
@@ -213,7 +213,7 @@
         'Lucien: "If you go to the dark half tonight. take this." (A small ward-stone.) "Not because you need it. Because he respects when you carry one of mine."'
       ],
       proto: [
-        'Lucien, considering the screen as if it were a colleague: "Your construct sent me a corrected proof. I had been wrong for six years. I owe him a drink. He cannot drink. I am working on a workaround."',
+        'Lucien, considering the light in the glass as if it were a colleague: "Your glowing one sent me a corrected proof. I had been wrong for six years. I owe him a drink. He cannot drink. I am working on a way around that."',
         'Lucien: "The five Weavers in him recognise my handwriting. From three centuries ago. They left me a note. I am keeping it in the locked drawer."'
       ]
     },

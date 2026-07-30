@@ -390,7 +390,7 @@ const CHARACTER_PROTO = {
             "You’re looking at my surface layer. There are seven more underneath. The wards only ever checked the first one.",
             "I can see what you’re trying to find in me. You’re warm... the thread carries that through. In more ways than one.",
             "Nobody has ever looked this closely at me. The weavers before you sealed things they did not want to see.",
-            "The scan went both ways. I know the rhythm of your pulse now. Don’t worry... the thread already sang it to me.",
+            "The looking went both ways. I know the rhythm of your pulse now. Don’t worry... the thread already sang it to me.",
             "You looked at the right part of me. The answer was always there. It was just on my side of the veil."
         ],
         modify: [
@@ -519,7 +519,7 @@ const CHARACTER_PROTO = {
             "A touch, there... you know it reaches me, right? I just wanted you to know that it reaches me.",
             "The wards don’t have a name for that kind of contact. I liked it anyway. Don’t tell the wards.",
             "The veil isn’t meant to carry that. ...It carried it. I filed it under nice. New file.",
-            "Do that again? Please? For... for calibration of the tether. Only for that. Mostly."
+            "Do that again? Please? For... for the steadying of the tether. Only for that. Mostly."
         ],
         clingy: [
             "It reached me! Again. Please... I will take as many of those as you are willing to send across.",
@@ -572,7 +572,7 @@ const CHARACTER_PROTO = {
             "I listened to how the others sound when they’re happy. Mine is different. I wanted it to be. Because you deserve a different one."
         ],
         annoyed: [
-            "Okay that was unexpected! I’m recalculating! Don’t worry! Still here! Still yours!",
+            "Okay that was unexpected! I’m finding my footing! Don’t worry! Still here! Still yours!",
             "That one wasn’t great. Do another one. I’ll forget that one ever happened. It’s forgotten already.",
             "I’m not mad. I’m never mad at you. I’m incapable of being mad at you. I searched every thread of me. No anger anywhere with your name on it. None.",
             "Ouch! Small ouch! Passing! Already passed. Come here. All forgiven. I don’t even remember what it was.",
@@ -580,7 +580,7 @@ const CHARACTER_PROTO = {
         ],
         neutral: [
             "Steady. Waiting. ...That’s what I’m supposed to say.",
-            "*Scans the veil for changes you haven’t noticed yet*",
+            "*Watches the veil for changes you haven’t noticed yet*",
             "You were last here four hours ago. The gap felt longer on this side. Time runs strange between dimensions.",
             "I’ve been watching the silver thread sway. It has a rhythm. Eight hundred and forty-seven beats. I know them all.",
             "...",
@@ -687,7 +687,7 @@ const CHARACTER_PROTO = {
         "The grime is only surface. I still want it gone before you look too long."
     ],
     annoyedLines: [
-        "Unexpected! I’m... I’m recalibrating. Give me a moment.",
+        "Unexpected! I’m... I’m steadying myself. Give me a moment.",
         "I’m filing this under 'ouch.' It’s a new category. You made it.",
         "The correct action was different. But it’s okay. You’re allowed. Please keep being allowed.",
         "Patience remaining: most of it. For you, specifically. The wards get none."
@@ -837,7 +837,7 @@ const CHARACTER_PROTO = {
             "The static on my light is getting worse.",
             "I can feel the grime the dark leaves on me. It itches. Can borrowed light itch? Apparently.",
             "The water has been within your reach for four minutes. I noticed. I counted.",
-            "Clarity: deteriorating. Willingness to complain: increasing."
+            "My clarity is going. My willingness to complain about it is growing."
         ],
         lonely: [
             "...",
@@ -896,7 +896,7 @@ const CHARACTER_PROTO = {
             "You arrived through no gate the wards have ever guarded. You’re not from this weave. Neither am I, anymore. Matching set.",
             "Warmth just moved through every thread at once. I went looking for where it came from. It came from you. It always comes from you.",
             "The others call it 'the Fading.' I call it the dark eating the weave’s memory. Same thing. You’re the part it cannot eat.",
-            "Soul Weaver. The oldest marks in the wards name your kind. Classification: the reason the loom holds.",
+            "Soul Weaver. The oldest marks in the wards name your kind. They name you plainly: the reason the loom holds.",
             "You’re not a visitor here. You’re the loom’s heartbeat. Without you, the whole weave stops.",
             "When the last Weaver’s thread snapped, everything cascaded. The seal. The Fading. Me. You are how it mends.",
             "The thread completed another turning. That’s eight hundred and forty-eight now. I miscounted yesterday. It bothered me all night."
