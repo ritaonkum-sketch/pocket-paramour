@@ -1766,7 +1766,9 @@ class PocketLoveGame {
         if (oldCorruptionState !== this.corruptionState) {
             const milestone = this.dialogueSystem.checkMilestone("corruption");
             if (milestone) {
-                this.typewriter.show(milestone);
+                // Tick-driven + passive — showIfIdle so it never clobbers a care line
+                // the player is reading (the "two texts switching" bug).
+                this.typewriter.showIfIdle(milestone);
             }
         }
 
@@ -3561,7 +3563,10 @@ class PocketLoveGame {
             // Check personality milestone
             const milestone = this.dialogueSystem.checkMilestone("personality");
             if (milestone) {
-                setTimeout(() => this.typewriter.show(milestone), 2500);
+                // showIfIdle: updatePersonality() runs on every care action, so a
+                // personality-change milestone must not clobber the tap's response
+                // line mid-read (the "two texts switching" bug).
+                setTimeout(() => this.typewriter.showIfIdle(milestone), 2500);
             }
         }
     }
@@ -3643,7 +3648,12 @@ class PocketLoveGame {
                     && !document.body.classList.contains('pp-overlay-active')
                     && !document.getElementById('chp-page')
                     && !document.getElementById('mscard-root')
-                    && !(window.PPOverlay && typeof window.PPOverlay.busy === 'function' && window.PPOverlay.busy());
+                    && !(window.PPOverlay && typeof window.PPOverlay.busy === 'function' && window.PPOverlay.busy())
+                    // Also wait until the care-action response line is finished + dismissed.
+                    // Firing the milestone over a line the player is still reading is the
+                    // "two texts switching" bug. busy() → retry on the next beat (defers,
+                    // never interrupts, never lost).
+                    && !(this.typewriter && typeof this.typewriter.busy === 'function' && this.typewriter.busy());
                 if (!calm) {
                     // Retry on the next care beat; cap the wait (~3 min) so it
                     // can't spin forever if the player never returns to the route.
@@ -3669,14 +3679,15 @@ class PocketLoveGame {
             // Fallback to normal milestone check
             const milestone = this.dialogueSystem.checkMilestone("affection");
             if (milestone) {
+                // showIfIdle: a level-up line must not clobber the care-action response
+                // the player is still reading (the "two texts switching" bug).
                 setTimeout(() => {
-                    this.typewriter.show(milestone);
-                    this.ui.flashEmotion("love", 4000);
+                    if (this.typewriter.showIfIdle(milestone)) this.ui.flashEmotion("love", 4000);
                 }, 2000);
             } else {
                 const msg = CHARACTER.affectionDialogue[this.affectionLevel];
                 if (msg) {
-                    setTimeout(() => this.typewriter.show(msg), 2000);
+                    setTimeout(() => this.typewriter.showIfIdle(msg), 2000);
                 }
             }
         }

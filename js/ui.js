@@ -2354,7 +2354,11 @@ class GameUI {
                     callback();
                     // Pattern echo fires after the main dialogue settles
                     if (echo && this.game && this.game.typewriter) {
-                        setTimeout(() => this.game.typewriter.show(echo), 2400);
+                        // showIfIdle, NOT show: the echo is a passive ambient line. If the
+                    // player is still reading the care-action response (box busy), it must
+                    // NOT interrupt it — that produced the "two texts fighting / switching"
+                    // the owner reported on every Feed/Wash/Talk tap. Skips silently if busy.
+                    setTimeout(() => this.game.typewriter.showIfIdle(echo), 2400);
                     }
                 }, 380 + Math.random() * 160);
             } else {
@@ -2362,7 +2366,11 @@ class GameUI {
                 // Echo can also fire on non-micro interactions (the pattern built up
                 // from previous hesitations — this is the delayed consequence)
                 if (echo && this.game && this.game.typewriter) {
-                    setTimeout(() => this.game.typewriter.show(echo), 2400);
+                    // showIfIdle, NOT show: the echo is a passive ambient line. If the
+                    // player is still reading the care-action response (box busy), it must
+                    // NOT interrupt it — that produced the "two texts fighting / switching"
+                    // the owner reported on every Feed/Wash/Talk tap. Skips silently if busy.
+                    setTimeout(() => this.game.typewriter.showIfIdle(echo), 2400);
                 }
             }
         }, delay);
