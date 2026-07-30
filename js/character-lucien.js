@@ -450,26 +450,12 @@ const CHARACTER_LUCIEN = {
     ],
 
     trainingDialogue: {
-        logic: [
-            "You solved it faster than I expected. Interesting.",
-            "The pattern was a Fibonacci variant. You saw it intuitively.",
-            "... I set that one to fail. You passed anyway.",
-            "Logic is the skeleton of magic. You’re learning the bones.",
-            "Correct. I’m almost disappointed. I wanted to explain it."
-        ],
         arcane: [
             "That’s the third law of resonance. Most people get it wrong.",
             "You chose the dangerous answer. It was also the correct one.",
             "... You’ve been reading my notes, haven’t you?",
             "The theory is sound. The practice will be... messier.",
             "I’m running out of questions you can’t answer."
-        ],
-        memory: [
-            "Your recall is improving. Faster than my models predicted.",
-            "The rune sequence was from a dead language. You remembered it anyway.",
-            "Memory is the foundation of all spellwork. Yours is sharp.",
-            "That one took me three attempts when I first learned it.",
-            "... Impressive. Don’t let it go to your head."
         ]
     },
 

@@ -403,13 +403,6 @@ const CHARACTER_ELIAN = {
             "You picked the right one. Faster than last time.",
             "Most people can’t tell foxglove from lavender. You can now."
         ],
-        tracking: [
-            "Deer. Fresh trail. Heading east. You saw the broken branch?",
-            "You’re reading the ground now. Not just walking on it.",
-            "Patience. The trail tells you everything if you listen.",
-            "That print isn’t a wolf. It’s a dog. The difference matters.",
-            "You tracked that in half the time. I’m running out of things to teach you."
-        ],
         fighting: [
             "Draw from the back, not the arm. The bow does the work if you let it.",
             "Good. You held the stance. Most people break when I come at them.",

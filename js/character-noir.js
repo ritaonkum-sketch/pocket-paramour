@@ -164,14 +164,9 @@ const CHARACTER_NOIR = {
         talking5:    "assets/noir/body/talking5.png",
         talking6:    "assets/noir/body/talking6.png",
         talking7:    "assets/noir/body/talking7.png",
-        // Training — real flourish art (temptation = flirt, domination =
-        // blade, dissolution = magic)
+        // Training — real flourish art (temptation = flirt)
         temptation1: "assets/noir/body/bitelip1.png",
         temptation2: "assets/noir/body/flirtrose.png",
-        domination1: "assets/noir/body/fight1.png",
-        domination2: "assets/noir/body/fight4.png",
-        dissolution1:"assets/noir/body/magic2.png",
-        dissolution2:"assets/noir/body/magic7.png",
         // Magic set (dates/story flourishes)
         magic1:      "assets/noir/body/magic1.png",
         magic2:      "assets/noir/body/magic2.png",
@@ -454,20 +449,6 @@ const CHARACTER_NOIR = {
             "They taught you to resist. I am teaching you why you should not.",
             "The line between wanting and having is thinner than you think.",
             "You are getting better at this. Soon you will not need permission."
-        ],
-        domination: [
-            "Control isn’t cruelty. It’s clarity.",
-            "You hesitated. Next time, don’t. Hesitation is a leash they put on you.",
-            "Power isn’t taken. It’s recognised. You’re beginning to see yours.",
-            "The world bends for those who stop asking and start deciding.",
-            "Good. You didn’t flinch. That’s the first thing they take from you."
-        ],
-        dissolution: [
-            "Let it go. The guilt. The rules. The weight of who they told you to be.",
-            "You held on too long. Feel how light you are without it.",
-            "Boundaries are walls that keep you small. We’re tearing them down.",
-            "The smoke clears. What’s left is what’s real.",
-            "There it is. The version of you they never wanted you to meet."
         ]
     },
 

@@ -264,14 +264,6 @@ const CHARACTER_LYRA = {
         ]
     },
 
-    // Unique action (replaces Train for Lyra)
-    uniqueAction: {
-        id: "sing",
-        label: "Sing",
-        icon: "🎵",
-        effect: { bond: 15, hunger: -5, corruption: -3 }
-    },
-
     // ===== DIALOGUE =====
 
     // Smart dialogue pools
@@ -436,14 +428,6 @@ const CHARACTER_LYRA = {
     overCare: [
         "I want for nothing right now. And still you fuss. *soft* The sea never fussed over me. I am learning to like it.",
         "You do not have to. I am quite well. ...Do not stop on my account, though."
-    ],
-
-    // Departure dialogue
-    departureDialogue: [
-        "The sea calls me back... goodbye...",
-        "I can’t stay where I’m not wanted...",
-        "My song fades... like our memories...",
-        "The waves will carry me far from here..."
     ],
 
     // Neglect-recovery bubble (game.js "Try Again" modal on return) — owner Jul 2026.

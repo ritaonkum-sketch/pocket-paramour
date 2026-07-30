@@ -188,10 +188,6 @@ const CHARACTER_CASPIAN = {
         // Training poses
         dance1:      "assets/caspian/body/dancing.png",
         dance2:      "assets/caspian/body/gentle.png",
-        diplomacy1:  "assets/caspian/body/neutral.png",
-        diplomacy2:  "assets/caspian/body/formal.png",
-        poetry1:     "assets/caspian/body/reading.png",
-        poetry2:     "assets/caspian/body/tender.png",
         // Hunger/dirty
         hungry1:     "assets/caspian/body/melancholy.png",
         hungry2:     "assets/caspian/body/melancholy.png",
@@ -441,20 +437,6 @@ const CHARACTER_CASPIAN = {
             "Four hundred signatures today. Only the last one felt like mine, because you were here to see it.",
             "The court believes a prince studies alone. Let them believe it. This hour is ours.",
             "You closed the book before I finished. You were right. It was dull, and you are the opposite of dull."
-        ],
-        diplomacy: [
-            "You chose the difficult answer. That took courage.",
-            "A prince learns to listen before speaking. You already know that.",
-            "The ambassador would have been impressed. I certainly was.",
-            "You navigated that beautifully. Like you were born for this.",
-            "Words can build kingdoms or burn them. You chose to build."
-        ],
-        poetry: [
-            "That verse... it reminded me of something I can’t name.",
-            "You found the word I’ve been looking for. How did you know?",
-            "Read that line again. Slowly. I want to remember it.",
-            "Poetry is just honesty with rhythm. Yours has both.",
-            "I wrote something for you. It’s not ready. But it will be."
         ]
     },
 

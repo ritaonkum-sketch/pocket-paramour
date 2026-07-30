@@ -2976,62 +2976,9 @@ class GameUI {
         }, 2600);
     }
 
-    // ── Puzzle training sequence (Lucien only) ─────────────────────
-    playPuzzleSequence(type, onComplete) {
-        if (!this.game._puzzleSystem) {
-            this.game._puzzleSystem = new PuzzleSystem(this.game);
-        }
-
-        // Use training panel area for puzzle UI
-        const panel = document.getElementById('training-panel');
-        const grid = document.getElementById('training-grid');
-        if (!panel || !grid) { onComplete && onComplete(); return; }
-
-        // Cancel any pending close timer from the picker dismiss
-        clearTimeout(this._trainingCloseTimer);
-
-        // Force show training panel with puzzle content
-        this.closeAllPanels('training');
-        panel.classList.remove('hidden');
-        try { if (window.PPOverlay) PPOverlay.show('training'); } catch (_) {}
-        // Must use double-rAF to ensure 'hidden' removal is painted before adding 'visible'
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => panel.classList.add('visible'));
-        });
-
-        // Update header
-        const panelHeader = panel.querySelector('#training-panel-header span');
-        if (panelHeader) panelHeader.textContent = 'Puzzle Challenge';
-
-        // Hide close button during puzzle
-        const closeBtn = document.getElementById('training-close');
-        if (closeBtn) closeBtn.style.display = 'none';
-
-        this._seqActive = true;
-
-        this.game._puzzleSystem.play(type, grid, (success) => {
-            // Restore close button
-            if (closeBtn) closeBtn.style.display = '';
-
-            // Close panel after delay
-            setTimeout(() => {
-                this.closeTrainingPanel();
-                this._seqActive = false;
-
-                // Bonus for puzzle success
-                if (success) {
-                    this.game.bond = Math.min(100, this.game.bond + 3);
-                    this.game.affection = Math.min(100, this.game.affection + 2);
-                    this.bounceCharacter();
-                }
-
-                onComplete && onComplete();
-            }, 2200);
-        });
-    }
 
     // ── Forage sequence (Elian) — dedicated wrapper ────────────────
-    // Like playPuzzleSequence but tailored to the forage catch-game:
+    // Tailored to the forage catch-game:
     // header reads "Foraging", rewards are applied INSIDE playForage
     // (performance-scaled + moonpetal + personal best), so this wrapper
     // only opens the panel and closes it promptly when the player taps

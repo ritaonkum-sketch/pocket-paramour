@@ -2894,17 +2894,11 @@ class PocketLoveGame {
             override:   { emotion: 'love',    duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
             // Noir shadow arts types — timing game + corruption spread
             temptation:  { emotion: 'love',    duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playHuntSequence(unlock); } },
-            domination:  { emotion: 'angry',   duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(3); this.ui.playPuzzleSequence('timing', unlock); } },
-            dissolution: { emotion: 'neutral', duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playPuzzleSequence('timing', unlock); } },
             // Caspian court etiquette types — timing game
             dance:     { emotion: 'happy',   duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playWaltzSequence(unlock); } },
             study:     { emotion: 'happy',   duration: 2600, seq: () => { this._applyCaspianComfort(); this.ui.playStudySequence(unlock); } },
-            diplomacy: { emotion: 'neutral', duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
-            poetry:    { emotion: 'love',    duration: 8000, seq: () => { this._applyCaspianComfort(); this.ui.playPuzzleSequence('timing', unlock); } },
             // Lucien puzzle types
-            logic:    { emotion: 'neutral', duration: 8000, seq: () => this.ui.playPuzzleSequence('logic', unlock)  },
-            arcane:   { emotion: 'gentle',  duration: 8000, seq: () => this.ui.playRunesSequence(unlock) },
-            memory:   { emotion: 'neutral', duration: 8000, seq: () => this.ui.playPuzzleSequence('memory', unlock) }
+            arcane:   { emotion: 'gentle',  duration: 8000, seq: () => this.ui.playRunesSequence(unlock) }
         };
         const c = config[type] || config.sword;
         // Animation + emotion flash fire immediately — player expects visual response on tap
