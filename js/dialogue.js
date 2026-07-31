@@ -201,7 +201,18 @@ class TypewriterEffect {
         // twice. Now each show() bumps _gen, every _type() captures it at
         // call time, and stale callbacks bail when the captured gen no
         // longer matches.
-        this._gen = 0;
+        //
+        // Jul 2026 — the per-INSTANCE counter was not enough. Heavy character
+        // switching / care re-entry can leave a LEAKED TypewriterEffect whose
+        // _type chain is still running on this same #dialogue-text element. Two
+        // (or three) instances each had their own _gen, so neither cancelled the
+        // other — the box alternated between their lines char-by-char ("two
+        // texts fighting / switching, can't decide which comes first", owner).
+        // Fix: the live generation token now lives on the ELEMENT (_ppTypeGen),
+        // shared by every instance writing to it, so the newest show() cancels
+        // ALL others. Mirrors the #story-dialogue token in ui.js showStoryScene.
+        this._gen = 0; // retained only as a fallback when this.element is null
+        if (this.element && this.element._ppTypeGen == null) this.element._ppTypeGen = 0;
 
         // ── Mid-line emotion shift system ────────────────────────────────
         // onEmotionTrigger: fn(emotion) — wired in game.init() to ui._flashFaceOnly
@@ -244,11 +255,26 @@ class TypewriterEffect {
     destroy() {
         try { this._abortController?.abort(); } catch (_) {}
         if (this.timer) { clearTimeout(this.timer); this.timer = null; }
-        this._gen++;       // every pending _type callback fails its gen check
+        this._bumpGen();   // every pending _type callback (any instance) fails its gen check
         this.isTyping = false;
         this.onComplete = null;
         // We deliberately do NOT clear this.element.textContent — the new
         // typewriter will manage that. We just stop touching it ourselves.
+    }
+
+    // Element-scoped generation token. Any TypewriterEffect writing to this
+    // element shares el._ppTypeGen, so a new line started by ANY instance
+    // (including a leaked one) makes every other instance's in-flight _type
+    // chain bail. Falls back to the per-instance counter only if element is null.
+    _bumpGen() {
+        const el = this.element;
+        if (!el) return ++this._gen;
+        el._ppTypeGen = (el._ppTypeGen || 0) + 1;
+        return el._ppTypeGen;
+    }
+    _curGen() {
+        const el = this.element;
+        return el ? (el._ppTypeGen || 0) : this._gen;
     }
 
     show(text, callback) {
@@ -260,7 +286,7 @@ class TypewriterEffect {
         // show() restarts. We now ATOMICALLY: bump gen first (kills any
         // pending _type in flight), clear timer, clear element. Stale
         // chains see new gen on their next callback and bail.
-        this._gen++;            // KILL all pending callbacks first
+        this._bumpGen();        // KILL all pending callbacks first (element-scoped)
         if (this.timer) { clearTimeout(this.timer); this.timer = null; }
         if (this.isTyping) {
             // Skip displays the full prior text briefly, then we clear
@@ -357,9 +383,9 @@ class TypewriterEffect {
         // and the text types into a stable box.
         this._reserveHeight();
         // Bump generation — any pending _type() callback from a previous
-        // show() will see a stale gen and bail out (see _type below).
-        this._gen++;
-        const myGen = this._gen;
+        // show() (this instance OR a leaked one on the same element) sees a
+        // stale gen and bails out (see _type below).
+        const myGen = this._bumpGen();
         // Hide tap hint when new dialogue starts
         const _hint = document.getElementById('dialogue-tap-hint');
         if (_hint) _hint.classList.add('hidden');
@@ -406,7 +432,7 @@ class TypewriterEffect {
         // was queued, gen will no longer match and we silently exit. Without
         // this, two _type() chains race the same element and produce
         // "Souuuusss tttthee" interleave (May 2026 fix).
-        if (gen !== undefined && gen !== this._gen) return;
+        if (gen !== undefined && gen !== this._curGen()) return;
 
         // ── Check for emotion shift triggers at this character position ───
         if (this.onEmotionTrigger && this._emotionTriggers.length) {
@@ -451,7 +477,7 @@ class TypewriterEffect {
         // queue sees a stale gen and bails. Without this, even after the
         // explicit clearTimeout, a callback that was scheduled microseconds
         // before skip() runs would still fire and append a stray character.
-        this._gen++;
+        this._bumpGen();
         this.element.textContent = this.fullText;
         this.isTyping = false;
         // Fire any remaining unfired triggers when player skips
