@@ -44,7 +44,16 @@ class GameUI {
         // (dressPanel removed May 2026 — outfit system removed)
         this.giftPanel = document.getElementById('gift-panel');
 
-        // Wire up buttons — each gets haptic + particle feedback
+        // Wire up buttons — each gets haptic + particle feedback.
+        // Bind ONCE. These button elements persist across GameUI re-inits (every
+        // character switch / care re-entry builds a new GameUI), so re-binding
+        // per instance stacked a click listener each time — one tap then fired
+        // the care action on EVERY stale instance: leaked typewriters fought in
+        // the dialogue box AND stats were mutated/saved multiple times per tap.
+        // The state-mutating actions dispatch to the LIVE game (window._game) so
+        // the single binding always hits the current game, never a stale one.
+        if (!GameUI._domBound) {
+            GameUI._domBound = true;
         document.getElementById('btn-feed')?.addEventListener('click', () => {
             sounds.munch();  // eating SFX for ALL characters (was a generic pop)
             this._actionFeedback('btn-feed', '\uD83C\uDF54');
@@ -53,7 +62,7 @@ class GameUI {
             if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lyra') {
                 this._lyraEatSequence();  // munch already played above for everyone
             }
-            this.game.feed();
+            window._game.feed();
         });
         document.getElementById('btn-wash')?.addEventListener('click', () => {
             sounds.splash();  // water SFX for ALL characters (was a generic pop)
@@ -62,7 +71,7 @@ class GameUI {
             if (typeof CHARACTER !== 'undefined' && CHARACTER.name === 'Lyra') {
                 this._lyraWashSequence();  // splash already played above for everyone
             }
-            this.game.wash();
+            window._game.wash();
         });
         document.getElementById('btn-gift')?.addEventListener('click', () => {
             sounds.chime();
@@ -74,7 +83,7 @@ class GameUI {
             sounds.clash();
             this._actionFeedback('btn-train', '\u2728');
             this._resetIdlePoseTimer();
-            this.game.train();
+            window._game.train();
         });
         document.getElementById('btn-talk')?.addEventListener('click', () => {
             sounds.pop();
@@ -82,9 +91,9 @@ class GameUI {
             this._resetIdlePoseTimer();
             // Show talk pose immediately on click — no waiting for game logic
             this.setCharacterSprite(this._lastEmotion || 'neutral', 'talk');
-            this.game.talk();
+            window._game.talk();
         });
-        document.getElementById('revival-btn')?.addEventListener('click', () => this.game.revive());
+        document.getElementById('revival-btn')?.addEventListener('click', () => { if (window._game) window._game.revive(); });
 
         // Close panels
         // (dress-close listener removed May 2026 — outfit system removed)
@@ -96,6 +105,7 @@ class GameUI {
 
         // Story continue
         document.getElementById('story-continue')?.addEventListener('click', () => this.closeStoryScene());
+        } // end GameUI._domBound one-time wiring
 
         // Init subsystems
         // (initDressPanel removed May 2026 — outfit system removed)
