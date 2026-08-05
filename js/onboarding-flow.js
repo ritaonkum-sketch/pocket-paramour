@@ -203,10 +203,32 @@
         background:radial-gradient(ellipse at center, rgba(43, 17, 51, 0.70) 0%, rgba(5, 0, 10, 0.95) 80%);
         backdrop-filter:blur(8px);
         -webkit-backdrop-filter:blur(8px);
-        display:flex; align-items:center; justify-content:center;
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
         padding:24px;
         opacity:0; transition:opacity 600ms ease;
         color:rgba(244, 235, 220, 0.92);
+      }
+
+      /* Wax seal above the card. The source art is on a BLACK background
+         rather than transparent, so screen blending drops the black out
+         against the dark overlay and leaves only the seal and its glow.
+         (No backticks in here — this block lives inside a JS template
+         literal and a stray backtick terminates the whole file.) */
+      #pp-onboarding-seal {
+        width:min(46vw, 172px);
+        height:auto;
+        margin-bottom:-6px;
+        mix-blend-mode:screen;
+        pointer-events:none;
+        filter:drop-shadow(0 6px 26px rgba(122, 18, 36, 0.5));
+        opacity:0; transform:translateY(14px) scale(0.96);
+        transition:opacity 700ms ease 120ms, transform 700ms cubic-bezier(.2,.8,.2,1) 120ms;
+      }
+      #pp-onboarding-overlay.show #pp-onboarding-seal {
+        opacity:1; transform:translateY(0) scale(1);
+      }
+      @media (max-height: 700px) {
+        #pp-onboarding-seal { width:min(34vw, 120px); margin-bottom:-10px; }
       }
       #pp-onboarding-overlay.show { opacity:1; }
       #pp-onboarding-overlay:not(.show) { pointer-events:none; }
@@ -231,13 +253,19 @@
       }
 
       /* Eyebrow label ("WELCOME") — UI register */
+      /* Owner note: "make WELCOME bigger and more welcoming." It was a 10.5px
+         hairline label with wide tracking — technically tidy, emotionally cold
+         for the first word a new player reads. Now larger, warmer (full gold),
+         with the tracking eased off so it reads as a greeting rather than a
+         form heading, and a soft glow so it feels lit rather than printed. */
       .pp-on-eyebrow {
         font-family:'Quicksand','Inter','Segoe UI',sans-serif;
-        font-weight:500;
-        font-size:10.5px; letter-spacing:3.5px;
+        font-weight:600;
+        font-size:15px; letter-spacing:2.2px;
         text-transform:uppercase;
-        color:rgba(232, 200, 138, 0.78);
-        margin-bottom:14px;
+        color:#F4DDA8;
+        text-shadow:0 0 14px rgba(232, 200, 138, 0.45);
+        margin-bottom:16px;
       }
 
       /* Title ("Seven hearts are waiting.") — STORY register */
@@ -392,6 +420,13 @@
 
     _root = document.createElement('div');
     _root.id = 'pp-onboarding-overlay';
+    // The wax seal sits above the card, in the empty space over it, so the
+    // tour opens with the game's own mark rather than a bare panel.
+    const seal = document.createElement('img');
+    seal.id = 'pp-onboarding-seal';
+    seal.src = 'assets/ui/tour-seal.png';
+    seal.alt = '';
+    _root.appendChild(seal);
     const card = document.createElement('div');
     card.id = 'pp-onboarding-card';
     _root.appendChild(card);
