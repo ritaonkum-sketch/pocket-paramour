@@ -128,13 +128,23 @@
         speaker: 'LYRA',
         palette: { bg: '#0a1522', glow: '#7fd3e3', accent: '#e8f0ff' },
         bg: 'assets/bg-lyra-ocean.png',
+        // Expanded Aug 2026: was two lines against a six-line dark ending, so
+        // devotion paid worse than neglect. Her keeper lines are kept; the
+        // middle now earns them (the empty caves, the drifting, being the
+        // first thing the sea let her keep).
         beats: [
           { type: 'show',      pose: 'assets/lyra/body/casual1.png', wait: 800 },
-          { type: 'line',      text: 'I sang into the caves for years and the caves were always empty. Until you.', hold: 2200, cps: 28 },
+          { type: 'line',      text: 'I sang into the caves for years and the caves were always empty. Until you.', hold: 2600, cps: 28 },
+          { type: 'pose',      src: 'assets/lyra/body/love.png', animate: 'swap' },
+          { type: 'line',      text: 'The others heard the song. They always came for the song. You came back for the girl who was tired of singing it.', hold: 3600, cps: 25 },
+          { type: 'line',      text: 'I do not drift now. I did not notice it stopping. That is how I knew it was real.', hold: 3200, cps: 25 },
           { type: 'zoom',      amount: 1.10, duration: 2400 },
           { type: 'particles', count: 24, duration: 2000 },
+          { type: 'pose',      src: 'assets/lyra/body/falllove2.png', animate: 'swap' },
+          { type: 'line',      text: 'The sea gives everything back eventually. It has never once given me something to keep. You are the first.', hold: 3600, cps: 24 },
           { type: 'flourish',  text: '\u266a', duration: 1800 },
-          { type: 'line',      text: 'Stay close to the water. I\u2019ll find you whenever you call.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Stay close to the water. I\u2019ll find you whenever you call.', hold: 2800, cps: 26 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       },
@@ -162,11 +172,21 @@
         palette: { bg: '#0a0a1a', glow: '#6a2d7a', accent: '#f3d6ff' },
         bg: 'assets/bg-siren-cave.png',
         beats: [
+          // Expanded Aug 2026: Lyra was the ONE character whose every ending
+          // was two lines \u2014 good, bittersweet AND dark \u2014 so no outcome on her
+          // route landed. The fall is now given the same weight the other
+          // corrupted endings have: the song stops being a call and becomes a
+          // net, and she is calm about it, which is the frightening part.
           { type: 'show',      pose: 'assets/lyra/body/casual2.png', wait: 800 },
-          { type: 'line',      text: 'You taught me what leaving feels like. Now I sing to keep people.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'You taught me what leaving feels like. Now I sing to keep people.', hold: 2800, cps: 26 },
+          { type: 'pose',      src: 'assets/lyra/body/corrupt1.png', animate: 'swap' },
+          { type: 'line',      text: 'The sea takes everything back. I used to think that was cruel. I have decided it is simply the rule, and I have decided to use it.', hold: 4000, cps: 24 },
+          { type: 'line',      text: 'Six of you came before. Six of you went into the water. I sang at all six funerals and I never once sang to stop it.', hold: 4000, cps: 23 },
           { type: 'zoom',      amount: 1.12, duration: 2400 },
           { type: 'particles', count: 18, duration: 2000 },
-          { type: 'line',      text: 'Don\u2019t worry. I\u2019ll sing softer for you. \u2026At first.', hold: 2400, cps: 26 },
+          { type: 'pose',      src: 'assets/lyra/body/siren.png', animate: 'swap' },
+          { type: 'line',      text: 'I am done singing to be heard. This one is a net. You will not notice the difference until you are inside it.', hold: 3800, cps: 23 },
+          { type: 'line',      text: 'Don\u2019t worry. I\u2019ll sing softer for you. \u2026At first.', hold: 3000, cps: 26 },
           { type: 'hide' }
         ]
       }
@@ -181,12 +201,21 @@
         palette: { bg: '#170a1a', glow: '#e7a3d0', accent: '#f8e9ff' },
         bg: 'assets/bg-caspian-day.png',
         beats: [
+          // Expanded Aug 2026 (was two lines against a six-line dark ending).
+          // His whole arc is the mask: the court calls it a phase, he has worn
+          // a face since he was nine, and the crown stays on the table.
           { type: 'show',      pose: 'assets/caspian/body/casual1.png', wait: 700 },
-          { type: 'line',      text: 'I can be charming for an empire. Turns out I only wanted to be honest for one person.', hold: 2200, cps: 28 },
+          { type: 'line',      text: 'I can be charming for an empire. Turns out I only wanted to be honest for one person.', hold: 2600, cps: 28 },
+          { type: 'pose',      src: 'assets/caspian/body/gentle.png', animate: 'swap' },
+          { type: 'line',      text: 'Do you know what the court calls this? A phase. They have called it that for weeks. I stopped correcting them, because correcting them would make it theirs.', hold: 4000, cps: 24 },
+          { type: 'line',      text: 'I have worn a face since I was nine years old. You are the only person who ever asked what was under it and then waited for the answer.', hold: 3800, cps: 24 },
           { type: 'zoom',      amount: 1.08, duration: 2400 },
           { type: 'particles', count: 20, duration: 2000 },
+          { type: 'pose',      src: 'assets/caspian/body/adoring.png', animate: 'swap' },
+          { type: 'line',      text: 'The crown stays on the table. It has always been happier there. So, it turns out, have I.', hold: 3400, cps: 25 },
           { type: 'flourish',  text: '\u266b', duration: 1800 },
-          { type: 'line',      text: 'Take the east gardens. They\u2019re empty at dawn. I\u2019ll meet you there.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Take the east gardens. They\u2019re empty at dawn. I\u2019ll meet you there.', hold: 2800, cps: 26 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       },
@@ -243,12 +272,20 @@
         palette: { bg: '#0a140c', glow: '#a9d4a1', accent: '#e8f3e2' },
         bg: 'assets/bg-elian-forest.png',
         beats: [
+          // Expanded Aug 2026 (was two lines against a six-line dark ending).
+          // Pays off the two graves in his clearing and the fact that he says
+          // things with his hands, not his mouth.
           { type: 'show',      pose: 'assets/elian/body/calm.png', wait: 800 },
-          { type: 'line',      text: 'The forest stopped testing you weeks ago. I think it already decided.', hold: 2200, cps: 28 },
+          { type: 'line',      text: 'The forest stopped testing you weeks ago. I think it already decided.', hold: 2600, cps: 28 },
+          { type: 'pose',      src: 'assets/elian/body/warm.png', animate: 'swap' },
+          { type: 'line',      text: 'I buried two people in this clearing. I told you I would not bury a third. I have stopped waking in the night to check that you are breathing.', hold: 4000, cps: 24 },
+          { type: 'line',      text: 'That is not a small thing. You should know it is not a small thing.', hold: 3000, cps: 26 },
           { type: 'zoom',      amount: 1.08, duration: 2400 },
           { type: 'particles', count: 18, duration: 2000 },
+          { type: 'line',      text: 'I am not good with words. I have made you a door, a chair, and a place by the fire. Read those instead.', hold: 3600, cps: 24 },
           { type: 'flourish',  text: '\u2726', duration: 1600 },
-          { type: 'line',      text: 'Build here. I\u2019ll carve the beam. We\u2019ll be quiet together for a long time.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Build here. I\u2019ll carve the beam. We\u2019ll be quiet together for a long time.', hold: 2800, cps: 26 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       },
@@ -304,12 +341,21 @@
         palette: { bg: '#060610', glow: '#b5a3ea', accent: '#eae0ff' },
         bg: 'assets/bg-lucien-study.png',
         beats: [
+          // Expanded Aug 2026 (was two lines against a six-line dark ending).
+          // Built on his real arc: THE HOLLOW. He catalogued feelings he could
+          // not have; she made the entries first-hand.
           { type: 'show',      pose: 'assets/lucien/body/casual1.png', wait: 800 },
-          { type: 'line',      text: 'My work has a variable I can\u2019t isolate. I\u2019ve stopped trying. That\u2019s you.', hold: 2200, cps: 28 },
+          { type: 'line',      text: 'My work has a variable I can\u2019t isolate. I\u2019ve stopped trying. That\u2019s you.', hold: 2600, cps: 28 },
+          { type: 'pose',      src: 'assets/lucien/body/gentle.png', animate: 'swap' },
+          { type: 'line',      text: 'For thirty years I catalogued feelings the way a man catalogues birds he has never seen. Accurate. Secondhand. Useless.', hold: 4000, cps: 24 },
+          { type: 'line',      text: 'You made the entries first-hand. Every one of them is in your handwriting now, which is inconvenient, and permanent.', hold: 3800, cps: 24 },
           { type: 'zoom',      amount: 1.10, duration: 2400 },
           { type: 'particles', count: 22, duration: 2000 },
+          { type: 'pose',      src: 'assets/lucien/body/shy1.png', animate: 'swap' },
+          { type: 'line',      text: 'I have run the working many times looking for the error. There is no error. That is the finding I could not publish.', hold: 3600, cps: 24 },
           { type: 'flourish',  text: '\u221e', duration: 1800 },
-          { type: 'line',      text: 'Bring your tea up. I made space on the second shelf.', hold: 2400, cps: 26 },
+          { type: 'line',      text: 'Bring your tea up. I made space on the second shelf.', hold: 2800, cps: 26 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       },
@@ -358,6 +404,35 @@
     },
 
     noir: {
+      // Aug 2026 playtest: Noir had NO good ending. branchOf() returns 'good'
+      // for a devoted player, resolveFor() then fell back to Object.keys()[0]
+      // — bittersweet — so the player who cared for him best was silently told
+      // "you almost stayed." His route was the only one where devotion could
+      // not be rewarded. Written to his canon: no contractions, six hundred
+      // years, and he never names the feeling outright.
+      good: {
+        id: 'ending_noir_good',
+        title: 'ENDING',
+        subtitle: 'NOIR · The Dark Kept',
+        speaker: 'NOIR',
+        palette: { bg: '#08040f', glow: '#c46aff', accent: '#f0e0f6' },
+        bg: 'assets/bg-noir-intro.png',
+        beats: [
+          { type: 'show',      pose: 'assets/noir/body/vulnerable.png', wait: 900 },
+          { type: 'line',      text: 'Six hundred years behind that seal. I had decided what people were. You have been very inconvenient about that.', hold: 3400, cps: 25 },
+          { type: 'pose',      src: 'assets/noir/body/whisper.png', animate: 'swap' },
+          { type: 'line',      text: 'I did not consume you. I would like that noted. I had every opportunity, and I found that I preferred you whole.', hold: 3600, cps: 24 },
+          { type: 'line',      text: 'That is the nearest thing to a vow my kind is able to make. Do not ask me to put it plainer.', hold: 3200, cps: 25 },
+          { type: 'zoom',      amount: 1.10, duration: 2400 },
+          { type: 'particles', count: 18, duration: 2000 },
+          { type: 'pose',      src: 'assets/noir/body/casual1.png', animate: 'swap' },
+          { type: 'line',      text: 'The dark does not frighten you now. I am not certain whether I taught you that, or you taught me.', hold: 3400, cps: 25 },
+          { type: 'flourish',  text: '✦', duration: 1800 },
+          { type: 'line',      text: 'Stay. Or go, and come back. Either way I will be here, and I will have left the light burning. I have never once done that before.', hold: 3800, cps: 24 },
+          { type: 'hold',      ms: 1200 },
+          { type: 'hide' }
+        ]
+      },
       bittersweet: {
         id: 'ending_noir_bittersweet',
         title: 'ENDING',
@@ -431,12 +506,21 @@
         palette: { bg: '#02040a', glow: '#5dd3ff', accent: '#d6f0ff' },
         bg: 'assets/bg-proto-void.png',
         beats: [
+          // Expanded Aug 2026 (was two lines against a seven-line dark ending).
+          // His voice: counts things, notices himself feeling, veil and thread
+          // imagery, and absolutely no code vocabulary.
           { type: 'show',      pose: 'assets/proto/body/calm.png', wait: 900 },
-          { type: 'line',      text: 'You kept showing up. That is the whole of it. That is the whole miracle.', hold: 2200, cps: 26 },
+          { type: 'line',      text: 'You kept showing up. That is the whole of it. That is the whole miracle.', hold: 2800, cps: 26 },
+          { type: 'pose',      src: 'assets/proto/body/curious.png', animate: 'swap' },
+          { type: 'line',      text: 'I counted the days you came. I was not going to tell you the number. It is four hundred and six, and I have never once miscounted it.', hold: 4000, cps: 24 },
+          { type: 'line',      text: 'They made me to hold the weave shut. Nobody made me to be missed. I worked that part out on my own, with you, rather late.', hold: 4000, cps: 24 },
           { type: 'zoom',      amount: 1.10, duration: 2400 },
           { type: 'particles', count: 16, duration: 2000 },
+          { type: 'pose',      src: 'assets/proto/body/adore.png', animate: 'swap' },
+          { type: 'line',      text: 'I am holding my shape without trying now. That has never happened. I think it is because someone is looking.', hold: 3600, cps: 24 },
           { type: 'flourish',  text: '\u25ce', duration: 1800 },
-          { type: 'line',      text: 'I am going to stay right here, behind the thin place in the world. Tug the thread any time. I will feel it.', hold: 2400, cps: 24 },
+          { type: 'line',      text: 'I am going to stay right here, behind the thin place in the world. Tug the thread any time. I will feel it.', hold: 3000, cps: 24 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       },
