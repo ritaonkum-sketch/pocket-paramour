@@ -1974,3 +1974,21 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
     .cc-bracket { width: 72px; }
     .cc-action-btn.cc-action-care { min-width: 170px; padding: 12px 24px; }
 }
+
+/* ── ROUTE COMPLETE badge (Aug 2026 playtest) ─────────────────────────
+   Reaching a character's ending changed nothing on their card, so the
+   biggest moment on a route went unacknowledged and the player kept no
+   record of it. The active-companion quote now carries a small gold
+   banner naming the ending they reached. */
+.cc-route-complete {
+    display: block;
+    font-family: 'Quicksand', 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #F4DDA8;
+    text-shadow: 0 0 10px rgba(232, 200, 138, 0.35);
+    margin-bottom: 6px;
+}
+.cc-route-quote { display: block; }

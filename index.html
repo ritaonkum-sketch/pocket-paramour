@@ -1519,6 +1519,24 @@
             if (nameEl)  nameEl.textContent  = def.name;
             if (roleEl)  roleEl.textContent  = def.role;
             if (quoteEl) quoteEl.textContent = def.quote;
+
+            // ── ROUTE COMPLETE (Aug 2026 playtest) ──────────────────
+            // Reaching a character's ENDING used to change nothing: the card
+            // still read "Stranger -> Acquainted" with a CARE button, exactly
+            // as before, so the biggest moment on a route was never
+            // acknowledged and the player had no record of having finished it.
+            // Now the card states which ending they reached.
+            try {
+                var _endSeen = localStorage.getItem('pp_ending_seen_' + c) === '1';
+                if (rootEl) rootEl.classList.toggle('is-route-complete', _endSeen);
+                if (_endSeen && quoteEl) {
+                    var _branch = localStorage.getItem('pp_ending_branch_' + c) || '';
+                    var _label  = { good: 'Devoted ending', bittersweet: 'Bittersweet ending',
+                                    dark: 'Dark ending', meta: 'Meta ending' }[_branch] || 'Ending reached';
+                    quoteEl.innerHTML = '<span class="cc-route-complete">✦ ROUTE COMPLETE · ' + _label + '</span>'
+                                      + '<span class="cc-route-quote">' + def.quote + '</span>';
+                }
+            } catch (_) {}
             if (imgEl)   imgEl.src = 'assets/' + c + '/select-portrait.png';
             if (rootEl)  rootEl.setAttribute('data-character', c);
             if (careBtn) {

@@ -48,14 +48,28 @@
         speaker: 'ALISTAIR',
         palette: { bg: '#0a0c1a', glow: '#ffce6b', accent: '#fff4de' },
         bg: 'assets/bg-alistair-hall.png',
+        // Aug 2026 playtest: the GOOD ending used to be two lines, about ten
+        // seconds \u2014 while the DARK ending ran six lines with three sprite
+        // swaps. The player who did everything right got a thinner payoff than
+        // the player who neglected him, which made the best outcome feel like
+        // the emptiest. Rebuilt to the dark ending's weight, and written to pay
+        // off the route's own motifs: the oath, the name he put on his watch on
+        // day one, and the chair he moved to the window before she ever used it.
         beats: [
           { type: 'show',      pose: 'assets/alistair/body/casual.png', wait: 800 },
-          { type: 'line',      text: 'The Kingdom kept its king. I kept my post. \u2026But only because you asked me to.', hold: 2000, cps: 28 },
+          { type: 'line',      text: 'The Kingdom kept its king. I kept my post. \u2026But only because you asked me to.', hold: 2600, cps: 28 },
+          { type: 'pose',      src: 'assets/alistair/body/talking1.png', animate: 'swap' },
+          { type: 'line',      text: 'I have stood this watch nine years. I could tell you every stone of it. I could not have told you what it was for.', hold: 3400, cps: 25 },
+          { type: 'line',      text: 'Then you came, and slept in a chair by my window, and I found out.', hold: 3000, cps: 26 },
+          { type: 'pose',      src: 'assets/alistair/body/softshy-love1.png', animate: 'swap' },
           { type: 'zoom',      amount: 1.08, duration: 2400 },
+          { type: 'line',      text: 'They will write that the wards held. They will not write why. That part is ours.', hold: 3200, cps: 25 },
           { type: 'particles', count: 22, duration: 2000 },
+          { type: 'line',      text: 'I said your name once, on the first day, and put it on my watch. I have not taken it off since. I do not intend to.', hold: 3800, cps: 24 },
+          { type: 'pose',      src: 'assets/alistair/body/fallinlove2.png', animate: 'swap' },
           { type: 'flourish',  text: '\u2726', duration: 1800 },
-          { type: 'line',      text: 'Come find me when the watch changes. I\u2019ll be waiting.', hold: 2400, cps: 26 },
-          { type: 'hold',      ms: 1000 },
+          { type: 'line',      text: 'Come find me when the watch changes. I will be waiting. That is not a courtesy. It is simply where I will be.', hold: 3600, cps: 25 },
+          { type: 'hold',      ms: 1200 },
           { type: 'hide' }
         ]
       },
