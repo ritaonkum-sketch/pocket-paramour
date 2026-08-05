@@ -133,10 +133,25 @@
         // the chapter list being PRESENT (#chp-page), not the screen behind it.
         // The shared one-shot latch (pp_ladder_celebrated_<char>) still fires it
         // exactly ONCE wherever the player first sees it.
+        //
+        // TITLE-SCREEN LEAK (Aug 2026 playtest): this used to accept the bare
+        // EXISTENCE of #chp-page. That element stays in the DOM (empty/hidden)
+        // once the chapter list has been opened even once, so after finishing
+        // Ch1 and relaunching, "A door has opened" mounted on top of the TITLE
+        // screen, covering START — and its button could only dismiss, never
+        // navigate. Require the chapter list to be genuinely VISIBLE.
+        var _chp = document.getElementById('chp-page');
+        var _chpOpen = !!(_chp && _chp.children.length &&
+                          _chp.offsetWidth > 0 && _chp.offsetHeight > 0 &&
+                          getComputedStyle(_chp).visibility !== 'hidden');
         var onCalm = document.body.classList.contains('pp-screen-care') ||
                      document.body.classList.contains('pp-screen-select') ||
-                     !!document.getElementById('chp-page');
+                     _chpOpen;
         if (!onCalm) return false;
+        // Hard stop: never announce over the title screen. The chapter list can
+        // legitimately render while body is pp-screen-title (it overlays it),
+        // which is why the visible-list test above is the discriminator.
+        if (!_chpOpen && document.body.classList.contains('pp-screen-title')) return false;
         // Never pop DURING a chapter read — body.pp-chapter-active flags an
         // in-progress chapter (set in chapters.js); it clears the moment the
         // chapter ends, which is exactly when we want to announce. Then defer

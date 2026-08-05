@@ -1062,7 +1062,15 @@ class DialogueSystem {
         // STATE-BASED (urgent needs first)
         if (s.hunger < 25) return this._pickFresh(withExtra(CHARACTER.stateDialogue.hungry, CHARACTER.hungryLines), this.state);
         if (s.clean < 25)  return this._pickFresh(withExtra(CHARACTER.stateDialogue.dirty, CHARACTER.dirtyLines), this.state);
-        if (s.bond > 75)   return this._pickFresh(withExtra(CHARACTER.stateDialogue.happy, CHARACTER.happyLines), this.state);
+        // SLOW BURN (Aug 2026 playtest): bond alone used to open the "happy"
+        // (warm, close) register. But bond climbs to ~98/100 inside a single
+        // first sitting — a good Talk is +18 — so on Day 1, at Stranger, he
+        // was already speaking like a settled lover. Affection is the earned,
+        // slow currency (it also drives the care-route ladder), so warmth now
+        // needs BOTH: a high bond AND affection actually built up over time.
+        if (s.bond > 75 && (s.affectionLevel || 0) >= 2) {
+            return this._pickFresh(withExtra(CHARACTER.stateDialogue.happy, CHARACTER.happyLines), this.state);
+        }
 
         // PERSONALITY-BASED
         const pool = CHARACTER.personalities[s.personality];
@@ -1139,11 +1147,23 @@ class DialogueSystem {
         // Threshold milestones (fedTenTimes, fiftyInteractions, etc.) still fire.
         const CARD_OWNED_KEYS = ['firstTrust', 'growingClose', 'deepFeeling', 'confession'];
 
+        // SLOW BURN FLOOR (Aug 2026 playtest): personality-triggered milestones
+        // carry end-of-arc intimacy ("I've stopped pretending I don't need
+        // you"), but their trigger is only `personality` — no count of their
+        // own — so they fired the instant personality first settled. Belt-and-
+        // braces alongside the warm-up gate in game.js updatePersonality():
+        // no personality milestone may surface without real investment behind it.
+        const _tot = (s.timesFed || 0) + (s.timesWashed || 0) + (s.timesTalked || 0)
+                   + (s.timesGifted || 0) + (s.timesTrained || 0);
+
         for (const [key, event] of Object.entries(events)) {
             // Skip already triggered
             if (triggered.includes(key)) continue;
             // Owned by the affection level-up card — never replay as a bubble.
             if (CARD_OWNED_KEYS.includes(key)) continue;
+            // Not earned yet — he has not been around you long enough to mean it.
+            if (event.trigger && event.trigger.personality !== undefined
+                && (_tot < 12 || (s.affectionLevel || 0) < 1)) continue;
 
             const t = event.trigger;
             let match = true;

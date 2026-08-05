@@ -84,13 +84,20 @@
         s.id = 'pp-living-state-styles';
         s.textContent = [
             '#game-container[data-pp-vitality] #character-body-img{transition:filter 1600ms ease;}',
-            '#game-container[data-pp-vitality="starving"] #character-body-img{filter:brightness(.92) saturate(.76);}',
-            '#game-container[data-pp-vitality="starving"] #character-fullbody{animation-duration:6.8s;}',
-            '#game-container[data-pp-vitality="hungry"] #character-body-img{filter:brightness(.96) saturate(.88);}',
-            '#game-container[data-pp-vitality="unkempt"] #character-body-img{filter:brightness(.95) saturate(.72) sepia(.08);}',
-            '#game-container[data-pp-vitality="weary"] #character-body-img{filter:brightness(.94) saturate(.9);}',
+            // NEGLECT MUST BE VISIBLE (Aug 2026 playtest). These were ~5-8%
+            // shifts — invisible on a phone — so the tamagotchi guilt loop, the
+            // single strongest reason players come back to a care game, never
+            // engaged: he looked identical whether adored or starving. Deepened
+            // so the FIRST glance on opening the app tells you how he has been.
+            // Still a colour-grade, never a broken-looking sprite: he dims and
+            // goes cold, he does not get disfigured.
+            '#game-container[data-pp-vitality="starving"] #character-body-img{filter:brightness(.78) saturate(.42) contrast(.94);}',
+            '#game-container[data-pp-vitality="starving"] #character-fullbody{animation-duration:7.6s;}',
+            '#game-container[data-pp-vitality="hungry"] #character-body-img{filter:brightness(.90) saturate(.72);}',
+            '#game-container[data-pp-vitality="unkempt"] #character-body-img{filter:brightness(.84) saturate(.50) sepia(.16);}',
+            '#game-container[data-pp-vitality="weary"] #character-body-img{filter:brightness(.90) saturate(.84);}',
             '#game-container[data-pp-vitality="weary"] #character-fullbody{animation-duration:6.2s;}',
-            '#game-container[data-pp-vitality="lonely"] #character-body-img{filter:brightness(.93) saturate(.82);}',
+            '#game-container[data-pp-vitality="lonely"] #character-body-img{filter:brightness(.82) saturate(.58) hue-rotate(-6deg);}',
             '#game-container[data-pp-vitality="warm"] #character-body-img{filter:brightness(1.02) saturate(1.04);}',
             '#game-container[data-pp-vitality="adored"] #character-body-img{filter:brightness(1.03) saturate(1.08);}',
             '#game-container[data-pp-vitality="adored"] #character-fullbody{animation-duration:4.2s;}',

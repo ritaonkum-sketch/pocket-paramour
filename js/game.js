@@ -3547,14 +3547,37 @@ class PocketLoveGame {
         overlay.classList.remove('hidden');
     }
 
+    // ── SLOW BURN GATE (Aug 2026 playtest) ───────────────────────────────
+    // Personality used to settle on interaction #2: one Feed (careScore +2)
+    // then one Talk (talkScore +3) made talk lead by a single point, flipped
+    // him to "clingy", and instantly fired that personality's milestone — an
+    // end-of-route intimacy line ("I've stopped pretending I don't need you")
+    // at Bond 0 — while ALSO switching every later care response to the
+    // clingy pool. The whole earn-his-warmth arc collapsed in five minutes.
+    //
+    // Now he stays in his default reserved register ("shy": awkward, guarded,
+    // knight-who-can't-receive-kindness) until the player has actually shown
+    // up a while AND the scores diverge meaningfully — not 3 versus 2.
+    // NOTE: purely a TONE gate. Affection, bond, and the care-route ladder
+    // (bondLevelFor = affection) are untouched, so chapter/character unlocks
+    // progress exactly as before.
     updatePersonality() {
         const old = this.personality;
 
-        if (this.talkScore > this.careScore && this.talkScore > this.irritationScore) {
+        const MIN_INTERACTIONS = 12;   // he stays reserved until you've shown up
+        const LEAD = 6;                // scores must clearly diverge, not 3 vs 2
+
+        const _total = (this.timesFed || 0) + (this.timesWashed || 0) + (this.timesTalked || 0)
+                     + (this.timesGifted || 0) + (this.timesTrained || 0);
+        // Too early to read him as anything but reserved.
+        if (_total < MIN_INTERACTIONS) return;
+
+        const t = this.talkScore, c = this.careScore, i = this.irritationScore;
+        if (t > c + LEAD && t > i + LEAD) {
             this.personality = "clingy";
-        } else if (this.careScore > this.talkScore && this.careScore > this.irritationScore) {
+        } else if (c > t + LEAD && c > i + LEAD) {
             this.personality = "shy";
-        } else if (this.irritationScore > this.talkScore && this.irritationScore > this.careScore) {
+        } else if (i > t + LEAD && i > c + LEAD) {
             this.personality = "tsundere";
         }
 
