@@ -2892,8 +2892,8 @@ class PocketLoveGame {
             fighting:   { emotion: 'angry',   duration: 2600, seq: () => { this.foragingScore = (this.foragingScore||0)+1; this.ui.playFightingSequence(unlock); } },
             // Proto system command types
             inspect:    { emotion: 'love',    duration: 8000, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.playReachSequence(unlock); } },
-            modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
-            override:   { emotion: 'love',    duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.bounceCharacter(); unlock(); } },
+            modify:     { emotion: 'happy',   duration: 2500, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.playModifySequence(unlock); } },
+            override:   { emotion: 'love',    duration: 2600, seq: () => { this.systemCommandsRun = (this.systemCommandsRun||0)+1; this.ui.playOverrideSequence(unlock); } },
             // Noir shadow arts types — timing game + corruption spread
             temptation:  { emotion: 'love',    duration: 8000, seq: () => { this.corruption = Math.min(100, this.corruption+3); this._spreadNoirCorruption(2); this.ui.playHuntSequence(unlock); } },
             // Caspian court etiquette types — timing game

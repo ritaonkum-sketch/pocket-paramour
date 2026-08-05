@@ -2779,6 +2779,76 @@ class GameUI {
         }, 2600);
     }
 
+    // ── Proto · Modify ────────────────────────────────────────────
+    // Aug 2026 polish: Modify and Override were the ONLY two training options
+    // in the game with no sequence of their own — both fell through to the
+    // generic bounceCharacter(), the same feedback as poking him on screen.
+    // Proto's picker showed three options that looked equal while one was an
+    // 8-second mini-game and two were a tap. These give each its own shape,
+    // using sprites he already has (no new art).
+    //
+    // Modify = tinkering with himself. Curious, absorbed, then pleased.
+    playModifySequence(onComplete) {
+        const poses   = CHARACTER.bodySprites || CHARACTER.bodyPoses;
+        const bodyImg = document.getElementById('character-body-img');
+        if (!poses || !bodyImg) { this.bounceCharacter(); onComplete && onComplete(); return; }
+
+        const working = poses.processing || poses.scanning || poses.neutral;
+        const pleased = poses.curious    || poses.adore    || poses.neutral;
+        const base    = poses.neutral    || poses.calm;
+
+        const set = (src, cls) => {
+            bodyImg.classList.remove('pp-proto-work', 'pp-proto-settle', 'bounce');
+            void bodyImg.offsetWidth;
+            if (src) bodyImg.src = src;
+            if (cls) bodyImg.classList.add(cls);
+        };
+
+        this._seqActive = true;
+        set(working, 'pp-proto-work');
+        try { if (window.sounds && sounds.blip) sounds.blip(); } catch (_) {}
+        setTimeout(() => { set(pleased, 'pp-proto-settle'); }, 1400);
+        setTimeout(() => {
+            bodyImg.classList.remove('pp-proto-work', 'pp-proto-settle');
+            bodyImg.src = base;
+            this._seqActive = false;
+            onComplete && onComplete();
+            if (this._idleTimer) { clearTimeout(this._idleTimer); this.scheduleIdleDialogue(); }
+        }, 2500);
+    }
+
+    // Override = pushing past the wards. It costs him: he destabilises, then
+    // steadies. Thematically the opposite of Modify, and it reads that way.
+    playOverrideSequence(onComplete) {
+        const poses   = CHARACTER.bodySprites || CHARACTER.bodyPoses;
+        const bodyImg = document.getElementById('character-body-img');
+        if (!poses || !bodyImg) { this.bounceCharacter(); onComplete && onComplete(); return; }
+
+        const strain  = poses.glitched || poses.error    || poses.unstable || poses.neutral;
+        const unsteady= poses.unstable || poses.glitched || poses.neutral;
+        const settled = poses.calm     || poses.neutral;
+
+        const set = (src, cls) => {
+            bodyImg.classList.remove('pp-proto-strain', 'pp-proto-settle', 'bounce');
+            void bodyImg.offsetWidth;
+            if (src) bodyImg.src = src;
+            if (cls) bodyImg.classList.add(cls);
+        };
+
+        this._seqActive = true;
+        set(strain, 'pp-proto-strain');
+        try { if (window.sounds && sounds.blip) sounds.blip(); } catch (_) {}
+        setTimeout(() => { set(unsteady, 'pp-proto-strain'); }, 900);
+        setTimeout(() => { set(settled, 'pp-proto-settle'); }, 1700);
+        setTimeout(() => {
+            bodyImg.classList.remove('pp-proto-strain', 'pp-proto-settle');
+            bodyImg.src = settled;
+            this._seqActive = false;
+            onComplete && onComplete();
+            if (this._idleTimer) { clearTimeout(this._idleTimer); this.scheduleIdleDialogue(); }
+        }, 2600);
+    }
+
     // ── Focus / Drift sequence (Lyra: mermaid ocean swim) ─────────
     playFocusSequence(onComplete) {
         const poses = CHARACTER.bodySprites || CHARACTER.bodyPoses;

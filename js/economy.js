@@ -578,9 +578,18 @@
         _starterTimer = setInterval(function () {
             if (ls(STARTER_KEY) === '1') { clearInterval(_starterTimer); _starterTimer = null; return; }
             if (!document.body.classList.contains('pp-screen-care')) return;
+            // Aug 2026 polish: the +30 burst landed ON TOP of the care-route
+            // intro dialogue on a first playthrough. Two causes, both fixed here.
+            //   1. RACE — this tested '#intro-overlay.visible', but intro.js
+            //      removes .hidden first and adds .visible a frame later, so
+            //      there is a window where the scene is on screen and matches
+            //      neither. Test :not(.hidden) instead, which covers both.
+            //   2. GAPS — the list predated several full-screen surfaces
+            //      (turning points, story scenes, the watch). Added.
             if (document.querySelector(
-                '#intro-overlay.visible, #pp-aci-backdrop, #pp-onboarding-overlay.show,' +
-                '#card-reveal-overlay:not(.hidden), #mscard-root:not(:empty), #pp-today-overlay.show'
+                '#intro-overlay:not(.hidden), #pp-aci-backdrop, #pp-onboarding-overlay.show,' +
+                '#card-reveal-overlay:not(.hidden), #mscard-root:not(:empty), #pp-today-overlay.show,' +
+                '#tp-root:not(:empty), #story-overlay.visible, #pp-presence'
             )) return;
             clearInterval(_starterTimer); _starterTimer = null;
             lsSet(STARTER_KEY, '1');

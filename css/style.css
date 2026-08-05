@@ -1662,6 +1662,50 @@ body.pp-screen-care .character-caspian #character-body-img.study-glance {
 .character-proto #character-body-img {
     animation: breathe 3s ease-in-out infinite, pp-proto-idle 2s ease-in-out infinite;
 }
+
+/* ── Proto · Modify / Override training motion (Aug 2026 polish) ──────
+   These two were the only training options in the game with no sequence
+   of their own; they fell through to the generic tap-bounce, so Proto's
+   picker offered three options where one was a mini-game and two felt
+   like poking him. Modify leans in and settles (tinkering with himself);
+   Override strains and jitters before steadying (pushing past the wards
+   costs him). Both override the idle loop while they run. */
+body.pp-screen-care .character-proto #character-body-img.pp-proto-work {
+    animation: ppProtoWork 1.3s ease-in-out both !important;
+    transform-origin: 50% 100% !important;
+}
+body.pp-screen-care .character-proto #character-body-img.pp-proto-settle {
+    animation: ppProtoSettle 0.8s cubic-bezier(0.22,1,0.36,1) both !important;
+    transform-origin: 50% 100% !important;
+}
+body.pp-screen-care .character-proto #character-body-img.pp-proto-strain {
+    animation: ppProtoStrain 0.85s ease-in-out both !important;
+    transform-origin: 50% 100% !important;
+}
+@keyframes ppProtoWork {
+    0%   { transform: translateY(0) scale(1); }
+    45%  { transform: translateY(2px) scale(0.994); }
+    100% { transform: translateY(0) scale(1); }
+}
+@keyframes ppProtoSettle {
+    0%   { transform: translateY(3px) scale(0.996); opacity: 0.92; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes ppProtoStrain {
+    0%   { transform: translateX(0) scale(1); }
+    18%  { transform: translateX(-2px) scale(1.004); }
+    36%  { transform: translateX(2px)  scale(0.996); }
+    54%  { transform: translateX(-1px) scale(1.002); }
+    72%  { transform: translateX(1px)  scale(0.999); }
+    100% { transform: translateX(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+    body.pp-screen-care .character-proto #character-body-img.pp-proto-work,
+    body.pp-screen-care .character-proto #character-body-img.pp-proto-settle,
+    body.pp-screen-care .character-proto #character-body-img.pp-proto-strain {
+        animation: none !important;
+    }
+}
 @keyframes pp-proto-idle {
     0%, 100% { filter: none; }
     48% { filter: none; }
@@ -2598,7 +2642,7 @@ body.pp-screen-care .character-elian #character-body-img {
 }
 
 #story-continue {
-    background: linear-gradient(135deg, #f48fb1, #e91e63);
+    background: linear-gradient(180deg, #C46A8D 0%, #9A4567 45%, #7A2B4D 100%);
     color: white;
     border: none;
     padding: 10px 28px;
@@ -2658,7 +2702,7 @@ body.pp-screen-care .character-elian #character-body-img {
 }
 
 #revival-btn {
-    background: linear-gradient(135deg, #f48fb1, #e91e63);
+    background: linear-gradient(180deg, #C46A8D 0%, #9A4567 45%, #7A2B4D 100%);
     color: white;
     border: none;
     padding: 12px 32px;
@@ -3131,7 +3175,7 @@ body.pp-screen-care .character-elian #character-body-img {
     position: absolute;
     top: 8px;
     right: 8px;
-    background: #e91e63;
+    background: #C46A8D;
     color: white;
     font-size: 10px;
     font-weight: 700;
@@ -4093,7 +4137,7 @@ body.pp-screen-care .character-elian #character-body-img {
 .premium-timer-fill {
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #e91e63, #ba68c8);
+    background: linear-gradient(90deg, #9A4567, #D4A85B);
     border-radius: 2px;
 }
 .premium-hint {
@@ -4498,7 +4542,7 @@ body.pp-screen-care .character-elian #character-body-img {
     right: -5px;
     width: 14px;
     height: 14px;
-    background: #e91e63;
+    background: #C46A8D;
     border-radius: 50%;
     border: 2px solid white;
     animation: idlePulse 2s ease-in-out infinite;
@@ -4682,7 +4726,7 @@ body.pp-screen-care .character-elian #character-body-img {
 }
 
 .intro-dot.active {
-    background: #e91e63;
+    background: #C46A8D;
     transform: scale(1.3);
 }
 
@@ -4956,16 +5000,29 @@ body.pp-screen-care .character-elian #character-body-img {
     pointer-events: all;
 }
 
+/* NAME ENTRY — brand pass (Aug 2026 polish).
+   This screen is one of the most emotional beats in the game ("so when you
+   sleep here tonight I can say goodnight to a name") but it still read like a
+   signup form dropped into a gothic romance: Quicksand sans and a flat
+   white-on-transparent field, against a game that is Cormorant Garamond on
+   wine with rose-gold. The field now matches the dialogue box it interrupts,
+   and the confirm button mirrors the START button exactly.
+   Same pass finished the June-2026 de-Materialising sweep: the leftover stock
+   #e91e63 on the story-continue and revival buttons, the gallery NEW badge,
+   the idle indicator, and the tour + day dots now use this game's own muted
+   rose (#C46A8D / #9A4567), not Material magenta. */
 #intro-name-prompt {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
+    font-family: 'Cormorant Garamond', 'EB Garamond', Garamond, Georgia, serif;
+    font-style: italic;
+    font-size: 21px;
+    font-weight: 500;
+    color: #F4ECDC;
     text-align: center;
-    margin-bottom: 32px;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-    max-width: 280px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    max-width: 290px;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
 }
 
 #intro-name-row {
@@ -4978,28 +5035,30 @@ body.pp-screen-care .character-elian #character-body-img {
 
 #intro-name-input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    background: linear-gradient(180deg, rgba(43, 17, 51, 0.86) 0%, rgba(21, 8, 26, 0.92) 100%);
+    border: 1px solid rgba(232, 200, 138, 0.28);
     border-radius: 14px;
-    color: #fff;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+    color: #F4ECDC;
+    font-family: 'Cormorant Garamond', 'EB Garamond', Garamond, Georgia, serif;
+    font-size: 19px;
+    font-weight: 500;
     padding: 13px 18px;
     outline: none;
     text-align: center;
-    transition: border-color 0.25s ease, background 0.25s ease;
+    letter-spacing: 0.02em;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
     -webkit-appearance: none;
 }
 
 #intro-name-input::placeholder {
-    color: rgba(255, 255, 255, 0.22);
+    color: rgba(244, 236, 220, 0.28);
+    font-style: italic;
     font-weight: 400;
 }
 
 #intro-name-input:focus {
-    border-color: #e91e63;
-    background: rgba(255, 255, 255, 0.11);
+    border-color: rgba(232, 200, 138, 0.65);
+    box-shadow: 0 0 16px rgba(232, 200, 138, 0.18);
 }
 
 #intro-name-input.shake {
@@ -5019,23 +5078,25 @@ body.pp-screen-care .character-elian #character-body-img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #e91e63;
-    border: none;
-    color: #fff;
-    font-size: 22px;
+    /* Mirrors the START button exactly: the game's muted rose-wine gradient
+       with a rose-gold hairline. That is this game's "proceed" affordance. */
+    background: linear-gradient(180deg, #C46A8D 0%, #9A4567 38%, #7A2B4D 70%, #5A1A36 100%);
+    border: 1.5px solid rgba(232, 200, 138, 0.7);
+    color: #FFF6FA;
+    font-size: 21px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background 0.2s ease, transform 0.15s ease;
-    box-shadow: 0 4px 18px rgba(233, 30, 99, 0.45);
+    transition: filter 0.2s ease, transform 0.15s ease;
+    box-shadow: 0 4px 18px rgba(122, 43, 77, 0.5);
     -webkit-tap-highlight-color: transparent;
 }
 
 #intro-name-confirm:active {
-    transform: scale(0.9);
-    background: #c2185b;
+    transform: scale(0.92);
+    filter: brightness(1.08);
 }
 
 /* ── Sword Training Animation ─────────────────────────────── */
@@ -6903,9 +6964,9 @@ body.pp-screen-care .character-elian #character-body-img {
 .day-dot.active {
     width: 11px;
     height: 11px;
-    background: radial-gradient(circle, #ffbfd1 0%, #e91e63 80%);
+    background: radial-gradient(circle, #E8B4C8 0%, #9A4567 80%);
     border-color: #fff;
-    box-shadow: 0 0 14px rgba(233, 30, 99, 0.85), 0 0 4px rgba(255, 200, 220, 1);
+    box-shadow: 0 0 14px rgba(154, 69, 103, 0.85), 0 0 4px rgba(255, 200, 220, 1);
     animation: day-dot-pulse 1.6s ease-in-out infinite;
 }
 .day-dot.future {
