@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v1120';
+const CACHE_NAME = 'pocket-love-v1121';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -133,7 +133,8 @@ const CORE_ASSETS = [
     '/js/memory-album.js',
     '/js/alistair-care-intro.js',
     '/js/ch6-unlock-celebration.js',
-    '/js/daily-thread.js'
+    '/js/daily-thread.js',
+    '/js/presence.js'
 ];
 
 // config.json is always fetched network-first so live tuning changes land immediately.
