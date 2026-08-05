@@ -152,7 +152,8 @@
       ]
     },
     {
-      eyebrow: 'BEGIN',
+      // No eyebrow on the last card. "BEGIN" here just echoed the BEGIN
+      // button six lines below it; the title carries the card instead.
       title: 'Start your story.',
       body: [
         'Read the first chapter to meet Alistair. His care route opens the moment that chapter ends.',
@@ -170,7 +171,6 @@
     const c = CARDS[idx];
     if (idx === CARDS.length - 1 && lsGet('pp_chapter_done_1') === '1') {
       return {
-        eyebrow: 'BEGIN',
         title: 'You’ve already met him.',
         body: [
           'Alistair’s door is open. Care for him daily. Feed, wash, talk, listen.',
@@ -280,6 +280,43 @@
         text-shadow:0 1px 8px rgba(0, 0, 0, 0.5);
       }
 
+      /* Final card ("Start your story.") — it lost its eyebrow, so the
+         title is now the first thing on the card and carries it alone.
+         Bigger, lit from within, with a slow breath on the glow so it
+         reads as the moment the tour hands the player the door. */
+      .pp-on-title.is-finale {
+        font-size:36px;
+        line-height:1.2;
+        margin-top:6px;
+        margin-bottom:22px;
+        color:#FFF4E2;
+        text-shadow:
+          0 0 18px rgba(232, 200, 138, 0.55),
+          0 0 42px rgba(214, 59, 122, 0.35),
+          0 2px 10px rgba(0, 0, 0, 0.55);
+        animation:ppOnTitleGlow 4.2s ease-in-out infinite;
+      }
+      @keyframes ppOnTitleGlow {
+        0%, 100% {
+          text-shadow:
+            0 0 18px rgba(232, 200, 138, 0.55),
+            0 0 42px rgba(214, 59, 122, 0.35),
+            0 2px 10px rgba(0, 0, 0, 0.55);
+        }
+        50% {
+          text-shadow:
+            0 0 26px rgba(244, 221, 168, 0.80),
+            0 0 60px rgba(214, 59, 122, 0.50),
+            0 2px 10px rgba(0, 0, 0, 0.55);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pp-on-title.is-finale { animation:none; }
+      }
+      @media (max-height: 700px) {
+        .pp-on-title.is-finale { font-size:31px; margin-bottom:18px; }
+      }
+
       /* Body lines — same literary register */
       .pp-on-body {
         font-family:'Cormorant Garamond','EB Garamond','Garamond','Georgia',serif;
@@ -373,7 +410,8 @@
       const eb = document.createElement('div'); eb.className = 'pp-on-eyebrow';
       eb.textContent = c.eyebrow; card.appendChild(eb);
     }
-    const t = document.createElement('div'); t.className = 'pp-on-title';
+    const t = document.createElement('div');
+    t.className = 'pp-on-title' + (idx === CARDS.length - 1 ? ' is-finale' : '');
     t.textContent = c.title; card.appendChild(t);
     const b = document.createElement('div'); b.className = 'pp-on-body';
     c.body.forEach(line => { const p = document.createElement('p'); p.textContent = line; b.appendChild(p); });
