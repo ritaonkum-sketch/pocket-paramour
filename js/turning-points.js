@@ -271,14 +271,26 @@
     return e;
   }
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  // Aug 2026: this used a bare `textContent +=` with no generation token, so
+  // two beats started close together (a fast-tapping player) both typed into
+  // the SAME element and interleaved character by character — the scrambled
+  // "Td yo h boubeaeu an l sc howtklenoi" text caught in playtest. Same defect
+  // class as the care box. Fixed the same way: an ELEMENT-scoped token, so the
+  // newest call cancels every older chain, and full-prefix writes so even a
+  // surviving racer converges on the same string instead of doubling it.
   function typeTo(target, text, cps) {
     return new Promise((resolve) => {
       target.textContent = '';
+      const gen = (target._ppTypeGen = (target._ppTypeGen || 0) + 1);
       const speed = Math.max(14, Math.round(1000 / (cps || 28)));
       let i = 0;
       const step = () => {
-        if (i < text.length) { target.textContent += text[i++]; setTimeout(step, speed); }
-        else resolve();
+        if (gen !== target._ppTypeGen) return;   // a newer beat took over
+        if (i < text.length) {
+          i++;
+          target.textContent = text.substring(0, i);
+          setTimeout(step, speed);
+        } else resolve();
       };
       step();
     });
@@ -415,12 +427,20 @@
       let cancelled = false;
       skipPromise.then(() => { cancelled = true; });
       let i = 0; line.textContent = '';
+      // Element-scoped generation token + full-prefix writes (see typeTo above):
+      // without these, two beats racing this same element interleaved character
+      // by character into unreadable scrambled text.
+      const gen = (line._ppTypeGen = (line._ppTypeGen || 0) + 1);
       const speed = 32;
       const tick = new Promise(resolve => {
         const step = () => {
+          if (gen !== line._ppTypeGen) { resolve(); return; }  // newer beat won
           if (cancelled) { line.textContent = text; resolve(); return; }
-          if (i < text.length) { line.textContent += text[i++]; setTimeout(step, speed); }
-          else resolve();
+          if (i < text.length) {
+            i++;
+            line.textContent = text.substring(0, i);
+            setTimeout(step, speed);
+          } else resolve();
         };
         step();
       });
