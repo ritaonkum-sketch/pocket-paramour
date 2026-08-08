@@ -209,16 +209,18 @@
         color:rgba(244, 235, 220, 0.92);
       }
 
-      /* Wax seal above the card. The source art is on a BLACK background
-         rather than transparent, so screen blending drops the black out
-         against the dark overlay and leaves only the seal and its glow.
+      /* Wax seal above the card. The source art ships on a solid BLACK
+         background; assets/ui/tour-seal.png is a re-baked copy carrying a
+         real alpha channel (see scratchpad make-seal-alpha.ps1), so it
+         composites cleanly over the plaster texture. It used to rely on
+         mix-blend-mode:screen, which only worked while the backdrop was
+         near-black and washed the seal out once the texture landed.
          (No backticks in here — this block lives inside a JS template
          literal and a stray backtick terminates the whole file.) */
       #pp-onboarding-seal {
         width:min(46vw, 172px);
         height:auto;
         margin-bottom:-6px;
-        mix-blend-mode:screen;
         pointer-events:none;
         filter:drop-shadow(0 6px 26px rgba(122, 18, 36, 0.5));
         opacity:0; transform:translateY(14px) scale(0.96);
@@ -234,10 +236,20 @@
       #pp-onboarding-overlay:not(.show) { pointer-events:none; }
       #pp-onboarding-card {
         max-width:420px; width:100%;
-        /* Dark velvet card with subtle wine glow within */
-        background:
-          radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.25) 0%, rgba(0,0,0,0) 60%),
-          linear-gradient(180deg, rgba(43, 17, 51, 0.96), rgba(21, 8, 26, 0.98));
+        /* The card is the owner's painted plum-plaster panel. Anchored to the
+           top of the art so the lit patch falls behind WELCOME. The two
+           gradients above it are a legibility scrim, not a tint — light at the
+           top where the gold sits, heavier lower down so the pale body text
+           stays crisp against the texture. background-color is the fallback if
+           the jpg fails to load. */
+        background-color:#1B0A22;
+        background-image:
+          radial-gradient(ellipse at 50% 0%, rgba(122, 18, 36, 0.22) 0%, rgba(0, 0, 0, 0) 62%),
+          linear-gradient(180deg, rgba(20, 7, 26, 0.22) 0%, rgba(16, 5, 22, 0.44) 55%, rgba(12, 4, 18, 0.60) 100%),
+          url('assets/ui/tour-bg.jpg');
+        background-size:cover, cover, cover;
+        background-position:center, center, center top;
+        background-repeat:no-repeat, no-repeat, no-repeat;
         /* Rose-gold thin border */
         border:1px solid rgba(232, 200, 138, 0.32);
         border-radius:22px; padding:32px 28px;
@@ -266,6 +278,48 @@
         color:#F4DDA8;
         text-shadow:0 0 14px rgba(232, 200, 138, 0.45);
         margin-bottom:16px;
+      }
+
+      /* WELCOME only (card 1). Owner: "bigger, same font as the writing, it
+         needs to be attracting." So it leaves the Quicksand UI register and
+         joins the story register — Cormorant italic, like the title and body
+         under it — at greeting scale, in full gold, with a slow breath on the
+         glow. HOW TO PLAY / YOUR POWER stay small UI labels: they are section
+         headings, this is a greeting. */
+      .pp-on-eyebrow.is-welcome {
+        font-family:'Cormorant Garamond','EB Garamond','Garamond','Georgia',serif;
+        font-style:italic;
+        font-weight:500;
+        font-size:36px;
+        letter-spacing:0.09em;
+        line-height:1.1;
+        color:#F9E7BC;
+        margin-bottom:14px;
+        text-shadow:
+          0 0 18px rgba(244, 221, 168, 0.55),
+          0 0 44px rgba(214, 59, 122, 0.30),
+          0 2px 10px rgba(0, 0, 0, 0.55);
+        animation:ppOnWelcomeGlow 4.6s ease-in-out infinite;
+      }
+      @keyframes ppOnWelcomeGlow {
+        0%, 100% {
+          text-shadow:
+            0 0 18px rgba(244, 221, 168, 0.55),
+            0 0 44px rgba(214, 59, 122, 0.30),
+            0 2px 10px rgba(0, 0, 0, 0.55);
+        }
+        50% {
+          text-shadow:
+            0 0 28px rgba(255, 236, 190, 0.85),
+            0 0 64px rgba(214, 59, 122, 0.48),
+            0 2px 10px rgba(0, 0, 0, 0.55);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pp-on-eyebrow.is-welcome { animation:none; }
+      }
+      @media (max-height: 700px) {
+        .pp-on-eyebrow.is-welcome { font-size:31px; margin-bottom:12px; }
       }
 
       /* Title ("Seven hearts are waiting.") — STORY register */
@@ -407,7 +461,10 @@
     const c = cardFor(idx);
     card.innerHTML = '';
     if (c.eyebrow) {
-      const eb = document.createElement('div'); eb.className = 'pp-on-eyebrow';
+      const eb = document.createElement('div');
+      // Card 1's WELCOME is the greeting, not a section label — it gets the
+      // story-register treatment (see .is-welcome in injectStyles).
+      eb.className = 'pp-on-eyebrow' + (idx === 0 ? ' is-welcome' : '');
       eb.textContent = c.eyebrow; card.appendChild(eb);
     }
     const t = document.createElement('div');
