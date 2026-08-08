@@ -1722,7 +1722,11 @@ body:has(#daily-reward-overlay:not(.hidden)) #select-screen {
 .cc-active-role {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    /* Centred with the rest of the info column. This is the one line in the
+       card that was not: every sibling (name, BOND LEVEL, the value, the
+       quote) centres via text-align, but making the role a flex row to hang
+       the ✦ marks on it overrode that, and flex-start pinned it left. */
+    justify-content: center;
     gap: 6px;
 }
 .cc-active-role::before,
