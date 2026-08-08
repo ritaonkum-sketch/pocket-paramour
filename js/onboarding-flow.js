@@ -496,14 +496,36 @@
   // --- Falling petals ------------------------------------------------------
   // Built fresh each time the tour opens so no two openings fall the same
   // way. Everything a petal needs is a CSS custom property; the keyframe in
-  // injectStyles reads them, so this stays cheap — 16 elements, no JS ticking.
-  const PETAL_COUNT = 22;
+  // injectStyles reads them, so this stays cheap — no JS ticking.
+  const PETAL_COUNT = 26;
   function rnd(min, max) { return min + Math.random() * (max - min); }
 
   function buildPetals(layer) {
+    // Placement is STRATIFIED, not freely random. Free random left/delay
+    // clumps: the owner caught a bare top-right corner where three petals in
+    // a row had landed in the same column and the same part of their fall.
+    // So the screen is cut into COLS columns and ROWS phase bands, each petal
+    // gets its own cell, and the randomness lives inside the cell. Coverage
+    // is guaranteed; it still reads as random because no petal sits at its
+    // cell's centre and every other property is free.
+    const COLS = 7;
+    const ROWS = Math.ceil(PETAL_COUNT / COLS);
+    const lanePx = Math.max(28, (window.innerWidth || 375) / COLS);
+    const cells = [];
+    for (let c = 0; c < COLS; c++) {
+      for (let r = 0; r < ROWS; r++) cells.push([c, r]);
+    }
+    // Shuffle so the leftover cells (PETAL_COUNT rarely divides evenly) are
+    // dropped from random places rather than always the right-hand edge.
+    for (let i = cells.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = cells[i]; cells[i] = cells[j]; cells[j] = t;
+    }
+
     for (let i = 0; i < PETAL_COUNT; i++) {
       const p = document.createElement('div');
       p.className = 'pp-on-petal';
+      const cell = cells[i];
 
       // Size drives everything else — a big petal reads as "near", so it
       // falls faster, sways wider and stays sharp; a small one is far away,
@@ -513,18 +535,35 @@
       const near  = (size - 13) / 23;              // 0 = far, 1 = near
       const spin  = Math.random() < 0.5 ? -1 : 1;  // tumble direction
       const turns = rnd(1.2, 2.6) * 360 * spin;
+      const dur   = rnd(20 - near * 8, 26 - near * 8);
 
-      p.style.backgroundImage = "url('assets/petals/petal-" + (1 + (i % 3)) + ".png')";
+      // Column: full cell width, jittered, held inside the frame. The old
+      // range ran to 100%, which parked a petal fully off the right edge.
+      const colW = 100 / COLS;
+      const left = Math.min(96, Math.max(-2, cell[0] * colW + rnd(0.05, 0.95) * colW));
+
+      // Phase: as a FRACTION of this petal's own duration, so slow and fast
+      // petals spread evenly down the screen. A flat -0..22s delay skewed
+      // every long-duration petal into the bottom third.
+      const phase = (cell[1] + rnd(0.05, 0.95)) / ROWS;
+
+      p.style.backgroundImage = "url('assets/petals/petal-" +
+                                (1 + Math.floor(Math.random() * 3)) + ".png')";
       p.style.width  = size.toFixed(1) + 'px';
       p.style.height = size.toFixed(1) + 'px';
-      p.style.left   = rnd(-4, 100).toFixed(2) + '%';
-      p.style.animationDuration = rnd(20 - near * 8, 26 - near * 8).toFixed(1) + 's';
+      p.style.left   = left.toFixed(2) + '%';
+      p.style.animationDuration = dur.toFixed(1) + 's';
       // Negative delay starts each petal partway through its fall, so the
       // backdrop is already raining when the tour fades in instead of
       // seeding an empty screen for the first ten seconds.
-      p.style.animationDelay = (-rnd(0, 22)).toFixed(1) + 's';
-      p.style.setProperty('--sway',  rnd(-70, 70).toFixed(0) + 'px');
-      p.style.setProperty('--drift', rnd(-90, 90).toFixed(0) + 'px');
+      p.style.animationDelay = (-(phase * dur)).toFixed(1) + 's';
+      // Sway/drift are measured in LANE WIDTHS, not fixed pixels. Flat
+      // ±70/±90px let a petal wander nearly two columns on a phone, which
+      // re-opened the gaps the stratified columns had just closed (and did
+      // nothing on a wide screen). A petal now stays roughly in its lane at
+      // any viewport size.
+      p.style.setProperty('--sway',  (rnd(-0.75, 0.75) * lanePx).toFixed(0) + 'px');
+      p.style.setProperty('--drift', (rnd(-1.0, 1.0) * lanePx).toFixed(0) + 'px');
       p.style.setProperty('--r0', rnd(-40, 40).toFixed(0) + 'deg');
       p.style.setProperty('--r1', (turns * 0.45).toFixed(0) + 'deg');
       p.style.setProperty('--r2', turns.toFixed(0) + 'deg');
