@@ -234,6 +234,45 @@
       }
       #pp-onboarding-overlay.show { opacity:1; }
       #pp-onboarding-overlay:not(.show) { pointer-events:none; }
+
+      /* Falling rose petals across the dark backdrop. Same three PNGs the
+         title screen drifts, but where the title hand-authors nine fixed
+         petals in CSS, these are generated per-open with randomised column,
+         size, speed, sway, spin direction and depth blur — so the fall never
+         repeats itself. Sits behind the seal and the card (own stacking
+         context, z-index 0; the seal and card are lifted to 1). overflow is
+         clipped here rather than on the overlay so a petal leaving the
+         bottom can never nudge the page into scrolling. */
+      #pp-onboarding-petals {
+        position:absolute; inset:0;
+        overflow:hidden;
+        pointer-events:none;
+        z-index:0;
+      }
+      #pp-onboarding-seal, #pp-onboarding-card { position:relative; z-index:1; }
+
+      .pp-on-petal {
+        position:absolute;
+        top:-14vh;
+        background-size:contain;
+        background-repeat:no-repeat;
+        background-position:center;
+        opacity:0;
+        will-change:transform, opacity;
+        animation-name:ppOnPetalFall;
+        animation-timing-function:linear;
+        animation-iteration-count:infinite;
+      }
+      @keyframes ppOnPetalFall {
+        0%   { opacity:0;           transform:translate3d(0, 0, 0)                  rotate(var(--r0)); }
+        9%   { opacity:var(--peak); }
+        50%  { opacity:var(--peak); transform:translate3d(var(--sway), 62vh, 0)     rotate(var(--r1)); }
+        88%  { opacity:calc(var(--peak) * 0.65); }
+        100% { opacity:0;           transform:translate3d(var(--drift), 128vh, 0)   rotate(var(--r2)); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #pp-onboarding-petals { display:none; }
+      }
       #pp-onboarding-card {
         max-width:420px; width:100%;
         /* The card is the owner's painted plum-plaster panel. Anchored to the
@@ -454,6 +493,50 @@
     document.head.appendChild(s);
   }
 
+  // --- Falling petals ------------------------------------------------------
+  // Built fresh each time the tour opens so no two openings fall the same
+  // way. Everything a petal needs is a CSS custom property; the keyframe in
+  // injectStyles reads them, so this stays cheap — 16 elements, no JS ticking.
+  const PETAL_COUNT = 22;
+  function rnd(min, max) { return min + Math.random() * (max - min); }
+
+  function buildPetals(layer) {
+    for (let i = 0; i < PETAL_COUNT; i++) {
+      const p = document.createElement('div');
+      p.className = 'pp-on-petal';
+
+      // Size drives everything else — a big petal reads as "near", so it
+      // falls faster, sways wider and stays sharp; a small one is far away,
+      // slower, softer, dimmer. Without that link the random sizes just look
+      // like noise instead of depth.
+      const size  = rnd(13, 36);
+      const near  = (size - 13) / 23;              // 0 = far, 1 = near
+      const spin  = Math.random() < 0.5 ? -1 : 1;  // tumble direction
+      const turns = rnd(1.2, 2.6) * 360 * spin;
+
+      p.style.backgroundImage = "url('assets/petals/petal-" + (1 + (i % 3)) + ".png')";
+      p.style.width  = size.toFixed(1) + 'px';
+      p.style.height = size.toFixed(1) + 'px';
+      p.style.left   = rnd(-4, 100).toFixed(2) + '%';
+      p.style.animationDuration = rnd(20 - near * 8, 26 - near * 8).toFixed(1) + 's';
+      // Negative delay starts each petal partway through its fall, so the
+      // backdrop is already raining when the tour fades in instead of
+      // seeding an empty screen for the first ten seconds.
+      p.style.animationDelay = (-rnd(0, 22)).toFixed(1) + 's';
+      p.style.setProperty('--sway',  rnd(-70, 70).toFixed(0) + 'px');
+      p.style.setProperty('--drift', rnd(-90, 90).toFixed(0) + 'px');
+      p.style.setProperty('--r0', rnd(-40, 40).toFixed(0) + 'deg');
+      p.style.setProperty('--r1', (turns * 0.45).toFixed(0) + 'deg');
+      p.style.setProperty('--r2', turns.toFixed(0) + 'deg');
+      p.style.setProperty('--peak', (0.34 + near * 0.5).toFixed(2));
+      const blur = (1 - near) * 2.6;
+      p.style.filter = 'drop-shadow(0 3px 6px rgba(0,0,0,0.5))' +
+                       (blur > 0.4 ? ' blur(' + blur.toFixed(1) + 'px)' : '');
+
+      layer.appendChild(p);
+    }
+  }
+
   function renderCard(idx) {
     if (!_root) return;
     const card = _root.querySelector('#pp-onboarding-card');
@@ -515,6 +598,12 @@
 
     _root = document.createElement('div');
     _root.id = 'pp-onboarding-overlay';
+    // Petals go in first so they sit behind the seal and the card.
+    const petals = document.createElement('div');
+    petals.id = 'pp-onboarding-petals';
+    petals.setAttribute('aria-hidden', 'true');
+    buildPetals(petals);
+    _root.appendChild(petals);
     // The wax seal sits above the card, in the empty space over it, so the
     // tour opens with the game's own mark rather than a bare panel.
     const seal = document.createElement('img');
