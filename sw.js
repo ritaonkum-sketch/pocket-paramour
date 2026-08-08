@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocket-love-v1129';
+const CACHE_NAME = 'pocket-love-v1130';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
@@ -23,6 +23,7 @@ const CORE_ASSETS = [
     '/assets/ui/rose-coin.png',
     '/assets/ui/tour-seal.png',
     '/assets/ui/tour-bg.jpg',
+    '/assets/ui/chronicle/active-card-bg.jpg',
     '/assets/prologue/beat-2-kingdom.png',
     '/assets/prologue/beat-3-4-ritual.png',
     '/assets/prologue/beat-6-portal.png',
