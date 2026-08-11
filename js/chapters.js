@@ -196,8 +196,13 @@
 
             // ─── Section 1 · Waking in the moss ───────────────────────────
             { type: 'line', speaker: '', text: '*krkkk.*', hold: 1500, cps: 28 },
-            { type: 'line', speaker: '', text: 'The sound again. Harder this time. Wood under strain.', hold: 2800, cps: 26 },
+            // The commentary used to sit here and say "The sound again" — before
+            // the sound had happened a second time. The repeat is the NEXT beat,
+            // so "again" landed on the first occurrence and read as a mistake.
+            // First sound gets its own line; the "again" now follows the repeat.
+            { type: 'line', speaker: '', text: 'Something above you shifts, and holds.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: '*krkkkkk.*', hold: 1500, cps: 28 },
+            { type: 'line', speaker: '', text: 'That sound again... harder this time. Wood under strain.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes open.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Moss against your cheek. Wet bark. Rainwater. Your cloak soaked through.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not remember falling.', hold: 2400, cps: 26 },
