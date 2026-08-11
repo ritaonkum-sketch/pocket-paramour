@@ -257,7 +257,14 @@
             // ─── Section 6 · The chase ───────────────────────────────────
             { type: 'line', speaker: '', text: 'You start running. Your head has one word left in it. Run. Run. Run.', hold: 2800, cps: 30 },
             { type: 'line', speaker: '', text: 'Moss under bare feet. Wet roots. Bark tearing your palms when you catch yourself. Behind you comes a smell of copper and char that belongs to nothing which has ever lived in a forest.', hold: 4800, cps: 24 },
-            { type: 'line', speaker: '', text: 'Pain tears up from your ankle and keeps you limping. You keep moving through it, and behind you, you can hear that thing coming.', hold: 3800, cps: 26 },
+            // Third pass on this line. It kept reading badly for two reasons:
+            // "keeps you limping" / "You keep moving" repeated the same verb,
+            // and it ended on the pursuer, which the very next beat covers in
+            // better words. Owner's phrasing kept; the pile-up of limping /
+            // stumbling / running as three simultaneous participles is the
+            // part that read as unprofessional, so they are three finished
+            // clauses now. The full stops also mimic a broken gait.
+            { type: 'line', speaker: '', text: 'Sharp pain pierces your ankle. You limp. You stumble. You keep running.', hold: 3400, cps: 28 },
             { type: 'line', speaker: '', text: 'Whatever follows you does not run. It drags, wet and far too fast, and it is closing.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your lungs burn. Your vision pales at the edges.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You stop hearing your own breathing. You hear only that thing behind you.', hold: 3000, cps: 26 },
