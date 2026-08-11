@@ -255,9 +255,9 @@
             { type: 'line', speaker: 'YOU', text: '*RUN!*', hold: 1600, cps: 40 },
 
             // ─── Section 6 · The chase ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'You start running. Run. It is the only word left in your head.', hold: 2800, cps: 30 },
+            { type: 'line', speaker: '', text: 'You start running. Your head has one word left in it. Run. Run. Run.', hold: 2800, cps: 30 },
             { type: 'line', speaker: '', text: 'Moss under bare feet. Wet roots. Bark tearing your palms when you catch yourself. Behind you comes a smell of copper and char that belongs to nothing which has ever lived in a forest.', hold: 4800, cps: 24 },
-            { type: 'line', speaker: '', text: 'Pain tears up from your ankle and puts you on the ground. Up again. Down again. You keep moving, because the thing behind you is still coming.', hold: 4000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Pain tears up from your ankle and keeps you limping. You keep moving through it, and behind you, you can hear that thing coming.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'Whatever follows you does not run. It drags, wet and far too fast, and it is closing.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your lungs burn. Your vision pales at the edges.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You stop hearing your own breathing. You hear only that thing behind you.', hold: 3000, cps: 26 },
@@ -329,6 +329,16 @@
             { type: 'line', text: 'You don’t, mi’lady?', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '...', hold: 1600, cps: 20 },
             { type: 'line', text: 'You are quite lucky, mi’lady. You are in safe hands.', hold: 2800, cps: 28 },
+            // ── Chapter hook. The warmth lands first, then cracks. He stays
+            // composed (the captain never breaks this early); the unease is
+            // HERS, which keeps the POV inside her body and sends the player
+            // out of the chapter carrying a question rather than a blanket.
+            // Counts: he has said "mi'lady" three times by this beat — the
+            // hail, "You don't, mi'lady?", and the line above. Do not add a
+            // fourth earlier without fixing the number here.
+            { type: 'line', speaker: '', text: 'Safe. Your body believes the word before your mind can argue with it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'But he said mi’lady. Three times now, to a woman with no shoes.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...why does he call me that?*', hold: 2600, cps: 26 },
             // ── Player agency (Jul 2026) — trust or vigilance. Sets the
             // player's stance toward Alistair; remembered for callbacks.
             { type: 'choice', key: 'ch1_stance', prompt: 'Something in you answers.',
