@@ -211,10 +211,15 @@
 
       /* Wax seal above the card. The source art ships on a solid BLACK
          background; assets/ui/tour-seal.png is a re-baked copy carrying a
-         real alpha channel (see scratchpad make-seal-alpha.ps1), so it
-         composites cleanly over the plaster texture. It used to rely on
-         mix-blend-mode:screen, which only worked while the backdrop was
-         near-black and washed the seal out once the texture landed.
+         real alpha channel, so it composites cleanly over the plaster
+         texture. It used to rely on mix-blend-mode:screen, which only
+         worked while the backdrop was near-black.
+         The matte is cut by CONNECTIVITY, not brightness — flood-fill from
+         the border marks the true background, everything it cannot reach is
+         opaque seal (see scratchpad make-seal-matte.ps1). Deriving alpha
+         from luminance instead left the wax at ~25% opacity, because dark
+         paint and thin paint are indistinguishable over black; the card
+         texture showed straight through it.
          (No backticks in here — this block lives inside a JS template
          literal and a stray backtick terminates the whole file.) */
       #pp-onboarding-seal {
