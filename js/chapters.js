@@ -239,7 +239,7 @@
             { type: 'line', speaker: 'YOU', text: '*...a kingdom.*', hold: 1800, cps: 26 },
             { type: 'line', speaker: '', text: 'You move before you understand why.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your hand folds the page along the burned edge, slipping it into the tear inside your sleeve. The lining accepts it too easily. Like it has hidden this before.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You feel the urge to find the truth behind it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You mean to find out.', hold: 3000, cps: 26 },
 
             // ─── Section 4 · Standing ────────────────────────────────────
             { type: 'line', speaker: '', text: 'You try to stand.', hold: 1800, cps: 28 },
@@ -299,16 +299,24 @@
             { type: 'line', speaker: '', text: 'You cannot make out what he is saying. You are too weak to answer him. Your body feels far away, and only the wet moss beneath you still feels real.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'Plate armour against the earth. He kneels close to you.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'You force your eyes open.', hold: 1800, cps: 28 },
+            // "He says something. You lose the words again." cut here — it
+            // repeated "You cannot make out what he is saying" from four beats
+            // earlier, and it was the fourth of five times she loses
+            // consciousness in this chapter. Losing her that often stops
+            // reading as danger and keeps taking the player's agency away.
             { type: 'line', speaker: '', text: 'Dark blond hair damp against his temple, green eyes that find yours and stay, a thin old scar riding the line of his jaw. Then darkness pulls again.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He says something. You lose the words again.', hold: 2400, cps: 26 },
 
             // ─── Section 10 · The pulse ──────────────────────────────────
+            // Aug 2026 trim. This ran seven beats on a single gesture, and
+            // three of them ("His hand stays where it is", "he has forgotten
+            // what he was checking for", "he forgets to let go") all said the
+            // same thing. Cut to five so the best lines are not diluted by
+            // their own restatements — it is the slowest passage in the
+            // chapter and it lands right after the chase.
             { type: 'line', speaker: '', text: 'His fingers find your throat, careful, searching. They are battlefield hands, and they already know where death likes to hide.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'His thumb presses lightly beneath your jaw.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He finds the pulse.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'His eyes close. Just once. The breath he lets out sounds almost painful.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'His hand stays where it is.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'He looks at the place beneath his thumb. Like he has forgotten what he was checking for.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You feel his fingertips still resting there. He does not take them away. Alone with the pulse of a stranger under his hand, he forgets to let go.', hold: 4200, cps: 24 },
 
             // ─── Section 11 · Horns recall him ───────────────────────────
@@ -376,7 +384,11 @@
             { type: 'line', speaker: '', text: 'You are suddenly aware of his warmth. You have not been warm since waking.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '...where are you taking me?', hold: 2400, cps: 28 },
             { type: 'line', speaker: '', text: 'His voice close behind your ear. Steady.', hold: 2200, cps: 26 },
-            { type: 'line', text: 'Somewhere safe.', hold: 2000, cps: 28 },
+            // Was "Somewhere safe." — the third of five uses of "safe" in the
+            // last third of the chapter, and the vaguest. Answering with the
+            // place instead of the feeling drops one repetition and lets the
+            // castle land in Section 16 as scale rather than as news.
+            { type: 'line', text: 'To the castle.', hold: 2000, cps: 28 },
 
             // ─── Section 15 · You decide to trust him ────────────────────
             { type: 'line', speaker: '', text: 'You do not know him. You do not know your own name. You have no shoes. You have a torn page hidden in your sleeve.', hold: 4200, cps: 24 },
@@ -397,7 +409,9 @@
             { type: 'line', speaker: '', text: 'His breathing changes. Only once. He does not move away.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The pulse beneath your cheek. Steady. Grounding.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'He found yours. You found his.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You let your eyes close, drifting, feeling safe.', hold: 2600, cps: 28 },
+            // "feeling safe" dropped: the very next beat is her thinking
+            // "safe place", so the line was saying it a second before she did.
+            { type: 'line', speaker: '', text: 'You let your eyes close, drifting.', hold: 2400, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '*...safe place.*', hold: 2200, cps: 26 },
             // ── Player agency (Jul 2026) — what the player carries into
             // sleep. Pure flavor, both warm; remembered for letters later.
