@@ -279,8 +279,8 @@
             { type: 'line', speaker: '', text: 'The blow never lands on you.', hold: 2200, cps: 28 },
 
             // ─── Section 8 · The rescuer ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'For a moment there is only your pulse. Too loud. Wrongly loud.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Slowly, you realise you are still alive.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'In that moment you can hear only your pulse... loud, wrongly loud.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Slowly, your hand goes to your chest. You are still alive.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes open halfway. The canopy above you shifts strangely. Not wind. Something else.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your trembling hand lowers from your face. The cold has finally reached you. The fear has burned itself out.', hold: 3600, cps: 26 },
             // (Rescue-clearing knight image removed — owner: "remove this out of
@@ -290,16 +290,17 @@
             { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet, a black that looks less like soot than like something taken out of the world. It curls toward the trees in thin ribbons, the way a thing goes home.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'The man watches the smoke instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'The smoke thins. Vanishes into the canopy. The creature beneath it collapses inward. Ash-coloured. Ancient. As if death only just remembered it.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: 'YOU', text: '*...the danger is over.*', hold: 2200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...is it over?*', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close. Darkness rushes up fast.', hold: 2200, cps: 28 },
 
             // ─── Section 9 · The kneel ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'Boots through moss. Coming closer now.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Boots step through the moss, coming closer to you.', hold: 2400, cps: 28 },
             { type: 'line', speaker: '', text: 'A voice, sharp with a fear that came too fast to hide. Not the voice of a man speaking to a stranger, but of one who thinks he may already be too late.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: 'You cannot answer him. Your body feels far away. Only the wet moss beneath you still feels real.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Plate armour against earth. He kneels.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You cannot make out what he is saying. You are too weak to answer him. Your body feels far away, and only the wet moss beneath you still feels real.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Plate armour against the earth. He kneels close to you.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You force your eyes open.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Dark blond hair damp against his temple, green eyes that find yours and stay, a thin old scar riding the line of his jaw. Then darkness pulls again.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He says something. You lose the words.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He says something. You lose the words again.', hold: 2400, cps: 26 },
 
             // ─── Section 10 · The pulse ──────────────────────────────────
             { type: 'line', speaker: '', text: 'His fingers find your throat, careful, searching. They are battlefield hands, and they already know where death likes to hide.', hold: 4000, cps: 24 },
@@ -308,7 +309,7 @@
             { type: 'line', speaker: '', text: 'His eyes close. Just once. The breath he lets out sounds almost painful.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'His hand stays where it is.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He looks at the place beneath his thumb. Like he has forgotten what he was checking for.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You do not see this. He is alone with the pulse of a stranger beneath his hand. He should let go. He does not.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You feel his fingertips still resting there. He does not take them away. Alone with the pulse of a stranger under his hand, he forgets to let go.', hold: 4200, cps: 24 },
 
             // ─── Section 11 · Horns recall him ───────────────────────────
             { type: 'line', speaker: '', text: '*horn. once.*', hold: 1400, cps: 28 },
@@ -320,13 +321,14 @@
             // ─── Section 12 · "There you are." ───────────────────────────
             { type: 'line', text: 'Mi’lady. Can you hear me? Open your eyes if you can.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Through water. Through distance. You hear him.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your lashes move. Once. Then again.', hold: 2000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your lashes move, blinking slow.', hold: 2000, cps: 26 },
             { type: 'line', speaker: '', text: 'His face resolves above yours. Close enough to count rainwater caught in his lashes.', hold: 3200, cps: 26 },
             { type: 'line', text: 'There you are.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your throat works around a voice that barely exists.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '...you don’t know me.', hold: 2400, cps: 28 },
-            { type: 'line', text: 'No, mi’lady.', hold: 1800, cps: 28 },
-            { type: 'line', text: 'I know I am supposed to.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'I... I don’t know this place.', hold: 2600, cps: 28 },
+            { type: 'line', text: 'You don’t, mi’lady?', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '...', hold: 1600, cps: 20 },
+            { type: 'line', text: 'You are quite lucky, mi’lady. You are in safe hands.', hold: 2800, cps: 28 },
             // ── Player agency (Jul 2026) — trust or vigilance. Sets the
             // player's stance toward Alistair; remembered for callbacks.
             { type: 'choice', key: 'ch1_stance', prompt: 'Something in you answers.',
@@ -353,7 +355,7 @@
             // typing. Sprint 3 audit item #8.
             { type: 'line', speaker: '', sfx: { name: 'crystal-resonance', volume: 0.42 }, text: 'He lifts you carefully against his chest. Like someone long accustomed to carrying wounded people.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Over his shoulder you glimpse the creature. Already collapsing into grey ash. The earth beneath it stained black.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*That is not a wolf. That is not anything.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*That wasn’t a wolf. That wasn’t anything.*', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'What was it?', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He carries you past the body without looking back.', hold: 2600, cps: 26 },
             { type: 'line', text: 'A wound, mi’lady.', hold: 2200, cps: 28 },
@@ -368,7 +370,7 @@
 
             // ─── Section 15 · You decide to trust him ────────────────────
             { type: 'line', speaker: '', text: 'You do not know him. You do not know your own name. You have no shoes. You have a torn page hidden in your sleeve.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: 'You also have a swordsman between you and the forest. A steady horse beneath you. The memory of his fingers against your pulse.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'But you also have a swordsman between you and the forest. A steady horse beneath you. The memory of his fingers against your pulse.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You decide to trust him. Only for now.', hold: 2400, cps: 26 },
 
             // ─── Section 16 · The castle ─────────────────────────────────
@@ -385,7 +387,7 @@
             { type: 'line', speaker: '', text: 'His breathing changes. Only once. He does not move away.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The pulse beneath your cheek. Steady. Grounding.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'He found yours. You found his.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your eyes close.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You let your eyes close, drifting, feeling safe.', hold: 2600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '*...safe place.*', hold: 2200, cps: 26 },
             // ── Player agency (Jul 2026) — what the player carries into
             // sleep. Pure flavor, both warm; remembered for letters later.
