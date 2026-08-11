@@ -203,17 +203,19 @@
             { type: 'line', speaker: '', text: 'Something above you shifts, and holds.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: '*krkkkkk.*', hold: 1500, cps: 28 },
             { type: 'line', speaker: '', text: 'That sound again... harder this time. Wood under strain.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your eyes open.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Moss against your cheek. Wet bark, rainwater, and a cloak that gave up keeping you dry some hours ago.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You do not remember falling.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You force your eyes open. Everything is blurred. You blink until the world holds still.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Moss against your cheek. Wet bark, rainwater, and an old cloak that gave up keeping you dry some hours ago.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You push yourself up onto the moss and sit there a moment. You do not remember falling here.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Why am I here?*', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Copper sits at the back of your tongue, old and faint, like biting a coin in a dream.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You touch your mouth. Your fingers come away with a little blood.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Your fingers are numb, your back is cold, and somewhere underneath all of it you are alive. You know that much.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'A leaf caught at your temple.', hold: 2000, cps: 26 },
             { type: 'line', speaker: '', text: 'Whatever came before this, it did not come with you.', hold: 2600, cps: 26 },
 
             // ─── Section 2 · The torn page ────────────────────────────────
             { type: 'line', speaker: '', text: 'Your hand is closed around something. A torn page, crushed in your fist.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The seal means nothing to you: two crossed branches beneath a moon, pressed in silver ink, one edge burned away.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'There is a seal on it. A symbol you do not understand and cannot remember: two crossed branches beneath a moon, pressed in silver ink, one edge burned away.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'Your fingers know the shape. You do not know why.', hold: 2800, cps: 26 },
             // ── Player agency (Jul 2026) — first decision of the game.
             // Both options are valid; the pick colors the next narration
@@ -237,44 +239,44 @@
             { type: 'line', speaker: 'YOU', text: '*...a kingdom.*', hold: 1800, cps: 26 },
             { type: 'line', speaker: '', text: 'You move before you understand why.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your hand folds the page along the burned edge, slipping it into the tear inside your sleeve. The lining accepts it too easily. Like it has hidden this before.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You would rather be the one to find out.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You feel the urge to find the truth behind it.', hold: 3200, cps: 26 },
 
             // ─── Section 4 · Standing ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'You stand.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You try to stand.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'The world tilts. Your ankle folds under you. You hit one knee, then both hands, breath leaving hard through your teeth.', hold: 4000, cps: 26 },
             { type: 'line', speaker: '', text: '*krk.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'Something is moving through the underbrush, heavier than anything that ought to live in a wood.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...something is in here with you.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*What was that?*', hold: 2200, cps: 26 },
 
             // ─── Section 5 · The wound-creature ──────────────────────────
-            { type: 'line', speaker: '', text: 'Leaves shifting. A shape behind them.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The leaves tear open and something forces its way through them.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'It steps forward.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Too many legs. Joints bending a fraction too late. A mouth split sideways across its skull. Black ribbons leaking from between its teeth like smoke escaping a wound.', hold: 4800, cps: 24 },
-            { type: 'line', speaker: 'YOU', text: '*...run.*', hold: 1600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*RUN!*', hold: 1600, cps: 40 },
 
             // ─── Section 6 · The chase ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'You run.', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'You start running. Run. It is the only word left in your head.', hold: 2800, cps: 30 },
             { type: 'line', speaker: '', text: 'Moss under bare feet. Wet roots. Bark tearing your palms when you catch yourself. Behind you comes a smell of copper and char that belongs to nothing which has ever lived in a forest.', hold: 4800, cps: 24 },
-            { type: 'line', speaker: '', text: 'Your ankle will not hold. You go down. Up again. Down again. You keep moving.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Pain tears up from your ankle and puts you on the ground. Up again. Down again. You keep moving, because the thing behind you is still coming.', hold: 4000, cps: 26 },
             { type: 'line', speaker: '', text: 'Whatever follows you does not run. It drags, wet and far too fast, and it is closing.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your lungs burn. Your vision pales at the edges.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stop hearing your own breathing. You hear only the thing behind you.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stumble. Your hand catches the lining of your sleeve. The page.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stop hearing your own breathing. You hear only that thing behind you.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The pain is unbearable. You keep running, your hand pressed to your sleeve. The page is still there.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not know your own name. You know to save this.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'You glance back.', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'The creature is already at the clearing’s edge. Closer than it should be.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...you are not going to make it.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*No. No... I’m not going to make it.*', hold: 2600, cps: 26 },
 
             // ─── Section 7 · The fall ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Your foot catches a root. You hit the moss hard. The air leaves your chest.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your foot catches a root. You hit the moss hard, and the air leaves your chest.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'The creature breaks through the treeline.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You roll onto your back and throw an arm over your face.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*Not yet. Whoever I am. Not yet.*', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You roll onto your back and throw an arm over your face, bracing for the impact.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*No. Not like this. Whoever I am, not yet!*', hold: 2800, cps: 28 },
             { type: 'line', speaker: '', text: 'Your eyes squeeze shut.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: '*SHNK.*', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'Wet impact. Sharp. Close.', hold: 2000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The sound is close. Sharp, and wet.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Then silence.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'The blow never comes.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The blow never lands on you.', hold: 2200, cps: 28 },
 
             // ─── Section 8 · The rescuer ─────────────────────────────────
             { type: 'line', speaker: '', text: 'For a moment there is only your pulse. Too loud. Wrongly loud.', hold: 2800, cps: 26 },
