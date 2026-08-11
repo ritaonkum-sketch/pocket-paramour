@@ -204,16 +204,16 @@
             { type: 'line', speaker: '', text: '*krkkkkk.*', hold: 1500, cps: 28 },
             { type: 'line', speaker: '', text: 'That sound again... harder this time. Wood under strain.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes open.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Moss against your cheek. Wet bark. Rainwater. Your cloak soaked through.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Moss against your cheek. Wet bark, rainwater, and a cloak that gave up keeping you dry some hours ago.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not remember falling.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Copper at the back of your tongue. Old and faint. Like biting a coin in a dream.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your fingers are numb. Your back is cold. You are alive. You know that much.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Copper sits at the back of your tongue, old and faint, like biting a coin in a dream.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers are numb, your back is cold, and somewhere underneath all of it you are alive. You know that much.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'A leaf caught at your temple.', hold: 2000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You do not remember the place before this place.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Whatever came before this, it did not come with you.', hold: 2600, cps: 26 },
 
             // ─── Section 2 · The torn page ────────────────────────────────
-            { type: 'line', speaker: '', text: 'Close on your hand. There is a torn page in it.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The seal is unfamiliar. Two crossed branches beneath a moon. Burned edge. Silver ink.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand is closed around something. A torn page, crushed in your fist.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The seal means nothing to you: two crossed branches beneath a moon, pressed in silver ink, one edge burned away.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your fingers know the shape. You do not know why.', hold: 2800, cps: 26 },
             // ── Player agency (Jul 2026) — first decision of the game.
             // Both options are valid; the pick colors the next narration
@@ -243,7 +243,7 @@
             { type: 'line', speaker: '', text: 'You stand.', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'The world tilts. Your ankle folds under you. You hit one knee, then both hands, breath leaving hard through your teeth.', hold: 4000, cps: 26 },
             { type: 'line', speaker: '', text: '*krk.*', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'Something moving through the underbrush. Not animal movement. Something heavier.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something is moving through the underbrush, heavier than anything that ought to live in a wood.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*...something is in here with you.*', hold: 2400, cps: 26 },
 
             // ─── Section 5 · The wound-creature ──────────────────────────
@@ -254,9 +254,9 @@
 
             // ─── Section 6 · The chase ───────────────────────────────────
             { type: 'line', speaker: '', text: 'You run.', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'Moss under bare feet. Wet roots. Bark tearing your palms when you catch yourself. Behind you, the smell of copper and char. Not animal. Not rot. Something worse.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'Moss under bare feet. Wet roots. Bark tearing your palms when you catch yourself. Behind you comes a smell of copper and char that belongs to nothing which has ever lived in a forest.', hold: 4800, cps: 24 },
             { type: 'line', speaker: '', text: 'Your ankle will not hold. You go down. Up again. Down again. You keep moving.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The dragging sound behind you gets closer. Not footsteps. Dragging. Wet. Fast.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Whatever follows you does not run. It drags, wet and far too fast, and it is closing.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your lungs burn. Your vision pales at the edges.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You stop hearing your own breathing. You hear only the thing behind you.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You stumble. Your hand catches the lining of your sleeve. The page.', hold: 2800, cps: 26 },
@@ -285,7 +285,7 @@
             //  chapter 1." Sections 8–13 now play over the plain palette bg like
             //  the rest of the chapter, no full-body knight standee.)
             { type: 'line', speaker: '', text: 'A man stands over the fallen creature. Red cloak. Sword lowered at his side.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet. Not soot-black. Absence-black. It curls toward the trees in thin ribbons. Like it wants to go home.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet, a black that looks less like soot than like something taken out of the world. It curls toward the trees in thin ribbons, the way a thing goes home.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'The man watches the smoke instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'The smoke thins. Vanishes into the canopy. The creature beneath it collapses inward. Ash-coloured. Ancient. As if death only just remembered it.', hold: 4200, cps: 24 },
             { type: 'line', speaker: 'YOU', text: '*...the danger is over.*', hold: 2200, cps: 26 },
@@ -293,14 +293,14 @@
 
             // ─── Section 9 · The kneel ───────────────────────────────────
             { type: 'line', speaker: '', text: 'Boots through moss. Coming closer now.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'A voice. Sharp with sudden fear. Not the voice of a man speaking to a stranger. The voice of a man who thinks he may already be too late.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'A voice, sharp with a fear that came too fast to hide. Not the voice of a man speaking to a stranger, but of one who thinks he may already be too late.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You cannot answer him. Your body feels far away. Only the wet moss beneath you still feels real.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Plate armour against earth. He kneels.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Dark blond hair damp with rain. Green eyes. A scar at the jaw. Then darkness pulls again.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Dark blond hair damp against his temple, green eyes that find yours and stay, a thin old scar riding the line of his jaw. Then darkness pulls again.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'He says something. You lose the words.', hold: 2200, cps: 26 },
 
             // ─── Section 10 · The pulse ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'His fingers at your throat. Careful. Searching. Battlefield hands. Hands that already know where death hides.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His fingers find your throat, careful, searching. They are battlefield hands, and they already know where death likes to hide.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'His thumb presses lightly beneath your jaw.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He finds the pulse.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'His eyes close. Just once. The breath he lets out sounds almost painful.', hold: 3000, cps: 26 },
@@ -399,7 +399,7 @@
               } }, hold: 3200, cps: 26 },
 
             // ─── Section 18 · Final wide shot ────────────────────────────
-            { type: 'line', speaker: '', text: 'The horse disappearing down the road. The castle waiting ahead. The forest behind them watching in silence.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The horse carries them down the road toward the waiting castle, and behind them the forest watches without a sound.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'It does not follow.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'It does not look away either.', hold: 2200, cps: 28 },
 
