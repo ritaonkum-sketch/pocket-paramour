@@ -1201,133 +1201,226 @@
             { type: 'show', pose: '', wait: 700 },
 
             // ─── Section 1 · He arrives ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'Your door.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'Three slow knocks. Then one. His.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You open the door.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Alistair fills the doorway. Rain still clinging to his hair. A fresh cut high across his cheekbone.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'Exhaustion carved deep into the lines around his mouth.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He looks held together by discipline alone.', hold: 2600, cps: 26 },
+            // BEAT DISCIPLINE. Every beat is a TAP. The owner's revision was
+            // written as prose paragraphs, which would have run ~215 taps;
+            // merged where the break was only paragraph rhythm (the
+            // typewriter already delivers short-sentence punch inside one
+            // beat) and kept as separate beats only where the pause is the
+            // point. ~152 now. Where a tap is deliberately kept, there is a
+            // comment saying why.
+            { type: 'line', speaker: '', text: 'Three slow knocks come at your door. Then one more.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'His.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You are already on your feet before you realise you have moved.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'When you open the door, Alistair fills the doorway.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Rain still clings to his hair, darkening it at the temples, and a fresh cut runs high across one cheekbone. There are deeper lines around his mouth than you remember, and something about the way he stands tells you he has been holding himself upright by discipline alone.', hold: 6000, cps: 24 },
             { type: 'line', speaker: '', text: 'Then he sees you.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'Something in his face loosens. Not breaking. Releasing.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Like a rope finally allowed to slacken.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Like a rope finally allowed to slacken after being pulled tight for too long.', hold: 3400, cps: 26 },
             { type: 'line', text: 'Mi’lady.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You should probably say something sensible. Instead:', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Come in.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He does.', hold: 1600, cps: 28 },
 
             // ─── Section 2 · He sees the cloak ───────────────────────────
-            { type: 'line', speaker: '', text: 'He steps inside. Stops immediately beyond the threshold.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'His eyes land on the cloak around your shoulders. His cloak.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Something unreadable moves across his face. He looks away from it almost at once.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He takes one step into the room and stops.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes have found the cloak around your shoulders.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His cloak.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'For a moment, something unreadable crosses his face. His gaze drops away almost immediately, as though looking at it too long might reveal something he would rather keep hidden.', hold: 5000, cps: 24 },
             { type: 'line', speaker: 'YOU', text: 'Sit down.', hold: 1800, cps: 28 },
             { type: 'line', text: 'I should not, mi’lady.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Sit down.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He obeys. Rigidly upright at the edge of the chair.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Like a man afraid sleep may drag him under if he relaxes too much.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He obeys. He lowers himself onto the chair with rigid care, sitting so straight that he looks less like a man resting than one preparing to receive orders.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'You realise why. If he relaxes too much, sleep may take him.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'And judging by his face, it is waiting.', hold: 2800, cps: 26 },
 
             // ─── Section 3 · Cleaning the cut ────────────────────────────
-            { type: 'line', speaker: '', text: 'You wet a cloth in the basin. Cross the room toward him.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You wet a cloth in the basin. He watches you cross the room.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Tilt your head.', hold: 1800, cps: 28 },
             { type: 'line', text: 'Mi’lady, that is not necess...', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Alistair.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He stops speaking. Tilts his head.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You clean the cut carefully. His eyes close.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Close. Your hand remains at his cheekbone slightly longer than needed.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You feel the rough scrape of stubble beneath your fingertips. The heat of his skin.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'His breathing has gone uneven.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Yours is not much better.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He stops. For once, he obeys without argument.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take his face gently between your fingers and turn it toward the light.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cut is not deep, but it has bled enough to leave a dark line along his cheekbone.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You clean it carefully. His eyes close.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers move more slowly than they need to.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You feel the roughness of stubble beneath your fingertips, the warmth of his skin, the faint tension held along his jaw.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His breathing changes. So does yours.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Neither of you mentions it.', hold: 2400, cps: 28 },
 
             // ─── Section 4 · Sixty hours ─────────────────────────────────
             { type: 'line', text: 'Three days.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look at him.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'What?', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes remain closed.', hold: 1800, cps: 28 },
             { type: 'line', text: 'Since I last sat down.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He opens them again, and you see just how tired he really is.', hold: 3200, cps: 26 },
             { type: 'line', text: 'That is the answer to the question you were about to ask.', hold: 3000, cps: 26 },
+            // He has not sat down for three days. She waited three days. They
+            // are the SAME three days — the chapter had that symmetry and
+            // never used it.
+            { type: 'line', speaker: '', text: 'The same three days you spent counting trays.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Why?', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'His eyes open. Heavy with exhaustion.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'Three more wounds opened along the south wall.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'The eastern wood is rotting inward. We patched what we could. Nothing crossed through.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks toward the window.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'Three more wounds opened along the south wall. The eastern wood is rotting inward. We patched what we could.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'His gaze returns to you.', hold: 1800, cps: 28 },
+            { type: 'line', text: 'Nothing crossed through.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You remember the forest. The thing dragging itself through the moss.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Wounds.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He studies you for a moment. Too tired to soften the truth.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'Places where the world thins. Things leak through.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He studies you for a moment, perhaps deciding whether you are ready for the answer. He looks too tired to soften it.', hold: 4400, cps: 24 },
+            { type: 'line', text: 'Places where the world thins.', hold: 2400, cps: 26 },
+            // The gap between beats already IS the pause. A beat that says
+            // "A pause." asks the player to tap in order to be told nothing
+            // happened.
+            { type: 'line', text: 'Things leak through.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers still around the cloth.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Like the thing in the forest.', hold: 2400, cps: 26 },
             { type: 'line', text: 'Yes.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The word settles heavily between you.', hold: 2600, cps: 26 },
 
             // ─── Section 5 · Why no word ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'Rain taps softly against the window.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Rain taps softly against the window. You set the cloth aside.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Why did you not send word?', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'His gaze lowers to his hands. The old bandages around his forearms. The rain-dark fabric at his wrists.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'His gaze drops to his hands. The old scars across his forearms. The fresh bandages. The rain-dark fabric at his wrists.', hold: 4800, cps: 24 },
             { type: 'line', text: 'I did not want you waiting for me if I failed to come back.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Silence.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: 'That may be the worst thing you have said so far.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'The ghost of a tired smile. Gone quickly.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stare at him.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Of all the answers he could have given, somehow that is the one that hurts.', hold: 3600, cps: 26 },
+            // Running callback: she has been keeping a tally of his saddest
+            // statements since Ch2's "that may be the saddest thing I have
+            // heard, mi'lord."
+            { type: 'line', speaker: 'YOU', text: 'That may be the worst thing you’ve said so far.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The ghost of a smile touches his mouth. It disappears almost immediately.', hold: 3400, cps: 26 },
             { type: 'line', text: 'Sorry, mi’lady.', hold: 2000, cps: 28 },
 
             // ─── Section 6 · When did you last sleep ─────────────────────
-            { type: 'line', speaker: '', text: 'You set the cloth aside. Sit slowly across from him.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: 'How long has it been since you slept through a night?', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'He considers lying. Then decides against it.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'I was eleven the last time.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'My mother died on a Sunday. I have not slept properly since.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stare at him. He says it without drama. Without self-pity.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'As if exhaustion has simply become another piece of armour he wears.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You move the chair closer and sit across from him. For a moment, neither of you speaks.', hold: 3800, cps: 26 },
+            // "When did you last REALLY sleep" rather than "actually rested":
+            // his answer is about sleeping without waking, so the question has
+            // to be about sleep, and "actually" is the one modern intensifier
+            // that would stand out in this register.
+            { type: 'line', speaker: 'YOU', text: 'When did you last really sleep?', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His expression changes. Only slightly.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You can see him consider lying. Then decide he is too tired for it.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'I was eleven.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You wait.', hold: 1600, cps: 28 },
+            { type: 'line', text: 'That was the last time I slept without waking.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes lower.', hold: 1800, cps: 28 },
+            // Ends on the DEATH, not on the sleeplessness. "I have not slept
+            // properly since" was cut because the line two beats earlier
+            // already says it — and letting him explain the sleep first and
+            // only then say why is the harder landing.
+            { type: 'line', text: 'My mother died on a Sunday.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He says it without drama. Without self-pity. Just a fact that has been carried so long it has worn smooth at the edges.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not know what to say. He seems not to expect you to.', hold: 3400, cps: 26 },
 
             // ─── Section 7 · Lie down ────────────────────────────────────
             { type: 'line', speaker: 'YOU', text: 'Lie down.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His head lifts.', hold: 1600, cps: 28 },
             { type: 'line', text: 'Mi’lady...', hold: 1600, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: 'On the bed or the floor. I do not care which. Lie down.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'On the bed. Lie down.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He almost smiles.', hold: 1800, cps: 28 },
             { type: 'line', text: 'That would be improper.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You fold your arms.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'You hid me in your chamber instead of turning me over to the queen.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'I think we passed improper days ago.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'A rough sound escapes him. A tired laugh. The first real one you have heard.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'A rough sound escapes him. A tired laugh. The first real one you have heard from him.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks at you for a long moment.', hold: 2200, cps: 28 },
             { type: 'line', text: 'You remembered that.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Every word.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He lowers himself carefully onto the floor beside the bed. One arm folded over his eyes.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something softens in his expression.', hold: 2200, cps: 28 },
+            // She said the bed. He takes the floor. Letting him REFUSE turns
+            // what was a continuity break into a character beat: she wins the
+            // argument, he keeps one inch of propriety, and she lets him have
+            // it. (Previously she offered "the bed or the floor", so the floor
+            // cost him nothing.)
+            { type: 'line', speaker: '', text: 'Then he lowers himself carefully onto the floor beside the bed. One arm folds across his eyes.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Not the bed. You let him keep that much.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You expect him to say something else. He does not.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Within moments, his breathing changes.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Deep sleep. Sudden as collapse.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Deep. Even. Sudden as collapse.', hold: 2800, cps: 26 },
 
             // ─── Section 8 · You stay watch ──────────────────────────────
-            { type: 'line', speaker: '', text: 'You remain seated near the door. His cloak around your shoulders. Watching him.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*I do not know my own name.*', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*But I know I will not let anyone through that door tonight.*', hold: 3400, cps: 26 },
-            // ── Player agency (Jul 2026) ──
+            { type: 'line', speaker: '', text: 'You remain seated near the door, his cloak still around your shoulders.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair sleeps on the floor beside your bed, one hand loose against the stone, the rain finally beginning to quiet outside.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You look at him. Then at the door.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not know your own name. But you know one thing with strange certainty.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*I’m not letting anyone through that door tonight.*', hold: 3200, cps: 26 },
+            // ── Player agency (Jul 2026) — now PERSISTED. Whether she guarded
+            // the door or moved close enough to touch him is exactly what his
+            // letters should know.
             { type: 'choice', key: 'ch5_watch', prompt: 'Your watch. Your rules.',
               options: [
                 { id: 'near', text: 'Move nearer to him.' },
                 { id: 'door', text: 'Hold the door. That is the post.' }
-              ] },
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch5_watch', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch5_watch', map: {
-                near: 'You shift closer, an arm’s reach from the sleeping knight. If something comes through the window instead, it will find you first.',
-                door: 'You stay at the door, your back against the wood. Someone taught you that posts matter. You wish you could remember who.'
+                near: 'You shift closer, until you are only an arm’s reach from the sleeping knight. If something comes through the window instead, it will find you first.',
+                door: 'You remain at the door, your back against the wood. Someone taught you that posts matter. You only wish you could remember who.'
               } }, hold: 3600, cps: 26 },
 
             // ─── Section 9 · Watching him sleep ──────────────────────────
-            { type: 'line', speaker: '', text: 'Close on Alistair sleeping. The hard line usually held in his mouth has vanished.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The rain still drying in his hair. One hand open loosely against the stone floor.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair sleeps. The hard line his mouth usually holds has disappeared, and without it he looks younger.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Not softer. Just less defended.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Rain is still drying in his hair. One hand lies open against the stone floor.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Not a fist anymore.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*He looks younger asleep.*', hold: 2400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*Not softer. Just less defended.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You find yourself watching him for longer than you intended.', hold: 3000, cps: 26 },
 
             // ─── Section 10 · Counting breaths ───────────────────────────
-            { type: 'line', speaker: '', text: 'You count the rise and fall of his chest without meaning to.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'One. Two. Three. Long pause. Four.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Somewhere around the fortieth breath, you realise why you are counting.', hold: 3400, cps: 26 },
+            // THREE taps kept on purpose. This is the one place in the chapter
+            // where the tap IS the experience — the player paces his
+            // breathing. Then the jump from three to forty carries the time.
+            { type: 'line', speaker: '', text: 'You begin counting the rise and fall of his chest without meaning to.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'One.', hold: 1400, cps: 20 },
+            { type: 'line', speaker: '', text: 'Two.', hold: 1400, cps: 20 },
+            { type: 'line', speaker: '', text: 'Three.', hold: 1600, cps: 20 },
+            { type: 'line', speaker: '', text: 'Somewhere around the fortieth breath, you realise why.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You are afraid one of them will stop.', hold: 2800, cps: 26 },
 
-            // ─── Section 11 · He stayed awake for me ─────────────────────
-            { type: 'line', speaker: '', text: 'Close on your hand resting against the edge of his cloak around your shoulders.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*He stayed awake three days. For me.*', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your eyes drift over him again.', hold: 2200, cps: 28 },
+            // ─── Section 11 · What you do not tell him ───────────────────
+            // The cloak-holding used to live in a later section AND here as a
+            // camera direction; they were the same beat twice. Merged, and it
+            // deliberately echoes Ch4's "You are not going to admit you hold
+            // it. You hold it anyway." — one chapter deeper in.
+            { type: 'line', speaker: '', text: 'Your fingers drift to the edge of his cloak at your shoulder. You hold the fabric between them.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'It feels almost like holding a hand.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are not going to admit that. You hold it anyway.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your eyes return to the man sleeping beside you.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'The captain who walks into wounds in the world with a sword in his hand.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The man who chose to sleep in the same room as you without hesitation.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The man who gave you his healing draught. His room. His cloak. His trust.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'And now, apparently, three days of his sleep.', hold: 3000, cps: 26 },
+            // She says the safe half ALOUD to a sleeping man, and keeps the
+            // dangerous half in her head. Same technique as Ch4's "And it
+            // isn't him."
+            { type: 'line', speaker: 'YOU', text: 'He stayed awake three days.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your voice is barely a whisper.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'For me.', hold: 2000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*He trusts me.*', hold: 2200, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...I am not sure he should.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...I’m not sure he should.*', hold: 2800, cps: 26 },
+            // And she proves herself right four beats later. Pays off Ch4's
+            // closing hook (two notes in two hands that are not his) — she
+            // does not forget it, she DECIDES not to tell him, and the reason
+            // is that he is finally asleep.
+            { type: 'line', speaker: '', text: 'Your gaze moves toward the desk. Two notes lie there, written in two hands that are not his.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You could wake him. You could tell him someone has been leaving letters at your door.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You could watch him rise from that floor, exhausted as he is, and go searching through the castle for whoever wrote them.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your eyes return to him.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not wake him.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Not tonight.', hold: 2000, cps: 28 },
 
             // ─── Section 12 · The pull ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'Time passes quietly. The candle burns lower. The rain stops. Alistair does not move once.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'Close on your face. Something has begun pulling at the edge of your attention.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Not a sound. Not a voice. A direction.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Like a thread tightening somewhere deep inside your chest.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Closer. Your eyes drift toward the window. Toward the dark beyond the glass.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The forest is out there. Far off. Calling.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...what is this.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Time passes quietly. The candle burns lower. The rain stops. Alistair does not move.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Then something catches at the edge of your attention.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'There is no sound. No voice. Only direction.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A faint pull, deep inside your chest, like a thread tightening somewhere beneath the skin.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your eyes drift toward the window.', hold: 2200, cps: 28 },
+            // THREE taps kept on purpose again. The anaphora travels outward
+            // one step at a time, so the taps ARE the journey toward the thing
+            // that wants her. Merging these would collapse the distance.
+            { type: 'line', speaker: '', text: 'Beyond the glass lies the dark.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Beyond the dark lies the forest.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'And something in it is calling.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your breath catches.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*...what is this?*', hold: 2400, cps: 26 },
             // ── Player agency (Jul 2026) — first contact with the pull.
             { type: 'choice', key: 'ch5_pull', prompt: 'The thread pulls.',
               options: [
@@ -1336,51 +1429,52 @@
               ],
               onChoose: function (id) { try { localStorage.setItem('pp_ch5_pull', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch5_pull', map: {
-                lean: 'You lean toward the glass, one breath only. The thread sings once, low, like a struck string underwater. Then you make yourself stop.',
-                refuse: 'You turn from the window. The pull does not weaken. But neither do you.'
-              } }, hold: 3600, cps: 26 },
+                lean: 'You lean toward the glass, just for one breath. The thread sings once inside you, low and distant, like a struck string heard beneath deep water. Then you force yourself to stop.',
+                refuse: 'You turn away from the glass. The pull does not weaken. Neither do you.'
+              } }, hold: 3800, cps: 26 },
 
             // ─── Section 13 · Resisting ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'You stand. Slowly. Test your ankle. It holds.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Three steps toward the window. The pull sharpens.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stand slowly. Your ankle holds.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take one step. Then another.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Three steps toward the window, and the pull sharpens.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You stop.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'Close on Alistair on the floor. Still deep in sleep.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The first night in twelve years his body has been allowed to rest.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Behind you, Alistair sleeps on.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The first night in twelve years that his body has been allowed to rest.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'He is here because you told him to be.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Closer on his open hand against the stone. Not a fist anymore.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look back at him.', hold: 2000, cps: 28 },
 
             // ─── Section 14 · No ─────────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Closest on your face.', hold: 2000, cps: 28 },
+            // Sections 15 and 16 are GONE, absorbed here and into Section 11.
+            // The chapter used to peak on "He sleeps tonight" and then spend
+            // eleven more beats coming down — restating the pull, the cloak,
+            // the door and the tableau it had just described. It ends on its
+            // own thesis now: her decision, then the world conceding to it.
             { type: 'line', speaker: 'YOU', text: '*No.*', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*Whatever this is. Whatever is calling.*', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*He sleeps tonight.*', hold: 2600, cps: 26 },
-
-            // ─── Section 15 · Holding the cloak ──────────────────────────
-            { type: 'line', speaker: '', text: 'You sit back down by the door. The cloak around your shoulders. Back against the wood.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The pull continues. You do not answer it.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Close on your hand. It has drifted, without your permission, to rest near the edge of his cloak at your shoulder.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: 'Your fingers stay there.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'Closer. You hold the cloak the way you might hold a hand.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You are not going to admit it. You hold it anyway.', hold: 2800, cps: 26 },
-
-            // ─── Section 16 · Final shot ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'The pull continues. Patient. Steady.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The forest will still be there when he wakes.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Candlelight low. Alistair asleep on the stone floor.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You sitting near the door, his cloak around your shoulders, your back to the wood. Watching.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'Beyond the window, somewhere far out past the castle walls, the forest breathes in the dark.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'It can wait.', hold: 2200, cps: 28 },
-            // ── Player agency (Jul 2026) — what she does with the secret.
-            { type: 'choice', key: 'ch5_secret', prompt: 'The pull is yours alone, for now.',
+            { type: 'line', speaker: '', text: 'The word is quiet, but it is enough.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Whatever this is.*', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look toward the window.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*Whatever is calling.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look back at the man asleep on your floor.', hold: 2600, cps: 26 },
+            // The line the trailing "Whatever this is... Whatever is
+            // calling..." has been waiting to complete, and the answer to the
+            // question that drives the chapter.
+            { type: 'line', speaker: 'YOU', text: '*He sleeps tonight.*', hold: 2800, cps: 26 },
+            // ── Player agency (Jul 2026) — now covers BOTH secrets she is
+            // keeping (the notes and the pull). Option ids unchanged so
+            // anything reading pp_ch5_secret downstream still works.
+            { type: 'choice', key: 'ch5_secret', prompt: 'Two things you have not told him.',
               options: [
-                { id: 'tell', text: '*Tomorrow I ask him about the forest.*' },
-                { id: 'keep', text: '*Some things I carry alone a while longer.*' }
+                { id: 'tell', text: '“Tomorrow. Both of them.”' },
+                { id: 'keep', text: '“Some things I carry alone a while longer.”' }
               ],
               onChoose: function (id) { try { localStorage.setItem('pp_ch5_secret', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch5_secret', map: {
-                tell: 'Tomorrow you will ask him what lives out there. Tonight you keep the knowledge like a stone in your pocket.',
-                keep: 'You fold the pull away with the rest of your unknowns. The list grows long. Your own name still sits at the top of it.'
-              } }, hold: 3600, cps: 26 },
+                tell: 'Tomorrow you will tell him about the notes left at your door, and about the voice, or whatever it is, that calls from the trees. Tonight you keep them both like stones in your pocket.',
+                keep: 'You fold them away with the rest of your unknowns. The list grows longer. Your own name still sits at the top of it.'
+              } }, hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You return to your chair. Alistair sleeps. You watch the door.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'And outside, somewhere beyond the walls, the forest goes on calling.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'It can wait.', hold: 2200, cps: 28 },
 
             { type: 'hide' }
           ]
