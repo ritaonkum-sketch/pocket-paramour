@@ -1001,54 +1001,102 @@
             { type: 'show', pose: '', wait: 700 },
 
             // ─── Section 1 · Day one ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Your room. Rain against the window. Your injured ankle resting on a stool.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'A tray sits beside the door. Bread. Soft cheese. Tea gone cold.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Day one. Tray. No captain.', hold: 2400, cps: 26 },
+            // The fragment-stacking in Sections 1 and 2 is DELIBERATE and
+            // stays: this chapter is about monotony, and the clipped
+            // repetition is the experience of waiting. It is the one place in
+            // the game where that rhythm earns itself. Sections 8-11 (the
+            // tense half) are the ones that needed opening out.
+            { type: 'line', speaker: '', text: 'Your room. Rain against the window, your injured ankle resting on a stool while the grey afternoon slowly gives way to evening.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'A tray sits beside the door: bread, soft cheese, tea already gone cold.', hold: 3200, cps: 26 },
+            // Anaphora, not fragment-stacking. The repeated "No" is doing the
+            // work, and it enacts the absence better than a list would.
+            { type: 'line', speaker: '', text: 'No knock.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'No footsteps stopping outside.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'No captain.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'By the time the light disappears completely, you have learned that waiting can make a room feel much smaller than it is.', hold: 4400, cps: 24 },
 
             // ─── Section 2 · Day two · the first note ────────────────────
-            { type: 'line', speaker: '', text: 'Same room. Different light. Another tray.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Day two. Still no captain.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Evening. A folded note rests atop the tray. Handwriting you do not recognise.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The captain has been called to the south wall. Open this door for no one but him.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'You stare at the note.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*Someone in this castle knows I am here. And it is not him.*', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Morning brings another tray.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Day two. Different light. Same room. Still no Alistair.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You tell yourself that a captain has duties, that whatever called him away is probably more important than sitting beside an injured woman who cannot even remember her own name.', hold: 5200, cps: 24 },
+            { type: 'line', speaker: '', text: 'By evening, there is a folded note resting on the tray.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The handwriting is not his.', hold: 2200, cps: 28 },
+            // The notes get their own speaker label so they render with a chip
+            // and a bubble instead of as undifferentiated narration. The
+            // player should be able to see they are reading an OBJECT. The
+            // Stranger Rule passes non-protagonist labels straight through
+            // (same path the Soul Weaver and the Innkeeper use), so this costs
+            // no engine work.
+            { type: 'line', speaker: 'THE NOTE', text: 'The captain has been called to the south wall. Open this door for no one but him.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You read it twice.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Then a third time.', hold: 2000, cps: 28 },
+            // Split so the half she can say out loud and the half she cannot
+            // are different beats. The second half is a THOUGHT, not narration
+            // — narration does not contract.
+            { type: 'line', speaker: 'YOU', text: 'Someone in this castle knows I’m here.', hold: 2800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your fingers tighten around the paper.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*And it isn’t him.*', hold: 2600, cps: 26 },
 
             // ─── Section 3 · The thought spiral ──────────────────────────
             { type: 'line', speaker: '', text: 'You fold the note once. Then again. Then smooth it flat against your knee.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Rain-streaked window. Your reflection faint in the dark glass.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Rain on the window, and your reflection faint in the dark glass behind it.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You study your own face like it belongs to someone else.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*Why does it matter that he has not come.*', hold: 3000, cps: 26 },
+            // Pays off Chapter 3's closing hook, and gives the spiral a CAUSE.
+            // She has three days alone and nothing to do but think; the
+            // portrait is what she thinks about. "Someone still brings her
+            // flowers" is Ch3's own neutral phrasing — she is retreating to
+            // the safe wording instead of the one she actually landed on
+            // there ("You."), which reads as flinching from her own answer.
+            { type: 'line', speaker: '', text: 'There is nothing to do in this room but think, and your thoughts keep going back to a corridor.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A slashed portrait. Fresh flowers on the floor beneath it. A man who would not say her name and would not say no.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*Whoever she was, someone still brings her flowers.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not know what to do with that. You put it down, and it does not stay down.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Why does it matter that he hasn’t come?*', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close.', hold: 1800, cps: 28 },
+            // THOUGHT PERSON, deliberate. Her thoughts are first person
+            // everywhere in the game EXCEPT at a reflection — here and in
+            // Section 10 she addresses herself as "you", because both times
+            // she has just been looking at a face she does not recognise.
+            // Dissociation rendered in grammar. Do not "fix" these to first
+            // person; "You do not know your own" only lands because of it.
             { type: 'line', speaker: 'YOU', text: '*You have known him three days. You know his name. You know the shape of his hands.*', hold: 4200, cps: 24 },
             { type: 'line', speaker: 'YOU', text: '*You do not know your own.*', hold: 2800, cps: 26 },
 
             // ─── Section 4 · Night at the door ───────────────────────────
-            { type: 'line', speaker: '', text: 'Night. You sit on the floor beside the door now. Back resting against the wood. Listening.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Footsteps pass in the corridor. One after another. None stop.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You pick up the small kitchen knife left with the tray.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Turn it once in your hand. Set it down again.', hold: 2600, cps: 26 },
-            // ── Player agency (Jul 2026) ──
+            { type: 'line', speaker: '', text: 'Night. You sit on the floor beside the door now, back against the wood, listening.', hold: 3600, cps: 26 },
+            // Covers the ankle, which Ch3 established and this chapter had
+            // been ignoring while she got up and down off the floor.
+            { type: 'line', speaker: '', text: 'Getting down here was not graceful, and getting up again will be worse. The door is the only thing in this room worth watching.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Footsteps pass in the corridor, one after another, and none of them stop.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You pick up the small kitchen knife left with the tray. Turn it once in your hand. Set it down again.', hold: 3600, cps: 26 },
+            // ── Player agency (Jul 2026) — now PERSISTED. Whether she armed
+            // herself is exactly what Ch5 and his letters should be able to
+            // reference; it was being forgotten the moment it was picked.
             { type: 'choice', key: 'ch4_knife', prompt: 'The knife, within reach.',
               options: [
                 { id: 'keep', text: 'Take it back. Keep it near.' },
                 { id: 'leave', text: 'Leave it. Watch the door instead.' }
-              ] },
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch4_knife', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch4_knife', map: {
                 keep: 'You take it back and lay it within reach. Not fear. Arithmetic.',
                 leave: 'You leave it where it lies. If it comes to knives, the door has already failed you.'
               } }, hold: 3000, cps: 26 },
 
             // ─── Section 5 · The cloak ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'Your eyes drift toward the chair. Toward his cloak folded over the back.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your eyes drift to the chair, and to his cloak folded over the back of it.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'You pick it up.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'You are not going to admit you hold it. You hold it anyway.', hold: 3000, cps: 26 },
             // ── Player agency (Jul 2026) — both roads end wearing it, as
             // the later beats assume; the pick is the flavor of surrender.
+            // Now PERSISTED: whether she admitted wanting it is worth a
+            // callback.
             { type: 'choice', key: 'ch4_cloak', prompt: 'His cloak in your arms.',
               options: [
                 { id: 'wear', text: 'Put it on.' },
                 { id: 'resist', text: 'Tell yourself you will put it back.' }
-              ] },
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch4_cloak', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch4_cloak', map: {
                 wear: 'You settle it over your shoulders. It is far too big. It is exactly the right size.',
                 resist: 'You tell yourself you will put it back. You put it on instead.'
@@ -1056,10 +1104,11 @@
             { type: 'line', speaker: '', text: 'Day three.', hold: 1800, cps: 28 },
 
             // ─── Section 6 · The second note ─────────────────────────────
-            { type: 'line', speaker: '', text: 'Morning light. Another tray. Another note. Smaller handwriting this time. Different hand.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He has not slept. He will come tonight. Wait.', hold: 3800, cps: 24 },
-            { type: 'line', speaker: '', text: 'You stare.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Morning light. Another tray. Another note, in smaller handwriting. A different hand.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'THE NOTE', text: 'He has not slept. He will come tonight. Wait.', hold: 3800, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stare at the words. Your eyes move over them again. Then you look toward the door.', hold: 3800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Who are you?', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'No answer, of course.', hold: 2000, cps: 28 },
             // ── Player agency (Jul 2026) ──
             { type: 'choice', key: 'ch4_note', prompt: 'Two notes. Two strangers.',
               options: [
@@ -1071,40 +1120,49 @@
                 reply: 'You tear a corner from the second note and write one word on it: Ask. You leave it on the tray, where a ghost will find it.',
                 watch: 'You set the two notes side by side and memorise the hands that wrote them. Someone will slip. They always do.'
               } }, hold: 3800, cps: 26 },
+            // TIMELINE. The note says "he will come tonight" and this section
+            // is explicitly morning, but the chapter used to run straight on
+            // to him climbing the stairs, so he appeared to arrive minutes
+            // after a note promising twelve hours. These two beats carry the
+            // day — and "the way the note told you to" is quietly unsettling,
+            // since she does not know who wrote it.
+            { type: 'line', speaker: '', text: 'The light crosses the floor and goes out. The rain does not stop.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You wait, the way the note told you to.', hold: 2800, cps: 26 },
 
             // ─── Section 7 · Opening the door ────────────────────────────
-            { type: 'line', speaker: '', text: 'You stand. Cross to the door. Open it carefully.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'At last, you stand. Your ankle protests immediately. You ignore it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The cane taps softly against the stone as you cross the room and reach the latch.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'The corridor outside stands empty.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Far down the hall, the candles flicker as though someone has just passed beneath them.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Or as though the air itself moved a moment ago and is still settling.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Far down the hall the candles flicker, as though someone has just passed beneath them. Or as though the air itself moved a moment ago and is still settling.', hold: 4800, cps: 24 },
 
             // ─── Section 8 · The page ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Close on your hand.', hold: 1800, cps: 28 },
+            // Four camera directions removed across Sections 8-10 ("Close on
+            // your hand.", "Close on your face...", "Close on the two notes
+            // ...", "Close on your reflection ... again"). The last one was
+            // cross-referencing an earlier SHOT, which is script language.
             { type: 'line', speaker: '', text: 'Without thinking, your fingers have gone to the hidden seam inside your sleeve.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'The page is still there.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'Your fingertips remain pressed there a moment too long.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*If a stranger can find me here. Someone else can too.*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingertips stay pressed there a moment too long.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*If a stranger can find me here, someone else can too.*', hold: 3400, cps: 26 },
 
             // ─── Section 9 · Latch the door · two notes ──────────────────
-            { type: 'line', speaker: '', text: 'Close on your face. His cloak around your shoulders. Your hand still at your sleeve.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The corridor outside remains empty.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'You close the door. Latch it. Lean your forehead against the wood for one breath.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Close on the two notes side by side on the desk.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Two different hands. Neither yours. Neither his.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'On the desk, the two notes lie side by side. Two different hands. Neither yours. Neither his.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'The castle has been watching you for three days.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*Whoever is leaving these. They have known I am here since the morning he carried me in.*', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*Whoever’s leaving these has known I’m here since the morning he carried me in.*', hold: 4200, cps: 24 },
 
             // ─── Section 10 · Reflection ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'Close on your reflection in the dark glass again. The cloak. The page-hand. The face.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'In the dark glass, your reflection again. The cloak. The hand at your sleeve. The face you still do not recognise.', hold: 4200, cps: 24 },
             { type: 'line', speaker: 'YOU', text: '*You are not as hidden as he thinks.*', hold: 3000, cps: 26 },
 
             // ─── Section 11 · He is climbing ─────────────────────────────
-            { type: 'line', speaker: '', text: 'Three floors below. Heavy footsteps climbing stone stairs. Slow. Measured.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The walk of a man carrying exhaustion like armour.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stand. The cloak remains around your shoulders. You do not take it off.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'The empty corridor stretching toward darkness. Rain tapping softly at the windows.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The two notes on the desk in two different hands.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'And somewhere below, Alistair climbing toward your door.', hold: 3000, cps: 26 },
+            // Was five beats that opened on the footsteps and then closed by
+            // announcing them again. Four now, and it builds: the sound, the
+            // cloak she will not remove, the hostile notes, then him.
+            { type: 'line', speaker: '', text: 'Three floors below, heavy footsteps begin to climb the stone stairs. Slow. Measured. The walk of a man carrying exhaustion like armour.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stand. The cloak stays around your shoulders, and you do not take it off.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Two notes on the desk, in two hands that are not his.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'And Alistair, climbing.', hold: 2600, cps: 28 },
 
             { type: 'hide' }
           ]
