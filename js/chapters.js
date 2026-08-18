@@ -195,28 +195,40 @@
             { type: 'show', pose: '', wait: 700 },
 
             // ─── Section 1 · Waking in the moss ───────────────────────────
+            // VOICE RULE (owner revision, Aug 2026): the NARRATOR is formal —
+            // "do not", "does not", "cannot", no contractions. SHE is not:
+            // her spoken lines and thoughts contract freely. One rule, and it
+            // makes her voice audibly separate from the voice describing her.
             { type: 'line', speaker: '', text: '*krkkk.*', hold: 1500, cps: 28 },
             // The commentary used to sit here and say "The sound again" — before
             // the sound had happened a second time. The repeat is the NEXT beat,
             // so "again" landed on the first occurrence and read as a mistake.
             // First sound gets its own line; the "again" now follows the repeat.
-            { type: 'line', speaker: '', text: 'Something above you shifts, and holds.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something above you shifts. It stops.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You lie still...', hold: 1800, cps: 26 },
             { type: 'line', speaker: '', text: '*krkkkkk.*', hold: 1500, cps: 28 },
             { type: 'line', speaker: '', text: 'That sound again... harder this time. Wood under strain.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You force your eyes open. Everything is blurred. You blink until the world holds still.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Moss against your cheek. Wet bark, rainwater, and an old cloak that gave up keeping you dry some hours ago.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You push yourself up onto the moss and sit there a moment. You do not remember falling here.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*Why am I here?*', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You force your eyes open. The world swims. Green. Grey. You blink until it holds still.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Moss presses cold against your cheek. Wet bark beneath your fingers. Rainwater on your skin. An old cloak twisted around you, long since given up on keeping you dry.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You push yourself upright. For a moment, you simply sit.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not remember falling. You do not remember walking here. You do not remember...', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Why am I here?', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your voice sounds wrong. Too weak. Too unfamiliar.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Copper sits at the back of your tongue, old and faint, like biting a coin in a dream.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You touch your mouth. Your fingers come away with a little blood.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your fingers are numb, your back is cold, and somewhere underneath all of it you are alive. You know that much.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'A leaf caught at your temple.', hold: 2000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Whatever came before this, it did not come with you.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You touch your mouth. Blood. Only a little.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers are numb. Your back is cold. And somewhere underneath all of it... you are alive. You know that much.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'A leaf clings to your temple. You pull it away.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Whatever came before this... it did not come with you.', hold: 2600, cps: 26 },
 
             // ─── Section 2 · The torn page ────────────────────────────────
-            { type: 'line', speaker: '', text: 'Your hand is closed around something. A torn page, crushed in your fist.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'There is a seal on it. A symbol you do not understand and cannot remember: two crossed branches beneath a moon, pressed in silver ink, one edge burned away.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: 'Your fingers know the shape. You do not know why.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something is in your hand. You look down and find a torn page, crushed in your fist.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not remember picking it up.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Yet your fingers are wrapped around it so tightly that the paper has folded into the shape of your palm.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'There is a seal pressed into the page. Two crossed branches beneath a crescent moon, in silver ink. One edge burned away.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not recognise the symbol. But you should. Somewhere inside you, something insists that you should.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your thumb traces the seal.', hold: 2000, cps: 26 },
+            { type: 'line', speaker: '', text: 'A strange certainty passes through you. Not a memory. Something older.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You must not lose this.', hold: 2200, cps: 28 },
             // ── Player agency (Jul 2026) — first decision of the game.
             // Both options are valid; the pick colors the next narration
             // line and is remembered for later chapters.
@@ -232,30 +244,45 @@
               } }, hold: 3400, cps: 26 },
 
             // ─── Section 3 · The horns ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Somewhere through the trees.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Far beyond the trees...', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: '*horn. once.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: '*horn. twice.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'Patrol horns. The kind that mean a kingdom is awake and watching.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...a kingdom.*', hold: 1800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...a kingdom?*', hold: 1800, cps: 26 },
             { type: 'line', speaker: '', text: 'You move before you understand why.', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your hand folds the page along the burned edge, slipping it into the tear inside your sleeve. The lining accepts it too easily. Like it has hidden this before.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You mean to find out.', hold: 3000, cps: 26 },
 
             // ─── Section 4 · Standing ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'You try to stand.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'The world tilts. Your ankle folds under you. You hit one knee, then both hands, breath leaving hard through your teeth.', hold: 4000, cps: 26 },
-            { type: 'line', speaker: '', text: '*krk.*', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'Something is moving through the underbrush, heavier than anything that ought to live in a wood.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You push yourself up.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The world tilts. You catch yourself against a tree.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your right foot takes your weight and refuses it. You go down hard, one knee, then both hands.', hold: 3600, cps: 26 },
+            // Owner revision: the ankle used to just fail, and the reader never
+            // felt it. Discovering the injury by touch makes it physical, and
+            // "you do not remember earning it" ties the wound to the amnesia
+            // motif running through Section 1.
+            { type: 'line', speaker: '', text: 'Something is wrong with the ankle. You reach for it without looking. Your fingers find heat where there should be none, and skin already tightening over the swelling.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not remember earning it.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: '*krkkkk.*', hold: 1400, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something is moving through the underbrush. Heavier than anything that ought to live in a wood.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You go still. The way an animal goes still.', hold: 2600, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*What was that?*', hold: 2200, cps: 26 },
 
             // ─── Section 5 · The wound-creature ──────────────────────────
             { type: 'line', speaker: '', text: 'The leaves tear open and something forces its way through them.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'It steps forward.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Too many legs. Joints bending a fraction too late. A mouth split sideways across its skull. Black ribbons leaking from between its teeth like smoke escaping a wound.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'Too many legs. Joints bending a fraction too late, as though the body is being remembered rather than moved.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'A mouth split sideways across the skull, opening the wrong way.', hold: 3000, cps: 26 },
+            // The dark FALLS here and kills what it touches. In Section 8, once
+            // the creature is dead, the same dark RISES and leaves. That
+            // reversal is deliberate — see the note there. Do not "fix" one to
+            // match the other.
+            { type: 'line', speaker: '', text: 'Dark ribbons leak from between its teeth. They do not rise like smoke. They fall. Slow.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Where they touch the moss, the moss goes grey.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*RUN!*', hold: 1600, cps: 40 },
 
             // ─── Section 6 · The chase ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'You start running. Your head has one word left in it. Run. Run. Run.', hold: 2800, cps: 30 },
+            { type: 'line', speaker: '', text: 'You start running. Your head has one word left in it. Run!', hold: 2600, cps: 30 },
             { type: 'line', speaker: '', text: 'Moss under bare feet. Wet roots. Bark tearing your palms when you catch yourself. Behind you comes a smell of copper and char that belongs to nothing which has ever lived in a forest.', hold: 4800, cps: 24 },
             // Third pass on this line. It kept reading badly for two reasons:
             // "keeps you limping" / "You keep moving" repeated the same verb,
@@ -270,7 +297,7 @@
             { type: 'line', speaker: '', text: 'You stop hearing your own breathing. You hear only that thing behind you.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'The pain is unbearable. You keep running, your hand pressed to your sleeve. The page is still there.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not know your own name. You know to save this.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You glance back.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look back.', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'The creature is already at the clearing’s edge. Closer than it should be.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*No. No... I’m not going to make it.*', hold: 2600, cps: 26 },
 
@@ -294,9 +321,15 @@
             //  chapter 1." Sections 8–13 now play over the plain palette bg like
             //  the rest of the chapter, no full-body knight standee.)
             { type: 'line', speaker: '', text: 'A man stands over the fallen creature. Red cloak. Sword lowered at his side.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Black smoke rises from the body at his feet, a black that looks less like soot than like something taken out of the world. It curls toward the trees in thin ribbons, the way a thing goes home.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'The man watches the smoke instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'The smoke thins. Vanishes into the canopy. The creature beneath it collapses inward. Ash-coloured. Ancient. As if death only just remembered it.', hold: 4200, cps: 24 },
+            // THE REVERSAL IS THE POINT. In Section 5 the dark falls out of the
+            // living creature and greys whatever it lands on. Here, with the
+            // thing dead, the same dark goes the other way. "It does not fall
+            // now" makes that deliberate instead of reading as an inconsistency
+            // — while it lives, the dark leaks down and kills; once it dies,
+            // the dark goes back up to wherever it came from.
+            { type: 'line', speaker: '', text: 'The dark is leaving the body at his feet. It does not fall now. It rises, thin ribbons of it climbing toward the trees, the way a thing goes home.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He watches it instead of you. One hand raised slightly between it and your body. Prepared.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'The last of it thins and vanishes into the canopy. The creature beneath it collapses inward. Ash-coloured. Ancient. As if death only just remembered it.', hold: 4200, cps: 24 },
             { type: 'line', speaker: 'YOU', text: '*...is it over?*', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your eyes close. Darkness rushes up fast.', hold: 2200, cps: 28 },
 
@@ -305,7 +338,7 @@
             { type: 'line', speaker: '', text: 'A voice, sharp with a fear that came too fast to hide. Not the voice of a man speaking to a stranger, but of one who thinks he may already be too late.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You cannot make out what he is saying. You are too weak to answer him. Your body feels far away, and only the wet moss beneath you still feels real.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'Plate armour against the earth. He kneels close to you.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You force your eyes open.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You force your eyes open. Only a glimpse.', hold: 2200, cps: 28 },
             // "He says something. You lose the words again." cut here — it
             // repeated "You cannot make out what he is saying" from four beats
             // earlier, and it was the fourth of five times she loses
@@ -330,6 +363,8 @@
             { type: 'line', speaker: '', text: '*horn. once.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: '*horn. twice.*', hold: 1400, cps: 28 },
             { type: 'line', speaker: '', text: 'He hears it this time. Slowly, he withdraws his hand.', hold: 2800, cps: 26 },
+            // Kept as "the captain", not "the knight captain" — the metaphor is
+            // that his ROLE closes back over the man. A job title blunts it.
             { type: 'line', speaker: '', text: 'He looks at his own fingers once before the captain settles back over him like armour.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'He leans down.', hold: 1600, cps: 28 },
 
@@ -343,7 +378,7 @@
             { type: 'line', speaker: 'YOU', text: 'I... I don’t know this place.', hold: 2600, cps: 28 },
             { type: 'line', text: 'You don’t, mi’lady?', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '...', hold: 1600, cps: 20 },
-            { type: 'line', text: 'You are quite lucky, mi’lady. You are in safe hands.', hold: 2800, cps: 28 },
+            { type: 'line', text: 'Mi’lady... you are safe now.', hold: 2600, cps: 28 },
             // ── Chapter hook. The warmth lands first, then cracks. He stays
             // composed (the captain never breaks this early); the unease is
             // HERS, which keeps the POV inside her body and sends the player
@@ -358,7 +393,7 @@
             // player's stance toward Alistair; remembered for callbacks.
             { type: 'choice', key: 'ch1_stance', prompt: 'Something in you answers.',
               options: [
-                { id: 'trust', text: 'Let go. Let him help.' },
+                { id: 'trust', text: 'Let him help.' },
                 { id: 'guard', text: 'Stay awake. Watch his hands.' }
               ],
               onChoose: function (id) { try { localStorage.setItem('pp_ch1_stance', id); } catch (_) {} } },
@@ -398,14 +433,14 @@
             { type: 'line', text: 'To the castle.', hold: 2000, cps: 28 },
 
             // ─── Section 15 · You decide to trust him ────────────────────
-            { type: 'line', speaker: '', text: 'You do not know him. You do not know your own name. You have no shoes. You have a torn page hidden in your sleeve.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not know him. You do not know your own name. You have no shoes. You have a torn page hidden in your sleeve. You are too weak to fight and too weak to run.', hold: 4600, cps: 24 },
             { type: 'line', speaker: '', text: 'But you also have a swordsman between you and the forest. A steady horse beneath you. The memory of his fingers against your pulse.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You decide to trust him. Only for now.', hold: 2400, cps: 26 },
 
             // ─── Section 16 · The castle ─────────────────────────────────
             { type: 'line', speaker: '', text: 'The horse moves into a smooth canter. The trees thin. Mist lifting with the dawn.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'Far beyond the hills rises a castle of pale stone. High walls. Towering banners. A kingdom large enough to swallow you whole.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: 'YOU', text: '*...that is a kingdom.*', hold: 2000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...that’s a kingdom.*', hold: 2000, cps: 26 },
             { type: 'line', speaker: '', text: 'Your head dips forward. You catch yourself. Then drift again.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Behind you, Alistair’s arm tightens slightly so you do not slip.', hold: 2800, cps: 26 },
             { type: 'line', text: 'Easy, mi’lady. I have you.', hold: 2400, cps: 26 },
