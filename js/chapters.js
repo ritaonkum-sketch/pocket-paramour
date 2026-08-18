@@ -801,17 +801,25 @@
             { type: 'show', pose: '', wait: 700 },
 
             // ─── Section 1 · The walk ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'A stone corridor. Late morning light through narrow windows.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Three steps ahead of you, Alistair walks with one hand resting near his sword.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You walk beside him with a cane you are pretending not to need.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Servants pass. Eyes lowering quickly when they notice you.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Their second look always lands on him.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Alistair glances back. Notices your expression.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He slows immediately until you are walking beside him instead of behind.', hold: 3200, cps: 26 },
+            // PROSE RHYTHM. This chapter uses rhythm structurally: measured
+            // and controlled in the corridor, where both of them are
+            // performing for an audience of servants; opening out in the
+            // gauntlet scene, where the world drops away; then snapping short
+            // again in Section 8 as the armour goes back on.
+            { type: 'line', speaker: '', text: 'A stone corridor, late morning, the light coming in narrow and cold through the windows.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair walks three steps ahead of you with one hand resting near his sword, and you keep pace beside him on a cane you are pretending not to need.', hold: 4400, cps: 24 },
+            // CONTINUITY. Chapter 2 ends with her drinking the draught, and
+            // HE says there that it mends the lip and the brow. Chapter 3
+            // then opened with her on a cane and never explained why, which
+            // read as the writer forgetting. The draught stays the single
+            // agent (an ointment would contradict his own line in Ch2); it
+            // simply could not finish a torn joint.
+            { type: 'line', speaker: '', text: 'The draught closed the cut at your brow and sealed your lip before morning. It helped the ankle too, but only so far. That one is mending the slow way, and the cane is what it costs.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Servants pass. Their eyes drop the moment they notice you, and their second look always lands on him.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He glances back, catches your expression, and slows until you are walking beside him rather than behind.', hold: 3800, cps: 26 },
             { type: 'line', text: 'They are not staring at you, mi’lady.', hold: 2600, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'They absolutely are.', hold: 2000, cps: 28 },
-            { type: 'line', text: 'They are staring at me.', hold: 2200, cps: 28 },
-            { type: 'line', text: 'I have never walked a woman through this corridor before.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'They are staring at me. I have never walked a woman through this corridor before.', hold: 3800, cps: 26 },
 
             // ─── Section 2 · Stable boy to captain ───────────────────────
             { type: 'line', speaker: 'YOU', text: 'You have been captain how long?', hold: 2400, cps: 26 },
@@ -822,45 +830,49 @@
             { type: 'line', speaker: 'YOU', text: 'You went from stable boy to captain?', hold: 2600, cps: 26 },
             { type: 'line', text: 'In four years.', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'How?', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'He shrugs once. Not modest. Just uncomfortable being looked at too closely.', hold: 3400, cps: 26 },
-            { type: 'line', text: 'Most men leave the gate when something comes out of the trees.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'I have a habit of staying.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He shrugs once, not out of modesty but because he is uncomfortable being looked at this closely.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'Most men leave the gate when something comes out of the trees. I have a habit of staying.', hold: 3800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'That sounds less like bravery and more like poor judgment.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'The corner of his mouth shifts. Barely.', hold: 2400, cps: 26 },
+            // Was "The corner of his mouth shifts. Barely." — near-verbatim
+            // Chapter 2's "The corner of his mouth lifts. Barely." Same man,
+            // same gesture, two chapters running.
+            { type: 'line', speaker: '', text: 'Something happens at the corner of his mouth that is not quite a smile.', hold: 3000, cps: 26 },
             { type: 'line', text: 'Possibly, mi’lady. But the kingdom promotes survivors.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You study him more carefully after that.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'Not handsome first. Dangerous first.', hold: 2600, cps: 26 },
 
             // ─── Section 3 · Sunlight, shield ────────────────────────────
-            { type: 'line', speaker: '', text: 'You turn the corner. Sunlight cuts across the corridor. You wince.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Instantly, Alistair shifts between you and the light. Without thinking.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn the corner, and sunlight cuts across the corridor hard enough to make you wince.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair shifts between you and the light before you have finished flinching. He does not appear to decide to do it.', hold: 4000, cps: 24 },
             { type: 'line', speaker: '', text: 'You notice.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He notices you noticing. Colour rises down the side of his neck.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He notices you noticing, and colour rises down the side of his neck.', hold: 3200, cps: 26 },
 
             // ─── Section 4 · The portrait ────────────────────────────────
             { type: 'line', speaker: '', text: 'You stop before a portrait.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'Tall. Old. The painted face slashed through. Fresh flowers beneath it.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Tall and old, the painted face slashed clean through. Fresh flowers on the floor beneath it.', hold: 3600, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Who was she?', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'Something closes quietly behind Alistair’s expression. Not cold. Locked.', hold: 3400, cps: 26 },
             { type: 'line', text: 'We do not name her in this hall.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Someone still brings flowers.', hold: 2400, cps: 26 },
             { type: 'line', text: 'Yes.', hold: 1600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'You.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'Silence. He does not answer.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You let the silence stand.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Silence. He does not answer, and you let the silence stand.', hold: 3000, cps: 26 },
 
             // ─── Section 5 · The kitchen door · the postern ──────────────
-            { type: 'line', speaker: '', text: 'Another corridor. Smaller. Quieter.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Alistair stops before a plain wooden door. Unlocks it.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'The kitchens are beyond this hall.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'If you knock twice and give Cook my name, she will feed you without questions.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He hesitates.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Another corridor, smaller and quieter, where the noise of the hall does not reach.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair stops before a plain wooden door and unlocks it.', hold: 2800, cps: 26 },
+            { type: 'line', text: 'The kitchens are beyond this hall. If you knock twice and give Cook my name, she will feed you without questions.', hold: 4400, cps: 24 },
+            // Was "He hesitates." — telling. The hesitation is now something
+            // the player watches him do.
+            { type: 'line', speaker: '', text: 'For a moment he says nothing more, and you can see him deciding whether to.', hold: 3200, cps: 26 },
             { type: 'line', text: 'There is also a postern beyond the pantry. Servants use it. No guards.', hold: 3600, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Why are you telling me this?', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He keeps his eyes on the latch instead of your face.', hold: 2800, cps: 26 },
             { type: 'line', text: 'In case you need it.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Need it for what?', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'He does not answer.', hold: 2000, cps: 28 },
+            // Section 4 already ended on "He does not answer." Turning the
+            // repeat into a deliberate echo rather than an accident.
+            { type: 'line', speaker: '', text: 'That, he does not answer either.', hold: 2200, cps: 28 },
             // ── Player agency (Jul 2026) ──
             { type: 'choice', key: 'ch3_postern', prompt: 'The way out he just handed you.',
               options: [
@@ -870,48 +882,63 @@
               onChoose: function (id) { try { localStorage.setItem('pp_ch3_postern', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch3_postern', map: {
                 thank: 'Thank you, you say, and mean more than the door. His shoulders ease by a fraction he would deny under oath.',
-                stay: 'You tell him plainly: you are not planning to run. Something crosses his face too fast to read. Relief, wearing duty’s uniform.'
+                stay: 'You tell him plainly that you are not planning to run. Something crosses his face too fast to read. Relief, wearing duty’s uniform.'
               } }, hold: 3600, cps: 26 },
 
             // ─── Section 6 · The catch ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'Footsteps echo from around the corridor corner.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You instinctively step backward. Your ankle gives.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Alistair catches your wrist immediately. Warm hand. Firm grip.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You collide lightly against his chest. Too close.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Footsteps echo from around the corner.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You step back without meaning to, and your ankle gives.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair has your wrist before you have finished falling, a warm hand and a grip that does not hesitate, and you come up lightly against his chest.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Too close.', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He goes completely still.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'His eyes lock on yours. Neither of you breathes.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His eyes find yours. Neither of you breathes.', hold: 2800, cps: 26 },
 
             // ─── Section 7 · The gauntlet ────────────────────────────────
-            { type: 'line', speaker: '', text: 'Slowly, his other hand rises toward the gauntlet on his right wrist.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'He unbuckles it. Lets it fall.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Slowly, his other hand rises toward the gauntlet at his right wrist.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He unbuckles it and lets it fall.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: '*clk.*', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'Metal against stone. Sharp in the silence.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'His bare hand replaces the armoured one at your arm.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Fingers wrapping carefully around your elbow. Warm skin instead of steel.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Close on your hand gripping the cane. The knuckles white.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your body is gripping the cane because it very much wants to reach for him instead.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You tighten your grip harder.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Alistair’s thumb shifts once against your sleeve. The smallest movement.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Like he almost forgot himself.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'I do not hold beautiful things in armour, mi’lady.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Silence. The corridor suddenly feels far too narrow.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Metal on stone, absurdly loud in a corridor where nobody is speaking.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Then his bare hand takes the place of the armoured one, fingers wrapping carefully around your elbow, warm skin where the steel had been.', hold: 4400, cps: 24 },
+            // Was a camera direction ("Close on your hand gripping the cane")
+            // plus two follow-ups restating it. One sentence now, with the
+            // reason arriving in the same breath as the action.
+            { type: 'line', speaker: '', text: 'Your hand tightens on the cane until the knuckles go white, because the cane is the only thing keeping it from reaching for him instead.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair’s thumb shifts once against your sleeve, the smallest movement, as though he had briefly forgotten himself.', hold: 4000, cps: 24 },
+            // Owner rewrite, and a better one. The old line was a single
+            // polished aphorism ("I do not hold beautiful things in armour"),
+            // too composed for a man who has been fumbling stools and going
+            // red since Chapter 2. He fails to say it now, and SHE pulls the
+            // word out of him. The armour logic is kept in the first half so
+            // the line still explains why the gauntlet came off.
+            { type: 'line', text: 'A man should not hold anything in armour, mi’lady. Least of all someone so...', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stops.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look up at him.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'So what?', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His jaw tightens.', hold: 1800, cps: 28 },
+            { type: 'line', text: '...beautiful.', hold: 2600, cps: 22 },
+            { type: 'line', speaker: '', text: 'Silence. The corridor is suddenly too small for the distance between you.', hold: 3200, cps: 26 },
             // ── Player agency (Jul 2026) ──
+            // Both remaining choices now PERSIST. They were colouring one
+            // line and vanishing, while Ch1 and Ch2 remember every pick —
+            // and these two (does she tease him, does she take his arm) are
+            // exactly what his letters and later chapters should call back to.
             { type: 'choice', key: 'ch3_beautiful', prompt: 'The word hangs between you.',
               options: [
                 { id: 'tease', text: '“Beautiful, Captain?”' },
                 { id: 'look', text: 'Say nothing. Look at him.' }
-              ] },
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch3_beautiful', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch3_beautiful', map: {
-                tease: 'His ears go faintly red. He stares ahead like a man taking a hill. I misspoke, he says, in the voice of a man who did not.',
+                tease: 'His ears go faintly red, and he stares ahead like a man taking a hill. I misspoke, he says, in the voice of a man who did not.',
                 look: 'You look at him until he has to look back. Whatever he finds in your face, he keeps.'
               } }, hold: 3600, cps: 26 },
 
             // ─── Section 8 · The pull back ───────────────────────────────
-            { type: 'line', speaker: '', text: 'The approaching footsteps fade down another hall. Neither of you noticed them leave.', hold: 3600, cps: 24 },
+            // Rhythm tightens again here as the armour goes back on.
+            { type: 'line', speaker: '', text: 'The footsteps fade down another hall. Neither of you noticed them leave.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'He still has not let go.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Then he seems to realise it. Very carefully, he releases your arm.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'He bends to retrieve the gauntlet. Buckles it back into place with steady hands.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Only the slight tremor in his fingers betrays him.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Then he seems to realise it, and releases your arm with great care.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He bends for the gauntlet and buckles it back into place with steady hands. Only the tremor in his fingers gives him away.', hold: 4200, cps: 24 },
             { type: 'line', text: 'I will walk you back now, mi’lady.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He does not look at you when he says it.', hold: 2400, cps: 26 },
             // ── Player agency (Jul 2026) ──
@@ -919,17 +946,25 @@
               options: [
                 { id: 'arm', text: 'Take his arm anyway.' },
                 { id: 'quiet', text: 'Walk beside him in silence.' }
-              ] },
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch3_walk', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch3_walk', map: {
                 arm: 'You set your hand in the crook of his elbow, armour and all. He stares straight ahead. He does not move away.',
                 quiet: 'You match his pace and let the quiet carry what neither of you will say yet.'
               } }, hold: 3400, cps: 26 },
 
             // ─── Section 9 · Final shot ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'The kitchen door standing half-open. Warm light spilling through.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'The smell of fresh bread drifting into the corridor.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Alistair beside you again. Armoured once more.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Trying very hard to become only a captain.', hold: 2800, cps: 26 },
+            // The chapter used to end on a mood. It was also sitting on an
+            // unused hook: in Section 4 she works out that HE is the one
+            // leaving flowers for a woman whose name is forbidden, and he
+            // does not deny it — then the chapter dropped it. It closes there
+            // now. "The flowers are still fresh" implies he was at that
+            // portrait this morning, before he came for her. And nothing is
+            // "watching", so it does not reuse Ch1's or Ch2's closing device.
+            { type: 'line', speaker: '', text: 'The kitchen door stands half-open ahead of you, warm light spilling across the flagstones, and the smell of new bread reaching the corridor before you do.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Alistair walks beside you, armoured again, trying very hard to be only a captain.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*He never said no.*', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'And somewhere behind you, in a hall where her name is not permitted, the flowers are still fresh.', hold: 4000, cps: 24 },
 
             { type: 'hide' }
           ]
