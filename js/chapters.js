@@ -532,57 +532,76 @@
             { type: 'show', pose: '', wait: 700 },
 
             // ─── Section 1 · The chamber ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'A small stone room. One candle burning low.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'A bowl of water. Clean cloth folded beside it. One narrow bed.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You are in the bed. Your ankle wrapped. Hair brushed away from your face.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You are wearing a shirt far too large for you. Clearly his.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Alistair sits in the corner on a wooden stool. Armour removed from the waist up. Plain linen undershirt.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'Old scars crossing both forearms beneath fresh bandages.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You wake slowly. Do not move. Watch him before he notices.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'He is sharpening a knife. Slow strokes. Steady hands.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'His mouth is caught somewhere between worry and a smile. Like a man unused to either.', hold: 3600, cps: 26 },
+            // PROSE RHYTHM (Aug 2026). Chapter 1 earns a fractured, clipped
+            // rhythm because it is survival. Chapter 2 is intimacy, and read
+            // the same way it turned into storyboard captions. This chapter
+            // now runs roughly 72% flowing prose / 22% short / 6% fragment.
+            // Fragments are kept ONLY where they land: comic timing, and the
+            // emotional punches ("His shirt.", "For now.", "You do not.").
+            // Voice rule from Ch1 still applies — narrator formal, no
+            // contractions; she and only she contracts.
+            { type: 'line', speaker: '', text: 'A small stone room, quiet but for the hiss of a candle burning low. Beside it on the table sit a bowl of water and a folded cloth, and very little else.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'You lie in the one narrow bed, your ankle wrapped, your hair brushed back from your face. Someone took the trouble, while you slept, to make you comfortable.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The shirt you are wearing is far too large for you, and very obviously his.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair sits in the corner on a wooden stool, his armour stripped away to the waist, in a plain linen undershirt. Old scars cross both forearms beneath fresh bandages.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'You wake slowly. You do not move. You watch him before he notices.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He is sharpening a knife, drawing it along the whetstone in slow, even strokes, his hands perfectly steady. His mouth is caught somewhere between worry and a smile, as though he were a man unused to either.', hold: 5000, cps: 24 },
 
             // ─── Section 2 · He notices ──────────────────────────────────
             { type: 'line', speaker: '', text: 'He notices you watching.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'He freezes. Sets the knife down. Then adjusts it again more carefully, as though the first attempt was too loud.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He freezes, sets the knife down, and then adjusts it again more carefully, as though the first attempt had been too loud.', hold: 4000, cps: 24 },
             { type: 'line', text: 'Mi’lady.', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Hi.', hold: 1800, cps: 28 },
             { type: 'line', text: '...hi.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He looks momentarily stranded inside his own body.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He looks, for a moment, entirely stranded inside his own body.', hold: 2800, cps: 26 },
             { type: 'line', text: 'You slept half a day. That is good. You should drink. I will...', hold: 3000, cps: 26 },
 
             // ─── Section 3 · The cup of water ────────────────────────────
-            { type: 'line', speaker: '', text: 'He stands too quickly. The stool tips backward. He catches it before it hits the floor.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Straightens it. Pretends none of that happened.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He crosses to the table, pours water, returns. Holds the cup out. Then realises you cannot sit upright properly.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: 'One arm slips carefully behind your shoulders. Helping you up.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'His hand against your back is enormous. Very careful. Like he thinks people break easily.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He stands too quickly, and the stool tips backward behind him. He catches it before it can reach the floor, straightens it, and pretends that none of it happened.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'Then he crosses to the table, pours a cup of water and brings it back, and only then realises that you cannot sit upright on your own.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'One arm slips carefully behind your shoulders to help you up. His hand against your back is enormous, and so careful that he must genuinely believe people break easily.', hold: 4600, cps: 24 },
             { type: 'line', text: 'Easy.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You drink. He watches the floor between your feet instead of your mouth.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Colour rising slowly into his neck.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You drink. He watches the floor between your feet rather than your mouth, and colour rises slowly into his neck.', hold: 3800, cps: 26 },
+            // Owner addition: nobody addressed who undressed her, which an
+            // otome audience WILL ask — and in a chapter this careful about
+            // his propriety the silence was loud. It also earns the line that
+            // follows, since "You're nervous" now lands on something we have
+            // just watched him be.
+            { type: 'line', speaker: 'YOU', text: 'This shirt isn’t mine.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'He answers the wall somewhere behind your head.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'No, mi’lady. Yours was wet through.', hold: 2600, cps: 26 },
+            { type: 'line', text: 'Marta changed you. The laundress. She has served this keep forty years.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'I waited outside the door the whole while. You may ask her.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'It comes out too fast and all at once, like something he has been holding ready since the hour it happened.', hold: 4000, cps: 24 },
             { type: 'line', speaker: 'YOU', text: 'You’re nervous.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'He sets the cup beside the bed.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sets the cup down beside the bed.', hold: 2000, cps: 28 },
             { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'You laugh softly. Tired enough that it surprises both of you.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: 'Why?', hold: 1600, cps: 28 },
-            { type: 'line', text: 'I have not had a woman in my chamber before, mi’lady.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'Wounded or otherwise. I am trying to do this correctly.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You laugh softly, tired enough that it surprises you both.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Of me?', hold: 1800, cps: 28 },
+            { type: 'line', text: 'I have not had a woman in my chamber before, mi’lady. Wounded or otherwise. I am trying to do this correctly.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You stare at him.', hold: 1800, cps: 28 },
             { type: 'line', text: 'The tending of wounds, I mean. Not...', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'He stops speaking. His ears have gone red.', hold: 2600, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'There is etiquette for this?', hold: 2400, cps: 26 },
             { type: 'line', text: 'Boil the water. Burn the cloth after. Do not sit on the bed.', hold: 3000, cps: 26 },
             { type: 'line', text: 'And if she wakes, do not loom.', hold: 2600, cps: 26 },
+            // KEPT CLIPPED ON PURPOSE. These three are comic timing — joining
+            // them into flowing prose kills the joke. Same for the stool and
+            // the furniture line below.
             { type: 'line', speaker: '', text: 'He is absolutely looming. He realises. Retreats two full steps.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Sits back down immediately. The stool is too small for him.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'He sits back down at once. The stool is too small for him.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'He looks like a knight trying unsuccessfully to disguise himself as furniture.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'You cover your mouth to hide another smile.', hold: 2400, cps: 26 },
 
             // ─── Section 4 · His shirt ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'Close on your hand resting against the blanket.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your fingers have curled around the hem of the shirt you are wearing. His shirt.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You had not realised you were holding onto it.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You do not let go.', hold: 2000, cps: 28 },
+            // Camera direction removed ("Close on your hand..."), and the beat
+            // rebuilt as a fragment ladder: one flowing sentence, then four
+            // drops. The fragments only land because the line above breathes.
+            { type: 'line', speaker: '', text: 'Your hand rests against the blanket, your fingers curled without your noticing around the hem of the shirt you are wearing.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'His shirt.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You had not realised you were holding it until now.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You could let go.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You do not.', hold: 2000, cps: 28 },
             // ── Player agency (Jul 2026) ──
             { type: 'choice', key: 'ch2_shirt', prompt: 'His shirt. Your hand.',
               options: [
@@ -590,8 +609,8 @@
                 { id: 'release', text: 'Let go before he sees.' }
               ] },
             { type: 'line', speaker: '', variants: { key: 'ch2_shirt', map: {
-                keep: 'You keep your grip. The cloth is worn soft and smells faintly of cedar. If he notices, he says nothing.',
-                release: 'You open your fingers before he turns. Some things you are not ready for him to know.'
+                keep: 'You keep your grip. The cloth is worn soft and smells faintly of cedar, and if he notices, he says nothing at all.',
+                release: 'You open your fingers before he turns. There are things you are not ready for him to know, and this is somehow one of them.'
               } }, hold: 3400, cps: 26 },
 
             // ─── Section 5 · Recognition ─────────────────────────────────
@@ -599,82 +618,95 @@
             { type: 'line', text: 'Yes.', hold: 1600, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Captain of the dawn patrol.', hold: 2200, cps: 26 },
             { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: 'And instead of taking me to the chamberlain, you hid me in your room.', hold: 3400, cps: 26 },
+            // ── Pays off Chapter 1's closing hook. She asks, he gives an
+            // answer that is TRUE and a dodge at once, and then SHE supplies
+            // the comfortable explanation herself and closes the question.
+            // The player does not close it. Do not have him confess here —
+            // the tension lives in the gap between what she believes and what
+            // the reader suspects, and that gap is worth several chapters.
+            { type: 'line', speaker: 'YOU', text: 'And you keep calling me mi’lady.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'The knife stops moving in his hands.', hold: 2400, cps: 26 },
+            { type: 'line', text: '...I do.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You wait for the rest of it. It does not come.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Is that just what knights do? Call every woman that?', hold: 3000, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something moves behind his face, and then settles.', hold: 2800, cps: 26 },
+            { type: 'line', text: 'It is what I was taught, mi’lady.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'It is not quite an answer, but you are tired, and it sits close enough to one that you have no strength left for the difference.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Knights have manners. That is all this is.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You let it go.', hold: 2000, cps: 28 },
+            // Owner fix: she used to say "instead of taking me to the
+            // chamberlain" — but she has amnesia and has never been in this
+            // castle, so she cannot know a chamberlain exists. She now only
+            // observes what is in front of her. He still names the chamberlain
+            // in Section 6, which is fine; HE knows.
+            { type: 'line', speaker: 'YOU', text: 'And you brought me here. To your own room.', hold: 2800, cps: 28 },
             { type: 'line', speaker: '', text: 'His eyes lower briefly to his hands.', hold: 2400, cps: 26 },
             { type: 'line', text: 'I did.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Is that in the etiquette?', hold: 2400, cps: 28 },
+            { type: 'line', text: 'No, mi’lady. It is not.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He says it without defence, the way a man reports a fact he has already judged himself for.', hold: 3800, cps: 24 },
+            { type: 'line', text: 'But it was necessary.', hold: 2200, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Why?', hold: 1600, cps: 28 },
 
             // ─── Section 6 · The queen ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'Silence. He picks up the knife. Sets it back down.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Adjusts the folded cloth beside him. His hands need work so they do not reach toward you.', hold: 3800, cps: 24 },
-            { type: 'line', text: 'Because the chamberlain reports to the queen.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'And I did not want the queen to know about you yet.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Silence. He picks up the knife, sets it back down, and adjusts the folded cloth beside him, because his hands need work to do so that they do not reach toward you.', hold: 4800, cps: 24 },
+            { type: 'line', text: 'Because the chamberlain reports to the queen. And I did not want the queen to know about you yet.', hold: 4000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '...the queen.', hold: 2000, cps: 28 },
             { type: 'line', text: 'Six hundred years old, mi’lady.', hold: 2600, cps: 26 },
             { type: 'line', text: 'She notices new things.', hold: 2400, cps: 28 },
 
             // ─── Section 7 · The soup ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Your stomach growls. Loud in the quiet room.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You freeze. Mortified.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Alistair stands immediately. The stool nearly topples again. He catches it. Again.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your stomach growls, loud in the quiet room, and you freeze, mortified.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Alistair is on his feet immediately. The stool nearly topples again. He catches it. Again.', hold: 3600, cps: 26 },
             { type: 'line', text: 'Half a day. Of course. I should have thought of that sooner.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'He crouches beside a small chest at the foot of his cot.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Lifts out a clay bowl wrapped in cloth and a small dark vial. He carries both carefully. Like breakables.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'Steam rises as he unwraps the bowl. Broth. Onion. A little thyme.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'The smell of something made for wounded people.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'Cook prepares it for the patrol after difficult nights.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'I thought it might be easiest on you.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He crouches beside a small chest at the foot of his cot and lifts out a clay bowl wrapped in cloth, and a small dark vial beside it. He carries both the way a man carries breakables.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Steam rises as he unwraps the bowl, and with it the plain smell of broth and onion and a little thyme. It is the smell of food made for someone who has been hurt.', hold: 4800, cps: 24 },
+            { type: 'line', text: 'Cook prepares it for the patrol after difficult nights. I thought it might be easiest on you.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'You stare at the bowl.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'You have been awake only a little while.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Someone you do not know made certain there would be warm soup waiting beside your bed.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your eyes sting unexpectedly. You blink once. Hard.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You have been awake a little while, no more than that, and someone you do not know had already made certain there would be warm soup waiting beside your bed.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your eyes sting without warning. You blink once, hard.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Thank you.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'He hands you the spoon. Watches carefully to make sure your hand is steady enough to hold it.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'For half a second, his fingers twitch like he almost intends to feed you himself.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He catches the impulse. Sits back instead.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He hands you the spoon and watches to be certain your hand is steady enough to hold it. For half a second his fingers twitch, as though he had almost meant to feed you himself, and then he catches the impulse and sits back.', hold: 5400, cps: 24 },
             { type: 'line', speaker: '', text: 'You eat slowly. The first spoonful almost hurts. The second is easier.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He keeps watching the floor. Very deliberately not watching your mouth.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He keeps his eyes on the floor, very deliberately not watching your mouth.', hold: 3200, cps: 26 },
 
             // ─── Section 8 · For now ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'The small room. Steam curling from the bowl. Rain tapping softly at the narrow window.', hold: 3800, cps: 24 },
-            { type: 'line', speaker: '', text: 'The captain sitting too rigidly on a stool much too small for him.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The small room, the steam curling from the bowl, the rain tapping softly at the narrow window, and the captain sitting far too rigidly on a stool much too small for him.', hold: 4800, cps: 24 },
             { type: 'line', speaker: '', text: 'Far above this room, somewhere in the keep, the queen remains unaware.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'For now.', hold: 2000, cps: 28 },
 
             // ─── Section 9 · The vial ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'The dark vial turning slowly between Alistair’s fingers.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He sets it carefully beside your hand. Withdraws his own too quickly.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The dark vial turns slowly between Alistair’s fingers. He sets it down beside your hand and withdraws his own too quickly.', hold: 4000, cps: 24 },
             { type: 'line', text: 'There is also this.', hold: 2000, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'What is it?', hold: 1800, cps: 28 },
-            { type: 'line', text: 'Healing draught. Captain’s allotment.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'One each from the apothecary for serious wounds.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You look at the vial. Then back at him.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'Healing draught. Captain’s allotment. One each from the apothecary, for serious wounds.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look at the vial, and then back at him.', hold: 2400, cps: 26 },
+            // "Yes, mi'lady." ran SIX times verbatim in this chapter, twice
+            // inside four beats here. Thinned to three. His formality is the
+            // point; six identical replies read as running out of responses.
             { type: 'line', speaker: 'YOU', text: 'This belongs to you.', hold: 2200, cps: 26 },
-            { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
+            { type: 'line', text: 'It does.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'And you’re giving it away.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
+            { type: 'line', text: 'I am.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Alistair...', hold: 1800, cps: 28 },
-            { type: 'line', text: 'I have never used it.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'Four years. I have not had the need.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He says it plainly. The way another man might quietly confess he no longer expects kindness.', hold: 4000, cps: 24 },
+            { type: 'line', text: 'I have never used it. Four years. I have not had the need.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He says it plainly, the way another man might quietly confess that he no longer expects kindness.', hold: 4000, cps: 24 },
             { type: 'line', speaker: 'YOU', text: 'You have not had the need?', hold: 2400, cps: 26 },
             { type: 'line', text: 'Wounds heal if you leave them alone long enough.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'That may be the saddest thing I have heard, mi’lord.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'A small sound escapes him. Almost laughter. Almost disbelief.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Then his eyes lower again.', hold: 2000, cps: 28 },
-            { type: 'line', text: 'Then please drink it, mi’lady.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'So it was not wasted carrying it all this time.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'A small sound escapes him, almost laughter, almost disbelief. Then his eyes lower again.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'Then please drink it, mi’lady. So it was not wasted, carrying it all this time.', hold: 3800, cps: 26 },
+            // This "Yes, mi'lady." STAYS. Here the repetition is the punchline.
             { type: 'line', speaker: 'YOU', text: 'You said please again.', hold: 2200, cps: 28 },
             { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
 
             // ─── Section 10 · Drinking the draught ───────────────────────
-            { type: 'line', speaker: '', text: 'He uncorks the vial. The liquid inside glows soft gold in the candlelight.', hold: 3400, cps: 26 },
-            { type: 'line', text: 'It will mend the split in your lip.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'And the cut at your brow before it scars.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your fingers rise automatically to your forehead. You had not known there was a cut there.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He notices the motion. Looks away immediately.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He uncorks the vial, and the liquid inside glows a soft gold in the candlelight.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'It will mend the split in your lip, and the cut at your brow before it scars.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers rise to your forehead before you can think about it. You had not known there was a cut there.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He notices the motion and looks away at once.', hold: 2600, cps: 26 },
             { type: 'line', text: 'It tastes faintly of honey.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You take the vial. Your fingers brush. This time he does not pull back.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take the vial, and your fingers brush his. This time he does not pull back.', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'You should keep it.', hold: 2200, cps: 26 },
             { type: 'line', text: 'Mi’lady.', hold: 1800, cps: 28 },
             { type: 'line', text: 'I have spent four years carrying this in case someone needed it more than I did.', hold: 3800, cps: 26 },
@@ -688,29 +720,26 @@
                 { id: 'tease', text: 'Hold his eyes a moment longer.' }
               ] },
             { type: 'line', speaker: '', variants: { key: 'ch2_vial', map: {
-                drink: 'Seven refusals before you. You will not be the eighth. Some victories a knight should keep.',
-                tease: 'You hold his gaze a breath longer than mercy allows. He does not blink. Stubborn, this one. Good.'
+                drink: 'Seven refusals before you, and you will not be the eighth. Some victories a knight should be allowed to keep.',
+                tease: 'You hold his gaze a breath longer than mercy allows, and he does not blink. Stubborn, this one. Good.'
               } }, hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stare at him. Then close your eyes and drink.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stare at him. Then you close your eyes and drink.', hold: 3000, cps: 26 },
 
             // ─── Section 11 · The warmth ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'Warmth moves through you. Not heat. Something gentler.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Like a hand resting carefully over a cold place inside your chest.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The ache in your ankle eases. The split in your lip seals shut.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'The cut at your brow vanishes.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Warmth moves through you, not heat but something gentler, like a hand laid carefully over a cold place inside your chest.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The ache in your ankle eases. The split in your lip seals shut. The cut at your brow vanishes.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'You exhale softly.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: '...oh.', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'The corner of his mouth lifts. Barely.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'You hand the empty vial back.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'He turns it once between his fingers. Studying the emptiness like something finally released.', hold: 3800, cps: 24 },
+            { type: 'line', text: 'It does that.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You hand the empty vial back, and he turns it once between his fingers, studying the emptiness like something he has finally been allowed to set down.', hold: 4600, cps: 24 },
 
             // ─── Section 12 · The page in your sleeve ────────────────────
             { type: 'line', speaker: 'YOU', text: 'Alistair.', hold: 1800, cps: 28 },
             { type: 'line', text: 'Mi’lady.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'There is a piece of paper hidden in my sleeve.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'His eyes shift immediately to your wrist. He does not ask to see it.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Long silence.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes go straight to your wrist. He does not ask to see it.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'The silence goes long.', hold: 2000, cps: 28 },
             // ── Player agency (Jul 2026) — the page is the story's spine;
             // the pick is remembered for later chapters.
             { type: 'choice', key: 'ch2_page', prompt: 'The silence stretches.',
@@ -720,16 +749,20 @@
               ],
               onChoose: function (id) { try { localStorage.setItem('pp_ch2_page_choice', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch2_page', map: {
-                show: 'You start to slide it free. His hand lifts, gentle, and stops the motion halfway. Not yet, the gesture says. Not for me.',
-                hold: 'You leave your sleeve untouched. He nods once, as if secrecy were a rank he respects.'
+                show: 'You begin to slide it free, and his hand lifts, gentle, stopping the motion halfway. Not yet, the gesture says. Not for me.',
+                hold: 'You leave your sleeve untouched, and he nods once, as if secrecy were a rank he respects.'
               } }, hold: 3600, cps: 26 },
             { type: 'line', text: 'Then we leave it there for now.', hold: 2800, cps: 26 },
 
             // ─── Section 13 · Final shot ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'His hand resting deliberately against his own knee instead of reaching toward yours.', hold: 3800, cps: 24 },
-            { type: 'line', speaker: '', text: 'The empty vial in his other hand. The half-finished soup between you.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Outside the narrow window, the castle towers over the night.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Watching.', hold: 2000, cps: 28 },
+            // Was "the castle towers over the night. Watching." — which
+            // mirrored Chapter 1's closing image of the forest that does not
+            // look away. Twice in a row is a formula, and it spent the device
+            // before Chapter 3. Ends on the page instead: the actual
+            // unresolved thing in the room, and a quiet rhyme with the
+            // mi'lady beat — two things here neither of them will name.
+            { type: 'line', speaker: '', text: 'His hand rests deliberately against his own knee instead of reaching toward yours. The empty vial is in the other. The half-finished soup sits between you.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'And folded along its burned edge inside your sleeve, the one thing in this room that neither of you has agreed to name.', hold: 4400, cps: 24 },
 
             { type: 'hide' }
           ]
