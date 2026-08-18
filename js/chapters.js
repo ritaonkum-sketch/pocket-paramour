@@ -250,7 +250,9 @@
             { type: 'line', speaker: '', text: 'Patrol horns. The kind that mean a kingdom is awake and watching.', hold: 3000, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*...a kingdom?*', hold: 1800, cps: 26 },
             { type: 'line', speaker: '', text: 'You move before you understand why.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your hand folds the page along the burned edge, slipping it into the tear inside your sleeve. The lining accepts it too easily. Like it has hidden this before.', hold: 4400, cps: 24 },
+            // Owner catch: "slipping" dangled off "Your hand", so grammatically
+            // the hand was doing the slipping. Straightened to one subject.
+            { type: 'line', speaker: '', text: 'You fold the page along the burned edge and slip it into the tear inside your sleeve. The lining accepts it too easily. Like it has hidden this before.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'You do not know whose seal you carry. You mean to find out.', hold: 3000, cps: 26 },
 
             // ─── Section 4 · Standing ────────────────────────────────────
