@@ -573,6 +573,42 @@
             { type: 'line', text: 'Marta changed you. The laundress. She has served this keep forty years.', hold: 3400, cps: 26 },
             { type: 'line', text: 'I waited outside the door the whole while. You may ask her.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'It comes out too fast and all at once, like something he has been holding ready since the hour it happened.', hold: 4000, cps: 24 },
+            // ═══ THE CLOTHES AND THE PAGE (Aug 2026) ═══════════════════════
+            // Fixes a continuity break that ran Ch1 -> Ch6. Ch1 puts the page
+            // in "the tear inside your sleeve" — HER clothes. This chapter
+            // then puts her in HIS shirt and still builds Section 12 on the
+            // page being in her sleeve (her confession, his eyes going to her
+            // wrist, the ch2_page choice, and the chapter's closing image).
+            // The page was on a garment she was not wearing.
+            //
+            // Marta solves all of it: she washed the clothes, mended them,
+            // left ONE seam alone, and moved the page into the shirt. That
+            // covers where the clothes went, why Ch1's "tear" is Ch4's
+            // "hidden seam", and why the page was never confiscated — and it
+            // is a hook, not a patch. A laundress found a burned page with a
+            // silver seal and gave it back without a word. Kindness, or the
+            // first move of someone watching her. The text does not decide.
+            //
+            // MUST stay ahead of Section 12: when she says "There is a piece
+            // of paper hidden in my sleeve", the player now knows two other
+            // people already know, and neither has said what it is.
+            // Clothes come back in Ch4 Section 6 (day three). Do not move
+            // them earlier or Ch4's payoff has nothing to deliver.
+            { type: 'line', speaker: '', text: 'He looks at the wall a moment longer, then speaks again, the way a man delivers a report he has been holding.', hold: 4400, cps: 24 },
+            { type: 'line', text: 'Your clothes are with her. Mud to the knee and blood at the hem. You will have them back when they are fit to wear.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: 'And until then?', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes go to the shirt, and away again.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'Until then that one is yours.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'It is only a shirt.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He says it rather too quickly.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Something cold moves through you.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Was there anything in the sleeve.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He turns, and looks at you properly for the first time since you woke.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'She said there was. She put it in that one.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'She did not say what it was. I did not ask.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand goes to your wrist before you can decide to move it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Folded paper. Warm from your own skin. Exactly where a stranger decided it should go.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*She found it. She looked at it. And she gave it back.*', hold: 4000, cps: 24 },
             { type: 'line', speaker: 'YOU', text: 'You’re nervous.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He sets the cup down beside the bed.', hold: 2000, cps: 28 },
             { type: 'line', text: 'Yes, mi’lady.', hold: 2200, cps: 28 },
@@ -1120,6 +1156,41 @@
                 reply: 'You tear a corner from the second note and write one word on it: Ask. You leave it on the tray, where a ghost will find it.',
                 watch: 'You set the two notes side by side and memorise the hands that wrote them. Someone will slip. They always do.'
               } }, hold: 3800, cps: 26 },
+            // ═══ THE CLOTHES COME BACK (Aug 2026) ══════════════════════════
+            // Pays off Ch2's Marta beat. Day three is the right morning: this
+            // chapter is already about things arriving from hands that are
+            // not Alistair's, and this is one more. It also means she is in
+            // her own clothes from here to the end of Ch6, which is what
+            // lets her walk out of the castle dressed.
+            // The UNMENDED seam is the point. Marta repaired everything else.
+            // Ch1 called it a "tear"; Section 8 below has always called it a
+            // "hidden seam" with no explanation of how it changed. This is
+            // the explanation, and it makes the laundress deliberate.
+            // PLACED AFTER the note is read and answered — she lifts the tray
+            // to deal with the note and finds the clothes under it. Putting
+            // it above split the note's setup line from the note's text.
+            { type: 'line', speaker: '', text: 'There is something else on the tray this morning, folded underneath.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your clothes.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The mud is gone. So is the blood at the hem.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You lift the dress and turn it in the light, looking at it the way you might look at a stranger’s face for something you recognise.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Someone has mended the torn seam at the shoulder. Small, neat work, almost invisible.', hold: 4000, cps: 26 },
+            { type: 'line', speaker: '', text: 'They have not touched the one inside the sleeve.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You find it with your thumb. Still open. Still exactly as wide as a folded page.', hold: 4000, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*She left it.*', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*She left it on purpose.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take the page out of the borrowed cuff and hold it up to the window.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Still creased the way you carried it through the forest. The burned edge dark against your palm.', hold: 4200, cps: 24 },
+            // NOT a variants beat. _choices in premium-card.js is CARD-scoped,
+            // so a variants line here cannot read ch2_page from Chapter 2's
+            // card — it would silently render whichever map entry came first.
+            // This line is written to be true on both Ch2 branches, since the
+            // beats around that choice ("He does not ask to see it" / "Then
+            // we leave it there for now") are unconditional.
+            { type: 'line', speaker: '', text: 'He knows this exists. He has not asked to see it, and you have not asked him why not.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You dress.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'The page goes into the seam she left open for it, and you lower your sleeve over the top.', hold: 4000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Then you fold his shirt and lay it over the back of the chair.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'That turns out to be the harder of the two.', hold: 2800, cps: 26 },
             // TIMELINE. The note says "he will come tonight" and this section
             // is explicitly morning, but the chapter used to run straight on
             // to him climbing the stairs, so he appeared to arrive minutes
@@ -1140,8 +1211,12 @@
             // your hand.", "Close on your face...", "Close on the two notes
             // ...", "Close on your reflection ... again"). The last one was
             // cross-referencing an earlier SHOT, which is script language.
-            { type: 'line', speaker: '', text: 'Without thinking, your fingers have gone to the hidden seam inside your sleeve.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The page is still there.', hold: 2000, cps: 28 },
+            // "The page is still there." removed here. Ch1 establishes the
+            // fact once, in the chase; from Section 6 above the reader knows
+            // exactly what the hand at the wrist means, so the GESTURE now
+            // carries it and the statement is redundant. Same cut made at the
+            // two Ch6 sites. Keep the establishing use in Ch1 only.
+            { type: 'line', speaker: '', text: 'Without thinking, your fingers have gone to the seam she left open.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Your fingertips stay pressed there a moment too long.', hold: 2800, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*If a stranger can find me here, someone else can too.*', hold: 3400, cps: 26 },
 
@@ -1591,7 +1666,7 @@
             // ─── Section 2 · The pull tightens ───────────────────────────
             { type: 'line', speaker: '', text: 'By nightfall, he has not returned.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'You sit beside the window with his cloak wrapped around your shoulders, the familiar weight of it settling over you like something borrowed that has begun to feel dangerously close to yours.', hold: 5400, cps: 24 },
-            { type: 'line', speaker: '', text: 'The page is still hidden inside your sleeve.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your free hand settles over the seam inside your sleeve without being asked to.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Outside, moonlight lies pale across the outer courtyard, turning the wet stone silver.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'You rest your hand against the glass.', hold: 2200, cps: 28 },
             { type: 'line', speaker: '', text: 'At first, nothing happens.', hold: 2000, cps: 28 },
@@ -1730,7 +1805,7 @@
             { type: 'line', speaker: '', text: 'Behind you comes the sound of something dragging itself over the forest floor. Wet. Heavy. Much too fast.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You stumble, catch yourself against a tree, and keep going.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'The pain in your ankle shoots upward. You bite down on a cry.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your hand goes instinctively to your sleeve. The page is still there.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your hand goes instinctively to your sleeve.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Only then do you realise something else. It is burning against your skin.', hold: 3400, cps: 26 },
             { type: 'line', speaker: '', text: 'Not hot enough to hurt.', hold: 2200, cps: 28 },
             // The page is ALIVE. Biggest escalation of the central mystery so
