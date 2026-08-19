@@ -1487,12 +1487,22 @@
 
     // ═════════════════════════════════════════════════════════════════════
     // CHAPTER 6 — SMOKE AT THE TREELINE
-    // Owner-approved PDF conversion (June 2026). ~95 beats.
+    // Owner-approved PDF conversion (June 2026). ~300 beats.
     // FIRST APPEARANCE OF ELIAN. The pull pulls MC into Thornwood at night.
     // A second wound-creature (the antlered one) attacks. Elian drops it
     // with two arrows. He notices everything: the cloak, the bruising,
-    // the hidden page. Names her a "Weaver" and disappears before Alistair
-    // arrives. Speaker default switches to ELIAN. Sets pp_ms_encounter_
+    // the hidden page. Names her a "Weaver" and walks off.
+    //
+    // ENDING REBUILT (Aug 2026), Sections 15-18. The chapter used to STOP
+    // there, with Alistair's horn closing in and never arriving, and Ch7
+    // then opened on "You agreed to go with him" — an agreement that never
+    // happened. Now: the horn RECEDES, the pull takes her a second time,
+    // Elian comes back for her, and he gives her the reason she follows
+    // him (the queen). She is not rescued and she does not agree; she is
+    // taken from Alistair and then makes a choice with her legs.
+    // Ch7 must therefore NOT open on "You agreed to go with him".
+    //
+    // Speaker default switches to ELIAN. Sets pp_ms_encounter_
     // elian_seen flag so character-grid + chain systems know the meet-cute
     // has fired. charId set to 'elian' so the chapter card shows his
     // portrait and forest-green left-border tint.
@@ -1607,13 +1617,14 @@
             // SHE breaks it. Both options still end in the forest, as the
             // plot requires — the pick is what kind of person she is while
             // being taken. Same design as Ch4's cloak choice.
-            { type: 'line', speaker: '', text: 'Your fingers rest against the glass, and a faint tremor runs through them.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'The pull beneath your ribs has grown stronger.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Not painful. Not quite.', hold: 2200, cps: 28 },
+            // TRIMMED (Aug 2026) to pay for Sections 15-18. Five beats here
+            // re-did Section 2's ending verbatim: the hand on the glass, the
+            // pull under the ribs, the forest beyond the walls, "you should
+            // stay inside". The thread image is the one thing Section 3 had
+            // that Section 2 did not, so it is what survives.
+            { type: 'line', speaker: '', text: 'A faint tremor runs through your fingers where they rest against the glass.', hold: 3200, cps: 26 },
             { type: 'line', speaker: '', text: 'It is more like a thread has caught somewhere deep inside you, stretched impossibly far into the darkness, and someone at the other end has begun to draw it tight.', hold: 5400, cps: 24 },
-            { type: 'line', speaker: '', text: 'You stare through the glass. The forest waits beyond the castle walls.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You should step away.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'Instead, your fingers slowly leave the window.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your fingers slowly leave the window.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'You take a step. Then another.', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'You do not remember deciding to move.', hold: 2600, cps: 26 },
             { type: 'line', speaker: 'A VOICE', text: 'Don’t.', hold: 2000, cps: 24 },
@@ -1623,8 +1634,7 @@
             { type: 'line', speaker: 'YOU', text: 'Who’s that?', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'Nothing. Only the forest beyond the glass.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'Then the pull tightens.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'Your foot moves. You look down at it, almost confused.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You had not meant to take another step.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your foot moves. You look down at it, almost confused. You had not meant to take another step.', hold: 4200, cps: 24 },
             { type: 'line', speaker: 'A VOICE', text: 'Don’t listen to it.', hold: 2400, cps: 24 },
             { type: 'line', speaker: '', text: 'The voice comes again, faint and broken, as though it has travelled a great distance to reach you.', hold: 4200, cps: 24 },
             { type: 'line', speaker: '', text: 'You try to listen. You really do.', hold: 2400, cps: 26 },
@@ -1643,14 +1653,12 @@
                 yield: 'You stop resisting, and it is easier. Warmer. That should frighten you far more than it does.'
               } }, hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'Your breathing slows.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'The room around you seems strangely distant now, as though you are looking at it through someone else’s eyes.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'The bed. The chair. The door. You pass them without thinking.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The room seems strangely distant now, as though you are looking at it through someone else’s eyes. The bed. The chair. The door. You pass them without thinking.', hold: 5600, cps: 24 },
             { type: 'line', speaker: '', text: 'You do not wonder where you are going. You do not wonder why. You simply go.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'The narrow servant stairs wind beneath the sleeping castle, moonlight slipping through the slitted windows in pale bands. Your hand brushes the cold stone as you descend, though you do not remember reaching for the wall.', hold: 6000, cps: 22 },
             { type: 'line', speaker: '', text: 'Your injured ankle should hurt. It barely registers. Your body keeps moving.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'At the bottom of the stairs, you find yourself standing before the postern door.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stare at it.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Somewhere at the back of your mind, a memory surfaces.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stare at it. Somewhere at the back of your mind, a memory surfaces.', hold: 3600, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*Alistair showed me this.*', hold: 2400, cps: 26 },
             { type: 'line', speaker: '', text: 'You cannot remember why. You cannot remember when.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'Your hand reaches for the latch.', hold: 2200, cps: 28 },
@@ -1661,30 +1669,22 @@
             { type: 'line', speaker: 'A VOICE', text: 'Don’t open it!', hold: 2200, cps: 26 },
             { type: 'line', speaker: '', text: 'Your fingers pause.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'A VOICE', text: 'Please. Don’t go into the forest.', hold: 2800, cps: 24 },
-            { type: 'line', speaker: '', text: 'You hear the words. You understand them.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'For one brief moment, you even want to obey.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'But the pull has become something larger than wanting.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'It moves through you like a current beneath deep water, carrying you forward before your mind can catch up.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You hear the words. You understand them. For one brief moment, you even want to obey.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'But the pull has become something larger than wanting. It moves through you like a current beneath deep water, carrying you forward before your mind can catch up.', hold: 5600, cps: 24 },
             { type: 'line', speaker: '', text: 'The latch falls. The door opens.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Cold night air rushes over your face. Wet earth. Pine.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Cold night air rushes over your face. Wet earth. Pine. And underneath it, something you cannot name yet.', hold: 4400, cps: 24 },
             // The smoke is NOT named here. Section 5 identifies it once she is
             // committed; naming it at the threshold and again in the forest was
             // the same reveal twice.
-            { type: 'line', speaker: '', text: 'And underneath it, something you cannot name yet.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your body steps across the threshold. You do not decide to go outside. You simply find yourself outside.', hold: 4400, cps: 24 },
             { type: 'line', speaker: '', text: 'Behind you the castle stands warm and golden, its windows glowing against the dark.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'You should turn around. You do not.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Ahead, the trees seem to open. The pull reaches deeper.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your eyes fix on the darkness between the trunks.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Ahead, the trees seem to open. The pull reaches deeper, and your eyes fix on the darkness between the trunks.', hold: 4600, cps: 24 },
             { type: 'line', speaker: '', text: 'Something is waiting there. Or something is calling. You cannot tell the difference anymore.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'You take another step. Then another.', hold: 2400, cps: 26 },
             { type: 'line', speaker: 'A VOICE', text: '...no.', hold: 2000, cps: 18 },
-            { type: 'line', speaker: '', text: 'You hear it. Somewhere.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'A man’s voice, strained with fear.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You hear it. Somewhere. A man’s voice, strained with fear.', hold: 3000, cps: 26 },
             { type: 'line', speaker: '', text: 'You know there was something you were supposed to do. Something you were supposed to remember.', hold: 3800, cps: 26 },
             { type: 'line', speaker: '', text: 'You cannot hold onto it.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'The forest has you now.', hold: 2400, cps: 28 },
-            { type: 'line', speaker: '', text: 'And before you realise you have left the castle behind, you are already walking beneath the trees.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The forest has you now, and before you realise you have left the castle behind, you are already walking beneath the trees.', hold: 5000, cps: 24 },
 
             // ─── Section 5 · The wrong silence ───────────────────────────
             { type: 'line', speaker: '', text: 'It takes several minutes before you realise what is wrong.', hold: 3000, cps: 26 },
@@ -1780,6 +1780,15 @@
             { type: 'line', text: 'You walked into Thornwood alone at night.', hold: 2800, cps: 26 },
             { type: 'line', speaker: '', text: 'His eyes flick briefly toward your injured ankle.', hold: 2600, cps: 26 },
             { type: 'line', text: 'I don’t think you’re in a position to criticise anyone’s decisions.', hold: 3400, cps: 26 },
+            // OWNER ADDITION (Aug 2026). LOAD-BEARING — do not cut. This is
+            // the moment he stops reading her as a foolish court girl, and it
+            // is the reason he turns around and comes back for her in Section
+            // 16. Without it his return is unmotivated.
+            // Her contraction is correct: MC contracts (see "Who’s that?" in
+            // Section 3), the NARRATOR never does, Elian always does.
+            { type: 'line', speaker: 'YOU', text: 'I didn’t mean to come here.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'It comes out before you decide to say it, and it is the truest thing you have said tonight.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not answer. He looks at you a moment longer than the question deserved, and then away.', hold: 4000, cps: 24 },
 
             // ─── Section 9 · The body ────────────────────────────────────
             { type: 'line', speaker: '', text: 'Behind him, the dead creature gives a final twitch.', hold: 2800, cps: 26 },
@@ -1874,11 +1883,113 @@
             { type: 'line', speaker: '', text: 'For a long moment, he says nothing. Then, without looking back:', hold: 3200, cps: 26 },
             { type: 'line', text: 'Someone trying very hard not to bury another Weaver.', hold: 3600, cps: 26 },
             { type: 'line', speaker: '', text: 'Your breath catches.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*Another?*', hold: 2000, cps: 26 },
-            { type: 'line', speaker: '', text: 'The word barely forms before he is gone. Not running. Not hiding. Simply swallowed by the darkness between the trees.', hold: 4600, cps: 24 },
-            { type: 'line', speaker: '', text: 'Behind you, the horn sounds again. Closer this time. And at your feet, the dead creature is still smoking.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'You look down at it. Then at the forest where the stranger disappeared.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your fingers close around the hidden page.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'You... what?', hold: 2000, cps: 26 },
+            { type: 'line', speaker: '', text: 'But he is already gone. Not running. Not hiding. Simply swallowed by the darkness between the trees, before you can ask him anything else.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*...another?*', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'The word stays where he left it.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stand alone among the trees, staring into the dark where he vanished.', hold: 3400, cps: 26 },
+            // THE HINGE (Aug 2026). The horn RECEDING is what makes the rest
+            // of the chapter possible. She does not abandon Alistair — the
+            // forest takes her from him. Everything after this depends on it.
+            { type: 'line', speaker: '', text: 'Behind you, the horn sounds again.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'But it is farther away now. Much farther than it should be.', hold: 3200, cps: 26 },
+
+            // ─── Section 15 · The horn goes away ─────────────────────────
+            // OWNER REWRITE (Aug 2026). The chapter used to END nine beats
+            // ago, with Alistair's horn CLOSING IN and never arriving, and
+            // then Ch7 opened on "You agreed to go with him" — an agreement
+            // that never happened, an offer never made, a captain abandoned
+            // mid-rescue. Sections 15-18 are the missing ending.
+            { type: 'line', speaker: '', text: 'You turn toward it.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*Alistair. He is looking for me.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You try to move. The pain goes through your ankle so sharply that it takes your breath, and you catch the nearest tree and wait for it to ease.', hold: 5200, cps: 24 },
+            { type: 'line', speaker: '', text: 'It does not ease.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'You look down at your leg. Then at the thing lying dead a few paces away, still smoking.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You cannot stay here. Not beside that. Not alone in the dark.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You force yourself forward. One step. Then another.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You go the way the horn should be.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'The trees grow thicker. The ground slopes beneath your feet, roots twisting up through the earth. Your breath comes harder with every step, and you keep going.', hold: 5400, cps: 24 },
+            { type: 'line', speaker: '', text: 'The horn should be closer now.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'It is farther.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'You stop.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Then the pull begins again. A faint pressure beneath your ribs.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You turn your head. Between the trees, the darkness seems to breathe.', hold: 3400, cps: 26 },
+            // DELIBERATE ECHO of Section 3, word for word. It is the same
+            // thing happening to her a second time, and the repetition is
+            // the horror. Do not "fix" it.
+            { type: 'line', speaker: '', text: 'The pull tightens. Your foot moves.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not realise you have started walking until nothing around you looks familiar.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your thoughts begin to blur at the edges.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are no longer certain where the castle is.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You are no longer certain where Alistair is.', hold: 3000, cps: 26 },
+
+            // ─── Section 16 · That’s not wise ────────────────────────────
+            // The grab must BREAK the trance, not interrupt it. Violent, and
+            // then the world floods back — she had stopped carrying her own
+            // body, and now she has it again.
+            { type: 'line', speaker: '', text: 'Something seizes your wrist and wrenches you backward.', hold: 2600, cps: 30 },
+            { type: 'line', speaker: '', text: 'Your shoulder hits his chest hard enough to knock the breath out of you, and the forest comes back all at once. The cold. The sound of your own breathing. The weight of your own body, which you had somehow stopped carrying.', hold: 6000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You gasp.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'His face is not calm anymore. He is angry.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Not at you. At whatever had hold of you.', hold: 2800, cps: 26 },
+            { type: 'line', text: 'That’s not wise.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'His voice is low, and much sharper than before. You stare at him, still working out where you are.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: 'You...', hold: 1600, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your eyes go past him, to the trees. Then back.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'I thought I was following the horn.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His grip loosens. He does not let go.', hold: 2400, cps: 26 },
+            { type: 'line', text: 'You were.', hold: 1800, cps: 28 },
+            { type: 'line', text: 'Until you weren’t.', hold: 2200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You frown.', hold: 1600, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'What does that mean?', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'His eyes move briefly to the darkness behind you.', hold: 2600, cps: 26 },
+            { type: 'line', text: 'You’re getting the pull.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your stomach drops.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '*How does he know that.*', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look down at his hand around your wrist. Then at the forest.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'The pull...', hold: 1800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He releases you.', hold: 1800, cps: 28 },
+            { type: 'line', text: 'You’ve felt it before. Haven’t you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not answer. You do not need to. Something in the silence tells him enough.', hold: 4000, cps: 26 },
+
+            // ─── Section 17 · Come with me ───────────────────────────────
+            // THE QUEEN, first named in the game. It works because he refuses
+            // to explain her — same withholding as "Hungry." / "It is,
+            // tonight." — and because Ch7 already asks the question this
+            // answers: "He should have reported this by now." Reported to WHOM.
+            { type: 'line', speaker: '', text: 'He looks toward the distant horn. Then back at you.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'Come with me.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Why?', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'His expression hardens.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'Because if you go back now, they’ll take you to the queen.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You stare at him.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'The queen. Why would the queen want anything to do with...', hold: 3400, cps: 26 },
+            { type: 'line', text: 'Not here.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'He looks down at your ankle.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'That needs to heal. My hut’s close.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He takes a few steps away. Stops. Looks back over his shoulder.', hold: 3200, cps: 26 },
+            { type: 'line', text: 'You can follow me.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'Or you can wait here for your captain, and hope the queen isn’t the first one who finds you.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He turns and walks into the trees.', hold: 2400, cps: 26 },
+
+            // ─── Section 18 · You follow ─────────────────────────────────
+            // NO CHOICE HERE, deliberately. He has already given her the
+            // alternative (wait for the queen), and the chapter is stronger
+            // if her following is a fact she has to live with than if it is
+            // a button she pressed. WEAVER stays the last thing the player
+            // reads — it is the chapter's hook and the Ch8 handoff.
+            { type: 'line', speaker: '', text: 'You stay where you are.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'The horn sounds again. Far away.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You look toward it. Then toward the dark where he went.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You do not understand what is happening to you. Not completely.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'But you understand three things.', hold: 2400, cps: 28 },
+            { type: 'line', speaker: '', text: 'The creature came for you.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The forest knows you.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'And that man knows something about why. Which is more than anyone behind you has told you.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your ankle throbs. The forest is silent.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: '', text: 'And somewhere beneath your ribs, the pull is still there.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You follow him.', hold: 2600, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your fingers close around the page inside your sleeve as you go. It has not stopped being warm since the trees.', hold: 4600, cps: 24 },
             { type: 'line', speaker: '', text: 'WEAVER.', hold: 2400, cps: 14 },
             { type: 'line', speaker: '', text: 'You do not know what the word means.', hold: 2600, cps: 26 },
             { type: 'line', speaker: '', text: 'But somehow, you know it means you.', hold: 3000, cps: 26 },

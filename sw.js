@@ -1,7 +1,7 @@
 // Shell cache. Bump on every deploy (see the UPKEEP RULE below). The name
 // MUST keep the 'pocket-love-v' prefix — activate uses it to tell shell
 // caches apart from the persistent media cache.
-const CACHE_NAME = 'pocket-love-v1146';
+const CACHE_NAME = 'pocket-love-v1147';
 
 // -----------------------------------------------------------------------------
 // CORE_ASSETS — the manifest. Must match the <script> tags in index.html so
