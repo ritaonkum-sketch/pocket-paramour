@@ -38,19 +38,39 @@
 
     // v2 (Aug 2026): one-shot migration of the old "seed met chars to
     // affection 10" default → 0, now that affection gates the route.
-    const SCHEMA_VERSION = 2;
+    // v3 (Aug 2026): repair saves corrupted by the WRONG CHAPTER_CHAR_MAP
+    //                below. See the block comment on that map.
+    const SCHEMA_VERSION = 3;
     const CHARS = ['alistair', 'elian', 'lyra', 'caspian', 'lucien', 'noir', 'proto'];
 
-    // Chapter-to-character mapping (from chapters.js — which chapters gate
-    // which character's meet-cute in the main story route).
+    // Chapter-to-character mapping — the FIRST chapter that introduces each
+    // character in the main story route.
+    //
+    // ⚠ THIS WAS WRONG AND IT WAS THE "CHARACTER BLEED" BUG (fixed Aug 2026).
+    // The old map was a naive chapter-N-is-the-Nth-character guess:
+    //     1 alistair, 2 elian, 3 lyra, 4 caspian, 5 lucien, 6 noir, 7 proto
+    // Six of those seven were wrong. Chapters 1-5 are ALL Alistair and 6-9
+    // are ALL Elian, so a player who simply read the story to Chapter 7 —
+    // which is everyone — had rule 2 below stamp pp_met_ AND
+    // pp_ms_encounter_<char>_seen for ALL SEVEN characters, including Proto,
+    // who has no chapter at all and is a late-game reveal.
+    //
+    // Everything keyed on "met" then activated for total strangers: the
+    // Chronicle grid, affection-drift, cross-char.js, turning-points.js,
+    // early-whispers, aenor-presence and PPMultiRomance's rival list. And
+    // because the guard re-ran every boot, clearing the keys by hand did not
+    // stick.
+    //
+    // Derived from chapters.js charId fields; keep in sync if a route's
+    // opening chapter ever moves. Characters with NO gating chapter (Proto)
+    // are deliberately absent — they must never be auto-met.
     const CHAPTER_CHAR_MAP = {
-        1: 'alistair',
-        2: 'elian',
-        3: 'lyra',
-        4: 'caspian',
-        5: 'lucien',
-        6: 'noir',
-        7: 'proto'
+        1:  'alistair',
+        6:  'elian',
+        10: 'lyra',
+        11: 'caspian',
+        17: 'lucien',
+        20: 'noir'
     };
 
     // ---------------------------------------------------------------------
@@ -150,8 +170,12 @@
         //    cares. (Readers all fall back to 0 for an absent key, so this
         //    only matters where a key gets written; we still write '0' to
         //    preserve the met-character-has-an-affection-key invariant.)
+        //    Aug 2026: this tested `=== '1'`, but rule 1 above writes
+        //    pp_met_ as a DATE STRING, so the check never matched a normally
+        //    met character and the invariant it exists to keep was never
+        //    actually enforced. Presence test instead.
         CHARS.forEach(char => {
-            if (lsGet('pp_met_' + char) === '1' && !lsHas('pp_affection_' + char)) {
+            if (lsHas('pp_met_' + char) && !lsHas('pp_affection_' + char)) {
                 lsSet('pp_affection_' + char, '0');
                 repaired.push('affection_' + char + ' (seeded 0)');
             }
@@ -194,6 +218,47 @@
                     lsSet('pp_affection_' + char, '0');
                     repaired.push('affection_' + char + ' (migrated stale seed 10→0)');
                 }
+            });
+        }
+
+        // 5d. ONE-SHOT MIGRATION (schema → v3). Un-does the character bleed
+        //     caused by the old wrong CHAPTER_CHAR_MAP (see its comment).
+        //     Saves in the wild have pp_met_ / pp_ms_encounter_<char>_seen
+        //     stamped for characters the player has never actually met, which
+        //     lit them up across the Chronicle, drift, cross-char, whispers
+        //     and the rival list.
+        //
+        //     CONSERVATIVE BY DESIGN — this is the one rule in this file that
+        //     removes keys, so it only fires when EVERY signal says the meet
+        //     never happened:
+        //       - the character's real gating chapter is not done
+        //       - affection is absent or 0
+        //       - no manual route unlock
+        //       - never introduced (chapter `introduces` beat / being selected)
+        //       - no per-character care save
+        //     Any one of those means the player genuinely knows them, and we
+        //     leave the save completely alone.
+        if (_priorSchema < 3) {
+            const gateOf = {};
+            Object.keys(CHAPTER_CHAR_MAP).forEach(n => { gateOf[CHAPTER_CHAR_MAP[n]] = n; });
+            CHARS.forEach(char => {
+                const gate = gateOf[char];                       // undefined for Proto
+                const chapterDone = gate && lsGet('pp_chapter_done_' + gate) === '1';
+                const aff = parseInt(lsGet('pp_affection_' + char) || '0', 10) || 0;
+                const genuine = chapterDone
+                    || aff > 0
+                    || lsGet('pp_select_unlock_' + char) === '1'
+                    || lsGet('pp_introduced_' + char) === '1'
+                    || lsHas('pocketLoveSave_' + char);
+                if (genuine) return;
+                let cleared = false;
+                if (lsHas('pp_met_' + char)) {
+                    try { localStorage.removeItem('pp_met_' + char); cleared = true; } catch (_) {}
+                }
+                if (lsGet('pp_ms_encounter_' + char + '_seen') === '1') {
+                    try { localStorage.removeItem('pp_ms_encounter_' + char + '_seen'); cleared = true; } catch (_) {}
+                }
+                if (cleared) repaired.push('un-met ' + char + ' (bad chapter map, never actually met)');
             });
         }
 
