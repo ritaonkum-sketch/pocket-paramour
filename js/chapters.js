@@ -1842,7 +1842,26 @@
             { type: 'line', speaker: '', text: 'There is more strength in the arm than you expected. Long, quiet muscle. The kind a man builds carrying weight nobody knows he carries.', hold: 6200, cps: 22 },
             { type: 'line', speaker: '', text: 'On the inside of the wrist, where the sleeve has fallen back, there are scars. Not one or two. Many. Pale and thin and old, and almost root-like.', hold: 6800, cps: 22 },
             { type: 'line', speaker: '', text: 'The kind of marks a forest might leave on a man who has belonged to it too long.', hold: 4200, cps: 24 },
-            { type: 'line', speaker: '', text: 'You stare a little longer than you could defend.', hold: 2800, cps: 26 },
+            // CHOICE ADDED (Aug 2026) to break an 86-beat run with nothing to
+            // decide in it — by far the worst gap in the chapter, spanning
+            // Section 10 to Section 18. This is the natural decision point:
+            // she has been going through a stranger's home and is now staring
+            // at his bared arm while he sleeps.
+            //
+            // Both roads reach Section 14 unchanged, because he was awake the
+            // whole time either way — same design as Ch6's ch6_flight. The
+            // pick is who she is in the moment before she is caught, and it
+            // sharpens his "That's a safer answer than the other one".
+            { type: 'choice', key: 'ch7_stare', prompt: 'He is asleep. You are not finished looking.',
+              options: [
+                { id: 'look', text: 'Keep looking. He will never know.' },
+                { id: 'stop', text: 'Make yourself stop.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch7_stare', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch7_stare', map: {
+                look: 'You let yourself look, properly, the way you have not let yourself look at anything since you woke in the moss. You stare a little longer than you could defend.',
+                stop: 'You make yourself turn away, and get as far as the table before you look back. You stare a little longer than you could defend.'
+              } }, hold: 5600, cps: 22 },
 
             // ─── Section 14 · Caught ─────────────────────────────────────
             { type: 'line', speaker: '', text: 'His eyes are still closed when he speaks.', hold: 2400, cps: 26 },
@@ -1894,7 +1913,13 @@
             { type: 'line', speaker: '', text: 'His hands do not stop, but there is the smallest pause in them, so small it is almost not a pause at all.', hold: 5200, cps: 22 },
             { type: 'line', speaker: '', text: 'He does not answer for long enough that you begin to think he will not.', hold: 3800, cps: 26 },
             { type: 'line', text: 'That’s the right question first. Most people ask the wrong one.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'The forest is sick... It is losing pieces of itself. Yesterday a deer ran past me and cast no reflection in the stream. The water simply forgot to hold it. And deeper in, past the stones I mark, something has started calling at night.', hold: 9600, cps: 22 },
+            // SPLIT into three (Aug 2026). This was 234 characters in ONE
+            // beat at cps 22 — the best worldbuilding paragraph in the
+            // chapter going past in a single tap. The deer with no
+            // reflection needs its own silence to land.
+            { type: 'line', text: 'The forest is sick... It is losing pieces of itself.', hold: 3200, cps: 26 },
+            { type: 'line', text: 'Yesterday a deer ran past me and cast no reflection in the stream. The water simply forgot to hold it.', hold: 5200, cps: 24 },
+            { type: 'line', text: 'And deeper in, past the stones I mark, something has started calling at night.', hold: 4200, cps: 24 },
             { type: 'line', speaker: 'YOU', text: '...I feel it.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He looks up.', hold: 1800, cps: 28 },
             { type: 'line', speaker: 'YOU', text: 'Something pulls me... Last night. Like a thread behind my ribs, and it is not asking.', hold: 5000, cps: 24 },
@@ -1946,7 +1971,12 @@
             { type: 'line', text: 'I am not the right person to tell you who you are.', hold: 3200, cps: 26 },
             { type: 'line', speaker: 'YOU', text: 'Why...?', hold: 1600, cps: 28 },
             { type: 'line', speaker: '', text: 'He sits, finally, across from you, forearms on his knees. He chooses his words the way a man chooses footing on wet stone.', hold: 6400, cps: 22 },
-            { type: 'line', text: 'There is an ancient ruin east of here, past the rotting wood and past my markers. There were people living there once, and they were wiped out long before your great-great-grandmother was a thought. One of them lived. Only one, and they are still there. They will tell you what I will not.', hold: 11000, cps: 22 },
+            // SPLIT into three — 289 characters in one beat was the longest
+            // in the chapter, and it carries the lead the whole next arc
+            // runs on. "One of them lived. Only one" needs the pause.
+            { type: 'line', text: 'There is an ancient ruin east of here, past the rotting wood and past my markers.', hold: 4400, cps: 24 },
+            { type: 'line', text: 'There were people living there once, and they were wiped out long before your great-great-grandmother was a thought.', hold: 5600, cps: 22 },
+            { type: 'line', text: 'One of them lived. Only one, and they are still there. They will tell you what I will not.', hold: 5000, cps: 24 },
             { type: 'line', speaker: '', variants: { key: 'ch7_answer', map: {
                 demand: 'Including what it costs to be one, he says. Not only what it means.',
                 survivor: 'They knew her, he says. He does not say which her, and does not need to.'
