@@ -1660,13 +1660,17 @@
         });
         try { localStorage.setItem('pp_ms_encounter_elian_seen','1'); } catch (_) {}
         try { if (!localStorage.getItem('pp_met_elian')) localStorage.setItem('pp_met_elian', new Date().toDateString()); } catch (_) {}
-        // Stranger Rule (Jun 2026): Elian never speaks the line "I'm
-        // Elian" — his name reaches the player through narration in
-        // Ch6. So we flip the introduced flag when Ch6 completes, as
-        // his speaker label stays STRANGER throughout his own chapter
-        // (correct — the player learns it from narrator beats), then
-        // reads ELIAN from Ch7 onwards. See premium-card.js.
-        try { localStorage.setItem('pp_introduced_elian','1'); } catch (_) {}
+        // Stranger Rule. pp_introduced_elian is deliberately NOT set here.
+        // The old comment claimed his name "reaches the player through
+        // narration in Ch6" — it does not; the word "Elian" appears zero
+        // times in this chapter, which ends with him refusing to answer
+        // "Who are you?". Flipping the flag here made Ch7 render ELIAN from
+        // its first beat, contradicting the chapter note the player is
+        // shown. The flag now lives on his naming beat in Ch7 Section 21
+        // (`introduces: 'elian'`), so he reads STRANGER until he says it.
+        // Only the speaker chip uses this flag; the Chronicle and route
+        // systems read pp_met_elian / pp_ms_encounter_elian_seen, both set
+        // above, so nothing else is affected.
         markDone(6); setCurrent(nextIdAfter(6));
         if (onDone) onDone();
       }
@@ -1698,317 +1702,311 @@
           beats: [
             { type: 'show', pose: '', wait: 700 },
 
-            // ─── Section 1 · Agreed to go ────────────────────────────────
-            { type: 'line', speaker: '', text: 'You agreed to go with him.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'You do not know why exactly.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Perhaps because he seems to know a lot. Perhaps because you have a clue now.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'A new lead. The kind of lead you do not turn from when you have nothing else.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*A man steps out of a forest with a bow and no surprise on his face.*', hold: 3600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*That is not a coincidence.*', hold: 2400, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*That is something to follow.*', hold: 2400, cps: 28 },
+            // ─── Section 1 · Following him ───────────────────────────────
+            // REPLACES "You agreed to go with him." Ch6 contains no
+            // agreement: he walks into the trees without waiting, and she
+            // follows because the alternative he named was the queen.
+            //
+            // ELIAN CONTRACTS and calls her NOTHING. No "mi'lady" anywhere in
+            // this chapter — that address is Alistair's alone, and Ch1's hook
+            // is built on her counting it. Elian's address arc: nothing here,
+            // then "Weaver" from Ch9.
+            { type: 'line', speaker: '', text: 'You follow him for a long time.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not look back to see whether you are still there, and he does not slow. He simply goes, and the wood lets him through, and you make what you can of the gap.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your ankle has stopped being a part of you that you can negotiate with.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Ahh... my ankle. Why is he walking so fast?*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Why does he know so much about me and the queen?*', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*Damn it. He could at least walk slower.*', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Somewhere behind you the horn has stopped. You do not let yourself think about when.', hold: 4400, cps: 24 },
 
             // ─── Section 2 · The leg gives ───────────────────────────────
-            { type: 'line', speaker: '', text: 'You take three steps. Your leg gives. You catch yourself on his arm.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'He waits. He does not catch you. He lets you find the ground again.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Then, only then, when it is clear the leg will not carry you, he sighs.', hold: 3400, cps: 26 },
-            { type: 'line', text: 'Get on.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '...what.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He has turned. Crouched. Offered his back.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'Get on, mi’lady. You will not walk this on your own.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'And I am not carrying you in my arms. You would not let me, and I would not be quick if I did.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'You hesitate.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Then you climb on his back. Your arms around his shoulders.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Your bandaged ankle held loose at his hip. He stands like you weigh nothing.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take three steps more than the leg has in it. It gives, and you catch yourself on his arm.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He waits. He does not catch you, and he does not step back. He lets you find the ground on your own.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Then, when it is clear the leg will not carry you, he sighs.', hold: 3200, cps: 26 },
+            { type: 'line', text: 'Get on.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: '...what?', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He has already turned. Crouched. Offered his back.', hold: 2800, cps: 26 },
+            // ALISTAIR carries her in his arms (Ch1, Ch6). Elian refuses to.
+            // Same problem, opposite solution, and the two men are never in
+            // the same room to be compared.
+            { type: 'line', text: 'Get on! You’ll not walk this on your own... And I’m not carrying you in my arms.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'You hesitate for the length of a breath, and then you climb onto his back.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your arms around his shoulders, your bandaged ankle held loose at his hip. He stands as though you weigh nothing.', hold: 5400, cps: 22 },
 
             // ─── Section 3 · The walk ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'The walk is long.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'You expect a fire camp, the way men in stories camp. Instead he moves like a man going home.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'He smells of woodsmoke. Crushed pine. Cold cloth. Something green and old you cannot name.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'The smell is steady. It is the same smell every breath.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...his earthy scent steadies me.*', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*I did not realise I needed steadying.*', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'The walk is long. You expect a fire camp, the way men in stories make camp. He moves like a man going home.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You catch his scent... woodsmoke and crushed pine and cold cloth, and underneath it something green and old that you cannot name.', hold: 6200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*How come he smells so nice? Why does this smell make me feel... steady. Calm.*', hold: 4600, cps: 24 },
 
-            // ─── Section 4 · The hut ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'The trees thin. Then they thicken again, on purpose, the way a curtain is drawn.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He has walked you through a fold in the wood.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The hut sits in a hollow you would not have seen from twenty paces away.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Stone foundation. Wooden walls dark with age. A roof half buried in moss. A single window.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'We are here.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '...where.', hold: 1800, cps: 28 },
-            { type: 'line', text: 'As you can see, it is a small hut. But it is the best place to hide and rest.', hold: 3400, cps: 26 },
+            // ─── Section 4 · The fold in the wood ────────────────────────
+            { type: 'line', speaker: '', text: 'The trees thin, and then they thicken again on purpose, the way a curtain is drawn.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'He pushes through a wall of low branches, and the trees open, and then they close behind you. You look back and there is no path. Only trees.', hold: 6600, cps: 22 },
+            { type: 'line', speaker: '', text: 'The hut sits in a hollow you would not have found from twenty paces away: a stone foundation, wooden walls dark with age, a roof half buried in moss, one window.', hold: 7000, cps: 22 },
+            { type: 'line', text: 'We’re here.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Alright...', hold: 1800, cps: 28 },
+            { type: 'line', text: 'It’s small. It’s also the last place in this wood anything will look for you.', hold: 4000, cps: 24 },
 
             // ─── Section 5 · Setting her down ────────────────────────────
-            { type: 'line', speaker: '', text: 'He pushes the door open with one hand. Carries you in.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Sets you down gently on a wooden chair by the fire-pit.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Crouches so his eyes are level with yours for a moment. Looks at you.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Then he stands and turns back to the room.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'The hearth. The water barrel is by the door. Dried meat in the rafter. The bed is...', hold: 3800, cps: 24 },
-            { type: 'line', speaker: '', text: 'He keeps speaking. You can see his mouth moving. You cannot hear him.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'He pushes the door open with one hand and carries you in, and sets you down on a wooden chair by the hearth the way a man sets down something he has been told is fragile and does not quite believe it.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He crouches until his eyes are level with yours. Looks at you for a moment. Then he stands and turns back to the room.', hold: 5400, cps: 22 },
+            { type: 'line', text: 'The hearth. Water barrel by the door, dried meat in the rafter, and the bed is...', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He keeps speaking. You can see his mouth moving. You cannot hear any of it.', hold: 4000, cps: 24 },
 
             // ─── Section 6 · Blood loss ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'Close on your hand. It has gone cold.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'The blood loss is hitting you now that the running is over.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...a stranger is telling me where the food is.*', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*A stranger has put me on a chair and is telling me where his food is.*', hold: 3600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*I do not know my own name. He does not know my name. He is telling me where the food is anyway.*', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Your hand has gone cold in your lap. The blood loss is arriving now that the running is over.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'The room begins to turn. You cup your head in both hands and wait for it to stop.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*He’s saying something... I... I...*', hold: 2800, cps: 26 },
 
             // ─── Section 7 · The drink ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'He notices.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'He stops mid-sentence. Crouches again.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Takes a clay cup from a low shelf, fills it from a small pot already at the edge of the fire-pit, holds it out.', hold: 4400, cps: 24 },
-            { type: 'line', text: 'Drink this. It is herbs I collected and brewed myself.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'It will ease your pain and help you sleep through the night.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'You take the cup.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'It is warm. The water is dark green.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'It smells of pine and bitter root and something faintly sweet underneath.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You drink. You do not ask what is in it.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You do not have the strength to be careful.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: 'Thank you.', hold: 2000, cps: 28 },
+            // The trust beat. She does the arithmetic out loud in her face and
+            // he answers it before she finishes — which is the first time he
+            // shows he is reading her, not just tending her.
+            { type: 'line', speaker: '', text: 'He notices. He stops mid-sentence and crouches again.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He takes a clay cup from a low shelf, fills it from a small pot already sitting at the edge of the fire, and holds it out.', hold: 5800, cps: 22 },
+            { type: 'line', text: 'Drink! It’s herbs, gathered and brewed myself. It’ll take the edge off the pain and let you sleep through the night.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'The cup is warm. The water in it is dark green, and it smells of pine and bitter root with something faintly sweet underneath.', hold: 5800, cps: 22 },
+            { type: 'line', speaker: '', text: 'You look at the cup, and then at him. He has saved your life once tonight. That does not mean he cannot spend it later.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He reads the arithmetic on your face before you have finished it.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'If I wanted you dead I’d have left you under those antlers.', hold: 3600, cps: 26 },
+            { type: 'choice', key: 'ch7_drink', prompt: 'A stranger’s medicine.',
+              options: [
+                { id: 'trust', text: 'Drink it.' },
+                { id: 'wary', text: 'Smell it first.' }
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch7_drink', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch7_drink', map: {
+                trust: 'You drink without asking what is in it. Bitter first, then warm, and something almost sweet underneath. He watches until the cup is empty and says nothing about it.',
+                wary: 'You bring it to your nose and test it properly before you touch it. Pine. Bitter root. Something floral you cannot place. Sensibly suspicious, he says, and it is not quite a compliment and not quite anything else.'
+              } }, hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'The warmth reaches your stomach, then your hands, then the aching place under your ribs.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Not sleep. Relief. You had forgotten what relief was.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Thank you.', hold: 1800, cps: 28 },
 
             // ─── Section 8 · His bed ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'He nods once. Looks away.', hold: 2000, cps: 28 },
-            { type: 'line', text: 'Drink. And rest. Sleep on my bed.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'I am going to freshen up. I am in a state after the long walk.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '...but where are you going to sleep.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He has already turned away. He answers without looking back.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'Do not worry about me. Sleep.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'He nods once and looks away.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'Rest. Take the bed.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'I’ll wash. I’m in a state after that walk.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'But... it will be improper for me to be in your bed. And where would you sleep?', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has already turned away, and he answers without looking back.', hold: 3200, cps: 26 },
+            { type: 'line', text: 'Forget etiquette. No one out here cares about it. After I wash I have rounds to walk, to be certain nothing has crossed near this place. So rest!', hold: 6400, cps: 22 },
 
             // ─── Section 9 · The bed ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'The bed is a low wooden frame, a wool mattress, a single blanket the colour of moss.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'It smells like he does.', hold: 2000, cps: 28 },
-            // ── Player agency (Jul 2026) ──
-            { type: 'choice', key: 'ch7_bed', prompt: 'A stranger’s bed. A stranger’s herbs.',
+            { type: 'line', speaker: '', text: 'The bed is a low wooden frame, a wool mattress, and a single blanket the colour of moss. It smells like he does.', hold: 5400, cps: 22 },
+            { type: 'choice', key: 'ch7_bed', prompt: 'A stranger’s bed.',
               options: [
-                { id: 'trust', text: 'Take the bed. He earned that much.' },
+                { id: 'trust', text: 'Take it. He has earned that much.' },
                 { id: 'wary', text: 'Lie down facing the door.' }
-              ] },
+              ],
+              onChoose: function (id) { try { localStorage.setItem('pp_ch7_bed', id); } catch (_) {} } },
             { type: 'line', speaker: '', variants: { key: 'ch7_bed', map: {
-                trust: 'A man who wanted you harmed would not have wasted an arrow saving you first. You take the bed.',
-                wary: 'You arrange yourself facing the door, the whole room in view. Old habits from a life you cannot remember having.'
-              } }, hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You lie down.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'You meant to stay awake long enough to be cautious. You meant to keep a hand near your sleeve.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The herbs take you before you have made the second decision.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Black.', hold: 1600, cps: 28 },
+                trust: 'A man who wanted you harmed would not have spent an arrow saving you first. You take the bed and you do not argue with yourself about it.',
+                wary: 'You arrange yourself facing the door with the whole room in view. Old habits, from a life you cannot remember having.'
+              } }, hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'You meant to stay awake long enough to be careful, with one hand near your sleeve.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'The herbs take you before you reach the second decision.', hold: 3200, cps: 26 },
 
             // ─── Section 10 · Morning ────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Some hours pass.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Morning.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'Light through the single window. Pale gold. The hut is warm. There is no fire now, only embers.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'You open your eyes. You do not move yet.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...I slept.*', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '*I slept all the way through.*', hold: 2400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Black. Then light, through the one window. Pale gold. The hut is warm, and there is no fire now, only embers.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'You open your eyes and you do not move yet.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*...I slept! I slept all the way through.*', hold: 3200, cps: 26 },
 
-            // ─── Section 11 · Slept without fear ─────────────────────────
-            { type: 'line', speaker: '', text: 'You sit up slowly. The pain in the ankle is there but small. The herbs worked.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Whatever was in that cup was not ordinary.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*I was supposed to be afraid.*', hold: 2400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*That was the plan. That was the careful thing.*', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*I forgot to be afraid. I just slept.*', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You sit with that for a moment. The strangeness of it.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The strangeness of having stopped being afraid in a stranger’s bed, in a stranger’s hut, in a wood that the stranger said is sick.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: 'YOU', text: '*What is wrong with me.*', hold: 2400, cps: 26 },
+            // ─── Section 11 · You forgot to be afraid ────────────────────
+            // A VOICE CALLBACK. Ch6's compulsion is the comparison that makes
+            // this land: the last thing that got inside her walked her into a
+            // forest; this one handed her a cup.
+            { type: 'line', speaker: '', text: 'You sit up slowly. The pain in your ankle is still there, but it is small now, and whatever was in that cup was not ordinary.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*That herb of his did something to me. I meant to keep watch, which I should have... I just forgot, and slept!*', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'The last thing that took hold of you led you out of a bolted room and into the trees in the dark.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'This one handed you a cup, and you went under without a fight, in a stranger’s bed, in a stranger’s hut, in a wood the stranger told you is sick.', hold: 7200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*What is wrong with me?*', hold: 2600, cps: 26 },
 
-            // ─── Section 12 · Hut by daylight ────────────────────────────
-            { type: 'line', speaker: '', text: 'You stand. Test the leg. It holds, if you do not push it.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'You limp toward the door, taking in the hut by daylight.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'A small table. A shelf of clay jars.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Drying herbs hung from a low beam, in bunches you do not know the names of.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'A wash-basin on a stand. A single wooden cup turned upside down.', hold: 3000, cps: 26 },
+            // ─── Section 12 · The hut by daylight · the second cup ───────
+            // THE PLANT. The worn second cup is the chapter's best new detail
+            // and it is what she spends on him in Section 18. It also sets up
+            // the two graves in Ch8. Do not cut it, and do not explain it here.
+            { type: 'line', speaker: '', text: 'You stand and test the leg. It holds, so long as you do not ask much of it.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He is asleep by the hearth. He does not stir.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'So you look.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Not for anything in particular. For anything at all. A name, a letter, a face you might know, some scrap of the world that has something to do with you.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'A small table. A shelf of clay jars. Drying herbs in kinds you cannot name. One chair. One of everything, and none of it doubled.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'And on the sill above the basin, half behind a jar, a second cup.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'Smaller than his. The glaze worn thin down one side, the way a cup wears when the same hand lifts it the same way for years.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'It is turned upside down, and there is dust in the bowl of it. Nobody has drunk from it in a long while.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*He does live alone here, like he said.*', hold: 3200, cps: 26 },
+            { type: 'line', speaker: '', text: 'You put it back exactly as you found it.', hold: 2800, cps: 26 },
 
-            // ─── Section 13 · Him on the floor ───────────────────────────
-            { type: 'line', speaker: '', text: 'And by the cold hearth, on the floor.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'Him.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'Asleep on his side. A folded blanket under his head, no pillow.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'A fresh linen shirt, undone at the collar. The shirt has shifted in his sleep.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'His arm is bared from shoulder to wrist.', hold: 2600, cps: 26 },
+            // ─── Section 13 · Him ────────────────────────────────────────
+            { type: 'line', speaker: '', text: 'You turn back to the hearth.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'Asleep on his side, a folded blanket under his head instead of a pillow. His bow within reach, and one hand lying close to it even now.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'A fresh linen shirt, undone at the collar, shifted out of place in his sleep so that his arm is bared from shoulder to wrist.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'There is more strength in the arm than you expected. Long, quiet muscle. The kind a man builds carrying weight nobody knows he carries.', hold: 6200, cps: 22 },
+            { type: 'line', speaker: '', text: 'On the inside of the wrist, where the sleeve has fallen back, there are scars. Not one or two. Many. Pale and thin and old, and almost root-like.', hold: 6800, cps: 22 },
+            { type: 'line', speaker: '', text: 'The kind of marks a forest might leave on a man who has belonged to it too long.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You stare a little longer than you could defend.', hold: 2800, cps: 26 },
 
-            // ─── Section 14 · His scars ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'Closer. The muscles on his arm are more than you expected. Long. Quiet.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The kind of strength you build by carrying weight no one knows you carry.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Closest on the inside of his wrist where the sleeve has slipped back.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'Pale scars. Thin. Old. Almost root-like.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The kind of marks a forest might leave on a man who has belonged to it too long.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You stare a little too long.', hold: 2200, cps: 28 },
-
-            // ─── Section 15 · He speaks ──────────────────────────────────
+            // ─── Section 14 · Caught ─────────────────────────────────────
             { type: 'line', speaker: '', text: 'His eyes are still closed when he speaks.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'How long are you going to stand there, watching me, mi’lady.', hold: 3400, cps: 26 },
+            { type: 'line', text: 'How long are you planning to stand there watching me?', hold: 3400, cps: 26 },
             { type: 'line', speaker: 'YOU', text: '*...!*', hold: 1400, cps: 28 },
-            { type: 'line', speaker: '', text: 'You flinch. Your face turns bright red. You step back so fast you hit the table.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: '', text: 'Your face goes hot and you step back so fast you hit the table.', hold: 3400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'I was looking at your scars.', hold: 2600, cps: 26 },
+            { type: 'line', text: 'That’s a safer answer than the other one.', hold: 3000, cps: 26 },
+            // Was "a faint dryness at the corner of his mouth" — that gesture
+            // belongs to Alistair, who owns it in Ch2 and Ch3.
+            { type: 'line', speaker: '', text: 'He sits up slowly, pushes the hair off his face, and looks at you. There is no smirk. There is something dry at the edge of his expression, and it is gone before you are certain you saw it.', hold: 8000, cps: 22 },
+            { type: 'line', text: 'You’re still limping. Sit.', hold: 2400, cps: 26 },
 
-            // ─── Section 16 · He sits up ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'He sits up. Slowly. Pushes the hair off his face. Looks at you.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: '', text: 'There is no smirk. Just a faint, faint dryness at the corner of his mouth, gone almost before you see it.', hold: 4000, cps: 24 },
-            { type: 'line', text: 'You are still limping.', hold: 2200, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '...I am sorry.', hold: 1800, cps: 28 },
-            { type: 'line', text: 'For what.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '...for staring.', hold: 1800, cps: 28 },
+            // ─── Section 15 · Bandaging ──────────────────────────────────
+            // THE TRIANGLE IN ONE IMAGE, then the turn: she reads the linen as
+            // the captain's work, and only afterwards understands the warden
+            // redressed it in the night and said nothing.
+            // Her ASSUMPTION, not a fact — she reads the neat wrap as the
+            // castle's work. The reveal eleven beats down ("put on in the
+            // night, while you slept") corrects her, and pays off his "Not
+            // for a long while" in between. Do not flatten these two into
+            // agreement; the gap between them is the beat.
+            { type: 'line', speaker: '', text: 'You sit. He kneels in front of you and unwraps the linen. You take it for the castle’s work, wound tight and neat, and he takes it apart without a word about it.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He moves the same way he did last night. Practised. Calm. Like a man who has done this for a great many people.', hold: 5600, cps: 22 },
+            { type: 'line', speaker: '', text: 'The wound is cleaner than it was, and the edges have begun to close.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: '', text: 'He wets a fresh cloth in a bowl and starts to clean around it. His hands are large, and they are gentle with you.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: 'What was in the cup.', hold: 2200, cps: 26 },
+            { type: 'line', text: 'Medicine.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'That is not an answer.', hold: 2200, cps: 26 },
+            { type: 'line', text: 'It’s the one you’re getting.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'You have done this before. For people.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'He does not look up.', hold: 2000, cps: 28 },
+            { type: 'line', text: 'Not for a long while.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: '', text: 'The linen he is unwinding was put on in the night, while you slept, by hands that knew exactly how tight to pull it.', hold: 6000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You do not say so.', hold: 2200, cps: 28 },
 
-            // ─── Section 17 · Bandaging ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'He stands. He is taller in the small hut than he was in the wood. The room is half his.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'Sit on the chair. I need to change the bandage.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You sit. He kneels in front of you.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He moves the same way he did last night. Practiced. Calm.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Like he has done this for many people.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He unwraps the linen. The wound is cleaner than yesterday. The edges have started to close.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He wets a fresh cloth in a small bowl. Begins to clean around it.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'His hands are large. They are gentle with you.', hold: 2600, cps: 26 },
+            // ─── Section 16 · The almost-touch ───────────────────────────
+            { type: 'line', speaker: '', text: 'You watch him work. You have so many questions that you cannot find the first one, and you are not certain he would answer it.', hold: 6200, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your free hand has drifted off the arm of the chair, without your permission, toward the back of his neck where the dark hair falls.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'You did not give it leave to move. It moves anyway.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'You catch it a hand’s width from his nape and hold it suspended there for half a breath, and then you set it carefully back where it was.', hold: 6600, cps: 22 },
+            // Section 14 already proved he sees everything with his eyes shut.
+            // The reader knows this is a lie; she does not.
+            { type: 'line', speaker: '', text: 'He has not looked up. He cannot have seen.', hold: 2800, cps: 26 },
 
-            // ─── Section 18 · The almost-touch ───────────────────────────
-            { type: 'line', speaker: '', text: 'You watch him work. You have so many questions.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You are not sure where to start. You are not sure he will answer any of them.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Close on your free hand. It has drifted, without your permission, from the arm of the chair toward the back of his neck where the dark hair falls.', hold: 4800, cps: 22 },
-            { type: 'line', speaker: '', text: 'You did not give it permission to move. It moves anyway.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Closer. You catch it a hand’s width from his nape.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Hold it suspended there for half a breath.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Set it carefully back on the arm of the chair.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He has not looked up. He cannot have seen.', hold: 2600, cps: 26 },
-
-            // ─── Section 19 · What is wrong with the forest ──────────────
-            { type: 'line', speaker: '', text: 'He has not looked up. He keeps wrapping.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'The silence between you is the kind that has weight.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'You break it anyway.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '...what is wrong with the forest.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'His hands do not stop. There is the smallest pause, almost not a pause. Then he keeps wrapping.', hold: 3800, cps: 24 },
-            { type: 'line', speaker: '', text: 'He does not answer for a long beat. Long enough that you think he might not answer at all.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Then.', hold: 1400, cps: 28 },
-            { type: 'line', text: 'You are asking the right question first, mi’lady.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'Most people ask the wrong one.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'The forest is sick.', hold: 2000, cps: 28 },
-            { type: 'line', text: 'It is losing pieces of itself.', hold: 2400, cps: 28 },
-            // ── Player agency (Jul 2026) — she felt the pull in Ch5; does
-            // she tell HIM? Remembered for later chapters.
-            { type: 'choice', key: 'ch7_pull', prompt: 'The thread in your chest tightens at his words.',
-              options: [
-                { id: 'confess', text: 'Tell him about the pull.' },
-                { id: 'quiet', text: 'Keep it behind your teeth.' }
-              ],
-              onChoose: function (id) { try { localStorage.setItem('pp_ch7_pull_told', id); } catch (_) {} } },
-            { type: 'line', speaker: '', variants: { key: 'ch7_pull', map: {
-                confess: 'It calls me, you say quietly. At night. Like a thread. His hands go very still on the wrapping. So it is true, he says, mostly to the fire.',
-                quiet: 'You say nothing. The pull hums once under your ribs, patient as ever, keeping your secret with you.'
-              } }, hold: 4000, cps: 24 },
-
-            // ─── Section 20 · The deer ───────────────────────────────────
-            { type: 'line', speaker: '', text: 'He ties off the new wrap. Does not let go of your ankle yet. Looks at it instead of at you.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'A deer ran past me yesterday with no reflection in the stream.', hold: 3200, cps: 26 },
-            { type: 'line', text: 'The water just forgot to hold it.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'And deeper in, past the stones I mark, something has started calling at night.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'The dark is taking the world piece by piece, mi’lady.', hold: 3400, cps: 26 },
-
-            // ─── Section 21 · I feel it ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'You swallow.', hold: 1800, cps: 28 },
+            // ─── Section 17 · What is wrong with the forest ──────────────
+            { type: 'line', speaker: '', text: 'He keeps wrapping. The silence between you has weight in it, and you break it anyway.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '...what is wrong with the forest?', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His hands do not stop, but there is the smallest pause in them, so small it is almost not a pause at all.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'He does not answer for long enough that you begin to think he will not.', hold: 3800, cps: 26 },
+            { type: 'line', text: 'That’s the right question first. Most people ask the wrong one.', hold: 3800, cps: 26 },
+            { type: 'line', text: 'The forest is sick... It is losing pieces of itself. Yesterday a deer ran past me and cast no reflection in the stream. The water simply forgot to hold it. And deeper in, past the stones I mark, something has started calling at night.', hold: 9600, cps: 22 },
             { type: 'line', speaker: 'YOU', text: '...I feel it.', hold: 2000, cps: 28 },
             { type: 'line', speaker: '', text: 'He looks up.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: 'Something is pulling me. Like it needs me.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: 'But I do not understand. What am I. Who am I.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: 'I am so lost.', hold: 2200, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Something pulls me... Last night. Like a thread behind my ribs, and it is not asking.', hold: 5000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He ties off the wrap and does not let go of your ankle.', hold: 3000, cps: 26 },
+            { type: 'line', text: 'I know.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: '', text: 'Your breath catches.', hold: 2000, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'How?', hold: 1400, cps: 28 },
+            { type: 'line', text: 'Because I’ve seen it before.', hold: 2400, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'In me?', hold: 1600, cps: 28 },
+            { type: 'line', text: 'In someone like you.', hold: 2200, cps: 26 },
 
-            // ─── Section 22 · Some pulls ─────────────────────────────────
-            { type: 'line', speaker: '', text: 'He does not answer for a while.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'He sets your foot down. He stands. He goes to the shelf and pours water from a jug into the small green pot at the hearth.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'Sets it on the embers to warm.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'With his back to you, he speaks.', hold: 2400, cps: 26 },
-            { type: 'line', text: 'Some pulls are not safe to follow alone.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'That is why I will not let you walk these trees by yourself.', hold: 3200, cps: 26 },
-
-            // ─── Section 23 · The captain did not tell you ───────────────
-            { type: 'line', speaker: '', text: 'He turns. Looks at you. Long beat. He is deciding something.', hold: 3200, cps: 26 },
-            { type: 'line', text: 'You are searching for an answer, aren’t you, mi’lady.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: 'Yes.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: 'YOU', text: '...do you know the answer.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He does not look away from you.', hold: 2200, cps: 28 },
-            { type: 'line', text: 'So the captain did not tell you.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'That is strange of him. He should have reported this by now.', hold: 3600, cps: 26 },
-            // ── Player agency (Jul 2026) — loyalty test between suitors.
-            { type: 'choice', key: 'ch7_captain', prompt: 'Alistair kept something from you.',
+            // ─── Section 18 · Everyone keeps deciding ────────────────────
+            // She stops being carried by the chapter and takes it. WEAVER
+            // finally gets used — Ch6 ended on the word and the old draft ran
+            // 219 beats without it. She does NOT learn what it means (owner
+            // canon: she only knows it concerns her); she learns that
+            // everyone has decided not to tell her, which is worse.
+            { type: 'line', speaker: '', text: 'You stand, despite the ankle. He lets you.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Someone like me?', hold: 2000, cps: 28 },
+            { type: 'line', speaker: '', text: 'He says nothing.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'You said a word to me last night. You said it with your back turned and then you walked into the trees before I could ask what it meant.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'WEAVER.', hold: 2400, cps: 14 },
+            { type: 'line', speaker: 'YOU', text: 'Alistair knew something. He knew something and decided not to tell me.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: 'And you! You know about the pull, and about other things you will not say.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He does not answer that either, so you spend the thing you have been holding since morning.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: 'There is a second cup on your sill.', hold: 2800, cps: 26 },
+            { type: 'line', speaker: '', text: 'His hands stop.', hold: 1800, cps: 28 },
+            { type: 'line', speaker: 'YOU', text: 'Small. Worn thin down one side. Dust in it.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'You told me you live alone, and you were not lying, and that is the part I cannot put down.', hold: 5200, cps: 22 },
+            { type: 'line', speaker: '', text: 'For a moment he does not move at all, and the hut is very quiet.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'You take one careful step toward him.', hold: 2600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Why does no one tell me what I am?', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Something changes in his face. Not pity. Closer to anger, and not at you.', hold: 4400, cps: 24 },
+            { type: 'choice', key: 'ch7_answer', prompt: 'Make him answer.',
               options: [
-                { id: 'defend', text: 'He had his reasons.' },
-                { id: 'doubt', text: 'Then he will answer for it.' }
+                { id: 'demand', text: '“Tell me what a Weaver is.”' },
+                { id: 'survivor', text: '“Tell me what happened to the last one.”' }
               ],
-              onChoose: function (id) { try { localStorage.setItem('pp_ch7_captain', id); } catch (_) {} } },
-            { type: 'line', speaker: '', variants: { key: 'ch7_captain', map: {
-                defend: 'He had his reasons, you say, and are surprised how quickly you say it. The warden studies you. Loyal, he notes, like a symptom.',
-                doubt: 'Then he will answer for it, you say. The warden almost smiles. Good, he says. Make them all answer. Even me.'
-              } }, hold: 4000, cps: 24 },
+              onChoose: function (id) { try { localStorage.setItem('pp_ch7_answer', id); } catch (_) {} } },
+            { type: 'line', speaker: '', variants: { key: 'ch7_answer', map: {
+                demand: 'You refuse to let him hide behind another silence. He holds your eyes a long moment. Someone who can touch the threads between one place and another, he says. That’s as much as I’ll put in your head today, and you’ll thank me for it later.',
+                survivor: 'You ask the question that costs him more. His expression closes like a door. She died, he says. I was there.'
+              } }, hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'For the first time you see something come through the control he keeps on his face.', hold: 4400, cps: 24 },
+            { type: 'line', speaker: '', text: 'Not grief. Guilt.', hold: 2400, cps: 26 },
 
-            // ─── Section 24 · The ruin · one survivor ────────────────────
-            { type: 'line', speaker: '', text: 'He sets the cup down on the table between you. Carefully.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'I am not the right person to tell you, mi’lady.', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '...then who.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'He sits, finally, across from you. Forearms on his knees.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He chooses his words the way a man chooses footing on wet stone.', hold: 3200, cps: 26 },
-            { type: 'line', text: 'Deep in the ancient ruin. East of here. Past the rotting wood, past the markers.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'There was a people there once. They were wiped out.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'Long before your great-great-grandmother was a thought.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'One of them survived. Only one.', hold: 2600, cps: 26 },
-            { type: 'line', text: 'That person might have an answer for you. They will know what I will not say.', hold: 3600, cps: 26 },
+            // ─── Section 19 · The ruin ───────────────────────────────────
+            { type: 'line', speaker: '', text: 'He stands and crosses to the shelf, and fills the cup from the pot because his hands need something to do.', hold: 5200, cps: 22 },
+            { type: 'line', text: 'I am not the right person to tell you who you are.', hold: 3200, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: 'Why...?', hold: 1600, cps: 28 },
+            { type: 'line', speaker: '', text: 'He sits, finally, across from you, forearms on his knees. He chooses his words the way a man chooses footing on wet stone.', hold: 6400, cps: 22 },
+            { type: 'line', text: 'There is an ancient ruin east of here, past the rotting wood and past my markers. There were people living there once, and they were wiped out long before your great-great-grandmother was a thought. One of them lived. Only one, and they are still there. They will tell you what I will not.', hold: 11000, cps: 22 },
+            { type: 'line', speaker: '', variants: { key: 'ch7_answer', map: {
+                demand: 'Including what it costs to be one, he says. Not only what it means.',
+                survivor: 'They knew her, he says. He does not say which her, and does not need to.'
+              } }, hold: 4800, cps: 24 },
 
-            // ─── Section 25 · Relief ─────────────────────────────────────
-            { type: 'line', speaker: '', text: 'Close on your face.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'For the first time since you have memories, something in your chest unclenches.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'Not joy. Not exactly.', hold: 2200, cps: 28 },
-            { type: 'line', speaker: '', text: 'The opposite of the cold weight you have been carrying since you woke in the moss.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'A relief. The relief of having, at last, a direction that is not just a pull.', hold: 3600, cps: 26 },
-            { type: 'line', speaker: '', text: 'He notices.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'His face does not move. But something behind his eyes closes, the way a man steps back from a fire he meant to admire only briefly.', hold: 4600, cps: 22 },
-            { type: 'line', speaker: '', text: 'He looks at the cup on the table instead of at you.', hold: 2800, cps: 26 },
-
-            // ─── Section 26 · Will you help me ───────────────────────────
-            { type: 'line', speaker: 'YOU', text: 'Will you help me.', hold: 2200, cps: 28 },
-            { type: 'line', text: 'Not yet.', hold: 1800, cps: 28 },
-            { type: 'line', text: 'You are still weak. You would not last the walk in the state you are in.', hold: 3400, cps: 26 },
-            { type: 'line', text: 'The wood between here and the ruin is the worst of it.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'The pull would have you again before nightfall.', hold: 2800, cps: 26 },
-            { type: 'line', text: 'You are safe here. No one will find this hut.', hold: 3000, cps: 26 },
-            { type: 'line', text: 'Not the captain. Not the things that hunt you. Heal first.', hold: 3200, cps: 26 },
+            // ─── Section 20 · Relief ─────────────────────────────────────
+            { type: 'line', speaker: '', text: 'Something in your chest unclenches for the first time since you have had memories to count.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'Not joy. Not quite. The opposite of the cold weight you have carried since you woke in the moss: a direction that is not only a pull.', hold: 6600, cps: 22 },
+            { type: 'line', speaker: '', text: 'He notices. His face does not move, but something behind his eyes closes, the way a man steps back from a fire he only meant to admire briefly.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: 'Take me there?', hold: 1800, cps: 28 },
+            { type: 'line', text: 'Not yet... You are still weak, and you would not last the walk. The wood between here and the ruin is the worst of it, and the pull would have you again before nightfall.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'You remember the stairs. The postern. Your own body walking without you.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: '', text: 'You do not argue. Not because he has convinced you. Because he is right.', hold: 4200, cps: 24 },
+            { type: 'line', text: 'Heal first. Then I’ll walk you there. When you’re ready, and not before.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: 'You promise?', hold: 1800, cps: 28 },
             { type: 'line', speaker: '', text: 'He looks up. Steady.', hold: 2000, cps: 28 },
-            { type: 'line', text: 'Then I will walk you to the ruin, mi’lady. When you are ready. Not before.', hold: 3600, cps: 26 },
+            { type: 'line', text: 'I don’t make many. So yes.', hold: 2600, cps: 26 },
 
-            // ─── Section 27 · Eye contact · breaks first ─────────────────
-            { type: 'line', speaker: '', text: 'You hold his eyes for a moment. He breaks first. He looks at the cup on the table instead.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'He stands. Takes a folded cloth from a low shelf. Crosses to a basin in the back of the room.', hold: 3600, cps: 26 },
-            { type: 'line', text: 'The water barrel is by the door. The screen at the back is for washing.', hold: 3800, cps: 26 },
-            { type: 'line', text: 'The jars on the upper shelf are for cooking. The jars on the lower shelf are medicine.', hold: 3600, cps: 26 },
-            { type: 'line', text: 'Do not move them. The order matters.', hold: 2600, cps: 26 },
+            // ─── Section 21 · The name ───────────────────────────────────
+            // THE ENDING, and the payoff for keeping "mi'lady" out of his
+            // voice. The captain gave her a title on night one; the warden
+            // gives her nothing for four days, then gives her his name.
+            // `introduces` flips the chip HERE — Ch6 no longer sets
+            // pp_introduced_elian, so he reads STRANGER until this beat.
+            { type: 'line', speaker: '', text: 'He stands, takes a folded cloth from a low shelf, and crosses to the basin at the back of the room.', hold: 4800, cps: 24 },
+            { type: 'line', text: 'Water barrel by the door. The screen at the back is for washing. Upper shelf is cooking, lower shelf is medicine. Do not move them. The order matters.', hold: 7400, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: 'You... tend people? Are you a lost physician?', hold: 3400, cps: 26 },
+            { type: 'line', text: 'No... but I am what is left of the wardens in this wood. It amounts to the same work.', hold: 4800, cps: 24 },
+            { type: 'line', speaker: '', text: 'He stops there with his hand still on the cloth. He has not called you anything. Not once, since the treeline.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'The captain gave you a title on the first night, to a woman with no shoes and no name, because a knight has manners and manners do not require knowing who anyone is.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'This one has given you nothing to be called and has not asked for anything to call you by, and you have begun to think it is deliberate.', hold: 7000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He speaks with his back to the room.', hold: 2400, cps: 26 },
+            { type: 'line', introduces: 'elian', text: 'Elian.', hold: 2200, cps: 20 },
+            { type: 'line', speaker: 'YOU', text: 'Come again?', hold: 1600, cps: 28 },
+            { type: 'line', text: 'You’re in my house. You should know whose floor you’re keeping me off.', hold: 4000, cps: 24 },
+            { type: 'line', speaker: '', text: 'He goes to the basin without waiting for you to answer.', hold: 3000, cps: 26 },
+            { type: 'line', speaker: '', text: 'Elian. You turn it over once, and then again, the way you turned the other word over.', hold: 4600, cps: 24 },
+            { type: 'line', speaker: '', text: 'He has given you two words now, and explained neither. You are not certain which of them will cost more.', hold: 5400, cps: 22 },
 
-            // ─── Section 28 · Watching him from behind ───────────────────
-            { type: 'line', speaker: '', text: 'You sit with the warmth of the cup in your hands. Watching him from behind.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'You catch yourself admiring him.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He notices.', hold: 1600, cps: 28 },
-            { type: 'line', speaker: '', text: 'He ignores it.', hold: 1800, cps: 28 },
+            // ─── Section 22 · Days ───────────────────────────────────────
+            { type: 'line', speaker: '', text: 'Days. The foot heals under whatever he keeps brewing, and the hut becomes familiar: the chair he set you in, the cup he refills, the floor where he sleeps. He has not slept anywhere else, and he has not asked to.', hold: 9000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He goes out at first light and comes back at midday with herbs in a satchel and the bow across his back. He brings you water, and he does not touch your hand when he passes the cup.', hold: 8000, cps: 22 },
+            { type: 'line', speaker: '', text: 'He is kind to you, and he is somewhere else. Both at once, all the time.', hold: 4200, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*Elian keeps away from me. I don’t know why. He is good to me, but...*', hold: 4600, cps: 24 },
+            { type: 'line', speaker: 'YOU', text: '*He is just... I don’t know. Maybe I’m overthinking it.*', hold: 4000, cps: 24 },
 
-            // ─── Section 29 · More days ──────────────────────────────────
-            { type: 'line', speaker: '', text: 'More days.', hold: 1800, cps: 28 },
-            { type: 'line', speaker: '', text: 'Your foot is healing under the potion he keeps brewing.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The hut becomes familiar. The chair he set you on. The cup he refilled. The floor where he slept.', hold: 4000, cps: 24 },
-            { type: 'line', speaker: '', text: 'He has not slept anywhere else. He has not asked to.', hold: 2800, cps: 26 },
-
-            // ─── Section 30 · Kind and cold ──────────────────────────────
-            { type: 'line', speaker: '', text: 'He is kind to you. He is also somewhere else.', hold: 2800, cps: 26 },
-            { type: 'line', speaker: '', text: 'There is a tension you cannot explain between you and him. Kind and cold at the same time.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'Something must have happened to him. You do not know what. You do not ask.', hold: 3400, cps: 26 },
-
-            // ─── Section 31 · His routine ────────────────────────────────
-            { type: 'line', speaker: '', text: 'He goes out at first light.', hold: 2000, cps: 28 },
-            { type: 'line', speaker: '', text: 'He comes back at midday with herbs in a satchel and his bow across his back.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: '', text: 'He brings you water. He does not touch your hand when he passes the cup.', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*The captain looked at me like he was afraid I would shatter.*', hold: 3400, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*The warden looks at me like he is afraid I will catch.*', hold: 3200, cps: 26 },
-
-            // ─── Section 32 · Recognition becoming attachment ────────────
-            { type: 'line', speaker: '', text: 'He is waiting for something. You can feel it.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: '', text: 'You cannot tell whether he is waiting for you to be well, or waiting for you to be ready, or waiting for himself to be ready.', hold: 4400, cps: 24 },
-            { type: 'line', speaker: '', text: 'Closer on his profile by the firelight when he thinks you are not looking.', hold: 3200, cps: 26 },
-            { type: 'line', speaker: '', text: 'Not softness. Something more dangerous.', hold: 2600, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...recognition becoming attachment.*', hold: 3000, cps: 26 },
-            { type: 'line', speaker: 'YOU', text: '*...he does not want to feel it. He feels it anyway.*', hold: 3400, cps: 26 },
-
-            // ─── Section 33 · Final ──────────────────────────────────────
-            { type: 'line', speaker: '', text: 'End on the small hut at dusk. Smoke from the chimney. A single window lit warm.', hold: 3800, cps: 26 },
-            { type: 'line', speaker: '', text: 'The wood around it, quiet for now.', hold: 2400, cps: 26 },
-            { type: 'line', speaker: '', text: 'Both of you inside, not speaking.', hold: 2600, cps: 28 },
+            // ─── Section 23 · Final ──────────────────────────────────────
+            // The chapter no longer ends on a calm tableau. Something moves in
+            // the trees and his hand goes to the bow — the first on-screen
+            // threat since Ch6, and the answer to "what has he been waiting
+            // for out here".
+            { type: 'line', speaker: '', text: 'Late on the fourth day you sit by the window with the ankle raised, and watch him working between the trees.', hold: 5400, cps: 22 },
+            { type: 'line', speaker: '', text: 'He belongs there. That is the unsettling part. Not like a man who lives in a forest. Like a man the forest has decided to keep.', hold: 6600, cps: 22 },
+            { type: 'line', speaker: '', text: 'Your fingers find the page inside your sleeve. Warm. Waiting.', hold: 3600, cps: 26 },
+            { type: 'line', speaker: 'YOU', text: '*A Weaver.*', hold: 2200, cps: 22 },
+            { type: 'line', speaker: '', text: 'The word is strangely familiar. Not remembered. Recognised.', hold: 3800, cps: 26 },
+            { type: 'line', speaker: '', text: 'Outside, he stops. He turns toward the hut, and for a moment his eyes meet yours through the glass, and neither of you looks away.', hold: 6600, cps: 22 },
+            { type: 'line', speaker: '', text: 'Then something moves in the trees behind him. His face changes. The stillness goes out of it. His hand goes to the bow.', hold: 6400, cps: 22 },
+            { type: 'line', speaker: '', text: 'And you understand something you would rather not. Whatever he has been waiting for out here, it may not have been you.', hold: 6200, cps: 22 },
+            { type: 'line', speaker: 'YOU', text: '*He lost someone...*', hold: 3000, cps: 26 },
 
             { type: 'hide' }
           ]
