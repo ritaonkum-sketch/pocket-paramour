@@ -599,6 +599,10 @@
     // A choice beat with `key` stores its picked option id here; a later
     // line beat with `variants: {key, map}` renders the text for the
     // player's pick. Card-scoped: replays re-ask.
+    //
+    // For a callback ACROSS chapters use `variants: {lsKey, map}` instead —
+    // it reads the persisted value a choice's onChoose wrote to
+    // localStorage. See the variant-render block below.
     const _choices = {};
     const vn = buildVNControls(n, card, {
       onExit: () => {
@@ -935,9 +939,29 @@
             // matching an earlier choice's picked id. Falls back to the
             // first map entry so a missing/aborted pick can never blank
             // the line.
+            //
+            // TWO SOURCES (lsKey added Aug 2026, opt-in — existing `key`
+            // behaviour is byte-for-byte unchanged):
+            //   key   — card-scoped. Reads _choices, set by a choice beat in
+            //           THIS card. Replays re-ask, which is what we want for
+            //           a callback inside one chapter.
+            //   lsKey — persisted. Reads localStorage, so a LATER chapter can
+            //           call back to an earlier chapter's pick (e.g. Ch8
+            //           reacting to Ch7's ch7_answer). Card-scoped `key` wins
+            //           when a beat somehow declares both.
+            //
+            // IMPORTANT for lsKey authors: "no pick" is a REAL state — the
+            // player may be replaying out of order, or on a save from before
+            // that chapter existed. The FIRST entry in the map is the
+            // fallback, so make it the one that reads correctly to someone
+            // who never made the choice.
             let beatText = beat.text || '';
-            if (beat.variants && beat.variants.key && beat.variants.map) {
-              const pick = _choices[beat.variants.key];
+            if (beat.variants && beat.variants.map) {
+              let pick;
+              if (beat.variants.key) pick = _choices[beat.variants.key];
+              if (pick == null && beat.variants.lsKey) {
+                try { pick = localStorage.getItem(beat.variants.lsKey); } catch (_) {}
+              }
               beatText = beat.variants.map[pick]
                 || beat.variants.map[Object.keys(beat.variants.map)[0]]
                 || beatText;
